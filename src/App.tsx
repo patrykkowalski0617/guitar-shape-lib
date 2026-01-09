@@ -1,7 +1,12 @@
 import "./App.css";
+import KeySelect from "./components/KeySelect/KeySelect";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <KeySelect />
+    </>
+  );
 }
 
 export default App;

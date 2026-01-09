@@ -11,7 +11,11 @@ interface GetNotesArgs {
   isFlatKey?: boolean;
 }
 
-const getNotes = ({ firstNote = "C", length = 12, isFlatKey = false }: GetNotesArgs): Note[] => {
+export const getNotes = ({
+  firstNote = "C",
+  length = 12,
+  isFlatKey = false,
+}: GetNotesArgs): Note[] => {
   const notes: readonly Note[] = isFlatKey ? NOTES_FLAT : NOTES_SHARP;
 
   const startIndex = notes.indexOf(firstNote as Note);
@@ -24,5 +28,3 @@ const getNotes = ({ firstNote = "C", length = 12, isFlatKey = false }: GetNotesA
 
   return Array.from({ length: length + 1 }, (_, i) => notes[(startIndex + i) % notes.length]);
 };
-
-export default getNotes;

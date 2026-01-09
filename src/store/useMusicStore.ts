@@ -1,12 +1,12 @@
+import type { MusicKeyId } from "@/utils/musicKeys/musicKeys";
 import { create } from "zustand";
-import { type Note } from "@/utils";
 
 interface MusicState {
-  currentKey: Note;
-  setCurrentKey: (note: Note) => void;
+  currentKeyId: MusicKeyId;
+  setCurrentKey: (id: MusicKeyId) => void;
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
-  currentKey: "C",
-  setCurrentKey: (note) => set({ currentKey: note }),
+  currentKeyId: "C",
+  setCurrentKey: (id) => set({ currentKeyId: id }),
 }));
