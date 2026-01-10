@@ -7,7 +7,7 @@ export interface MusicKeyInfo {
   readonly unifiedName: string;
 }
 
-export const MUSIC_KEYS = {
+export const UNIFIED_MUSIC_KEYS = {
   C: { firstNote: "C", isFlatKey: false, unifiedName: "C / Am" },
   Db: { firstNote: "Db", isFlatKey: true, unifiedName: "Db / Bbm" },
   D: { firstNote: "D", isFlatKey: false, unifiedName: "D / Bm" },
@@ -22,4 +22,4 @@ export const MUSIC_KEYS = {
   Bb: { firstNote: "Bb", isFlatKey: true, unifiedName: "Bb / Gm" },
 } as const;
 
-export type MusicKeyId = keyof typeof MUSIC_KEYS;
+export type MusicKeyId = keyof typeof UNIFIED_MUSIC_KEYS;
