@@ -1,6 +1,7 @@
 import { type Note } from "@/utils";
 
 export interface MusicKeyInfo {
+  readonly id: number;
   readonly isFlatKey: boolean;
   readonly majorFirstNote: Note;
   readonly majorName: string;
@@ -10,6 +11,7 @@ export interface MusicKeyInfo {
 
 export const UNIFIED_MUSIC_KEYS = {
   C: {
+    id: 0,
     isFlatKey: false,
     majorFirstNote: "C",
     majorName: "C",
@@ -17,6 +19,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "A",
   },
   Db: {
+    id: 1,
     isFlatKey: true,
     majorFirstNote: "Db",
     majorName: "Db",
@@ -24,6 +27,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "Bb",
   },
   D: {
+    id: 2,
     isFlatKey: false,
     majorFirstNote: "D",
     majorName: "D",
@@ -31,6 +35,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "B",
   },
   Eb: {
+    id: 3,
     isFlatKey: true,
     majorFirstNote: "Eb",
     majorName: "Eb",
@@ -38,6 +43,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "C",
   },
   E: {
+    id: 4,
     isFlatKey: false,
     majorFirstNote: "E",
     majorName: "E",
@@ -45,6 +51,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "C",
   },
   F: {
+    id: 5,
     isFlatKey: true,
     majorFirstNote: "F",
     majorName: "F",
@@ -52,6 +59,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "D",
   },
   Fsharp: {
+    id: 6,
     isFlatKey: false,
     majorFirstNote: "F#",
     majorName: "F#",
@@ -59,6 +67,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "D",
   },
   G: {
+    id: 7,
     isFlatKey: false,
     majorFirstNote: "G",
     majorName: "G",
@@ -66,6 +75,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "E",
   },
   Ab: {
+    id: 8,
     isFlatKey: true,
     majorFirstNote: "Ab",
     majorName: "Ab",
@@ -73,25 +83,28 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "F",
   },
   A: {
+    id: 9,
     isFlatKey: false,
     majorFirstNote: "A",
     majorName: "A",
     relativeMinorName: "F#m",
     relativeMinorFirstNote: "F#",
   },
-  B: {
-    isFlatKey: false,
-    majorFirstNote: "B",
-    majorName: "B",
-    relativeMinorName: "G#m",
-    relativeMinorFirstNote: "G",
-  },
   Bb: {
+    id: 10,
     isFlatKey: true,
     majorFirstNote: "Bb",
     majorName: "Bb",
     relativeMinorName: "Gm",
     relativeMinorFirstNote: "G",
+  },
+  B: {
+    id: 11,
+    isFlatKey: false,
+    majorFirstNote: "B",
+    majorName: "B",
+    relativeMinorName: "G#m",
+    relativeMinorFirstNote: "G#",
   },
 } as const;
 
