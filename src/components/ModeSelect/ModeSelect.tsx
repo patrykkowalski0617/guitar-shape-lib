@@ -22,16 +22,16 @@ export default function ModeSelect() {
         className="border rounded-md p-1 bg-muted/50"
       >
         <ToggleGroupItem
-          value="major"
-          className="px-4 py-2 data-[state=on]:bg-background data-[state=on]:shadow-sm"
-        >
-          Major
-        </ToggleGroupItem>
-        <ToggleGroupItem
           value="minor"
           className="px-4 py-2 data-[state=on]:bg-background data-[state=on]:shadow-sm"
         >
           Minor
+        </ToggleGroupItem>
+        <ToggleGroupItem
+          value="major"
+          className="px-4 py-2 data-[state=on]:bg-background data-[state=on]:shadow-sm"
+        >
+          Major
         </ToggleGroupItem>
       </ToggleGroup>
     </div>

@@ -48,7 +48,7 @@ export const UNIFIED_MUSIC_KEYS = {
     majorFirstNote: "E",
     majorName: "E",
     relativeMinorName: "C#m",
-    relativeMinorFirstNote: "C",
+    relativeMinorFirstNote: "C#",
   },
   F: {
     id: 5,
@@ -64,7 +64,7 @@ export const UNIFIED_MUSIC_KEYS = {
     majorFirstNote: "F#",
     majorName: "F#",
     relativeMinorName: "D#m",
-    relativeMinorFirstNote: "D",
+    relativeMinorFirstNote: "D#",
   },
   G: {
     id: 7,
