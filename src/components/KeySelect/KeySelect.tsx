@@ -11,11 +11,15 @@ import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/utils/musicKeys/musicKeys
 
 export default function KeySelect() {
   const currentKeyId = useMusicStore((state) => state.currentKeyId);
+  const isMajorMode = useMusicStore((state) => state.isMajorMode);
   const setCurrentKey = useMusicStore((state) => state.setCurrentKey);
 
   const options = Object.entries(UNIFIED_MUSIC_KEYS).map(([id, data]) => ({
     id: id as MusicKeyId,
-    name: data.unifiedName,
+    isMajorMode: isMajorMode,
+    majorName: data.majorName,
+    relativeMinorName: data.relativeMinorName,
+    value: data.majorFirstNote,
   }));
 
   return (
@@ -26,8 +30,14 @@ export default function KeySelect() {
 
       <SelectContent>
         {options.map((option) => (
-          <SelectItem key={option.id} value={option.id}>
-            {option.name}
+          <SelectItem key={option.id} value={option.value}>
+            <span style={{ fontWeight: option.isMajorMode ? "bold" : "normal" }}>
+              {option.majorName}
+            </span>
+            /
+            <span style={{ fontWeight: !option.isMajorMode ? "bold" : "normal" }}>
+              {option.relativeMinorName}
+            </span>
           </SelectItem>
         ))}
       </SelectContent>
