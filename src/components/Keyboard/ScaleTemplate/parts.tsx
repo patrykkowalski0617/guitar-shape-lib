@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { KEY_WIDTH_CSS } from "../constants";
+import { KEY_PADDING, KEY_WIDTH_CSS, LEFT_PADDING_FACTOR } from "../constants";
 
 interface MarkerProps {
   $step: number;
@@ -19,11 +19,13 @@ export const TemplateWrapper = styled.div<TemplateWrapperProps>`
   position: relative;
   transform: ${({ $firstAIndex, $numberOfKeys, $templateOffset }) => {
     const totalOffset = $firstAIndex + $templateOffset;
-    return `translateX(calc(${totalOffset} * ${KEY_WIDTH_CSS($numberOfKeys)}))`;
+
+    return `translateX(calc(
+      (${totalOffset} + (${KEY_PADDING} * ${LEFT_PADDING_FACTOR})) * ${KEY_WIDTH_CSS($numberOfKeys)}
+    ))`;
   }};
   transition: transform 1s ease-in-out;
 `;
-
 export const Marker = styled.div<MarkerProps>`
   position: absolute;
   bottom: 0px;

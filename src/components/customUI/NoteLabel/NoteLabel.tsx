@@ -1,5 +1,5 @@
 import { type JSX } from "react";
-import { getNotes, type Note } from "@/utils";
+import { getEnharmonicEquivalent, getNotes, type Note } from "@/utils";
 import * as S from "./parts";
 
 interface NoteLabelProps {
@@ -10,7 +10,11 @@ interface NoteLabelProps {
 
 export default function NoteLabel({ index, firstNote, isFlatKey }: NoteLabelProps): JSX.Element {
   const sharpNote = getNotes({ firstNote, length: index + 1, isFlatKey: false })[index];
-  const flatNote = getNotes({ firstNote, length: index + 1, isFlatKey: true })[index];
+  const flatNote = getNotes({
+    firstNote: getEnharmonicEquivalent(firstNote),
+    length: index + 1,
+    isFlatKey: true,
+  })[index];
 
   const isEnharmonicNote = sharpNote !== flatNote;
 

@@ -1,5 +1,31 @@
-const NOTES_SHARP = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"] as const;
-const NOTES_FLAT = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"] as const;
+export const NOTES_SHARP = [
+  "C",
+  "C#",
+  "D",
+  "D#",
+  "E",
+  "F",
+  "F#",
+  "G",
+  "G#",
+  "A",
+  "A#",
+  "B",
+] as const;
+export const NOTES_FLAT = [
+  "C",
+  "Db",
+  "D",
+  "Eb",
+  "E",
+  "F",
+  "Gb",
+  "G",
+  "Ab",
+  "A",
+  "Bb",
+  "B",
+] as const;
 
 type NotesSharp = (typeof NOTES_SHARP)[number];
 type NotesFlat = (typeof NOTES_FLAT)[number];
