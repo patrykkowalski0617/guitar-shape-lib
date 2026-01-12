@@ -5,13 +5,12 @@ import { majorScale } from "@/utils/arpsAndScales/arpsAndScales";
 const CHROMATIC_SCALE = getNotes({});
 
 export default function Keyboard() {
-  const offset = 5; // Zmieniając to, przesuwasz klawiaturę (np. 9 to start od nuty A)
+  const offset = 5;
   const firstNote = CHROMATIC_SCALE[((offset % 12) + 12) % 12];
   const numberOfKeys = 43;
   return (
     <S.Keyboard numberOfKeys={numberOfKeys}>
       {getNotes({ length: numberOfKeys, firstNote }).map((note, index) => {
-        // Obliczamy "płynny" indeks uwzględniający przesunięcie
         const noteIndex = (index + offset) % 12;
 
         const isWhiteKey = majorScale.includes(noteIndex);
