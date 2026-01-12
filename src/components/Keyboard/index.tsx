@@ -1,8 +1,7 @@
 import { type JSX } from "react";
-import { getNotes } from "@/utils";
 import * as S from "./parts";
 import { majorScale } from "@/utils/arpsAndScales/arpsAndScales";
-import { keysOffset, numberOfKeys } from "./constants";
+import { keysOffset, notes, numberOfKeys } from "./constants";
 import ScaleTemplate from "./ScaleTemplate";
 
 const KEY_SHAPE_MAP: Record<number, "C" | "D" | "E" | "F" | "G" | "A" | "B"> = {
@@ -15,12 +14,7 @@ const KEY_SHAPE_MAP: Record<number, "C" | "D" | "E" | "F" | "G" | "A" | "B"> = {
   11: "B",
 };
 
-const CHROMATIC_SCALE = getNotes({});
-
 export default function Keyboard(): JSX.Element {
-  const firstNote = CHROMATIC_SCALE[((keysOffset % 12) + 12) % 12];
-  const notes = getNotes({ length: numberOfKeys, firstNote });
-
   return (
     <>
       <ScaleTemplate />
