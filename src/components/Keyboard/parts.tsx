@@ -3,12 +3,12 @@ import styled, { css } from "styled-components";
 type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
 interface KeyboardProps {
-  numberOfKeys: number;
+  $numberOfKeys: number;
 }
 
 interface KeyProps {
-  isWhiteKey: boolean;
-  keyShape?: KeyShape;
+  $isWhiteKey: boolean;
+  $keyShape?: KeyShape;
 }
 
 const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
@@ -59,7 +59,7 @@ export const Keyboard = styled.div<KeyboardProps>`
   justify-content: center;
   max-width: 900px;
   position: relative;
-  padding-right: ${({ numberOfKeys }) => `calc(100% / ${numberOfKeys} / 2)`};
+  padding-right: ${({ $numberOfKeys }) => `calc(100% / ${$numberOfKeys} / 2)`};
   padding-top: 50px;
 `;
 
@@ -105,8 +105,8 @@ export const Key = styled.div<KeyProps>`
   width: 0;
   position: relative;
   box-sizing: border-box;
-  ${({ isWhiteKey }) => (isWhiteKey ? whiteKey : blackKey)}
-  ${({ keyShape }) => keyShape && keyShapes[keyShape]}
+  ${({ $isWhiteKey }) => ($isWhiteKey ? whiteKey : blackKey)}
+  ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
 `;
 
 export const NoteLabel = styled.span`

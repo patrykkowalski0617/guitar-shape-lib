@@ -22,13 +22,13 @@ export default function Keyboard(): JSX.Element {
   const notes = getNotes({ length: numberOfKeys, firstNote });
 
   return (
-    <S.Keyboard numberOfKeys={numberOfKeys}>
+    <S.Keyboard $numberOfKeys={numberOfKeys}>
       {notes.map((note: string, index: number) => {
         const noteIndex = (index + offset) % 12;
         const keyShape = KEY_SHAPE_MAP[noteIndex];
 
         return (
-          <S.Key key={index} isWhiteKey={majorScale.includes(noteIndex)} keyShape={keyShape}>
+          <S.Key key={index} $isWhiteKey={majorScale.includes(noteIndex)} $keyShape={keyShape}>
             <S.NoteLabel>{note}</S.NoteLabel>
           </S.Key>
         );
