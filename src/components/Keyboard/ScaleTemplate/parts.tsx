@@ -1,15 +1,31 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-interface KeyProps {
-  $isWhiteKey: boolean;
-  $isInitialScaleNote: boolean;
-}
+const keyWidth = (num: number) => `(100% / ${num})`;
 
-export const Key = styled.div<KeyProps>`
-  flex: 1;
-  width: 0;
-  position: relative;
+export const TemplateWrapper = styled.div<{ $firstAIndex: number; $numberOfKeys: number }>`
+  transform: ${({ $firstAIndex, $numberOfKeys }) =>
+    `translateX(calc(${$firstAIndex} * ${keyWidth($numberOfKeys)}))`};
+`;
+
+export const Marker = styled.div<{
+  $step: number;
+  $numberOfKeys: number;
+  $isVisible: boolean;
+  $isHarmonicG: boolean;
+}>`
+  position: absolute;
+  top: 20px;
   height: 10px;
-  background-color: ${({ $isInitialScaleNote }) => ($isInitialScaleNote ? "green" : "transparent")};
-  margin: 1px;
+  width: ${({ $numberOfKeys }) => `calc(${keyWidth($numberOfKeys)})`};
+  background-color: green;
+  left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${keyWidth($numberOfKeys)})`};
+
+  transition: opacity 2s, transform 1s 2s;
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+
+  ${({ $isHarmonicG }) =>
+    $isHarmonicG &&
+    css`
+      transform: translateX(100%);
+    `}
 `;
