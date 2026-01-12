@@ -1,36 +1,38 @@
 import { useMusicStore } from "@/store/useMusicStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { GroupWrapper, Label } from "../InputGroup/InputGroup";
+import { musicMode, type MusicModeId } from "@/utils";
 
 export default function ModeSelect() {
   const isMajorMode = useMusicStore((state) => state.isMajorMode);
   const setIsMajorMode = useMusicStore((state) => state.setIsMajorMode);
 
+  const currentMode: MusicModeId = isMajorMode ? "major" : "minor";
+
   return (
-    <div className="flex items-center gap-4">
-      <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-        Mode
-      </span>
+    <GroupWrapper>
+      <Label>Scale Mode</Label>
       <ToggleGroup
         type="single"
-        value={isMajorMode ? "major" : "minor"}
-        onValueChange={(value) => {
-          if (value) setIsMajorMode(value === "major");
+        value={currentMode}
+        onValueChange={(v) => {
+          if (v) setIsMajorMode(v === "major");
         }}
-        className="border rounded-md p-1 bg-muted/50"
+        className="h-10 justify-start border rounded-md p-1 bg-muted/50 border-muted-foreground/20 w-fit"
       >
-        <ToggleGroupItem
-          value="major"
-          className="px-4 py-2 data-[state=on]:bg-background data-[state=on]:shadow-sm"
-        >
-          Major
-        </ToggleGroupItem>
-        <ToggleGroupItem
-          value="minor"
-          className="px-4 py-2 data-[state=on]:bg-background data-[state=on]:shadow-sm"
-        >
-          Harmonic Minor
-        </ToggleGroupItem>
+        {(Object.entries(musicMode) as [MusicModeId, typeof musicMode.major][]).map(
+          ([id, data]) => (
+            <ToggleGroupItem
+              key={id}
+              value={id}
+              title={data.description}
+              className="h-full px-4 text-xs uppercase font-semibold data-[state=on]:bg-background data-[state=on]:shadow-sm flex flex-col items-center justify-center"
+            >
+              <span>{data.label}</span>
+            </ToggleGroupItem>
+          )
+        )}
       </ToggleGroup>
-    </div>
+    </GroupWrapper>
   );
 }

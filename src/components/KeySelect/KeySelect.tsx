@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/select";
 import { useMusicStore } from "@/store/useMusicStore";
 import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/utils";
+import { GroupWrapper, Label } from "../InputGroup/InputGroup";
 
 export default function KeySelect() {
   const currentKeyId = useMusicStore((state) => state.currentKeyId);
@@ -15,31 +16,29 @@ export default function KeySelect() {
 
   const options = Object.entries(UNIFIED_MUSIC_KEYS).map(([id, data]) => ({
     id: id as MusicKeyId,
-    isMajorMode: isMajorMode,
     majorName: data.majorName,
     relativeMinorName: data.relativeMinorName,
-    value: data.majorFirstNote,
   }));
 
   return (
-    <Select value={currentKeyId} onValueChange={(value) => setCurrentKey(value as MusicKeyId)}>
-      <SelectTrigger className="w-[220px]">
-        <SelectValue placeholder="Select Unified Key" />
-      </SelectTrigger>
-
-      <SelectContent>
-        {options.map((option) => (
-          <SelectItem key={option.id} value={option.value}>
-            <span style={{ fontWeight: option.isMajorMode ? "bold" : "normal" }}>
-              {option.majorName}
-            </span>
-            /
-            <span style={{ fontWeight: !option.isMajorMode ? "bold" : "normal" }}>
-              {option.relativeMinorName}
-            </span>
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <GroupWrapper>
+      <Label>Root Key</Label>
+      <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>
+        <SelectTrigger className="h-10 bg-muted/30 border-muted-foreground/20 focus:ring-0 focus:ring-offset-0">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((opt) => (
+            <SelectItem key={opt.id} value={opt.id}>
+              <span className={isMajorMode ? "opacity-100" : "opacity-50"}>{opt.majorName}</span>
+              <span className="mx-1 opacity-50">/</span>
+              <span className={!isMajorMode ? "opacity-100" : "opacity-50"}>
+                {opt.relativeMinorName}
+              </span>
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </GroupWrapper>
   );
 }

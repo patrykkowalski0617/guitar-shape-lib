@@ -20,19 +20,19 @@ interface KeyProps {
 
 const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   // prettier-ignore
-  C: css`&::after {right: -66.6%;}`,
+  C: css`&::after {right: -70%;}`,
   // prettier-ignore
-  D: css`&::after {left: -33.3%;right: -33.3%;}`,
+  D: css`&::after {left: -35%;right: -35%;}`,
   // prettier-ignore
-  E: css`&::after {left: -66.6%;}`,
+  E: css`&::after {left: -70%;}`,
   // prettier-ignore
-  F: css`&::after {right: -75%;}`,
+  F: css`&::after {right: -80%;}`,
   // prettier-ignore
-  G: css`&::after {left: -25%;right: -50%;}`,
+  G: css`&::after {left: -30%;right: -55%;}`,
   // prettier-ignore
-  A: css`&::after {left: -50%;right: -25%;}`,
+  A: css`&::after {left: -55%;right: -30%;}`,
   // prettier-ignore
-  B: css`&::after {left: -75%;}`,
+  B: css`&::after {left: -80%;}`,
 };
 
 export const KeyboardWrapper = styled.div`
