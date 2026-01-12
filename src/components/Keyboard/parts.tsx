@@ -11,11 +11,6 @@ interface KeyProps {
   $keyShape?: KeyShape;
 }
 
-interface NoteLabelProps {
-  $isFlatKey: boolean;
-  $isEnharmonicNote: boolean;
-}
-
 const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   C: css`
     &::after {
@@ -101,35 +96,4 @@ export const Key = styled.div<KeyProps>`
   position: relative;
   ${({ $isWhiteKey }) => ($isWhiteKey ? whiteKey : blackKey)}
   ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
-`;
-
-const activeLabel = css`
-  font-size: 12px;
-`;
-
-const inactiveLabe = css`
-  font-size: 7px;
-  opacity: 0.9;
-`;
-
-export const NoteLabel = styled.div<NoteLabelProps>`
-  z-index: 1;
-  position: relative;
-  height: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  .mainLabel,
-  .optionalLabel {
-    transition: 0.2s 0.8s;
-  }
-  .mainLabel {
-    ${({ $isFlatKey, $isEnharmonicNote }) =>
-      $isEnharmonicNote && $isFlatKey ? inactiveLabe : activeLabel}
-  }
-
-  .optionalLabel {
-    ${({ $isFlatKey }) => ($isFlatKey ? activeLabel : inactiveLabe)}
-  }
 `;

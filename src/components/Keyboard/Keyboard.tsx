@@ -5,6 +5,7 @@ import { keysOffset, notes, notesFlat, numberOfKeys } from "./constants";
 import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import { useMusicStore } from "@/store/useMusicStore";
 import { UNIFIED_MUSIC_KEYS } from "@/utils/musicKeys/musicKeys";
+import NoteLabel from "../customUI/NoteLabel/NoteLabel";
 
 const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
@@ -26,18 +27,14 @@ export default function Keyboard(): JSX.Element {
       <S.Keyboard $numberOfKeys={numberOfKeys}>
         {notes.map((note, index) => {
           const noteIndex = (index + keysOffset) % 12;
-          const flatNote = notesFlat[index];
-          const isEnharmonicNote = flatNote !== note;
+
           return (
             <S.Key
               key={index}
               $isWhiteKey={majorScale.includes(noteIndex)}
               $keyShape={KEY_SHAPE_MAP[noteIndex]}
             >
-              <S.NoteLabel $isFlatKey={isFlatKey} $isEnharmonicNote={isEnharmonicNote}>
-                <div className="mainLabel">{note}</div>
-                <div className="optionalLabel">{isEnharmonicNote && flatNote}</div>
-              </S.NoteLabel>
+              <NoteLabel note={note} flatNote={notesFlat[index]} isFlatKey={isFlatKey} />
             </S.Key>
           );
         })}
