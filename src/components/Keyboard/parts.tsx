@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
+import { KEY_PADDING, KEY_WIDTH_CSS } from "./constants";
 
-type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
+export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
 interface KeyboardProps {
   $numberOfKeys: number;
 }
-
 interface KeyProps {
   $isWhiteKey: boolean;
   $keyShape?: KeyShape;
@@ -55,27 +55,22 @@ const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
 export const KeyboardWrapper = styled.div`
   max-width: 700px;
   margin: auto;
-  /* position: relative;
-  padding-top: 20px; */
 `;
 
 export const Keyboard = styled.div<KeyboardProps>`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding-right: ${({ $numberOfKeys }) => `calc(100% / (${$numberOfKeys} + 0.75) * 0.75)`};
+  position: relative;
+  padding-right: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)} * ${KEY_PADDING})`};
 `;
 
 const whiteKey = css`
   height: 150px;
   z-index: 1;
+  color: black;
   &::after {
     content: "";
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    inset: 0;
     background-color: white;
     border: 1px solid black;
     border-radius: 0 0 5px 5px;
@@ -86,11 +81,11 @@ const whiteKey = css`
 `;
 
 const blackKey = css`
-  border-radius: 0 0 5px 5px;
   background-color: black;
+  color: white;
   height: 90px;
   z-index: 2;
-  color: white;
+  border-radius: 0 0 5px 5px;
 `;
 
 export const Key = styled.div<KeyProps>`
@@ -104,5 +99,5 @@ export const Key = styled.div<KeyProps>`
 export const NoteLabel = styled.span`
   z-index: 50;
   position: relative;
-  font-size: 12px;
+  font-size: 10px;
 `;

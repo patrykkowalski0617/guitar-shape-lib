@@ -4,7 +4,7 @@ import { majorScale } from "@/utils/arpsAndScales/arpsAndScales";
 import { keysOffset, notes, numberOfKeys } from "./constants";
 import ScaleTemplate from "./ScaleTemplate";
 
-const KEY_SHAPE_MAP: Record<number, "C" | "D" | "E" | "F" | "G" | "A" | "B"> = {
+const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
   2: "D",
   4: "E",
@@ -19,12 +19,14 @@ export default function Keyboard(): JSX.Element {
     <S.KeyboardWrapper>
       <ScaleTemplate />
       <S.Keyboard $numberOfKeys={numberOfKeys}>
-        {notes.map((note: string, index: number) => {
+        {notes.map((note, index) => {
           const noteIndex = (index + keysOffset) % 12;
-          const keyShape = KEY_SHAPE_MAP[noteIndex];
-
           return (
-            <S.Key key={index} $isWhiteKey={majorScale.includes(noteIndex)} $keyShape={keyShape}>
+            <S.Key
+              key={index}
+              $isWhiteKey={majorScale.includes(noteIndex)}
+              $keyShape={KEY_SHAPE_MAP[noteIndex]}
+            >
               <S.NoteLabel>{note}</S.NoteLabel>
             </S.Key>
           );

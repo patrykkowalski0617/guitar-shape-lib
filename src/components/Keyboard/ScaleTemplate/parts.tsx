@@ -1,29 +1,28 @@
 import styled, { css } from "styled-components";
+import { KEY_WIDTH_CSS } from "../constants";
 
-const keyWidth = (num: number) => `(100% / (${num} + 0.75))`;
-
-export const TemplateWrapper = styled.div<{ $firstAIndex: number; $numberOfKeys: number }>`
-  transform: ${({ $firstAIndex, $numberOfKeys }) =>
-    `translateX(calc(${$firstAIndex} * ${keyWidth($numberOfKeys)}))`};
-
-  height: 20px;
-  position: relative;
-  padding: 0;
-  box-sizing: border-box;
-`;
-
-export const Marker = styled.div<{
+interface MarkerProps {
   $step: number;
   $numberOfKeys: number;
   $isVisible: boolean;
   $isHarmonicG: boolean;
-}>`
+}
+
+export const TemplateWrapper = styled.div<{ $firstAIndex: number; $numberOfKeys: number }>`
+  height: 20px;
+  position: relative;
+  transform: ${({ $firstAIndex, $numberOfKeys }) =>
+    `translateX(calc(${$firstAIndex} * ${KEY_WIDTH_CSS($numberOfKeys)}))`};
+`;
+
+export const Marker = styled.div<MarkerProps>`
   position: absolute;
-  width: ${({ $numberOfKeys }) => `calc(${keyWidth($numberOfKeys)})`};
+  bottom: 0;
   height: 10px;
   background-color: green;
-  bottom: 0px;
-  left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${keyWidth($numberOfKeys)})`};
+  width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
+  left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
+
   transition: opacity 2s, transform 1s 2s;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
 
