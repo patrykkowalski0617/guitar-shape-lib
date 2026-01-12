@@ -1,6 +1,58 @@
 import styled, { css } from "styled-components";
 
-export const Keyboard = styled.div`
+type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
+
+interface KeyboardProps {
+  numberOfKeys: number;
+}
+
+interface KeyProps {
+  isWhiteKey: boolean;
+  keyShape?: KeyShape;
+}
+
+const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
+  C: css`
+    &::after {
+      right: -66.6%;
+    }
+  `,
+  D: css`
+    &::after {
+      left: -33.3%;
+      right: -33.3%;
+    }
+  `,
+  E: css`
+    &::after {
+      left: -66.6%;
+    }
+  `,
+  F: css`
+    &::after {
+      right: -75%;
+    }
+  `,
+  G: css`
+    &::after {
+      left: -25%;
+      right: -50%;
+    }
+  `,
+  A: css`
+    &::after {
+      left: -50%;
+      right: -25%;
+    }
+  `,
+  B: css`
+    &::after {
+      left: -75%;
+    }
+  `,
+};
+
+export const Keyboard = styled.div<KeyboardProps>`
   display: flex;
   flex-direction: row;
   margin: auto;
@@ -48,54 +100,13 @@ const blackKey = css`
   color: white;
 `;
 
-const keyShapes = {
-  C: css`
-    &::after {
-      right: -66.6%;
-    }
-  `,
-  D: css`
-    &::after {
-      left: -33.3%;
-      right: -33.3%;
-    }
-  `,
-  E: css`
-    &::after {
-      left: -66.6%;
-    }
-  `,
-  F: css`
-    &::after {
-      right: -75%;
-    }
-  `,
-  G: css`
-    &::after {
-      left: -25%;
-      right: -50%;
-    }
-  `,
-  A: css`
-    &::after {
-      left: -50%;
-      right: -25%;
-    }
-  `,
-  B: css`
-    &::after {
-      left: -75%;
-    }
-  `,
-};
-
-export const Key = styled.div`
+export const Key = styled.div<KeyProps>`
   flex: 1;
   width: 0;
   position: relative;
   box-sizing: border-box;
   ${({ isWhiteKey }) => (isWhiteKey ? whiteKey : blackKey)}
-  ${({ keyShape }) => keyShapes[keyShape]}
+  ${({ keyShape }) => keyShape && keyShapes[keyShape]}
 `;
 
 export const NoteLabel = styled.span`
