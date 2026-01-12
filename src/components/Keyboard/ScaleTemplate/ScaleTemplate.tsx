@@ -23,7 +23,7 @@ export default function ScaleTemplate(): JSX.Element {
           $step={step}
           $numberOfKeys={numberOfKeys}
           $isVisible={isMajorMode ? index >= 2 : index <= 6}
-          $isHarmonicG={!isMajorMode && index === 6}
+          $isHarmonicMinor={!isMajorMode && index === 6}
         />
       ))}
     </S.TemplateWrapper>

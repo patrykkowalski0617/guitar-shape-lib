@@ -24,6 +24,7 @@ export default function Keyboard(): JSX.Element {
   return (
     <S.KeyboardWrapper>
       <ScaleTemplate />
+      <ScaleTemplate />
       <S.Keyboard $numberOfKeys={numberOfKeys}>
         {notes.map((_, index) => {
           const noteIndex = (index + keysOffset) % 12;

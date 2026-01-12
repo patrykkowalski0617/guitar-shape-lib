@@ -5,7 +5,7 @@ interface MarkerProps {
   $step: number;
   $numberOfKeys: number;
   $isVisible: boolean;
-  $isHarmonicG: boolean;
+  $isHarmonicMinor: boolean;
 }
 
 interface TemplateWrapperProps {
@@ -37,8 +37,8 @@ export const Marker = styled.div<MarkerProps>`
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
   transition: opacity 2s linear, transform 1s 2s;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
-  ${({ $isHarmonicG }) =>
-    $isHarmonicG &&
+  ${({ $isHarmonicMinor }) =>
+    $isHarmonicMinor &&
     css`
       transform: translateX(100%);
     `}
