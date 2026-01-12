@@ -104,7 +104,6 @@ export const Key = styled.div<KeyProps>`
   flex: 1;
   width: 0;
   position: relative;
-  box-sizing: border-box;
   ${({ $isWhiteKey }) => ($isWhiteKey ? whiteKey : blackKey)}
   ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
 `;
