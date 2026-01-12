@@ -4,4 +4,4 @@ export * from "./getNotes/getNotes";
 export * from "./intervals/intervals";
 export * from "./musicFunctions/musicFunctions";
 export * from "./musicKeys/musicKeys";
-export * from "./musicMode/MusicMode";
+export * from "./musicMode/musicMode";
