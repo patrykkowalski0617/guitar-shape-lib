@@ -22,7 +22,7 @@ const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   // prettier-ignore
   C: css`&::after {right: -70%;}`,
   // prettier-ignore
-  D: css`&::after {left: -35%;right: -35%;}`,
+  D: css`&::after {left: -40%;right: -40%;}`,
   // prettier-ignore
   E: css`&::after {left: -70%;}`,
   // prettier-ignore
@@ -54,13 +54,13 @@ export const Keyboard = styled.div<KeyboardProps>`
 const whiteKey = css`
   height: 180px;
   z-index: 1;
-  color: black;
+  color: var(--secondary);
   &::after {
     content: "";
     position: absolute;
     inset: 0;
-    background-color: white;
-    border: 1px solid black;
+    background-color: var(--foreground);
+    border: 1px solid var(--border);
     border-radius: 0 0 5px 5px;
   }
   &:not(:last-child)::after {
@@ -69,12 +69,12 @@ const whiteKey = css`
 `;
 
 const blackKey = css`
-  background-color: black;
-  color: white;
+  background-color: var(--muted);
+  border: 1px solid var(--border);
   height: 110px;
   z-index: 2;
   border-radius: 0 0 5px 5px;
-  border: 1px solid black;
+  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.05);
 `;
 
 export const Key = styled.div<KeyProps>`
@@ -83,15 +83,18 @@ export const Key = styled.div<KeyProps>`
   position: relative;
   ${({ $isWhiteKey }) => ($isWhiteKey ? whiteKey : blackKey)}
   ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
+
   ${({ $isWhiteKey, $isHighlighted }) =>
     $isHighlighted &&
     ($isWhiteKey
       ? css`
           &::after {
-            background: #ffb7b7;
+            background: linear-gradient(to bottom, #eeeeee 0%, var(--accent) 100%);
           }
         `
       : css`
-          background: red;
+          background-color: var(--accent);
+          border-color: var(--secondary);
+          box-shadow: 0 0 5px var(--accent);
         `)}
 `;

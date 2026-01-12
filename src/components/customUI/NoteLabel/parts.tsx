@@ -9,7 +9,7 @@ const getLabelStyles = (isActive: boolean, multiplier: number) => css`
   height: 20px;
   line-height: 1;
   font-size: ${isActive ? "12px" : "9px"};
-  opacity: ${isActive ? "1" : "0.7"};
+  opacity: ${isActive ? "1" : "0.5"};
   font-weight: ${isActive ? "bold" : "normal"};
   transform: translateY(${isActive ? 10 * multiplier : -4 * multiplier}px);
 `;

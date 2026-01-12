@@ -15,7 +15,7 @@ interface TemplateWrapperProps {
 }
 
 export const TemplateWrapper = styled.div<TemplateWrapperProps>`
-  height: 15px;
+  height: 20px;
   position: relative;
   transform: ${({ $firstAIndex, $numberOfKeys, $templateOffset }) => {
     const totalOffset = $firstAIndex + $templateOffset;
@@ -26,20 +26,27 @@ export const TemplateWrapper = styled.div<TemplateWrapperProps>`
   }};
   transition: transform 1s ease-in-out;
 `;
+
 export const Marker = styled.div<MarkerProps>`
   position: absolute;
   bottom: 0px;
-  height: 15px;
-  border-radius: 5px;
-  border: 2px solid white;
-  background-color: black;
+  height: 12px;
+  border-radius: 6px;
+  border: 2px solid var(--background);
+  background-color: var(--accent);
+
   width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
-  transition: opacity 2s linear, transform 1s 2s;
+
+  transition: opacity 1s linear, transform 1s ease-in-out;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  box-shadow: 0 0 8px rgba(57, 127, 151, 0.4);
+
   ${({ $isHarmonicMinor }) =>
     $isHarmonicMinor &&
     css`
       transform: translateX(100%);
+      background-color: var(--secondary);
+      box-shadow: 0 0 5px var(--secondary);
     `}
 `;
