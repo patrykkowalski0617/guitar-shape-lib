@@ -52,30 +52,23 @@ const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   `,
 };
 
+export const KeyboardWrapper = styled.div`
+  max-width: 700px;
+  margin: auto;
+  /* position: relative;
+  padding-top: 20px; */
+`;
+
 export const Keyboard = styled.div<KeyboardProps>`
   display: flex;
   flex-direction: row;
-  margin: auto;
   justify-content: center;
-  max-width: 900px;
-  position: relative;
-  padding-right: ${({ $numberOfKeys }) => `calc(100% / ${$numberOfKeys} / 2)`};
-  padding-top: 50px;
+  padding-right: ${({ $numberOfKeys }) => `calc(100% / (${$numberOfKeys} + 0.75) * 0.75)`};
 `;
 
 const whiteKey = css`
   height: 150px;
   z-index: 1;
-  &::before {
-    content: "";
-    position: absolute;
-    left: 1px;
-    right: 1px;
-    height: 15px;
-    background-color: red;
-    top: -17px;
-    border-radius: 5px;
-  }
   &::after {
     content: "";
     position: absolute;

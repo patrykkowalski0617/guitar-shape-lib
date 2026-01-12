@@ -16,7 +16,7 @@ const KEY_SHAPE_MAP: Record<number, "C" | "D" | "E" | "F" | "G" | "A" | "B"> = {
 
 export default function Keyboard(): JSX.Element {
   return (
-    <>
+    <S.KeyboardWrapper>
       <ScaleTemplate />
       <S.Keyboard $numberOfKeys={numberOfKeys}>
         {notes.map((note: string, index: number) => {
@@ -30,6 +30,6 @@ export default function Keyboard(): JSX.Element {
           );
         })}
       </S.Keyboard>
-    </>
+    </S.KeyboardWrapper>
   );
 }
