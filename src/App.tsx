@@ -1,5 +1,5 @@
 import "./App.css";
-import Keyboard from "./components/Keyboard";
+import Keyboard from "./components/Keyboard/Keyboard";
 import KeySelect from "./components/KeySelect/KeySelect";
 import ModeSelect from "./components/ModeSelect/ModeSelect";
 
