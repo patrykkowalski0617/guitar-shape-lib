@@ -2,14 +2,21 @@ import { type JSX } from "react";
 import * as S from "./parts";
 import { useMusicStore } from "@/store/useMusicStore";
 import { numberOfKeys, firstAIndex } from "../constants";
+import { UNIFIED_MUSIC_KEYS } from "@/utils/musicKeys/musicKeys";
 
 const TEMPLATE_STEPS = [0, 2, 3, 5, 7, 8, 10, 12, 14];
 
 export default function ScaleTemplate(): JSX.Element {
   const isMajorMode = useMusicStore((state) => state.isMajorMode);
+  const currentKeyId = useMusicStore((state) => state.currentKeyId);
+  const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].orderNumber;
 
   return (
-    <S.TemplateWrapper $firstAIndex={firstAIndex} $numberOfKeys={numberOfKeys}>
+    <S.TemplateWrapper
+      $firstAIndex={firstAIndex}
+      $numberOfKeys={numberOfKeys}
+      $templateOffset={templateOffset}
+    >
       {TEMPLATE_STEPS.map((step, index) => (
         <S.Marker
           key={step}

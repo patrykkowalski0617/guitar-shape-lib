@@ -8,24 +8,33 @@ interface MarkerProps {
   $isHarmonicG: boolean;
 }
 
-export const TemplateWrapper = styled.div<{ $firstAIndex: number; $numberOfKeys: number }>`
-  height: 20px;
+interface TemplateWrapperProps {
+  $firstAIndex: number;
+  $numberOfKeys: number;
+  $templateOffset: number;
+}
+
+export const TemplateWrapper = styled.div<TemplateWrapperProps>`
+  height: 15px;
   position: relative;
-  transform: ${({ $firstAIndex, $numberOfKeys }) =>
-    `translateX(calc(${$firstAIndex} * ${KEY_WIDTH_CSS($numberOfKeys)}))`};
+  transform: ${({ $firstAIndex, $numberOfKeys, $templateOffset }) => {
+    const totalOffset = $firstAIndex + $templateOffset;
+    return `translateX(calc(${totalOffset} * ${KEY_WIDTH_CSS($numberOfKeys)}))`;
+  }};
+  transition: transform 1s ease-in-out;
 `;
 
 export const Marker = styled.div<MarkerProps>`
   position: absolute;
-  bottom: 0;
-  height: 10px;
-  background-color: green;
+  bottom: 0px;
+  height: 15px;
+  border-radius: 5px;
+  border: 2px solid white;
+  background-color: black;
   width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
-
   transition: opacity 2s, transform 1s 2s;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
-
   ${({ $isHarmonicG }) =>
     $isHarmonicG &&
     css`

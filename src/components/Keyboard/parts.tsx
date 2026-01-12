@@ -53,8 +53,10 @@ const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
 };
 
 export const KeyboardWrapper = styled.div`
-  max-width: 700px;
+  max-width: 900px;
   margin: auto;
+  overflow: hidden;
+  padding-left: 1px;
 `;
 
 export const Keyboard = styled.div<KeyboardProps>`
