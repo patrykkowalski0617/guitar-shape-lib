@@ -5,40 +5,92 @@ export const Keyboard = styled.div`
   flex-direction: row;
   margin: auto;
   justify-content: center;
-  max-width: 700px;
+  max-width: 900px;
+  position: relative;
+  padding-right: ${({ numberOfKeys }) => `calc(100% / ${numberOfKeys} / 2)`};
 `;
 
 const whiteKey = css`
-  background-color: white;
   height: 150px;
-`;
-const blackKey = css`
-  background-color: black;
-  height: 90px;
-  color: white;
-  position: relative;
   z-index: 1;
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 0 0 5px 5px;
+  }
+  &:not(:last-child)::after {
+    border-right: none;
+  }
 `;
 
-const leftShape = css`
-  background-color: red;
-  // musi być o połowę szerokości szerszy po prawej
+const blackKey = css`
+  border-radius: 0 0 5px 5px;
+  background-color: black;
+  height: 90px;
+  z-index: 2;
+  color: white;
 `;
-const midleShape = css`
-  background-color: green;
-  // musi być o połowę szerokości szerszy po prawej i lewej
+
+const CShape = css`
+  &::after {
+    right: -67%;
+  }
 `;
-const rightShape = css`
-  background-color: yellow;
-  // musi być o połowę szerokości szerszy po lewej
+
+const DShape = css`
+  &::after {
+    left: -33%;
+    right: -33%;
+  }
+`;
+const EShape = css`
+  &::after {
+    left: -67%;
+  }
+`;
+
+const AShape = css`
+  &::after {
+    left: -50%;
+    right: -22%;
+  }
+`;
+const GShape = css`
+  &::after {
+    left: -22%;
+    right: -50%;
+  }
+`;
+
+const FShape = css`
+  &::after {
+    right: -78%;
+  }
+`;
+
+const BShape = css`
+  &::after {
+    left: -78%;
+  }
 `;
 
 export const Key = styled.div`
-  width: calc(100% / 24);
-  border: 1px solid black;
-  border-radius: 0 0 5px 5px;
+  flex: 1;
+  width: 0;
+  position: relative;
+  box-sizing: border-box;
   ${({ isWhiteKey }) => (isWhiteKey ? whiteKey : blackKey)}
-  ${({ isLeftShape }) => (isLeftShape ? leftShape : "")}
-  ${({ isMidleShape }) => (isMidleShape ? midleShape : "")}
-  ${({ isRightShape }) => (isRightShape ? rightShape : "")}
+  ${({ isCKeyShape }) => isCKeyShape && CShape}
+  ${({ isDKeyShape }) => isDKeyShape && DShape}
+  ${({ isEKeyShape }) => isEKeyShape && EShape}
+  ${({ isFKeyShape }) => isFKeyShape && FShape}
+  ${({ isGKeyShape }) => isGKeyShape && GShape}
+  ${({ isAKeyShape }) => isAKeyShape && AShape}
+  ${({ isBKeyShape }) => isBKeyShape && BShape}
 `;

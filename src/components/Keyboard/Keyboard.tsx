@@ -2,24 +2,40 @@ import { getNotes } from "@/utils";
 import * as S from "./parts";
 import { majorScale } from "@/utils/arpsAndScales/arpsAndScales";
 
+const CHROMATIC_SCALE = getNotes({});
+
 export default function Keyboard() {
+  const offset = 5; // Zmieniając to, przesuwasz klawiaturę (np. 9 to start od nuty A)
+  const firstNote = CHROMATIC_SCALE[((offset % 12) + 12) % 12];
+  const numberOfKeys = 43;
   return (
-    <S.Keyboard>
-      {getNotes({ length: 24 }).map((note, index, arr) => {
-        const isWhiteKey = majorScale.includes(index % 12);
-        const isLeftShape = [0, 5].includes(index % 12) && index !== arr.length - 1;
-        const isMidleShape = [2, 7, 9].includes(index % 12);
-        const isRightShape = [4, 11].includes(index % 12);
+    <S.Keyboard numberOfKeys={numberOfKeys}>
+      {getNotes({ length: numberOfKeys, firstNote }).map((note, index) => {
+        // Obliczamy "płynny" indeks uwzględniający przesunięcie
+        const noteIndex = (index + offset) % 12;
+
+        const isWhiteKey = majorScale.includes(noteIndex);
+        const isCKeyShape = [0].includes(noteIndex);
+        const isDKeyShape = [2].includes(noteIndex);
+        const isEKeyShape = [4].includes(noteIndex);
+        const isFKeyShape = [5].includes(noteIndex);
+        const isGKeyShape = [7].includes(noteIndex);
+        const isAKeyShape = [9].includes(noteIndex);
+        const isBKeyShape = [11].includes(noteIndex);
 
         return (
           <S.Key
             key={index}
             isWhiteKey={isWhiteKey}
-            isLeftShape={isLeftShape}
-            isMidleShape={isMidleShape}
-            isRightShape={isRightShape}
+            isCKeyShape={isCKeyShape}
+            isDKeyShape={isDKeyShape}
+            isEKeyShape={isEKeyShape}
+            isFKeyShape={isFKeyShape}
+            isGKeyShape={isGKeyShape}
+            isAKeyShape={isAKeyShape}
+            isBKeyShape={isBKeyShape}
           >
-            {note}
+            <span style={{ zIndex: 50, position: "relative" }}>{note}</span>
           </S.Key>
         );
       })}
