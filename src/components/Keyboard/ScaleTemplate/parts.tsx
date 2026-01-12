@@ -33,7 +33,7 @@ export const Marker = styled.div<MarkerProps>`
   background-color: black;
   width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
-  transition: opacity 2s, transform 1s 2s;
+  transition: opacity 2s linear, transform 1s 2s;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
   ${({ $isHarmonicG }) =>
     $isHarmonicG &&

@@ -7,7 +7,6 @@ export const keysOffset = 5;
 const CHROMATIC_SCALE = getNotes({ length: 12 });
 export const firstNote = CHROMATIC_SCALE[((keysOffset % 12) + 12) % 12] as Note;
 export const notes = getNotes({ length: numberOfKeys, firstNote });
-export const notesFlat = getNotes({ length: numberOfKeys, firstNote, isFlatKey: true });
 
 const notesSequence = getNotes({ length: 12, firstNote });
 export const firstAIndex = notesSequence.findIndex((n) => n === "A");

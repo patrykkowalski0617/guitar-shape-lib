@@ -5,14 +5,16 @@ interface StyledNoteLabelProps {
   $isEnharmonicNote: boolean;
 }
 
-const activeStyles = css`
-  font-size: 12px;
-  opacity: 1;
+const getLabelStyles = (isActive: boolean, multiplier: number) => css`
+  font-size: ${isActive ? "12px" : "9px"};
+  opacity: ${isActive ? "1" : "0.7"};
+  transform: translateY(${isActive ? 3 * multiplier : -3 * multiplier}px);
 `;
 
-const inactiveStyles = css`
-  font-size: 7px;
-  opacity: 0.7;
+const staticStyles = css`
+  font-size: 12px;
+  opacity: 1;
+  transform: translateY(0);
 `;
 
 export const Wrapper = styled.div<StyledNoteLabelProps>`
@@ -26,15 +28,15 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
 
   .mainLabel,
   .optionalLabel {
-    transition: font-size 0.2s 0.8s, opacity 0.2s 0.8s;
+    transition: all 0.1s 0.9s;
   }
 
   .mainLabel {
     ${({ $isFlatKey, $isEnharmonicNote }) =>
-      $isEnharmonicNote && $isFlatKey ? inactiveStyles : activeStyles}
+      !$isEnharmonicNote ? staticStyles : getLabelStyles(!$isFlatKey, 1)}
   }
 
   .optionalLabel {
-    ${({ $isFlatKey }) => ($isFlatKey ? activeStyles : inactiveStyles)}
+    ${({ $isFlatKey }) => getLabelStyles($isFlatKey, -1)}
   }
 `;

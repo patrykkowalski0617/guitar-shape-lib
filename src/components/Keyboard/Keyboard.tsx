@@ -1,7 +1,7 @@
 import { type JSX } from "react";
 import * as S from "./parts";
 import { majorScale } from "@/utils/arpsAndScales/arpsAndScales";
-import { keysOffset, notes, notesFlat, numberOfKeys } from "./constants";
+import { firstNote, keysOffset, notes, numberOfKeys } from "./constants"; // importujemy firstNote
 import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import { useMusicStore } from "@/store/useMusicStore";
 import { UNIFIED_MUSIC_KEYS } from "@/utils/musicKeys/musicKeys";
@@ -25,7 +25,7 @@ export default function Keyboard(): JSX.Element {
     <S.KeyboardWrapper>
       <ScaleTemplate />
       <S.Keyboard $numberOfKeys={numberOfKeys}>
-        {notes.map((note, index) => {
+        {notes.map((_, index) => {
           const noteIndex = (index + keysOffset) % 12;
 
           return (
@@ -34,7 +34,7 @@ export default function Keyboard(): JSX.Element {
               $isWhiteKey={majorScale.includes(noteIndex)}
               $keyShape={KEY_SHAPE_MAP[noteIndex]}
             >
-              <NoteLabel note={note} flatNote={notesFlat[index]} isFlatKey={isFlatKey} />
+              <NoteLabel index={index} firstNote={firstNote} isFlatKey={isFlatKey} />
             </S.Key>
           );
         })}

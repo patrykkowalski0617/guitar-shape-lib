@@ -28,7 +28,7 @@ export default function ModeSelect() {
           value="minor"
           className="px-4 py-2 data-[state=on]:bg-background data-[state=on]:shadow-sm"
         >
-          Minor
+          Harmonic Minor
         </ToggleGroupItem>
       </ToggleGroup>
     </div>
