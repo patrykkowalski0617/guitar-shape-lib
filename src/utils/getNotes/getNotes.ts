@@ -26,5 +26,5 @@ export const getNotes = ({
     );
   }
 
-  return Array.from({ length: length + 1 }, (_, i) => notes[(startIndex + i) % notes.length]);
+  return Array.from({ length: length }, (_, i) => notes[(startIndex + i) % notes.length]);
 };

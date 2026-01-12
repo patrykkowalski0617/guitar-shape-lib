@@ -6,9 +6,9 @@ describe("music utils", () => {
     it("should generate a full octave starting from C by default", () => {
       const result = getNotes({});
 
-      expect(result).toHaveLength(13);
+      expect(result).toHaveLength(12);
       expect(result[0]).toBe("C");
-      expect(result[12]).toBe("C");
+      expect(result[11]).toBe("B");
     });
 
     it("should be sharp scale by default", () => {
@@ -22,7 +22,7 @@ describe("music utils", () => {
 
       const result = getNotes(args);
 
-      expect(result).toEqual(["B", "C", "C#"]);
+      expect(result).toEqual(["B", "C"]);
     });
 
     it("should extend notes array correctly", () => {
