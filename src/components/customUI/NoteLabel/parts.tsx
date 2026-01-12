@@ -6,21 +6,25 @@ interface StyledNoteLabelProps {
 }
 
 const getLabelStyles = (isActive: boolean, multiplier: number) => css`
+  height: 20px;
+  line-height: 1;
   font-size: ${isActive ? "12px" : "9px"};
   opacity: ${isActive ? "1" : "0.7"};
-  transform: translateY(${isActive ? 3 * multiplier : -3 * multiplier}px);
+  transform: translateY(${isActive ? 10 * multiplier : -4 * multiplier}px);
 `;
 
 const staticStyles = css`
   font-size: 12px;
   opacity: 1;
   transform: translateY(0);
+  height: 19px;
+  line-height: 1;
 `;
 
 export const Wrapper = styled.div<StyledNoteLabelProps>`
   z-index: 1;
   position: relative;
-  height: 50px;
+  height: 65px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -28,7 +32,7 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
 
   .mainLabel,
   .optionalLabel {
-    transition: all 0.1s 0.9s;
+    transition: all 0.1s 1s;
   }
 
   .mainLabel {
