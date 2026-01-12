@@ -53,7 +53,7 @@ const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
 };
 
 export const KeyboardWrapper = styled.div`
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
   overflow: hidden;
   padding-left: 1px;
@@ -66,7 +66,7 @@ export const Keyboard = styled.div<KeyboardProps>`
 `;
 
 const whiteKey = css`
-  height: 150px;
+  height: 180px;
   z-index: 1;
   color: black;
   &::after {
@@ -85,7 +85,7 @@ const whiteKey = css`
 const blackKey = css`
   background-color: black;
   color: white;
-  height: 90px;
+  height: 110px;
   z-index: 2;
   border-radius: 0 0 5px 5px;
 `;

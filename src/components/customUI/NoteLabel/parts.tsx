@@ -10,6 +10,7 @@ const getLabelStyles = (isActive: boolean, multiplier: number) => css`
   line-height: 1;
   font-size: ${isActive ? "12px" : "9px"};
   opacity: ${isActive ? "1" : "0.7"};
+  font-weight: ${isActive ? "bold" : "normal"};
   transform: translateY(${isActive ? 10 * multiplier : -4 * multiplier}px);
 `;
 
@@ -19,6 +20,7 @@ const staticStyles = css`
   transform: translateY(0);
   height: 19px;
   line-height: 1;
+  font-weight: bold;
 `;
 
 export const Wrapper = styled.div<StyledNoteLabelProps>`
@@ -32,7 +34,7 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
 
   .mainLabel,
   .optionalLabel {
-    transition: all 0.1s 1s;
+    transition: all 0.1s 1.2s;
   }
 
   .mainLabel {
