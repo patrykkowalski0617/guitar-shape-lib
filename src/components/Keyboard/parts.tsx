@@ -1,55 +1,38 @@
 import styled, { css } from "styled-components";
-import { KEY_PADDING, KEY_WIDTH_CSS, LEFT_PADDING_FACTOR, RIGHT_PADDING_FACTOR } from "./constants";
+import {
+  KEY_PADDING,
+  KEY_WIDTH_CSS,
+  LEFT_PADDING_FACTOR,
+  RIGHT_PADDING_FACTOR,
+} from "./helpers/constants";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
 interface KeyboardProps {
   $numberOfKeys: number;
 }
+
 interface KeyProps {
   $isWhiteKey: boolean;
   $keyShape?: KeyShape;
+  $isHighlighted?: boolean;
 }
 
 const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
-  C: css`
-    &::after {
-      right: -66.6%;
-    }
-  `,
-  D: css`
-    &::after {
-      left: -33.3%;
-      right: -33.3%;
-    }
-  `,
-  E: css`
-    &::after {
-      left: -66.6%;
-    }
-  `,
-  F: css`
-    &::after {
-      right: -75%;
-    }
-  `,
-  G: css`
-    &::after {
-      left: -25%;
-      right: -50%;
-    }
-  `,
-  A: css`
-    &::after {
-      left: -50%;
-      right: -25%;
-    }
-  `,
-  B: css`
-    &::after {
-      left: -75%;
-    }
-  `,
+  // prettier-ignore
+  C: css`&::after {right: -66.6%;}`,
+  // prettier-ignore
+  D: css`&::after {left: -33.3%;right: -33.3%;}`,
+  // prettier-ignore
+  E: css`&::after {left: -66.6%;}`,
+  // prettier-ignore
+  F: css`&::after {right: -75%;}`,
+  // prettier-ignore
+  G: css`&::after {left: -25%;right: -50%;}`,
+  // prettier-ignore
+  A: css`&::after {left: -50%;right: -25%;}`,
+  // prettier-ignore
+  B: css`&::after {left: -75%;}`,
 };
 
 export const KeyboardWrapper = styled.div`
@@ -91,6 +74,7 @@ const blackKey = css`
   height: 110px;
   z-index: 2;
   border-radius: 0 0 5px 5px;
+  border: 1px solid black;
 `;
 
 export const Key = styled.div<KeyProps>`
@@ -99,4 +83,15 @@ export const Key = styled.div<KeyProps>`
   position: relative;
   ${({ $isWhiteKey }) => ($isWhiteKey ? whiteKey : blackKey)}
   ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
+  ${({ $isWhiteKey, $isHighlighted }) =>
+    $isHighlighted &&
+    ($isWhiteKey
+      ? css`
+          &::after {
+            background: #ffb7b7;
+          }
+        `
+      : css`
+          background: red;
+        `)}
 `;

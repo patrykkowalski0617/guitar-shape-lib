@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { KEY_PADDING, KEY_WIDTH_CSS, LEFT_PADDING_FACTOR } from "../constants";
+import { KEY_PADDING, KEY_WIDTH_CSS, LEFT_PADDING_FACTOR } from "../helpers/constants";
 
 interface MarkerProps {
   $step: number;
