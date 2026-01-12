@@ -3,38 +3,30 @@ import * as S from "./parts";
 import { majorScale } from "@/utils/arpsAndScales/arpsAndScales";
 
 const CHROMATIC_SCALE = getNotes({});
+const KEY_SHAPE_MAP = {
+  0: "C",
+  2: "D",
+  4: "E",
+  5: "F",
+  7: "G",
+  9: "A",
+  11: "B",
+};
+const numberOfKeys = 43;
+const offset = 5;
+const firstNote = CHROMATIC_SCALE[((offset % 12) + 12) % 12];
+const notes = getNotes({ length: numberOfKeys, firstNote });
 
 export default function Keyboard() {
-  const offset = 5;
-  const firstNote = CHROMATIC_SCALE[((offset % 12) + 12) % 12];
-  const numberOfKeys = 43;
   return (
     <S.Keyboard numberOfKeys={numberOfKeys}>
-      {getNotes({ length: numberOfKeys, firstNote }).map((note, index) => {
+      {notes.map((note, index) => {
         const noteIndex = (index + offset) % 12;
-
-        const isWhiteKey = majorScale.includes(noteIndex);
-        const isCKeyShape = [0].includes(noteIndex);
-        const isDKeyShape = [2].includes(noteIndex);
-        const isEKeyShape = [4].includes(noteIndex);
-        const isFKeyShape = [5].includes(noteIndex);
-        const isGKeyShape = [7].includes(noteIndex);
-        const isAKeyShape = [9].includes(noteIndex);
-        const isBKeyShape = [11].includes(noteIndex);
+        const keyShape = KEY_SHAPE_MAP[noteIndex];
 
         return (
-          <S.Key
-            key={index}
-            isWhiteKey={isWhiteKey}
-            isCKeyShape={isCKeyShape}
-            isDKeyShape={isDKeyShape}
-            isEKeyShape={isEKeyShape}
-            isFKeyShape={isFKeyShape}
-            isGKeyShape={isGKeyShape}
-            isAKeyShape={isAKeyShape}
-            isBKeyShape={isBKeyShape}
-          >
-            <span style={{ zIndex: 50, position: "relative" }}>{note}</span>
+          <S.Key key={index} isWhiteKey={majorScale.includes(noteIndex)} keyShape={keyShape}>
+            <S.NoteLabel>{note}</S.NoteLabel>
           </S.Key>
         );
       })}

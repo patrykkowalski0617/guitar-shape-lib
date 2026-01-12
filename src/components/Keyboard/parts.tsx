@@ -19,9 +19,10 @@ const whiteKey = css`
     position: absolute;
     left: 1px;
     right: 1px;
-    height: 20px;
+    height: 15px;
     background-color: red;
-    top: -20px;
+    top: -17px;
+    border-radius: 5px;
   }
   &::after {
     content: "";
@@ -47,50 +48,46 @@ const blackKey = css`
   color: white;
 `;
 
-const CShape = css`
-  &::after {
-    right: -66.6%;
-  }
-`;
-
-const DShape = css`
-  &::after {
-    left: -33.3%;
-    right: -33.3%;
-  }
-`;
-
-const EShape = css`
-  &::after {
-    left: -66.6%;
-  }
-`;
-
-const FShape = css`
-  &::after {
-    right: -75%;
-  }
-`;
-
-const GShape = css`
-  &::after {
-    left: -25%;
-    right: -50%;
-  }
-`;
-
-const AShape = css`
-  &::after {
-    left: -50%;
-    right: -25%;
-  }
-`;
-
-const BShape = css`
-  &::after {
-    left: -75%;
-  }
-`;
+const keyShapes = {
+  C: css`
+    &::after {
+      right: -66.6%;
+    }
+  `,
+  D: css`
+    &::after {
+      left: -33.3%;
+      right: -33.3%;
+    }
+  `,
+  E: css`
+    &::after {
+      left: -66.6%;
+    }
+  `,
+  F: css`
+    &::after {
+      right: -75%;
+    }
+  `,
+  G: css`
+    &::after {
+      left: -25%;
+      right: -50%;
+    }
+  `,
+  A: css`
+    &::after {
+      left: -50%;
+      right: -25%;
+    }
+  `,
+  B: css`
+    &::after {
+      left: -75%;
+    }
+  `,
+};
 
 export const Key = styled.div`
   flex: 1;
@@ -98,11 +95,11 @@ export const Key = styled.div`
   position: relative;
   box-sizing: border-box;
   ${({ isWhiteKey }) => (isWhiteKey ? whiteKey : blackKey)}
-  ${({ isCKeyShape }) => isCKeyShape && CShape}
-  ${({ isDKeyShape }) => isDKeyShape && DShape}
-  ${({ isEKeyShape }) => isEKeyShape && EShape}
-  ${({ isFKeyShape }) => isFKeyShape && FShape}
-  ${({ isGKeyShape }) => isGKeyShape && GShape}
-  ${({ isAKeyShape }) => isAKeyShape && AShape}
-  ${({ isBKeyShape }) => isBKeyShape && BShape}
+  ${({ keyShape }) => keyShapes[keyShape]}
+`;
+
+export const NoteLabel = styled.span`
+  z-index: 50;
+  position: relative;
+  font-size: 12px;
 `;
