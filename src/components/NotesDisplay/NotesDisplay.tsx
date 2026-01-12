@@ -6,24 +6,24 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { useMusicStore } from "@/store/useMusicStore";
-import { getNotes } from "@/utils";
 import { UNIFIED_MUSIC_KEYS } from "@/utils/musicKeys/musicKeys";
 import { useCarouselNavigation } from "./hooks/useCarouselNavigation";
+import { getUnifiedNotes } from "./utils/notes-helper";
 
 export default function NotesDisplay() {
   const [api, setApi] = useState<CarouselApi>();
-
   const { currentKeyId, isMajorMode } = useMusicStore();
 
   const keyData = UNIFIED_MUSIC_KEYS[currentKeyId];
   const currentKeyFirstNote = isMajorMode ? keyData.majorFirstNote : keyData.relativeMinorFirstNote;
 
-  const notes = useMemo(() => getNotes({ firstNote: "A", length: 36 }), []);
+  // Korzystamy z nowej funkcji pomocniczej
+  const notes = useMemo(() => getUnifiedNotes(36), []);
 
   useCarouselNavigation({
     api,
     notes,
-    currentKeyNumericId: keyData.id,
+    currentKeyNumericId: keyData.orderNumber,
     currentKeyFirstNote,
   });
 
@@ -31,12 +31,16 @@ export default function NotesDisplay() {
     <div className="w-full px-12">
       <Carousel
         setApi={setApi}
-        opts={{ align: "start", watchDrag: false, duration: 60 }}
+        opts={{
+          align: "start",
+          watchDrag: false,
+          duration: 30,
+        }}
         className="w-full"
       >
         <CarouselContent className="-ml-2 flex pointer-events-none select-none">
-          {notes.map((note, index) => (
-            <NoteItem key={`${note}-${index}`} note={note} />
+          {notes.map((noteObj, index) => (
+            <NoteItem key={`${noteObj.display}-${index}`} note={noteObj.display} />
           ))}
         </CarouselContent>
       </Carousel>
@@ -46,8 +50,11 @@ export default function NotesDisplay() {
 
 function NoteItem({ note }: { note: string }) {
   return (
-    <CarouselItem className="pl-2 flex-none w-[calc(100%/11)]">
-      <div className="flex items-center justify-center py-4 border rounded-md shadow-sm bg-background font-bold text-sm text-foreground">
+    <CarouselItem className="pl-2 flex-none w-[calc(100%/24)]">
+      <div
+        className={`
+        flex items-center justify-center py-4 border rounded-md shadow-sm font-bold text-sm transition-colors duration-300`}
+      >
         {note}
       </div>
     </CarouselItem>

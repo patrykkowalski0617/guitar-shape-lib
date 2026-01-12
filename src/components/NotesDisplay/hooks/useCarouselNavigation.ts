@@ -1,9 +1,10 @@
 import { useEffect, useRef } from "react";
 import type { CarouselApi } from "@/components/ui/carousel";
+import type { UnifiedNote } from "../utils/notes-helper";
 
 interface UseCarouselNavigationProps {
   api: CarouselApi | undefined;
-  notes: string[];
+  notes: UnifiedNote[]; // Zmiana typu
   currentKeyNumericId: number;
   currentKeyFirstNote: string;
 }
@@ -15,24 +16,23 @@ export function useCarouselNavigation({
   currentKeyFirstNote,
 }: UseCarouselNavigationProps) {
   const prevKeyNumericIdRef = useRef<number>(currentKeyNumericId);
-  console.log(currentKeyFirstNote);
 
   useEffect(() => {
     if (!api) return;
 
     const currentIndex = api.selectedScrollSnap();
+
+    // Szukamy indeksów, gdzie jakikolwiek wariant nuty pasuje do szukanej
     const allMatchingIndices = notes
-      .map((n, i) => (n === currentKeyFirstNote ? i : -1))
+      .map((n, i) => (n.variants.includes(currentKeyFirstNote) ? i : -1))
       .filter((i) => i !== -1);
 
     if (allMatchingIndices.length === 0) return;
 
     let targetIndex: number;
-
     const keyChanged = prevKeyNumericIdRef.current !== currentKeyNumericId;
 
     if (keyChanged) {
-      // Logika kierunkowa przy zmianie tonacji
       if (currentKeyNumericId > prevKeyNumericIdRef.current) {
         targetIndex = allMatchingIndices.find((i) => i > currentIndex) ?? allMatchingIndices[0];
       } else {
@@ -42,7 +42,6 @@ export function useCarouselNavigation({
       }
       prevKeyNumericIdRef.current = currentKeyNumericId;
     } else {
-      // Logika najbliższej nuty przy zmianie trybu (Major/Minor)
       targetIndex = allMatchingIndices.reduce((prev, curr) =>
         Math.abs(curr - currentIndex) < Math.abs(prev - currentIndex) ? curr : prev
       );
