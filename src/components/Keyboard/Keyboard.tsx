@@ -1,10 +1,9 @@
 import { type JSX } from "react";
 import * as S from "./parts";
-import { majorScale } from "@/utils/arpsAndScales/arpsAndScales";
+import { majorScale, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { firstAIndex, firstNote, keysOffset, notes, numberOfKeys } from "./helpers/constants";
 import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import { useMusicStore } from "@/store/useMusicStore";
-import { UNIFIED_MUSIC_KEYS } from "@/utils/musicKeys/musicKeys";
 import NoteLabel from "../customUI/NoteLabel/NoteLabel";
 import { getScaleIndices } from "./helpers/getScaleIndices";
 

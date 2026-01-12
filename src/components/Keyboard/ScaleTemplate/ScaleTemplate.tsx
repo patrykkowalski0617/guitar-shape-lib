@@ -2,7 +2,7 @@ import { type JSX } from "react";
 import * as S from "./parts";
 import { useMusicStore } from "@/store/useMusicStore";
 import { numberOfKeys, firstAIndex } from "../helpers/constants";
-import { UNIFIED_MUSIC_KEYS } from "@/utils/musicKeys/musicKeys";
+import { UNIFIED_MUSIC_KEYS } from "@/utils";
 
 const TEMPLATE_STEPS = [0, 2, 3, 5, 7, 8, 10, 12, 14];
 

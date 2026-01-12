@@ -1,4 +1,4 @@
-import type { MusicKeyId } from "@/utils/musicKeys/musicKeys";
+import type { MusicKeyId } from "@/utils";
 import { create } from "zustand";
 
 export type isMajorMode = boolean;

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { getNotes, type Note } from "@/utils/getNotes/getNotes";
+import { getNotes, type Note } from "@/utils";
 
 describe("music utils", () => {
   describe("getNotes()", () => {

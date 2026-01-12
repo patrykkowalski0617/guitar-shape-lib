@@ -5,9 +5,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { useMusicStore } from "@/store/useMusicStore";
-import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/utils/musicKeys/musicKeys";
+import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/utils";
 
 export default function KeySelect() {
   const currentKeyId = useMusicStore((state) => state.currentKeyId);
