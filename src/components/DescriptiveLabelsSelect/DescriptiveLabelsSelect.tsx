@@ -20,12 +20,11 @@ const LABEL_OPTIONS = [
 export default function DescriptiveLabelsSelect() {
   const areDescriptiveLabels = useMusicStore((state) => state.areDescriptiveLabels);
   const setAreDescriptiveLabels = useMusicStore((state) => state.setAreDescriptiveLabels);
-
   const currentValue = areDescriptiveLabels ? "descriptive" : "standard";
 
   return (
     <GroupWrapper>
-      <Label>Labels Type</Label>
+      <Label>{areDescriptiveLabels ? "Only right option" : "Labels Type"}</Label>
       <ToggleGroup
         type="single"
         value={currentValue}

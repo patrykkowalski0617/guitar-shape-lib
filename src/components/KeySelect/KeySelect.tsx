@@ -13,6 +13,7 @@ export default function KeySelect() {
   const currentKeyId = useMusicStore((state) => state.currentKeyId);
   const isMajorMode = useMusicStore((state) => state.isMajorMode);
   const setCurrentKey = useMusicStore((state) => state.setCurrentKey);
+  const areDescriptiveLabels = useMusicStore((state) => state.areDescriptiveLabels);
 
   const options = Object.entries(UNIFIED_MUSIC_KEYS).map(([id, data]) => ({
     id: id as MusicKeyId,
@@ -23,7 +24,8 @@ export default function KeySelect() {
   return (
     <GroupWrapper>
       <Label>
-        Root (Major /<br />
+        {areDescriptiveLabels ? "Root " : "Key "}
+        (Major /<br />
         Relative Minor)
       </Label>
       <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>

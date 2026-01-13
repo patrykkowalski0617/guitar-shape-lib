@@ -13,7 +13,7 @@ export default function ModeSelect() {
   return (
     <GroupWrapper>
       <Label>
-        {areDescriptiveLabels ? "Mood" : "Mode"} {" (Relative Keys)"}
+        {areDescriptiveLabels ? "Mood" : "Scale Mode"} {" (Relative Keys)"}
       </Label>
       <ToggleGroup
         type="single"
