@@ -4,6 +4,7 @@ import {
   KEY_WIDTH_CSS,
   LEFT_PADDING_FACTOR,
   RIGHT_PADDING_FACTOR,
+  transitionStepTime,
 } from "./helpers/constants";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
@@ -56,6 +57,7 @@ const commonStyleForKey = css`
   border: 1px solid var(--border);
   border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
   box-shadow: inset 0 0px 3px 0px var(--input);
+  transition: ${transitionStepTime}ms;
 `;
 
 const whiteKey = css`
@@ -98,11 +100,13 @@ export const Key = styled.div<KeyProps>`
           &::after {
             border-color: var(--accent);
             box-shadow: inset 0 -23px 35px -4px var(--accent);
+            transition: ${transitionStepTime}ms ${transitionStepTime * 2}ms;
           }
         `
       : css`
           border-color: var(--accent);
           box-shadow: inset 0 -17px 20px 0px var(--accent);
+          transition: ${transitionStepTime}ms ${transitionStepTime * 2}ms;
         `)}
 
   &:first-child::after {

@@ -1,5 +1,10 @@
 import styled, { css } from "styled-components";
-import { KEY_PADDING, KEY_WIDTH_CSS, LEFT_PADDING_FACTOR } from "../helpers/constants";
+import {
+  KEY_PADDING,
+  KEY_WIDTH_CSS,
+  LEFT_PADDING_FACTOR,
+  transitionStepTime,
+} from "../helpers/constants";
 
 interface MarkerProps {
   $step: number;
@@ -24,7 +29,7 @@ export const TemplateWrapper = styled.div<TemplateWrapperProps>`
       (${totalOffset} + (${KEY_PADDING} * ${LEFT_PADDING_FACTOR})) * ${KEY_WIDTH_CSS($numberOfKeys)}
     ))`;
   }};
-  transition: transform 1s 1s ease-in-out;
+  transition: ${transitionStepTime}ms ${transitionStepTime}ms ease-in-out;
 `;
 
 export const Marker = styled.div<MarkerProps>`
@@ -36,7 +41,7 @@ export const Marker = styled.div<MarkerProps>`
   background-color: var(--accent);
   width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
-  transition: 1s 1s ease-in-out;
+  transition: ${transitionStepTime}ms ${transitionStepTime}ms ease-in-out;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
   box-shadow: 0 0 8px rgba(57, 127, 151, 0.4);
   ${({ $isHarmonicMinor }) =>
