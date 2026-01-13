@@ -8,10 +8,10 @@ import {
   numberOfKeys,
   transitionStepTime,
 } from "./helpers/constants";
-import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import { useMusicStore } from "@/store/useMusicStore";
 import NoteLabel from "../customUI/NoteLabel/NoteLabel";
 import { useActiveScale } from "@/hooks/useActiveScale/useActiveScale";
+import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 
 const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
@@ -56,12 +56,14 @@ export default function Keyboard(): JSX.Element {
       <S.Keyboard $numberOfKeys={numberOfKeys}>
         {notes.map((_, index) => {
           const noteIndex = (index + keysOffset) % 12;
-          const isHighlighted = activeScaleIndices.includes(index);
+          const scaleDegree = activeScaleIndices.find((s) => s.index === index);
+          const isHighlighted = !!scaleDegree;
 
           return (
             <S.Key
               key={index}
               $isHighlighted={isReadyForAnimation && isHighlighted}
+              $isHighlightRole={scaleDegree?.role || "none"}
               $isWhiteKey={majorScale.includes(noteIndex)}
               $keyShape={KEY_SHAPE_MAP[noteIndex]}
             >

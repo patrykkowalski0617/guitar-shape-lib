@@ -14,7 +14,7 @@ export default function MusicFunctionSelect() {
   const handleValueChange = (v: string) => {
     if (!v) return;
     setCurrentMusicFunctionId(v as MusicFunctionId);
-    triggerActiveScaleStepsExpansion(3000);
+    triggerActiveScaleStepsExpansion(13000);
   };
 
   return (

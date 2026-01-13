@@ -5,33 +5,40 @@ import { notes, firstAIndex } from "@/components/Keyboard/helpers/constants";
 import { getScaleIndices } from "@/components/Keyboard/helpers/getScaleIndices";
 
 export const useActiveScale = () => {
-  const currentKeyId = useMusicStore((state) => state.currentKeyId);
-  const isMajorMode = useMusicStore((state) => state.isMajorMode);
-  const setActiveScaleNotes = useMusicStore((state) => state.setActiveScaleNotes);
-  const activeScaleSteps = useMusicStore((state) => state.activeScaleSteps);
+  const {
+    currentKeyId,
+    isMajorMode,
+    setActiveScaleNotes,
+    activeScaleSteps,
+    currentMusicFunctionId,
+    expansionTimeoutId,
+  } = useMusicStore();
 
   const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
 
+  const isExpanded = expansionTimeoutId !== null;
+
   const { activeScaleIndices, activeScaleNotes } = useMemo(() => {
-    const indices = getScaleIndices({
+    const scaleInfo = getScaleIndices({
       firstAIndex,
       templateOffset,
       isMajorMode,
       steps: activeScaleSteps,
+      currentMusicFunctionId,
+      isExpanded,
     });
 
+    const indices = scaleInfo.map((s) => s.index);
     const scaleNotes = indices.map((index) => notes[index]);
 
     return {
-      activeScaleIndices: indices,
+      activeScaleIndices: scaleInfo,
       activeScaleNotes: scaleNotes,
     };
-  }, [isMajorMode, templateOffset, activeScaleSteps]);
+  }, [isMajorMode, templateOffset, activeScaleSteps, currentMusicFunctionId, isExpanded]);
 
   useEffect(() => {
-    if (setActiveScaleNotes) {
-      setActiveScaleNotes(activeScaleNotes);
-    }
+    setActiveScaleNotes(activeScaleNotes);
   }, [activeScaleNotes, setActiveScaleNotes]);
 
   return {

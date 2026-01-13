@@ -5,12 +5,15 @@ import {
   LEFT_PADDING_FACTOR,
   transitionStepTime,
 } from "../helpers/constants";
+import type { HighlightRole } from "../helpers/scaleLogic";
+import { roleColors } from "../helpers/parts";
 
 interface MarkerProps {
   $step: number;
   $numberOfKeys: number;
   $isVisible: boolean;
   $isHarmonicMinor: boolean;
+  $isHighlightRole: HighlightRole;
 }
 
 interface TemplateWrapperProps {
@@ -20,12 +23,8 @@ interface TemplateWrapperProps {
 }
 
 const appearing = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 `;
 
 export const TemplateWrapper = styled.div<TemplateWrapperProps>`
@@ -53,12 +52,14 @@ export const Marker = styled.div<MarkerProps>`
   bottom: 0px;
   height: 5px;
   border-radius: 4px 4px 0 0;
-  background-color: var(--accent);
+  background-color: ${({ $isHighlightRole }) => roleColors[$isHighlightRole]};
   width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
-  transition: ${transitionStepTime}ms ${transitionStepTime}ms ease-in-out;
+  transition: ${transitionStepTime}ms ${transitionStepTime}ms ease-in-out,
+    background-color 0.3s ease;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
   box-shadow: 0 0 8px rgba(57, 127, 151, 0.4);
+
   ${({ $isHarmonicMinor }) =>
     $isHarmonicMinor &&
     css`

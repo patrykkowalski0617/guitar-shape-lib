@@ -22,7 +22,10 @@ export default function KeySelect() {
 
   return (
     <GroupWrapper>
-      <Label>Root (Major / Relative Minor)</Label>
+      <Label>
+        Root (Major /<br />
+        Relative Minor)
+      </Label>
       <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>
         <SelectTrigger
           style={{ height: "40px" }}

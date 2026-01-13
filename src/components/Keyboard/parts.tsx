@@ -6,6 +6,8 @@ import {
   RIGHT_PADDING_FACTOR,
   transitionStepTime,
 } from "./helpers/constants";
+import type { HighlightRole } from "./helpers/scaleLogic";
+import { roleColors } from "./helpers/parts";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
@@ -17,6 +19,7 @@ interface KeyProps {
   $isWhiteKey: boolean;
   $keyShape?: KeyShape;
   $isHighlighted?: boolean;
+  $isHighlightRole: HighlightRole;
 }
 
 const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
@@ -51,6 +54,7 @@ export const Keyboard = styled.div<KeyboardProps>`
   padding-right: ${({ $numberOfKeys }) =>
     `calc(${KEY_WIDTH_CSS($numberOfKeys)} * ${KEY_PADDING} * ${RIGHT_PADDING_FACTOR})`};
 `;
+
 const keyBorderRadius = "4px";
 
 const commonStyleForKey = css`
@@ -93,21 +97,25 @@ export const Key = styled.div<KeyProps>`
 
   ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
 
-  ${({ $isHighlighted, $isWhiteKey }) =>
-    $isHighlighted &&
-    ($isWhiteKey
-      ? css`
-          &::after {
-            border-color: var(--accent);
-            box-shadow: inset 0 -23px 35px -4px var(--accent);
+  ${({ $isHighlighted, $isWhiteKey, $isHighlightRole }) => {
+    const color = roleColors[$isHighlightRole];
+    return (
+      $isHighlighted &&
+      ($isWhiteKey
+        ? css`
+            &::after {
+              border-color: ${color};
+              box-shadow: inset 0 -23px 35px -4px ${color};
+              transition: ${transitionStepTime}ms;
+            }
+          `
+        : css`
+            border-color: ${color};
+            box-shadow: inset 0 -17px 20px 0px ${color};
             transition: ${transitionStepTime}ms;
-          }
-        `
-      : css`
-          border-color: var(--accent);
-          box-shadow: inset 0 -17px 20px 0px var(--accent);
-          transition: ${transitionStepTime}ms;
-        `)}
+          `)
+    );
+  }}
 
   &:first-child::after {
     border-radius: ${keyboardBorderRadius} 0 ${keyBorderRadius} ${keyboardBorderRadius};

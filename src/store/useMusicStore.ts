@@ -30,10 +30,30 @@ interface MusicState {
 
 export const useMusicStore = create<MusicState>((set, get) => ({
   isMajorMode: true,
-  setIsMajorMode: (isMajorMode) => set({ isMajorMode: isMajorMode }),
+  setIsMajorMode: (isMajorMode) => {
+    const { expansionTimeoutId } = get();
+    if (expansionTimeoutId) clearTimeout(expansionTimeoutId);
+
+    set({
+      isMajorMode: isMajorMode,
+      currentMusicFunctionId: null,
+      activeScaleSteps: MINOR_MAJOR_TEMPLATE_STEPS,
+      expansionTimeoutId: null,
+    });
+  },
 
   currentKeyId: "C",
-  setCurrentKey: (id) => set({ currentKeyId: id }),
+  setCurrentKey: (id) => {
+    const { expansionTimeoutId } = get();
+    if (expansionTimeoutId) clearTimeout(expansionTimeoutId);
+
+    set({
+      currentKeyId: id,
+      currentMusicFunctionId: null,
+      activeScaleSteps: MINOR_MAJOR_TEMPLATE_STEPS,
+      expansionTimeoutId: null,
+    });
+  },
 
   currentMusicFunctionId: null,
   setCurrentMusicFunctionId: (id) => set({ currentMusicFunctionId: id }),
