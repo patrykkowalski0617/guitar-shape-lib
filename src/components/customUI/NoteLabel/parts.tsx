@@ -1,4 +1,3 @@
-import { transitionStepTime } from "@/components/Keyboard/helpers/constants";
 import styled, { css } from "styled-components";
 
 interface StyledNoteLabelProps {
@@ -40,7 +39,7 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   justify-content: center;
   .mainLabel,
   .optionalLabel {
-    transition: 300ms ${transitionStepTime * 2}ms ease-in-out;
+    transition: 300ms ease-in-out;
   }
   .mainLabel {
     ${({ $isFlatKey, $isEnharmonicNote, $isHighlighted }) =>

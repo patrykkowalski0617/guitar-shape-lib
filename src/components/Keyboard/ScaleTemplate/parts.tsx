@@ -37,7 +37,7 @@ export const TemplateWrapper = styled.div<TemplateWrapperProps>`
       (${totalOffset} + (${KEY_PADDING} * ${LEFT_PADDING_FACTOR})) * ${KEY_WIDTH_CSS($numberOfKeys)}
     ))`;
   }};
-  transition: ${transitionStepTime}ms ${transitionStepTime}ms ease-in-out;
+  transition: ${transitionStepTime}ms ease-in-out;
 `;
 
 export const Marker = styled.div<MarkerProps>`
