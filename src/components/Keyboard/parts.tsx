@@ -54,14 +54,13 @@ export const Keyboard = styled.div<KeyboardProps>`
 const whiteKey = css`
   height: 180px;
   z-index: 1;
-  color: var(--secondary);
   &::after {
     content: "";
     position: absolute;
     inset: 0;
-    background-color: var(--foreground);
+    background-color: var(--card);
     border: 1px solid var(--border);
-    border-radius: 0 0 5px 5px;
+    border-radius: 0 0 4px 4px;
   }
   &:not(:last-child)::after {
     border-right: none;
@@ -69,12 +68,12 @@ const whiteKey = css`
 `;
 
 const blackKey = css`
-  background-color: var(--muted);
+  background-color: var(--background);
   border: 1px solid var(--border);
   height: 110px;
   z-index: 2;
-  border-radius: 0 0 5px 5px;
-  box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.05);
+  border-radius: 0 0 4px 4px;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
 `;
 
 export const Key = styled.div<KeyProps>`
@@ -84,17 +83,20 @@ export const Key = styled.div<KeyProps>`
   ${({ $isWhiteKey }) => ($isWhiteKey ? whiteKey : blackKey)}
   ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
 
-  ${({ $isWhiteKey, $isHighlighted }) =>
+  ${({ $isHighlighted, $isWhiteKey }) =>
     $isHighlighted &&
-    ($isWhiteKey
-      ? css`
-          &::after {
-            background: linear-gradient(to bottom, #eeeeee 0%, var(--accent) 100%);
-          }
-        `
-      : css`
-          background-color: var(--accent);
-          border-color: var(--secondary);
-          box-shadow: 0 0 5px var(--accent);
-        `)}
+    css`
+      &::after {
+        box-shadow: inset 0 -8px 35px -4px var(--accent), inset 0 -2px 0 0 var(--accent);
+        border-color: var(--accent);
+      }
+
+      ${!$isWhiteKey &&
+      css`
+        background-color: var(--accent);
+        box-shadow: 0 0 15px var(--accent);
+        border-color: var(--accent);
+      `}
+      box-shadow: inset 0 0px 11px 2px var(--accent),inset 0px 61px 35px 0 var(--background);
+    `}
 `;

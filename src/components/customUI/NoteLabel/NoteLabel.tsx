@@ -6,9 +6,15 @@ interface NoteLabelProps {
   index: number;
   firstNote: Note;
   isFlatKey: boolean;
+  isHighlighted: boolean;
 }
 
-export default function NoteLabel({ index, firstNote, isFlatKey }: NoteLabelProps): JSX.Element {
+export default function NoteLabel({
+  index,
+  firstNote,
+  isFlatKey,
+  isHighlighted,
+}: NoteLabelProps): JSX.Element {
   const sharpNote = getNotes({ firstNote, length: index + 1, isFlatKey: false })[index];
   const flatNote = getNotes({
     firstNote: getEnharmonicEquivalent(firstNote),
@@ -19,7 +25,11 @@ export default function NoteLabel({ index, firstNote, isFlatKey }: NoteLabelProp
   const isEnharmonicNote = sharpNote !== flatNote;
 
   return (
-    <S.Wrapper $isFlatKey={isFlatKey} $isEnharmonicNote={isEnharmonicNote}>
+    <S.Wrapper
+      $isFlatKey={isFlatKey}
+      $isEnharmonicNote={isEnharmonicNote}
+      $isHighlighted={isHighlighted}
+    >
       <div className="mainLabel">{sharpNote}</div>
       {isEnharmonicNote && <div className="optionalLabel">{flatNote}</div>}
     </S.Wrapper>

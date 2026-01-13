@@ -25,7 +25,7 @@ export default function ModeSelect() {
             <ToggleGroupItem
               key={id}
               value={id}
-              title={data.description}
+              title={data.descriptiveLabel}
               className="h-full px-4 text-xs uppercase font-semibold data-[state=on]:bg-background data-[state=on]:shadow-sm flex flex-col items-center justify-center"
             >
               <span>{data.label}</span>

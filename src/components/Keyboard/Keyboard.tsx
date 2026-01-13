@@ -44,7 +44,12 @@ export default function Keyboard(): JSX.Element {
               $isWhiteKey={majorScale.includes(noteIndex)}
               $keyShape={KEY_SHAPE_MAP[noteIndex]}
             >
-              <NoteLabel index={index} firstNote={firstNote} isFlatKey={isFlatKey} />
+              <NoteLabel
+                isHighlighted={isHighlighted}
+                index={index}
+                firstNote={firstNote}
+                isFlatKey={isFlatKey}
+              />
             </S.Key>
           );
         })}

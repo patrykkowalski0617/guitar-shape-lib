@@ -30,11 +30,9 @@ export const TemplateWrapper = styled.div<TemplateWrapperProps>`
 export const Marker = styled.div<MarkerProps>`
   position: absolute;
   bottom: 0px;
-  height: 12px;
-  border-radius: 6px;
-  border: 2px solid var(--background);
+  height: 5px;
+  border-radius: 5px 5px 0 0;
   background-color: var(--accent);
-
   width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
 

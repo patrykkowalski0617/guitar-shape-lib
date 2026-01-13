@@ -21,6 +21,7 @@ export default function MusicFunctionSelect() {
         {(Object.entries(musicFunctions) as [MusicFunctionId, MusicFunctionData][]).map(
           ([id, data]) => (
             <ToggleGroupItem
+              title={data.descriptiveLabel}
               key={id}
               value={id}
               className="h-full px-4 text-xs uppercase font-semibold data-[state=on]:bg-background data-[state=on]:shadow-sm"

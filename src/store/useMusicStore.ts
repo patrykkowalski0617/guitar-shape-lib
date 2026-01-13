@@ -1,17 +1,18 @@
 import type { MusicFunctionId, MusicKeyId } from "@/utils";
 import { create } from "zustand";
 
-export type isMajorMode = boolean;
-
 interface MusicState {
-  isMajorMode: isMajorMode;
-  setIsMajorMode: (isMajorMode: isMajorMode) => void;
+  isMajorMode: boolean;
+  setIsMajorMode: (isMajorMode: boolean) => void;
 
   currentKeyId: MusicKeyId;
   setCurrentKey: (id: MusicKeyId) => void;
 
   currentMusicFunctionId: MusicFunctionId;
   setCurrentMusicFunctionId: (id: MusicFunctionId) => void;
+
+  areDescriptiveLabels: boolean;
+  setAreDescriptiveLabels: (areDescriptiveLabels: boolean) => void;
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
@@ -23,4 +24,8 @@ export const useMusicStore = create<MusicState>((set) => ({
 
   currentMusicFunctionId: "tonic",
   setCurrentMusicFunctionId: (id) => set({ currentMusicFunctionId: id }),
+
+  areDescriptiveLabels: false,
+  setAreDescriptiveLabels: (areDescriptiveLabels) =>
+    set({ areDescriptiveLabels: areDescriptiveLabels }),
 }));
