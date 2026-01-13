@@ -1,14 +1,13 @@
 import { type MusicFunctionId } from "@/utils";
 
-export type HighlightRole = "tonic" | "subdominant" | "dominant" | "none";
+export type HighlightMusicFuntion = "tonic" | "subdominant" | "dominant" | "none";
 
-export const getHighlightRole = (
+export const getHighlightMusicFuntion = (
   index: number,
   isMajorMode: boolean,
-  currentFunction: MusicFunctionId | null,
-  isExpanded: boolean
-): HighlightRole => {
-  if (!isExpanded || !currentFunction) return "none";
+  currentFunction: MusicFunctionId | null
+): HighlightMusicFuntion => {
+  if (!currentFunction) return "none";
 
   const logicalIndex = isMajorMode ? index - 2 : index;
   if (logicalIndex < 0) return "none";
@@ -28,9 +27,9 @@ export const getHighlightRole = (
   }
 };
 
-export const roleColors = {
+export const musicFunctionColors = {
   tonic: "#3b82f6",
   subdominant: "#10b981",
   dominant: "#f59e0b",
-  none: "var(--accent)", // Pierwotny stan
+  none: "var(--accent)",
 };

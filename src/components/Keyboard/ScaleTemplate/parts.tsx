@@ -5,15 +5,15 @@ import {
   LEFT_PADDING_FACTOR,
   transitionStepTime,
 } from "../helpers/constants";
-import type { HighlightRole } from "../helpers/scaleLogic";
-import { roleColors } from "../helpers/parts";
+import type { HighlightMusicFuntion } from "../helpers/scaleLogic";
+import { musicFunctionColors } from "../helpers/parts";
 
 interface MarkerProps {
   $step: number;
   $numberOfKeys: number;
   $isVisible: boolean;
   $isHarmonicMinor: boolean;
-  $isHighlightRole: HighlightRole;
+  $isHighlightMusicFunction: HighlightMusicFuntion;
 }
 
 interface TemplateWrapperProps {
@@ -52,7 +52,8 @@ export const Marker = styled.div<MarkerProps>`
   bottom: 0px;
   height: 5px;
   border-radius: 4px 4px 0 0;
-  background-color: ${({ $isHighlightRole }) => roleColors[$isHighlightRole]};
+  background-color: ${({ $isHighlightMusicFunction }) =>
+    musicFunctionColors[$isHighlightMusicFunction]};
   width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
   transition: ${transitionStepTime}ms ${transitionStepTime}ms ease-in-out,

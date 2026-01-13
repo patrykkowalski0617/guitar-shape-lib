@@ -1,7 +1,7 @@
 import { getNotes, type Note } from "@/utils";
 
 export const KEY_PADDING = 0.75; // for proper css calc
-export const numberOfKeys = 44;
+export const numberOfKeys = 49;
 export const keysOffset = 4; // 0 = starting form C
 export const transitionStepTime = 1000;
 

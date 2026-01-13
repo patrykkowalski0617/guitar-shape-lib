@@ -1,9 +1,9 @@
 import { type MusicFunctionId } from "@/utils";
-import { getHighlightRole, type HighlightRole } from "./scaleLogic";
+import { getHighlightMusicFuntion, type HighlightMusicFuntion } from "./scaleLogic";
 
 export interface ScaleDegreeInfo {
   index: number;
-  role: HighlightRole;
+  role: HighlightMusicFuntion;
 }
 
 interface GetScaleIndicesArgs {
@@ -20,8 +20,7 @@ export const getScaleIndices = ({
   isMajorMode,
   steps,
   currentMusicFunctionId,
-  isExpanded,
-}: GetScaleIndicesArgs & { isExpanded: boolean }): ScaleDegreeInfo[] => {
+}: GetScaleIndicesArgs): ScaleDegreeInfo[] => {
   return steps
     .map((step, index) => {
       const isVisible = isMajorMode ? index >= 2 : index <= steps.length - 3;
@@ -36,7 +35,7 @@ export const getScaleIndices = ({
 
       return {
         index: finalIndex,
-        role: getHighlightRole(index, isMajorMode, currentMusicFunctionId, isExpanded),
+        role: getHighlightMusicFuntion(index, isMajorMode, currentMusicFunctionId),
       };
     })
     .filter((item): item is ScaleDegreeInfo => item !== null);

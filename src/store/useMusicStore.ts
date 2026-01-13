@@ -1,6 +1,6 @@
 import {
-  MINOR_MAJOR_TEMPLATE_STEPS,
-  MINOR_MAJOR_TEMPLATE_STEPS_2octaves,
+  generateScaleSteps,
+  getStepsCountForFunction,
   type MusicFunctionId,
   type MusicKeyId,
   type Note,
@@ -23,40 +23,36 @@ interface MusicState {
   activeScaleNotes: Note[];
   setActiveScaleNotes: (notes: Note[]) => void;
 
-  expansionTimeoutId: ReturnType<typeof setTimeout> | null;
   activeScaleSteps: number[];
-  triggerActiveScaleStepsExpansion: (duration: number) => void;
 }
 
-export const useMusicStore = create<MusicState>((set, get) => ({
+export const useMusicStore = create<MusicState>((set) => ({
   isMajorMode: true,
   setIsMajorMode: (isMajorMode) => {
-    const { expansionTimeoutId } = get();
-    if (expansionTimeoutId) clearTimeout(expansionTimeoutId);
-
     set({
       isMajorMode: isMajorMode,
       currentMusicFunctionId: null,
-      activeScaleSteps: MINOR_MAJOR_TEMPLATE_STEPS,
-      expansionTimeoutId: null,
+      activeScaleSteps: generateScaleSteps(9),
     });
   },
 
   currentKeyId: "C",
   setCurrentKey: (id) => {
-    const { expansionTimeoutId } = get();
-    if (expansionTimeoutId) clearTimeout(expansionTimeoutId);
-
     set({
       currentKeyId: id,
       currentMusicFunctionId: null,
-      activeScaleSteps: MINOR_MAJOR_TEMPLATE_STEPS,
-      expansionTimeoutId: null,
+      activeScaleSteps: generateScaleSteps(9),
     });
   },
 
   currentMusicFunctionId: null,
-  setCurrentMusicFunctionId: (id) => set({ currentMusicFunctionId: id }),
+  setCurrentMusicFunctionId: (id) => {
+    const stepsCount = getStepsCountForFunction(id);
+    set({
+      currentMusicFunctionId: id,
+      activeScaleSteps: generateScaleSteps(stepsCount),
+    });
+  },
 
   areDescriptiveLabels: false,
   setAreDescriptiveLabels: (areDescriptiveLabels) =>
@@ -65,24 +61,5 @@ export const useMusicStore = create<MusicState>((set, get) => ({
   activeScaleNotes: [],
   setActiveScaleNotes: (notes) => set({ activeScaleNotes: notes }),
 
-  expansionTimeoutId: null,
-  activeScaleSteps: MINOR_MAJOR_TEMPLATE_STEPS,
-  triggerActiveScaleStepsExpansion: (duration) => {
-    const { expansionTimeoutId } = get();
-
-    if (expansionTimeoutId !== null) {
-      clearTimeout(expansionTimeoutId);
-    }
-
-    set({ activeScaleSteps: MINOR_MAJOR_TEMPLATE_STEPS_2octaves });
-
-    const newTimeoutId = setTimeout(() => {
-      set({
-        activeScaleSteps: MINOR_MAJOR_TEMPLATE_STEPS,
-        expansionTimeoutId: null,
-      });
-    }, duration);
-
-    set({ expansionTimeoutId: newTimeoutId });
-  },
+  activeScaleSteps: generateScaleSteps(9),
 }));

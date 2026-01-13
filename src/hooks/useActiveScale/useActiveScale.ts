@@ -11,12 +11,9 @@ export const useActiveScale = () => {
     setActiveScaleNotes,
     activeScaleSteps,
     currentMusicFunctionId,
-    expansionTimeoutId,
   } = useMusicStore();
 
   const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
-
-  const isExpanded = expansionTimeoutId !== null;
 
   const { activeScaleIndices, activeScaleNotes } = useMemo(() => {
     const scaleInfo = getScaleIndices({
@@ -25,7 +22,6 @@ export const useActiveScale = () => {
       isMajorMode,
       steps: activeScaleSteps,
       currentMusicFunctionId,
-      isExpanded,
     });
 
     const indices = scaleInfo.map((s) => s.index);
@@ -35,7 +31,7 @@ export const useActiveScale = () => {
       activeScaleIndices: scaleInfo,
       activeScaleNotes: scaleNotes,
     };
-  }, [isMajorMode, templateOffset, activeScaleSteps, currentMusicFunctionId, isExpanded]);
+  }, [isMajorMode, templateOffset, activeScaleSteps, currentMusicFunctionId]);
 
   useEffect(() => {
     setActiveScaleNotes(activeScaleNotes);
