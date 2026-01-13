@@ -30,11 +30,11 @@ export default function KeySelect() {
         <SelectContent>
           {options.map((opt) => (
             <SelectItem key={opt.id} value={opt.id}>
-              <span className={isMajorMode ? "opacity-100" : "opacity-50"}>{opt.majorName}</span>
-              <span className="mx-1 opacity-50">/</span>
-              <span className={!isMajorMode ? "opacity-100" : "opacity-50"}>
-                {opt.relativeMinorName}
-              </span>
+              {isMajorMode ? (
+                <span className="font-semibold text-xs">{opt.majorName}</span>
+              ) : (
+                <span className="font-semibold text-xs">{opt.relativeMinorName}</span>
+              )}
             </SelectItem>
           ))}
         </SelectContent>

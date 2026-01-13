@@ -10,7 +10,7 @@ export default function MusicFunctionSelect() {
 
   return (
     <GroupWrapper>
-      <Label>Function</Label>
+      <Label>{areDescriptiveLabels ? "Energy" : "Function"} </Label>
       <ToggleGroup
         type="single"
         value={currentMusicFunctionId}
