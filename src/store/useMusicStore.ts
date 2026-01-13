@@ -1,4 +1,4 @@
-import type { MusicFunctionId, MusicKeyId } from "@/utils";
+import type { MusicFunctionId, MusicKeyId, Note } from "@/utils";
 import { create } from "zustand";
 
 interface MusicState {
@@ -13,6 +13,9 @@ interface MusicState {
 
   areDescriptiveLabels: boolean;
   setAreDescriptiveLabels: (areDescriptiveLabels: boolean) => void;
+
+  activeScaleNotes: Note[];
+  setActiveScaleNotes: (notes: Note[]) => void;
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
@@ -28,4 +31,7 @@ export const useMusicStore = create<MusicState>((set) => ({
   areDescriptiveLabels: false,
   setAreDescriptiveLabels: (areDescriptiveLabels) =>
     set({ areDescriptiveLabels: areDescriptiveLabels }),
+
+  activeScaleNotes: [],
+  setActiveScaleNotes: (notes) => set({ activeScaleNotes: notes }),
 }));

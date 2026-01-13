@@ -2,7 +2,6 @@ import { type JSX, useEffect, useState, useRef } from "react";
 import * as S from "./parts";
 import { majorScale, UNIFIED_MUSIC_KEYS } from "@/utils";
 import {
-  firstAIndex,
   firstNote,
   keysOffset,
   notes,
@@ -12,7 +11,7 @@ import {
 import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import { useMusicStore } from "@/store/useMusicStore";
 import NoteLabel from "../customUI/NoteLabel/NoteLabel";
-import { getScaleIndices } from "./helpers/getScaleIndices";
+import { useActiveScale } from "@/hooks/useActiveScale/useActiveScale";
 
 const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
@@ -28,16 +27,12 @@ export default function Keyboard(): JSX.Element {
   const currentKeyId = useMusicStore((state) => state.currentKeyId);
   const isMajorMode = useMusicStore((state) => state.isMajorMode);
   const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
-  const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].orderNumber;
+
+  const { activeScaleIndices } = useActiveScale();
+
+  // This code manage keys highlight animation --->
   const [isReadyForAnimation, setIsReadyForAnimation] = useState(true);
   const isInitialMount = useRef(true);
-
-  const activeScaleIndices = getScaleIndices({
-    firstAIndex,
-    templateOffset,
-    isMajorMode,
-  });
-
   useEffect(() => {
     if (isInitialMount.current) {
       isInitialMount.current = false;
@@ -53,6 +48,7 @@ export default function Keyboard(): JSX.Element {
       setIsReadyForAnimation(false);
     };
   }, [currentKeyId, isMajorMode]);
+  // <---
 
   return (
     <S.KeyboardWrapper>

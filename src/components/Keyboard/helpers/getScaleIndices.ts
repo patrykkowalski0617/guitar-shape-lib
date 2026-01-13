@@ -1,4 +1,4 @@
-const TEMPLATE_STEPS = [0, 2, 3, 5, 7, 8, 10, 12, 14];
+import { MINOR_MAJOR_TEMPLATE_STEPS } from "@/utils";
 
 interface GetScaleIndicesArgs {
   firstAIndex: number;
@@ -11,7 +11,7 @@ export const getScaleIndices = ({
   templateOffset,
   isMajorMode,
 }: GetScaleIndicesArgs): number[] => {
-  return TEMPLATE_STEPS.map((step, index) => {
+  return MINOR_MAJOR_TEMPLATE_STEPS.map((step, index) => {
     const isVisible = isMajorMode ? index >= 2 : index <= 6;
     if (!isVisible) return null;
 

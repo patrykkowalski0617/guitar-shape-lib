@@ -1,7 +1,7 @@
 import { type Note } from "@/utils";
 
 export interface MusicKeyInfo {
-  readonly orderNumber: number;
+  readonly offsetFromC: number;
   readonly isFlatKey: boolean;
   readonly majorFirstNote: Note;
   readonly majorName: string;
@@ -11,7 +11,7 @@ export interface MusicKeyInfo {
 
 export const UNIFIED_MUSIC_KEYS = {
   C: {
-    orderNumber: 0,
+    offsetFromC: 0,
     isFlatKey: false,
     majorFirstNote: "C",
     majorName: "C",
@@ -19,7 +19,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "A",
   },
   Db: {
-    orderNumber: 1,
+    offsetFromC: 1,
     isFlatKey: true,
     majorFirstNote: "Db",
     majorName: "Db",
@@ -27,7 +27,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "Bb",
   },
   D: {
-    orderNumber: 2,
+    offsetFromC: 2,
     isFlatKey: false,
     majorFirstNote: "D",
     majorName: "D",
@@ -35,7 +35,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "B",
   },
   Eb: {
-    orderNumber: 3,
+    offsetFromC: 3,
     isFlatKey: true,
     majorFirstNote: "Eb",
     majorName: "Eb",
@@ -43,7 +43,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "C",
   },
   E: {
-    orderNumber: 4,
+    offsetFromC: 4,
     isFlatKey: false,
     majorFirstNote: "E",
     majorName: "E",
@@ -51,7 +51,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "C#",
   },
   F: {
-    orderNumber: 5,
+    offsetFromC: 5,
     isFlatKey: true,
     majorFirstNote: "F",
     majorName: "F",
@@ -59,7 +59,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "D",
   },
   "F#": {
-    orderNumber: 6,
+    offsetFromC: 6,
     isFlatKey: false,
     majorFirstNote: "F#",
     majorName: "F#",
@@ -67,7 +67,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "D#",
   },
   G: {
-    orderNumber: 7,
+    offsetFromC: 7,
     isFlatKey: false,
     majorFirstNote: "G",
     majorName: "G",
@@ -75,7 +75,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "E",
   },
   Ab: {
-    orderNumber: 8,
+    offsetFromC: 8,
     isFlatKey: true,
     majorFirstNote: "Ab",
     majorName: "Ab",
@@ -83,7 +83,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "F",
   },
   A: {
-    orderNumber: 9,
+    offsetFromC: 9,
     isFlatKey: false,
     majorFirstNote: "A",
     majorName: "A",
@@ -91,7 +91,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "F#",
   },
   Bb: {
-    orderNumber: 10,
+    offsetFromC: 10,
     isFlatKey: true,
     majorFirstNote: "Bb",
     majorName: "Bb",
@@ -99,7 +99,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorFirstNote: "G",
   },
   B: {
-    orderNumber: 11,
+    offsetFromC: 11,
     isFlatKey: false,
     majorFirstNote: "B",
     majorName: "B",
