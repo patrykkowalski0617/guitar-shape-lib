@@ -8,11 +8,11 @@ function App() {
   return (
     <>
       <Keyboard />
-      <div className="flex flex-row items-center justify-center gap-6 p-4 w-full bg-background">
+      <div className="flex flex-row items-end justify-center gap-6 p-4 w-full bg-background">
+        <DescriptiveLabelsSelect />
         <ModeSelect />
         <KeySelect />
         <MusicFunctionSelect />
-        <DescriptiveLabelsSelect />
       </div>
     </>
   );

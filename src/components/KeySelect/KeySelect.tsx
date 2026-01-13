@@ -22,22 +22,22 @@ export default function KeySelect() {
 
   return (
     <GroupWrapper>
-      <Label>Root Note</Label>
+      <Label>Root (Major / Relative Minor)</Label>
       <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>
         <SelectTrigger
           style={{ height: "40px" }}
-          className="min-w-20 min-h-full bg-muted/30 border-muted-foreground/20 focus:ring-0 focus:ring-offset-0"
+          className="bg-muted/30 border-muted-foreground/20 focus:ring-0 focus:ring-offset-0 font-semibold"
         >
           <SelectValue />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="font-semibold">
           {options.map((opt) => (
             <SelectItem key={opt.id} value={opt.id}>
-              {isMajorMode ? (
-                <span className="font-semibold text-xs">{opt.majorName}</span>
-              ) : (
-                <span className="font-semibold text-xs">{opt.relativeMinorName}</span>
-              )}
+              <span className={isMajorMode ? "opacity-100" : "opacity-50"}>{opt.majorName}</span>
+              <span className="mx-1 opacity-50">/</span>
+              <span className={!isMajorMode ? "opacity-100" : "opacity-50"}>
+                {opt.relativeMinorName}
+              </span>
             </SelectItem>
           ))}
         </SelectContent>

@@ -8,6 +8,7 @@ export const useActiveScale = () => {
   const currentKeyId = useMusicStore((state) => state.currentKeyId);
   const isMajorMode = useMusicStore((state) => state.isMajorMode);
   const setActiveScaleNotes = useMusicStore((state) => state.setActiveScaleNotes);
+  const activeScaleSteps = useMusicStore((state) => state.activeScaleSteps);
 
   const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
 
@@ -16,6 +17,7 @@ export const useActiveScale = () => {
       firstAIndex,
       templateOffset,
       isMajorMode,
+      steps: activeScaleSteps,
     });
 
     const scaleNotes = indices.map((index) => notes[index]);
@@ -24,7 +26,7 @@ export const useActiveScale = () => {
       activeScaleIndices: indices,
       activeScaleNotes: scaleNotes,
     };
-  }, [isMajorMode, templateOffset]);
+  }, [isMajorMode, templateOffset, activeScaleSteps]);
 
   useEffect(() => {
     if (setActiveScaleNotes) {

@@ -7,15 +7,24 @@ export default function MusicFunctionSelect() {
   const currentMusicFunctionId = useMusicStore((state) => state.currentMusicFunctionId);
   const setCurrentMusicFunctionId = useMusicStore((state) => state.setCurrentMusicFunctionId);
   const areDescriptiveLabels = useMusicStore((state) => state.areDescriptiveLabels);
+  const triggerActiveScaleStepsExpansion = useMusicStore(
+    (state) => state.triggerActiveScaleStepsExpansion
+  );
+
+  const handleValueChange = (v: string) => {
+    if (!v) return;
+    setCurrentMusicFunctionId(v as MusicFunctionId);
+    triggerActiveScaleStepsExpansion(3000);
+  };
 
   return (
     <GroupWrapper>
       <Label>{areDescriptiveLabels ? "Energy" : "Function"} </Label>
       <ToggleGroup
         type="single"
-        value={currentMusicFunctionId}
+        value={currentMusicFunctionId ?? ""}
         onValueChange={(v) => {
-          if (v) setCurrentMusicFunctionId(v as MusicFunctionId);
+          handleValueChange(v);
         }}
         className="h-10 justify-start border rounded-md p-1 bg-muted/50 border-muted-foreground/20 w-fit"
       >

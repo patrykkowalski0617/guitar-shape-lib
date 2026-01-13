@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import {
   KEY_PADDING,
   KEY_WIDTH_CSS,
@@ -19,6 +19,15 @@ interface TemplateWrapperProps {
   $templateOffset: number;
 }
 
+const appearing = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
 export const TemplateWrapper = styled.div<TemplateWrapperProps>`
   height: 15px;
   position: relative;
@@ -33,6 +42,12 @@ export const TemplateWrapper = styled.div<TemplateWrapperProps>`
 `;
 
 export const Marker = styled.div<MarkerProps>`
+  animation: ${({ $isVisible }) =>
+    $isVisible
+      ? css`
+          ${appearing} 300ms forwards
+        `
+      : "none"};
   position: absolute;
   border: 1px solid var(--border);
   bottom: 0px;
