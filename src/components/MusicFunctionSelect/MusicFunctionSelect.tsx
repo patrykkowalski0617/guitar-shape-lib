@@ -6,6 +6,7 @@ import { musicFunctions, type MusicFunctionData, type MusicFunctionId } from "@/
 export default function MusicFunctionSelect() {
   const currentMusicFunctionId = useMusicStore((state) => state.currentMusicFunctionId);
   const setCurrentMusicFunctionId = useMusicStore((state) => state.setCurrentMusicFunctionId);
+  const areDescriptiveLabels = useMusicStore((state) => state.areDescriptiveLabels);
 
   return (
     <GroupWrapper>
@@ -26,7 +27,7 @@ export default function MusicFunctionSelect() {
               value={id}
               className="h-full px-4 text-xs uppercase font-semibold data-[state=on]:bg-background data-[state=on]:shadow-sm"
             >
-              {data.label}
+              {areDescriptiveLabels ? data.descriptiveLabel : data.label}
             </ToggleGroupItem>
           )
         )}

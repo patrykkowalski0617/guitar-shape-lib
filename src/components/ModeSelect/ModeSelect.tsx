@@ -6,6 +6,7 @@ import { musicMode, type MusicModeId } from "@/utils";
 export default function ModeSelect() {
   const isMajorMode = useMusicStore((state) => state.isMajorMode);
   const setIsMajorMode = useMusicStore((state) => state.setIsMajorMode);
+  const areDescriptiveLabels = useMusicStore((state) => state.areDescriptiveLabels);
 
   const currentMode: MusicModeId = isMajorMode ? "major" : "minor";
 
@@ -28,7 +29,7 @@ export default function ModeSelect() {
               title={data.descriptiveLabel}
               className="h-full px-4 text-xs uppercase font-semibold data-[state=on]:bg-background data-[state=on]:shadow-sm flex flex-col items-center justify-center"
             >
-              <span>{data.label}</span>
+              <span>{areDescriptiveLabels ? data.descriptiveLabel : data.label}</span>
             </ToggleGroupItem>
           )
         )}
