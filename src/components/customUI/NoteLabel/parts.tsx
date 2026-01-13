@@ -40,7 +40,7 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   justify-content: center;
   .mainLabel,
   .optionalLabel {
-    transition: 100ms ${transitionStepTime * 3}ms ease-in-out;
+    transition: 300ms ${transitionStepTime * 2}ms ease-in-out;
   }
   .mainLabel {
     ${({ $isFlatKey, $isEnharmonicNote, $isHighlighted }) =>

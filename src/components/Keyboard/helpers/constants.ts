@@ -3,7 +3,7 @@ import { getNotes, type Note } from "@/utils";
 export const KEY_PADDING = 0.75;
 export const numberOfKeys = 44;
 export const keysOffset = 4; // 0 = starting form C
-export const transitionStepTime = 1500;
+export const transitionStepTime = 1000;
 
 const CHROMATIC_SCALE = getNotes({ length: 12 });
 export const firstNote = CHROMATIC_SCALE[((keysOffset % 12) + 12) % 12] as Note;

@@ -100,13 +100,13 @@ export const Key = styled.div<KeyProps>`
           &::after {
             border-color: var(--accent);
             box-shadow: inset 0 -23px 35px -4px var(--accent);
-            transition: ${transitionStepTime}ms ${transitionStepTime * 2}ms;
+            transition: ${transitionStepTime}ms;
           }
         `
       : css`
           border-color: var(--accent);
           box-shadow: inset 0 -17px 20px 0px var(--accent);
-          transition: ${transitionStepTime}ms ${transitionStepTime * 2}ms;
+          transition: ${transitionStepTime}ms;
         `)}
 
   &:first-child::after {
