@@ -11,7 +11,7 @@ const LABEL_OPTIONS = [
   },
   {
     id: "descriptive",
-    label: "Emotional",
+    label: "Descriptive",
     descriptiveLabel: "Descriptive and emotional names",
     value: true,
   },

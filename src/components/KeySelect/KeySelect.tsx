@@ -24,7 +24,7 @@ export default function KeySelect() {
     <GroupWrapper>
       <Label>Root Key</Label>
       <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>
-        <SelectTrigger className="h-10 bg-muted/30 border-muted-foreground/20 focus:ring-0 focus:ring-offset-0">
+        <SelectTrigger className="bg-muted/30 border-muted-foreground/20 focus:ring-0 focus:ring-offset-0">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

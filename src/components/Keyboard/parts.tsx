@@ -50,17 +50,20 @@ export const Keyboard = styled.div<KeyboardProps>`
   padding-right: ${({ $numberOfKeys }) =>
     `calc(${KEY_WIDTH_CSS($numberOfKeys)} * ${KEY_PADDING} * ${RIGHT_PADDING_FACTOR})`};
 `;
+const keyBorderRadius = "4px";
 
 const whiteKey = css`
   height: 180px;
   z-index: 1;
+  border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
   &::after {
     content: "";
     position: absolute;
     inset: 0;
     background-color: var(--card);
     border: 1px solid var(--border);
-    border-radius: 0 0 4px 4px;
+    border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
+    box-shadow: inset 0 0px 1px 0px var(--accent);
   }
   &:not(:last-child)::after {
     border-right: none;
@@ -72,31 +75,38 @@ const blackKey = css`
   border: 1px solid var(--border);
   height: 110px;
   z-index: 2;
-  border-radius: 0 0 4px 4px;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
+  box-shadow: inset 0 0px 5px rgba(255, 255, 255, 0.1);
 `;
+
+const keyboardBorderRadius = "var(--radius-md) ";
 
 export const Key = styled.div<KeyProps>`
   flex: 1;
   width: 0;
   position: relative;
+  &:first-child::after {
+    border-radius: ${keyboardBorderRadius} 0 ${keyBorderRadius} ${keyboardBorderRadius};
+  }
+  &:last-child::after {
+    border-radius: 0 ${keyboardBorderRadius} ${keyboardBorderRadius} ${keyBorderRadius};
+  }
   ${({ $isWhiteKey }) => ($isWhiteKey ? whiteKey : blackKey)}
+
   ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
 
   ${({ $isHighlighted, $isWhiteKey }) =>
     $isHighlighted &&
     css`
       &::after {
-        box-shadow: inset 0 -8px 35px -4px var(--accent), inset 0 -2px 0 0 var(--accent);
         border-color: var(--accent);
+        box-shadow: inset 0 -23px 35px -4px var(--accent);
       }
 
       ${!$isWhiteKey &&
       css`
-        background-color: var(--accent);
-        box-shadow: 0 0 15px var(--accent);
         border-color: var(--accent);
+        box-shadow: inset 0 -17px 20px 0px var(--accent);
       `}
-      box-shadow: inset 0 0px 11px 2px var(--accent),inset 0px 61px 35px 0 var(--background);
     `}
 `;
