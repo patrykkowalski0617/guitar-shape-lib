@@ -85,28 +85,28 @@ export const Key = styled.div<KeyProps>`
   flex: 1;
   width: 0;
   position: relative;
-  &:first-child::after {
-    border-radius: ${keyboardBorderRadius} 0 ${keyBorderRadius} ${keyboardBorderRadius};
-  }
-  &:last-child::after {
-    border-radius: 0 ${keyboardBorderRadius} ${keyboardBorderRadius} ${keyBorderRadius};
-  }
   ${({ $isWhiteKey }) => ($isWhiteKey ? whiteKey : blackKey)}
 
   ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
 
   ${({ $isHighlighted, $isWhiteKey }) =>
     $isHighlighted &&
-    css`
-      &::after {
-        border-color: var(--accent);
-        box-shadow: inset 0 -23px 35px -4px var(--accent);
-      }
+    ($isWhiteKey
+      ? css`
+          &::after {
+            border-color: var(--accent);
+            box-shadow: inset 0 -23px 35px -4px var(--accent);
+          }
+        `
+      : css`
+          border-color: var(--accent);
+          box-shadow: inset 0 -17px 20px 0px var(--accent);
+        `)}
 
-      ${!$isWhiteKey &&
-      css`
-        border-color: var(--accent);
-        box-shadow: inset 0 -17px 20px 0px var(--accent);
-      `}
-    `}
+  &:first-child::after {
+    border-radius: ${keyboardBorderRadius} 0 ${keyBorderRadius} ${keyboardBorderRadius};
+  }
+  &:last-child::after {
+    border-radius: 0 ${keyboardBorderRadius} ${keyBorderRadius} ${keyBorderRadius};
+  }
 `;
