@@ -52,6 +52,12 @@ export const Keyboard = styled.div<KeyboardProps>`
 `;
 const keyBorderRadius = "4px";
 
+const commonStyleForKey = css`
+  border: 1px solid var(--border);
+  border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
+  box-shadow: inset 0 0px 3px 0px var(--input);
+`;
+
 const whiteKey = css`
   height: 180px;
   z-index: 1;
@@ -61,9 +67,7 @@ const whiteKey = css`
     position: absolute;
     inset: 0;
     background-color: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
-    box-shadow: inset 0 0px 1px 0px var(--accent);
+    ${commonStyleForKey}
   }
   &:not(:last-child)::after {
     border-right: none;
@@ -72,11 +76,9 @@ const whiteKey = css`
 
 const blackKey = css`
   background-color: var(--background);
-  border: 1px solid var(--border);
   height: 110px;
   z-index: 2;
-  border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
-  box-shadow: inset 0 0px 5px rgba(255, 255, 255, 0.1);
+  ${commonStyleForKey}
 `;
 
 const keyboardBorderRadius = "var(--radius-md) ";
