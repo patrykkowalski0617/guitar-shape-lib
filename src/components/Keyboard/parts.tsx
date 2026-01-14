@@ -6,8 +6,7 @@ import {
   RIGHT_PADDING_FACTOR,
   transitionStepTime,
 } from "./helpers/constants";
-import type { HighlightMusicFuntion } from "./helpers/scaleLogic";
-import { musicFunctionColors } from "./helpers/parts";
+import { type HighlightMusicFuntion, musicFunctionColors } from "./helpers/scaleLogic";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
@@ -61,7 +60,8 @@ const commonStyleForKey = css`
   border: 1px solid var(--border);
   border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
   box-shadow: inset 0 0px 3px 0px var(--input);
-  transition: ${transitionStepTime}ms;
+  transition: box-shadow ${transitionStepTime}ms ease-in-out,
+    border-color ${transitionStepTime}ms ease-in-out;
 `;
 
 const whiteKey = css`
@@ -93,9 +93,14 @@ export const Key = styled.div<KeyProps>`
   flex: 1;
   width: 0;
   position: relative;
+  cursor: pointer;
   ${({ $isWhiteKey }) => ($isWhiteKey ? whiteKey : blackKey)}
 
   ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
+  
+  &:hover {
+    filter: brightness(1.5);
+  }
 
   ${({ $isHighlighted, $isWhiteKey, $isHighlightMusicFunction }) => {
     const color = musicFunctionColors[$isHighlightMusicFunction];
@@ -106,13 +111,15 @@ export const Key = styled.div<KeyProps>`
             &::after {
               border-color: ${color};
               box-shadow: inset 0 -23px 35px -4px ${color};
-              transition: ${transitionStepTime}ms;
+              transition: box-shadow ${transitionStepTime}ms ease-in-out,
+                border-color ${transitionStepTime}ms ease-in-out;
             }
           `
         : css`
             border-color: ${color};
             box-shadow: inset 0 -17px 20px 0px ${color};
-            transition: ${transitionStepTime}ms;
+            transition: box-shadow ${transitionStepTime}ms ease-in-out,
+              border-color ${transitionStepTime}ms ease-in-out;
           `)
     );
   }}

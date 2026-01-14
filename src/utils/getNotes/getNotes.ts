@@ -68,7 +68,7 @@ export const getNotes = ({
     const sharpNoteName = NOTES_SHARP[noteIndex];
     const flatNoteName = NOTES_FLAT[noteIndex];
     const octaveNumber = firstOctave + octaveOffset;
-    const isEnharmonic = flatNoteName !== flatNoteName;
+    const isEnharmonic = flatNoteName !== sharpNoteName;
     const noteId = `${sharpNoteName}-${octaveNumber}`;
 
     return {

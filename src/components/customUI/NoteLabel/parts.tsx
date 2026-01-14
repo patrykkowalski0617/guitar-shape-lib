@@ -36,6 +36,7 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  user-select: none;
   .mainLabel,
   .optionalLabel {
     transition: 300ms ease-in-out;

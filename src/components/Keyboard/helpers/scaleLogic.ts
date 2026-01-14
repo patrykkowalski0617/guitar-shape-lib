@@ -28,8 +28,8 @@ export const getHighlightMusicFuntion = (
 };
 
 export const musicFunctionColors = {
-  tonic: "#3b82f6",
-  subdominant: "#10b981",
+  tonic: "var(--secondary)",
+  subdominant: "var(--primary)",
   dominant: "#f59e0b",
   none: "var(--accent)",
 };

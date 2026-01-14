@@ -6,7 +6,7 @@ import {
   transitionStepTime,
 } from "../helpers/constants";
 import type { HighlightMusicFuntion } from "../helpers/scaleLogic";
-import { musicFunctionColors } from "../helpers/parts";
+import { musicFunctionColors } from "../helpers/scaleLogic";
 
 interface MarkerProps {
   $step: number;
@@ -44,23 +44,21 @@ export const Marker = styled.div<MarkerProps>`
   animation: ${({ $isVisible }) =>
     $isVisible
       ? css`
-          ${appearing} 300ms forwards
+          ${appearing} ${transitionStepTime}ms forwards
         `
       : "none"};
   position: absolute;
   border: 1px solid var(--border);
   bottom: 0px;
-  height: 5px;
+  height: 8px;
   border-radius: 4px 4px 0 0;
   background-color: ${({ $isHighlightMusicFunction }) =>
     musicFunctionColors[$isHighlightMusicFunction]};
   width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
-  transition: ${transitionStepTime}ms ${transitionStepTime}ms ease-in-out,
-    background-color 0.3s ease;
+  transition: ${transitionStepTime}ms ease-in-out;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
   box-shadow: 0 0 8px rgba(57, 127, 151, 0.4);
-
   ${({ $isHarmonicMinor }) =>
     $isHarmonicMinor &&
     css`

@@ -1,9 +1,59 @@
 import { useMemo, useEffect } from "react";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
-import { UNIFIED_MUSIC_KEYS } from "@/utils";
+import { UNIFIED_MUSIC_KEYS, type MusicFunctionId, type NoteObject } from "@/utils";
 import { notes, firstAIndex } from "@/components/Keyboard/helpers/constants";
-import { getScaleIndices } from "@/components/Keyboard/helpers/getScaleIndices";
+import {
+  getHighlightMusicFuntion,
+  type HighlightMusicFuntion,
+} from "@/components/Keyboard/helpers/scaleLogic";
+
+export interface ScaleDegreeInfo {
+  noteId: string;
+  role: HighlightMusicFuntion;
+}
+
+interface GetScaleIndicesArgs {
+  firstAIndex: number;
+  templateOffset: number;
+  isMajorMode: boolean;
+  steps: number[];
+  currentMusicFunctionId: MusicFunctionId | null;
+  notes: NoteObject[];
+}
+
+const getScaleIndices = ({
+  firstAIndex,
+  templateOffset,
+  isMajorMode,
+  steps,
+  currentMusicFunctionId,
+  notes,
+}: GetScaleIndicesArgs): ScaleDegreeInfo[] => {
+  return steps
+    .map((step, index) => {
+      const isVisible = isMajorMode ? index >= 2 : index <= steps.length - 3;
+      if (!isVisible) return null;
+
+      let finalIndex = firstAIndex + templateOffset + step;
+
+      const isHarmonicMinor = !isMajorMode && index % 7 === 6;
+      if (isHarmonicMinor) {
+        finalIndex += 1;
+      }
+
+      const targetNote = notes[finalIndex];
+
+      if (!targetNote) return null;
+
+      return {
+        // Konwersja na string dla pewności zgodności typów
+        noteId: String(targetNote.noteId),
+        role: getHighlightMusicFuntion(index, isMajorMode, currentMusicFunctionId),
+      };
+    })
+    .filter((item): item is ScaleDegreeInfo => item !== null);
+};
 
 export const useActiveScale = () => {
   const { currentKeyId, isMajorMode, currentMusicFunctionId } = useControlsStore();
@@ -18,9 +68,12 @@ export const useActiveScale = () => {
       isMajorMode,
       steps: activeScaleSteps,
       currentMusicFunctionId,
+      notes,
     });
 
-    const scaleNotes = scaleInfo.map((info) => notes[info.index]);
+    const scaleNotes = scaleInfo
+      .map((info) => notes.find((n) => String(n.noteId) === info.noteId))
+      .filter((n): n is NoteObject => n !== undefined);
 
     return {
       activeScaleIndices: scaleInfo,

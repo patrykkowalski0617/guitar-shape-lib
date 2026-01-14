@@ -21,7 +21,6 @@ export default function Keyboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
   const { activeScaleIndices } = useActiveScale();
-  console.log(activeScaleIndices);
 
   return (
     <S.KeyboardWrapper>
@@ -29,12 +28,13 @@ export default function Keyboard(): JSX.Element {
       <S.Keyboard $numberOfKeys={numberOfKeys}>
         {notes.map(({ flatNoteName, sharpNoteName, isEnharmonic, noteId }, index) => {
           const noteIndex = (index + keysOffset) % 12;
-          const scaleDegree = activeScaleIndices.find((s) => s.index === index);
+
+          const scaleDegree = activeScaleIndices.find((s) => s.noteId === noteId);
           const isHighlighted = !!scaleDegree;
 
           return (
             <S.Key
-              key={index}
+              key={noteId}
               $isHighlighted={isHighlighted}
               $isHighlightMusicFunction={scaleDegree?.role || "none"}
               $isWhiteKey={majorScale.includes(noteIndex)}
