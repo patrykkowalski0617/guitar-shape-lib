@@ -3,7 +3,7 @@ import Fretboard from "./components/Fretboard/Fretboard";
 import Keyboard from "./components/Keyboard/Keyboard";
 import KeySelect from "./components/KeySelect/KeySelect";
 import ModeSelect from "./components/ModeSelect/ModeSelect";
-import MusicFunctionSelect from "./components/MusicFunctionSelect/MusicFunctionSelect";
+import RoleSelect from "./components/RoleSelect/RoleSelect";
 import { useMusicEngine } from "./hooks/useMusicEngine/useMusicEngine";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
         <DescriptiveLabelsSelect />
         <ModeSelect />
         <KeySelect />
-        <MusicFunctionSelect />
+        <RoleSelect />
       </div>
     </>
   );

@@ -6,14 +6,14 @@ import {
   transitionStepTime,
 } from "../helpers/constants";
 import type { HighlightMusicFuntion } from "../helpers/scaleLogic";
-import { musicFunctionColors } from "../helpers/scaleLogic";
+import { roleColors } from "../helpers/scaleLogic";
 
 interface MarkerProps {
   $step: number;
   $numberOfKeys: number;
   $isVisible: boolean;
   $isHarmonicMinor: boolean;
-  $isHighlightMusicFunction: HighlightMusicFuntion;
+  $isHighlightRole: HighlightMusicFuntion;
 }
 
 interface TemplateWrapperProps {
@@ -52,8 +52,7 @@ export const Marker = styled.div<MarkerProps>`
   bottom: 0px;
   height: 8px;
   border-radius: 4px 4px 0 0;
-  background-color: ${({ $isHighlightMusicFunction }) =>
-    musicFunctionColors[$isHighlightMusicFunction]};
+  background-color: ${({ $isHighlightRole }) => roleColors[$isHighlightRole]};
   width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
   transition: ${transitionStepTime}ms ease-in-out;

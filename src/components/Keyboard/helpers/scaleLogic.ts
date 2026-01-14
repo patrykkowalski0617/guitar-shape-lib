@@ -1,11 +1,11 @@
-import { type MusicFunctionId } from "@/utils";
+import { type RoleId } from "@/utils";
 
 export type HighlightMusicFuntion = "tonic" | "subdominant" | "dominant" | "none";
 
 export const getHighlightMusicFuntion = (
   index: number,
   isMajorMode: boolean,
-  currentFunction: MusicFunctionId | null
+  currentFunction: RoleId | null
 ): HighlightMusicFuntion => {
   if (!currentFunction) return "none";
 
@@ -27,7 +27,7 @@ export const getHighlightMusicFuntion = (
   }
 };
 
-export const musicFunctionColors = {
+export const roleColors = {
   tonic: "var(--secondary)",
   subdominant: "var(--primary)",
   dominant: "#f59e0b",

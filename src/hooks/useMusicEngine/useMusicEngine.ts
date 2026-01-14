@@ -4,11 +4,11 @@ import { useMusicStore } from "@/store/useMusicStore";
 import { generateScaleSteps, getStepsCountForFunction } from "@/utils";
 
 export const useMusicEngine = () => {
-  const currentMusicFunctionId = useControlsStore((s) => s.currentMusicFunctionId);
+  const currentRoleId = useControlsStore((s) => s.currentRoleId);
   const setActiveScaleSteps = useMusicStore((s) => s.setActiveScaleSteps);
 
   useEffect(() => {
-    const count = getStepsCountForFunction(currentMusicFunctionId);
+    const count = getStepsCountForFunction(currentRoleId);
     setActiveScaleSteps(generateScaleSteps(count));
-  }, [currentMusicFunctionId, setActiveScaleSteps]);
+  }, [currentRoleId, setActiveScaleSteps]);
 };

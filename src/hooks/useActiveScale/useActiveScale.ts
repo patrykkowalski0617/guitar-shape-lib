@@ -1,7 +1,7 @@
 import { useMemo, useEffect } from "react";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
-import { UNIFIED_MUSIC_KEYS, type MusicFunctionId, type NoteObject } from "@/utils";
+import { UNIFIED_MUSIC_KEYS, type RoleId, type NoteObject } from "@/utils";
 import { notes, firstAIndex } from "@/components/Keyboard/helpers/constants";
 import {
   getHighlightMusicFuntion,
@@ -18,7 +18,7 @@ interface GetScaleIndicesArgs {
   templateOffset: number;
   isMajorMode: boolean;
   steps: number[];
-  currentMusicFunctionId: MusicFunctionId | null;
+  currentRoleId: RoleId | null;
   notes: NoteObject[];
 }
 
@@ -27,7 +27,7 @@ const getScaleIndices = ({
   templateOffset,
   isMajorMode,
   steps,
-  currentMusicFunctionId,
+  currentRoleId,
   notes,
 }: GetScaleIndicesArgs): ScaleDegreeInfo[] => {
   return steps
@@ -49,14 +49,14 @@ const getScaleIndices = ({
       return {
         // Konwersja na string dla pewności zgodności typów
         noteId: String(targetNote.noteId),
-        role: getHighlightMusicFuntion(index, isMajorMode, currentMusicFunctionId),
+        role: getHighlightMusicFuntion(index, isMajorMode, currentRoleId),
       };
     })
     .filter((item): item is ScaleDegreeInfo => item !== null);
 };
 
 export const useActiveScale = () => {
-  const { currentKeyId, isMajorMode, currentMusicFunctionId } = useControlsStore();
+  const { currentKeyId, isMajorMode, currentRoleId } = useControlsStore();
   const { activeScaleSteps, setActiveScaleNotes } = useMusicStore();
 
   const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
@@ -67,7 +67,7 @@ export const useActiveScale = () => {
       templateOffset,
       isMajorMode,
       steps: activeScaleSteps,
-      currentMusicFunctionId,
+      currentRoleId,
       notes,
     });
 
@@ -79,7 +79,7 @@ export const useActiveScale = () => {
       activeScaleIndices: scaleInfo,
       activeScaleNotes: scaleNotes,
     };
-  }, [isMajorMode, templateOffset, activeScaleSteps, currentMusicFunctionId]);
+  }, [isMajorMode, templateOffset, activeScaleSteps, currentRoleId]);
 
   useEffect(() => {
     setActiveScaleNotes(activeScaleNotes);

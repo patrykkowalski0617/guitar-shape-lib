@@ -36,7 +36,7 @@ export default function Keyboard(): JSX.Element {
             <S.Key
               key={noteId}
               $isHighlighted={isHighlighted}
-              $isHighlightMusicFunction={scaleDegree?.role || "none"}
+              $isHighlightRole={scaleDegree?.role || "none"}
               $isWhiteKey={majorScale.includes(noteIndex)}
               $keyShape={KEY_SHAPE_MAP[noteIndex]}
             >

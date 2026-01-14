@@ -1,4 +1,4 @@
-import type { MusicFunctionId } from "../musicFunctions/musicFunctions";
+import type { RoleId } from "../roles/roles";
 
 const BASE_SCALE_PATTERN = [0, 2, 3, 5, 7, 8, 10];
 
@@ -10,7 +10,7 @@ export const generateScaleSteps = (count: number): number[] => {
   });
 };
 
-export const getStepsCountForFunction = (functionId: MusicFunctionId | null): number => {
+export const getStepsCountForFunction = (functionId: RoleId | null): number => {
   switch (functionId) {
     case "tonic":
       return 16;
