@@ -1,7 +1,7 @@
 import { type JSX } from "react";
 import * as S from "./parts";
-import { majorScale, UNIFIED_MUSIC_KEYS, NOTES_SHARP } from "@/utils"; // Dodano NOTES_SHARP
-import { notes, numberOfKeys } from "./helpers/constants"; // keysOffset już tu niepotrzebny
+import { majorScale, UNIFIED_MUSIC_KEYS, NOTES_SHARP } from "@/utils";
+import { notes, numberOfKeys } from "./helpers/constants";
 import { useControlsStore } from "@/store/useControlsStore";
 import NoteLabel from "../customUI/NoteLabel/NoteLabel";
 import { useActiveScale } from "@/hooks/useActiveScale/useActiveScale";

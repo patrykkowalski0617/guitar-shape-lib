@@ -1,6 +1,6 @@
 import { getNotes, type Note } from "@/utils/getNotes/getNotes";
 
-export const KEY_PADDING = 0.75; //* for proper css calc
+export const KEY_PADDING = 0.75; //- for proper css calc
 export const numberOfKeys = 49;
 export const transitionStepTime = 1000;
 

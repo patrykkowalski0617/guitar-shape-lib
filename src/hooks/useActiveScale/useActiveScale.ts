@@ -47,7 +47,6 @@ const getScaleIndices = ({
       if (!targetNote) return null;
 
       return {
-        // Konwersja na string dla pewności zgodności typów
         noteId: String(targetNote.noteId),
         role: getHighlightMusicFuntion(index, isMajorMode, currentRoleId),
       };
