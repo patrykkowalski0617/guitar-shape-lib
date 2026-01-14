@@ -87,7 +87,7 @@ const blackKey = css`
   ${commonStyleForKey}
 `;
 
-const keyboardBorderRadius = "var(--radius-md) ";
+const keyboardBorderRadius = "var(--radius-xl) ";
 
 export const Key = styled.div<KeyProps>`
   flex: 1;
@@ -118,7 +118,7 @@ export const Key = styled.div<KeyProps>`
   }}
 
   &:first-child::after {
-    border-radius: ${keyboardBorderRadius} 0 ${keyBorderRadius} ${keyboardBorderRadius};
+    border-radius: ${keyboardBorderRadius} 0 ${keyBorderRadius} ${keyBorderRadius};
   }
   &:last-child::after {
     border-radius: 0 ${keyboardBorderRadius} ${keyBorderRadius} ${keyBorderRadius};

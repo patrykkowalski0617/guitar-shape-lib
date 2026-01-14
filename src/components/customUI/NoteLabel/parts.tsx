@@ -7,7 +7,7 @@ interface StyledNoteLabelProps {
 }
 
 const highlightedColor = "var(--foreground)";
-const unHighlightedColor = "var(--muted-foreground)";
+const unHighlightedColor = "var(--muted)";
 
 const getStaticStyles = (isHighlighted: boolean) => css`
   font-size: 12px;
@@ -24,7 +24,6 @@ const getLabelStyles = (isActive: boolean, isHighlighted: boolean, multiplier: n
   line-height: 1;
   font-size: ${isActive ? "12px" : "9px"};
   color: ${isActive && isHighlighted ? highlightedColor : unHighlightedColor};
-  opacity: ${isActive ? "1" : "0.6"};
   font-weight: ${isActive ? "bold" : "normal"};
   transform: translateY(${isActive ? 9.5 * multiplier : -5 * multiplier}px);
 `;

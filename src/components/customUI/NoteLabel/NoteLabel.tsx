@@ -1,10 +1,10 @@
 import { type JSX } from "react";
-import { getEnharmonicEquivalent, getNotes, type Note } from "@/utils";
 import * as S from "./parts";
+import { getNotes, type NoteFlat, type NoteSharp } from "@/utils";
 
 interface NoteLabelProps {
   index: number;
-  firstNote: Note;
+  firstNote: NoteSharp | NoteFlat;
   isFlatKey: boolean;
   isHighlighted: boolean;
 }
@@ -15,23 +15,21 @@ export default function NoteLabel({
   isFlatKey,
   isHighlighted,
 }: NoteLabelProps): JSX.Element {
-  const sharpNote = getNotes({ firstNote, length: index + 1, isFlatKey: false })[index];
-  const flatNote = getNotes({
-    firstNote: getEnharmonicEquivalent(firstNote),
-    length: index + 1,
-    isFlatKey: true,
-  })[index];
+  const noteObj = getNotes({ firstNote, length: index + 1 })[index];
 
-  const isEnharmonicNote = sharpNote !== flatNote;
+  const { sharpNoteName, flatNoteName, isEnharmonic } = noteObj;
 
   return (
     <S.Wrapper
       $isFlatKey={isFlatKey}
-      $isEnharmonicNote={isEnharmonicNote}
+      $isEnharmonicNote={isEnharmonic}
       $isHighlighted={isHighlighted}
     >
-      <div className="mainLabel">{sharpNote}</div>
-      {isEnharmonicNote && <div className="optionalLabel">{flatNote}</div>}
+      <div className="mainLabel">{isFlatKey ? flatNoteName : sharpNoteName}</div>
+
+      {isEnharmonic && (
+        <div className="optionalLabel">{isFlatKey ? sharpNoteName : flatNoteName}</div>
+      )}
     </S.Wrapper>
   );
 }

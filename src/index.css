@@ -36,33 +36,26 @@
 :root {
   --radius: 0.65rem;
 
-  /* Tło: Głęboki, mroźny granat (używamy Twojego #32616f jako bazy dla cieni) */
-  --background: hsl(193 40% 4%); /* Bardzo ciemny wariant #32616f */
-  --foreground: hsl(0 0% 93%); /* #eeeeee */
+  --background: hsl(193 40% 4%);
+  --foreground: hsl(0 0% 93%);
 
-  /* Karty i UI: Wykorzystujemy #353535 zmieszany z morskim */
   --card: hsl(193 20% 12%);
   --card-foreground: hsl(0 0% 93%);
   --popover: hsl(193 20% 10%);
   --popover-foreground: hsl(0 0% 93%);
 
-  /* Primary: Twój róż #b74277 - świetnie odcina się od granatu */
   --primary: hsl(332 47% 49%);
   --primary-foreground: hsl(0 0% 100%);
 
-  /* Secondary: Twój ciemny niebieski #003f98 */
   --secondary: hsl(215 100% 30%);
   --secondary-foreground: hsl(0 0% 100%);
 
-  /* Muted: Twój szary #353535 */
   --muted: hsl(0 0% 21%);
-  --muted-foreground: hsl(193 25% 55%); /* Wyblakły morski */
+  --muted-foreground: hsl(193 25% 55%);
 
-  /* Accent: Twój morski #397f97 */
   --accent: hsl(195 45% 41%);
   --accent-foreground: hsl(0 0% 100%);
 
-  /* Borders: Twoja ciemna morska zieleń #32616f */
   --border: hsl(193 38% 32%);
   --input: hsl(193 38% 32%);
   --ring: hsl(195 45% 41%);
