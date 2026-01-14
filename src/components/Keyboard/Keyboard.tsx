@@ -1,7 +1,7 @@
 import { type JSX } from "react";
 import * as S from "./parts";
-import { majorScale, UNIFIED_MUSIC_KEYS } from "@/utils";
-import { keysOffset, notes, numberOfKeys } from "./helpers/constants";
+import { majorScale, UNIFIED_MUSIC_KEYS, NOTES_SHARP } from "@/utils"; // Dodano NOTES_SHARP
+import { notes, numberOfKeys } from "./helpers/constants"; // keysOffset już tu niepotrzebny
 import { useControlsStore } from "@/store/useControlsStore";
 import NoteLabel from "../customUI/NoteLabel/NoteLabel";
 import { useActiveScale } from "@/hooks/useActiveScale/useActiveScale";
@@ -27,7 +27,7 @@ export default function Keyboard(): JSX.Element {
       <ScaleTemplate />
       <S.Keyboard $numberOfKeys={numberOfKeys}>
         {notes.map(({ flatNoteName, sharpNoteName, isEnharmonic, noteId }, index) => {
-          const noteIndex = (index + keysOffset) % 12;
+          const noteIndex = NOTES_SHARP.indexOf(sharpNoteName);
 
           const scaleDegree = activeScaleIndices.find((s) => s.noteId === noteId);
           const isHighlighted = !!scaleDegree;
