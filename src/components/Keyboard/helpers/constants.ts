@@ -7,7 +7,7 @@ export const keysOffset = 4; // 0 = starting form C
 export const transitionStepTime = 1000;
 
 export const firstNote = NOTES_SHARP[((keysOffset % 12) + 12) % 12];
-export const notes = getNotes({ length: numberOfKeys, firstNote });
+export const notes = getNotes({ length: numberOfKeys, firstNote, firstOctave: 2 });
 export const lastNote = notes[notes.length - 1].sharpNoteName;
 
 const notesSequence = getNotes({ length: 12, firstNote });

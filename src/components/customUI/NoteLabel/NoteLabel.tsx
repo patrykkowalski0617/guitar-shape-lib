@@ -24,11 +24,9 @@ export default function NoteLabel({
       $isEnharmonicNote={isEnharmonic}
       $isHighlighted={isHighlighted}
     >
-      <div className="mainLabel">{isFlatKey ? flatNoteName : sharpNoteName}</div>
+      <div className="mainLabel">{sharpNoteName}</div>
 
-      {isEnharmonic && (
-        <div className="optionalLabel">{isFlatKey ? sharpNoteName : flatNoteName}</div>
-      )}
+      {isEnharmonic && <div className="optionalLabel">{flatNoteName}</div>}
     </S.Wrapper>
   );
 }

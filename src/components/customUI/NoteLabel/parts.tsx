@@ -6,12 +6,11 @@ interface StyledNoteLabelProps {
   $isHighlighted: boolean;
 }
 
-const highlightedColor = "var(--foreground)";
+const highlightedColor = "var(--muted-foreground)";
 const unHighlightedColor = "var(--muted)";
 
 const getStaticStyles = (isHighlighted: boolean) => css`
   font-size: 12px;
-  opacity: 1;
   transform: translateY(0);
   height: 20px;
   line-height: 1;
@@ -25,18 +24,18 @@ const getLabelStyles = (isActive: boolean, isHighlighted: boolean, multiplier: n
   font-size: ${isActive ? "12px" : "9px"};
   color: ${isActive && isHighlighted ? highlightedColor : unHighlightedColor};
   font-weight: ${isActive ? "bold" : "normal"};
-  transform: translateY(${isActive ? 9.5 * multiplier : -5 * multiplier}px);
+  transform: translateY(${isActive ? 10 * multiplier : -5 * multiplier}px);
 `;
 
 export const Wrapper = styled.div<StyledNoteLabelProps>`
   z-index: 1;
   position: relative;
-  height: 65px;
+  height: 40px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  user-select: none;
   .mainLabel,
   .optionalLabel {
     transition: 300ms ease-in-out;

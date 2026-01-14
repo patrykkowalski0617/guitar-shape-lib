@@ -68,6 +68,7 @@ const whiteKey = css`
   height: 180px;
   z-index: 1;
   border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
+  padding-top: 1px;
   &::after {
     content: "";
     position: absolute;
