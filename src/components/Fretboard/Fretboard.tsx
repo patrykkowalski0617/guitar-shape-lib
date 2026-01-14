@@ -5,21 +5,25 @@ import NoteLabel from "../customUI/NoteLabel/NoteLabel";
 export default function Fretboard() {
   return (
     <>
-      {STRINGS_FIRST_NOTES.map((firstNote) => {
+      {STRINGS_FIRST_NOTES.map(({ noteName }, index) => {
         return (
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            {getNotes({ firstNote, length: numberOfFrets }).map((_, index) => {
-              return (
-                <div key={index}>
-                  <NoteLabel
-                    isHighlighted={true}
-                    index={index}
-                    firstNote={firstNote}
-                    isFlatKey={false}
-                  />
-                </div>
-              );
-            })}
+          <div style={{ display: "flex", flexDirection: "row" }} key={`${index}-${noteName}`}>
+            {getNotes({ firstNote: noteName, length: numberOfFrets }).map(
+              ({ isEnharmonic, flatNoteName, sharpNoteName }, index) => {
+                return (
+                  <div key={index} style={{ height: "40px" }}>
+                    <NoteLabel
+                      isHighlighted={true}
+                      index={index}
+                      flatNoteName={flatNoteName}
+                      sharpNoteName={sharpNoteName}
+                      isFlatKey={false}
+                      isEnharmonic={isEnharmonic}
+                    />
+                  </div>
+                );
+              }
+            )}
           </div>
         );
       })}

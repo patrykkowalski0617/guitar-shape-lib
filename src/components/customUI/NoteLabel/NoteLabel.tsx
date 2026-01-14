@@ -1,24 +1,23 @@
 import { type JSX } from "react";
 import * as S from "./parts";
-import { getNotes, type NoteFlat, type NoteSharp } from "@/utils";
+import { type Note } from "@/utils";
 
 interface NoteLabelProps {
   index: number;
-  firstNote: NoteSharp | NoteFlat;
+  flatNoteName: Note;
+  sharpNoteName: Note;
   isFlatKey: boolean;
   isHighlighted: boolean;
+  isEnharmonic: boolean;
 }
 
 export default function NoteLabel({
-  index,
-  firstNote,
   isFlatKey,
   isHighlighted,
+  sharpNoteName,
+  flatNoteName,
+  isEnharmonic,
 }: NoteLabelProps): JSX.Element {
-  const noteObj = getNotes({ firstNote, length: index + 1 })[index];
-
-  const { sharpNoteName, flatNoteName, isEnharmonic } = noteObj;
-
   return (
     <S.Wrapper
       $isFlatKey={isFlatKey}
