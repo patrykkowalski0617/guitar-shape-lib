@@ -30,6 +30,7 @@ export const NOTES_FLAT = [
 
 export type NoteSharp = (typeof NOTES_SHARP)[number];
 export type NoteFlat = (typeof NOTES_FLAT)[number];
+export type Note = NoteSharp | NoteFlat;
 
 export interface NoteObject {
   sharpNoteName: NoteSharp;

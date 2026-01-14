@@ -1,5 +1,4 @@
 export * from "./arpsAndScales/arpsAndScales";
-export * from "./getEnharmonicEquivalent/getEnharmonicEquivalent";
 export * from "./getMinorMajorScaleSteps/getMinorMajorScaleSteps";
 export * from "./getNotes/getNotes";
 export * from "./intervals/intervals";
