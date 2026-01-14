@@ -3,6 +3,7 @@ import { numberOfFrets, STRINGS_FIRST_NOTES } from "./helpers/constants";
 import NoteLabel from "../customUI/NoteLabel/NoteLabel";
 import { useActiveScale } from "@/hooks/useActiveScale/useActiveScale";
 import { useControlsStore } from "@/store/useControlsStore";
+import { transitionStepTime } from "../Keyboard/helpers/constants";
 
 export default function Fretboard() {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
@@ -25,19 +26,23 @@ export default function Fretboard() {
                 <div
                   key={index}
                   style={{
-                    height: "30px",
-                    margin: "5px",
+                    margin: "3px",
                     fontSize: "12px",
-                    background: isHighlighted ? "red" : "black",
+                    background: isHighlighted ? "gold" : "black",
+                    display: "flex",
+                    justifyContent: "cener",
+                    alignItems: "center",
+                    transition: `${transitionStepTime}ms`,
+                    width: "30px",
                   }}
                 >
-                  {noteId}
                   <NoteLabel
                     isHighlighted={isHighlighted}
                     index={index}
                     flatNoteName={flatNoteName}
                     sharpNoteName={sharpNoteName}
                     isFlatKey={isFlatKey}
+                    orientation="horizontal"
                     isEnharmonic={isEnharmonic}
                   />
                 </div>
