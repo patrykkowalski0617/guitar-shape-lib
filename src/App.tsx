@@ -4,8 +4,10 @@ import Keyboard from "./components/Keyboard/Keyboard";
 import KeySelect from "./components/KeySelect/KeySelect";
 import ModeSelect from "./components/ModeSelect/ModeSelect";
 import MusicFunctionSelect from "./components/MusicFunctionSelect/MusicFunctionSelect";
+import { useMusicEngine } from "./hooks/useMusicEngine/useMusicEngine";
 
 function App() {
+  useMusicEngine();
   return (
     <>
       <Keyboard />

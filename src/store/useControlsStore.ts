@@ -1,65 +1,27 @@
-import {
-  generateScaleSteps,
-  getStepsCountForFunction,
-  type MusicFunctionId,
-  type MusicKeyId,
-  type Note,
-} from "@/utils";
 import { create } from "zustand";
+import { type MusicFunctionId, type MusicKeyId } from "@/utils";
 
 interface ControlsState {
   isMajorMode: boolean;
   setIsMajorMode: (isMajorMode: boolean) => void;
-
   currentKeyId: MusicKeyId;
   setCurrentKey: (id: MusicKeyId) => void;
-
   currentMusicFunctionId: MusicFunctionId | null;
-  setCurrentMusicFunctionId: (id: MusicFunctionId) => void;
-
+  setCurrentMusicFunctionId: (id: MusicFunctionId | null) => void;
   areDescriptiveLabels: boolean;
   setAreDescriptiveLabels: (areDescriptiveLabels: boolean) => void;
-
-  activeScaleNotes: Note[];
-  setActiveScaleNotes: (notes: Note[]) => void;
-
-  activeScaleSteps: number[];
 }
 
 export const useControlsStore = create<ControlsState>((set) => ({
   isMajorMode: true,
-  setIsMajorMode: (isMajorMode) => {
-    set({
-      isMajorMode: isMajorMode,
-      currentMusicFunctionId: null,
-      activeScaleSteps: generateScaleSteps(9),
-    });
-  },
+  setIsMajorMode: (isMajorMode) => set({ isMajorMode, currentMusicFunctionId: null }),
 
   currentKeyId: "C",
-  setCurrentKey: (id) => {
-    set({
-      currentKeyId: id,
-      currentMusicFunctionId: null,
-      activeScaleSteps: generateScaleSteps(9),
-    });
-  },
+  setCurrentKey: (id) => set({ currentKeyId: id, currentMusicFunctionId: null }),
 
   currentMusicFunctionId: null,
-  setCurrentMusicFunctionId: (id) => {
-    const stepsCount = getStepsCountForFunction(id);
-    set({
-      currentMusicFunctionId: id,
-      activeScaleSteps: generateScaleSteps(stepsCount),
-    });
-  },
+  setCurrentMusicFunctionId: (id) => set({ currentMusicFunctionId: id }),
 
   areDescriptiveLabels: false,
-  setAreDescriptiveLabels: (areDescriptiveLabels) =>
-    set({ areDescriptiveLabels: areDescriptiveLabels }),
-
-  activeScaleNotes: [],
-  setActiveScaleNotes: (notes) => set({ activeScaleNotes: notes }),
-
-  activeScaleSteps: generateScaleSteps(9),
+  setAreDescriptiveLabels: (areDescriptiveLabels) => set({ areDescriptiveLabels }),
 }));

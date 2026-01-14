@@ -1,6 +1,7 @@
 import { type JSX } from "react";
 import * as S from "./parts";
 import { useControlsStore } from "@/store/useControlsStore";
+import { useMusicStore } from "@/store/useMusicStore";
 import { numberOfKeys, firstAIndex } from "../helpers/constants";
 import { UNIFIED_MUSIC_KEYS } from "@/utils";
 import { getHighlightMusicFuntion } from "../helpers/scaleLogic";
@@ -8,9 +9,8 @@ import { getHighlightMusicFuntion } from "../helpers/scaleLogic";
 export default function ScaleTemplate(): JSX.Element {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const activeScaleSteps = useControlsStore((state) => state.activeScaleSteps);
   const currentMusicFunctionId = useControlsStore((state) => state.currentMusicFunctionId);
-
+  const activeScaleSteps = useMusicStore((state) => state.activeScaleSteps);
   const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
 
   return (

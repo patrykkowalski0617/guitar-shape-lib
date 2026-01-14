@@ -1,17 +1,13 @@
 import { useMemo, useEffect } from "react";
 import { useControlsStore } from "@/store/useControlsStore";
+import { useMusicStore } from "@/store/useMusicStore";
 import { UNIFIED_MUSIC_KEYS } from "@/utils";
 import { notes, firstAIndex } from "@/components/Keyboard/helpers/constants";
 import { getScaleIndices } from "@/components/Keyboard/helpers/getScaleIndices";
 
 export const useActiveScale = () => {
-  const {
-    currentKeyId,
-    isMajorMode,
-    setActiveScaleNotes,
-    activeScaleSteps,
-    currentMusicFunctionId,
-  } = useControlsStore();
+  const { currentKeyId, isMajorMode, currentMusicFunctionId } = useControlsStore();
+  const { activeScaleSteps, setActiveScaleNotes } = useMusicStore();
 
   const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
 
@@ -24,8 +20,7 @@ export const useActiveScale = () => {
       currentMusicFunctionId,
     });
 
-    const indices = scaleInfo.map((s) => s.index);
-    const scaleNotes = indices.map((index) => notes[index]);
+    const scaleNotes = scaleInfo.map((info) => notes[info.index]);
 
     return {
       activeScaleIndices: scaleInfo,
