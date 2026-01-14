@@ -7,7 +7,7 @@ import {
 } from "@/utils";
 import { create } from "zustand";
 
-interface MusicState {
+interface ControlsState {
   isMajorMode: boolean;
   setIsMajorMode: (isMajorMode: boolean) => void;
 
@@ -26,7 +26,7 @@ interface MusicState {
   activeScaleSteps: number[];
 }
 
-export const useMusicStore = create<MusicState>((set) => ({
+export const useControlsStore = create<ControlsState>((set) => ({
   isMajorMode: true,
   setIsMajorMode: (isMajorMode) => {
     set({

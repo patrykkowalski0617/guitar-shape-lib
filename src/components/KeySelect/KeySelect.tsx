@@ -5,15 +5,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useMusicStore } from "@/store/useMusicStore";
+import { useControlsStore } from "@/store/useControlsStore";
 import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/utils";
 import { GroupWrapper, Label } from "../InputGroup/InputGroup";
 
 export default function KeySelect() {
-  const currentKeyId = useMusicStore((state) => state.currentKeyId);
-  const isMajorMode = useMusicStore((state) => state.isMajorMode);
-  const setCurrentKey = useMusicStore((state) => state.setCurrentKey);
-  const areDescriptiveLabels = useMusicStore((state) => state.areDescriptiveLabels);
+  const currentKeyId = useControlsStore((state) => state.currentKeyId);
+  const isMajorMode = useControlsStore((state) => state.isMajorMode);
+  const setCurrentKey = useControlsStore((state) => state.setCurrentKey);
+  const areDescriptiveLabels = useControlsStore((state) => state.areDescriptiveLabels);
 
   const options = Object.entries(UNIFIED_MUSIC_KEYS).map(([id, data]) => ({
     id: id as MusicKeyId,

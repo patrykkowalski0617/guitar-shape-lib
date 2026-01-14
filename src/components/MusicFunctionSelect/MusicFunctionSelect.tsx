@@ -1,12 +1,12 @@
-import { useMusicStore } from "@/store/useMusicStore";
+import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { GroupWrapper, Label } from "../InputGroup/InputGroup";
 import { musicFunctions, type MusicFunctionData, type MusicFunctionId } from "@/utils";
 
 export default function MusicFunctionSelect() {
-  const currentMusicFunctionId = useMusicStore((state) => state.currentMusicFunctionId);
-  const setCurrentMusicFunctionId = useMusicStore((state) => state.setCurrentMusicFunctionId);
-  const areDescriptiveLabels = useMusicStore((state) => state.areDescriptiveLabels);
+  const currentMusicFunctionId = useControlsStore((state) => state.currentMusicFunctionId);
+  const setCurrentMusicFunctionId = useControlsStore((state) => state.setCurrentMusicFunctionId);
+  const areDescriptiveLabels = useControlsStore((state) => state.areDescriptiveLabels);
 
   const handleValueChange = (v: string) => {
     setCurrentMusicFunctionId(v as MusicFunctionId);

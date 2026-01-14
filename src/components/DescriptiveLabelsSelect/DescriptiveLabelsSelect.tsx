@@ -1,4 +1,4 @@
-import { useMusicStore } from "@/store/useMusicStore";
+import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { GroupWrapper, Label } from "../InputGroup/InputGroup";
 
@@ -18,8 +18,8 @@ const LABEL_OPTIONS = [
 ];
 
 export default function DescriptiveLabelsSelect() {
-  const areDescriptiveLabels = useMusicStore((state) => state.areDescriptiveLabels);
-  const setAreDescriptiveLabels = useMusicStore((state) => state.setAreDescriptiveLabels);
+  const areDescriptiveLabels = useControlsStore((state) => state.areDescriptiveLabels);
+  const setAreDescriptiveLabels = useControlsStore((state) => state.setAreDescriptiveLabels);
   const currentValue = areDescriptiveLabels ? "descriptive" : "standard";
 
   return (

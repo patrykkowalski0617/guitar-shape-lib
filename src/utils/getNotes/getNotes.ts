@@ -37,6 +37,7 @@ export interface NoteObject {
   flatNoteName: NoteFlat;
   octaveNumber: number;
   isEnharmonic: boolean;
+  noteId: string;
 }
 
 interface GetNotesArgs {
@@ -64,14 +65,18 @@ export const getNotes = ({
     const noteIndex = totalIndex % 12;
     const octaveOffset = Math.floor(totalIndex / 12);
 
-    const sharpName = NOTES_SHARP[noteIndex];
-    const flatName = NOTES_FLAT[noteIndex];
+    const sharpNoteName = NOTES_SHARP[noteIndex];
+    const flatNoteName = NOTES_FLAT[noteIndex];
+    const octaveNumber = firstOctave + octaveOffset;
+    const isEnharmonic = flatNoteName !== flatNoteName;
+    const noteId = `${sharpNoteName}-${octaveNumber}`;
 
     return {
-      sharpNoteName: sharpName,
-      flatNoteName: flatName,
-      octaveNumber: firstOctave + octaveOffset,
-      isEnharmonic: sharpName !== flatName,
+      sharpNoteName,
+      flatNoteName,
+      octaveNumber,
+      isEnharmonic,
+      noteId,
     };
   });
 };
