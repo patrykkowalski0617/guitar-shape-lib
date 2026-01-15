@@ -1,3 +1,4 @@
+import { BoardsWrapper } from "./components/customUI/Boards/parts";
 import DescriptiveLabelsSelect from "./components/DescriptiveLabelsSelect/DescriptiveLabelsSelect";
 import Fretboard from "./components/Fretboard/Fretboard";
 import Keyboard from "./components/Keyboard/Keyboard";
@@ -10,8 +11,10 @@ function App() {
   useMusicEngine();
   return (
     <>
-      <Keyboard />
-      <Fretboard />
+      <BoardsWrapper>
+        <Keyboard />
+        <Fretboard />
+      </BoardsWrapper>
       <div className="flex flex-row items-end justify-center gap-6 p-4 w-full bg-background">
         <DescriptiveLabelsSelect />
         <ModeSelect />

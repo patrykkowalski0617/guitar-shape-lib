@@ -16,8 +16,10 @@ interface NoteProps {
 
 export const Note = styled.div<NoteProps>`
   border-radius: 4px;
+  border: 1px solid var(--border);
+  box-shadow: inset 0 0px 3px 0px var(--input);
   width: 100%;
-  height: 22px;
+  height: 25px;
   display: flex;
   justify-content: center;
   align-items: center;

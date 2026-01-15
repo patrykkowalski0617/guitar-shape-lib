@@ -28,7 +28,7 @@ const getLabelStyles = (
   orientation: LabelOrientation
 ) => {
   const valY = isActive ? 10 * multiplier : -5 * multiplier;
-  const valX = isActive ? 0 * multiplier : 0 * multiplier;
+  const valX = isActive ? 2 * multiplier : -3 * multiplier;
   const transform = orientation === "vertical" ? `translateY(${valY}px)` : `translateX(${valX}px)`;
 
   return css`

@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
 export const BoardWrapper = styled.div`
-  max-width: 1000px;
+  max-width: 1100px;
+  min-width: 900px;
   margin: auto;
   overflow: hidden;
-  padding: 0 2px 0 1px;
+`;
+
+export const BoardsWrapper = styled.div`
+  margin: auto;
+  overflow: auto;
 `;
