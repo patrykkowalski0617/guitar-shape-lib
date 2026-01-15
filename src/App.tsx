@@ -1,5 +1,5 @@
 import { BoardsWrapper } from "./components/customUI/Boards/parts";
-import DescriptiveLabelsSelect from "./components/DescriptiveLabelsSelect/DescriptiveLabelsSelect";
+import DescriptiveLabelsSelect from "./components/Settings/DescriptiveLabelsSelect/DescriptiveLabelsSelect";
 import Fretboard from "./components/Fretboard/Fretboard";
 import Keyboard from "./components/Keyboard/Keyboard";
 import KeySelect from "./components/KeySelect/KeySelect";
