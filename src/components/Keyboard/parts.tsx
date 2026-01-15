@@ -38,13 +38,6 @@ const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   B: css`&::after {left: -80%;}`,
 };
 
-export const KeyboardWrapper = styled.div`
-  max-width: 1000px;
-  margin: auto;
-  overflow: hidden;
-  padding: 0 2px 0 1px;
-`;
-
 export const Keyboard = styled.div<KeyboardProps>`
   display: flex;
   position: relative;

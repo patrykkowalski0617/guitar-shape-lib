@@ -6,6 +6,7 @@ import { useControlsStore } from "@/store/useControlsStore";
 import NoteLabel from "../customUI/NoteLabel/NoteLabel";
 import { useActiveScale } from "@/hooks/useActiveScale/useActiveScale";
 import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
+import { BoardWrapper } from "../customUI/Boards/parts";
 
 const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
@@ -23,7 +24,7 @@ export default function Keyboard(): JSX.Element {
   const { activeScaleIndices } = useActiveScale();
 
   return (
-    <S.KeyboardWrapper>
+    <BoardWrapper>
       <ScaleTemplate />
       <S.Keyboard $numberOfKeys={numberOfKeys}>
         {notes.map(({ flatNoteName, sharpNoteName, isEnharmonic, noteId }, index) => {
@@ -52,6 +53,6 @@ export default function Keyboard(): JSX.Element {
           );
         })}
       </S.Keyboard>
-    </S.KeyboardWrapper>
+    </BoardWrapper>
   );
 }

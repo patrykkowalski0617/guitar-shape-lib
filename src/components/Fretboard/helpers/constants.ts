@@ -13,4 +13,5 @@ export const STRINGS_FIRST_NOTES = [
   { noteName: "A", octaveNumber: 2 },
   { noteName: "E", octaveNumber: 2 },
 ] as const;
+
 export const numberOfFrets = 25;
