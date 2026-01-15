@@ -15,11 +15,11 @@ function App() {
         <Keyboard />
         <Fretboard />
       </BoardsWrapper>
-      <div className="flex flex-row items-end justify-center gap-6 p-4 w-full bg-background">
-        <Settings />
+      <div className="flex flex-row flex-wrap items-end justify-center gap-6 p-4 w-full bg-background">
         <ModeSelect />
         <KeySelect />
         <RoleSelect />
+        <Settings />
       </div>
     </>
   );
