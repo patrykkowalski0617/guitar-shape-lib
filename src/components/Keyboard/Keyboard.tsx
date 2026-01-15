@@ -3,10 +3,11 @@ import * as S from "./parts";
 import { majorScale, UNIFIED_MUSIC_KEYS, NOTES_SHARP } from "@/utils";
 import { notes, numberOfKeys } from "./helpers/constants";
 import { useControlsStore } from "@/store/useControlsStore";
-import NoteLabel from "../customUI/NoteLabel/NoteLabel";
 import { useActiveScale } from "@/hooks/useActiveScale/useActiveScale";
 import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import { BoardWrapper } from "../customUI/Boards/parts";
+import KeyboardKey from "./KeyboardKey/KeyboardKey";
+import { useMusicStore } from "@/store/useMusicStore";
 
 const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
@@ -21,35 +22,34 @@ const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
 export default function Keyboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
+  const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
+  const activeNoteId = useMusicStore((state) => state.activeNoteId);
+
   const { activeScaleIndices } = useActiveScale();
 
   return (
     <BoardWrapper>
       <ScaleTemplate />
       <S.Keyboard $numberOfKeys={numberOfKeys}>
-        {notes.map(({ flatNoteName, sharpNoteName, isEnharmonic, noteId }, index) => {
-          const noteIndex = NOTES_SHARP.indexOf(sharpNoteName);
-
-          const scaleDegree = activeScaleIndices.find((s) => s.noteId === noteId);
-          const isHighlighted = !!scaleDegree;
+        {notes.map((note, index) => {
+          const noteIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
+          const scaleDegree = activeScaleIndices.find((s) => s.noteId === note.noteId);
 
           return (
-            <S.Key
-              key={noteId}
-              $isHighlighted={isHighlighted}
-              $isHighlightRole={scaleDegree?.role || "none"}
-              $isWhiteKey={majorScale.includes(noteIndex)}
-              $keyShape={KEY_SHAPE_MAP[noteIndex]}
-            >
-              <NoteLabel
-                isHighlighted={isHighlighted}
-                index={index}
-                flatNoteName={flatNoteName}
-                sharpNoteName={sharpNoteName}
-                isFlatKey={isFlatKey}
-                isEnharmonic={isEnharmonic}
-              />
-            </S.Key>
+            <KeyboardKey
+              key={note.noteId}
+              note={note}
+              index={index}
+              noteIndex={noteIndex}
+              isHighlighted={!!scaleDegree}
+              isFlatKey={isFlatKey}
+              scaleDegree={scaleDegree}
+              isActive={activeNoteId === note.noteId}
+              onHover={setActiveNoteId}
+              onLeave={() => setActiveNoteId(null)}
+              keyShape={KEY_SHAPE_MAP[noteIndex]}
+              majorScale={majorScale}
+            />
           );
         })}
       </S.Keyboard>
