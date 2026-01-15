@@ -24,7 +24,7 @@ export default function DescriptiveLabelsSelect() {
   return (
     <div className="flex flex-col gap-3 w-full items-stretch">
       <span className="text-xs font-semibold text-foreground ml-1">
-        {areDescriptiveLabels ? "Only right option" : "Labels Type"}
+        {areDescriptiveLabels ? "Only right option is 'Descriptive'" : "Labels Type"}
       </span>
 
       <ToggleGroup
