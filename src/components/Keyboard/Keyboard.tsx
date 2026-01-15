@@ -5,7 +5,7 @@ import { notes, numberOfKeys } from "./helpers/constants";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useActiveScale } from "@/hooks/useActiveScale/useActiveScale";
 import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
-import { BoardWrapper } from "../customUI/Boards/parts";
+import { BoardScrollWrapper, BoardWrapper } from "../customUI/Boards/parts";
 import KeyboardKey from "./KeyboardKey/KeyboardKey";
 import { useMusicStore } from "@/store/useMusicStore";
 
@@ -28,31 +28,33 @@ export default function Keyboard(): JSX.Element {
   const { activeScaleIndices } = useActiveScale();
 
   return (
-    <BoardWrapper>
-      <ScaleTemplate />
-      <S.Keyboard $numberOfKeys={numberOfKeys}>
-        {notes.map((note, index) => {
-          const noteIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
-          const scaleDegree = activeScaleIndices.find((s) => s.noteId === note.noteId);
+    <BoardScrollWrapper>
+      <BoardWrapper>
+        <ScaleTemplate />
+        <S.Keyboard $numberOfKeys={numberOfKeys}>
+          {notes.map((note, index) => {
+            const noteIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
+            const scaleDegree = activeScaleIndices.find((s) => s.noteId === note.noteId);
 
-          return (
-            <KeyboardKey
-              key={note.noteId}
-              note={note}
-              index={index}
-              noteIndex={noteIndex}
-              isHighlighted={!!scaleDegree}
-              isFlatKey={isFlatKey}
-              scaleDegree={scaleDegree}
-              isActive={activeNoteId === note.noteId}
-              onHover={setActiveNoteId}
-              onLeave={() => setActiveNoteId(null)}
-              keyShape={KEY_SHAPE_MAP[noteIndex]}
-              majorScale={majorScale}
-            />
-          );
-        })}
-      </S.Keyboard>
-    </BoardWrapper>
+            return (
+              <KeyboardKey
+                key={note.noteId}
+                note={note}
+                index={index}
+                noteIndex={noteIndex}
+                isHighlighted={!!scaleDegree}
+                isFlatKey={isFlatKey}
+                scaleDegree={scaleDegree}
+                isActive={activeNoteId === note.noteId}
+                onHover={setActiveNoteId}
+                onLeave={() => setActiveNoteId(null)}
+                keyShape={KEY_SHAPE_MAP[noteIndex]}
+                majorScale={majorScale}
+              />
+            );
+          })}
+        </S.Keyboard>
+      </BoardWrapper>
+    </BoardScrollWrapper>
   );
 }

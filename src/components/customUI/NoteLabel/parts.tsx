@@ -51,7 +51,6 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   position: relative;
   height: ${({ $orientation }) => ($orientation === "vertical" ? "40px" : "20px")};
   width: ${({ $orientation }) => ($orientation === "vertical" ? "auto" : "30px")};
-  margin-top: ${({ $orientation }) => ($orientation === "vertical" ? "10px" : "0")};
   display: flex;
   flex-direction: ${({ $orientation }) => ($orientation === "vertical" ? "column" : "row")};
   align-items: center;

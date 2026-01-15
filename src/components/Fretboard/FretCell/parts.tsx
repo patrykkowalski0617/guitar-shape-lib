@@ -17,6 +17,7 @@ interface NoteProps {
 
 export const Note = styled.div<NoteProps>`
   ${KeyAndFretStyles}
+  box-shadow: inset 0 0px 2px 0px var(--input);
   border-radius: 4px;
   width: 100%;
   height: 26px;
@@ -27,4 +28,7 @@ export const Note = styled.div<NoteProps>`
   filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.6)" : "none")};
   will-change: filter;
   background-color: var(--card);
+  @media (max-width: 1000px) {
+    height: 20px;
+  }
 `;

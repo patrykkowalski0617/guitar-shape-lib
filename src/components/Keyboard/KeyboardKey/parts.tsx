@@ -34,6 +34,7 @@ const keyBorderRadius = "4px";
 
 const commonStyleForKey = css`
   ${KeyAndFretStyles}
+  box-shadow: inset 0 0px 3px 0px var(--input);
   border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
   transition: box-shadow ${transitionStepTime}ms ease-in-out,
     border-color ${transitionStepTime}ms ease-in-out;
@@ -43,7 +44,7 @@ const whiteKey = css`
   height: 180px;
   z-index: 1;
   border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
-  padding-top: 1px;
+  padding-top: 11px; //- 1px difference to compensate border of black key
   &::after {
     content: "";
     position: absolute;
@@ -60,6 +61,7 @@ const blackKey = css`
   background-color: var(--background);
   height: 110px;
   z-index: 2;
+  padding-top: 10px;
   ${commonStyleForKey}
 `;
 
@@ -76,7 +78,6 @@ export const Key = styled.div<KeyProps>`
 
   ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
   
-
   ${({ $isHighlighted, $isWhiteKey, $isHighlightRole }) => {
     const color = roleColors[$isHighlightRole];
     return (
@@ -104,5 +105,11 @@ export const Key = styled.div<KeyProps>`
   }
   &:last-child::after {
     border-radius: 0 ${keyboardBorderRadius} ${keyBorderRadius} ${keyBorderRadius};
+  }
+
+  @media (max-width: 1000px) {
+    height: ${({ $isWhiteKey }) => ($isWhiteKey ? "80px" : "45px")};
+    padding-top: ${({ $isWhiteKey }) =>
+      $isWhiteKey ? "1px" : "0px"}; //- 1px difference to compensate border of black key
   }
 `;
