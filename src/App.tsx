@@ -1,11 +1,11 @@
 import { BoardsWrapper } from "./components/customUI/Boards/parts";
-import DescriptiveLabelsSelect from "./components/Settings/DescriptiveLabelsSelect/DescriptiveLabelsSelect";
 import Fretboard from "./components/Fretboard/Fretboard";
 import Keyboard from "./components/Keyboard/Keyboard";
 import KeySelect from "./components/KeySelect/KeySelect";
 import ModeSelect from "./components/ModeSelect/ModeSelect";
 import RoleSelect from "./components/RoleSelect/RoleSelect";
 import { useMusicEngine } from "./hooks/useMusicEngine/useMusicEngine";
+import { Settings } from "./components/Settings/Settings";
 
 function App() {
   useMusicEngine();
@@ -16,7 +16,7 @@ function App() {
         <Fretboard />
       </BoardsWrapper>
       <div className="flex flex-row items-end justify-center gap-6 p-4 w-full bg-background">
-        <DescriptiveLabelsSelect />
+        <Settings />
         <ModeSelect />
         <KeySelect />
         <RoleSelect />
