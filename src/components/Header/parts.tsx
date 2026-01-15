@@ -21,7 +21,7 @@ export const Title = styled.h1`
   margin: 0;
   text-align: center;
   width: 100%;
-  transform: rotate(-2.5deg) translateY(-2px);
+  transform: rotate(-2deg) translateY(-2px);
 `;
 
 export const HeaderSide = styled.div`
