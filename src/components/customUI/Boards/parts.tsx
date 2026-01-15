@@ -8,7 +8,7 @@ export const BoardWrapper = styled.div`
 `;
 
 export const BoardsWrapper = styled.div`
-  margin: auto;
+  margin: 0 10px;
   overflow: auto;
 `;
 
