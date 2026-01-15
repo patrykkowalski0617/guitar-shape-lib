@@ -69,4 +69,14 @@
     color-scheme: dark;
     @apply bg-background text-foreground;
   }
+  button,
+  [role="button"],
+  [role="checkbox"],
+  [role="radio"],
+  [role="switch"],
+  [role="combobox"],
+  [role="menuitem"],
+  [role="tab"] {
+    cursor: pointer !important;
+  }
 }

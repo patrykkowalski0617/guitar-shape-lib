@@ -2,11 +2,12 @@ import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { GroupWrapper, Label } from "../InputGroup/InputGroup";
 import { musicMode, type MusicModeId } from "@/utils";
+import { useSettingsStore } from "@/store/useSettingsStore";
 
 export default function ModeSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
-  const areDescriptiveLabels = useControlsStore((state) => state.areDescriptiveLabels);
+  const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
 
   const currentMode: MusicModeId = isMajorMode ? "major" : "minor";
 

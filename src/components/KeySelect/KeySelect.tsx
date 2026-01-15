@@ -8,12 +8,13 @@ import {
 import { useControlsStore } from "@/store/useControlsStore";
 import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/utils";
 import { GroupWrapper, Label } from "../InputGroup/InputGroup";
+import { useSettingsStore } from "@/store/useSettingsStore";
 
 export default function KeySelect() {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const setCurrentKey = useControlsStore((state) => state.setCurrentKey);
-  const areDescriptiveLabels = useControlsStore((state) => state.areDescriptiveLabels);
+  const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
 
   const options = Object.entries(UNIFIED_MUSIC_KEYS).map(([id, data]) => ({
     id: id as MusicKeyId,

@@ -8,8 +8,6 @@ interface ControlsState {
   setCurrentKey: (id: MusicKeyId) => void;
   currentRoleId: RoleId | null;
   setCurrentRoleId: (id: RoleId | null) => void;
-  areDescriptiveLabels: boolean;
-  setAreDescriptiveLabels: (areDescriptiveLabels: boolean) => void;
 }
 
 export const useControlsStore = create<ControlsState>((set) => ({
@@ -21,7 +19,4 @@ export const useControlsStore = create<ControlsState>((set) => ({
 
   currentRoleId: null,
   setCurrentRoleId: (id) => set({ currentRoleId: id }),
-
-  areDescriptiveLabels: false,
-  setAreDescriptiveLabels: (areDescriptiveLabels) => set({ areDescriptiveLabels }),
 }));

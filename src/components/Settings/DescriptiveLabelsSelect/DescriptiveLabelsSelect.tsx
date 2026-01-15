@@ -1,6 +1,5 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useSettingsStore } from "@/store/useSettingsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { GroupWrapper, Label } from "../../InputGroup/InputGroup";
 
 const LABEL_OPTIONS = [
   {
@@ -18,32 +17,35 @@ const LABEL_OPTIONS = [
 ];
 
 export default function DescriptiveLabelsSelect() {
-  const areDescriptiveLabels = useControlsStore((state) => state.areDescriptiveLabels);
-  const setAreDescriptiveLabels = useControlsStore((state) => state.setAreDescriptiveLabels);
+  const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
+  const setAreDescriptiveLabels = useSettingsStore((state) => state.setAreDescriptiveLabels);
   const currentValue = areDescriptiveLabels ? "descriptive" : "standard";
 
   return (
-    <GroupWrapper>
-      <Label>{areDescriptiveLabels ? "Only right option" : "Labels Type"}</Label>
+    <div className="flex flex-col gap-3 w-full items-stretch">
+      <span className="text-xs font-semibold text-foreground ml-1">
+        {areDescriptiveLabels ? "Only right option" : "Labels Type"}
+      </span>
+
       <ToggleGroup
         type="single"
         value={currentValue}
         onValueChange={(v) => {
           if (v) setAreDescriptiveLabels(v === "descriptive");
         }}
-        className="h-10 justify-start border rounded-md p-1 bg-muted/50 border-muted-foreground/20 w-fit"
+        className="grid grid-cols-2 min-h-[40px] h-11 w-full border rounded-md p-1 bg-muted/50 border-muted-foreground/20"
       >
         {LABEL_OPTIONS.map((option) => (
           <ToggleGroupItem
             key={option.id}
             value={option.id}
             title={option.descriptiveLabel}
-            className="h-full px-4 text-xs uppercase font-semibold data-[state=on]:bg-background data-[state=on]:shadow-sm flex flex-col items-center justify-center"
+            className="h-full w-full px-4 text-xs font-semibold uppercase data-[state=on]:bg-background data-[state=on]:shadow-sm transition-all"
           >
             {option.label}
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
-    </GroupWrapper>
+    </div>
   );
 }
