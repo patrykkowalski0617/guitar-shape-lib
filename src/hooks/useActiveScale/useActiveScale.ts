@@ -3,14 +3,11 @@ import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { UNIFIED_MUSIC_KEYS, type RoleId, type NoteObject } from "@/utils";
 import { notes, firstAIndex } from "@/components/Keyboard/helpers/constants";
-import {
-  getHighlightMusicFuntion,
-  type HighlightMusicFuntion,
-} from "@/components/Keyboard/helpers/scaleLogic";
+import { getHighlightRole, type HighlightRole } from "@/components/Keyboard/helpers/scaleLogic";
 
 export interface ScaleDegreeInfo {
   noteId: string;
-  role: HighlightMusicFuntion;
+  role: HighlightRole;
 }
 
 interface GetScaleIndicesArgs {
@@ -48,7 +45,7 @@ const getScaleIndices = ({
 
       return {
         noteId: String(targetNote.noteId),
-        role: getHighlightMusicFuntion(index, isMajorMode, currentRoleId),
+        role: getHighlightRole(index, isMajorMode, currentRoleId),
       };
     })
     .filter((item): item is ScaleDegreeInfo => item !== null);

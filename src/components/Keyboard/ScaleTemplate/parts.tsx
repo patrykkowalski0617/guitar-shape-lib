@@ -5,7 +5,7 @@ import {
   LEFT_PADDING_FACTOR,
   transitionStepTime,
 } from "../helpers/constants";
-import type { HighlightMusicFuntion } from "../helpers/scaleLogic";
+import type { HighlightRole } from "../helpers/scaleLogic";
 import { roleColors } from "../helpers/scaleLogic";
 
 interface MarkerProps {
@@ -13,7 +13,8 @@ interface MarkerProps {
   $numberOfKeys: number;
   $isVisible: boolean;
   $isHarmonicMinor: boolean;
-  $isHighlightRole: HighlightMusicFuntion;
+  $isHighlightRole: HighlightRole;
+  $roleInterval: string;
 }
 
 interface TemplateWrapperProps {
@@ -28,7 +29,7 @@ const appearing = keyframes`
 `;
 
 export const TemplateWrapper = styled.div<TemplateWrapperProps>`
-  height: 15px;
+  height: 25px;
   position: relative;
   transform: ${({ $firstAIndex, $numberOfKeys, $templateOffset }) => {
     const totalOffset = $firstAIndex + $templateOffset;
@@ -57,7 +58,7 @@ export const Marker = styled.div<MarkerProps>`
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
   transition: ${transitionStepTime}ms ease-in-out;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
-  box-shadow: 0 0 8px rgba(57, 127, 151, 0.4);
+  box-shadow: 0 0 8px ${({ $isHighlightRole }) => roleColors[$isHighlightRole]};
   ${({ $isHarmonicMinor }) =>
     $isHarmonicMinor &&
     css`
@@ -65,4 +66,17 @@ export const Marker = styled.div<MarkerProps>`
       background-color: var(--secondary);
       box-shadow: 0 0 5px var(--secondary);
     `}
+  &::after {
+    content: "${({ $roleInterval }) => $roleInterval}";
+    position: absolute;
+    top: -17px;
+    color: ${({ $isHighlightRole }) => roleColors[$isHighlightRole]};
+    text-shadow: 0 0 8px ${({ $isHighlightRole }) => roleColors[$isHighlightRole]};
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+    animation: ${appearing} ${transitionStepTime}ms forwards;
+  }
 `;

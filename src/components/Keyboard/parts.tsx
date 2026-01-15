@@ -6,7 +6,7 @@ import {
   RIGHT_PADDING_FACTOR,
   transitionStepTime,
 } from "./helpers/constants";
-import { type HighlightMusicFuntion, roleColors } from "./helpers/scaleLogic";
+import { type HighlightRole, roleColors } from "./helpers/scaleLogic";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
@@ -18,7 +18,7 @@ interface KeyProps {
   $isWhiteKey: boolean;
   $keyShape?: KeyShape;
   $isHighlighted?: boolean;
-  $isHighlightRole: HighlightMusicFuntion;
+  $isHighlightRole: HighlightRole;
 }
 
 const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
