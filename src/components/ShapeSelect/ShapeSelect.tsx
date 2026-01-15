@@ -25,7 +25,7 @@ export default function ShapeSelect() {
   return (
     <GroupWrapper>
       <Label>{areDescriptiveLabels ? "Set of notes" : "Shapes"}</Label>
-      <Select value={currentKeyId} onValueChange={(v) => {}}>
+      <Select value={currentKeyId} onValueChange={() => {}}>
         <SelectTrigger
           style={{ height: "40px" }}
           className="bg-muted/30 border-muted-foreground/20 focus:ring-0 focus:ring-offset-0 font-semibold"
