@@ -5,6 +5,7 @@ import ModeSelect from "./components/ModeSelect/ModeSelect";
 import RoleSelect from "./components/RoleSelect/RoleSelect";
 import { useMusicEngine } from "./hooks/useMusicEngine/useMusicEngine";
 import Header from "./components/Header/Header";
+import ShapeSelect from "./components/ShapeSelect/ShapeSelect";
 
 function App() {
   useMusicEngine();
@@ -17,6 +18,7 @@ function App() {
         <ModeSelect />
         <KeySelect />
         <RoleSelect />
+        <ShapeSelect />
       </div>
     </>
   );

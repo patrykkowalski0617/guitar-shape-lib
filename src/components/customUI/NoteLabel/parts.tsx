@@ -29,7 +29,7 @@ const getLabelStyles = (
 ) => {
   const valVertY = isActive ? 10 * multiplier : -5 * multiplier;
   const valHorX = isActive ? 5 * multiplier : -4 * multiplier;
-  const valHorY = isActive ? 0 * multiplier : 0 * multiplier;
+  const valHorY = 0;
   const transform =
     orientation === "vertical"
       ? `translateY(${valVertY}px)`

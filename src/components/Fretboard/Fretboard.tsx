@@ -35,7 +35,7 @@ export default function Fretboard(): JSX.Element {
                     key={`${stringIndex}-${fretIndex}`}
                     note={note}
                     fretIndex={fretIndex}
-                    isHighlighted={!!scaleDegree}
+                    isHighlighted={false}
                     isFlatKey={isFlatKey}
                     scaleDegree={scaleDegree}
                     isActive={activeNoteId === note.noteId}
