@@ -15,7 +15,6 @@ interface NoteProps {
 }
 
 export const Note = styled.div<NoteProps>`
-  background: ${({ $isHighlighted }) => ($isHighlighted ? "gold" : "black")};
   border-radius: 4px;
   width: 100%;
   height: 22px;
@@ -25,4 +24,5 @@ export const Note = styled.div<NoteProps>`
   cursor: pointer;
   filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.6)" : "none")};
   will-change: filter;
+  background-color: var(--card);
 `;

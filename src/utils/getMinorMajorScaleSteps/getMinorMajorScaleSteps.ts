@@ -13,7 +13,7 @@ export const generateScaleSteps = (count: number): number[] => {
 export const getStepsCountForFunction = (functionId: RoleId | null): number => {
   switch (functionId) {
     case "tonic":
-      return 16;
+      return 15;
     case "subdominant":
       return 18;
     case "dominant":

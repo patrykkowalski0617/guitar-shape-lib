@@ -28,13 +28,12 @@ const FretCell = memo(
     onLeave,
   }: FretCellProps) => {
     return (
-      <S.Fret $numberOfFrets={numberOfFrets}>
-        <S.Note
-          $isHighlighted={isHighlighted}
-          $isActiveNote={isActive}
-          onMouseOver={() => onHover(note.noteId)}
-          onMouseLeave={onLeave}
-        >
+      <S.Fret
+        $numberOfFrets={numberOfFrets}
+        onMouseOver={() => onHover(note.noteId)}
+        onMouseLeave={onLeave}
+      >
+        <S.Note $isHighlighted={isHighlighted} $isActiveNote={isActive}>
           <NoteLabel
             isHighlighted={isHighlighted}
             index={fretIndex}
