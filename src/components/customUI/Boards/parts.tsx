@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const BoardWrapper = styled.div`
-  max-width: 1100px;
-  min-width: 900px;
+  max-width: 1200px;
+  min-width: 1000px;
   margin: auto;
   overflow: hidden;
 `;
@@ -10,4 +10,9 @@ export const BoardWrapper = styled.div`
 export const BoardsWrapper = styled.div`
   margin: auto;
   overflow: auto;
+`;
+
+export const KeyAndFretStyles = css`
+  border: 1px solid var(--border);
+  box-shadow: inset 0 0px 3px 0px var(--input);
 `;

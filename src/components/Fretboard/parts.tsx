@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Fretboard = styled.div`
-  margin-top: 20px;
+  margin-top: 26px;
 `;
 
 export const FretboardRow = styled.div`

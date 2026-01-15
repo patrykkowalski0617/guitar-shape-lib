@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { type HighlightRole, roleColors } from "../helpers/scaleLogic";
 import { transitionStepTime } from "../helpers/constants";
+import { KeyAndFretStyles } from "@/components/customUI/Boards/parts";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
@@ -32,9 +33,8 @@ const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
 const keyBorderRadius = "4px";
 
 const commonStyleForKey = css`
-  border: 1px solid var(--border);
+  ${KeyAndFretStyles}
   border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
-  box-shadow: inset 0 0px 3px 0px var(--input);
   transition: box-shadow ${transitionStepTime}ms ease-in-out,
     border-color ${transitionStepTime}ms ease-in-out;
 `;
