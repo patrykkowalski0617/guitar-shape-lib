@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { type HighlightRole, roleColors } from "../helpers/scaleLogic";
-import { transitionStepTime } from "../helpers/constants";
 import { KeyAndFretStyles } from "@/components/customUI/Boards/parts";
+import { transitionTime } from "@/utils/constants";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
@@ -36,8 +36,8 @@ const commonStyleForKey = css`
   ${KeyAndFretStyles}
   box-shadow: inset 0 0px 3px 0px var(--input);
   border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
-  transition: box-shadow ${transitionStepTime}ms ease-in-out,
-    border-color ${transitionStepTime}ms ease-in-out;
+  transition: box-shadow ${transitionTime}ms ease-in-out,
+    border-color ${transitionTime}ms ease-in-out;
 `;
 
 const whiteKey = css`
@@ -87,15 +87,15 @@ export const Key = styled.div<KeyProps>`
             &::after {
               border-color: ${color};
               box-shadow: inset 0 -23px 35px -4px ${color};
-              transition: box-shadow ${transitionStepTime}ms ease-in-out,
-                border-color ${transitionStepTime}ms ease-in-out;
+              transition: box-shadow ${transitionTime}ms ease-in-out,
+                border-color ${transitionTime}ms ease-in-out;
             }
           `
         : css`
             border-color: ${color};
             box-shadow: inset 0 -17px 20px 0px ${color};
-            transition: box-shadow ${transitionStepTime}ms ease-in-out,
-              border-color ${transitionStepTime}ms ease-in-out;
+            transition: box-shadow ${transitionTime}ms ease-in-out,
+              border-color ${transitionTime}ms ease-in-out;
           `)
     );
   }}

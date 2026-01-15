@@ -1,12 +1,8 @@
 import styled, { css, keyframes } from "styled-components";
-import {
-  KEY_PADDING,
-  KEY_WIDTH_CSS,
-  LEFT_PADDING_FACTOR,
-  transitionStepTime,
-} from "../helpers/constants";
+import { KEY_PADDING, KEY_WIDTH_CSS, LEFT_PADDING_FACTOR } from "../helpers/constants";
 import type { HighlightRole } from "../helpers/scaleLogic";
 import { roleColors } from "../helpers/scaleLogic";
+import { transitionTime } from "@/utils/constants";
 
 interface MarkerProps {
   $step: number;
@@ -38,14 +34,14 @@ export const TemplateWrapper = styled.div<TemplateWrapperProps>`
       (${totalOffset} + (${KEY_PADDING} * ${LEFT_PADDING_FACTOR})) * ${KEY_WIDTH_CSS($numberOfKeys)}
     ))`;
   }};
-  transition: ${transitionStepTime}ms ease-in-out;
+  transition: ${transitionTime}ms ease-in-out;
 `;
 
 export const Marker = styled.div<MarkerProps>`
   animation: ${({ $isVisible }) =>
     $isVisible
       ? css`
-          ${appearing} ${transitionStepTime}ms forwards
+          ${appearing} ${transitionTime}ms forwards
         `
       : "none"};
   position: absolute;
@@ -56,7 +52,7 @@ export const Marker = styled.div<MarkerProps>`
   background-color: ${({ $isHighlightRole }) => roleColors[$isHighlightRole]};
   width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
-  transition: ${transitionStepTime}ms ease-in-out;
+  transition: ${transitionTime}ms ease-in-out;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
   box-shadow: 0 0 8px ${({ $isHighlightRole }) => roleColors[$isHighlightRole]};
   ${({ $isHarmonicMinor }) =>
@@ -77,6 +73,6 @@ export const Marker = styled.div<MarkerProps>`
     text-align: center;
     font-size: 10px;
     font-weight: bold;
-    animation: ${appearing} ${transitionStepTime}ms forwards;
+    animation: ${appearing} ${transitionTime}ms forwards;
   }
 `;

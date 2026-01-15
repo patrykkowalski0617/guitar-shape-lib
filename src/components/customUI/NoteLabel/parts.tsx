@@ -1,4 +1,4 @@
-import { transitionStepTime } from "@/components/Keyboard/helpers/constants";
+import { transitionTime } from "@/utils/constants";
 import styled, { css } from "styled-components";
 
 export type LabelOrientation = "vertical" | "horizontal";
@@ -59,7 +59,7 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
 
   .mainLabel,
   .optionalLabel {
-    transition: ${transitionStepTime}ms ease-in-out;
+    transition: ${transitionTime}ms ease-in-out;
     display: flex;
     align-items: center;
     justify-content: center;

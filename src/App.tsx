@@ -4,19 +4,19 @@ import KeySelect from "./components/KeySelect/KeySelect";
 import ModeSelect from "./components/ModeSelect/ModeSelect";
 import RoleSelect from "./components/RoleSelect/RoleSelect";
 import { useMusicEngine } from "./hooks/useMusicEngine/useMusicEngine";
-import { Settings } from "./components/Settings/Settings";
+import Header from "./components/Header/Header";
 
 function App() {
   useMusicEngine();
   return (
     <>
+      <Header />
       <Keyboard />
       <Fretboard />
       <div className="flex flex-row flex-wrap items-end justify-center gap-6 p-4 w-full bg-background">
         <ModeSelect />
         <KeySelect />
         <RoleSelect />
-        <Settings />
       </div>
     </>
   );

@@ -1,8 +1,7 @@
-import { getNotes, type Note } from "@/utils/getNotes/getNotes";
+import { getNotes, type Note } from "@/utils/getNotes";
 
 export const KEY_PADDING = 0.75; //- for proper css calc
 export const numberOfKeys = 49;
-export const transitionStepTime = 500;
 
 export const firstNote: Note = "E";
 export const notes = getNotes({ length: numberOfKeys, firstNote, firstOctave: 2 });
