@@ -25,7 +25,7 @@ const appearing = keyframes`
 `;
 
 export const TemplateWrapper = styled.div<TemplateWrapperProps>`
-  height: 25px;
+  height: 20px;
   position: relative;
   transform: ${({ $firstAIndex, $numberOfKeys, $templateOffset }) => {
     const totalOffset = $firstAIndex + $templateOffset;

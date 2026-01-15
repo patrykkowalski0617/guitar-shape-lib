@@ -5,5 +5,5 @@ export const Label = ({ children }: { children: React.ReactNode }) => (
 );
 
 export const GroupWrapper = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex flex-col ">{children}</div>
+  <div className="flex flex-col">{children}</div>
 );

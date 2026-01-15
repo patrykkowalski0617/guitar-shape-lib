@@ -8,6 +8,7 @@ import {
 import { useControlsStore } from "@/store/useControlsStore";
 import { GroupWrapper, Label } from "../InputGroup/InputGroup";
 import { useSettingsStore } from "@/store/useSettingsStore";
+import { roles } from "@/utils";
 
 export default function ShapeSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);

@@ -65,7 +65,7 @@ const blackKey = css`
   ${commonStyleForKey}
 `;
 
-const keyboardBorderRadius = "var(--radius-xl) ";
+const keyboardBorderRadius = "var(--radius-xl)";
 
 export const Key = styled.div<KeyProps>`
   flex: 1;

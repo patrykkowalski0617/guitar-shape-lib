@@ -1,15 +1,30 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 22px;
   width: 100%;
   background-color: var(--primary);
   position: relative;
   max-width: 1200px;
-  margin: 0 auto 40px;
+  margin: 0 auto;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+`;
+
+const shakeIt = keyframes`
+  0%   { transform: rotate(-1deg) translate(0, -2px); }
+  10%  { transform: rotate(1deg)  translate(-5px, -5px); }
+  20%  { transform: rotate(-1deg) translate(5px, 3px); }
+  30%  { transform: rotate(0deg)  translate(-8px, 2px); }
+  40%  { transform: rotate(1deg)  translate(8px, -4px); }
+  50%  { transform: rotate(-1deg) translate(-10px, 6px); }
+  60%  { transform: rotate(1deg)  translate(10px, -6px); }
+  70%  { transform: rotate(-1deg) translate(-7px, -3px); }
+  80%  { transform: rotate(1deg)  translate(7px, 4px); }
+  90%  { transform: rotate(-1deg) translate(-4px, 8px); }
+  100% { transform: rotate(-1deg) translate(0, -2px); }
 `;
 
 export const Title = styled.h1`
@@ -20,8 +35,12 @@ export const Title = styled.h1`
   color: var(--foreground);
   margin: 0;
   text-align: center;
-  width: 100%;
+  display: inline;
   transform: rotate(-2deg) translateY(-2px);
+  &:hover {
+    animation: ${shakeIt} 0.15s linear infinite;
+    cursor: pointer;
+  }
 `;
 
 export const HeaderSide = styled.div`

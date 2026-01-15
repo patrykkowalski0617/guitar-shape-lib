@@ -16,7 +16,11 @@ export function Settings() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline" size="icon" className="h-10 w-10 shrink-0">
+        <Button
+          variant="outline"
+          size="icon"
+          className="h-10 w-10 shrink-0 !bg-card hover:!bg-accent"
+        >
           <Gear className="h-5 w-5" />
         </Button>
       </DrawerTrigger>

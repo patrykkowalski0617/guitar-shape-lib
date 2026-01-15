@@ -20,7 +20,7 @@ export default function ModeSelect() {
         onValueChange={(v) => {
           if (v) setIsMajorMode(v === "major");
         }}
-        className="h-10 justify-start border rounded-md p-1 bg-muted/50 border-muted-foreground/20 w-fit"
+        className="h-10 justify-start border rounded-xl p-1 bg-muted/50 border-muted-foreground/20 w-fit"
       >
         {(Object.entries(musicMode) as [MusicModeId, typeof musicMode.major][]).map(
           ([id, data]) => (

@@ -22,7 +22,7 @@ export default function RoleSelect() {
         onValueChange={(v) => {
           handleValueChange(v);
         }}
-        className="h-10 justify-start border rounded-md p-1 bg-muted/50 border-muted-foreground/20 w-fit"
+        className="h-10 justify-start border rounded-xl p-1 bg-muted/50 border-muted-foreground/20 w-fit"
       >
         {(Object.entries(roles) as [RoleId, RoleData][]).map(([id, data]) => (
           <ToggleGroupItem
