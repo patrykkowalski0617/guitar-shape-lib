@@ -1,6 +1,6 @@
 import { type JSX, useMemo } from "react";
 import * as S from "./parts";
-import { majorScale, UNIFIED_MUSIC_KEYS, NOTES_SHARP, type NoteSharp } from "@/utils";
+import { majorScale, UNIFIED_MUSIC_KEYS, NOTES_SHARP } from "@/utils";
 import { notes, numberOfKeys } from "./helpers/constants";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useActiveScale } from "@/hooks/useActiveScale/useActiveScale";
@@ -28,8 +28,6 @@ export default function Keyboard(): JSX.Element {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
 
-  const rootIndex = NOTES_SHARP.indexOf(currentKeyId as NoteSharp);
-
   const shapeSemitones = useMemo(() => {
     if (!currentShapeId || currentShapeOffset === null) return [];
 
@@ -45,16 +43,18 @@ export default function Keyboard(): JSX.Element {
         <S.Keyboard $numberOfKeys={numberOfKeys}>
           {notes.map((note, index) => {
             const noteIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
-            const distanceFromRoot = (noteIndex - rootIndex + 12) % 12;
+            const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
 
             const scaleDegree = fullScaleMetadata.find(
               (m) => m.noteId === note.noteId && m.isVisible
             );
+
             const isPartOfShape = !!(
-              shapeSemitones.includes(distanceFromRoot) &&
+              shapeSemitones.includes((noteIndex - templateOffset + 12) % 12) &&
               scaleDegree?.role &&
               scaleDegree.role !== "none"
             );
+
             return (
               <KeyboardKey
                 key={note.noteId}
