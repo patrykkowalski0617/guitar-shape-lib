@@ -9,6 +9,7 @@ import { useControlsStore } from "@/store/useControlsStore";
 import { GroupWrapper, Label } from "../InputGroup/InputGroup";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { roles } from "@/utils";
+import shapes from "@/utils/shapes";
 
 export default function ShapeSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
@@ -16,10 +17,15 @@ export default function ShapeSelect() {
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
 
+  // Poinformuj TS, że chordShapeId to jeden z kluczy obiektu shapes
   if (currentRoleId) {
-    console.log(roles[currentRoleId]);
+    console
+      .log
+      // roles[currentRoleId].shapes.map((el) => {
+      //   return { shape: shapes[el.chordShapeId], el: el };
+      // })
+      ();
   }
-
   const options = ["option1"];
 
   return (

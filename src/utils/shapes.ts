@@ -27,12 +27,45 @@ export const {
   _M14,
 } = getSemitonesMap();
 
-const shapes = {
+export type ShapeType = "Arpegio" | "Scale" | "Set";
+
+export interface SemitoneOffsetFromMajorTonicRoot {
+  majorMode?: number[];
+  minorMode?: number[];
+  bothModes?: number[];
+}
+
+export interface Variants {
+  targetString: string;
+  shape: number[][];
+}
+
+export interface Shape {
+  label: string;
+  type: ShapeType;
+  intervals: number[];
+  semitoneOffsetFromMajorTonicRoot: {
+    tonic?: SemitoneOffsetFromMajorTonicRoot;
+    subdominant?: SemitoneOffsetFromMajorTonicRoot;
+    dominant?: SemitoneOffsetFromMajorTonicRoot;
+  };
+  variants: { [key: string]: Variants };
+}
+
+export interface Shapes {
+  [key: string]: Shape;
+}
+
+const shapes: Shapes = {
   M7: {
     label: "M7",
     type: "Arpegio",
     intervals: [_1, _M3, _5, _M7],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: { bothModes: [_1] },
+      subdominant: { bothModes: [_4] },
+    },
+    variants: {
       M7_1: {
         targetString: "E1",
         // prettier-ignore
@@ -103,7 +136,6 @@ const shapes = {
         // prettier-ignore
         shape: [[0,0],[1,4],[2,7],[2,11],[3,12],[3,16],[4,19],[5,23],[5,24]],
       },
-
       M7_15a: {
         targetString: "D3",
         // prettier-ignore
@@ -125,7 +157,11 @@ const shapes = {
     label: "M(add9)",
     type: "Arpegio",
     intervals: [_1, _M3, _5, _M9],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: { bothModes: [_1] },
+      subdominant: { bothModes: [_4] },
+    },
+    variants: {
       M_add9_1: {
         targetString: "E1",
         // prettier-ignore
@@ -229,7 +265,11 @@ const shapes = {
     label: "M9",
     type: "Arpegio",
     intervals: [_1, _M3, _5, _M7, _M9],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: { bothModes: [_1] },
+      subdominant: { bothModes: [_4] },
+    },
+    variants: {
       M9_1: {
         targetString: "E1",
         // prettier-ignore
@@ -326,7 +366,10 @@ const shapes = {
     label: "7",
     type: "Arpegio",
     intervals: [_1, _M3, _5, _m7],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      dominant: { majorMode: [_5], minorMode: [_M3] },
+    },
+    variants: {
       dominant_10: {
         targetString: "E1",
         // prettier-ignore
@@ -428,7 +471,10 @@ const shapes = {
     label: "7b9",
     type: "Arpegio",
     intervals: [_1, _M3, _5, _m7, _m9],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      dominant: { minorMode: [_M3], majorMode: [_5] },
+    },
+    variants: {
       "7b9_7": {
         targetString: "E1",
         // prettier-ignore
@@ -585,7 +631,10 @@ const shapes = {
     label: "m7b5",
     type: "Arpegio",
     intervals: [_1, _m3, _T, _m7],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      dominant: { bothModes: [_M7] },
+    },
+    variants: {
       m7b5_1: {
         targetString: "E1",
         // prettier-ignore
@@ -712,7 +761,10 @@ const shapes = {
     label: "dim7",
     type: "Arpegio",
     intervals: [_1, _m3, _T, _M6],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      dominant: { bothModes: [_M7] },
+    },
+    variants: {
       dim7_10: {
         targetString: "E1",
         // prettier-ignore
@@ -814,7 +866,11 @@ const shapes = {
     label: "m7",
     type: "Arpegio",
     intervals: [_1, _m3, _5, _m7],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: { bothModes: [_M3, _M6] },
+      subdominant: { bothModes: [_M2, _M6] },
+    },
+    variants: {
       m7_1: {
         targetString: "E1",
         // prettier-ignore
@@ -911,7 +967,12 @@ const shapes = {
     label: "m(add9)",
     type: "Arpegio",
     intervals: [_1, _m3, _5, _M9],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: {
+        bothModes: [_M6],
+      },
+    },
+    variants: {
       m_add9_1: {
         targetString: "E1",
         // prettier-ignore
@@ -1008,7 +1069,14 @@ const shapes = {
     label: "Minor Pentatonic",
     type: "Scale",
     intervals: [_1, _M3],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: {
+        bothModes: [_M6, _M3],
+      },
+      subdominant: { bothModes: [_M2, _M6] },
+      dominant: { bothModes: [_M3, _5] },
+    },
+    variants: {
       minor_pent_1: {
         targetString: "E1",
         // prettier-ignore
@@ -1100,7 +1168,12 @@ const shapes = {
     label: "Major Pentatonic",
     type: "Scale",
     intervals: [_1, _M3],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: { bothModes: [_1] },
+      subdominant: { bothModes: [_4] },
+      dominant: { bothModes: [_5] },
+    },
+    variants: {
       major_pent_1: {
         targetString: "E1",
         // prettier-ignore
@@ -1197,7 +1270,11 @@ const shapes = {
     label: '"No avoid notes"',
     type: "Set",
     intervals: [_1, _M3],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: { bothModes: [_1] },
+      subdominant: { bothModes: [_4] },
+    },
+    variants: {
       no_avoid_notes_t_s_major_1: {
         targetString: "E1",
         // prettier-ignore
@@ -1354,7 +1431,10 @@ const shapes = {
     label: "Ionian",
     type: "Scale",
     intervals: [_1, _M3],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: { majorMode: [_1] },
+    },
+    variants: {
       ionian_1: {
         targetString: "E1",
         // prettier-ignore
@@ -1481,7 +1561,10 @@ const shapes = {
     label: "Aeolian",
     type: "Scale",
     intervals: [_1, _M3],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: { minorMode: [_M6] },
+    },
+    variants: {
       aeolian_1: {
         targetString: "E1",
         // prettier-ignore
@@ -1638,7 +1721,11 @@ const shapes = {
     label: "Dorian",
     type: "Scale",
     intervals: [_1, _M3],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: { minorMode: [_M6] },
+      subdominant: { majorMode: [_M2] },
+    },
+    variants: {
       dorian_1: {
         targetString: "E1",
         // prettier-ignore
@@ -1765,7 +1852,10 @@ const shapes = {
     label: "Lydian",
     type: "Scale",
     intervals: [_1, _M3],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      subdominant: { majorMode: [_4] },
+    },
+    variants: {
       lydian_1: {
         targetString: "E1",
         // prettier-ignore
@@ -1952,7 +2042,10 @@ const shapes = {
     label: "Mixolydian",
     type: "Scale",
     intervals: [_1, _M3],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      dominant: { majorMode: [_5], minorMode: [_M3] },
+    },
+    variants: {
       mixolydian_1: {
         targetString: "E1",
         // prettier-ignore
@@ -2109,7 +2202,12 @@ const shapes = {
     label: "Phrygian Dominant",
     type: "Scale",
     intervals: [_1, _M3],
-    shapes: {
+    semitoneOffsetFromMajorTonicRoot: {
+      dominant: {
+        minorMode: [_M3],
+      },
+    },
+    variants: {
       phrygian_dominant_7: {
         targetString: "E1",
         // prettier-ignore
