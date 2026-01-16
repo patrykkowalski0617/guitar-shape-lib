@@ -8,6 +8,9 @@ interface ControlsState {
   setCurrentKey: (id: MusicKeyId) => void;
   currentRoleId: RoleId | null;
   setCurrentRoleId: (id: RoleId | null) => void;
+  currentShapeId: string | null;
+  currentShapeOffset: number | null;
+  setShape: (id: string | null, offset: number | null) => void;
 }
 
 export const useControlsStore = create<ControlsState>((set) => ({
@@ -15,8 +18,13 @@ export const useControlsStore = create<ControlsState>((set) => ({
   setIsMajorMode: (isMajorMode) => set({ isMajorMode, currentRoleId: null }),
 
   currentKeyId: "C",
-  setCurrentKey: (id) => set({ currentKeyId: id, currentRoleId: null }),
+  setCurrentKey: (id) => set({ currentKeyId: id }),
 
   currentRoleId: null,
-  setCurrentRoleId: (id) => set({ currentRoleId: id }),
+  setCurrentRoleId: (id) =>
+    set({ currentRoleId: id, currentShapeId: null, currentShapeOffset: null }),
+
+  currentShapeId: null,
+  currentShapeOffset: null,
+  setShape: (id, offset) => set({ currentShapeId: id, currentShapeOffset: offset }),
 }));

@@ -9,10 +9,12 @@ import FretCell from "./FretCell/FretCell";
 
 export default function Fretboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
+  const currentShapeId = useControlsStore((state) => state.currentShapeId);
+  const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
   const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
-
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
+  console.log(currentShapeId, currentShapeOffset);
 
   return (
     <BoardScrollWrapper>
