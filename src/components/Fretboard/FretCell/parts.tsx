@@ -16,6 +16,8 @@ interface NoteProps {
   $isHighlighted: boolean;
   $isActiveNote: boolean;
   $isShapeRootNote: boolean;
+  $isShapeNote: boolean;
+  $isDevNote: boolean;
   $isHighlightRole: HighlightRole;
 }
 
@@ -34,6 +36,8 @@ export const Note = styled.div<NoteProps>`
   will-change: filter, box-shadow;
   transition: box-shadow ${transitionTime}ms ease-in-out;
   filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.6)" : "none")};
+  outline: ${({ $isShapeNote }) => ($isShapeNote ? "2px solid red" : "none")};
+  background-color: ${({ $isDevNote }) => ($isDevNote ? "red" : "none")};
   ${({ $isHighlighted, $isHighlightRole }) => {
     const color = roleColors[$isHighlightRole as keyof typeof roleColors];
     return (

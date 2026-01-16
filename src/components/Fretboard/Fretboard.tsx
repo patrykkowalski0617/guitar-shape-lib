@@ -6,6 +6,7 @@ import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { BoardScrollWrapper, BoardWrapper } from "../customUI/Boards/parts";
 import FretCell from "./FretCell/FretCell";
+import { useFretboardDevEditor } from "./helpers/useFretboardDevEditor";
 
 export default function Fretboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
@@ -15,17 +16,16 @@ export default function Fretboard(): JSX.Element {
   const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
 
-  //- activeNoteId points note and its octave number
+  const { onDevClick, isShapeNote } = useFretboardDevEditor();
+
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
 
   const NOTES_SHARP = getNotes({ firstNote: currentKeyId }).map(
     ({ sharpNoteName }) => sharpNoteName
   );
-  //- shapeRootSharpNote points all notes with the same sharp name
+
   const shapeRootSharpNote =
     currentShapeOffset !== null ? NOTES_SHARP[currentShapeOffset % 12] : null;
-
-  // console.log({ currentKeyId, currentShapeId, shapeRootSharpNote, activeNoteId });
 
   return (
     <BoardScrollWrapper>
@@ -53,6 +53,9 @@ export default function Fretboard(): JSX.Element {
                     numberOfFrets={numberOfFrets}
                     onHover={setActiveNoteId}
                     onLeave={() => setActiveNoteId(null)}
+                    isShapeNote={false}
+                    isDevNote={isShapeNote(stringIndex, fretIndex)}
+                    onRootClick={onDevClick(stringIndex, fretIndex)}
                   />
                 );
               })}
