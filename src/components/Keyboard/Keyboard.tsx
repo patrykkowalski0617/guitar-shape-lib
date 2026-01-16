@@ -47,15 +47,14 @@ export default function Keyboard(): JSX.Element {
             const noteIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
             const distanceFromRoot = (noteIndex - rootIndex + 12) % 12;
 
-            const isPartOfShape = shapeSemitones.includes(distanceFromRoot);
-            if (isPartOfShape) {
-              console.log(note);
-            }
-
             const scaleDegree = fullScaleMetadata.find(
               (m) => m.noteId === note.noteId && m.isVisible
             );
-
+            const isPartOfShape = !!(
+              shapeSemitones.includes(distanceFromRoot) &&
+              scaleDegree?.role &&
+              scaleDegree.role !== "none"
+            );
             return (
               <KeyboardKey
                 key={note.noteId}

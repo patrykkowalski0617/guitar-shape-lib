@@ -9,7 +9,7 @@ import FretCell from "./FretCell/FretCell";
 
 export default function Fretboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const currentShapeId = useControlsStore((state) => state.currentShapeId);
+  // const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
@@ -25,7 +25,7 @@ export default function Fretboard(): JSX.Element {
   const shapeRootSharpNote =
     currentShapeOffset !== null ? NOTES_SHARP[currentShapeOffset % 12] : null;
 
-  console.log({ currentKeyId, currentShapeId, shapeRootSharpNote, activeNoteId });
+  // console.log({ currentKeyId, currentShapeId, shapeRootSharpNote, activeNoteId });
 
   return (
     <BoardScrollWrapper>
