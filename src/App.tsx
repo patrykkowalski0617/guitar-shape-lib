@@ -28,7 +28,7 @@ function App() {
               <ModeSelect />
               <KeySelect />
               <RoleSelect />
-              {/* <ShapeSelect /> */}
+              <ShapeSelect />
             </div>
           </Setcion>
         </MainContent>

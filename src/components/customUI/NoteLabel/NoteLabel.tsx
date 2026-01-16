@@ -10,6 +10,7 @@ interface NoteLabelProps {
   isHighlighted: boolean;
   isEnharmonic: boolean;
   orientation?: S.LabelOrientation;
+  isShapeNote?: boolean;
 }
 
 export default function NoteLabel({
@@ -19,6 +20,7 @@ export default function NoteLabel({
   flatNoteName,
   isEnharmonic,
   orientation = "vertical",
+  isShapeNote = false,
 }: NoteLabelProps): JSX.Element {
   return (
     <S.Wrapper
@@ -26,6 +28,7 @@ export default function NoteLabel({
       $isEnharmonicNote={isEnharmonic}
       $isHighlighted={isHighlighted}
       $orientation={orientation}
+      $isShapeNote={isShapeNote}
     >
       <div className="mainLabel">{sharpNoteName}</div>
       {isEnharmonic && <div className="optionalLabel">{flatNoteName}</div>}

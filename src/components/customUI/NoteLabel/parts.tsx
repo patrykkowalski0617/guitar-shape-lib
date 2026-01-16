@@ -8,6 +8,7 @@ interface StyledNoteLabelProps {
   $isEnharmonicNote: boolean;
   $isHighlighted: boolean;
   $orientation: LabelOrientation;
+  $isShapeNote: boolean;
 }
 
 const highlightedColor = "var(--muted-foreground)";
@@ -56,7 +57,9 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   align-items: center;
   justify-content: center;
   user-select: none;
-
+  top: ${({ $orientation, $isShapeNote }) =>
+    $orientation === "vertical" && $isShapeNote ? "30px" : "0"};
+  transition: top ${transitionTime}ms ease-in-out;
   .mainLabel,
   .optionalLabel {
     transition: ${transitionTime}ms ease-in-out;

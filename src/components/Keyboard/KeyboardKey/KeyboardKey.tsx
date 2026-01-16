@@ -2,15 +2,16 @@ import { memo } from "react";
 import * as S from "./parts";
 import type { NoteObject } from "@/utils";
 import NoteLabel from "@/components/customUI/NoteLabel/NoteLabel";
-import type { ScaleDegreeInfo } from "@/hooks/useActiveScale/useActiveScale";
+import type { ScaleStepMetadata } from "@/hooks/useActiveScale/useActiveScale";
 
 interface KeyboardKeyProps {
   note: NoteObject;
   index: number;
   noteIndex: number;
   isHighlighted: boolean;
+  isShapeNote: boolean;
   isFlatKey: boolean;
-  scaleDegree: ScaleDegreeInfo | undefined;
+  scaleDegree: ScaleStepMetadata | undefined;
   isActive: boolean;
   onHover: (id: string) => void;
   onLeave: () => void;
@@ -24,6 +25,7 @@ const KeyboardKey = memo(
     index,
     noteIndex,
     isHighlighted,
+    isShapeNote,
     isFlatKey,
     scaleDegree,
     isActive,
@@ -49,6 +51,7 @@ const KeyboardKey = memo(
           sharpNoteName={note.sharpNoteName}
           isFlatKey={isFlatKey}
           isEnharmonic={note.isEnharmonic}
+          isShapeNote={isShapeNote}
         />
       </S.Key>
     );
@@ -57,6 +60,7 @@ const KeyboardKey = memo(
     return (
       prev.isActive === next.isActive &&
       prev.isHighlighted === next.isHighlighted &&
+      prev.isShapeNote === next.isShapeNote &&
       prev.scaleDegree?.role === next.scaleDegree?.role &&
       prev.isFlatKey === next.isFlatKey
     );

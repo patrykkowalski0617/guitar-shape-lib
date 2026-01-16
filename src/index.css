@@ -77,6 +77,9 @@
   [role="combobox"],
   [role="menuitem"],
   [role="tab"] {
-    cursor: pointer !important;
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: default;
   }
 }

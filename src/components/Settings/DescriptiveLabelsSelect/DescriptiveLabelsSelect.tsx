@@ -38,7 +38,7 @@ export default function DescriptiveLabelsSelect() {
             setAreDescriptiveLabels(true);
           }
         }
-        className="grid grid-cols-2 min-h-[40px] h-11 w-full border rounded-xl p-1 bg-muted/50 border-muted-foreground/20"
+        className="grid grid-cols-2 min-h-[40px] h-11 w-full border rounded-xl p-1 bg-primary/50 border-muted-foreground/20"
       >
         {LABEL_OPTIONS.map((option) => (
           <ToggleGroupItem
