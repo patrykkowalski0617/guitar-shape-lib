@@ -5,7 +5,7 @@ import ModeSelect from "./components/ModeSelect/ModeSelect";
 import RoleSelect from "./components/RoleSelect/RoleSelect";
 import { useMusicEngine } from "./hooks/useMusicEngine/useMusicEngine";
 import Header from "./components/Header/Header";
-// import ShapeSelect from "./components/ShapeSelect/ShapeSelect";
+import ShapeSelect from "./components/ShapeSelect/ShapeSelect";
 import { Setcion } from "./components/customUI/parts";
 import Footer from "./components/Footer/Footer";
 import { AppWrapper, MainContent } from "./parts";
