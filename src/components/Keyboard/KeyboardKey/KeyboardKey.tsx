@@ -2,7 +2,7 @@ import { memo } from "react";
 import * as S from "./parts";
 import type { NoteObject } from "@/utils";
 import NoteLabel from "@/components/customUI/NoteLabel/NoteLabel";
-import type { ScaleDegreeInfo } from "@/hooks/useActiveScale/useActiveScale";
+import type { ScaleStepMetadata } from "@/hooks/useActiveScale/useActiveScale";
 
 interface KeyboardKeyProps {
   note: NoteObject;
@@ -10,7 +10,7 @@ interface KeyboardKeyProps {
   noteIndex: number;
   isHighlighted: boolean;
   isFlatKey: boolean;
-  scaleDegree: ScaleDegreeInfo | undefined;
+  scaleDegree: ScaleStepMetadata | undefined;
   isActive: boolean;
   onHover: (id: string) => void;
   onLeave: () => void;

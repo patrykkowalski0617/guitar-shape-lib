@@ -1,6 +1,5 @@
 import { memo } from "react";
 import * as S from "./parts";
-import { type ScaleDegreeInfo } from "@/hooks/useActiveScale/useActiveScale";
 import type { NoteObject } from "@/utils";
 import NoteLabel from "@/components/customUI/NoteLabel/NoteLabel";
 
@@ -9,7 +8,6 @@ interface FretCellProps {
   fretIndex: number;
   isHighlighted: boolean;
   isFlatKey: boolean;
-  scaleDegree: ScaleDegreeInfo | undefined;
   isActive: boolean;
   numberOfFrets: number;
   onHover: (id: string) => void;
@@ -51,8 +49,7 @@ const FretCell = memo(
     return (
       prev.isActive === next.isActive &&
       prev.isHighlighted === next.isHighlighted &&
-      prev.isFlatKey === next.isFlatKey &&
-      prev.scaleDegree?.role === next.scaleDegree?.role
+      prev.isFlatKey === next.isFlatKey
     );
   }
 );

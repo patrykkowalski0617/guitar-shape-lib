@@ -1,4 +1,4 @@
-import type { RoleId } from "../roles";
+import type { RoleId } from "@/utils";
 
 const BASE_SCALE_PATTERN = [0, 2, 3, 5, 7, 8, 10];
 

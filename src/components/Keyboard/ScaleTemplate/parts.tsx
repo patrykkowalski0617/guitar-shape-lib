@@ -8,7 +8,6 @@ interface MarkerProps {
   $step: number;
   $numberOfKeys: number;
   $isVisible: boolean;
-  $isHarmonicMinor: boolean;
   $isHighlightRole: HighlightRole;
   $roleInterval: string;
 }
@@ -55,11 +54,6 @@ export const Marker = styled.div<MarkerProps>`
   transition: ${transitionTime}ms ease-in-out;
   opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
   box-shadow: 0 0 8px ${({ $isHighlightRole }) => roleColors[$isHighlightRole]};
-  ${({ $isHarmonicMinor }) =>
-    $isHarmonicMinor &&
-    css`
-      transform: translateX(100%);
-    `}
   &::after {
     content: "${({ $roleInterval }) => $roleInterval}";
     position: absolute;

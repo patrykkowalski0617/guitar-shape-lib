@@ -20,12 +20,10 @@ const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
 };
 
 export default function Keyboard(): JSX.Element {
+  const { fullScaleMetadata } = useActiveScale();
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
-  const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
-  const activeNoteId = useMusicStore((state) => state.activeNoteId);
-
-  const { activeScaleIndices } = useActiveScale();
+  const { activeNoteId, setActiveNoteId } = useMusicStore();
 
   return (
     <BoardScrollWrapper>
@@ -34,7 +32,10 @@ export default function Keyboard(): JSX.Element {
         <S.Keyboard $numberOfKeys={numberOfKeys}>
           {notes.map((note, index) => {
             const noteIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
-            const scaleDegree = activeScaleIndices.find((s) => s.noteId === note.noteId);
+
+            const scaleDegree = fullScaleMetadata.find(
+              (m) => m.noteId === note.noteId && m.isVisible
+            );
 
             return (
               <KeyboardKey
@@ -43,8 +44,8 @@ export default function Keyboard(): JSX.Element {
                 index={index}
                 noteIndex={noteIndex}
                 isHighlighted={!!scaleDegree}
-                isFlatKey={isFlatKey}
                 scaleDegree={scaleDegree}
+                isFlatKey={isFlatKey}
                 isActive={activeNoteId === note.noteId}
                 onHover={setActiveNoteId}
                 onLeave={() => setActiveNoteId(null)}

@@ -8,7 +8,6 @@ import {
 import { useControlsStore } from "@/store/useControlsStore";
 import { GroupWrapper, Label } from "../InputGroup/InputGroup";
 import { useSettingsStore } from "@/store/useSettingsStore";
-import { roles } from "@/utils";
 import shapes from "@/utils/shapes";
 
 export default function ShapeSelect() {
@@ -18,12 +17,7 @@ export default function ShapeSelect() {
   const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
 
   if (currentRoleId) {
-    console
-      .log
-      // roles[currentRoleId].shapes.map((el) => {
-      //   return { shape: shapes[el.chordShapeId], el: el };
-      // })
-      ();
+    console.log(shapes);
   }
   const options = ["option1"];
 

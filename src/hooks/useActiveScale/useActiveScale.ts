@@ -1,7 +1,7 @@
 import { useMemo, useEffect } from "react";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
-import { UNIFIED_MUSIC_KEYS, type RoleId, type NoteObject } from "@/utils";
+import { UNIFIED_MUSIC_KEYS, type NoteObject } from "@/utils";
 import { notes, firstAIndex } from "@/components/Keyboard/helpers/constants";
 import { getHighlightRole, type HighlightRole } from "@/components/Keyboard/helpers/scaleLogic";
 
@@ -10,46 +10,16 @@ export interface ScaleDegreeInfo {
   role: HighlightRole;
 }
 
-interface GetScaleIndicesArgs {
-  firstAIndex: number;
-  templateOffset: number;
-  isMajorMode: boolean;
-  steps: number[];
-  currentRoleId: RoleId | null;
-  notes: NoteObject[];
+export interface ScaleStepMetadata {
+  index: number;
+  step: number;
+  adjustedStep: number;
+  isVisible: boolean;
+  isHarmonicMinor: boolean;
+  role: HighlightRole;
+  noteId: string | null;
+  intervalLabel: string;
 }
-
-const getScaleIndices = ({
-  firstAIndex,
-  templateOffset,
-  isMajorMode,
-  steps,
-  currentRoleId,
-  notes,
-}: GetScaleIndicesArgs): ScaleDegreeInfo[] => {
-  return steps
-    .map((step, index) => {
-      const isVisible = isMajorMode ? index >= 2 : index <= steps.length - 3;
-      if (!isVisible) return null;
-
-      let finalIndex = firstAIndex + templateOffset + step;
-
-      const isHarmonicMinor = !isMajorMode && index % 7 === 6 && currentRoleId === "dominant";
-      if (isHarmonicMinor) {
-        finalIndex += 1;
-      }
-
-      const targetNote = notes[finalIndex];
-
-      if (!targetNote) return null;
-
-      return {
-        noteId: String(targetNote.noteId),
-        role: getHighlightRole(index, isMajorMode, currentRoleId),
-      };
-    })
-    .filter((item): item is ScaleDegreeInfo => item !== null);
-};
 
 export const useActiveScale = () => {
   const { currentKeyId, isMajorMode, currentRoleId } = useControlsStore();
@@ -57,33 +27,51 @@ export const useActiveScale = () => {
 
   const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
 
-  const { activeScaleIndices, activeScaleNotes } = useMemo(() => {
-    const scaleInfo = getScaleIndices({
-      firstAIndex,
-      templateOffset,
-      isMajorMode,
-      steps: activeScaleSteps,
-      currentRoleId,
-      notes,
+  const { fullScaleMetadata, activeScaleNotes } = useMemo(() => {
+    let roleCounter = 0;
+
+    const metadata: ScaleStepMetadata[] = activeScaleSteps.map((step, index) => {
+      const isVisible = isMajorMode ? index >= 2 : index <= activeScaleSteps.length - 3;
+
+      const isHarmonicMinor = !isMajorMode && index % 7 === 6 && currentRoleId === "dominant";
+      const adjustedStep = isHarmonicMinor ? step + 1 : step;
+
+      const role = getHighlightRole(index, isMajorMode, currentRoleId);
+      const intervalLabel = role !== "none" ? `${roleCounter++ * 2 + 1}` : "";
+
+      const finalIndex = firstAIndex + templateOffset + adjustedStep;
+      const targetNote = notes[finalIndex];
+
+      return {
+        index,
+        step,
+        adjustedStep,
+        isVisible,
+        isHarmonicMinor,
+        role,
+        noteId: targetNote ? String(targetNote.noteId) : null,
+        intervalLabel,
+      };
     });
 
-    const scaleNotes = scaleInfo
-      .map((info) => notes.find((n) => String(n.noteId) === info.noteId))
-      .filter((n): n is NoteObject => n !== undefined);
+    const activeNotes = metadata
+      .filter((m) => m.isVisible && m.noteId)
+      .map((m) => notes.find((n) => String(n.noteId) === m.noteId))
+      .filter((n): n is NoteObject => !!n);
 
     return {
-      activeScaleIndices: scaleInfo,
-      activeScaleNotes: scaleNotes,
+      fullScaleMetadata: metadata,
+      activeScaleNotes: activeNotes,
     };
   }, [isMajorMode, templateOffset, activeScaleSteps, currentRoleId]);
 
   useEffect(() => {
+    console.log(activeScaleNotes);
     setActiveScaleNotes(activeScaleNotes);
   }, [activeScaleNotes, setActiveScaleNotes]);
 
   return {
-    activeScaleIndices,
-    activeScaleNotes,
+    fullScaleMetadata,
     currentKeyId,
     isMajorMode,
   };

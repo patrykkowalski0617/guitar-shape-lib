@@ -2,7 +2,6 @@ import { type JSX } from "react";
 import * as S from "./parts";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { numberOfFrets, STRINGS_FIRST_NOTES } from "./helpers/constants";
-import { useActiveScale } from "@/hooks/useActiveScale/useActiveScale";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { BoardScrollWrapper, BoardWrapper } from "../customUI/Boards/parts";
@@ -15,8 +14,6 @@ export default function Fretboard(): JSX.Element {
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
 
-  const { activeScaleIndices } = useActiveScale();
-
   return (
     <BoardScrollWrapper>
       <BoardWrapper>
@@ -28,8 +25,6 @@ export default function Fretboard(): JSX.Element {
                 length: numberOfFrets,
                 firstOctave: octaveNumber,
               }).map((note, fretIndex) => {
-                const scaleDegree = activeScaleIndices.find((s) => s.noteId === note.noteId);
-
                 return (
                   <FretCell
                     key={`${stringIndex}-${fretIndex}`}
@@ -37,7 +32,6 @@ export default function Fretboard(): JSX.Element {
                     fretIndex={fretIndex}
                     isHighlighted={false}
                     isFlatKey={isFlatKey}
-                    scaleDegree={scaleDegree}
                     isActive={activeNoteId === note.noteId}
                     numberOfFrets={numberOfFrets}
                     onHover={setActiveNoteId}
