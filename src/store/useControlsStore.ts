@@ -15,7 +15,7 @@ interface ControlsState {
 
 export const useControlsStore = create<ControlsState>((set) => ({
   isMajorMode: true,
-  setIsMajorMode: (isMajorMode) => set({ isMajorMode, currentRoleId: null }),
+  setIsMajorMode: (isMajorMode) => set({ isMajorMode }),
 
   currentKeyId: "C",
   setCurrentKey: (id) => set({ currentKeyId: id }),
