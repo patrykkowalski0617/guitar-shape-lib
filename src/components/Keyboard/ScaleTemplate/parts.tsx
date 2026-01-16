@@ -59,8 +59,6 @@ export const Marker = styled.div<MarkerProps>`
     $isHarmonicMinor &&
     css`
       transform: translateX(100%);
-      background-color: var(--secondary);
-      box-shadow: 0 0 5px var(--secondary);
     `}
   &::after {
     content: "${({ $roleInterval }) => $roleInterval}";

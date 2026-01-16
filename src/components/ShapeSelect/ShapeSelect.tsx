@@ -17,7 +17,6 @@ export default function ShapeSelect() {
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
 
-  // Poinformuj TS, że chordShapeId to jeden z kluczy obiektu shapes
   if (currentRoleId) {
     console
       .log

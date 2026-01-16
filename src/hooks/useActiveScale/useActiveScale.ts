@@ -34,7 +34,7 @@ const getScaleIndices = ({
 
       let finalIndex = firstAIndex + templateOffset + step;
 
-      const isHarmonicMinor = !isMajorMode && index % 7 === 6;
+      const isHarmonicMinor = !isMajorMode && index % 7 === 6 && currentRoleId === "dominant";
       if (isHarmonicMinor) {
         finalIndex += 1;
       }

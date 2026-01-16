@@ -29,7 +29,7 @@ export default function ScaleTemplate(): JSX.Element {
             $step={step}
             $numberOfKeys={numberOfKeys}
             $isVisible={isMajorMode ? index >= 2 : index <= arr.length - 3}
-            $isHarmonicMinor={!isMajorMode && index % 7 === 6}
+            $isHarmonicMinor={!isMajorMode && index % 7 === 6 && currentRoleId === "dominant"}
             $isHighlightRole={role}
             $roleInterval={intervalLabel}
           />
