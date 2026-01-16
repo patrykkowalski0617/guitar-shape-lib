@@ -9,7 +9,6 @@ export default function ScaleTemplate(): JSX.Element {
   const { fullScaleMetadata } = useActiveScale();
   const { currentKeyId } = useControlsStore();
   const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
-  console.log(fullScaleMetadata);
 
   return (
     <S.TemplateWrapper
@@ -19,7 +18,7 @@ export default function ScaleTemplate(): JSX.Element {
     >
       {fullScaleMetadata.map((meta) => (
         <S.Marker
-          key={`${meta.index}-${meta.step}`}
+          key={meta.index}
           $step={meta.adjustedStep}
           $numberOfKeys={numberOfKeys}
           $isVisible={meta.isVisible}

@@ -5,11 +5,6 @@ import { UNIFIED_MUSIC_KEYS, type NoteObject } from "@/utils";
 import { notes, firstAIndex } from "@/components/Keyboard/helpers/constants";
 import { getHighlightRole, type HighlightRole } from "@/components/Keyboard/helpers/scaleLogic";
 
-export interface ScaleDegreeInfo {
-  noteId: string;
-  role: HighlightRole;
-}
-
 export interface ScaleStepMetadata {
   index: number;
   step: number;
@@ -21,6 +16,8 @@ export interface ScaleStepMetadata {
   intervalLabel: string;
 }
 
+const MAX_SCALE_DEGREES = 34;
+
 export const useActiveScale = () => {
   const { currentKeyId, isMajorMode, currentRoleId } = useControlsStore();
   const { activeScaleSteps, setActiveScaleNotes } = useMusicStore();
@@ -30,29 +27,45 @@ export const useActiveScale = () => {
   const { fullScaleMetadata, activeScaleNotes } = useMemo(() => {
     let roleCounter = 0;
 
-    const metadata: ScaleStepMetadata[] = activeScaleSteps.map((step, index) => {
-      const isVisible = isMajorMode ? index >= 2 : index <= activeScaleSteps.length - 3;
+    const metadata: ScaleStepMetadata[] = Array.from({ length: MAX_SCALE_DEGREES }).map(
+      (_, index) => {
+        const hasStep = index < activeScaleSteps.length;
 
-      const isHarmonicMinor = !isMajorMode && index % 7 === 6 && currentRoleId === "dominant";
-      const adjustedStep = isHarmonicMinor ? step + 1 : step;
+        const octave = Math.floor(index / 7);
+        const degreeInFirstOctave = index % 7;
 
-      const role = getHighlightRole(index, isMajorMode, currentRoleId);
-      const intervalLabel = role !== "none" ? `${roleCounter++ * 2 + 1}` : "";
+        const baseInterval = activeScaleSteps[degreeInFirstOctave] ?? 0;
+        const currentStep = baseInterval + octave * 12;
 
-      const finalIndex = firstAIndex + templateOffset + adjustedStep;
-      const targetNote = notes[finalIndex];
+        const isWithinVisibleRange = isMajorMode
+          ? index >= 2
+          : index <= activeScaleSteps.length - 3;
 
-      return {
-        index,
-        step,
-        adjustedStep,
-        isVisible,
-        isHarmonicMinor,
-        role,
-        noteId: targetNote ? String(targetNote.noteId) : null,
-        intervalLabel,
-      };
-    });
+        const isVisible = hasStep && isWithinVisibleRange;
+
+        const isHarmonicMinor =
+          isVisible && !isMajorMode && index % 7 === 6 && currentRoleId === "dominant";
+        const adjustedStep = isHarmonicMinor ? currentStep + 1 : currentStep;
+
+        const role = isVisible ? getHighlightRole(index, isMajorMode, currentRoleId) : "none";
+        const intervalLabel = isVisible && role !== "none" ? `${roleCounter++ * 2 + 1}` : "";
+
+        const finalIndex = firstAIndex + templateOffset + adjustedStep;
+        const targetNote = notes[finalIndex];
+        const targetNoteId = isVisible && targetNote ? String(targetNote.noteId) : null;
+
+        return {
+          index,
+          step: currentStep,
+          adjustedStep,
+          isVisible,
+          isHarmonicMinor,
+          role,
+          noteId: targetNoteId,
+          intervalLabel,
+        };
+      }
+    );
 
     const activeNotes = metadata
       .filter((m) => m.isVisible && m.noteId)
@@ -66,7 +79,6 @@ export const useActiveScale = () => {
   }, [isMajorMode, templateOffset, activeScaleSteps, currentRoleId]);
 
   useEffect(() => {
-    console.log(activeScaleNotes);
     setActiveScaleNotes(activeScaleNotes);
   }, [activeScaleNotes, setActiveScaleNotes]);
 
