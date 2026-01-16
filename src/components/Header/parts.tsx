@@ -37,6 +37,7 @@ export const Title = styled.h1`
   text-align: center;
   display: inline;
   transform: rotate(-2deg) translateY(-2px);
+  user-select: none;
   &:hover {
     animation: ${shakeIt} 0.15s linear infinite;
     cursor: pointer;
