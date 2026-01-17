@@ -1,6 +1,6 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { GroupWrapper, Label } from "../InputGroup/InputGroup";
+import { GroupWrapper, Label } from "../customUI/InputGroup/InputGroup";
 import { roles, type RoleData, type RoleId } from "@/utils";
 import { useSettingsStore } from "@/store/useSettingsStore";
 

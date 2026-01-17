@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useControlsStore } from "@/store/useControlsStore";
-import { GroupWrapper, Label } from "../InputGroup/InputGroup";
+import { GroupWrapper, Label } from "../customUI/InputGroup/InputGroup";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import shapes, { type Shapes } from "@/utils/shapes";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";

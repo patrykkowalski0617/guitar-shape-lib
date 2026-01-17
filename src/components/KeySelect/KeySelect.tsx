@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/utils";
-import { GroupWrapper, Label } from "../InputGroup/InputGroup";
+import { GroupWrapper, Label } from "../customUI/InputGroup/InputGroup";
 import { Button } from "../ui/button";
 import {
   Select,

@@ -14,31 +14,29 @@ import { LockShapeButton } from "./components/LockShapeButton/LockShapeButton";
 function App() {
   useMusicEngine();
   return (
-    <>
-      <AppWrapper>
-        <Header />
-        <MainContent>
-          <Setcion>
-            <Keyboard />
-          </Setcion>
-          <Setcion>
-            <Fretboard />
-          </Setcion>
-          <Setcion>
-            <div className="flex flex-row flex-wrap items-end justify-center gap-6 w-full bg-background">
-              <ModeSelect />
-              <KeySelect />
-              <RoleSelect />
-              <ShapeSelect />
-              <LockShapeButton />
-            </div>
-          </Setcion>
-        </MainContent>
+    <AppWrapper>
+      <Header />
+      <MainContent>
         <Setcion>
-          <Footer />
+          <Keyboard />
         </Setcion>
-      </AppWrapper>
-    </>
+        <Setcion>
+          <Fretboard />
+        </Setcion>
+        <Setcion>
+          <div className="flex flex-row flex-wrap items-end justify-center gap-6 w-full bg-background">
+            <ModeSelect />
+            <KeySelect />
+            <RoleSelect />
+            <ShapeSelect />
+            <LockShapeButton />
+          </div>
+        </Setcion>
+      </MainContent>
+      <Setcion>
+        <Footer />
+      </Setcion>
+    </AppWrapper>
   );
 }
 

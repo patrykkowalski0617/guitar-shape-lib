@@ -1,7 +1,7 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import shapes, { type Shapes } from "@/utils/shapes";
-import { GroupWrapper, Label } from "../InputGroup/InputGroup";
+import { GroupWrapper, Label } from "../customUI/InputGroup/InputGroup";
 import { Button } from "../ui/button";
 import { Lock, LockOpen } from "lucide-react";
 
