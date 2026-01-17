@@ -1,16 +1,22 @@
 import styled, { keyframes } from "styled-components";
 
 export const HeaderWrapper = styled.header`
+  background-color: var(--primary);
+  max-width: 1300px;
+  margin: 0 auto;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  width: 100%;
+`;
+
+export const HeaderContent = styled.div`
+  max-width: 1200px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 22px;
+  padding: 22px 0;
+  margin: auto;
   width: 100%;
-  background-color: var(--primary);
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
 `;
 
 const shakeIt = keyframes`
@@ -45,6 +51,6 @@ export const Title = styled.h1`
 `;
 
 export const HeaderSide = styled.div`
-  right: 20px;
+  right: 10px;
   position: absolute;
 `;

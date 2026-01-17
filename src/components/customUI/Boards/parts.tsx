@@ -8,7 +8,6 @@ export const BoardWrapper = styled.div`
 `;
 
 export const BoardScrollWrapper = styled.div`
-  padding-bottom: 10px;
   overflow: auto;
   scrollbar-width: none;
 `;
