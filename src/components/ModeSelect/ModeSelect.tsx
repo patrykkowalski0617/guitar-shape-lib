@@ -17,12 +17,8 @@ export default function ModeSelect() {
       <ToggleGroup
         type="single"
         value={currentMode}
-        onValueChange={(v) => {
-          if (v) {
-            setIsMajorMode(v === "major");
-          } else {
-            setIsMajorMode(v === "minor");
-          }
+        onValueChange={() => {
+          setIsMajorMode(!isMajorMode);
         }}
         className="h-10 justify-start border rounded-xl p-1 bg-muted/50 border-muted-foreground/20 w-fit"
       >
