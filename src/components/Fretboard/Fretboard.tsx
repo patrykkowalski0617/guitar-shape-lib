@@ -6,26 +6,28 @@ import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { BoardScrollWrapper, BoardWrapper } from "../customUI/Boards/parts";
 import FretCell from "./FretCell/FretCell";
+import { useFretboardDevEditor } from "./helpers/useFretboardDevEditor";
+import { useFretboardShapes } from "./helpers/useFretboardShapes";
+import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
 
 export default function Fretboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  // const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
-
-  //- activeNoteId points note and its octave number
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
+  const { lockedShape } = useMusicStore();
 
   const NOTES_SHARP = getNotes({ firstNote: currentKeyId }).map(
     ({ sharpNoteName }) => sharpNoteName
   );
-  //- shapeRootSharpNote points all notes with the same sharp name
+
   const shapeRootSharpNote =
     currentShapeOffset !== null ? NOTES_SHARP[currentShapeOffset % 12] : null;
 
-  // console.log({ currentKeyId, currentShapeId, shapeRootSharpNote, activeNoteId });
+  const { onDevClick, isDevNote } = useFretboardDevEditor();
+  const { showShape, isPointInShape } = useFretboardShapes();
 
   return (
     <BoardScrollWrapper>
@@ -39,6 +41,11 @@ export default function Fretboard(): JSX.Element {
                 firstOctave: octaveNumber,
               }).map((note, fretIndex) => {
                 const isShapeRootNote = shapeRootSharpNote === note.sharpNoteName;
+                const isShapeNote = isPointInShape(stringIndex, fretIndex);
+                const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
+                const isLockedNote = !!lockedShape?.some(
+                  (p) => p.s === stringIndex && p.f === fretIndex
+                );
                 return (
                   <FretCell
                     key={`${stringIndex}-${fretIndex}`}
@@ -46,18 +53,27 @@ export default function Fretboard(): JSX.Element {
                     fretIndex={fretIndex}
                     isHighlighted={isShapeRootNote}
                     currentRoleId={currentRoleId}
-                    scaleDegree={undefined}
                     isFlatKey={isFlatKey}
                     isActive={activeNoteId === note.noteId}
                     isShapeRootNote={isShapeRootNote}
                     numberOfFrets={numberOfFrets}
                     onHover={setActiveNoteId}
                     onLeave={() => setActiveNoteId(null)}
+                    isShapeNote={isShapeNote}
+                    isLockedNote={isLockedNote}
+                    isDevNote={isCurrentDevNote}
+                    onClick={() => {
+                      // onDevClick(stringIndex, fretIndex);
+                      if (isShapeRootNote) {
+                        showShape(stringIndex, fretIndex);
+                      }
+                    }}
                   />
                 );
               })}
             </S.FretboardRow>
           ))}
+          <FretboardInfoRow />
         </S.Fretboard>
       </BoardWrapper>
     </BoardScrollWrapper>

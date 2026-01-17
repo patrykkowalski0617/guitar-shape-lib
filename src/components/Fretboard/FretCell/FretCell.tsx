@@ -2,21 +2,23 @@ import { memo } from "react";
 import * as S from "./parts";
 import type { NoteObject, RoleId } from "@/utils";
 import NoteLabel from "@/components/customUI/NoteLabel/NoteLabel";
-import type { ScaleStepMetadata } from "@/hooks/useActiveScale/useActiveScale";
 import type { HighlightRole } from "@/components/Keyboard/helpers/scaleLogic";
 
 interface FretCellProps {
   note: NoteObject;
   fretIndex: number;
   isHighlighted: boolean;
-  scaleDegree: ScaleStepMetadata | undefined;
   currentRoleId: RoleId | null;
   isFlatKey: boolean;
   isActive: boolean;
   isShapeRootNote: boolean;
+  isShapeNote: boolean;
+  isLockedNote: boolean;
+  isDevNote: boolean;
   numberOfFrets: number;
   onHover: (id: string) => void;
   onLeave: () => void;
+  onClick: (() => void) | undefined;
 }
 
 const FretCell = memo(
@@ -26,32 +28,38 @@ const FretCell = memo(
     isHighlighted,
     isFlatKey,
     isActive,
+    isShapeNote,
+    isLockedNote,
+    isDevNote,
     isShapeRootNote,
     numberOfFrets,
     currentRoleId,
-    scaleDegree,
     onHover,
     onLeave,
+    onClick,
   }: FretCellProps) => {
-    const activeRole: HighlightRole = scaleDegree?.role
-      ? (scaleDegree.role as HighlightRole)
-      : isShapeRootNote && currentRoleId
-      ? (currentRoleId as HighlightRole)
-      : "none";
+    const activeRole: HighlightRole =
+      isShapeRootNote && currentRoleId ? (currentRoleId as HighlightRole) : "none";
+
     return (
       <S.Fret
         $numberOfFrets={numberOfFrets}
         onMouseOver={() => onHover(note.noteId)}
         onMouseLeave={onLeave}
+        $isDevNote={isDevNote}
+        $isShapeNote={isShapeNote}
+        $isLockedNote={isLockedNote}
       >
         <S.Note
           $isHighlighted={isHighlighted}
           $isActiveNote={isActive}
           $isShapeRootNote={isShapeRootNote}
           $isHighlightRole={activeRole}
+          onClick={onClick}
+          $isShapeNote={isShapeNote}
         >
           <NoteLabel
-            isHighlighted={isHighlighted}
+            isHighlighted={isHighlighted || isShapeNote}
             index={fretIndex}
             flatNoteName={note.flatNoteName}
             sharpNoteName={note.sharpNoteName}
@@ -70,7 +78,9 @@ const FretCell = memo(
       prev.isFlatKey === next.isFlatKey &&
       prev.isShapeRootNote === next.isShapeRootNote &&
       prev.currentRoleId === next.currentRoleId &&
-      prev.scaleDegree === next.scaleDegree
+      prev.isShapeNote === next.isShapeNote &&
+      prev.isLockedNote === next.isLockedNote &&
+      prev.isDevNote === next.isDevNote
     );
   }
 );

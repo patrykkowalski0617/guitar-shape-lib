@@ -11,6 +11,7 @@ export const BoardScrollWrapper = styled.div`
   margin: 0 10px;
   padding-bottom: 10px;
   overflow: auto;
+  scrollbar-width: none;
 `;
 
 export const KeyAndFretStyles = css`
