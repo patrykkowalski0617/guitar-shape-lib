@@ -1,39 +1,25 @@
 import { useState, useMemo } from "react";
 import shapes, { type Shapes } from "@/utils/shapes";
 import { useControlsStore } from "@/store/useControlsStore";
-import { getNotes } from "@/utils";
-import { STRINGS_FIRST_NOTES, numberOfFrets } from "./constants";
 
 export const useFretboardShapes = () => {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
 
   const [variantState, setVariantState] = useState({
     stringIdx: -1,
+    fretIdx: -1,
     variantIdx: 0,
   });
 
-  const targetNoteName = useMemo(() => {
-    const notes = getNotes({ firstNote: currentKeyId });
-    return notes[(currentShapeOffset || 0) % 12].sharpNoteName;
-  }, [currentKeyId, currentShapeOffset]);
-
   const activeShapePoints = useMemo(() => {
-    if (variantState.stringIdx === -1 || !currentShapeId) return [];
-
-    const startNote = STRINGS_FIRST_NOTES[variantState.stringIdx];
-    const notesOnString = getNotes({
-      firstNote: startNote.noteName,
-      length: numberOfFrets,
-      firstOctave: startNote.octaveNumber,
-    });
-
-    const currentFretIdx = notesOnString.findIndex((n) => n.sharpNoteName === targetNoteName);
-    if (currentFretIdx === -1) return [];
+    if (variantState.stringIdx === -1 || variantState.fretIdx === -1 || !currentShapeId) {
+      return [];
+    }
 
     const shapeData = (shapes as Shapes)[currentShapeId as string];
     if (!shapeData) return [];
+
+    const currentFretIdx = variantState.fretIdx;
 
     const validVariants = Object.entries(shapeData.shapesCoordinates)
       .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
@@ -49,18 +35,20 @@ export const useFretboardShapes = () => {
       s,
       f: currentFretIdx + (fOffset - rootFretOffset),
     }));
-  }, [variantState, currentShapeId, targetNoteName]);
+  }, [variantState, currentShapeId]);
 
-  const showShape = (stringIndex: number) => {
+  const showShape = (stringIndex: number, fretIndex: number) => {
     setVariantState((prev) => ({
       stringIdx: stringIndex,
-      variantIdx: prev.stringIdx === stringIndex ? prev.variantIdx + 1 : 0,
+      fretIdx: fretIndex,
+      variantIdx:
+        prev.stringIdx === stringIndex && prev.fretIdx === fretIndex ? prev.variantIdx + 1 : 0,
     }));
   };
 
   return {
     showShape,
-    clearActiveShape: () => setVariantState({ stringIdx: -1, variantIdx: 0 }),
+    clearActiveShape: () => setVariantState({ stringIdx: -1, fretIdx: -1, variantIdx: 0 }),
     isPointInShape: (s: number, f: number) => activeShapePoints.some((p) => p.s === s && p.f === f),
   };
 };
