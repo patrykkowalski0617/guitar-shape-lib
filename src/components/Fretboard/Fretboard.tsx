@@ -39,8 +39,8 @@ export default function Fretboard(): JSX.Element {
                 firstOctave: octaveNumber,
               }).map((note, fretIndex) => {
                 const isShapeRootNote = shapeRootSharpNote === note.sharpNoteName;
-                const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
                 const isShapeNote = isPointInShape(stringIndex, fretIndex);
+                const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
 
                 return (
                   <FretCell
@@ -60,8 +60,9 @@ export default function Fretboard(): JSX.Element {
                     isDevNote={isCurrentDevNote}
                     onClick={() => {
                       onDevClick(stringIndex, fretIndex);
+
                       if (isShapeRootNote) {
-                        showShape(stringIndex, fretIndex);
+                        showShape(stringIndex);
                       }
                     }}
                   />
