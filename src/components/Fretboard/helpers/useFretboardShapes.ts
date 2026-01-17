@@ -1,54 +1,55 @@
-import { useState, useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import shapes, { type Shapes } from "@/utils/shapes";
 import { useControlsStore } from "@/store/useControlsStore";
+import { useMusicStore } from "@/store/useMusicStore";
 
 export const useFretboardShapes = () => {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
-
-  const [variantState, setVariantState] = useState({
-    stringIdx: -1,
-    fretIdx: -1,
-    variantIdx: 0,
-  });
+  const activeShapePoint = useMusicStore((state) => state.activeShapePoint);
+  const setActiveShapePoint = useMusicStore((state) => state.setActiveShapePoint);
 
   const activeShapePoints = useMemo(() => {
-    if (variantState.stringIdx === -1 || variantState.fretIdx === -1 || !currentShapeId) {
-      return [];
-    }
+    if (!activeShapePoint || !currentShapeId) return [];
 
     const shapeData = (shapes as Shapes)[currentShapeId as string];
     if (!shapeData) return [];
 
-    const currentFretIdx = variantState.fretIdx;
+    const { stringIdx, fretIdx, variantIdx } = activeShapePoint;
 
     const validVariants = Object.entries(shapeData.shapesCoordinates)
       .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
       .map(([, points]) => points as [number, number][])
-      .filter((v) => v.length > 0 && v[0][0] === variantState.stringIdx);
+      .filter((v) => v.length > 0 && v[0][0] === stringIdx);
 
     if (validVariants.length === 0) return [];
 
-    const selectedVariant = validVariants[variantState.variantIdx % validVariants.length];
+    const selectedVariant = validVariants[variantIdx % validVariants.length];
     const rootFretOffset = selectedVariant[0][1];
 
     return selectedVariant.map(([s, fOffset]) => ({
       s,
-      f: currentFretIdx + (fOffset - rootFretOffset),
+      f: fretIdx + (fOffset - rootFretOffset),
     }));
-  }, [variantState, currentShapeId]);
+  }, [activeShapePoint, currentShapeId]);
 
-  const showShape = (stringIndex: number, fretIndex: number) => {
-    setVariantState((prev) => ({
-      stringIdx: stringIndex,
-      fretIdx: fretIndex,
-      variantIdx:
-        prev.stringIdx === stringIndex && prev.fretIdx === fretIndex ? prev.variantIdx + 1 : 0,
-    }));
-  };
+  const showShape = useCallback(
+    (stringIndex: number, fretIndex: number) => {
+      const currentPoint = useMusicStore.getState().activeShapePoint;
+
+      const isSamePoint =
+        currentPoint?.stringIdx === stringIndex && currentPoint?.fretIdx === fretIndex;
+
+      setActiveShapePoint({
+        stringIdx: stringIndex,
+        fretIdx: fretIndex,
+        variantIdx: isSamePoint ? (currentPoint?.variantIdx ?? 0) + 1 : 0,
+      });
+    },
+    [setActiveShapePoint]
+  );
 
   return {
     showShape,
-    clearActiveShape: () => setVariantState({ stringIdx: -1, fretIdx: -1, variantIdx: 0 }),
     isPointInShape: (s: number, f: number) => activeShapePoints.some((p) => p.s === s && p.f === f),
   };
 };

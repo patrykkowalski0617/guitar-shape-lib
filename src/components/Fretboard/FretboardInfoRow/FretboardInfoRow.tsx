@@ -15,7 +15,7 @@ export default function FretboardInfoRow() {
         const isDoubleDot = doubleDotFrets.includes(index);
 
         return (
-          <S.FretInfoCell key={`info-${index}`} singleDot={isSingleDot} doubleDot={isDoubleDot}>
+          <S.FretInfoCell key={`info-${index}`} $singleDot={isSingleDot} $doubleDot={isDoubleDot}>
             {index === 0 ? "" : index}
           </S.FretInfoCell>
         );

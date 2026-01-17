@@ -60,7 +60,6 @@ export default function Fretboard(): JSX.Element {
                     isDevNote={isCurrentDevNote}
                     onClick={() => {
                       // onDevClick(stringIndex, fretIndex);
-
                       if (isShapeRootNote) {
                         showShape(stringIndex, fretIndex);
                       }

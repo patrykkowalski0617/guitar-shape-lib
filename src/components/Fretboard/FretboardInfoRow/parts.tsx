@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const FretInfoCell = styled.div<{ singleDot?: boolean; doubleDot?: boolean }>`
+export const FretInfoCell = styled.div<{ $singleDot?: boolean; $doubleDot?: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -27,16 +27,16 @@ export const FretInfoCell = styled.div<{ singleDot?: boolean; doubleDot?: boolea
     display: none;
   }
 
-  ${(props) =>
-    props.singleDot &&
+  ${({ $singleDot }) =>
+    $singleDot &&
     css`
       &::before {
         display: block;
       }
     `}
 
-  ${(props) =>
-    props.doubleDot &&
+  ${({ $doubleDot }) =>
+    $doubleDot &&
     css`
       &::before {
         display: block;

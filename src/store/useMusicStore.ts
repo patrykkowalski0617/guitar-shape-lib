@@ -8,6 +8,10 @@ interface MusicState {
   setActiveScaleNotes: (notes: NoteObject[]) => void;
   activeScaleSteps: number[];
   setActiveScaleSteps: (steps: number[]) => void;
+  activeShapePoint: { stringIdx: number; fretIdx: number; variantIdx: number } | null;
+  setActiveShapePoint: (
+    point: { stringIdx: number; fretIdx: number; variantIdx: number } | null
+  ) => void;
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
@@ -19,4 +23,7 @@ export const useMusicStore = create<MusicState>((set) => ({
 
   activeScaleSteps: generateScaleSteps(9),
   setActiveScaleSteps: (steps) => set({ activeScaleSteps: steps }),
+
+  activeShapePoint: null,
+  setActiveShapePoint: (point) => set({ activeShapePoint: point }),
 }));
