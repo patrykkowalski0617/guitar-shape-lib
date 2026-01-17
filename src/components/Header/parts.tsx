@@ -33,7 +33,7 @@ export const Title = styled.h1`
   letter-spacing: -0.025em;
   text-transform: uppercase;
   color: var(--foreground);
-  margin: 0;
+  margin: 0 40px;
   text-align: center;
   display: inline;
   transform: rotate(-2deg) translateY(-2px);

@@ -8,6 +8,7 @@ import { BoardScrollWrapper, BoardWrapper } from "../customUI/Boards/parts";
 import FretCell from "./FretCell/FretCell";
 import { useFretboardDevEditor } from "./helpers/useFretboardDevEditor";
 import { useFretboardShapes } from "./helpers/useFretboardShapes";
+import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
 
 export default function Fretboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
@@ -69,6 +70,7 @@ export default function Fretboard(): JSX.Element {
               })}
             </S.FretboardRow>
           ))}
+          <FretboardInfoRow />
         </S.Fretboard>
       </BoardWrapper>
     </BoardScrollWrapper>

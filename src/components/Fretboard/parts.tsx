@@ -6,7 +6,7 @@ export const Fretboard = styled.div``;
 export const FretboardRow = styled.div`
   display: flex;
   flex-direction: row;
-  &:last-child {
+  &:nth-child(6) {
     & > :first-child,
     & > :first-child ${Note} {
       border-radius: 0 0 0 var(--radius-xl);
