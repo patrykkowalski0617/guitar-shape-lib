@@ -7,17 +7,14 @@ import { useMusicStore } from "@/store/useMusicStore";
 import { BoardScrollWrapper, BoardWrapper } from "../customUI/Boards/parts";
 import FretCell from "./FretCell/FretCell";
 import { useFretboardDevEditor } from "./helpers/useFretboardDevEditor";
+import { useFretboardShapes } from "./helpers/useFretboardShapes";
 
 export default function Fretboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  // const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
-
-  const { onDevClick, isShapeNote } = useFretboardDevEditor();
-
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
 
   const NOTES_SHARP = getNotes({ firstNote: currentKeyId }).map(
@@ -26,6 +23,9 @@ export default function Fretboard(): JSX.Element {
 
   const shapeRootSharpNote =
     currentShapeOffset !== null ? NOTES_SHARP[currentShapeOffset % 12] : null;
+
+  const { onDevClick, isDevNote } = useFretboardDevEditor();
+  const { showShape, isPointInShape } = useFretboardShapes();
 
   return (
     <BoardScrollWrapper>
@@ -39,6 +39,9 @@ export default function Fretboard(): JSX.Element {
                 firstOctave: octaveNumber,
               }).map((note, fretIndex) => {
                 const isShapeRootNote = shapeRootSharpNote === note.sharpNoteName;
+                const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
+                const isShapeNote = isPointInShape(stringIndex, fretIndex);
+
                 return (
                   <FretCell
                     key={`${stringIndex}-${fretIndex}`}
@@ -53,9 +56,14 @@ export default function Fretboard(): JSX.Element {
                     numberOfFrets={numberOfFrets}
                     onHover={setActiveNoteId}
                     onLeave={() => setActiveNoteId(null)}
-                    isShapeNote={false}
-                    isDevNote={isShapeNote(stringIndex, fretIndex)}
-                    onRootClick={onDevClick(stringIndex, fretIndex)}
+                    isShapeNote={isShapeNote}
+                    isDevNote={isCurrentDevNote}
+                    onClick={() => {
+                      onDevClick(stringIndex, fretIndex);
+                      if (isShapeRootNote) {
+                        showShape(stringIndex, fretIndex);
+                      }
+                    }}
                   />
                 );
               })}

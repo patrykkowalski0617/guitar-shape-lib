@@ -19,7 +19,7 @@ interface FretCellProps {
   numberOfFrets: number;
   onHover: (id: string) => void;
   onLeave: () => void;
-  onRootClick: (() => void) | undefined;
+  onClick: (() => void) | undefined;
 }
 
 const FretCell = memo(
@@ -37,7 +37,7 @@ const FretCell = memo(
     scaleDegree,
     onHover,
     onLeave,
-    onRootClick,
+    onClick,
   }: FretCellProps) => {
     const activeRole: HighlightRole = scaleDegree?.role
       ? (scaleDegree.role as HighlightRole)
@@ -49,18 +49,19 @@ const FretCell = memo(
         $numberOfFrets={numberOfFrets}
         onMouseOver={() => onHover(note.noteId)}
         onMouseLeave={onLeave}
+        $isDevNote={isDevNote}
+        $isShapeNote={isShapeNote}
       >
         <S.Note
           $isHighlighted={isHighlighted}
           $isActiveNote={isActive}
           $isShapeRootNote={isShapeRootNote}
           $isHighlightRole={activeRole}
-          onClick={onRootClick}
+          onClick={onClick}
           $isShapeNote={isShapeNote}
-          $isDevNote={isDevNote}
         >
           <NoteLabel
-            isHighlighted={isHighlighted}
+            isHighlighted={isHighlighted || isShapeNote}
             index={fretIndex}
             flatNoteName={note.flatNoteName}
             sharpNoteName={note.sharpNoteName}
