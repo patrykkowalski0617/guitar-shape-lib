@@ -17,7 +17,6 @@ export const useFretboardDevEditor = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key.toLowerCase() === "c" && devPoints.length > 0 && currentShapeId) {
-        const base = devPoints[0];
         const shapeData = (shapes as Shapes)[currentShapeId];
         const currentCoords = shapeData?.shapesCoordinates || {};
         const keys = Object.keys(currentCoords);
@@ -27,20 +26,45 @@ export const useFretboardDevEditor = () => {
           return num > max ? num : max;
         }, 0);
 
-        const nextIdx = maxIdx + 1;
+        let nextIdx = maxIdx + 1;
+        let finalOutput = "";
 
-        const sorted = [...devPoints].sort((a, b) => b.s - a.s);
-        const shapeBody = sorted.map((p) => `[${p.s}, ${p.f - base.f}]`).join(",");
+        let currentPoints = [...devPoints].sort((a, b) => b.s - a.s);
 
-        const output = `
-               ${currentShapeId}_${nextIdx}: [${shapeBody}],`;
+        while (currentPoints.length > 0) {
+          const iterationBase = currentPoints[0];
 
-        navigator.clipboard.writeText(output);
+          const shapeBody = currentPoints
+            .map((p) => `[${p.s}, ${p.f - iterationBase.f}]`)
+            .join(",");
+
+          finalOutput += `
+              
+              ${currentShapeId}_${nextIdx}: [${shapeBody}],`;
+
+          nextIdx++;
+
+          currentPoints = currentPoints
+            .map((p) => {
+              const nextS = p.s - 1;
+              let nextF = p.f;
+
+              if (p.s === 2 && nextS === 1) {
+                nextF += 1;
+              }
+
+              return { s: nextS, f: nextF };
+            })
+
+            .filter((p) => p.s >= 0);
+        }
+
+        navigator.clipboard.writeText(finalOutput);
         console.log(
-          `%c GENEROWANIE: ${currentShapeId}_${nextIdx}`,
+          `%c GENEROWANIE KOMPLETU: ${currentShapeId}`,
           "color: #00ff00; font-weight: bold;"
         );
-        console.log(output);
+        console.log(finalOutput);
       }
 
       if (e.key.toLowerCase() === "r") {

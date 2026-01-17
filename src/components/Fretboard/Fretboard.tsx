@@ -59,7 +59,7 @@ export default function Fretboard(): JSX.Element {
                     isShapeNote={isShapeNote}
                     isDevNote={isCurrentDevNote}
                     onClick={() => {
-                      // onDevClick(stringIndex, fretIndex);
+                      onDevClick(stringIndex, fretIndex);
                       if (isShapeRootNote) {
                         showShape(stringIndex, fretIndex);
                       }
