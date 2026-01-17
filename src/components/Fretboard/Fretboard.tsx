@@ -26,7 +26,10 @@ export default function Fretboard(): JSX.Element {
   const shapeRootSharpNote =
     currentShapeOffset !== null ? NOTES_SHARP[currentShapeOffset % 12] : null;
 
-  const { onDevClick, isDevNote } = useFretboardDevEditor();
+  const {
+    // onDevClick,
+    isDevNote,
+  } = useFretboardDevEditor();
   const { showShape, isPointInShape } = useFretboardShapes();
 
   return (
