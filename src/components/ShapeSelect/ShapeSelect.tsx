@@ -9,8 +9,9 @@ import {
 import { useControlsStore } from "@/store/useControlsStore";
 import { GroupWrapper, Label } from "../InputGroup/InputGroup";
 import { useSettingsStore } from "@/store/useSettingsStore";
-import shapes from "@/utils/shapes";
+import shapes, { type Shapes } from "@/utils/shapes";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
+import { getFilteredShapeOptions } from "./helpers/shapeHelpers";
 
 export default function ShapeSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
@@ -30,34 +31,17 @@ export default function ShapeSelect() {
   }, [currentKeyId, isFlatKey]);
 
   const filteredOptions = useMemo(() => {
-    if (!currentRoleId) return [];
+    const rawOptions = getFilteredShapeOptions(currentRoleId, isMajorMode);
 
-    const options: { value: string; label: string }[] = [];
+    return rawOptions.map(({ shapeId, offset }) => {
+      const shape = (shapes as Shapes)[shapeId as keyof Shapes];
+      const rootNoteName = currentKeyNotes[offset % 12];
 
-    Object.entries(shapes).forEach(([shapeId, shape]) => {
-      const roleData =
-        shape.semitoneOffsetFromMajorTonicRoot[
-          currentRoleId as keyof typeof shape.semitoneOffsetFromMajorTonicRoot
-        ];
-
-      if (!roleData) return;
-
-      const offsets: number[] = [
-        ...(roleData.bothModes || []),
-        ...(isMajorMode ? roleData.majorMode || [] : roleData.minorMode || []),
-      ];
-
-      offsets.forEach((offsetIndex) => {
-        const rootNoteName = currentKeyNotes[offsetIndex % 12];
-
-        options.push({
-          value: `${shapeId}|${offsetIndex}`,
-          label: `${rootNoteName} ${shape.label} ${shape.type}`,
-        });
-      });
+      return {
+        value: `${shapeId}|${offset}`,
+        label: `${rootNoteName} ${shape.label} ${shape.type}`,
+      };
     });
-
-    return options;
   }, [currentRoleId, isMajorMode, currentKeyNotes]);
 
   const currentShapeValue =
@@ -75,7 +59,6 @@ export default function ShapeSelect() {
         onValueChange={(v) => {
           const [id, offsetStr] = v.split("|");
           const offset = parseInt(offsetStr, 10);
-
           setShape(id, offset);
         }}
         disabled={isDisabled}

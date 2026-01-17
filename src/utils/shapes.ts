@@ -1,4 +1,5 @@
 import { getSemitonesMap } from "./intervals";
+import type { RoleId } from "./roles";
 
 export const {
   _1,
@@ -51,6 +52,19 @@ export interface Shapes {
   [key: string]: Shape;
 }
 
+type ExistingShapeIds = keyof typeof shapes;
+
+type ModeRoleKey = `${"major" | "minor"}_${RoleId}`;
+
+export const DEFAULT_SHAPES_CONFIG: Record<ModeRoleKey, ExistingShapeIds> = {
+  major_tonic: "M7",
+  major_subdominant: "M7",
+  major_dominant: "dominant",
+  minor_tonic: "m7",
+  minor_subdominant: "m7",
+  minor_dominant: "dominant",
+};
+
 const shapes: Shapes = {
   M7: {
     label: "M7",
@@ -79,8 +93,6 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
       M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
     },
   },
@@ -108,7 +120,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
+      M7_2: [[5, 0],[5, 1]],
       // prettier-ignore
       M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
     },
@@ -160,7 +172,7 @@ const shapes: Shapes = {
     type: "Arpegio",
     intervals: [_1, _m3, _5, _m7],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: { bothModes: [_M3, _M6] },
+      tonic: { bothModes: [_M6, _M3] },
       subdominant: { bothModes: [_M2, _M6] },
     },
     shapesCoordinates: {

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { type RoleId, type MusicKeyId } from "@/utils";
+import { getAutoSelectedShape } from "@/components/ShapeSelect/helpers/shapeHelpers";
 
 interface ControlsState {
   isMajorMode: boolean;
@@ -15,14 +16,35 @@ interface ControlsState {
 
 export const useControlsStore = create<ControlsState>((set) => ({
   isMajorMode: true,
-  setIsMajorMode: (isMajorMode) => set({ isMajorMode }),
+  setIsMajorMode: (isMajorMode) =>
+    set((state) => {
+      if (!state.currentRoleId) return { isMajorMode };
+      const { shapeId, offset } = getAutoSelectedShape(state.currentRoleId, isMajorMode);
+
+      return {
+        isMajorMode,
+        currentShapeId: shapeId,
+        currentShapeOffset: offset,
+      };
+    }),
 
   currentKeyId: "C",
   setCurrentKey: (id) => set({ currentKeyId: id }),
 
   currentRoleId: null,
   setCurrentRoleId: (id) =>
-    set({ currentRoleId: id, currentShapeId: null, currentShapeOffset: null }),
+    set((state) => {
+      if (id === null) {
+        return { currentRoleId: null, currentShapeId: null, currentShapeOffset: null };
+      }
+      const { shapeId, offset } = getAutoSelectedShape(id, state.isMajorMode);
+
+      return {
+        currentRoleId: id,
+        currentShapeId: shapeId,
+        currentShapeOffset: offset,
+      };
+    }),
 
   currentShapeId: null,
   currentShapeOffset: null,
