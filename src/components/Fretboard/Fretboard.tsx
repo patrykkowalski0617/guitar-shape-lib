@@ -49,7 +49,6 @@ export default function Fretboard(): JSX.Element {
                     fretIndex={fretIndex}
                     isHighlighted={isShapeRootNote}
                     currentRoleId={currentRoleId}
-                    scaleDegree={undefined}
                     isFlatKey={isFlatKey}
                     isActive={activeNoteId === note.noteId}
                     isShapeRootNote={isShapeRootNote}

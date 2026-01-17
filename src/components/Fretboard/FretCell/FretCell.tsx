@@ -2,14 +2,12 @@ import { memo } from "react";
 import * as S from "./parts";
 import type { NoteObject, RoleId } from "@/utils";
 import NoteLabel from "@/components/customUI/NoteLabel/NoteLabel";
-import type { ScaleStepMetadata } from "@/hooks/useActiveScale/useActiveScale";
 import type { HighlightRole } from "@/components/Keyboard/helpers/scaleLogic";
 
 interface FretCellProps {
   note: NoteObject;
   fretIndex: number;
   isHighlighted: boolean;
-  scaleDegree: ScaleStepMetadata | undefined;
   currentRoleId: RoleId | null;
   isFlatKey: boolean;
   isActive: boolean;
@@ -34,16 +32,13 @@ const FretCell = memo(
     isShapeRootNote,
     numberOfFrets,
     currentRoleId,
-    scaleDegree,
     onHover,
     onLeave,
     onClick,
   }: FretCellProps) => {
-    const activeRole: HighlightRole = scaleDegree?.role
-      ? (scaleDegree.role as HighlightRole)
-      : isShapeRootNote && currentRoleId
-      ? (currentRoleId as HighlightRole)
-      : "none";
+    const activeRole: HighlightRole =
+      isShapeRootNote && currentRoleId ? (currentRoleId as HighlightRole) : "none";
+
     return (
       <S.Fret
         $numberOfFrets={numberOfFrets}
@@ -81,8 +76,7 @@ const FretCell = memo(
       prev.isShapeRootNote === next.isShapeRootNote &&
       prev.currentRoleId === next.currentRoleId &&
       prev.isShapeNote === next.isShapeNote &&
-      prev.isDevNote === next.isDevNote &&
-      prev.scaleDegree === next.scaleDegree
+      prev.isDevNote === next.isDevNote
     );
   }
 );
