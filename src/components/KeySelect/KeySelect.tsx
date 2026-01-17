@@ -69,7 +69,7 @@ export default function KeySelect() {
           <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>
             <SelectTrigger
               style={{ height: "40px" }}
-              className="bg-muted/30 border-muted-foreground/20 focus:ring-0 focus:ring-offset-0 font-semibold w-32 rounded-none"
+              className="bg-muted/30 border-muted-foreground/50 focus:ring-0 focus:ring-offset-0 font-semibold w-32 rounded-none"
             >
               <SelectValue />
             </SelectTrigger>

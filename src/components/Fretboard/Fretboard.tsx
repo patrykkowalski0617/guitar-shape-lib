@@ -17,6 +17,7 @@ export default function Fretboard(): JSX.Element {
   const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
+  const { lockedShape } = useMusicStore();
 
   const NOTES_SHARP = getNotes({ firstNote: currentKeyId }).map(
     ({ sharpNoteName }) => sharpNoteName
@@ -42,7 +43,9 @@ export default function Fretboard(): JSX.Element {
                 const isShapeRootNote = shapeRootSharpNote === note.sharpNoteName;
                 const isShapeNote = isPointInShape(stringIndex, fretIndex);
                 const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
-
+                const isLockedNote = !!lockedShape?.some(
+                  (p) => p.s === stringIndex && p.f === fretIndex
+                );
                 return (
                   <FretCell
                     key={`${stringIndex}-${fretIndex}`}
@@ -57,9 +60,10 @@ export default function Fretboard(): JSX.Element {
                     onHover={setActiveNoteId}
                     onLeave={() => setActiveNoteId(null)}
                     isShapeNote={isShapeNote}
+                    isLockedNote={isLockedNote}
                     isDevNote={isCurrentDevNote}
                     onClick={() => {
-                      onDevClick(stringIndex, fretIndex);
+                      // onDevClick(stringIndex, fretIndex);
                       if (isShapeRootNote) {
                         showShape(stringIndex, fretIndex);
                       }

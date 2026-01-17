@@ -66,7 +66,7 @@ export default function ShapeSelect() {
         <SelectTrigger
           disabled={isDisabled}
           style={{ height: "40px", minWidth: "210px" }}
-          className={`font-semibold bg-muted/30 border-muted-foreground/20 focus:ring-0 focus:ring-offset-0 ${
+          className={`font-semibold bg-muted/30 border-muted-foreground/50 focus:ring-0 focus:ring-offset-0 ${
             isDisabled ? "opacity-50 cursor-not-allowed" : ""
           }`}
         >

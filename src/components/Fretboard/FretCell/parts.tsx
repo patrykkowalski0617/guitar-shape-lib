@@ -7,6 +7,7 @@ interface FretProps {
   $numberOfFrets: number;
   $isDevNote: boolean;
   $isShapeNote: boolean;
+  $isLockedNote: boolean;
 }
 
 export const Fret = styled.div<FretProps>`
@@ -16,6 +17,8 @@ export const Fret = styled.div<FretProps>`
   background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
   box-shadow: ${({ $isShapeNote }) =>
     $isShapeNote ? "inset 0 -5px 10px 0px var(--input)" : "none"};
+  outline: ${({ $isLockedNote }) => ($isLockedNote ? "2px solid var(--primary)" : "")};
+  outline-offset: 2px;
 `;
 
 interface NoteProps {

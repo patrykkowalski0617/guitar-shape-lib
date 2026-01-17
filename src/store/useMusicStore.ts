@@ -1,6 +1,11 @@
 import { create } from "zustand";
 import { generateScaleSteps, type NoteObject } from "@/utils";
 
+interface Point {
+  s: number;
+  f: number;
+}
+
 interface MusicState {
   activeNoteId: string | null;
   setActiveNoteId: (noteId: string | null) => void;
@@ -12,6 +17,10 @@ interface MusicState {
   setActiveShapePoint: (
     point: { stringIdx: number; fretIdx: number; variantIdx: number } | null
   ) => void;
+  lockedShape: Point[] | null;
+  setLockedShape: (points: Point[] | null) => void;
+  currentShapeRootFret: number | null;
+  setCurrentShapeRootFret: (currentShapeRootFret: number) => void;
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
@@ -26,4 +35,10 @@ export const useMusicStore = create<MusicState>((set) => ({
 
   activeShapePoint: null,
   setActiveShapePoint: (point) => set({ activeShapePoint: point }),
+
+  lockedShape: null,
+  setLockedShape: (points) => set({ lockedShape: points }),
+
+  currentShapeRootFret: null,
+  setCurrentShapeRootFret: (fret) => set({ currentShapeRootFret: fret }),
 }));

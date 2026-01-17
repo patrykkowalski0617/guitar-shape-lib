@@ -1,11 +1,14 @@
 import styled from "styled-components";
 import { Note } from "./FretCell/parts";
 
-export const Fretboard = styled.div``;
+export const Fretboard = styled.div`
+  padding-top: 4px;
+`;
 
 export const FretboardRow = styled.div`
   display: flex;
   flex-direction: row;
+
   &:nth-child(6) {
     & > :first-child,
     & > :first-child ${Note} {

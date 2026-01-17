@@ -9,6 +9,7 @@ import ShapeSelect from "./components/ShapeSelect/ShapeSelect";
 import { Setcion } from "./components/customUI/parts";
 import Footer from "./components/Footer/Footer";
 import { AppWrapper, MainContent } from "./parts";
+import { LockShapeButton } from "./components/LockShapeButton/LockShapeButton";
 
 function App() {
   useMusicEngine();
@@ -29,6 +30,7 @@ function App() {
               <KeySelect />
               <RoleSelect />
               <ShapeSelect />
+              <LockShapeButton />
             </div>
           </Setcion>
         </MainContent>

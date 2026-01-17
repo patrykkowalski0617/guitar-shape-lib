@@ -13,6 +13,7 @@ interface FretCellProps {
   isActive: boolean;
   isShapeRootNote: boolean;
   isShapeNote: boolean;
+  isLockedNote: boolean;
   isDevNote: boolean;
   numberOfFrets: number;
   onHover: (id: string) => void;
@@ -28,6 +29,7 @@ const FretCell = memo(
     isFlatKey,
     isActive,
     isShapeNote,
+    isLockedNote,
     isDevNote,
     isShapeRootNote,
     numberOfFrets,
@@ -46,6 +48,7 @@ const FretCell = memo(
         onMouseLeave={onLeave}
         $isDevNote={isDevNote}
         $isShapeNote={isShapeNote}
+        $isLockedNote={isLockedNote}
       >
         <S.Note
           $isHighlighted={isHighlighted}
@@ -76,6 +79,7 @@ const FretCell = memo(
       prev.isShapeRootNote === next.isShapeRootNote &&
       prev.currentRoleId === next.currentRoleId &&
       prev.isShapeNote === next.isShapeNote &&
+      prev.isLockedNote === next.isLockedNote &&
       prev.isDevNote === next.isDevNote
     );
   }
