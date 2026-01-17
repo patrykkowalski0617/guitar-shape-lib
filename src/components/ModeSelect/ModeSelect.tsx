@@ -18,7 +18,11 @@ export default function ModeSelect() {
         type="single"
         value={currentMode}
         onValueChange={(v) => {
-          if (v) setIsMajorMode(v === "major");
+          if (v) {
+            setIsMajorMode(v === "major");
+          } else {
+            setIsMajorMode(v === "minor");
+          }
         }}
         className="h-10 justify-start border rounded-xl p-1 bg-muted/50 border-muted-foreground/20 w-fit"
       >
