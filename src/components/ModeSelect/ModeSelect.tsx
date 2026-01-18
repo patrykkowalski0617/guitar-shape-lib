@@ -20,16 +20,10 @@ export default function ModeSelect() {
         onValueChange={() => {
           setIsMajorMode(!isMajorMode);
         }}
-        className="h-8 justify-start border rounded-md p-0 bg-muted/30 border-muted-foreground/20 w-fit gap-0 overflow-hidden"
       >
         {(Object.entries(musicMode) as [MusicModeId, typeof musicMode.major][]).map(
           ([id, data]) => (
-            <ToggleGroupItem
-              key={id}
-              value={id}
-              title={data.descriptiveLabel}
-              className="h-full px-3 text-[12px] uppercase font-semibold tracking-tight data-[state=on]:bg-background data-[state=on]:text-foreground rounded-none border-r last:border-r-0 border-muted-foreground/10 transition-none"
-            >
+            <ToggleGroupItem key={id} value={id} title={data.descriptiveLabel}>
               {areDescriptiveLabels ? data.descriptiveLabel : data.label}
             </ToggleGroupItem>
           )

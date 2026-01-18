@@ -45,31 +45,16 @@ export const LockShapeButton = () => {
     <GroupWrapper>
       <Label>{"Lock Shape"}</Label>
 
-      <div className="flex items-center">
-        <Button
-          variant="outline"
-          onClick={handleToggle}
-          disabled={!activeShapePoint && !isLocked}
-          className={`
-            h-10 px-4 transition-all duration-200
-            border-muted-foreground/20 
-            w-34            ${
-              isLocked
-                ? "bg-muted/50 border-secondary/50 outline outline-2 outline-[var(--secondary)] outline-offset-2"
-                : "bg-muted/30 text-foreground hover:bg-muted/50"
-            }
-          `}
-        >
-          <div className="flex items-center gap-2">
-            {isLocked ? (
-              <Lock className="h-3.5 w-3.5 fill-current" />
-            ) : (
-              <LockOpen className="h-3.5 w-3.5 opacity-50" />
-            )}
-            <span>{isLocked ? "Shape Locked" : "Lock Shape"}</span>
-          </div>
-        </Button>
-      </div>
+      <Button variant="outline" onClick={handleToggle} disabled={!activeShapePoint && !isLocked}>
+        <div className="flex items-center gap-2">
+          {isLocked ? (
+            <Lock className="h-3.5 w-3.5 fill-current" />
+          ) : (
+            <LockOpen className="h-3.5 w-3.5 opacity-50" />
+          )}
+          <span>{isLocked ? "Locked" : "Lock"}</span>
+        </div>
+      </Button>
     </GroupWrapper>
   );
 };

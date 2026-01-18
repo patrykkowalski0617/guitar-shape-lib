@@ -40,59 +40,38 @@ export default function KeySelect() {
     relativeMinorName: data.relativeMinorName,
   }));
 
-  // Zmniejszono wysokość (h-8) i szerokość (w-8) przycisków
-  const buttonBaseClass =
-    "h-8 w-8 p-0 border-muted-foreground/20 bg-muted/30 hover:bg-muted/50 text-foreground disabled:opacity-30";
-
   return (
     <GroupWrapper>
       <Label>
         {areDescriptiveLabels ? "Relative minor/Major Roots" : "Relative minor/Major Keys"}
       </Label>
 
-      <div className="flex items-center overflow-hidden rounded-md border border-muted-foreground/20">
-        <Button
-          variant="ghost" // Zmieniono na ghost, bo ramkę trzyma teraz rodzic (style segmentowe)
-          className={`${buttonBaseClass} rounded-none border-none border-r border-muted-foreground/20`}
-          onClick={() => handleShift("prev")}
-          disabled={isThrottled}
-        >
+      {/* <div className="flex">
+        <Button variant="ghost" onClick={() => handleShift("prev")} disabled={isThrottled}>
           <ChevronLeft className="h-4 w-4" />
-        </Button>
+        </Button> */}
 
-        <div className="bg-muted/30">
-          <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>
-            <SelectTrigger
-              style={{ height: "32px" }} // 32px to odpowiednik h-8
-              className="!bg-transparent border-none focus:ring-0 focus:ring-offset-0 font-semibold text-[12px] w-28 rounded-none px-2"
-            >
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="font-semibold">
-              {options.map((opt) => (
-                <SelectItem key={opt.id} value={opt.id}>
-                  <span className={isMajorMode ? "opacity-100" : "opacity-50"}>
-                    {opt.majorName}
-                  </span>
-                  <span className="mx-1 opacity-50">/</span>
-                  <span className={!isMajorMode ? "opacity-100" : "opacity-50"}>
-                    {opt.relativeMinorName}
-                  </span>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+      <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>
+        <SelectTrigger>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {options.map((opt) => (
+            <SelectItem key={opt.id} value={opt.id}>
+              <span className={isMajorMode ? "opacity-100" : "opacity-50"}>{opt.majorName}</span>
+              <span className="mx-1 opacity-50">/</span>
+              <span className={!isMajorMode ? "opacity-100" : "opacity-50"}>
+                {opt.relativeMinorName}
+              </span>
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
 
-        <Button
-          variant="ghost"
-          className={`${buttonBaseClass} rounded-none border-none border-l border-muted-foreground/20`}
-          onClick={() => handleShift("next")}
-          disabled={isThrottled}
-        >
+      {/* <Button variant="ghost" onClick={() => handleShift("next")} disabled={isThrottled}>
           <ChevronRight className="h-4 w-4" />
         </Button>
-      </div>
+      </div> */}
     </GroupWrapper>
   );
 }

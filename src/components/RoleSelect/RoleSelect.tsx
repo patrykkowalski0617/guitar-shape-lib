@@ -16,19 +16,9 @@ export default function RoleSelect() {
   return (
     <GroupWrapper>
       <Label>{areDescriptiveLabels ? "Energy" : "Function"} </Label>
-      <ToggleGroup
-        type="single"
-        value={currentRoleId ?? ""}
-        onValueChange={handleValueChange}
-        className="h-8 justify-start border rounded-md p-0 bg-muted/30 border-muted-foreground/20 w-fit gap-0 overflow-hidden"
-      >
+      <ToggleGroup type="single" value={currentRoleId ?? ""} onValueChange={handleValueChange}>
         {(Object.entries(roles) as [RoleId, RoleData][]).map(([id, data]) => (
-          <ToggleGroupItem
-            title={data.descriptiveLabel}
-            key={id}
-            value={id}
-            className="h-full px-3 text-[12px] uppercase font-semibold tracking-tight data-[state=on]:bg-background data-[state=on]:text-foreground rounded-none border-r last:border-r-0 border-muted-foreground/10 transition-none"
-          >
+          <ToggleGroupItem title={data.descriptiveLabel} key={id} value={id}>
             {areDescriptiveLabels ? data.descriptiveLabel : data.label}
           </ToggleGroupItem>
         ))}
