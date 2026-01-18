@@ -25,7 +25,7 @@ function App() {
           <Fretboard />
         </Setcion>
         <Setcion>
-          <div className="flex flex-col justify-center md:flex-row flex-wrap md:items-end gap-6 w-full">
+          <div className="max-w-[400px] md:max-w-[1000px] m-auto flex flex-col justify-center md:flex-row flex-wrap md:items-end gap-6">
             <ModeSelect />
             <KeySelect />
             <RoleSelect />

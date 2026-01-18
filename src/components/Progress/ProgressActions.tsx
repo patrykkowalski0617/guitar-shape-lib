@@ -7,10 +7,18 @@ export const ProgressActions = () => {
 
   return (
     <>
-      <Button variant="outline" size="sm" onClick={() => exportProgress({ learned, learning })}>
+      <Button
+        variant="outline"
+        className="min-w-[211px]"
+        onClick={() => exportProgress({ learned, learning })}
+      >
         Export progress file
       </Button>
-      <Button variant="outline" size="sm" onClick={() => importProgress(importData)}>
+      <Button
+        variant="outline"
+        className="min-w-[211px]"
+        onClick={() => importProgress(importData)}
+      >
         Import progress file
       </Button>
     </>

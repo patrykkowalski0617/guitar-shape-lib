@@ -57,7 +57,7 @@ const whiteKey = css`
   }
 
   @media (min-width: 768px) {
-    height: 180px;
+    height: 150px;
     padding-top: 11px; //- 1px difference to compensate border of black key
   }
 `;
@@ -70,7 +70,7 @@ const blackKey = css`
   ${commonStyleForKey}
 
   @media (min-width: 768px) {
-    height: 110px;
+    height: 90px;
     padding-top: 10px;
   }
 `;

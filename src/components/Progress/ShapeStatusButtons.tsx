@@ -13,7 +13,7 @@ export const ShapeStatusButtons = () => {
     <>
       <Button
         variant={isLearning ? "secondary" : "outline"}
-        size="sm"
+        className="min-w-[211px]"
         disabled={!currentVariantId}
         onClick={() => currentVariantId && toggleLearning(currentVariantId)}
       >
@@ -21,11 +21,11 @@ export const ShapeStatusButtons = () => {
       </Button>
       <Button
         variant={isLearned ? "default" : "outline"}
-        size="sm"
+        className="min-w-[211px]"
         disabled={!currentVariantId}
         onClick={() => currentVariantId && toggleLearned(currentVariantId)}
       >
-        {isLearned ? "Got it! (this shape is on 'Learned')" : "Add to 'learned list'"}
+        {isLearned ? "Got it! This shape is learned" : "Add to 'Learned list'"}
       </Button>
     </>
   );

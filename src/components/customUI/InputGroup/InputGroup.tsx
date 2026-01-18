@@ -1,5 +1,8 @@
 export const Label = ({ children }: { children: React.ReactNode }) => (
-  <span className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-1.5 ml-1">
+  <span
+    className="text-[10px] font-bold uppercase tracking-[0.1em] text-muted-foreground mb-1.5 ml-1"
+    style={{ lineHeight: "0.5" }}
+  >
     {children}
   </span>
 );

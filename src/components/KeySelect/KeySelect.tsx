@@ -1,10 +1,10 @@
-import { useState, useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+// import { useState, useRef } from "react";
+// import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/utils";
 import { GroupWrapper, Label } from "../customUI/InputGroup/InputGroup";
-import { Button } from "../ui/button";
+// import { Button } from "../ui/button";
 import {
   Select,
   SelectContent,
@@ -12,27 +12,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { transitionTime } from "@/utils/constants";
+// import { transitionTime } from "@/utils/constants";
 
 export default function KeySelect() {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const setCurrentKey = useControlsStore((state) => state.setCurrentKey);
-  const shiftKey = useControlsStore((state) => state.shiftKey);
+  // const shiftKey = useControlsStore((state) => state.shiftKey);
   const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
 
-  const [isThrottled, setIsThrottled] = useState(false);
-  const throttleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // const [isThrottled, setIsThrottled] = useState(false);
+  // const throttleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const handleShift = (direction: "next" | "prev") => {
-    if (isThrottled) return;
-    shiftKey(direction);
-    setIsThrottled(true);
-    if (throttleTimer.current) clearTimeout(throttleTimer.current);
-    throttleTimer.current = setTimeout(() => {
-      setIsThrottled(false);
-    }, transitionTime);
-  };
+  // const handleShift = (direction: "next" | "prev") => {
+  //   if (isThrottled) return;
+  //   shiftKey(direction);
+  //   setIsThrottled(true);
+  //   if (throttleTimer.current) clearTimeout(throttleTimer.current);
+  //   throttleTimer.current = setTimeout(() => {
+  //     setIsThrottled(false);
+  //   }, transitionTime);
+  // };
 
   const options = Object.entries(UNIFIED_MUSIC_KEYS).map(([id, data]) => ({
     id: id as MusicKeyId,
@@ -50,7 +50,7 @@ export default function KeySelect() {
         </Button> */}
 
       <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>
-        <SelectTrigger>
+        <SelectTrigger className="min-w-[100px]">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
