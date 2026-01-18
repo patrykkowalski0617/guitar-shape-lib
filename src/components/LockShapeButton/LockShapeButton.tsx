@@ -7,7 +7,11 @@ import { Lock, LockOpen } from "lucide-react";
 
 export const LockShapeButton = () => {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const { lockedShape, setLockedShape, activeShapePoint } = useMusicStore();
+  const currentRoleId = useControlsStore((state) => state.currentRoleId);
+  const setLockedRoleId = useMusicStore((state) => state.setLockedRoleId);
+  const lockedShape = useMusicStore((state) => state.lockedShape);
+  const setLockedShape = useMusicStore((state) => state.setLockedShape);
+  const activeShapePoint = useMusicStore((state) => state.activeShapePoint);
 
   const isLocked = lockedShape !== null;
 
@@ -36,6 +40,7 @@ export const LockShapeButton = () => {
           }));
 
           setLockedShape(points);
+          setLockedRoleId(currentRoleId);
         }
       }
     }
