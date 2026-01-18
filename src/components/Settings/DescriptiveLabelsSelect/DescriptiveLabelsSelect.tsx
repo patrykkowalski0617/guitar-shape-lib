@@ -30,23 +30,12 @@ export default function DescriptiveLabelsSelect() {
       <ToggleGroup
         type="single"
         value={currentValue}
-        onValueChange={
-          // (v) => {
-          //- if (v) setAreDescriptiveLabels(v === "descriptive");
-          //- easter agg
-          () => {
-            setAreDescriptiveLabels(true);
-          }
-        }
-        className="grid grid-cols-2 min-h-[40px] h-11 w-full border rounded-xl p-1 bg-primary/50 border-muted-foreground/20"
+        onValueChange={(v) => {
+          if (v) setAreDescriptiveLabels(v === "descriptive");
+        }}
       >
         {LABEL_OPTIONS.map((option) => (
-          <ToggleGroupItem
-            key={option.id}
-            value={option.id}
-            title={option.descriptiveLabel}
-            className="h-full w-full px-4 text-xs font-semibold uppercase data-[state=on]:bg-background data-[state=on]:shadow-sm transition-all"
-          >
+          <ToggleGroupItem key={option.id} value={option.id} title={option.descriptiveLabel}>
             {option.label}
           </ToggleGroupItem>
         ))}

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Settings as Gear } from "lucide-react";
+import * as S from "./parts";
 
 import {
   Drawer,
@@ -16,19 +17,17 @@ export function Settings() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button
-          variant="outline"
-          size="icon"
-          className="h-10 w-10 shrink-0 !bg-card hover:!bg-accent"
-        >
-          <Gear className="h-5 w-5" />
+        <Button size="icon" className="flex justify-center h-10 w-10">
+          <S.IconHoverSpin>
+            <Gear className="h-10 w-10" />
+          </S.IconHoverSpin>
         </Button>
       </DrawerTrigger>
 
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
           <DrawerHeader className="border-b mb-4">
-            <DrawerTitle className="text-2xl font-bold tracking-tight">Settings</DrawerTitle>
+            <DrawerTitle className="text-2xl font-bold">Settings</DrawerTitle>
           </DrawerHeader>
 
           <div className="px-4 py-2 space-y-6">

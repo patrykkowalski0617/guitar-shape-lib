@@ -7,7 +7,7 @@ export const FretInfoCell = styled.div<{ $singleDot?: boolean; $doubleDot?: bool
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height: 40px;
+  height: 35px;
   padding-top: 4px;
   font-size: 0.7rem;
   font-weight: 800;
@@ -19,7 +19,7 @@ export const FretInfoCell = styled.div<{ $singleDot?: boolean; $doubleDot?: bool
   &::after {
     content: "";
     position: absolute;
-    bottom: 8px;
+    bottom: 2px;
     width: 6px;
     height: 6px;
     border-radius: 50%;
