@@ -9,30 +9,35 @@ export const useFretboardShapes = () => {
   const setActiveShapePoint = useMusicStore((state) => state.setActiveShapePoint);
   const setCurrentShapeRootFret = useMusicStore((state) => state.setCurrentShapeRootFret);
 
-  const activeShapePoints = useMemo(() => {
-    if (!activeShapePoint || !currentShapeId) return [];
+  const { activeShapePoints, variantId } = useMemo(() => {
+    if (!activeShapePoint || !currentShapeId) return { activeShapePoints: [], variantId: null };
 
     const shapeData = (shapes as Shapes)[currentShapeId as string];
-    if (!shapeData) return [];
+    if (!shapeData) return { activeShapePoints: [], variantId: null };
 
     const { stringIdx, fretIdx, variantIdx } = activeShapePoint;
 
     setCurrentShapeRootFret(fretIdx);
 
-    const validVariants = Object.entries(shapeData.shapesCoordinates)
-      .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
-      .map(([, points]) => points as [number, number][])
-      .filter((v) => v.length > 0 && v[0][0] === stringIdx);
+    const allVariants = Object.entries(shapeData.shapesCoordinates).sort(([a], [b]) =>
+      a.localeCompare(b, undefined, { numeric: true })
+    );
 
-    if (validVariants.length === 0) return [];
+    const validVariants = allVariants.filter(
+      ([, coords]) => coords.length > 0 && coords[0][0] === stringIdx
+    );
 
-    const selectedVariant = validVariants[variantIdx % validVariants.length];
-    const rootFretOffset = selectedVariant[0][1];
+    if (validVariants.length === 0) return { activeShapePoints: [], variantId: null };
 
-    return selectedVariant.map(([s, fOffset]) => ({
+    const [selectedId, selectedCoords] = validVariants[variantIdx % validVariants.length];
+    const rootFretOffset = selectedCoords[0][1];
+
+    const mappedPoints = selectedCoords.map(([s, fOffset]) => ({
       s,
       f: fretIdx + (fOffset - rootFretOffset),
     }));
+
+    return { activeShapePoints: mappedPoints, variantId: selectedId };
   }, [activeShapePoint, currentShapeId, setCurrentShapeRootFret]);
 
   const showShape = useCallback(
@@ -54,5 +59,6 @@ export const useFretboardShapes = () => {
   return {
     showShape,
     isPointInShape: (s: number, f: number) => activeShapePoints.some((p) => p.s === s && p.f === f),
+    currentVariantId: variantId,
   };
 };

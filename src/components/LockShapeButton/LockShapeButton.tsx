@@ -1,7 +1,7 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import shapes, { type Shapes } from "@/utils/shapes";
-import { GroupWrapper, Label } from "../customUI/InputGroup/InputGroup";
+import { GroupWrapper } from "../customUI/InputGroup/InputGroup";
 import { Button } from "../ui/button";
 import { Lock, LockOpen } from "lucide-react";
 
@@ -48,16 +48,19 @@ export const LockShapeButton = () => {
 
   return (
     <GroupWrapper>
-      <Label>{"Lock Shape"}</Label>
-
-      <Button variant="outline" onClick={handleToggle} disabled={!activeShapePoint && !isLocked}>
+      <Button
+        className="min-w-[125px]"
+        variant="outline"
+        onClick={handleToggle}
+        disabled={!activeShapePoint && !isLocked}
+      >
         <div className="flex items-center gap-2">
           {isLocked ? (
             <Lock className="h-3.5 w-3.5 fill-current" />
           ) : (
             <LockOpen className="h-3.5 w-3.5 opacity-50" />
           )}
-          <span>{isLocked ? "Locked" : "Lock"}</span>
+          <span>{isLocked ? "Shape Locked" : "Lock Shape"}</span>
         </div>
       </Button>
     </GroupWrapper>

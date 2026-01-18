@@ -41,10 +41,10 @@ const commonStyleForKey = css`
 `;
 
 const whiteKey = css`
-  height: 180px;
+  height: 80px;
   z-index: 1;
   border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
-  padding-top: 11px; //- 1px difference to compensate border of black key
+  padding-top: 1px; //- 1px difference to compensate border of black key
   &::after {
     content: "";
     position: absolute;
@@ -55,14 +55,24 @@ const whiteKey = css`
   &:not(:last-child)::after {
     border-right: none;
   }
+
+  @media (min-width: 768px) {
+    height: 150px;
+    padding-top: 11px; //- 1px difference to compensate border of black key
+  }
 `;
 
 const blackKey = css`
   background-color: var(--background);
-  height: 110px;
+  height: 45px;
   z-index: 2;
-  padding-top: 10px;
+  padding-top: 0px;
   ${commonStyleForKey}
+
+  @media (min-width: 768px) {
+    height: 90px;
+    padding-top: 10px;
+  }
 `;
 
 const keyboardBorderRadius = "var(--radius-lg)";
@@ -105,11 +115,5 @@ export const Key = styled.div<KeyProps>`
   }
   &:last-child::after {
     border-radius: 0 ${keyboardBorderRadius} ${keyBorderRadius} ${keyBorderRadius};
-  }
-
-  @media (max-width: 1000px) {
-    height: ${({ $isWhiteKey }) => ($isWhiteKey ? "80px" : "45px")};
-    padding-top: ${({ $isWhiteKey }) =>
-      $isWhiteKey ? "1px" : "0px"}; //- 1px difference to compensate border of black key
   }
 `;

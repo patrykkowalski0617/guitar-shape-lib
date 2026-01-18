@@ -63,7 +63,7 @@ export default function ShapeSelect() {
         }}
         disabled={isDisabled}
       >
-        <SelectTrigger disabled={isDisabled}>
+        <SelectTrigger disabled={isDisabled} className="min-w-[211px]">
           <SelectValue
             placeholder={
               currentRoleId

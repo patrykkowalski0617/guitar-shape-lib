@@ -27,7 +27,9 @@ export const Fret = styled.div<FretProps>`
 
     return css`
       outline: 2px solid ${color};
-      outline-offset: 2px;
+      @media (min-width: 768px) {
+        outline-offset: 2px;
+      }
       z-index: 10;
     `;
   }}
