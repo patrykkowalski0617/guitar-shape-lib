@@ -23,18 +23,19 @@ function App() {
           <Fretboard />
         </Setcion>
         <Setcion>
-          <div className="flex flex-row flex-wrap items-end justify-center gap-6 w-full bg-background">
-            <ModeSelect />
-            <KeySelect />
-            <RoleSelect />
-            <ShapeSelect />
-            <LockShapeButton />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="flex flex-col lg:flex-row flex-wrap items-start lg:items-end gap-6 w-full">
+              <ModeSelect />
+              <KeySelect />
+              <RoleSelect />
+              <ShapeSelect />
+              <LockShapeButton />
+            </div>
+            <div>tutaj bedzie kontent</div>
           </div>
         </Setcion>
       </MainContent>
-      <Setcion>
-        <Footer />
-      </Setcion>
+      <Footer />
     </AppWrapper>
   );
 }

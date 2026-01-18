@@ -12,7 +12,8 @@ export const MainContent = styled.main`
 `;
 
 export const Setcion = styled.div`
-  margin-top: 40px;
+  max-width: 1200px;
+  margin: 40px auto 0;
   @media (max-width: 1000px) {
     margin-top: 10px;
   }
