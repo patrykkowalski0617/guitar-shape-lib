@@ -9,6 +9,7 @@ export const BoardWrapper = styled.div`
 export const BoardScrollWrapper = styled.div`
   overflow: auto;
   scrollbar-width: none;
+  border-radius: var(--radius-lg);
 `;
 
 export const KeyAndFretStyles = css`

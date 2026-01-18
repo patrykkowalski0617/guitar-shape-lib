@@ -31,15 +31,15 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "flex w-full md:w-fit items-center justify-between gap-2 border bg-muted/30 border-muted-foreground/30 px-3 text-[12px] font-semibold tracking-tight shadow-none outline-none transition-none disabled:cursor-not-allowed disabled:opacity-30 whitespace-nowrap overflow-hidden rounded-md",
-        "focus:ring-0 focus:ring-offset-0",
+        "flex w-full md:w-fit items-center justify-between gap-2 border bg-muted/30 border-muted-foreground/30 px-3 text-[12px] font-semibold tracking-tight shadow-none transition-none disabled:cursor-not-allowed disabled:opacity-30 whitespace-nowrap rounded-md relative",
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 focus-visible:z-50",
 
         size === "default" ? "h-10 text-sm" : "h-8",
         className
       )}
       {...props}
     >
-      {children}
+      <span className="truncate">{children}</span>
       <SelectPrimitive.Icon asChild>
         <ChevronDownIcon className="size-3.5 opacity-50 shrink-0" />
       </SelectPrimitive.Icon>
@@ -93,7 +93,7 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-[12px] font-semibold uppercase outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+        "focus:bg-accent focus:text-accent-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-[12px] font-semibold outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         className
       )}
       {...props}
