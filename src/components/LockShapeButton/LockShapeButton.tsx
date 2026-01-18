@@ -49,7 +49,7 @@ export const LockShapeButton = () => {
         <Button
           variant="outline"
           onClick={handleToggle}
-          disabled={!currentShapeId && !isLocked}
+          disabled={!activeShapePoint && !isLocked}
           className={`
             h-10 px-4 transition-all duration-200
             border-muted-foreground/20 
@@ -66,7 +66,7 @@ export const LockShapeButton = () => {
             ) : (
               <LockOpen className="h-3.5 w-3.5 opacity-50" />
             )}
-            <span>{isLocked ? "Shape Locked" : "Lock Current"}</span>
+            <span>{isLocked ? "Shape Locked" : "Lock Shape"}</span>
           </div>
         </Button>
       </div>
