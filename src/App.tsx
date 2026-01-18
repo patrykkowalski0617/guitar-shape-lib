@@ -9,6 +9,8 @@ import ShapeSelect from "./components/ShapeSelect/ShapeSelect";
 import Footer from "./components/Footer/Footer";
 import { AppWrapper, MainContent, Setcion } from "./parts";
 import { LockShapeButton } from "./components/LockShapeButton/LockShapeButton";
+import { ShapeStatusButtons } from "./components/Progress/ShapeStatusButtons";
+import { ProgressActions } from "./components/Progress/ProgressActions";
 
 function App() {
   useMusicEngine();
@@ -29,6 +31,8 @@ function App() {
             <RoleSelect />
             <ShapeSelect />
             <LockShapeButton />
+            <ShapeStatusButtons />
+            <ProgressActions />
           </div>
         </Setcion>
       </MainContent>
