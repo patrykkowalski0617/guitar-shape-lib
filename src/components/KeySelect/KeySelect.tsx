@@ -42,9 +42,7 @@ export default function KeySelect() {
 
   return (
     <GroupWrapper>
-      <Label>
-        {areDescriptiveLabels ? "Relative minor/Major Roots" : "Relative minor/Major Keys"}
-      </Label>
+      <Label>{areDescriptiveLabels ? "Roots" : "Keys"}</Label>
 
       {/* <div className="flex">
         <Button variant="ghost" onClick={() => handleShift("prev")} disabled={isThrottled}>
