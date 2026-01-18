@@ -58,7 +58,7 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   justify-content: center;
   user-select: none;
   top: ${({ $orientation, $isShapeNote }) =>
-    $orientation === "vertical" && $isShapeNote ? "30px" : "0"};
+    $orientation === "vertical" && $isShapeNote ? "20px" : "0"};
   transition: top ${transitionTime}ms ease-in-out;
   .mainLabel,
   .optionalLabel {

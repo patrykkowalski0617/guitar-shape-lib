@@ -9,6 +9,6 @@ export const FooterWrapper = styled.footer`
   background-color: var(--primary);
   height: 74px;
   max-width: 1300px;
-  margin: 40px auto 0;
+  margin: 25px auto 0;
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
 `;
