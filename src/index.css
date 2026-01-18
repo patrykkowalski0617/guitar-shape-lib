@@ -58,12 +58,20 @@
 
   --border: hsl(193 38% 32%);
   --input: hsl(193 38% 32%);
-  --ring: hsl(195 45% 41%);
+  --ring: hsl(195, 61%, 69%);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
+  }
+
+  :focus-visible {
+    @apply outline-ring outline-2 outline-offset-2;
+  }
+
+  :focus:not(:focus-visible) {
+    @apply outline-none;
   }
   body {
     color-scheme: dark;

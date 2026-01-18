@@ -1,5 +1,6 @@
 import { KeyAndFretStyles } from "@/components/customUI/Boards/parts";
 import { roleColors, type HighlightRole } from "@/components/Keyboard/helpers/scaleLogic";
+import type { RoleId } from "@/utils";
 import { transitionTime } from "@/utils/constants";
 import styled, { css } from "styled-components";
 
@@ -8,6 +9,7 @@ interface FretProps {
   $isDevNote: boolean;
   $isShapeNote: boolean;
   $isLockedNote: boolean;
+  $lockedRoleId: RoleId | null;
 }
 
 export const Fret = styled.div<FretProps>`
@@ -17,8 +19,18 @@ export const Fret = styled.div<FretProps>`
   background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
   box-shadow: ${({ $isShapeNote }) =>
     $isShapeNote ? "inset 0 -5px 10px 0px var(--input)" : "none"};
-  outline: ${({ $isLockedNote }) => ($isLockedNote ? "2px solid var(--primary)" : "")};
-  outline-offset: 2px;
+  ${({ $isLockedNote, $lockedRoleId }) => {
+    if (!$isLockedNote) return "";
+    const roleKey =
+      $lockedRoleId && $lockedRoleId in roleColors ? ($lockedRoleId as HighlightRole) : "none";
+    const color = roleColors[roleKey];
+
+    return css`
+      outline: 2px solid ${color};
+      outline-offset: 2px;
+      z-index: 10;
+    `;
+  }}
 `;
 
 interface NoteProps {

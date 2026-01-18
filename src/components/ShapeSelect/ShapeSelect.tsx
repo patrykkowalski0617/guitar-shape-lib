@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useControlsStore } from "@/store/useControlsStore";
-import { GroupWrapper, Label } from "../InputGroup/InputGroup";
+import { GroupWrapper, Label } from "../customUI/InputGroup/InputGroup";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import shapes, { type Shapes } from "@/utils/shapes";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
@@ -63,13 +63,7 @@ export default function ShapeSelect() {
         }}
         disabled={isDisabled}
       >
-        <SelectTrigger
-          disabled={isDisabled}
-          style={{ height: "40px", minWidth: "210px" }}
-          className={`font-semibold bg-muted/30 border-muted-foreground/50 focus:ring-0 focus:ring-offset-0 ${
-            isDisabled ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-        >
+        <SelectTrigger disabled={isDisabled}>
           <SelectValue
             placeholder={
               currentRoleId

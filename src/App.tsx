@@ -6,39 +6,34 @@ import RoleSelect from "./components/RoleSelect/RoleSelect";
 import { useMusicEngine } from "./hooks/useMusicEngine/useMusicEngine";
 import Header from "./components/Header/Header";
 import ShapeSelect from "./components/ShapeSelect/ShapeSelect";
-import { Setcion } from "./components/customUI/parts";
 import Footer from "./components/Footer/Footer";
-import { AppWrapper, MainContent } from "./parts";
+import { AppWrapper, MainContent, Setcion } from "./parts";
 import { LockShapeButton } from "./components/LockShapeButton/LockShapeButton";
 
 function App() {
   useMusicEngine();
   return (
-    <>
-      <AppWrapper>
-        <Header />
-        <MainContent>
-          <Setcion>
-            <Keyboard />
-          </Setcion>
-          <Setcion>
-            <Fretboard />
-          </Setcion>
-          <Setcion>
-            <div className="flex flex-row flex-wrap items-end justify-center gap-6 w-full bg-background">
-              <ModeSelect />
-              <KeySelect />
-              <RoleSelect />
-              <ShapeSelect />
-              <LockShapeButton />
-            </div>
-          </Setcion>
-        </MainContent>
+    <AppWrapper>
+      <Header />
+      <MainContent>
         <Setcion>
-          <Footer />
+          <Keyboard />
         </Setcion>
-      </AppWrapper>
-    </>
+        <Setcion>
+          <Fretboard />
+        </Setcion>
+        <Setcion>
+          <div className="flex flex-col justify-center md:flex-row flex-wrap md:items-end gap-6 w-full">
+            <ModeSelect />
+            <KeySelect />
+            <RoleSelect />
+            <ShapeSelect />
+            <LockShapeButton />
+          </div>
+        </Setcion>
+      </MainContent>
+      <Footer />
+    </AppWrapper>
   );
 }
 

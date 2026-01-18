@@ -12,21 +12,21 @@ export const FretboardRow = styled.div`
   &:nth-child(6) {
     & > :first-child,
     & > :first-child ${Note} {
-      border-radius: 0 0 0 var(--radius-xl);
+      border-radius: 0 0 0 var(--radius-lg);
     }
     & > :last-child,
     & > :last-child ${Note} {
-      border-radius: 0 0 var(--radius-xl) 0;
+      border-radius: 0 0 var(--radius-lg) 0;
     }
   }
   &:first-child {
     & > :last-child,
     & > :last-child ${Note} {
-      border-radius: 0 var(--radius-xl) 0 0;
+      border-radius: 0 var(--radius-lg) 0 0;
     }
     & > :first-child,
     & > :first-child ${Note} {
-      border-radius: var(--radius-xl) 0 0 0;
+      border-radius: var(--radius-lg) 0 0 0;
     }
   }
 `;

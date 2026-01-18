@@ -1,6 +1,6 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { GroupWrapper, Label } from "../InputGroup/InputGroup";
+import { GroupWrapper, Label } from "../customUI/InputGroup/InputGroup";
 import { musicMode, type MusicModeId } from "@/utils";
 import { useSettingsStore } from "@/store/useSettingsStore";
 
@@ -20,17 +20,11 @@ export default function ModeSelect() {
         onValueChange={() => {
           setIsMajorMode(!isMajorMode);
         }}
-        className="h-10 justify-start border rounded-xl p-1 bg-muted/50 border-muted-foreground/20 w-fit"
       >
         {(Object.entries(musicMode) as [MusicModeId, typeof musicMode.major][]).map(
           ([id, data]) => (
-            <ToggleGroupItem
-              key={id}
-              value={id}
-              title={data.descriptiveLabel}
-              className="h-full px-4 text-xs uppercase font-semibold data-[state=on]:bg-background data-[state=on]:shadow-sm flex flex-col items-center justify-center"
-            >
-              <span>{areDescriptiveLabels ? data.descriptiveLabel : data.label}</span>
+            <ToggleGroupItem key={id} value={id} title={data.descriptiveLabel}>
+              {areDescriptiveLabels ? data.descriptiveLabel : data.label}
             </ToggleGroupItem>
           )
         )}
