@@ -22,19 +22,13 @@ export default function KeySelect() {
   const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
 
   const [isThrottled, setIsThrottled] = useState(false);
-
   const throttleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleShift = (direction: "next" | "prev") => {
     if (isThrottled) return;
-
     shiftKey(direction);
     setIsThrottled(true);
-
-    if (throttleTimer.current) {
-      clearTimeout(throttleTimer.current);
-    }
-
+    if (throttleTimer.current) clearTimeout(throttleTimer.current);
     throttleTimer.current = setTimeout(() => {
       setIsThrottled(false);
     }, transitionTime);
@@ -46,8 +40,9 @@ export default function KeySelect() {
     relativeMinorName: data.relativeMinorName,
   }));
 
+  // Zmniejszono wysokość (h-8) i szerokość (w-8) przycisków
   const buttonBaseClass =
-    "h-10 w-10 p-0 border-muted-foreground/20 bg-muted/30 hover:bg-muted/50 text-foreground disabled:opacity-30";
+    "h-8 w-8 p-0 border-muted-foreground/20 bg-muted/30 hover:bg-muted/50 text-foreground disabled:opacity-30";
 
   return (
     <GroupWrapper>
@@ -55,21 +50,21 @@ export default function KeySelect() {
         {areDescriptiveLabels ? "Relative minor/Major Roots" : "Relative minor/Major Keys"}
       </Label>
 
-      <div className="flex items-center">
+      <div className="flex items-center overflow-hidden rounded-md border border-muted-foreground/20">
         <Button
-          variant="outline"
-          className={`${buttonBaseClass} rounded-r-none border-r-0`}
+          variant="ghost" // Zmieniono na ghost, bo ramkę trzyma teraz rodzic (style segmentowe)
+          className={`${buttonBaseClass} rounded-none border-none border-r border-muted-foreground/20`}
           onClick={() => handleShift("prev")}
           disabled={isThrottled}
         >
-          <ChevronLeft className="h-5 w-5" />
+          <ChevronLeft className="h-4 w-4" />
         </Button>
 
-        <div>
+        <div className="bg-muted/30">
           <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>
             <SelectTrigger
-              style={{ height: "40px" }}
-              className="bg-muted/30 border-muted-foreground/50 focus:ring-0 focus:ring-offset-0 font-semibold w-32 rounded-none"
+              style={{ height: "32px" }} // 32px to odpowiednik h-8
+              className="!bg-transparent border-none focus:ring-0 focus:ring-offset-0 font-semibold text-[12px] w-28 rounded-none px-2"
             >
               <SelectValue />
             </SelectTrigger>
@@ -90,12 +85,12 @@ export default function KeySelect() {
         </div>
 
         <Button
-          variant="outline"
-          className={`${buttonBaseClass} rounded-l-none border-l-0`}
+          variant="ghost"
+          className={`${buttonBaseClass} rounded-none border-none border-l border-muted-foreground/20`}
           onClick={() => handleShift("next")}
           disabled={isThrottled}
         >
-          <ChevronRight className="h-5 w-5" />
+          <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
     </GroupWrapper>
