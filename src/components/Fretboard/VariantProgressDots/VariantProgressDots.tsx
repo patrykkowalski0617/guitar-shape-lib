@@ -1,6 +1,7 @@
 import * as S from "./parts";
 import { useProgressStore } from "@/store/useProgressStore";
 import { useMusicStore } from "@/store/useMusicStore";
+import { useTutorialHover } from "@/components/TutorialBox/helpers/useTutorialHover";
 
 interface VariantProgressDotsProps {
   variants: { id: string }[];
@@ -15,27 +16,31 @@ export const VariantProgressDots = ({
   const learning = useProgressStore((state) => state.learning);
   const activeShapePoint = useMusicStore((state) => state.activeShapePoint);
 
+  const tutorialHover_progressBar = useTutorialHover("progress-bar");
+
   if (variants.length === 0) return null;
 
   return (
-    <S.DotsWrapper>
-      {variants.map((v, index) => {
-        const isLearned = learned.includes(v.id);
-        const isLearning = learning.includes(v.id);
-        const isActiveVariant =
-          isCurrentActiveRoot &&
-          activeShapePoint &&
-          activeShapePoint.variantIdx % variants.length === index;
+    <div {...tutorialHover_progressBar}>
+      <S.DotsWrapper>
+        {variants.map((v, index) => {
+          const isLearned = learned.includes(v.id);
+          const isLearning = learning.includes(v.id);
+          const isActiveVariant =
+            isCurrentActiveRoot &&
+            activeShapePoint &&
+            activeShapePoint.variantIdx % variants.length === index;
 
-        return (
-          <S.Dot
-            key={v.id}
-            $isLearned={isLearned}
-            $isLearning={isLearning}
-            $isActive={!!isActiveVariant}
-          />
-        );
-      })}
-    </S.DotsWrapper>
+          return (
+            <S.Dot
+              key={v.id}
+              $isLearned={isLearned}
+              $isLearning={isLearning}
+              $isActive={!!isActiveVariant}
+            />
+          );
+        })}
+      </S.DotsWrapper>
+    </div>
   );
 };

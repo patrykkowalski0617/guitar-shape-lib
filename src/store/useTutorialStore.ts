@@ -11,7 +11,7 @@ export const tutorialData: TutorialItem[] = [
     id: "app-overview",
     title: "Guitar Solo Shapes Library",
     description:
-      "An interactive library mapping harmonic functions (Tonic, Subdominant, and Dominant) onto fretboard shapes. Master the geometry of soloing by visualizing how theory drives musical resolution.",
+      "An interactive library mapping harmonic functions (Tonic, Subdominant and Dominant) onto fretboard shapes. Master the geometry of soloing by visualizing how theory drives musical resolution.",
   },
   {
     id: "keyboard",
@@ -23,7 +23,7 @@ export const tutorialData: TutorialItem[] = [
     id: "scale-template",
     title: "Scale Template",
     description:
-      "Displays the precise interval templates for Major and Minor keys. It also features numeric indicators showing the specific intervals for each harmonic function.",
+      "Located above the keyboard. Displays the precise interval templates for Major and Minor keys. It also features numeric indicators showing the specific intervals for each harmonic function.",
   },
   {
     id: "fretboard",
@@ -47,7 +47,7 @@ export const tutorialData: TutorialItem[] = [
     id: "function-selector",
     title: "Function Selector",
     description:
-      "Toggle between primary harmonic roles: Tonic (Release), Subdominant (Motion), and Dominant (Tension). Each selection filters the notes to show how different degrees drive musical resolution.",
+      "Toggle between primary harmonic roles: Tonic (Release), Subdominant (Motion) and Dominant (Tension). Each selection filters the notes to show how different degrees drive musical resolution.",
   },
   {
     id: "shape-list",
@@ -84,6 +84,14 @@ export const tutorialData: TutorialItem[] = [
     title: "Import Progress",
     description:
       "Restores your progress from a previously saved file. This allows you to recover your learning history or transfer your data across different browsers and devices.",
+  },
+  {
+    id: "progress-bar",
+    title: "Progress Bar",
+    description: `
+    Dots show available variants on each string.
+    Pink means Learned, Blue - In progress.
+    `,
   },
 ];
 
