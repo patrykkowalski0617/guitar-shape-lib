@@ -68,8 +68,5 @@ export const Note = styled.div<NoteProps>`
       `
     );
   }}
-  /* height: 20px;
-  @media (min-width: 768px) { */
-    height: 26px;
-  /* } */
+  height: 26px;
 `;
