@@ -8,7 +8,9 @@ export const Fretboard = styled.div`
 export const FretboardRow = styled.div`
   display: flex;
   flex-direction: row;
-
+  & > :first-child {
+    margin-right: 8px;
+  }
   &:nth-child(6) {
     & > :first-child,
     & > :first-child ${Note} {

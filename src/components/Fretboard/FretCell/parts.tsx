@@ -38,7 +38,6 @@ export const Fret = styled.div<FretProps>`
 interface NoteProps {
   $isHighlighted: boolean;
   $isActiveNote: boolean;
-  $isShapeRootNote: boolean;
   $isShapeNote: boolean;
   $isHighlightRole: HighlightRole;
 }
@@ -52,6 +51,8 @@ export const Note = styled.div<NoteProps>`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  position: relative;
+  z-index: 20;
   will-change: filter, box-shadow;
   transition: box-shadow ${transitionTime}ms ease-in-out;
   filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "none")};
@@ -67,8 +68,8 @@ export const Note = styled.div<NoteProps>`
       `
     );
   }}
-  height: 20px;
-  @media (min-width: 768px) {
+  /* height: 20px;
+  @media (min-width: 768px) { */
     height: 26px;
-  }
+  /* } */
 `;

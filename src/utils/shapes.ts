@@ -92,25 +92,19 @@ const shapes: Shapes = {
       // prettier-ignore
       M7_8: [[4, 0],[3, -1],[3, 2],[2, 1],[2, 2],[1, 2],[0, 0]],
       // prettier-ignore
-      M7_9: [[3, 0],[2, -1],[2, 2],[1, 2],[1, 3],[0, 2]],
+      M7_9: [[3, 0],[2, -1],[2, 2],[1, 2],[0, -2],[0, 2]],
       // prettier-ignore
       M7_10: [[2, 0],[1, 0],[1, 3],[0, 2],[0, 3]],
       // prettier-ignore
       M7_11: [[1, 0],[0, -1],[0, 2]],
       // prettier-ignore
-      M7_12: [[0, 0]],
-      // prettier-ignore
       M7_13: [[5, 0],[4, -1],[3, -3],[3, 1],[2, -3],[2, 1],[1, 0],[0, -1],[0, 0]],
       // prettier-ignore
-      M7_14: [[4, 0],[3, -1],[2, -3],[2, 1],[1, -2],[1, 2],[0, 0]],
+      M7_14: [[4, 0],[3, -1],[2, -3],[2, 1],[1, -2],[0, -3],[0, 0]],
       // prettier-ignore
       M7_15: [[3, 0],[2, -1],[1, -2],[1, 2],[0, -2],[0, 2]],
       // prettier-ignore
       M7_16: [[2, 0],[1, 0],[0, -2],[0, 2]],
-      // prettier-ignore
-      M7_17: [[1, 0],[0, -1]],
-      // prettier-ignore
-      M7_18: [[0, 0]],
     },
   },
   M_add9: {
@@ -202,7 +196,56 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       dominant: { majorMode: [_5], minorMode: [_M3] },
     },
-    shapesCoordinates: {},
+    shapesCoordinates: {
+      // prettier-ignore
+      dominant_1: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[2, 4],[1, 3],[0, 0],[0, 4]],
+      // prettier-ignore
+      dominant_2: [[4, 0],[4, 4],[3, 2],[2, 0],[2, 2],[1, 2],[1, 5],[0, 3]],
+      // prettier-ignore
+      dominant_3: [[3, 0],[3, 4],[2, 2],[1, 1],[1, 3],[0, 2],[0, 5]],
+      // prettier-ignore
+      dominant_7: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[1, 3],[0, 0],[0, 4]],
+      // prettier-ignore
+      dominant_8: [[4, 0],[4, 4],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0],[0, 3]],
+      // prettier-ignore
+      dominant_9: [[3, 0],[3, 4],[2, 2],[1, 1],[1, 3],[0, 2]],
+      // prettier-ignore
+      dominant_10: [[2, 0],[2, 4],[1, 3],[0, 1],[0, 3]],
+      // prettier-ignore
+      dominant_11: [[1, 0],[1, 4],[0, 2]],
+      // prettier-ignore
+      dominant_12: [[0, 0],[0, 4]],
+      // prettier-ignore
+      dominant_13: [[5, 0],[4, -1],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[1, 3],[0, 0],[0, 4]],
+      // prettier-ignore
+      dominant_14: [[4, 0],[3, -1],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0],[0, 3]],
+      // prettier-ignore
+      dominant_19: [[5, 0],[4, -1],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[0, -2],[0, 0]],
+      // prettier-ignore
+      dominant_20: [[4, 0],[3, -1],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0]],
+      // prettier-ignore
+      dominant_21: [[3, 0],[2, -1],[2, 2],[1, 1],[1, 3],[0, 2]],
+      // prettier-ignore
+      dominant_22: [[2, 0],[1, 0],[1, 3],[0, 1],[0, 3]],
+      // prettier-ignore
+      dominant_23: [[1, 0],[0, -1],[0, 2]],
+      // prettier-ignore
+      dominant_25: [[5, 0],[4, -1],[3, -3],[3, 0],[2, -3],[2, 1],[1, 0],[0, -2],[0, 0]],
+      // prettier-ignore
+      dominant_26: [[4, 0],[3, -1],[2, -3],[2, 0],[1, -2],[1, 2],[0, 0]],
+      // prettier-ignore
+      dominant_27: [[3, 0],[2, -1],[1, -2],[1, 1],[0, -2],[0, 2]],
+      // prettier-ignore
+      dominant_29: [[1, 0],[0, -1]],
+      // prettier-ignore
+      dominant_31: [[5, 0],[4, -1],[3, -3],[3, 0],[2, -3],[1, -3],[1, 0],[0, -2],[0, 0]],
+      // prettier-ignore
+      dominant_32: [[4, 0],[3, -1],[2, -3],[2, 0],[1, -2],[0, -3],[0, 0]],
+      // prettier-ignore
+      dominant_33: [[3, 0],[2, -1],[1, -2],[1, 1],[0, -2]],
+      // prettier-ignore
+      dominant_34: [[2, 0],[1, 0],[0, -2],[0, 1]],
+    },
   },
   "7b9": {
     label: "7b9",

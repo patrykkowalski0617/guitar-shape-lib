@@ -2,21 +2,23 @@ import { useMemo, useCallback } from "react";
 import shapes, { type Shapes } from "@/utils/shapes";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
+import { useProgressStore } from "@/store/useProgressStore";
 
 export const useFretboardShapes = () => {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const activeShapePoint = useMusicStore((state) => state.activeShapePoint);
   const setActiveShapePoint = useMusicStore((state) => state.setActiveShapePoint);
   const setCurrentShapeRootFret = useMusicStore((state) => state.setCurrentShapeRootFret);
+  const { learned, learning } = useProgressStore();
 
-  const { activeShapePoints, variantId } = useMemo(() => {
-    if (!activeShapePoint || !currentShapeId) return { activeShapePoints: [], variantId: null };
+  const { activeShapePoints, variantId, stringVariants } = useMemo(() => {
+    if (!activeShapePoint || !currentShapeId)
+      return { activeShapePoints: [], variantId: null, stringVariants: [] };
 
     const shapeData = (shapes as Shapes)[currentShapeId as string];
-    if (!shapeData) return { activeShapePoints: [], variantId: null };
+    if (!shapeData) return { activeShapePoints: [], variantId: null, stringVariants: [] };
 
     const { stringIdx, fretIdx, variantIdx } = activeShapePoint;
-
     setCurrentShapeRootFret(fretIdx);
 
     const allVariants = Object.entries(shapeData.shapesCoordinates).sort(([a], [b]) =>
@@ -27,9 +29,18 @@ export const useFretboardShapes = () => {
       ([, coords]) => coords.length > 0 && coords[0][0] === stringIdx
     );
 
-    if (validVariants.length === 0) return { activeShapePoints: [], variantId: null };
+    const mappedVariants = validVariants.map(([id]) => ({
+      id,
+      isLearned: learned.includes(id),
+      isLearning: learning.includes(id),
+    }));
 
-    const [selectedId, selectedCoords] = validVariants[variantIdx % validVariants.length];
+    if (mappedVariants.length === 0)
+      return { activeShapePoints: [], variantId: null, stringVariants: [] };
+
+    const count = mappedVariants.length;
+    const selectedVariant = mappedVariants[variantIdx % count];
+    const selectedCoords = validVariants[variantIdx % count][1];
     const rootFretOffset = selectedCoords[0][1];
 
     const mappedPoints = selectedCoords.map(([s, fOffset]) => ({
@@ -37,13 +48,16 @@ export const useFretboardShapes = () => {
       f: fretIdx + (fOffset - rootFretOffset),
     }));
 
-    return { activeShapePoints: mappedPoints, variantId: selectedId };
-  }, [activeShapePoint, currentShapeId, setCurrentShapeRootFret]);
+    return {
+      activeShapePoints: mappedPoints,
+      variantId: selectedVariant.id,
+      stringVariants: mappedVariants,
+    };
+  }, [activeShapePoint, currentShapeId, setCurrentShapeRootFret, learned, learning]);
 
   const showShape = useCallback(
     (stringIndex: number, fretIndex: number) => {
       const currentPoint = useMusicStore.getState().activeShapePoint;
-
       const isSamePoint =
         currentPoint?.stringIdx === stringIndex && currentPoint?.fretIdx === fretIndex;
 
@@ -60,5 +74,6 @@ export const useFretboardShapes = () => {
     showShape,
     isPointInShape: (s: number, f: number) => activeShapePoints.some((p) => p.s === s && p.f === f),
     currentVariantId: variantId,
+    stringVariants,
   };
 };
