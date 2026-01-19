@@ -27,7 +27,7 @@ export default function ShapeSelect() {
 
   const currentKeyNotes = useMemo(() => {
     return getNotes({ firstNote: currentKeyId }).map(({ sharpNoteName, flatNoteName }) =>
-      isFlatKey ? flatNoteName : sharpNoteName
+      isFlatKey ? flatNoteName : sharpNoteName,
     );
   }, [currentKeyId, isFlatKey]);
 
@@ -73,8 +73,8 @@ export default function ShapeSelect() {
                 currentRoleId
                   ? "Select shape..."
                   : areDescriptiveLabels
-                  ? "Select energy first..."
-                  : "Select function first..."
+                    ? "Select energy first..."
+                    : "Select function first..."
               }
             />
           </SelectTrigger>
