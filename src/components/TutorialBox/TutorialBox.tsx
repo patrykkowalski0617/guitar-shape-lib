@@ -15,7 +15,7 @@ export const TutorialBox = () => {
   };
 
   return (
-    <div className="flex flex-col border p-4 rounded-lg justify-between text-center">
+    <div className="flex flex-col border border-muted-foreground/30 p-4 rounded-lg justify-between text-center">
       <div className="space-y-2">
         <h4 className="font-bold text--secondary">Tutorial: {current.title}</h4>
         <p className="text-sm text-muted-foreground max-w-md m-auto min-h-[5rem] min-h-[3rem]">
@@ -38,7 +38,7 @@ export const TutorialBox = () => {
               onClick={() => setActiveIndex(idx)}
               className={cn(
                 "w-[6px] h-[6px] rounded-full transition-none",
-                idx === activeIndex ? "bg-[var(--secondary)]" : "bg-muted"
+                idx === activeIndex ? "bg-[var(--secondary)]" : "bg-muted",
               )}
             />
           ))}
