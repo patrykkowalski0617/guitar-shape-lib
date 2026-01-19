@@ -38,7 +38,7 @@ export const TitleWrapper = styled.div`
   transform: rotate(-2deg) translateY(-2px);
   margin: 0 40px;
   &:hover {
-    animation: ${shakeIt} 0.15s linear infinite;
+    animation: ${shakeIt} 0.15s linear forwards 3;
     cursor: pointer;
   }
 `;
