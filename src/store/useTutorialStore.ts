@@ -17,7 +17,7 @@ export const tutorialData: TutorialItem[] = [
     id: "keyboard",
     title: "Keyboard",
     description:
-      "Displays a single instance of the selected key and its functions: Tonic, Subdominant and Dominant. It also highlights which specific chord tones of each function are utilized within the currently active shape.",
+      "Displays a single instance of the selected key and its functions. It also highlights which specific chord tones of each function are utilized within the currently active shape.",
   },
   {
     id: "scale-template",

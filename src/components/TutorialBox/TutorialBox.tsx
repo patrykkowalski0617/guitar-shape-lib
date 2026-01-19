@@ -18,7 +18,7 @@ export const TutorialBox = () => {
     <div className="flex flex-col border p-4 rounded-lg justify-between text-center">
       <div className="space-y-2">
         <h4 className="font-bold text--secondary">Tutorial: {current.title}</h4>
-        <p className="text-sm text-muted-foreground max-w-md m-auto min-h-[4rem]">
+        <p className="text-sm text-muted-foreground max-w-md m-auto min-h-[5rem] min-h-[4rem]">
           {current.description}
         </p>
       </div>
