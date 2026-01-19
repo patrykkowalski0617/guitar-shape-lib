@@ -3,6 +3,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { GroupWrapper, Label } from "../customUI/InputGroup/InputGroup";
 import { roles, type RoleData, type RoleId } from "@/utils";
 import { useSettingsStore } from "@/store/useSettingsStore";
+import { useTutorialHover } from "../TutorialBox/helpers/useTutorialHover";
 
 export default function RoleSelect() {
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
@@ -12,17 +13,20 @@ export default function RoleSelect() {
   const handleValueChange = (v: string) => {
     setCurrentRoleId(v as RoleId);
   };
+  const tutorialHover_functionSelector = useTutorialHover("function-selector");
 
   return (
-    <GroupWrapper>
-      <Label>{areDescriptiveLabels ? "Energy" : "Function"} </Label>
-      <ToggleGroup type="single" value={currentRoleId ?? ""} onValueChange={handleValueChange}>
-        {(Object.entries(roles) as [RoleId, RoleData][]).map(([id, data]) => (
-          <ToggleGroupItem title={data.descriptiveLabel} key={id} value={id}>
-            {areDescriptiveLabels ? data.descriptiveLabel : data.label}
-          </ToggleGroupItem>
-        ))}
-      </ToggleGroup>
-    </GroupWrapper>
+    <div {...tutorialHover_functionSelector}>
+      <GroupWrapper>
+        <Label>{areDescriptiveLabels ? "Energy" : "Function"} </Label>
+        <ToggleGroup type="single" value={currentRoleId ?? ""} onValueChange={handleValueChange}>
+          {(Object.entries(roles) as [RoleId, RoleData][]).map(([id, data]) => (
+            <ToggleGroupItem title={data.descriptiveLabel} key={id} value={id}>
+              {areDescriptiveLabels ? data.descriptiveLabel : data.label}
+            </ToggleGroupItem>
+          ))}
+        </ToggleGroup>
+      </GroupWrapper>
+    </div>
   );
 }

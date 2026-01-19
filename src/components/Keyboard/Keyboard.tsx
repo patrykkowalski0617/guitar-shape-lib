@@ -9,6 +9,7 @@ import { BoardScrollWrapper, BoardWrapper } from "../customUI/Boards/parts";
 import KeyboardKey from "./KeyboardKey/KeyboardKey";
 import { useMusicStore } from "@/store/useMusicStore";
 import shapes from "@/utils/shapes";
+import { useTutorialHover } from "../TutorialBox/helpers/useTutorialHover";
 
 const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
@@ -36,44 +37,51 @@ export default function Keyboard(): JSX.Element {
     );
   }, [currentShapeId, currentShapeOffset]);
 
+  const tutorialHover_keyboard = useTutorialHover("keyboard");
+  const tutorialHover_scaleTemplate = useTutorialHover("scale-template");
+
   return (
     <BoardScrollWrapper>
       <BoardWrapper>
-        <ScaleTemplate />
-        <S.Keyboard $numberOfKeys={numberOfKeys}>
-          {notes.map((note, index) => {
-            const noteIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
-            const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
+        <div {...tutorialHover_scaleTemplate}>
+          <ScaleTemplate />
+        </div>
+        <div {...tutorialHover_keyboard}>
+          <S.Keyboard $numberOfKeys={numberOfKeys}>
+            {notes.map((note, index) => {
+              const noteIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
+              const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
 
-            const scaleDegree = fullScaleMetadata.find(
-              (m) => m.noteId === note.noteId && m.isVisible
-            );
+              const scaleDegree = fullScaleMetadata.find(
+                (m) => m.noteId === note.noteId && m.isVisible
+              );
 
-            const isPartOfShape = !!(
-              shapeSemitones.includes((noteIndex - templateOffset + 12) % 12) &&
-              scaleDegree?.role &&
-              scaleDegree.role !== "none"
-            );
+              const isPartOfShape = !!(
+                shapeSemitones.includes((noteIndex - templateOffset + 12) % 12) &&
+                scaleDegree?.role &&
+                scaleDegree.role !== "none"
+              );
 
-            return (
-              <KeyboardKey
-                key={note.noteId}
-                note={note}
-                index={index}
-                noteIndex={noteIndex}
-                isHighlighted={!!scaleDegree}
-                isShapeNote={isPartOfShape}
-                scaleDegree={scaleDegree}
-                isFlatKey={isFlatKey}
-                isActive={activeNoteId === note.noteId}
-                onHover={setActiveNoteId}
-                onLeave={() => setActiveNoteId(null)}
-                keyShape={KEY_SHAPE_MAP[noteIndex]}
-                majorScale={majorScale}
-              />
-            );
-          })}
-        </S.Keyboard>
+              return (
+                <KeyboardKey
+                  key={note.noteId}
+                  note={note}
+                  index={index}
+                  noteIndex={noteIndex}
+                  isHighlighted={!!scaleDegree}
+                  isShapeNote={isPartOfShape}
+                  scaleDegree={scaleDegree}
+                  isFlatKey={isFlatKey}
+                  isActive={activeNoteId === note.noteId}
+                  onHover={setActiveNoteId}
+                  onLeave={() => setActiveNoteId(null)}
+                  keyShape={KEY_SHAPE_MAP[noteIndex]}
+                  majorScale={majorScale}
+                />
+              );
+            })}
+          </S.Keyboard>
+        </div>
       </BoardWrapper>
     </BoardScrollWrapper>
   );

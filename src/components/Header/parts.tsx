@@ -33,7 +33,7 @@ const shakeIt = keyframes`
   100% { transform: rotate(-1deg) translate(0, -2px); }
 `;
 
-export const TitleWrapper = styled.h1`
+export const TitleWrapper = styled.div`
   color: var(--foreground);
   transform: rotate(-2deg) translateY(-2px);
   margin: 0 40px;

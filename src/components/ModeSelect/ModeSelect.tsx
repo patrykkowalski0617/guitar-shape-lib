@@ -3,6 +3,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { GroupWrapper, Label } from "../customUI/InputGroup/InputGroup";
 import { musicMode, type MusicModeId } from "@/utils";
 import { useSettingsStore } from "@/store/useSettingsStore";
+import { useTutorialHover } from "../TutorialBox/helpers/useTutorialHover";
 
 export default function ModeSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
@@ -10,25 +11,28 @@ export default function ModeSelect() {
   const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
 
   const currentMode: MusicModeId = isMajorMode ? "major" : "minor";
+  const tutorialHover_modeSelector = useTutorialHover("mode-toggle");
 
   return (
-    <GroupWrapper>
-      <Label>{areDescriptiveLabels ? "Mood" : "Mode"}</Label>
-      <ToggleGroup
-        type="single"
-        value={currentMode}
-        onValueChange={() => {
-          setIsMajorMode(!isMajorMode);
-        }}
-      >
-        {(Object.entries(musicMode) as [MusicModeId, typeof musicMode.major][]).map(
-          ([id, data]) => (
-            <ToggleGroupItem key={id} value={id} title={data.descriptiveLabel}>
-              {areDescriptiveLabels ? data.descriptiveLabel : data.label}
-            </ToggleGroupItem>
-          )
-        )}
-      </ToggleGroup>
-    </GroupWrapper>
+    <div {...tutorialHover_modeSelector}>
+      <GroupWrapper>
+        <Label>{areDescriptiveLabels ? "Mood" : "Mode"}</Label>
+        <ToggleGroup
+          type="single"
+          value={currentMode}
+          onValueChange={() => {
+            setIsMajorMode(!isMajorMode);
+          }}
+        >
+          {(Object.entries(musicMode) as [MusicModeId, typeof musicMode.major][]).map(
+            ([id, data]) => (
+              <ToggleGroupItem key={id} value={id} title={data.descriptiveLabel}>
+                {areDescriptiveLabels ? data.descriptiveLabel : data.label}
+              </ToggleGroupItem>
+            )
+          )}
+        </ToggleGroup>
+      </GroupWrapper>
+    </div>
   );
 }

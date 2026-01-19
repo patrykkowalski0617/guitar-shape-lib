@@ -4,6 +4,7 @@ import shapes, { type Shapes } from "@/utils/shapes";
 import { GroupWrapper } from "../customUI/InputGroup/InputGroup";
 import { Button } from "../ui/button";
 import { Lock, LockOpen } from "lucide-react";
+import { useTutorialHover } from "../TutorialBox/helpers/useTutorialHover";
 
 export const LockShapeButton = () => {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
@@ -45,24 +46,27 @@ export const LockShapeButton = () => {
       }
     }
   };
+  const tutorialHover_lockShape = useTutorialHover("lock-shape");
 
   return (
-    <GroupWrapper>
-      <Button
-        className="min-w-[125px]"
-        variant="outline"
-        onClick={handleToggle}
-        disabled={!activeShapePoint && !isLocked}
-      >
-        <div className="flex items-center gap-2">
-          {isLocked ? (
-            <Lock className="h-3.5 w-3.5 fill-current" />
-          ) : (
-            <LockOpen className="h-3.5 w-3.5 opacity-50" />
-          )}
-          <span>{isLocked ? "Shape Locked" : "Lock Shape"}</span>
-        </div>
-      </Button>
-    </GroupWrapper>
+    <div {...tutorialHover_lockShape}>
+      <GroupWrapper>
+        <Button
+          className="min-w-[125px]"
+          variant="outline"
+          onClick={handleToggle}
+          disabled={!activeShapePoint && !isLocked}
+        >
+          <div className="flex items-center gap-2">
+            {isLocked ? (
+              <Lock className="h-3.5 w-3.5 fill-current" />
+            ) : (
+              <LockOpen className="h-3.5 w-3.5 opacity-50" />
+            )}
+            <span>{isLocked ? "Shape Locked" : "Lock Shape"}</span>
+          </div>
+        </Button>
+      </GroupWrapper>
+    </div>
   );
 };
