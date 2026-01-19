@@ -9,6 +9,7 @@ import FretCell from "./FretCell/FretCell";
 import { useFretboardDevEditor } from "./helpers/useFretboardDevEditor";
 import { useFretboardShapes } from "./helpers/useFretboardShapes";
 import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
+import { useDevStore } from "@/store/useDevStore";
 
 export default function Fretboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
@@ -27,7 +28,9 @@ export default function Fretboard(): JSX.Element {
   const shapeRootSharpNote =
     currentShapeOffset !== null ? NOTES_SHARP[currentShapeOffset % 12] : null;
 
+  const { isDevMode } = useDevStore();
   const { onDevClick, isDevNote } = useFretboardDevEditor();
+
   const { showShape, isPointInShape } = useFretboardShapes();
 
   return (
@@ -65,7 +68,9 @@ export default function Fretboard(): JSX.Element {
                     lockedRoleId={lockedRoleId}
                     isDevNote={isCurrentDevNote}
                     onClick={() => {
-                      // onDevClick(stringIndex, fretIndex);
+                      if (isDevMode) {
+                        onDevClick(stringIndex, fretIndex);
+                      }
                       if (isShapeRootNote) {
                         showShape(stringIndex, fretIndex);
                       }
