@@ -48,7 +48,6 @@ export const Note = styled.div<NoteProps>`
   box-shadow: inset 0 0px 2px 0px var(--input);
   border-radius: 4px;
   width: 100%;
-  height: 26px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,7 +66,8 @@ export const Note = styled.div<NoteProps>`
       `
     );
   }}
-  @media (max-width: 1000px) {
-    height: 20px;
+  height: 20px;
+  @media (min-width: 768px) {
+    height: 26px;
   }
 `;
