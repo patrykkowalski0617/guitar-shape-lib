@@ -55,8 +55,8 @@ export const Note = styled.div<NoteProps>`
   cursor: pointer;
   will-change: filter, box-shadow;
   transition: box-shadow ${transitionTime}ms ease-in-out;
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.6)" : "none")};
-  opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.75")};
+  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "none")};
+  opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.5")};
   ${({ $isHighlighted, $isHighlightRole }) => {
     const color = roleColors[$isHighlightRole as keyof typeof roleColors];
     return (

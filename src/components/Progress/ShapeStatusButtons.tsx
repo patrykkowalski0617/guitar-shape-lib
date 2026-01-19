@@ -25,7 +25,7 @@ export const ShapeStatusButtons = () => {
         disabled={!currentVariantId}
         onClick={() => currentVariantId && toggleLearned(currentVariantId)}
       >
-        {isLearned ? "Got it! This shape is learned" : "Add to 'Learned list'"}
+        {isLearned ? "Got it! This shape is learned" : "Add to 'Learned'"}
       </Button>
     </>
   );
