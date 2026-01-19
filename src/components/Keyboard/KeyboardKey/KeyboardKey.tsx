@@ -10,7 +10,7 @@ interface KeyboardKeyProps {
   noteIndex: number;
   isHighlighted: boolean;
   isShapeNote: boolean;
-  isFlatKey: boolean;
+  isFlatTune: boolean;
   scaleDegree: ScaleStepMetadata | undefined;
   isActive: boolean;
   onHover: (id: string) => void;
@@ -27,7 +27,7 @@ const KeyboardKey = memo(
     noteIndex,
     isHighlighted,
     isShapeNote,
-    isFlatKey,
+    isFlatTune,
     scaleDegree,
     isActive,
     onHover,
@@ -52,7 +52,7 @@ const KeyboardKey = memo(
           index={index}
           flatNoteName={note.flatNoteName}
           sharpNoteName={note.sharpNoteName}
-          isFlatKey={isFlatKey}
+          isFlatTune={isFlatTune}
           isEnharmonic={note.isEnharmonic}
           isShapeNote={isShapeNote}
         />
@@ -65,7 +65,7 @@ const KeyboardKey = memo(
       prev.isHighlighted === next.isHighlighted &&
       prev.isShapeNote === next.isShapeNote &&
       prev.scaleDegree?.role === next.scaleDegree?.role &&
-      prev.isFlatKey === next.isFlatKey
+      prev.isFlatTune === next.isFlatTune
     );
   },
 );

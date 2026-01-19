@@ -19,7 +19,7 @@ export default function Fretboard(): JSX.Element {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
-  const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
+  const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const lockedShape = useMusicStore((state) => state.lockedShape);
@@ -86,7 +86,7 @@ export default function Fretboard(): JSX.Element {
                         fretIndex={fretIndex}
                         isHighlighted={isShapeRootNote}
                         currentRoleId={currentRoleId}
-                        isFlatKey={isFlatKey}
+                        isFlatTune={isFlatTune}
                         isActive={activeNoteId === note.noteId}
                         isShapeRootNote={isShapeRootNote}
                         numberOfFrets={numberOfFrets}

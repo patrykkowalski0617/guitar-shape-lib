@@ -23,13 +23,13 @@ export default function ShapeSelect() {
   const setShape = useControlsStore((state) => state.setShape);
   const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
 
-  const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
+  const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
 
   const currentKeyNotes = useMemo(() => {
     return getNotes({ firstNote: currentKeyId }).map(({ sharpNoteName, flatNoteName }) =>
-      isFlatKey ? flatNoteName : sharpNoteName,
+      isFlatTune ? flatNoteName : sharpNoteName,
     );
-  }, [currentKeyId, isFlatKey]);
+  }, [currentKeyId, isFlatTune]);
 
   const filteredOptions = useMemo(() => {
     const rawOptions = getFilteredShapeOptions(currentRoleId, isMajorMode);

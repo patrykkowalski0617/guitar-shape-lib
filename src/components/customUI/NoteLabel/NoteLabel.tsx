@@ -6,7 +6,7 @@ import { useSettingsStore } from "@/store/useSettingsStore";
 interface NoteLabelProps {
   flatNoteName: Note;
   sharpNoteName: Note;
-  isFlatKey: boolean;
+  isFlatTune: boolean;
   isHighlighted: boolean;
   isEnharmonic: boolean;
   orientation?: S.LabelOrientation;
@@ -14,7 +14,7 @@ interface NoteLabelProps {
 }
 
 export default function NoteLabel({
-  isFlatKey,
+  isFlatTune,
   isHighlighted,
   sharpNoteName,
   flatNoteName,
@@ -25,7 +25,7 @@ export default function NoteLabel({
   const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
   return (
     <S.Wrapper
-      $isFlatKey={isFlatKey}
+      $isFlatTune={isFlatTune}
       $isEnharmonicNote={isEnharmonic}
       $isHighlighted={isHighlighted}
       $orientation={orientation}

@@ -1,5 +1,4 @@
 import Fretboard from "./components/Fretboard/Fretboard";
-import Keyboard from "./Keyboard/Keyboard";
 import KeySelect from "./components/KeySelect/KeySelect";
 import ModeSelect from "./components/ModeSelect/ModeSelect";
 import RoleSelect from "./components/RoleSelect/RoleSelect";
@@ -13,6 +12,8 @@ import { ShapeStatusButtons } from "./components/Progress/ShapeStatusButtons";
 import { ProgressActions } from "./components/Progress/ProgressActions";
 import { DevModeProvider } from "./components/Providers/DevModeProvider/DevModeProvider";
 import { TutorialBox } from "./components/TutorialBox/TutorialBox";
+// import Keyboard from "./components/Keyboard/Keyboard";
+import Keyboard from "./Keyboard/Keyboard";
 
 function App() {
   useMusicEngine();

@@ -10,7 +10,7 @@ interface FretCellProps {
   fretIndex: number;
   isHighlighted: boolean;
   currentRoleId: RoleId | null;
-  isFlatKey: boolean;
+  isFlatTune: boolean;
   isActive: boolean;
   isShapeRootNote: boolean;
   isShapeNote: boolean;
@@ -31,7 +31,7 @@ const FretCell = memo(
     note,
     fretIndex,
     isHighlighted,
-    isFlatKey,
+    isFlatTune,
     isActive,
     isShapeNote,
     isLockedNote,
@@ -73,7 +73,7 @@ const FretCell = memo(
             index={fretIndex}
             flatNoteName={note.flatNoteName}
             sharpNoteName={note.sharpNoteName}
-            isFlatKey={isFlatKey}
+            isFlatTune={isFlatTune}
             orientation="horizontal"
             isEnharmonic={note.isEnharmonic}
           />
@@ -89,7 +89,7 @@ const FretCell = memo(
     return (
       prev.isActive === next.isActive &&
       prev.isHighlighted === next.isHighlighted &&
-      prev.isFlatKey === next.isFlatKey &&
+      prev.isFlatTune === next.isFlatTune &&
       prev.isShapeRootNote === next.isShapeRootNote &&
       prev.currentRoleId === next.currentRoleId &&
       prev.isShapeNote === next.isShapeNote &&

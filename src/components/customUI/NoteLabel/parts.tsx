@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 export type LabelOrientation = "vertical" | "horizontal";
 
 interface StyledNoteLabelProps {
-  $isFlatKey: boolean;
+  $isFlatTune: boolean;
   $isEnharmonicNote: boolean;
   $isHighlighted: boolean;
   $orientation: LabelOrientation;
@@ -76,14 +76,14 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   }
 
   .mainLabel {
-    ${({ $isFlatKey, $isEnharmonicNote, $isHighlighted, $orientation }) =>
+    ${({ $isFlatTune, $isEnharmonicNote, $isHighlighted, $orientation }) =>
       !$isEnharmonicNote
         ? getStaticStyles($isHighlighted)
-        : getLabelStyles(!$isFlatKey, $isHighlighted, 1, $orientation)}
+        : getLabelStyles(!$isFlatTune, $isHighlighted, 1, $orientation)}
   }
 
   .optionalLabel {
-    ${({ $isFlatKey, $isHighlighted, $orientation }) =>
-      getLabelStyles($isFlatKey, $isHighlighted, -1, $orientation)}
+    ${({ $isFlatTune, $isHighlighted, $orientation }) =>
+      getLabelStyles($isFlatTune, $isHighlighted, -1, $orientation)}
   }
 `;

@@ -25,7 +25,7 @@ const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
 export default function Keyboard(): JSX.Element {
   const { fullScaleMetadata } = useActiveScale();
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
+  const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
   const { activeNoteId, setActiveNoteId } = useMusicStore();
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
@@ -73,7 +73,7 @@ export default function Keyboard(): JSX.Element {
                   isHighlighted={!!scaleDegree}
                   isShapeNote={isPartOfShape}
                   scaleDegree={scaleDegree}
-                  isFlatKey={isFlatKey}
+                  isFlatTune={isFlatTune}
                   isActive={activeNoteId === note.noteId}
                   onHover={setActiveNoteId}
                   onLeave={() => setActiveNoteId(null)}
