@@ -1,11 +1,27 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-interface ControlsState {
+interface SettingsState {
   areDescriptiveLabels: boolean;
-  setAreDescriptiveLabels: (areDescriptiveLabels: boolean) => void;
+  setAreDescriptiveLabels: (val: boolean) => void;
+  resetToDefaults: () => void;
 }
 
-export const useSettingsStore = create<ControlsState>((set) => ({
+const initialState = {
   areDescriptiveLabels: false,
-  setAreDescriptiveLabels: (areDescriptiveLabels) => set({ areDescriptiveLabels }),
-}));
+};
+
+export const useSettingsStore = create<SettingsState>()(
+  persist(
+    (set) => ({
+      ...initialState,
+
+      setAreDescriptiveLabels: (val) => set({ areDescriptiveLabels: val }),
+
+      resetToDefaults: () => set(initialState),
+    }),
+    {
+      name: "settings-storage",
+    },
+  ),
+);

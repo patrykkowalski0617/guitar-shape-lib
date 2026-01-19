@@ -1,5 +1,6 @@
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { GroupWrapper, Label } from "@/components/customUI/InputGroup/InputGroup";
 
 const LABEL_OPTIONS = [
   {
@@ -22,24 +23,22 @@ export default function DescriptiveLabelsSelect() {
   const currentValue = areDescriptiveLabels ? "descriptive" : "standard";
 
   return (
-    <div className="flex flex-col gap-3 w-full items-stretch">
-      <span className="text-xs font-semibold text-foreground ml-1">
-        {areDescriptiveLabels ? "Only right option is 'Descriptive'" : "Labels Type"}
-      </span>
-
+    <GroupWrapper>
+      <Label>{areDescriptiveLabels ? "Only right option is 'Descriptive'" : "Labels Type"}</Label>
       <ToggleGroup
         type="single"
         value={currentValue}
+        className="w-full md:w-full"
         onValueChange={(v) => {
           if (v) setAreDescriptiveLabels(v === "descriptive");
         }}
       >
         {LABEL_OPTIONS.map((option) => (
-          <ToggleGroupItem key={option.id} value={option.id} title={option.descriptiveLabel}>
+          <ToggleGroupItem key={option.id} value={option.id} className="flex-1 md:flex-1">
             {option.label}
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
-    </div>
+    </GroupWrapper>
   );
 }

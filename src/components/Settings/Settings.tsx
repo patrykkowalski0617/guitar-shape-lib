@@ -1,5 +1,6 @@
+import { Settings as Gear, RotateCcw } from "lucide-react";
+import { useSettingsStore } from "@/store/useSettingsStore";
 import { Button } from "@/components/ui/button";
-import { Settings as Gear } from "lucide-react";
 import * as S from "./parts";
 
 import {
@@ -14,6 +15,8 @@ import {
 import DescriptiveLabelsSelect from "./DescriptiveLabelsSelect/DescriptiveLabelsSelect";
 
 export function Settings() {
+  const resetToDefaults = useSettingsStore((state) => state.resetToDefaults);
+
   return (
     <Drawer>
       <DrawerTrigger asChild>
@@ -38,7 +41,20 @@ export function Settings() {
             </section>
           </div>
 
-          <DrawerFooter className="mt-4 border-t pt-4">
+          <DrawerFooter className="mt-4 border-t pt-4 flex flex-col gap-2">
+            <Button
+              variant="ghost"
+              className="w-full text-muted-foreground hover:text-destructive transition-colors"
+              onClick={() => {
+                if (window.confirm("Restore all settings to default?")) {
+                  resetToDefaults();
+                }
+              }}
+            >
+              <RotateCcw className="mr-2 h-4 w-4" />
+              Restore Defaults
+            </Button>
+
             <DrawerClose asChild>
               <Button variant="outline" className="w-full">
                 Close
