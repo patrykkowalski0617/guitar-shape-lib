@@ -9,9 +9,9 @@ export interface TutorialItem {
 export const tutorialData: TutorialItem[] = [
   {
     id: "app-overview",
-    title: "Fretboard Master",
+    title: "Guitar Solo Shapes Library",
     description:
-      "An interactive learning tool designed to bridge the gap between music theory and the fretboard. It visualizes how harmonic functions—Tonic, Subdominant, and Dominant—map across scales and shapes, helping you master musical resolution and geometry.",
+      "An interactive library mapping harmonic functions (Tonic, Subdominant, and Dominant) onto fretboard shapes. Master the geometry of soloing by visualizing how theory drives musical resolution.",
   },
   {
     id: "keyboard",
