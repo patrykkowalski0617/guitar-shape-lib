@@ -38,7 +38,6 @@ export const Fret = styled.div<FretProps>`
 interface NoteProps {
   $isHighlighted: boolean;
   $isActiveNote: boolean;
-  $isShapeRootNote: boolean;
   $isShapeNote: boolean;
   $isHighlightRole: HighlightRole;
 }
@@ -48,15 +47,17 @@ export const Note = styled.div<NoteProps>`
   box-shadow: inset 0 0px 2px 0px var(--input);
   border-radius: 4px;
   width: 100%;
-  height: 26px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  position: relative;
+  z-index: 20;
   will-change: filter, box-shadow;
   transition: box-shadow ${transitionTime}ms ease-in-out;
   filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "none")};
-  opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.5")};
+  opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.7")};
+  border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   ${({ $isHighlighted, $isHighlightRole }) => {
     const color = roleColors[$isHighlightRole as keyof typeof roleColors];
     return (
@@ -67,7 +68,5 @@ export const Note = styled.div<NoteProps>`
       `
     );
   }}
-  @media (max-width: 1000px) {
-    height: 20px;
-  }
+  height: 26px;
 `;

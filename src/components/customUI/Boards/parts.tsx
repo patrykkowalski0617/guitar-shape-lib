@@ -4,6 +4,7 @@ export const BoardWrapper = styled.div`
   min-width: 1000px;
   margin: auto;
   overflow: hidden;
+  padding-left: 5px; //- compensation for VariantProgressDots
 `;
 
 export const BoardScrollWrapper = styled.div`
@@ -11,6 +12,7 @@ export const BoardScrollWrapper = styled.div`
   scrollbar-width: none;
   border-radius: var(--radius-lg);
   padding-bottom: 5px;
+  margin-left: -5px; //- compensation for VariantProgressDots
 `;
 
 export const KeyAndFretStyles = css`

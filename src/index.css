@@ -59,6 +59,8 @@
   --border: hsl(193 38% 32%);
   --input: hsl(193 38% 32%);
   --ring: hsl(195, 61%, 69%);
+
+  --tension: hsl(38 92% 50%);
 }
 
 @layer base {

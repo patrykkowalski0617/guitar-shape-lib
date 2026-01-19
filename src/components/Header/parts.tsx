@@ -30,16 +30,16 @@ const shakeIt = keyframes`
   70%  { transform: rotate(-1deg) translate(-7px, -3px); }
   80%  { transform: rotate(1deg)  translate(7px, 4px); }
   90%  { transform: rotate(-1deg) translate(-4px, 8px); }
-  100% { transform: rotate(-1deg) translate(0, -2px); }
+  100% { transform: rotate(-2deg) translateY(-2px); }
 `;
 
 export const TitleWrapper = styled.div`
   color: var(--foreground);
   transform: rotate(-2deg) translateY(-2px);
   margin: 0 40px;
+  cursor: pointer;
   &:hover {
     animation: ${shakeIt} 0.15s linear forwards 3;
-    cursor: pointer;
   }
 `;
 

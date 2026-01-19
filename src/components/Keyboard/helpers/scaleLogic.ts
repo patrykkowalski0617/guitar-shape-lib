@@ -30,6 +30,6 @@ export const getHighlightRole = (
 export const roleColors = {
   tonic: "var(--secondary)",
   subdominant: "var(--primary)",
-  dominant: "#f59e0b",
+  dominant: "var(--tension)",
   none: "var(--accent)",
 };

@@ -3,6 +3,7 @@ import * as S from "./parts";
 import type { NoteObject, RoleId } from "@/utils";
 import NoteLabel from "@/components/customUI/NoteLabel/NoteLabel";
 import type { HighlightRole } from "@/components/Keyboard/helpers/scaleLogic";
+import { VariantProgressDots } from "../VariantProgressDots/VariantProgressDots";
 
 interface FretCellProps {
   note: NoteObject;
@@ -20,6 +21,8 @@ interface FretCellProps {
   onHover: (id: string) => void;
   onLeave: () => void;
   onClick: (() => void) | undefined;
+  variants: { id: string }[];
+  isCurrentActiveRoot: boolean;
 }
 
 const FretCell = memo(
@@ -39,6 +42,8 @@ const FretCell = memo(
     onHover,
     onLeave,
     onClick,
+    variants,
+    isCurrentActiveRoot,
   }: FretCellProps) => {
     const activeRole: HighlightRole =
       isShapeRootNote && currentRoleId ? (currentRoleId as HighlightRole) : "none";
@@ -56,7 +61,6 @@ const FretCell = memo(
         <S.Note
           $isHighlighted={isHighlighted}
           $isActiveNote={isActive}
-          $isShapeRootNote={isShapeRootNote}
           $isHighlightRole={activeRole}
           onClick={onClick}
           $isShapeNote={isShapeNote}
@@ -70,6 +74,10 @@ const FretCell = memo(
             orientation="horizontal"
             isEnharmonic={note.isEnharmonic}
           />
+
+          {isShapeRootNote && (
+            <VariantProgressDots variants={variants} isCurrentActiveRoot={isCurrentActiveRoot} />
+          )}
         </S.Note>
       </S.Fret>
     );
@@ -83,7 +91,9 @@ const FretCell = memo(
       prev.currentRoleId === next.currentRoleId &&
       prev.isShapeNote === next.isShapeNote &&
       prev.isLockedNote === next.isLockedNote &&
-      prev.isDevNote === next.isDevNote
+      prev.isDevNote === next.isDevNote &&
+      prev.isCurrentActiveRoot === next.isCurrentActiveRoot &&
+      prev.variants === next.variants
     );
   }
 );
