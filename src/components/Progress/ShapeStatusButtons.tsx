@@ -14,7 +14,7 @@ export const ShapeStatusButtons = () => {
 
   return (
     <>
-      <div {...tutorialHover_addToProgress}>
+      <div className="flex flex-col" {...tutorialHover_addToProgress}>
         <Button
           variant={isLearning ? "secondary" : "outline"}
           className="min-w-[211px]"
@@ -24,7 +24,7 @@ export const ShapeStatusButtons = () => {
           {isLearning ? "In progress" : "Add to 'In progress'"}
         </Button>
       </div>
-      <div {...tutorialHover_markAsLearned}>
+      <div className="flex flex-col" {...tutorialHover_markAsLearned}>
         <Button
           variant={isLearned ? "default" : "outline"}
           className="min-w-[211px]"

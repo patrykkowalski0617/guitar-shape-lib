@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const AppWrapper = styled.div`
   display: flex;
@@ -15,11 +15,15 @@ export const MainContent = styled.main`
   justify-content: space-evenly;
 `;
 
+export const SectionCommonCss = css`
+  margin-top: 15px;
+  @media (min-width: 768px) {
+    margin: 25px auto 0;
+  }
+`;
+
 export const Setcion = styled.div`
   max-width: 1200px;
   width: 100%;
-  margin: 25px auto 0;
-  @media (max-width: 1000px) {
-    margin-top: 10px;
-  }
+  ${SectionCommonCss}
 `;

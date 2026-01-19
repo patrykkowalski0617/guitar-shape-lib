@@ -10,7 +10,7 @@ export const ProgressActions = () => {
 
   return (
     <>
-      <div {...tutorialHover_exportData}>
+      <div className="flex flex-col" {...tutorialHover_exportData}>
         <Button
           variant="outline"
           className="min-w-[211px]"
@@ -19,7 +19,7 @@ export const ProgressActions = () => {
           Export progress file
         </Button>
       </div>
-      <div {...tutorialHover_importData}>
+      <div className="flex flex-col" {...tutorialHover_importData}>
         <Button
           variant="outline"
           className="min-w-[211px]"
