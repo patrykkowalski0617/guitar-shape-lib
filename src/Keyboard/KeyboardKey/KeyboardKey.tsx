@@ -2,18 +2,20 @@ import { memo } from "react";
 import * as S from "./parts";
 import type { NoteObject } from "@/utils";
 import NoteLabel from "@/components/customUI/NoteLabel/NoteLabel";
-import { majorScale } from "@/utils";
+import { majorScale, NOTES_SHARP } from "@/utils";
+import type { HighlightRole } from "../helpers/useScaleLogic";
 
 interface KeyboardKeyProps {
+  isActive: boolean;
+  //
   note: NoteObject;
-  noteOctaveIndex: number;
   isHighlighted: boolean;
   isShapeNote: boolean;
   isFlatKey: boolean;
-  activeNoteId: string | null;
   onHover: (id: string) => void;
   onLeave: () => void;
   areAnimationsOn: boolean;
+  highlightRole: HighlightRole;
 }
 
 const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
@@ -28,23 +30,29 @@ const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
 
 const KeyboardKey = memo(
   ({
+    isActive,
+    //
     note,
-    noteOctaveIndex,
     isHighlighted,
+    highlightRole,
     isShapeNote,
     isFlatKey,
-    activeNoteId,
     onHover,
     onLeave,
     areAnimationsOn,
   }: KeyboardKeyProps) => {
+    const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
+    const isWhiteKey = majorScale.includes(noteOctaveIndex);
+    const keyShape = KEY_SHAPE_MAP[noteOctaveIndex];
+
     return (
       <S.Key
+        $isActive={isActive}
+        //
         $isHighlighted={isHighlighted}
-        $highlightRole={"none"}
-        $isWhiteKey={majorScale.includes(noteOctaveIndex)}
-        $keyShape={KEY_SHAPE_MAP[noteOctaveIndex]}
-        $isActiveNote={note.noteId === activeNoteId}
+        $highlightRole={highlightRole}
+        $isWhiteKey={isWhiteKey}
+        $keyShape={keyShape}
         $areAnimationsOn={areAnimationsOn}
         onMouseOver={() => onHover(note.noteId)}
         onMouseLeave={onLeave}
@@ -62,10 +70,13 @@ const KeyboardKey = memo(
   },
   (prev, next) => {
     return (
-      prev.activeNoteId === next.activeNoteId &&
+      prev.isActive === next.isActive &&
+      //
       prev.isHighlighted === next.isHighlighted &&
+      prev.highlightRole === next.highlightRole &&
       prev.isShapeNote === next.isShapeNote &&
-      prev.isFlatKey === next.isFlatKey
+      prev.isFlatKey === next.isFlatKey &&
+      prev.areAnimationsOn === next.areAnimationsOn
     );
   },
 );

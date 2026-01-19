@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { KeyAndFretStyles } from "@/components/customUI/Boards/parts";
 import { transitionTime } from "@/utils/constants";
 import { roleColors } from "@/components/Keyboard/helpers/scaleLogic";
+import type { HighlightRole } from "../helpers/useScaleLogic";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
@@ -9,8 +10,8 @@ interface KeyProps {
   $isWhiteKey: boolean;
   $keyShape?: KeyShape;
   $isHighlighted?: boolean;
-  $highlightRole: "none";
-  $isActiveNote: boolean;
+  $highlightRole: HighlightRole;
+  $isActive: boolean;
   $areAnimationsOn: boolean;
 }
 
@@ -84,7 +85,7 @@ export const Key = styled.div<KeyProps>`
   width: 0;
   position: relative;
   cursor: pointer;
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "")};
+  filter: ${({ $isActive }) => ($isActive ? "brightness(1.5)" : "")};
 
   ${({ $isWhiteKey, $areAnimationsOn }) =>
     $isWhiteKey ? whiteKey($areAnimationsOn) : blackKey($areAnimationsOn)}

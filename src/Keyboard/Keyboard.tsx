@@ -1,6 +1,6 @@
 import { type JSX } from "react";
 import * as S from "@/components/Keyboard/parts";
-import { UNIFIED_MUSIC_KEYS, NOTES_SHARP } from "@/utils";
+import { UNIFIED_MUSIC_KEYS } from "@/utils";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { useSettingsStore } from "@/store/useSettingsStore";
@@ -25,19 +25,19 @@ export default function Keyboard(): JSX.Element {
         <div {...tutorialHover_keyboard}>
           <S.Keyboard $numberOfKeys={numberOfKeys}>
             {notes.map((note) => {
-              const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
               return (
                 <KeyboardKey
+                  isActive={note.noteId === activeNoteId}
+                  //
                   key={note.noteId}
                   note={note}
-                  noteOctaveIndex={noteOctaveIndex}
                   isHighlighted={false}
                   isShapeNote={false}
                   isFlatKey={isFlatKey}
-                  activeNoteId={activeNoteId}
                   onHover={setActiveNoteId}
                   onLeave={() => setActiveNoteId(null)}
                   areAnimationsOn={areAnimationsOn}
+                  highlightRole={"none"}
                 />
               );
             })}
