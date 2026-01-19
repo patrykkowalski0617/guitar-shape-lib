@@ -12,6 +12,7 @@ import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
 import { useDevStore } from "@/store/useDevStore";
 import { useTutorialHover } from "../TutorialBox/helpers/useTutorialHover";
 import shapes, { type Shapes } from "@/utils/shapes";
+import { useSettingsStore } from "@/store/useSettingsStore";
 
 export default function Fretboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
@@ -24,9 +25,10 @@ export default function Fretboard(): JSX.Element {
   const lockedShape = useMusicStore((state) => state.lockedShape);
   const lockedRoleId = useMusicStore((state) => state.lockedRoleId);
   const activeShapePoint = useMusicStore((state) => state.activeShapePoint);
+  const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
 
   const NOTES_SHARP = getNotes({ firstNote: currentKeyId }).map(
-    ({ sharpNoteName }) => sharpNoteName
+    ({ sharpNoteName }) => sharpNoteName,
   );
 
   const shapeRootSharpNote =
@@ -69,7 +71,7 @@ export default function Fretboard(): JSX.Element {
                     const isShapeNote = isPointInShape(stringIndex, fretIndex);
                     const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
                     const isLockedNote = !!lockedShape?.some(
-                      (p) => p.s === stringIndex && p.f === fretIndex
+                      (p) => p.s === stringIndex && p.f === fretIndex,
                     );
 
                     const isCurrentActiveRoot =
@@ -100,6 +102,7 @@ export default function Fretboard(): JSX.Element {
                           if (isDevMode) onDevClick(stringIndex, fretIndex);
                           if (isShapeRootNote) showShape(stringIndex, fretIndex);
                         }}
+                        areAnimationsOn={areAnimationsOn}
                       />
                     );
                   })}

@@ -10,6 +10,7 @@ import KeyboardKey from "./KeyboardKey/KeyboardKey";
 import { useMusicStore } from "@/store/useMusicStore";
 import shapes from "@/utils/shapes";
 import { useTutorialHover } from "../TutorialBox/helpers/useTutorialHover";
+import { useSettingsStore } from "@/store/useSettingsStore";
 
 const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
@@ -28,12 +29,13 @@ export default function Keyboard(): JSX.Element {
   const { activeNoteId, setActiveNoteId } = useMusicStore();
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
+  const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
 
   const shapeSemitones = useMemo(() => {
     if (!currentShapeId || currentShapeOffset === null) return [];
 
     return shapes[currentShapeId].intervals.map(
-      (intervalValue) => (intervalValue + currentShapeOffset) % 12
+      (intervalValue) => (intervalValue + currentShapeOffset) % 12,
     );
   }, [currentShapeId, currentShapeOffset]);
 
@@ -53,7 +55,7 @@ export default function Keyboard(): JSX.Element {
               const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
 
               const scaleDegree = fullScaleMetadata.find(
-                (m) => m.noteId === note.noteId && m.isVisible
+                (m) => m.noteId === note.noteId && m.isVisible,
               );
 
               const isPartOfShape = !!(
@@ -77,6 +79,7 @@ export default function Keyboard(): JSX.Element {
                   onLeave={() => setActiveNoteId(null)}
                   keyShape={KEY_SHAPE_MAP[noteIndex]}
                   majorScale={majorScale}
+                  areAnimationsOn={areAnimationsOn}
                 />
               );
             })}

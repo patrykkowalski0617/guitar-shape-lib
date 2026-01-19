@@ -4,29 +4,29 @@ import { GroupWrapper, Label } from "@/components/customUI/InputGroup/InputGroup
 
 const LABEL_OPTIONS = [
   {
-    id: "standard",
-    label: "Fancy XD",
+    id: "animations-on",
+    label: "Animations on",
   },
   {
-    id: "descriptive",
-    label: "Descriptive",
+    id: "animations-off",
+    label: "Animations off",
   },
 ];
 
-export default function DescriptiveLabelsSelect() {
-  const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
-  const setAreDescriptiveLabels = useSettingsStore((state) => state.setAreDescriptiveLabels);
-  const currentValue = areDescriptiveLabels ? "descriptive" : "standard";
+export default function Animations() {
+  const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
+  const setAreAnimationOn = useSettingsStore((state) => state.setAreAnimationOn);
+  const currentValue = areAnimationsOn ? "animations-on" : "animations-off";
 
   return (
     <GroupWrapper>
-      <Label>{areDescriptiveLabels ? "Only right option is 'Descriptive'" : "Labels Type"}</Label>
+      <Label>Animations on/off</Label>
       <ToggleGroup
         type="single"
         value={currentValue}
         className="w-full md:w-full"
         onValueChange={() => {
-          setAreDescriptiveLabels(!areDescriptiveLabels);
+          setAreAnimationOn(!areAnimationsOn);
         }}
       >
         {LABEL_OPTIONS.map((option) => (

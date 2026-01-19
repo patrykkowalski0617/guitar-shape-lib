@@ -17,6 +17,7 @@ interface KeyboardKeyProps {
   onLeave: () => void;
   keyShape: S.KeyShape | undefined;
   majorScale: number[];
+  areAnimationsOn: boolean;
 }
 
 const KeyboardKey = memo(
@@ -33,6 +34,7 @@ const KeyboardKey = memo(
     onLeave,
     keyShape,
     majorScale,
+    areAnimationsOn,
   }: KeyboardKeyProps) => {
     return (
       <S.Key
@@ -41,6 +43,7 @@ const KeyboardKey = memo(
         $isWhiteKey={majorScale.includes(noteIndex)}
         $keyShape={keyShape}
         $isActiveNote={isActive}
+        $areAnimationsOn={areAnimationsOn}
         onMouseOver={() => onHover(note.noteId)}
         onMouseLeave={onLeave}
       >
@@ -64,7 +67,7 @@ const KeyboardKey = memo(
       prev.scaleDegree?.role === next.scaleDegree?.role &&
       prev.isFlatKey === next.isFlatKey
     );
-  }
+  },
 );
 
 export default KeyboardKey;

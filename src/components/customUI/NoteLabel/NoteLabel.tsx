@@ -1,6 +1,7 @@
 import { type JSX } from "react";
 import * as S from "./parts";
 import { type Note } from "@/utils";
+import { useSettingsStore } from "@/store/useSettingsStore";
 
 interface NoteLabelProps {
   index?: number;
@@ -22,6 +23,7 @@ export default function NoteLabel({
   orientation = "vertical",
   isShapeNote = false,
 }: NoteLabelProps): JSX.Element {
+  const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
   return (
     <S.Wrapper
       $isFlatKey={isFlatKey}
@@ -29,6 +31,7 @@ export default function NoteLabel({
       $isHighlighted={isHighlighted}
       $orientation={orientation}
       $isShapeNote={isShapeNote}
+      $areAnimationsOn={areAnimationsOn}
     >
       <div className="mainLabel">{sharpNoteName}</div>
       {isEnharmonic && <div className="optionalLabel">{flatNoteName}</div>}

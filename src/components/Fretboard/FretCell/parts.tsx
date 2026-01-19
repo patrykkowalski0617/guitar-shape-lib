@@ -40,6 +40,7 @@ interface NoteProps {
   $isActiveNote: boolean;
   $isShapeNote: boolean;
   $isHighlightRole: HighlightRole;
+  $areAnimationsOn: boolean;
 }
 
 export const Note = styled.div<NoteProps>`
@@ -54,7 +55,8 @@ export const Note = styled.div<NoteProps>`
   position: relative;
   z-index: 20;
   will-change: filter, box-shadow;
-  transition: box-shadow ${transitionTime}ms ease-in-out;
+  transition: ${({ $areAnimationsOn }) =>
+    $areAnimationsOn ? `box-shadow ${transitionTime}ms ease-in-out` : "none"};
   filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "none")};
   opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.7")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};

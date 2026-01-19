@@ -23,6 +23,7 @@ interface FretCellProps {
   onClick: (() => void) | undefined;
   variants: { id: string }[];
   isCurrentActiveRoot: boolean;
+  areAnimationsOn: boolean;
 }
 
 const FretCell = memo(
@@ -44,6 +45,7 @@ const FretCell = memo(
     onClick,
     variants,
     isCurrentActiveRoot,
+    areAnimationsOn,
   }: FretCellProps) => {
     const activeRole: HighlightRole =
       isShapeRootNote && currentRoleId ? (currentRoleId as HighlightRole) : "none";
@@ -64,6 +66,7 @@ const FretCell = memo(
           $isHighlightRole={activeRole}
           onClick={onClick}
           $isShapeNote={isShapeNote}
+          $areAnimationsOn={areAnimationsOn}
         >
           <NoteLabel
             isHighlighted={isHighlighted || isShapeNote}
@@ -95,7 +98,7 @@ const FretCell = memo(
       prev.isCurrentActiveRoot === next.isCurrentActiveRoot &&
       prev.variants === next.variants
     );
-  }
+  },
 );
 
 export default FretCell;

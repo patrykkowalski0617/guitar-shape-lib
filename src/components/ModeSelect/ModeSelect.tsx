@@ -23,13 +23,14 @@ export default function ModeSelect() {
           onValueChange={() => {
             setIsMajorMode(!isMajorMode);
           }}
+          className="min-w-[126px]"
         >
           {(Object.entries(musicMode) as [MusicModeId, typeof musicMode.major][]).map(
             ([id, data]) => (
               <ToggleGroupItem key={id} value={id} title={data.descriptiveLabel}>
                 {areDescriptiveLabels ? data.descriptiveLabel : data.label}
               </ToggleGroupItem>
-            )
+            ),
           )}
         </ToggleGroup>
       </GroupWrapper>

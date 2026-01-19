@@ -10,12 +10,14 @@ interface MarkerProps {
   $isVisible: boolean;
   $isHighlightRole: HighlightRole;
   $roleInterval: string;
+  $areAnimationsOn: boolean;
 }
 
 interface TemplateWrapperProps {
   $firstAIndex: number;
   $numberOfKeys: number;
   $templateOffset: number;
+  $areAnimationsOn: boolean;
 }
 
 export const TemplateWrapper = styled.div<TemplateWrapperProps>`
@@ -28,7 +30,8 @@ export const TemplateWrapper = styled.div<TemplateWrapperProps>`
       (${totalOffset} + (${KEY_PADDING} * ${LEFT_PADDING_FACTOR})) * ${KEY_WIDTH_CSS($numberOfKeys)}
     ))`;
   }};
-  transition: transform ${transitionTime}ms ease-in-out;
+  transition: ${({ $areAnimationsOn }) =>
+    $areAnimationsOn ? `transform ${transitionTime}ms ease-in-out` : "none"};
 `;
 
 export const Marker = styled.div<MarkerProps>`
@@ -42,8 +45,13 @@ export const Marker = styled.div<MarkerProps>`
   background-color: ${({ $isHighlightRole }) => roleColors[$isHighlightRole]};
   box-shadow: 0 0 8px ${({ $isHighlightRole }) => roleColors[$isHighlightRole]};
   opacity: ${({ $isVisible }) => ($isVisible ? "1" : "0")};
-  transition: left ${transitionTime}ms ease-in-out, opacity ${transitionTime}ms ease-in-out,
-    background-color ${transitionTime}ms ease-in-out, box-shadow ${transitionTime}ms ease-in-out;
+  transition: ${({ $areAnimationsOn }) =>
+    $areAnimationsOn
+      ? `left ${transitionTime}ms ease-in-out,
+         opacity ${transitionTime}ms ease-in-out,
+         background-color ${transitionTime}ms ease-in-out,
+         box-shadow ${transitionTime}ms ease-in-out`
+      : "none"};
   &::after {
     content: "${({ $roleInterval }) => $roleInterval}";
     position: absolute;
@@ -56,7 +64,11 @@ export const Marker = styled.div<MarkerProps>`
     text-shadow: 0 0 8px ${({ $isHighlightRole }) => roleColors[$isHighlightRole]};
     opacity: ${({ $roleInterval, $isVisible }) => ($roleInterval && $isVisible ? "1" : "0")};
     top: ${({ $roleInterval }) => ($roleInterval ? "-17px" : "0px")};
-    transition: top ${transitionTime}ms ease-in-out, opacity ${transitionTime}ms ease-in-out,
-      color ${transitionTime}ms ease-in-out;
+    transition: ${({ $areAnimationsOn }) =>
+      $areAnimationsOn
+        ? `top ${transitionTime}ms ease-in-out,
+           opacity ${transitionTime}ms ease-in-out,
+           color ${transitionTime}ms ease-in-out`
+        : "none"};
   }
 `;
