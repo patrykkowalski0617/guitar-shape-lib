@@ -1,4 +1,4 @@
-import { type JSX } from "react";
+import { useEffect, type JSX } from "react";
 import * as S from "./parts";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { numberOfFrets, STRINGS_FIRST_NOTES } from "./helpers/constants";
@@ -32,7 +32,13 @@ export default function Fretboard(): JSX.Element {
   const { isDevMode } = useDevStore();
   const { onDevClick, isDevNote } = useFretboardDevEditor();
 
-  const { showShape, isPointInShape } = useFretboardShapes();
+  const { showShape, isPointInShape, currentVariantId } = useFretboardShapes();
+
+  useEffect(() => {
+    if (isDevMode && currentVariantId) {
+      console.log("Variant ID:", currentVariantId);
+    }
+  }, [currentVariantId, isDevMode]);
 
   const tutorialHover_fretboard = useTutorialHover("fretboard");
 
