@@ -1,5 +1,5 @@
 import Fretboard from "./components/Fretboard/Fretboard";
-import Keyboard from "./components/Keyboard/Keyboard";
+import Keyboard from "./Keyboard/Keyboard";
 import KeySelect from "./components/KeySelect/KeySelect";
 import ModeSelect from "./components/ModeSelect/ModeSelect";
 import RoleSelect from "./components/RoleSelect/RoleSelect";
@@ -16,7 +16,6 @@ import { TutorialBox } from "./components/TutorialBox/TutorialBox";
 
 function App() {
   useMusicEngine();
-
   return (
     <AppWrapper>
       <DevModeProvider />

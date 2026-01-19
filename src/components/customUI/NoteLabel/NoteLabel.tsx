@@ -4,7 +4,6 @@ import { type Note } from "@/utils";
 import { useSettingsStore } from "@/store/useSettingsStore";
 
 interface NoteLabelProps {
-  index?: number;
   flatNoteName: Note;
   sharpNoteName: Note;
   isFlatKey: boolean;
