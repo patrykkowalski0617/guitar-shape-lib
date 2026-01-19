@@ -33,7 +33,7 @@ const shakeIt = keyframes`
   100% { transform: rotate(-1deg) translate(0, -2px); }
 `;
 
-export const TitleWrapper = styled.h1`
+export const TitleWrapper = styled.div`
   color: var(--foreground);
   transform: rotate(-2deg) translateY(-2px);
   margin: 0 40px;
@@ -50,13 +50,13 @@ export const Title = styled.h1`
   text-transform: uppercase;
   text-align: center;
   display: inline;
-  user-select: none;
 `;
 
 export const Subtitle = styled.p`
   text-align: right;
   font-size: 14px;
   line-height: 0.5;
+  font-weight: bold;
 `;
 
 export const HeaderSide = styled.div`

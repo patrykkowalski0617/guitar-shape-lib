@@ -11,11 +11,15 @@ import { AppWrapper, MainContent, Setcion } from "./parts";
 import { LockShapeButton } from "./components/LockShapeButton/LockShapeButton";
 import { ShapeStatusButtons } from "./components/Progress/ShapeStatusButtons";
 import { ProgressActions } from "./components/Progress/ProgressActions";
+import { DevModeProvider } from "./components/Providers/DevModeProvider/DevModeProvider";
+import { TutorialBox } from "./components/TutorialBox/TutorialBox";
 
 function App() {
   useMusicEngine();
+
   return (
     <AppWrapper>
+      <DevModeProvider />
       <Header />
       <MainContent>
         <Setcion>
@@ -34,6 +38,9 @@ function App() {
             <ShapeStatusButtons />
             <ProgressActions />
           </div>
+        </Setcion>
+        <Setcion>
+          <TutorialBox />
         </Setcion>
       </MainContent>
       <Footer />

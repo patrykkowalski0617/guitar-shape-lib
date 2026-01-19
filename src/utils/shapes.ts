@@ -76,17 +76,41 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      M7_8: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
+      M7_1: [[5, 0],[5, 4],[4, 2],[3, 1],[3, 2],[2, 1],[1, 0],[1, 4],[0, 0],[0, 4]],
       // prettier-ignore
-      M7_9: [[4, 0],[3, 0],[2, 0],[1, 1],[0, 0]],
+      M7_2: [[4, 0],[4, 4],[3, 2],[2, 1],[2, 2],[1, 2],[0, 0],[0, 4]],
       // prettier-ignore
-      M7_10: [[3, 0],[2, 0],[1, 1],[0, 1]],
+      M7_3: [[3, 0],[3, 4],[2, 2],[1, 2],[1, 3],[0, 2]],
       // prettier-ignore
-      M7_11: [[2, 0],[1, 1],[0, 1]],
+      M7_4: [[2, 0],[2, 4],[1, 3],[0, 2],[0, 3]],
       // prettier-ignore
-      M7_12: [[1, 0],[0, 0]],
+      M7_5: [[1, 0],[1, 4],[0, 2]],
       // prettier-ignore
-      M7_13: [[0, 0]],
+      M7_6: [[0, 0],[0, 4]],
+      // prettier-ignore
+      M7_7: [[5, 0],[4, -1],[4, 2],[3, 1],[3, 2],[2, 1],[1, 0],[0, -1],[0, 0]],
+      // prettier-ignore
+      M7_8: [[4, 0],[3, -1],[3, 2],[2, 1],[2, 2],[1, 2],[0, 0]],
+      // prettier-ignore
+      M7_9: [[3, 0],[2, -1],[2, 2],[1, 2],[1, 3],[0, 2]],
+      // prettier-ignore
+      M7_10: [[2, 0],[1, 0],[1, 3],[0, 2],[0, 3]],
+      // prettier-ignore
+      M7_11: [[1, 0],[0, -1],[0, 2]],
+      // prettier-ignore
+      M7_12: [[0, 0]],
+      // prettier-ignore
+      M7_13: [[5, 0],[4, -1],[3, -3],[3, 1],[2, -3],[2, 1],[1, 0],[0, -1],[0, 0]],
+      // prettier-ignore
+      M7_14: [[4, 0],[3, -1],[2, -3],[2, 1],[1, -2],[1, 2],[0, 0]],
+      // prettier-ignore
+      M7_15: [[3, 0],[2, -1],[1, -2],[1, 2],[0, -2],[0, 2]],
+      // prettier-ignore
+      M7_16: [[2, 0],[1, 0],[0, -2],[0, 2]],
+      // prettier-ignore
+      M7_17: [[1, 0],[0, -1]],
+      // prettier-ignore
+      M7_18: [[0, 0]],
     },
   },
   M_add9: {
@@ -99,7 +123,41 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
+      M_add9_1: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 2],[3, 4],[2, 1],[1, 0],[0, 0],[0, 2],[0, 4]],
+      // prettier-ignore
+      M_add9_2: [[4, 0],[4, 2],[4, 4],[3, 2],[2, 2],[2, 4],[1, 2],[0, 0]],
+      // prettier-ignore
+      M_add9_3: [[3, 0],[3, 2],[3, 4],[2, 2],[1, 3],[1, 5],[0, 2]],
+      // prettier-ignore
+      M_add9_4: [[2, 0],[2, 2],[2, 4],[1, 3],[0, 3],[0, 5]],
+      // prettier-ignore
+      M_add9_5: [[1, 0],[1, 2],[1, 4],[0, 2]],
+      // prettier-ignore
+      M_add9_6: [[0, 0],[0, 2],[0, 4]],
+      // prettier-ignore
+      M_add9_7: [[5, 0],[5, 2],[4, -1],[4, 2],[3, 2],[2, -1],[2, 1],[1, 0],[0, 0],[0, 2]],
+      // prettier-ignore
+      M_add9_8: [[4, 0],[4, 2],[3, -1],[3, 2],[2, 2],[1, 0],[1, 2],[0, 0]],
+      // prettier-ignore
+      M_add9_9: [[3, 0],[3, 2],[2, -1],[2, 2],[1, 3],[0, 0],[0, 2]],
+      // prettier-ignore
+      M_add9_10: [[2, 0],[2, 2],[1, 0],[1, 3],[0, 3]],
+      // prettier-ignore
+      M_add9_11: [[1, 0],[1, 2],[0, -1],[0, 2]],
+      // prettier-ignore
+      M_add9_12: [[0, 0],[0, 2]],
+      // prettier-ignore
+      M_add9_13: [[5, 0],[4, -3],[4, -1],[3, -3],[2, -3],[2, -1],[1, -3],[1, 0],[0, 0]],
+      // prettier-ignore
+      M_add9_14: [[4, 0],[3, -3],[3, -1],[2, -3],[1, -2],[1, 0],[0, -3],[0, 0]],
+      // prettier-ignore
+      M_add9_15: [[3, 0],[2, -3],[2, -1],[1, -2],[0, -2],[0, 0]],
+      // prettier-ignore
+      M_add9_16: [[2, 0],[1, -2],[1, 0],[0, -2]],
+      // prettier-ignore
+      M_add9_17: [[1, 0],[0, -3],[0, -1]],
+      // prettier-ignore
+      M_add9_18: [[0, 0]],
     },
   },
   M9: {
@@ -112,9 +170,29 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
+      M9_1: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 1],[3, 2],[3, 4],[2, 1],[2, 4],[1, 4],[0, 0],[0, 2],[0, 4]],
       // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
+      M9_2: [[4, 0],[4, 2],[4, 4],[3, 2],[2, 1],[2, 2],[2, 4],[1, 2],[1, 5],[0, 4]],
+      // prettier-ignore
+      M9_3: [[3, 0],[3, 2],[3, 4],[2, 2],[1, 2],[1, 3],[1, 5],[0, 2],[0, 5]],
+      // prettier-ignore
+      M9_4: [[2, 0],[2, 2],[2, 4],[1, 3],[0, 2],[0, 3],[0, 5]],
+      // prettier-ignore
+      M9_5: [[1, 0],[1, 2],[1, 4],[0, 2]],
+      // prettier-ignore
+      M9_6: [[0, 0],[0, 2],[0, 4]],
+      // prettier-ignore
+      M9_7: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 1],[3, 2],[3, 4],[2, 1],[2, 4],[1, 4],[1, 5],[0, 2],[0, 4]],
+      // prettier-ignore
+      M9_8: [[4, 0],[4, 2],[4, 4],[3, 2],[2, 1],[2, 2],[2, 4],[1, 2],[1, 5],[0, 4],[0, 5]],
+      // prettier-ignore
+      M9_9: [[3, 0],[3, 2],[3, 4],[2, 2],[1, 2],[1, 3],[1, 5],[0, 2],[0, 5]],
+      // prettier-ignore
+      M9_10: [[2, 0],[2, 2],[2, 4],[1, 3],[0, 2],[0, 3],[0, 5]],
+      // prettier-ignore
+      M9_11: [[1, 0],[1, 2],[1, 4],[0, 2]],
+      // prettier-ignore
+      M9_12: [[0, 0],[0, 2],[0, 4]],
     },
   },
   dominant: {
@@ -124,12 +202,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       dominant: { majorMode: [_5], minorMode: [_M3] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   "7b9": {
     label: "7b9",
@@ -138,12 +211,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       dominant: { minorMode: [_M3], majorMode: [_5] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   m7b5: {
     label: "m7b5",
@@ -152,12 +220,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       dominant: { bothModes: [_M7] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   dim7: {
     label: "dim7",
@@ -166,12 +229,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       dominant: { bothModes: [_M7] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   m7: {
     label: "m7",
@@ -181,12 +239,7 @@ const shapes: Shapes = {
       tonic: { bothModes: [_M6, _M3] },
       subdominant: { bothModes: [_M2, _M6] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   m_add9: {
     label: "m(add9)",
@@ -197,12 +250,7 @@ const shapes: Shapes = {
         bothModes: [_M6],
       },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   minor_pent: {
     label: "Minor Pentatonic",
@@ -215,12 +263,7 @@ const shapes: Shapes = {
       subdominant: { bothModes: [_M2, _M6] },
       dominant: { bothModes: [_M3, _5] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   major_pent: {
     label: "Major Pentatonic",
@@ -231,12 +274,7 @@ const shapes: Shapes = {
       subdominant: { bothModes: [_4] },
       dominant: { bothModes: [_5] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   no_avoid_notes_t_s_major: {
     label: '"No avoid notes"',
@@ -246,12 +284,7 @@ const shapes: Shapes = {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   ionian: {
     label: "Ionian",
@@ -260,12 +293,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       tonic: { majorMode: [_1] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   aeolian: {
     label: "Aeolian",
@@ -274,12 +302,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       tonic: { minorMode: [_M6] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   dorian: {
     label: "Dorian",
@@ -289,12 +312,7 @@ const shapes: Shapes = {
       tonic: { minorMode: [_M6] },
       subdominant: { majorMode: [_M2] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   lydian: {
     label: "Lydian",
@@ -303,12 +321,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       subdominant: { majorMode: [_4] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   mixolydian: {
     label: "Mixolydian",
@@ -317,12 +330,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       dominant: { majorMode: [_5], minorMode: [_M3] },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
   phrygian_dominant: {
     label: "Phrygian Dominant",
@@ -333,12 +341,7 @@ const shapes: Shapes = {
         minorMode: [_M3],
       },
     },
-    shapesCoordinates: {
-      // prettier-ignore
-      M7_2: [[5, 0],[5, 1],[5, 2],[5, 3]],
-      // prettier-ignore
-      M7_3: [[5, 0],[4, 0],[3, 0],[2, 0],[1, 0],[0, 0]],
-    },
+    shapesCoordinates: {},
   },
 };
 

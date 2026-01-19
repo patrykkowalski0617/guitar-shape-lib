@@ -39,7 +39,7 @@ export const useFretboardDevEditor = () => {
             .join(",");
 
           finalOutput += `
-              
+              // prettier-ignore
               ${currentShapeId}_${nextIdx}: [${shapeBody}],`;
 
           nextIdx++;

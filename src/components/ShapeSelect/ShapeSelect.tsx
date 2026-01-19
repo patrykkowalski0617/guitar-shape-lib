@@ -12,6 +12,7 @@ import { useSettingsStore } from "@/store/useSettingsStore";
 import shapes, { type Shapes } from "@/utils/shapes";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { getFilteredShapeOptions } from "./helpers/shapeHelpers";
+import { useTutorialHover } from "../TutorialBox/helpers/useTutorialHover";
 
 export default function ShapeSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
@@ -51,37 +52,41 @@ export default function ShapeSelect() {
 
   const isDisabled = !currentRoleId || filteredOptions.length === 0;
 
+  const tutorialHover_shapeList = useTutorialHover("shape-list");
+
   return (
-    <GroupWrapper>
-      <Label>{areDescriptiveLabels ? "Set of notes" : "Shapes"}</Label>
-      <Select
-        value={currentShapeValue}
-        onValueChange={(v) => {
-          const [id, offsetStr] = v.split("|");
-          const offset = parseInt(offsetStr, 10);
-          setShape(id, offset);
-        }}
-        disabled={isDisabled}
-      >
-        <SelectTrigger disabled={isDisabled} className="min-w-[211px]">
-          <SelectValue
-            placeholder={
-              currentRoleId
-                ? "Select shape..."
-                : areDescriptiveLabels
-                ? "Select energy first..."
-                : "Select function first..."
-            }
-          />
-        </SelectTrigger>
-        <SelectContent className="font-semibold">
-          {filteredOptions.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
-              <span className={isMajorMode ? "opacity-100" : "opacity-90"}>{opt.label}</span>
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </GroupWrapper>
+    <div {...tutorialHover_shapeList}>
+      <GroupWrapper>
+        <Label>{areDescriptiveLabels ? "Set of notes" : "Shapes"}</Label>
+        <Select
+          value={currentShapeValue}
+          onValueChange={(v) => {
+            const [id, offsetStr] = v.split("|");
+            const offset = parseInt(offsetStr, 10);
+            setShape(id, offset);
+          }}
+          disabled={isDisabled}
+        >
+          <SelectTrigger disabled={isDisabled} className="min-w-[211px]">
+            <SelectValue
+              placeholder={
+                currentRoleId
+                  ? "Select shape..."
+                  : areDescriptiveLabels
+                  ? "Select energy first..."
+                  : "Select function first..."
+              }
+            />
+          </SelectTrigger>
+          <SelectContent className="font-semibold">
+            {filteredOptions.map((opt) => (
+              <SelectItem key={opt.value} value={opt.value}>
+                <span className={isMajorMode ? "opacity-100" : "opacity-90"}>{opt.label}</span>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </GroupWrapper>
+    </div>
   );
 }

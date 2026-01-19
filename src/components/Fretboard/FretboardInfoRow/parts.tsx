@@ -13,7 +13,6 @@ export const FretInfoCell = styled.div<{ $singleDot?: boolean; $doubleDot?: bool
   font-weight: 800;
   color: var(--border);
   opacity: 0.8;
-  user-select: none;
 
   &::before,
   &::after {
