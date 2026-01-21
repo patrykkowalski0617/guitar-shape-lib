@@ -11,7 +11,6 @@ export const BoardScrollWrapper = styled.div`
   overflow: auto;
   scrollbar-width: none;
   border-radius: var(--radius-lg);
-  padding-bottom: 5px;
   margin-left: -5px; //- compensation for VariantProgressDots
 `;
 

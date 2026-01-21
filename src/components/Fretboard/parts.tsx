@@ -1,9 +1,7 @@
 import styled from "styled-components";
 import { Note } from "./FretCell/parts";
 
-export const Fretboard = styled.div`
-  padding-top: 4px;
-`;
+export const Fretboard = styled.div``;
 
 export const FretboardRow = styled.div`
   display: flex;
