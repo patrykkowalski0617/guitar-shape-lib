@@ -5,10 +5,10 @@ import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { useTutorialHover } from "@/components/TutorialBox/helpers/useTutorialHover";
-import { notes, numberOfKeys } from "@/components/Keyboard/helpers/constants";
 import { BoardScrollWrapper, BoardWrapper } from "@/components/customUI/Boards/parts";
 import KeyboardKey from "./KeyboardKey/KeyboardKey";
 import { useScaleLogic } from "./helpers/useScaleLogic";
+import { keyboardNotes, numberOfKeys } from "./helpers/constants";
 
 const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
@@ -24,18 +24,20 @@ export default function Keyboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const { activeNoteId, setActiveNoteId } = useMusicStore();
   const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
+  const currentRoleId = useControlsStore((state) => state.currentRoleId);
 
   const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
 
   const tutorialHover_keyboard = useTutorialHover("keyboard");
 
-  useScaleLogic();
+  const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
+
   return (
     <BoardScrollWrapper>
-      <BoardWrapper>
-        <div {...tutorialHover_keyboard}>
+      <div {...tutorialHover_keyboard}>
+        <BoardWrapper>
           <S.Keyboard $numberOfKeys={numberOfKeys}>
-            {notes.map((note) => {
+            {keyboardNotes.map((note) => {
               //- Key color (white/black) and shape
               const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
               const isWhiteKey = majorScale.includes(noteOctaveIndex);
@@ -43,27 +45,37 @@ export default function Keyboard(): JSX.Element {
 
               return (
                 <KeyboardKey
+                  key={note.noteId}
                   //- sync hover effect between fretboard nad keyboard
                   isActive={note.noteId === activeNoteId}
                   //- Key color (white/black) and shape
                   isWhiteKey={isWhiteKey}
                   keyShape={keyShape}
+                  //- specic states
+                  isHighlighted={currentScaleNoteIds.includes(note.noteId)}
+                  highlightRole={
+                    currentRoleId && currentRoleNoteIds?.includes(note.noteId)
+                      ? currentRoleId
+                      : "none"
+                  }
                   //
-                  key={note.noteId}
-                  note={note}
-                  isHighlighted={false}
-                  isShapeNote={false}
+                  noteId={note.noteId}
+                  areAnimationsOn={areAnimationsOn}
+                  //- for NoteLabel only
                   isFlatTune={isFlatTune}
+                  isShapeNote={currentShapeNoteIds.includes(note.noteId)}
+                  flatNoteName={note.flatNoteName}
+                  sharpNoteName={note.sharpNoteName}
+                  isEnharmonic={note.isEnharmonic}
+                  //- actions
                   onHover={setActiveNoteId}
                   onLeave={() => setActiveNoteId(null)}
-                  areAnimationsOn={areAnimationsOn}
-                  highlightRole={"none"}
                 />
               );
             })}
           </S.Keyboard>
-        </div>
-      </BoardWrapper>
+        </BoardWrapper>
+      </div>
     </BoardScrollWrapper>
   );
 }

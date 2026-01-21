@@ -38,6 +38,7 @@ export interface NoteObject {
   octaveNumber: number;
   isEnharmonic: boolean;
   noteId: string;
+  noteIndex: number;
 }
 
 interface GetNotesArgs {
@@ -77,6 +78,7 @@ export const getNotes = ({
       octaveNumber,
       isEnharmonic,
       noteId,
+      noteIndex,
     };
   });
 };
