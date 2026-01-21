@@ -10,8 +10,6 @@ import {
 import shapes, { type Shape } from "@/utils/shapes";
 import { matchNotesToTarget } from "./matchNotesToTarget";
 
-export type HighlightRole = "tonic" | "subdominant" | "dominant" | "none";
-
 export const useScaleLogic = () => {
   const { isMajorMode, currentKeyId, currentRoleId, currentShapeId, currentShapeOffset } =
     useControlsStore();
@@ -106,14 +104,6 @@ export const useScaleLogic = () => {
       .map(({ noteId }) => noteId);
 
     currentShapeNoteIds = matchNotesToTarget(currentRoleNoteIds, shapeSharpNoteId);
-    console.log(
-      JSON.stringify({
-        testDescription: { isMajorMode, currentRoleId, currentShapeId },
-        target: currentRoleNoteIds,
-        input: shapeSharpNoteId,
-        result: currentShapeNoteIds,
-      }),
-    );
   }
 
   return { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds };

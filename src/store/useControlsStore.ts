@@ -51,7 +51,9 @@ export const useControlsStore = create<ControlsState>((set) => ({
   currentRoleId: null,
   setCurrentRoleId: (id) =>
     set((state) => {
-      if (id === null) {
+      console.log(typeof id);
+
+      if (id === null || id.length === 0) {
         return { currentRoleId: null, currentShapeId: null, currentShapeOffset: null };
       }
       const { shapeId, offset } = getAutoSelectedShape(id, state.isMajorMode);

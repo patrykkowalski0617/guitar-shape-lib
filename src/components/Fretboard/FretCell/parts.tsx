@@ -1,5 +1,5 @@
 import { KeyAndFretStyles } from "@/components/customUI/Boards/parts";
-import { roleColors, type HighlightRole } from "@/components/Keyboard/helpers/scaleLogic";
+import { roleColors, type HighlightRole } from "@/utils/roleColors";
 import type { RoleId } from "@/utils";
 import { transitionTime } from "@/utils/constants";
 import styled, { css } from "styled-components";

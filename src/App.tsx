@@ -12,7 +12,7 @@ import { ShapeStatusButtons } from "./components/Progress/ShapeStatusButtons";
 import { ProgressActions } from "./components/Progress/ProgressActions";
 import { DevModeProvider } from "./components/Providers/DevModeProvider/DevModeProvider";
 import { TutorialBox } from "./components/TutorialBox/TutorialBox";
-import Keyboard from "./Keyboard/Keyboard";
+import Keyboard from "./components/Keyboard/Keyboard";
 
 function App() {
   useMusicEngine();
