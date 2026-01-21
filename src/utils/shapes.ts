@@ -297,7 +297,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
   dim7: {
@@ -309,7 +309,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
   m7: {
@@ -366,7 +366,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
   m_9: {
@@ -380,7 +380,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
   minor_pent: {
@@ -396,7 +396,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
   major_pent: {
@@ -410,7 +410,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
   no_avoid_notes_t_s_major: {
@@ -423,7 +423,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
   ionian: {
@@ -435,7 +435,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
   aeolian: {
@@ -447,7 +447,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
   dorian: {
@@ -460,7 +460,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
   lydian: {
@@ -472,7 +472,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
   mixolydian: {
@@ -484,7 +484,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
   phrygian_dominant: {
@@ -498,7 +498,7 @@ const shapes: Shapes = {
     },
     shapesCoordinates: {
       // prettier-ignore
-      // test: [[5, 0],[5, 2],[5, 4],[4, 2]],
+      test: [[5, 0],[5, 2],[5, 4],[4, 2]],
     },
   },
 };

@@ -8,6 +8,7 @@ import {
   type Note,
 } from "@/utils";
 import shapes, { type Shape } from "@/utils/shapes";
+import { matchNotesToTarget } from "./matchNotesToTarget";
 
 export type HighlightRole = "tonic" | "subdominant" | "dominant" | "none";
 
@@ -95,6 +96,7 @@ export const useScaleLogic = () => {
     .slice(0, 7);
 
   //- >>>> geting shape note id (currentShapeNoteIds)
+
   let currentShapeNoteIds: string[] = [];
   if (currentShape && currentShapeOffset !== null) {
     const shapeIntervals = currentShape?.intervals;
@@ -103,26 +105,15 @@ export const useScaleLogic = () => {
       .filter((_, i) => shapeIntervals.includes(i))
       .map(({ noteId }) => noteId);
 
-    const matchNotesToTarget = (target: string[], input: string[]): string[] => {
-      const inputPool = [...input];
-
-      const getNoteName = (note: string) => note.split("-")[0];
-      const matchedFromTarget = target.reduce<string[]>((acc, targetNote) => {
-        const targetName = getNoteName(targetNote);
-        const foundIndex = inputPool.findIndex((n) => getNoteName(n) === targetName);
-
-        if (foundIndex !== -1) {
-          acc.push(targetNote);
-          inputPool.splice(foundIndex, 1);
-        }
-
-        return acc;
-      }, []);
-
-      return [...matchedFromTarget, ...inputPool];
-    };
-
     currentShapeNoteIds = matchNotesToTarget(currentRoleNoteIds, shapeSharpNoteId);
+    console.log(
+      JSON.stringify({
+        testDescription: { isMajorMode, currentRoleId, currentShapeId },
+        target: currentRoleNoteIds,
+        input: shapeSharpNoteId,
+        result: currentShapeNoteIds,
+      }),
+    );
   }
 
   return { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds };
