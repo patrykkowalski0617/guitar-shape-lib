@@ -15,9 +15,10 @@ export const BoardScrollWrapper = styled.div`
   margin-left: -5px; //- compensation for VariantProgressDots
 `;
 
-export const TutorialIcons = styled.div`
+export const TutorialStickyIcons = styled.div`
   position: sticky;
   left: 0;
+  z-index: 100;
 `;
 
 export const KeyAndFretStyles = css`

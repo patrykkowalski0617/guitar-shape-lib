@@ -20,7 +20,9 @@ export default function ShapeSelect() {
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
+  const currentShapeSemitoneOffsetFromC = useControlsStore(
+    (state) => state.currentShapeSemitoneOffsetFromC,
+  );
   const setShape = useControlsStore((state) => state.setShape);
   const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
 
@@ -47,8 +49,8 @@ export default function ShapeSelect() {
   }, [currentRoleId, isMajorMode, currentKeyNotes]);
 
   const currentShapeValue =
-    currentShapeId !== null && currentShapeOffset !== null
-      ? `${currentShapeId}|${currentShapeOffset}`
+    currentShapeId !== null && currentShapeSemitoneOffsetFromC !== null
+      ? `${currentShapeId}|${currentShapeSemitoneOffsetFromC}`
       : "";
 
   const isDisabled = !currentRoleId || filteredOptions.length === 0;
@@ -66,7 +68,7 @@ export default function ShapeSelect() {
         }}
         disabled={isDisabled}
       >
-        <SelectTrigger disabled={isDisabled}>
+        <SelectTrigger disabled={isDisabled} style={{ minWidth: "194px" }}>
           <SelectValue
             placeholder={
               currentRoleId

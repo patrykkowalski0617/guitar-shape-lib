@@ -10,9 +10,9 @@ import { AppWrapper, MainContent, Setcion } from "./parts";
 import { LockShapeButton } from "./components/LockShapeButton/LockShapeButton";
 import { ShapeStatusButtons } from "./components/Progress/ShapeStatusButtons";
 import { ProgressActions } from "./components/Progress/ProgressActions";
-import { DevModeProvider } from "./components/Providers/DevModeProvider/DevModeProvider";
 import Keyboard from "./components/Keyboard/Keyboard";
 import ControlsContainer from "./components/ControlsContainer/ControlsContainer";
+import { DevModeProvider } from "./components/DevModeProvider/DevModeProvider";
 
 function App() {
   useMusicEngine();

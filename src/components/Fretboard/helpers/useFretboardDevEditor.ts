@@ -21,7 +21,7 @@ export const useFretboardDevEditor = () => {
         const currentCoords = shapeData?.shapesCoordinates || {};
 
         const existingVariantsStrings = new Set(
-          Object.values(currentCoords).map((coords) => JSON.stringify(coords))
+          Object.values(currentCoords).map((coords) => JSON.stringify(coords)),
         );
 
         const keys = Object.keys(currentCoords);
@@ -50,7 +50,11 @@ export const useFretboardDevEditor = () => {
           const isSingleRootOnly =
             currentVariantArray.length === 1 && currentVariantArray[0][1] === 0;
 
-          if (!alreadyExists && !isSingleRootOnly) {
+          const isInvalidStartingString =
+            currentVariantArray.length > 0 &&
+            (currentVariantArray[0][0] === 0 || currentVariantArray[0][0] === 1);
+
+          if (!alreadyExists && !isSingleRootOnly && !isInvalidStartingString) {
             const shapeBody = currentVariantArray
               .map((coord) => `[${coord[0]}, ${coord[1]}]`)
               .join(",");
@@ -77,8 +81,8 @@ export const useFretboardDevEditor = () => {
         if (finalOutput) {
           navigator.clipboard.writeText(finalOutput);
           console.log(
-            `%c GENEROWANIE: ${currentShapeId} | Pominięto (duplikaty lub single-root): ${skippedCount}`,
-            "color: #00ff00; font-weight: bold;"
+            `%c GENEROWANIE: ${currentShapeId} | Pominięto (duplikaty, single-root lub struna 0/1): ${skippedCount}`,
+            "color: #00ff00; font-weight: bold;",
           );
           console.log(finalOutput);
         } else {

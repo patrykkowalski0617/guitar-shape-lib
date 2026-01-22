@@ -11,8 +11,13 @@ import shapes, { type Shape } from "@/utils/shapes";
 import { matchNotesToTarget } from "./matchNotesToTarget";
 
 export const useScaleLogic = () => {
-  const { isMajorMode, currentKeyId, currentRoleId, currentShapeId, currentShapeOffset } =
-    useControlsStore();
+  const {
+    isMajorMode,
+    currentKeyId,
+    currentRoleId,
+    currentShapeId,
+    currentShapeSemitoneOffsetFromC,
+  } = useControlsStore();
 
   const FIRST_OCTAVE_NO_FOR_PRESENTATION = 3;
   const presentationScaleLength = 36;
@@ -96,10 +101,10 @@ export const useScaleLogic = () => {
   //- >>>> geting shape note id (currentShapeNoteIds)
 
   let currentShapeNoteIds: string[] = [];
-  if (currentShape && currentShapeOffset !== null) {
+  if (currentShape && currentShapeSemitoneOffsetFromC !== null) {
     const shapeIntervals = currentShape?.intervals;
     const shapeSharpNoteId = allNotesFromMajorRoot
-      .slice(currentShapeOffset)
+      .slice(currentShapeSemitoneOffsetFromC)
       .filter((_, i) => shapeIntervals.includes(i))
       .map(({ noteId }) => noteId);
 

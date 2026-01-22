@@ -2,14 +2,9 @@ export const TUTORIAL_CONTENT = {
   KEYBOARD: {
     title: "Keyboard",
     description: `It is designed to visualize the relationship between the key, harmonic functions, and shape notes. 
-    
-    You will notice that the Tonic is based on the 1st, the Subdominant on the 4th, and the Dominant on the 5th degree of any key. 
-    
-    The app automatically derives the notes for each function by extending the key template and selecting every second note.
 
-    Intervals 1 and 5 have a 'transparent' character, while 3 and 7 are known as 'guide tones' and provide more harmonic color.The 9th, in most cases, is also very 'colorful'. 
-    Regarding the 11th and 13th – sometimes certain notes among them are referred to as 'avoid notes' due to their dissonant characteristics. 
-    
+    The app demonstrates that notes for each function are built by extending the key template and selecting every second note from the correct starting point: the Tonic is based on the 1st degree, the Subdominant on the 4th, and the Dominant on the 5th degree of any key.
+  
     You will also notice that each shape exposes different functional notes and sometimes even notes that do not belong to the function directly – these are called alterations.`,
     x: 5,
     y: 5,
@@ -17,7 +12,11 @@ export const TUTORIAL_CONTENT = {
   },
   SCALE_TEMPLATE: {
     title: "Scale Template",
-    description: `Select a function to see the template located above the keyboard. It illustrates the two fundamental templates available for any key: Major and Minor. Furthermore, every Major key has a relative Minor key which contains the exact same notes, but in a different order. Numeric indicators highlight the specific intervals for each harmonic function.`,
+    description: `Select a function to observe changes in the template located above the keyboard. It illustrates the two fundamental templates that represent Major and Minor scales in any key. Furthermore, every Major key has a relative Minor key which contains the exact same notes, but in a different order.
+
+Numeric indicators highlight the specific intervals for each harmonic function shown on the keyboard below.
+
+Intervals 1 and 5 have a 'transparent' character, while 3 and 7 are known as 'guide tones' and provide more harmonic color. The 9th, in most cases, is also very 'colorful'. Regarding the 11th and 13th – certain notes among them are sometimes referred to as 'avoid notes' due to their dissonant characteristics.`,
 
     x: 30,
     y: 5,
@@ -25,7 +24,9 @@ export const TUTORIAL_CONTENT = {
   },
   FRETBOARD: {
     title: "Fretboard",
-    description: `Once a function is selected, the system highlights the root notes of the chosen shape on the fretboard diagram. You can then tap any root note to cycle through the available shape variants across the neck. Next to each root note, you will find dots representing the available variants of each shape. When you save a variant, its dot changes color to indicate your status: Pink for 'In Progress' and Blue for 'Learned'`,
+    description: `Once a function is selected, the system highlights the root notes of the chosen shape on the fretboard diagram. You can then tap any root note to cycle through the available shape variants across the neck. 
+    
+    Next to each root note, you will find dots representing the available variants of each shape. When you save a variant, its dot changes color to indicate your status: Pink for 'In Progress' and Blue for 'Learned'`,
     x: 5,
     y: 5,
     animationOrder: 3,
@@ -53,7 +54,12 @@ export const TUTORIAL_CONTENT = {
   },
   SHAPE_SELECTOR: {
     title: "Shape List",
-    description: `Browse and select specific fretboard patterns. Each shape provides a unique geometric layout of the scale, helping you visualize and master the harmonic landscape across different neck positions and functions. You will notice that the Tonic and Subdominant share most shapes, acting as a 'release group' in contrast to the 'tension' of the Dominant.`,
+    description: `Browse and select specific fretboard patterns. The first part of each shape's name represents the note name, and the second represents the actual shape. Each shape provides a unique geometric layout of the scale, helping you visualize and master the harmonic landscape across different neck positions and functions.
+    
+    You will notice that the list of shapes is not endless (9 aprs / 9 scales), as the same shape can be placed on different root notes. The Tonic and Subdominant share most shapes, acting as a 'release group' in contrast to the 'tension' of the Dominant. 
+
+    Explore arpeggios first if you want a more melodic approach. 
+    `,
     x: -23,
     y: -6,
     animationOrder: 7,
