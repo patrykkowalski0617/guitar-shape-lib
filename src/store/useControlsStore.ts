@@ -13,7 +13,7 @@ interface ControlsState {
   currentRoleId: RoleId | null;
   setCurrentRoleId: (id: RoleId | null) => void;
   currentShapeId: string | null;
-  currentShapeOffset: number | null;
+  currentShapeSemitoneOffsetFromC: number | null;
   setShape: (id: string | null, offset: number | null) => void;
 }
 
@@ -29,7 +29,7 @@ export const useControlsStore = create<ControlsState>((set) => ({
       return {
         isMajorMode,
         currentShapeId: shapeId,
-        currentShapeOffset: offset,
+        currentShapeSemitoneOffsetFromC: offset,
       };
     }),
 
@@ -52,18 +52,18 @@ export const useControlsStore = create<ControlsState>((set) => ({
   setCurrentRoleId: (id) =>
     set((state) => {
       if (id === null || id.length === 0) {
-        return { currentRoleId: null, currentShapeId: null, currentShapeOffset: null };
+        return { currentRoleId: null, currentShapeId: null, currentShapeSemitoneOffsetFromC: null };
       }
       const { shapeId, offset } = getAutoSelectedShape(id, state.isMajorMode);
 
       return {
         currentRoleId: id,
         currentShapeId: shapeId,
-        currentShapeOffset: offset,
+        currentShapeSemitoneOffsetFromC: offset,
       };
     }),
 
   currentShapeId: null,
-  currentShapeOffset: null,
-  setShape: (id, offset) => set({ currentShapeId: id, currentShapeOffset: offset }),
+  currentShapeSemitoneOffsetFromC: null,
+  setShape: (id, offset) => set({ currentShapeId: id, currentShapeSemitoneOffsetFromC: offset }),
 }));

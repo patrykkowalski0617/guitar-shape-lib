@@ -6,6 +6,9 @@ import { generateScaleSteps, getStepsCountForFunction } from "@/utils";
 export const useMusicEngine = () => {
   const currentRoleId = useControlsStore((s) => s.currentRoleId);
   const currentKeyId = useControlsStore((s) => s.currentKeyId);
+  const currentShapeSemitoneOffsetFromC = useControlsStore(
+    (s) => s.currentShapeSemitoneOffsetFromC,
+  );
   const isMajorMode = useControlsStore((s) => s.isMajorMode);
   const currentShapeId = useControlsStore((s) => s.currentShapeId);
 
@@ -22,6 +25,7 @@ export const useMusicEngine = () => {
     currentKeyId,
     isMajorMode,
     currentShapeId,
+    currentShapeSemitoneOffsetFromC,
     setActiveScaleSteps,
     setActiveShapePoint,
   ]);

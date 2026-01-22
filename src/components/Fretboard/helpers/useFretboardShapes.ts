@@ -22,11 +22,11 @@ export const useFretboardShapes = () => {
     setCurrentShapeRootFret(fretIdx);
 
     const allVariants = Object.entries(shapeData.shapesCoordinates).sort(([a], [b]) =>
-      a.localeCompare(b, undefined, { numeric: true })
+      a.localeCompare(b, undefined, { numeric: true }),
     );
 
     const validVariants = allVariants.filter(
-      ([, coords]) => coords.length > 0 && coords[0][0] === stringIdx
+      ([, coords]) => coords.length > 0 && coords[0][0] === stringIdx,
     );
 
     const mappedVariants = validVariants.map(([id]) => ({
@@ -67,7 +67,7 @@ export const useFretboardShapes = () => {
         variantIdx: isSamePoint ? (currentPoint?.variantIdx ?? 0) + 1 : 0,
       });
     },
-    [setActiveShapePoint]
+    [setActiveShapePoint],
   );
 
   return {

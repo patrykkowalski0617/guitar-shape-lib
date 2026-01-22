@@ -18,7 +18,9 @@ import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 export default function Fretboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
+  const currentShapeSemitoneOffsetFromC = useControlsStore(
+    (state) => state.currentShapeSemitoneOffsetFromC,
+  );
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
@@ -33,7 +35,9 @@ export default function Fretboard(): JSX.Element {
   );
 
   const shapeRootSharpNote =
-    currentShapeOffset !== null ? NOTES_SHARP[currentShapeOffset % 12] : null;
+    currentShapeSemitoneOffsetFromC !== null
+      ? NOTES_SHARP[currentShapeSemitoneOffsetFromC % 12]
+      : null;
 
   const { isDevMode } = useDevStore();
   const { onDevClick, isDevNote } = useFretboardDevEditor();
