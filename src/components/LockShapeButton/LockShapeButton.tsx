@@ -51,12 +51,7 @@ export const LockShapeButton = () => {
   return (
     <GroupWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.LOCK_SHAPE} />
-      <Button
-        className="min-w-[211px] lg:min-w-[125px]"
-        variant="outline"
-        onClick={handleToggle}
-        disabled={!activeShapePoint && !isLocked}
-      >
+      <Button variant="outline" onClick={handleToggle} disabled={!activeShapePoint && !isLocked}>
         <div className="flex items-center gap-2">
           {isLocked ? (
             <Lock className="h-3.5 w-3.5 fill-current" />

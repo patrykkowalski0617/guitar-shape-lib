@@ -19,12 +19,7 @@ export default function RoleSelect() {
     <GroupWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.ROLE_SELECTOR} />
       <Label>{areDescriptiveLabels ? "Energy" : "Function"} </Label>
-      <ToggleGroup
-        className="min-w-[258px]"
-        type="single"
-        value={currentRoleId ?? ""}
-        onValueChange={handleValueChange}
-      >
+      <ToggleGroup type="single" value={currentRoleId ?? ""} onValueChange={handleValueChange}>
         {(Object.entries(roles) as [RoleId, RoleData][]).map(([id, data]) => (
           <ToggleGroupItem title={data.descriptiveLabel} key={id} value={id}>
             {areDescriptiveLabels ? data.descriptiveLabel : data.label}
