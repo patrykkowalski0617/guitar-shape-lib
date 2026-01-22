@@ -1,5 +1,4 @@
 import Fretboard from "./components/Fretboard/Fretboard";
-import Keyboard from "./components/Keyboard/Keyboard";
 import KeySelect from "./components/KeySelect/KeySelect";
 import ModeSelect from "./components/ModeSelect/ModeSelect";
 import RoleSelect from "./components/RoleSelect/RoleSelect";
@@ -12,11 +11,11 @@ import { LockShapeButton } from "./components/LockShapeButton/LockShapeButton";
 import { ShapeStatusButtons } from "./components/Progress/ShapeStatusButtons";
 import { ProgressActions } from "./components/Progress/ProgressActions";
 import { DevModeProvider } from "./components/Providers/DevModeProvider/DevModeProvider";
-import { TutorialBox } from "./components/TutorialBox/TutorialBox";
+import Keyboard from "./components/Keyboard/Keyboard";
+import ControlsContainer from "./components/ControlsContainer/ControlsContainer";
 
 function App() {
   useMusicEngine();
-
   return (
     <AppWrapper>
       <DevModeProvider />
@@ -29,7 +28,7 @@ function App() {
           <Fretboard />
         </Setcion>
         <Setcion>
-          <div className="max-w-[400px] md:max-w-[1000px] m-auto flex flex-col justify-center md:flex-row flex-wrap md:items-end gap-6">
+          <ControlsContainer>
             <ModeSelect />
             <KeySelect />
             <RoleSelect />
@@ -37,10 +36,7 @@ function App() {
             <LockShapeButton />
             <ShapeStatusButtons />
             <ProgressActions />
-          </div>
-        </Setcion>
-        <Setcion>
-          <TutorialBox />
+          </ControlsContainer>
         </Setcion>
       </MainContent>
       <Footer />

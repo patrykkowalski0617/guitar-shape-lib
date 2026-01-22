@@ -1,16 +1,16 @@
 import { memo } from "react";
 import * as S from "./parts";
 import type { NoteObject, RoleId } from "@/utils";
-import NoteLabel from "@/components/customUI/NoteLabel/NoteLabel";
-import type { HighlightRole } from "@/components/Keyboard/helpers/scaleLogic";
+import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { VariantProgressDots } from "../VariantProgressDots/VariantProgressDots";
+import type { HighlightRole } from "@/utils/roleColors";
 
 interface FretCellProps {
   note: NoteObject;
   fretIndex: number;
   isHighlighted: boolean;
   currentRoleId: RoleId | null;
-  isFlatKey: boolean;
+  isFlatTune: boolean;
   isActive: boolean;
   isShapeRootNote: boolean;
   isShapeNote: boolean;
@@ -23,14 +23,14 @@ interface FretCellProps {
   onClick: (() => void) | undefined;
   variants: { id: string }[];
   isCurrentActiveRoot: boolean;
+  areAnimationsOn: boolean;
 }
 
 const FretCell = memo(
   ({
     note,
-    fretIndex,
     isHighlighted,
-    isFlatKey,
+    isFlatTune,
     isActive,
     isShapeNote,
     isLockedNote,
@@ -44,6 +44,7 @@ const FretCell = memo(
     onClick,
     variants,
     isCurrentActiveRoot,
+    areAnimationsOn,
   }: FretCellProps) => {
     const activeRole: HighlightRole =
       isShapeRootNote && currentRoleId ? (currentRoleId as HighlightRole) : "none";
@@ -64,13 +65,13 @@ const FretCell = memo(
           $isHighlightRole={activeRole}
           onClick={onClick}
           $isShapeNote={isShapeNote}
+          $areAnimationsOn={areAnimationsOn}
         >
           <NoteLabel
             isHighlighted={isHighlighted || isShapeNote}
-            index={fretIndex}
             flatNoteName={note.flatNoteName}
             sharpNoteName={note.sharpNoteName}
-            isFlatKey={isFlatKey}
+            isFlatTune={isFlatTune}
             orientation="horizontal"
             isEnharmonic={note.isEnharmonic}
           />
@@ -86,7 +87,7 @@ const FretCell = memo(
     return (
       prev.isActive === next.isActive &&
       prev.isHighlighted === next.isHighlighted &&
-      prev.isFlatKey === next.isFlatKey &&
+      prev.isFlatTune === next.isFlatTune &&
       prev.isShapeRootNote === next.isShapeRootNote &&
       prev.currentRoleId === next.currentRoleId &&
       prev.isShapeNote === next.isShapeNote &&
@@ -95,7 +96,7 @@ const FretCell = memo(
       prev.isCurrentActiveRoot === next.isCurrentActiveRoot &&
       prev.variants === next.variants
     );
-  }
+  },
 );
 
 export default FretCell;

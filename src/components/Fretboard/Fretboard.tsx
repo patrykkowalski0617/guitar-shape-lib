@@ -4,29 +4,32 @@ import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { numberOfFrets, STRINGS_FIRST_NOTES } from "./helpers/constants";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
-import { BoardScrollWrapper, BoardWrapper } from "../customUI/Boards/parts";
+import { BoardScrollWrapper, BoardWrapper, TutorialIcons } from "../Boards/parts";
 import FretCell from "./FretCell/FretCell";
 import { useFretboardDevEditor } from "./helpers/useFretboardDevEditor";
 import { useFretboardShapes } from "./helpers/useFretboardShapes";
 import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
 import { useDevStore } from "@/store/useDevStore";
-import { useTutorialHover } from "../TutorialBox/helpers/useTutorialHover";
 import shapes, { type Shapes } from "@/utils/shapes";
+import { useSettingsStore } from "@/store/useSettingsStore";
+import TutorialPopover from "../TutorialPopover/TutorialPopover";
+import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 
 export default function Fretboard(): JSX.Element {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
-  const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
+  const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const lockedShape = useMusicStore((state) => state.lockedShape);
   const lockedRoleId = useMusicStore((state) => state.lockedRoleId);
   const activeShapePoint = useMusicStore((state) => state.activeShapePoint);
+  const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
 
   const NOTES_SHARP = getNotes({ firstNote: currentKeyId }).map(
-    ({ sharpNoteName }) => sharpNoteName
+    ({ sharpNoteName }) => sharpNoteName,
   );
 
   const shapeRootSharpNote =
@@ -44,72 +47,73 @@ export default function Fretboard(): JSX.Element {
     }
   }, [currentVariantId, isDevMode]);
 
-  const tutorialHover_fretboard = useTutorialHover("fretboard");
-
   return (
-    <div {...tutorialHover_fretboard}>
-      <BoardScrollWrapper>
-        <BoardWrapper>
-          <S.Fretboard>
-            {STRINGS_FIRST_NOTES.map(({ noteName, octaveNumber }, stringIndex) => {
-              const variantsForThisString = shapeData
-                ? Object.entries(shapeData.shapesCoordinates)
-                    .filter(([, coords]) => coords.length > 0 && coords[0][0] === stringIndex)
-                    .map(([id]) => ({ id }))
-                : [];
+    <BoardScrollWrapper>
+      <TutorialIcons>
+        <TutorialPopover {...TUTORIAL_CONTENT.FRETBOARD} />
+        <TutorialPopover {...TUTORIAL_CONTENT.PROGRESS} />
+      </TutorialIcons>
+      <BoardWrapper>
+        <S.Fretboard>
+          {STRINGS_FIRST_NOTES.map(({ noteName, octaveNumber }, stringIndex) => {
+            const variantsForThisString = shapeData
+              ? Object.entries(shapeData.shapesCoordinates)
+                  .filter(([, coords]) => coords.length > 0 && coords[0][0] === stringIndex)
+                  .map(([id]) => ({ id }))
+              : [];
 
-              return (
-                <S.FretboardRow key={`${stringIndex}-${noteName}`}>
-                  {getNotes({
-                    firstNote: noteName,
-                    length: numberOfFrets,
-                    firstOctave: octaveNumber,
-                  }).map((note, fretIndex) => {
-                    const isShapeRootNote = shapeRootSharpNote === note.sharpNoteName;
-                    const isShapeNote = isPointInShape(stringIndex, fretIndex);
-                    const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
-                    const isLockedNote = !!lockedShape?.some(
-                      (p) => p.s === stringIndex && p.f === fretIndex
-                    );
+            return (
+              <S.FretboardRow key={`${stringIndex}-${noteName}`}>
+                {getNotes({
+                  firstNote: noteName,
+                  length: numberOfFrets,
+                  firstOctave: octaveNumber,
+                }).map((note, fretIndex) => {
+                  const isShapeRootNote = shapeRootSharpNote === note.sharpNoteName;
+                  const isShapeNote = isPointInShape(stringIndex, fretIndex);
+                  const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
+                  const isLockedNote = !!lockedShape?.some(
+                    (p) => p.s === stringIndex && p.f === fretIndex,
+                  );
 
-                    const isCurrentActiveRoot =
-                      isShapeRootNote &&
-                      activeShapePoint?.stringIdx === stringIndex &&
-                      activeShapePoint?.fretIdx === fretIndex;
+                  const isCurrentActiveRoot =
+                    isShapeRootNote &&
+                    activeShapePoint?.stringIdx === stringIndex &&
+                    activeShapePoint?.fretIdx === fretIndex;
 
-                    return (
-                      <FretCell
-                        key={`${stringIndex}-${fretIndex}`}
-                        note={note}
-                        fretIndex={fretIndex}
-                        isHighlighted={isShapeRootNote}
-                        currentRoleId={currentRoleId}
-                        isFlatKey={isFlatKey}
-                        isActive={activeNoteId === note.noteId}
-                        isShapeRootNote={isShapeRootNote}
-                        numberOfFrets={numberOfFrets}
-                        onHover={setActiveNoteId}
-                        onLeave={() => setActiveNoteId(null)}
-                        isShapeNote={isShapeNote}
-                        isLockedNote={isLockedNote}
-                        lockedRoleId={lockedRoleId}
-                        isDevNote={isCurrentDevNote}
-                        variants={isShapeRootNote ? variantsForThisString : []}
-                        isCurrentActiveRoot={isCurrentActiveRoot}
-                        onClick={() => {
-                          if (isDevMode) onDevClick(stringIndex, fretIndex);
-                          if (isShapeRootNote) showShape(stringIndex, fretIndex);
-                        }}
-                      />
-                    );
-                  })}
-                </S.FretboardRow>
-              );
-            })}
-            <FretboardInfoRow />
-          </S.Fretboard>
-        </BoardWrapper>
-      </BoardScrollWrapper>
-    </div>
+                  return (
+                    <FretCell
+                      key={`${stringIndex}-${fretIndex}`}
+                      note={note}
+                      fretIndex={fretIndex}
+                      isHighlighted={isShapeRootNote}
+                      currentRoleId={currentRoleId}
+                      isFlatTune={isFlatTune}
+                      isActive={activeNoteId === note.noteId}
+                      isShapeRootNote={isShapeRootNote}
+                      numberOfFrets={numberOfFrets}
+                      onHover={setActiveNoteId}
+                      onLeave={() => setActiveNoteId(null)}
+                      isShapeNote={isShapeNote}
+                      isLockedNote={isLockedNote}
+                      lockedRoleId={lockedRoleId}
+                      isDevNote={isCurrentDevNote}
+                      variants={isShapeRootNote ? variantsForThisString : []}
+                      isCurrentActiveRoot={isCurrentActiveRoot}
+                      onClick={() => {
+                        if (isDevMode) onDevClick(stringIndex, fretIndex);
+                        if (isShapeRootNote) showShape(stringIndex, fretIndex);
+                      }}
+                      areAnimationsOn={areAnimationsOn}
+                    />
+                  );
+                })}
+              </S.FretboardRow>
+            );
+          })}
+          <FretboardInfoRow />
+        </S.Fretboard>
+      </BoardWrapper>
+    </BoardScrollWrapper>
   );
 }

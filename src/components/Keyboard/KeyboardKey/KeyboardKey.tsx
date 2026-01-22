@@ -1,70 +1,89 @@
 import { memo } from "react";
 import * as S from "./parts";
-import type { NoteObject } from "@/utils";
-import NoteLabel from "@/components/customUI/NoteLabel/NoteLabel";
-import type { ScaleStepMetadata } from "@/hooks/useActiveScale/useActiveScale";
+import type { NoteFlat, NoteSharp } from "@/utils";
+import NoteLabel from "@/components/NoteLabel/NoteLabel";
+import type { HighlightRole } from "../../../utils/roleColors";
 
 interface KeyboardKeyProps {
-  note: NoteObject;
-  index: number;
-  noteIndex: number;
-  isHighlighted: boolean;
-  isShapeNote: boolean;
-  isFlatKey: boolean;
-  scaleDegree: ScaleStepMetadata | undefined;
+  areAnimationsOn: boolean;
   isActive: boolean;
-  onHover: (id: string) => void;
-  onLeave: () => void;
+  isWhiteKey: boolean;
   keyShape: S.KeyShape | undefined;
-  majorScale: number[];
+  //
+  noteId: string;
+  isHighlighted: boolean;
+  highlightRole: HighlightRole;
+  //
+  isFlatTune: boolean;
+  isShapeNote: boolean;
+  flatNoteName: NoteFlat;
+  sharpNoteName: NoteSharp;
+  isEnharmonic: boolean;
+  //
+  onLeave: () => void;
+  onHover: (id: string) => void;
 }
 
 const KeyboardKey = memo(
   ({
-    note,
-    index,
-    noteIndex,
-    isHighlighted,
-    isShapeNote,
-    isFlatKey,
-    scaleDegree,
+    areAnimationsOn,
     isActive,
+    isWhiteKey,
+    keyShape,
+    //
+    noteId,
+    isHighlighted,
+    highlightRole,
+    //
+    isFlatTune,
+    isShapeNote,
+    flatNoteName,
+    sharpNoteName,
+    isEnharmonic,
+    //
     onHover,
     onLeave,
-    keyShape,
-    majorScale,
   }: KeyboardKeyProps) => {
     return (
       <S.Key
-        $isHighlighted={isHighlighted}
-        $isHighlightRole={scaleDegree?.role || "none"}
-        $isWhiteKey={majorScale.includes(noteIndex)}
+        $areAnimationsOn={areAnimationsOn}
+        $isActive={isActive}
+        $isWhiteKey={isWhiteKey}
         $keyShape={keyShape}
-        $isActiveNote={isActive}
-        onMouseOver={() => onHover(note.noteId)}
+        //
+        $isHighlighted={isHighlighted}
+        $highlightRole={highlightRole}
+        //
+        onMouseOver={() => onHover(noteId)}
         onMouseLeave={onLeave}
       >
         <NoteLabel
-          isHighlighted={isHighlighted}
-          index={index}
-          flatNoteName={note.flatNoteName}
-          sharpNoteName={note.sharpNoteName}
-          isFlatKey={isFlatKey}
-          isEnharmonic={note.isEnharmonic}
+          isFlatTune={isFlatTune}
           isShapeNote={isShapeNote}
+          flatNoteName={flatNoteName}
+          sharpNoteName={sharpNoteName}
+          isEnharmonic={isEnharmonic}
+          //
+          isHighlighted={isHighlighted}
         />
       </S.Key>
     );
   },
   (prev, next) => {
     return (
+      prev.areAnimationsOn === next.areAnimationsOn &&
       prev.isActive === next.isActive &&
+      //
       prev.isHighlighted === next.isHighlighted &&
+      prev.highlightRole === next.highlightRole &&
+      //
+      prev.isFlatTune === next.isFlatTune &&
       prev.isShapeNote === next.isShapeNote &&
-      prev.scaleDegree?.role === next.scaleDegree?.role &&
-      prev.isFlatKey === next.isFlatKey
+      prev.flatNoteName === next.flatNoteName &&
+      prev.sharpNoteName === next.sharpNoteName &&
+      prev.isEnharmonic === next.isEnharmonic
     );
-  }
+  },
 );
 
 export default KeyboardKey;

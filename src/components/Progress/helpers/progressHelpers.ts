@@ -4,7 +4,10 @@ export const exportProgress = (state: { learned: string[]; learning: string[] })
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = `guitar-progress-${new Date().toISOString().split("T")[0]}.json`;
+  const now = new Date();
+  const datePart = now.toLocaleDateString("pl-PL").replace(/\./g, "-");
+  const timePart = now.toLocaleTimeString("pl-PL").replace(/:/g, "-");
+  link.download = `guitar-progress-${datePart}-${timePart}.json`;
   link.click();
 };
 

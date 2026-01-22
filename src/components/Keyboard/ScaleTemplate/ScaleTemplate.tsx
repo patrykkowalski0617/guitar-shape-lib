@@ -1,31 +1,36 @@
 import { type JSX } from "react";
 import * as S from "./parts";
-import { useControlsStore } from "@/store/useControlsStore";
-import { numberOfKeys, firstAIndex } from "../helpers/constants";
-import { UNIFIED_MUSIC_KEYS } from "@/utils";
-import { useActiveScale } from "@/hooks/useActiveScale/useActiveScale";
+import { numberOfKeys } from "../helpers/constants";
+import { useScaleTemplate } from "./helpers/useScaleTemplate";
 
 export default function ScaleTemplate(): JSX.Element {
-  const { fullScaleMetadata } = useActiveScale();
-  const { currentKeyId } = useControlsStore();
-  const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
+  const { position, visibleIndexes, highlightRole, currentRoleId, areAnimationsOn } =
+    useScaleTemplate();
 
   return (
     <S.TemplateWrapper
-      $firstAIndex={firstAIndex}
       $numberOfKeys={numberOfKeys}
-      $templateOffset={templateOffset}
+      $areAnimationsOn={areAnimationsOn}
+      $position={position}
     >
-      {fullScaleMetadata.map((meta) => (
-        <S.Marker
-          key={meta.index}
-          $step={meta.adjustedStep}
-          $numberOfKeys={numberOfKeys}
-          $isVisible={meta.isVisible}
-          $isHighlightRole={meta.role}
-          $roleInterval={meta.intervalLabel}
-        />
-      ))}
+      {Array.from({ length: 33 }).map((_, i) => {
+        const roleIndex = highlightRole.indexOf(i);
+        const isHighlighted = roleIndex !== -1 && !!currentRoleId;
+        const intervalValue = isHighlighted ? roleIndex * 2 + 1 : null;
+        const isVisible = visibleIndexes.includes(i);
+
+        return (
+          <S.Marker
+            key={i}
+            $step={i}
+            $numberOfKeys={numberOfKeys}
+            $isVisible={isVisible}
+            $highlightRole={isHighlighted ? currentRoleId : "none"}
+            $roleInterval={intervalValue ? String(intervalValue) : ""}
+            $areAnimationsOn={areAnimationsOn}
+          />
+        );
+      })}
     </S.TemplateWrapper>
   );
 }

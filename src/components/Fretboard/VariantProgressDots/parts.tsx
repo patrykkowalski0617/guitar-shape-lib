@@ -5,7 +5,7 @@ export const DotsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1px;
-  left: -5px;
+  left: -7px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 30;
@@ -17,21 +17,21 @@ export const Dot = styled.div<{
   $isActive: boolean;
 }>`
   border-radius: 2px;
-  width: 12px;
-  min-height: 8px;
+  width: 15px;
+  min-height: 9px;
   background-color: var(--card);
   opacity: 0.8;
   border: 1px solid var(--accent-foreground);
   ${({ $isLearned }) =>
     $isLearned &&
     css`
-      background-color: var(--primary);
+      background-color: var(--secondary);
     `}
 
   ${({ $isLearning }) =>
     $isLearning &&
     css`
-      background-color: var(--secondary);
+      background-color: var(--primary);
     `}
   ${({ $isActive }) =>
     $isActive &&

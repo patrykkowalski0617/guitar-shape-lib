@@ -4,31 +4,29 @@ import { GroupWrapper, Label } from "@/components/ControlsContainer/ControlsCont
 
 const LABEL_OPTIONS = [
   {
-    id: "standard",
-    label: "Fancy XD",
+    id: "tutorial-on",
+    label: "On",
   },
   {
-    id: "descriptive",
-    label: "Descriptive",
+    id: "tutorial-off",
+    label: "Off",
   },
 ];
 
-export default function DescriptiveLabelsSelect() {
-  const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
-  const setAreDescriptiveLabels = useSettingsStore((state) => state.setAreDescriptiveLabels);
-  const currentValue = areDescriptiveLabels ? "descriptive" : "standard";
+export default function Tutorial() {
+  const isTutorialOn = useSettingsStore((state) => state.isTutorialOn);
+  const setIsTutorialOn = useSettingsStore((state) => state.setIsTutorialOn);
+  const currentValue = isTutorialOn ? "tutorial-on" : "tutorial-off";
 
   return (
     <GroupWrapper>
-      <Label>
-        {areDescriptiveLabels ? "Only right option is 'Descriptive' 😜" : "Labels Type"}
-      </Label>
+      <Label>Tutorial</Label>
       <ToggleGroup
         type="single"
         value={currentValue}
         className="w-full md:w-full"
         onValueChange={() => {
-          setAreDescriptiveLabels(!areDescriptiveLabels);
+          setIsTutorialOn(!isTutorialOn);
         }}
       >
         {LABEL_OPTIONS.map((option) => (

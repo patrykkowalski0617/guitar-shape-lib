@@ -1,15 +1,16 @@
-import { type JSX, useMemo } from "react";
-import * as S from "./parts";
-import { majorScale, UNIFIED_MUSIC_KEYS, NOTES_SHARP } from "@/utils";
-import { notes, numberOfKeys } from "./helpers/constants";
+import { type JSX } from "react";
+import * as S from "@/components/Keyboard/parts";
+import { majorScale, NOTES_SHARP, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { useControlsStore } from "@/store/useControlsStore";
-import { useActiveScale } from "@/hooks/useActiveScale/useActiveScale";
-import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
-import { BoardScrollWrapper, BoardWrapper } from "../customUI/Boards/parts";
-import KeyboardKey from "./KeyboardKey/KeyboardKey";
 import { useMusicStore } from "@/store/useMusicStore";
-import shapes from "@/utils/shapes";
-import { useTutorialHover } from "../TutorialBox/helpers/useTutorialHover";
+import { useSettingsStore } from "@/store/useSettingsStore";
+import { BoardScrollWrapper, BoardWrapper, TutorialIcons } from "@/components/Boards/parts";
+import KeyboardKey from "./KeyboardKey/KeyboardKey";
+import { useScaleLogic } from "./helpers/useScaleLogic";
+import { keyboardNotes, numberOfKeys } from "./helpers/constants";
+import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
+import TutorialPopover from "../TutorialPopover/TutorialPopover";
+import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 
 const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
@@ -22,66 +23,61 @@ const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
 };
 
 export default function Keyboard(): JSX.Element {
-  const { fullScaleMetadata } = useActiveScale();
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const isFlatKey = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatKey;
   const { activeNoteId, setActiveNoteId } = useMusicStore();
-  const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const currentShapeOffset = useControlsStore((state) => state.currentShapeOffset);
+  const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
+  const currentRoleId = useControlsStore((state) => state.currentRoleId);
 
-  const shapeSemitones = useMemo(() => {
-    if (!currentShapeId || currentShapeOffset === null) return [];
+  const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
 
-    return shapes[currentShapeId].intervals.map(
-      (intervalValue) => (intervalValue + currentShapeOffset) % 12
-    );
-  }, [currentShapeId, currentShapeOffset]);
-
-  const tutorialHover_keyboard = useTutorialHover("keyboard");
-  const tutorialHover_scaleTemplate = useTutorialHover("scale-template");
+  const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
   return (
     <BoardScrollWrapper>
+      <TutorialIcons>
+        <TutorialPopover {...TUTORIAL_CONTENT.KEYBOARD} />
+        <TutorialPopover {...TUTORIAL_CONTENT.SCALE_TEMPLATE} />
+      </TutorialIcons>
       <BoardWrapper>
-        <div {...tutorialHover_scaleTemplate}>
-          <ScaleTemplate />
-        </div>
-        <div {...tutorialHover_keyboard}>
-          <S.Keyboard $numberOfKeys={numberOfKeys}>
-            {notes.map((note, index) => {
-              const noteIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
-              const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
+        <ScaleTemplate />
+        <S.Keyboard $numberOfKeys={numberOfKeys}>
+          {keyboardNotes.map((note) => {
+            //- Key color (white/black) and shape
+            const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
+            const isWhiteKey = majorScale.includes(noteOctaveIndex);
+            const keyShape = KEY_SHAPE_MAP[noteOctaveIndex];
 
-              const scaleDegree = fullScaleMetadata.find(
-                (m) => m.noteId === note.noteId && m.isVisible
-              );
-
-              const isPartOfShape = !!(
-                shapeSemitones.includes((noteIndex - templateOffset + 12) % 12) &&
-                scaleDegree?.role &&
-                scaleDegree.role !== "none"
-              );
-
-              return (
-                <KeyboardKey
-                  key={note.noteId}
-                  note={note}
-                  index={index}
-                  noteIndex={noteIndex}
-                  isHighlighted={!!scaleDegree}
-                  isShapeNote={isPartOfShape}
-                  scaleDegree={scaleDegree}
-                  isFlatKey={isFlatKey}
-                  isActive={activeNoteId === note.noteId}
-                  onHover={setActiveNoteId}
-                  onLeave={() => setActiveNoteId(null)}
-                  keyShape={KEY_SHAPE_MAP[noteIndex]}
-                  majorScale={majorScale}
-                />
-              );
-            })}
-          </S.Keyboard>
-        </div>
+            return (
+              <KeyboardKey
+                key={note.noteId}
+                //- sync hover effect between fretboard nad keyboard
+                isActive={note.noteId === activeNoteId}
+                //- Key color (white/black) and shape
+                isWhiteKey={isWhiteKey}
+                keyShape={keyShape}
+                //- specic states
+                isHighlighted={currentScaleNoteIds.includes(note.noteId)}
+                highlightRole={
+                  currentRoleId && currentRoleNoteIds?.includes(note.noteId)
+                    ? currentRoleId
+                    : "none"
+                }
+                //
+                noteId={note.noteId}
+                areAnimationsOn={areAnimationsOn}
+                //- for NoteLabel only
+                isFlatTune={isFlatTune}
+                isShapeNote={currentShapeNoteIds.includes(note.noteId)}
+                flatNoteName={note.flatNoteName}
+                sharpNoteName={note.sharpNoteName}
+                isEnharmonic={note.isEnharmonic}
+                //- actions
+                onHover={setActiveNoteId}
+                onLeave={() => setActiveNoteId(null)}
+              />
+            );
+          })}
+        </S.Keyboard>
       </BoardWrapper>
     </BoardScrollWrapper>
   );

@@ -14,7 +14,6 @@ interface KeyboardProps {
 
 export const Keyboard = styled.div<KeyboardProps>`
   display: flex;
-  position: relative;
   padding-left: ${({ $numberOfKeys }) =>
     `calc(${KEY_WIDTH_CSS($numberOfKeys)} * ${KEY_PADDING} * ${LEFT_PADDING_FACTOR})`};
   padding-right: ${({ $numberOfKeys }) =>

@@ -4,11 +4,12 @@ import styled, { css } from "styled-components";
 export type LabelOrientation = "vertical" | "horizontal";
 
 interface StyledNoteLabelProps {
-  $isFlatKey: boolean;
+  $isFlatTune: boolean;
   $isEnharmonicNote: boolean;
   $isHighlighted: boolean;
   $orientation: LabelOrientation;
   $isShapeNote: boolean;
+  $areAnimationsOn: boolean;
 }
 
 const highlightedColor = "var(--muted-foreground)";
@@ -26,7 +27,7 @@ const getLabelStyles = (
   isActive: boolean,
   isHighlighted: boolean,
   multiplier: number,
-  orientation: LabelOrientation
+  orientation: LabelOrientation,
 ) => {
   const valVertY = isActive ? 10 * multiplier : -5 * multiplier;
   const valHorX = isActive ? 5 * multiplier : -4 * multiplier;
@@ -58,24 +59,31 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   justify-content: center;
   top: ${({ $orientation, $isShapeNote }) =>
     $orientation === "vertical" && $isShapeNote ? "20px" : "0"};
-  transition: top ${transitionTime}ms ease-in-out;
+  transition: ${({ $areAnimationsOn }) =>
+    $areAnimationsOn ? `top ${transitionTime}ms ease-in-out` : "none"};
   .mainLabel,
   .optionalLabel {
-    transition: ${transitionTime}ms ease-in-out;
+    transition: ${({ $areAnimationsOn }) =>
+      $areAnimationsOn
+        ? `transform ${transitionTime}ms ease-in-out, 
+           opacity ${transitionTime}ms ease-in-out, 
+           font-size ${transitionTime}ms ease-in-out, 
+           color ${transitionTime}ms ease-in-out`
+        : "none"};
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
   .mainLabel {
-    ${({ $isFlatKey, $isEnharmonicNote, $isHighlighted, $orientation }) =>
+    ${({ $isFlatTune, $isEnharmonicNote, $isHighlighted, $orientation }) =>
       !$isEnharmonicNote
         ? getStaticStyles($isHighlighted)
-        : getLabelStyles(!$isFlatKey, $isHighlighted, 1, $orientation)}
+        : getLabelStyles(!$isFlatTune, $isHighlighted, 1, $orientation)}
   }
 
   .optionalLabel {
-    ${({ $isFlatKey, $isHighlighted, $orientation }) =>
-      getLabelStyles($isFlatKey, $isHighlighted, -1, $orientation)}
+    ${({ $isFlatTune, $isHighlighted, $orientation }) =>
+      getLabelStyles($isFlatTune, $isHighlighted, -1, $orientation)}
   }
 `;
