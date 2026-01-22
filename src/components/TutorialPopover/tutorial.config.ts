@@ -54,7 +54,12 @@ Intervals 1 and 5 have a 'transparent' character, while 3 and 7 are known as 'gu
   },
   SHAPE_SELECTOR: {
     title: "Shape List",
-    description: `Browse and select specific fretboard patterns. Each shape provides a unique geometric layout of the scale, helping you visualize and master the harmonic landscape across different neck positions and functions. You will notice that the Tonic and Subdominant share most shapes, acting as a 'release group' in contrast to the 'tension' of the Dominant.`,
+    description: `Browse and select specific fretboard patterns. The first part of each shape's name represents the note name, and the second represents the actual shape. Each shape provides a unique geometric layout of the scale, helping you visualize and master the harmonic landscape across different neck positions and functions.
+    
+    You will notice that the list of shapes is not endless (9 aprs / 9 scales), as the same shape can be placed on different root notes. The Tonic and Subdominant share most shapes, acting as a 'release group' in contrast to the 'tension' of the Dominant. 
+
+    Explore arpeggios first if you want a more melodic approach. 
+    `,
     x: -23,
     y: -6,
     animationOrder: 7,
