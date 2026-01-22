@@ -64,8 +64,10 @@ export function Settings() {
                 }
               }}
             >
-              <RotateCcw className="mr-2 h-4 w-4" />
-              Restore Defaults
+              <span className="flex items-center justify-center gap-2">
+                <RotateCcw className="h-4 w-4" />
+                <span> Restore Defaults</span>
+              </span>
             </Button>
 
             <DrawerClose asChild>
