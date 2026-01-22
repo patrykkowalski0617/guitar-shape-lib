@@ -4,7 +4,7 @@ import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { numberOfFrets, STRINGS_FIRST_NOTES } from "./helpers/constants";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
-import { BoardScrollWrapper, BoardWrapper, TutorialIcons } from "../Boards/parts";
+import { BoardScrollWrapper, BoardWrapper } from "../Boards/parts";
 import FretCell from "./FretCell/FretCell";
 import { useFretboardDevEditor } from "./helpers/useFretboardDevEditor";
 import { useFretboardShapes } from "./helpers/useFretboardShapes";
@@ -49,10 +49,7 @@ export default function Fretboard(): JSX.Element {
 
   return (
     <BoardScrollWrapper>
-      <TutorialIcons>
-        <TutorialPopover {...TUTORIAL_CONTENT.FRETBOARD} />
-        <TutorialPopover {...TUTORIAL_CONTENT.PROGRESS} />
-      </TutorialIcons>
+      <TutorialPopover {...TUTORIAL_CONTENT.FRETBOARD} />
       <BoardWrapper>
         <S.Fretboard>
           {STRINGS_FIRST_NOTES.map(({ noteName, octaveNumber }, stringIndex) => {

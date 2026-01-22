@@ -58,6 +58,7 @@ function PopoverDescription({ className, ...props }: React.ComponentProps<"p">) 
     <p
       data-slot="popover-description"
       className={cn("text-muted-foreground", className)}
+      style={{ whiteSpace: "pre-line" }}
       {...props}
     />
   );

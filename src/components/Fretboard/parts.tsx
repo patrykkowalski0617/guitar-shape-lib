@@ -4,6 +4,7 @@ import { Note } from "./FretCell/parts";
 export const Fretboard = styled.div`
   padding-top: 2px; //- space for fretcell outline when shape is locked
   padding-top: 35px;
+  user-select: none;
 `;
 
 export const FretboardRow = styled.div`

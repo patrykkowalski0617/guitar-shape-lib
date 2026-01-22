@@ -1,108 +1,97 @@
 export const TUTORIAL_CONTENT = {
   KEYBOARD: {
     title: "Keyboard",
-    description: `Displays a single instance of the selected key and its functions. 
-    It also highlights which specific chord tones of each function are utilized within 
-    the currently active shape.`,
+    description: `It is designed to visualize the relationship between the key, harmonic functions, and shape notes. 
+    
+    You will notice that the Tonic is based on the 1st, the Subdominant on the 4th, and the Dominant on the 5th degree of any key. 
+    
+    The app automatically derives the notes for each function by extending the key template and selecting every second note.
+
+    Intervals 1 and 5 have a 'transparent' character, while 3 and 7 are known as 'guide tones' and provide more harmonic color.The 9th, in most cases, is also very 'colorful'. 
+    Regarding the 11th and 13th – sometimes certain notes among them are referred to as 'avoid notes' due to their dissonant characteristics. 
+    
+    You will also notice that each shape exposes different functional notes and sometimes even notes that do not belong to the function directly – these are called alterations.`,
     x: 5,
-    y: 10,
+    y: 5,
     animationOrder: 1,
   },
   SCALE_TEMPLATE: {
     title: "Scale Template",
-    description:
-      "Located above the keyboard. Displays the precise interval templates for Major and Minor keys. It also features numeric indicators showing the specific intervals for each harmonic function.",
+    description: `Select a function to see the template located above the keyboard. It illustrates the two fundamental templates available for any key: Major and Minor. Furthermore, every Major key has a relative Minor key which contains the exact same notes, but in a different order. Numeric indicators highlight the specific intervals for each harmonic function.`,
+
     x: 30,
-    y: 10,
+    y: 5,
     animationOrder: 2,
   },
   FRETBOARD: {
     title: "Fretboard",
-    description:
-      "Highlights the root notes of the selected shape. Tap any root note to cycle through the available shape variants across the neck.",
+    description: `Once a function is selected, the system highlights the root notes of the chosen shape on the fretboard diagram. You can then tap any root note to cycle through the available shape variants across the neck. Next to each root note, you will find dots representing the available variants of each shape. When you save a variant, its dot changes color to indicate your status: Pink for 'In Progress' and Blue for 'Learned'`,
     x: 5,
-    y: 10,
+    y: 5,
     animationOrder: 3,
-  },
-  PROGRESS: {
-    title: "Progress Bar",
-    description:
-      "Dots show available variants on each string. Pink means Learned, Blue - In progress.",
-    x: 30,
-    y: 10,
-    animationOrder: 4,
   },
   MODE_TOGGLE: {
     title: "Major/Minor Toggle",
-    description:
-      "Switches between relative Major and Minor keys. Major provides a 'bright' harmonic feel, while Minor shifts the tonality to a 'dark' characteristic.",
+    description: `Switches between relative Major and Minor keys. While Major provides a 'bright' harmonic feel, Minor shifts the tonality toward a 'darker' character.`,
+    x: -23,
+    y: -6,
+    animationOrder: 4,
+  },
+  KEY_SELECTOR: {
+    title: "Key Selector",
+    description: `Select your tonal center. Keys are organized as relative pairs (e.g., C Major and A Minor), sharing the same scale degrees while shifting the harmonic focus between bright and dark tonalities.`,
     x: -23,
     y: -6,
     animationOrder: 5,
   },
-  KEY_SELECTOR: {
-    title: "Key Selector",
-    description:
-      "Select your tonal center. Keys are organized as relative pairs (e.g., C Major and A Minor), sharing the same scale degrees while shifting the harmonic focus between bright and dark tonalities.",
+  ROLE_SELECTOR: {
+    title: "Function Selector",
+    description: `Toggle between the primary harmonic roles of the selected key: Tonic (Release), Subdominant (Motion), and Dominant (Tension). Each selection filters the available shapes to display only those that belong to the chosen function.`,
     x: -23,
     y: -6,
     animationOrder: 6,
   },
-  ROLE_SELECTOR: {
-    title: "Function Selector",
-    description:
-      "Toggle between primary harmonic roles: Tonic (Release), Subdominant (Motion) and Dominant (Tension). Each selection filters the notes to show how different degrees drive musical resolution.",
+  SHAPE_SELECTOR: {
+    title: "Shape List",
+    description: `Browse and select specific fretboard patterns. Each shape provides a unique geometric layout of the scale, helping you visualize and master the harmonic landscape across different neck positions and functions. You will notice that the Tonic and Subdominant share most shapes, acting as a 'release group' in contrast to the 'tension' of the Dominant.`,
     x: -23,
     y: -6,
     animationOrder: 7,
   },
-  SHAPE_SELECTOR: {
-    title: "Shape List",
-    description:
-      "Browse and select specific fretboard patterns. Each shape provides a unique geometric layout of the scale, helping you visualize and master the harmonic landscape across different neck positions.",
-    x: -23,
-    y: -6,
-    animationOrder: 8,
-  },
   LOCK_SHAPE: {
     title: "Lock Shape",
-    description:
-      "Freezes the current fretboard pattern. When active, changing the key or mode will keep the same shape selected, allowing you to compare it with other shapes.",
+    description: `Freezes the current fretboard pattern. When active, changing the key or mode will keep the same shape variant selected, allowing you to compare its geometry across different tonal centers.`,
+    x: -23,
+    y: -19,
+    animationOrder: 8,
+  },
+  ADD_TO_PROGRESS: {
+    title: "Add to Progress",
+    description: `Adds the current shape and its selected variant to your practice list. Your progress is stored locally in the browser's memory. To prevent data loss, it is highly recommended to use the Export and Import buttons for regular backups.`,
     x: -23,
     y: -19,
     animationOrder: 9,
   },
-  ADD_TO_PROGRESS: {
-    title: "Add to Progress",
-    description:
-      "Adds the shape to your active practice list. Progress is stored in your browser's local memory; it is highly recommended to use Export/Import buttons for regular backups.",
+  ADD_LEARNED: {
+    title: "Add to Learned",
+    description: `Adds the current shape and its selected variant to your 'Learned' list. Your data is stored locally in the browser's memory. Remember to use the Export and Import features regularly to back up your progress and prevent potential data loss.`,
     x: -23,
     y: -19,
     animationOrder: 10,
   },
-  ADD_LEARNED: {
-    title: "Mark as Learned",
-    description:
-      "Moves the shape to your mastered archive. Data is stored in your browser's local memory; remember to use Export/Import regularly to back up your progress and prevent data loss.",
+  EXPORT_DATA: {
+    title: "Export Progress",
+    description: `Downloads your progress as a file. Since all data is stored locally in your browser, use this feature regularly to create a secure backup of your learned and active shapes.`,
     x: -23,
     y: -19,
     animationOrder: 11,
   },
-  EXPORT_DATA: {
-    title: "Export Progress",
-    description:
-      "Downloads your progress as a file. Since data is stored locally in your browser, use this regularly to create a secure backup of your learned and active shapes.",
+  IMPORT_DATA: {
+    title: "Import Progress",
+    description: `Restores your progress from a previously saved file. This allows you to recover your learning history or seamlessly transfer your data across different browsers and devices.`,
     x: -23,
     y: -19,
     animationOrder: 12,
-  },
-  IMPORT_DATA: {
-    title: "Import Progress",
-    description:
-      "Restores your progress from a previously saved file. This allows you to recover your learning history or transfer your data across different browsers and devices.",
-    x: -23,
-    y: -19,
-    animationOrder: 13,
   },
 } as const;
 
