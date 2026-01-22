@@ -4,7 +4,7 @@ export const BoardWrapper = styled.div`
   min-width: 1000px;
   margin: auto;
   overflow: hidden;
-  padding-left: 5px; //- compensation for VariantProgressDots
+  padding: 0 5px;
 `;
 
 export const BoardScrollWrapper = styled.div`
@@ -18,7 +18,7 @@ export const BoardScrollWrapper = styled.div`
 export const TutorialStickyIcons = styled.div`
   position: sticky;
   left: 0;
-  z-index: 100;
+  z-index: 40;
 `;
 
 export const KeyAndFretStyles = css`

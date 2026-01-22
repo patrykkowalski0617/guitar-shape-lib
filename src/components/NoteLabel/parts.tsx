@@ -28,6 +28,7 @@ const getLabelStyles = (
   isHighlighted: boolean,
   multiplier: number,
   orientation: LabelOrientation,
+  isShapeNote: boolean,
 ) => {
   const valVertY = isActive ? 10 * multiplier : -5 * multiplier;
   const valHorX = isActive ? 5 * multiplier : -4 * multiplier;
@@ -41,7 +42,9 @@ const getLabelStyles = (
     height: 20px;
     line-height: 1;
     font-size: ${isActive ? "12px" : "9px"};
-    color: ${isActive && isHighlighted ? highlightedColor : unHighlightedColor};
+    color: ${(isActive && isHighlighted) || (orientation === "vertical" && isShapeNote)
+      ? highlightedColor
+      : unHighlightedColor};
     opacity: ${isActive ? 1 : 0};
     font-weight: ${isActive ? "bold" : "normal"};
     transform: ${transform};
@@ -76,14 +79,14 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   }
 
   .mainLabel {
-    ${({ $isFlatTune, $isEnharmonicNote, $isHighlighted, $orientation }) =>
+    ${({ $isFlatTune, $isEnharmonicNote, $isHighlighted, $orientation, $isShapeNote }) =>
       !$isEnharmonicNote
         ? getStaticStyles($isHighlighted)
-        : getLabelStyles(!$isFlatTune, $isHighlighted, 1, $orientation)}
+        : getLabelStyles(!$isFlatTune, $isHighlighted, 1, $orientation, $isShapeNote)}
   }
 
   .optionalLabel {
-    ${({ $isFlatTune, $isHighlighted, $orientation }) =>
-      getLabelStyles($isFlatTune, $isHighlighted, -1, $orientation)}
+    ${({ $isFlatTune, $isHighlighted, $orientation, $isShapeNote }) =>
+      getLabelStyles($isFlatTune, $isHighlighted, -1, $orientation, $isShapeNote)}
   }
 `;
