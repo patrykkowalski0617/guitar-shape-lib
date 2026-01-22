@@ -1,4 +1,4 @@
-import { KeyAndFretStyles } from "@/components/customUI/Boards/parts";
+import { KeyAndFretStyles } from "@/components/Boards/parts";
 import { roleColors, type HighlightRole } from "@/utils/roleColors";
 import type { RoleId } from "@/utils";
 import { transitionTime } from "@/utils/constants";

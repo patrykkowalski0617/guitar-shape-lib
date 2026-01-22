@@ -8,10 +8,16 @@ export const BoardWrapper = styled.div`
 `;
 
 export const BoardScrollWrapper = styled.div`
-  overflow: auto;
+  overflow-x: auto;
+  position: relative;
   scrollbar-width: none;
   border-radius: var(--radius-lg);
   margin-left: -5px; //- compensation for VariantProgressDots
+`;
+
+export const TutorialIcons = styled.div`
+  position: sticky;
+  left: 0;
 `;
 
 export const KeyAndFretStyles = css`

@@ -1,15 +1,15 @@
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { GroupWrapper, Label } from "@/components/customUI/InputGroup/InputGroup";
+import { GroupWrapper, Label } from "@/components/ControlsContainer/ControlsContainer";
 
 const LABEL_OPTIONS = [
   {
     id: "animations-on",
-    label: "Animations on",
+    label: "On",
   },
   {
     id: "animations-off",
-    label: "Animations off",
+    label: "Off",
   },
 ];
 
@@ -20,7 +20,7 @@ export default function Animations() {
 
   return (
     <GroupWrapper>
-      <Label>Animations on/off</Label>
+      <Label>Animations</Label>
       <ToggleGroup
         type="single"
         value={currentValue}

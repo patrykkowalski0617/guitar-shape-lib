@@ -1,7 +1,7 @@
 import { memo } from "react";
 import * as S from "./parts";
 import type { NoteFlat, NoteSharp } from "@/utils";
-import NoteLabel from "@/components/customUI/NoteLabel/NoteLabel";
+import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import type { HighlightRole } from "../../../utils/roleColors";
 
 interface KeyboardKeyProps {

@@ -1,9 +1,9 @@
 import { memo } from "react";
 import * as S from "./parts";
 import type { NoteObject, RoleId } from "@/utils";
-import NoteLabel from "@/components/customUI/NoteLabel/NoteLabel";
-import type { HighlightRole } from "@/components/Keyboard/helpers/scaleLogic";
+import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { VariantProgressDots } from "../VariantProgressDots/VariantProgressDots";
+import type { HighlightRole } from "@/utils/roleColors";
 
 interface FretCellProps {
   note: NoteObject;
@@ -29,7 +29,6 @@ interface FretCellProps {
 const FretCell = memo(
   ({
     note,
-    fretIndex,
     isHighlighted,
     isFlatTune,
     isActive,
@@ -70,7 +69,6 @@ const FretCell = memo(
         >
           <NoteLabel
             isHighlighted={isHighlighted || isShapeNote}
-            index={fretIndex}
             flatNoteName={note.flatNoteName}
             sharpNoteName={note.sharpNoteName}
             isFlatTune={isFlatTune}

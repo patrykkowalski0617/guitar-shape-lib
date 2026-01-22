@@ -1,16 +1,15 @@
 import { useProgressStore } from "@/store/useProgressStore";
 import { Button } from "../ui/button";
 import { exportProgress, importProgress } from "./helpers/progressHelpers";
-import { useTutorialHover } from "../TutorialBox/helpers/useTutorialHover";
+import TutorialPopover from "../TutorialPopover/TutorialPopover";
+import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 
 export const ProgressActions = () => {
   const { learned, learning, importData } = useProgressStore();
-  const tutorialHover_importData = useTutorialHover("import-data");
-  const tutorialHover_exportData = useTutorialHover("export-data");
-
   return (
     <>
-      <div className="flex flex-col" {...tutorialHover_exportData}>
+      <div className="flex flex-col relative">
+        <TutorialPopover {...TUTORIAL_CONTENT.EXPORT_DATA} />
         <Button
           variant="outline"
           className="min-w-[211px]"
@@ -19,7 +18,8 @@ export const ProgressActions = () => {
           Export progress file
         </Button>
       </div>
-      <div className="flex flex-col" {...tutorialHover_importData}>
+      <div className="flex flex-col relative">
+        <TutorialPopover {...TUTORIAL_CONTENT.IMPORT_DATA} />
         <Button
           variant="outline"
           className="min-w-[211px]"

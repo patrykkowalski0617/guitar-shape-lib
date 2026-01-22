@@ -1,7 +1,8 @@
 import { useProgressStore } from "@/store/useProgressStore";
 import { Button } from "../ui/button";
 import { useFretboardShapes } from "../Fretboard/helpers/useFretboardShapes";
-import { useTutorialHover } from "../TutorialBox/helpers/useTutorialHover";
+import TutorialPopover from "../TutorialPopover/TutorialPopover";
+import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 
 export const ShapeStatusButtons = () => {
   const { currentVariantId } = useFretboardShapes();
@@ -9,14 +10,13 @@ export const ShapeStatusButtons = () => {
 
   const isLearned = currentVariantId ? learned.includes(currentVariantId) : false;
   const isLearning = currentVariantId ? learning.includes(currentVariantId) : false;
-  const tutorialHover_addToProgress = useTutorialHover("add-to-progress");
-  const tutorialHover_markAsLearned = useTutorialHover("mark-as-learned");
 
   return (
     <>
-      <div className="flex flex-col" {...tutorialHover_addToProgress}>
+      <div className="flex flex-col relative">
+        <TutorialPopover {...TUTORIAL_CONTENT.ADD_TO_PROGRESS} />
         <Button
-          variant={isLearning ? "secondary" : "outline"}
+          variant={isLearning ? "default" : "outline"}
           className="min-w-[211px]"
           disabled={!currentVariantId}
           onClick={() => currentVariantId && toggleLearning(currentVariantId)}
@@ -24,9 +24,11 @@ export const ShapeStatusButtons = () => {
           {isLearning ? "In progress" : "Add to 'In progress'"}
         </Button>
       </div>
-      <div className="flex flex-col" {...tutorialHover_markAsLearned}>
+
+      <div className="flex flex-col relative">
+        <TutorialPopover {...TUTORIAL_CONTENT.ADD_LEARNED} />
         <Button
-          variant={isLearned ? "default" : "outline"}
+          variant={isLearned ? "secondary" : "outline"}
           className="min-w-[211px]"
           disabled={!currentVariantId}
           onClick={() => currentVariantId && toggleLearned(currentVariantId)}

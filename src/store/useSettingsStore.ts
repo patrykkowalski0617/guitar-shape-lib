@@ -6,12 +6,15 @@ interface SettingsState {
   setAreDescriptiveLabels: (val: boolean) => void;
   areAnimationsOn: boolean;
   setAreAnimationOn: (val: boolean) => void;
+  isTutorialOn: boolean;
+  setIsTutorialOn: (val: boolean) => void;
   resetToDefaults: () => void;
 }
 
 const initialState = {
   areDescriptiveLabels: false,
   areAnimationsOn: true,
+  isTutorialOn: true,
 };
 
 export const useSettingsStore = create<SettingsState>()(
@@ -21,6 +24,7 @@ export const useSettingsStore = create<SettingsState>()(
 
       setAreDescriptiveLabels: (val) => set({ areDescriptiveLabels: val }),
       setAreAnimationOn: (val) => set({ areAnimationsOn: val }),
+      setIsTutorialOn: (val) => set({ isTutorialOn: val }),
 
       resetToDefaults: () => set(initialState),
     }),

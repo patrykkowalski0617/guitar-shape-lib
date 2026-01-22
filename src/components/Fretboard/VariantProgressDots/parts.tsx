@@ -25,13 +25,13 @@ export const Dot = styled.div<{
   ${({ $isLearned }) =>
     $isLearned &&
     css`
-      background-color: var(--primary);
+      background-color: var(--secondary);
     `}
 
   ${({ $isLearning }) =>
     $isLearning &&
     css`
-      background-color: var(--secondary);
+      background-color: var(--primary);
     `}
   ${({ $isActive }) =>
     $isActive &&

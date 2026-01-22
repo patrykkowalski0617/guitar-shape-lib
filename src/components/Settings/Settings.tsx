@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/drawer";
 import DescriptiveLabelsSelect from "./DescriptiveLabelsSelect/DescriptiveLabelsSelect";
 import Animations from "./Animations/Animations";
+import Tutorial from "./Tutorial/Tutorial";
 
 export function Settings() {
   const resetToDefaults = useSettingsStore((state) => state.resetToDefaults);
@@ -41,6 +42,9 @@ export function Settings() {
               </div>
               <div className="px-6 py-2">
                 <Animations />
+              </div>
+              <div className="px-6 py-2">
+                <Tutorial />
               </div>
             </section>
           </div>

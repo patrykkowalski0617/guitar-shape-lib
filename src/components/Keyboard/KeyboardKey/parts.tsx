@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { KeyAndFretStyles } from "@/components/customUI/Boards/parts";
+import { KeyAndFretStyles } from "@/components/Boards/parts";
 import { transitionTime } from "@/utils/constants";
 import { roleColors, type HighlightRole } from "../../../utils/roleColors";
 
@@ -59,7 +59,7 @@ const whiteKey = (areAnimationsOn: boolean) => css`
   }
 
   @media (min-width: 768px) {
-    height: 140px;
+    height: 130px;
     padding-top: 11px; //- 1px difference to compensate border of black key
   }
 `;
@@ -72,7 +72,7 @@ const blackKey = (areAnimationsOn: boolean) => css`
   ${commonStyleForKey(areAnimationsOn)}
 
   @media (min-width: 768px) {
-    height: 85px;
+    height: 80px;
     padding-top: 10px;
   }
 `;
