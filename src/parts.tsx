@@ -16,7 +16,10 @@ export const MainContent = styled.main`
 `;
 
 export const SectionCommonCss = css`
-  margin: 25px auto 0;
+  margin-top: 15px;
+  @media (min-width: 768px) {
+    margin: 25px auto 0;
+  }
 `;
 
 export const Setcion = styled.div`
