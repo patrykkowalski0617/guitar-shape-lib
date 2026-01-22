@@ -51,8 +51,6 @@ export const useControlsStore = create<ControlsState>((set) => ({
   currentRoleId: null,
   setCurrentRoleId: (id) =>
     set((state) => {
-      console.log(typeof id);
-
       if (id === null || id.length === 0) {
         return { currentRoleId: null, currentShapeId: null, currentShapeOffset: null };
       }

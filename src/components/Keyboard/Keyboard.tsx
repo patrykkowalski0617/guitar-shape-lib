@@ -4,7 +4,7 @@ import { majorScale, NOTES_SHARP, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { useSettingsStore } from "@/store/useSettingsStore";
-import { BoardScrollWrapper, BoardWrapper, TutorialIcons } from "@/components/Boards/parts";
+import { BoardScrollWrapper, BoardWrapper, TutorialStickyIcons } from "@/components/Boards/parts";
 import KeyboardKey from "./KeyboardKey/KeyboardKey";
 import { useScaleLogic } from "./helpers/useScaleLogic";
 import { keyboardNotes, numberOfKeys } from "./helpers/constants";
@@ -34,10 +34,10 @@ export default function Keyboard(): JSX.Element {
 
   return (
     <BoardScrollWrapper>
-      <TutorialIcons>
+      <TutorialStickyIcons>
         <TutorialPopover {...TUTORIAL_CONTENT.KEYBOARD} />
         <TutorialPopover {...TUTORIAL_CONTENT.SCALE_TEMPLATE} />
-      </TutorialIcons>
+      </TutorialStickyIcons>
       <BoardWrapper>
         <ScaleTemplate />
         <S.Keyboard $numberOfKeys={numberOfKeys}>
