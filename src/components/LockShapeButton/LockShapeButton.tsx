@@ -48,18 +48,33 @@ export const LockShapeButton = () => {
     }
   };
 
+  const txtIsTrue = "Shape Locked";
+  const txtIsFalse = "Lock Shape";
+
+  const labelPlaceholder = (
+    <span className="flex items-center gap-2">
+      <Lock className="h-3.5 w-3.5" />
+      <span>{txtIsTrue}</span>
+    </span>
+  );
+
   return (
     <GroupWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.LOCK_SHAPE} />
-      <Button variant="outline" onClick={handleToggle} disabled={!activeShapePoint && !isLocked}>
-        <div className="flex items-center gap-2">
+      <Button
+        variant="outline"
+        onClick={handleToggle}
+        disabled={!activeShapePoint && !isLocked}
+        fixedWidthLabel={labelPlaceholder}
+      >
+        <span className="flex items-center justify-center gap-2">
           {isLocked ? (
             <Lock className="h-3.5 w-3.5 fill-current" />
           ) : (
             <LockOpen className="h-3.5 w-3.5 opacity-50" />
           )}
-          <span>{isLocked ? "Shape Locked" : "Lock Shape"}</span>
-        </div>
+          <span>{isLocked ? txtIsTrue : txtIsFalse}</span>
+        </span>
       </Button>
     </GroupWrapper>
   );

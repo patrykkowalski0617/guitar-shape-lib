@@ -10,7 +10,12 @@ export const ShapeStatusButtons = () => {
   const { learned, learning, toggleLearned, toggleLearning } = useProgressStore();
 
   const isLearned = currentVariantId ? learned.includes(currentVariantId) : false;
+  const txtIsLearnedTrue = "Got it! This shape is learned";
+  const txtIsLearnedFalse = "Add to 'Learned'";
+
   const isLearning = currentVariantId ? learning.includes(currentVariantId) : false;
+  const txtIsLearningTrue = "In progress";
+  const txtIsLearningFalse = "Add to 'In progress'";
 
   return (
     <>
@@ -20,8 +25,9 @@ export const ShapeStatusButtons = () => {
           variant={isLearning ? "default" : "outline"}
           disabled={!currentVariantId}
           onClick={() => currentVariantId && toggleLearning(currentVariantId)}
+          fixedWidthLabel={txtIsLearningFalse}
         >
-          {isLearning ? "In progress" : "Add to 'In progress'"}
+          {isLearning ? txtIsLearningTrue : txtIsLearningFalse}
         </Button>
       </GroupWrapper>
 
@@ -31,8 +37,9 @@ export const ShapeStatusButtons = () => {
           variant={isLearned ? "secondary" : "outline"}
           disabled={!currentVariantId}
           onClick={() => currentVariantId && toggleLearned(currentVariantId)}
+          fixedWidthLabel={txtIsLearnedTrue}
         >
-          {isLearned ? "Got it! This shape is learned" : "Add to 'Learned'"}
+          {isLearned ? txtIsLearnedTrue : txtIsLearnedFalse}
         </Button>
       </GroupWrapper>
     </>

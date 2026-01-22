@@ -7,7 +7,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-[12px] font-semibold transition-none disabled:cursor-not-allowed disabled:opacity-30 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-none",
+  "inline-block items-center justify-center gap-2 whitespace-nowrap rounded-md text-[12px] font-semibold transition-none disabled:cursor-not-allowed disabled:opacity-30 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-none",
   {
     variants: {
       variant: {
@@ -29,19 +29,23 @@ const buttonVariants = cva(
       variant: "default",
       size: "sm",
     },
-  }
+  },
 );
+
+interface ButtonProps extends React.ComponentProps<"button">, VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+  fixedWidthLabel?: React.ReactNode;
+}
 
 function Button({
   className,
   variant,
   size,
   asChild = false,
+  fixedWidthLabel,
+  children,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-  }) {
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button";
 
   return (
@@ -49,9 +53,24 @@ function Button({
       data-slot="button"
       data-variant={variant}
       data-size={size}
-      className={cn(buttonVariants({ variant, size, className }))}
+      className={cn(
+        buttonVariants({ variant, size, className }),
+
+        fixedWidthLabel && "flex-col",
+      )}
       {...props}
-    />
+    >
+      {fixedWidthLabel ? (
+        <>
+          <span style={{ height: 0, overflow: "hidden", display: "block" }} aria-hidden="true">
+            {fixedWidthLabel}
+          </span>
+          <span>{children}</span>
+        </>
+      ) : (
+        children
+      )}
+    </Comp>
   );
 }
 
