@@ -25,6 +25,7 @@ export const SectionCommonCss = css`
 export const Setcion = styled.div`
   max-width: 1200px;
   width: 100%;
+  padding-top: 5px;
   border-top: 1px solid var(--card);
   ${SectionCommonCss}
 `;
