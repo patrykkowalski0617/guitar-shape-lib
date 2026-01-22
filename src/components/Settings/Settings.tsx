@@ -35,7 +35,12 @@ export function Settings() {
             <DrawerTitle className="text-2xl font-bold">Settings</DrawerTitle>
           </DrawerHeader>
 
-          <div className="px-4 py-2 space-y-6">
+          <div
+            className="px-4 py-2 space-y-6"
+            style={{
+              userSelect: "none",
+            }}
+          >
             <section className="space-y-3">
               <div className="px-6 py-2">
                 <DescriptiveLabelsSelect />

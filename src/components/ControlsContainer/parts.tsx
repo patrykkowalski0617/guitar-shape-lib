@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  padding: 15px 15px 0;
+  padding: 30px 15px 0;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
@@ -13,6 +13,7 @@ export const Container = styled.div`
 `;
 
 export const GroupWrapper = styled.div`
+  user-select: none;
   display: flex;
   flex-direction: column;
   position: relative;

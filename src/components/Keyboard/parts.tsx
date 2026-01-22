@@ -13,6 +13,7 @@ interface KeyboardProps {
 }
 
 export const Keyboard = styled.div<KeyboardProps>`
+  user-select: none;
   display: flex;
   padding-left: ${({ $numberOfKeys }) =>
     `calc(${KEY_WIDTH_CSS($numberOfKeys)} * ${KEY_PADDING} * ${LEFT_PADDING_FACTOR})`};

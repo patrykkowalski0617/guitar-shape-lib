@@ -8,7 +8,12 @@ export const ProgressActions = () => {
   const { learned, learning, importData } = useProgressStore();
   return (
     <>
-      <div className="flex flex-col relative">
+      <div
+        className="flex flex-col relative"
+        style={{
+          userSelect: "none",
+        }}
+      >
         <TutorialPopover {...TUTORIAL_CONTENT.EXPORT_DATA} />
         <Button
           variant="outline"
@@ -18,7 +23,12 @@ export const ProgressActions = () => {
           Export progress file
         </Button>
       </div>
-      <div className="flex flex-col relative">
+      <div
+        className="flex flex-col relative"
+        style={{
+          userSelect: "none",
+        }}
+      >
         <TutorialPopover {...TUTORIAL_CONTENT.IMPORT_DATA} />
         <Button
           variant="outline"

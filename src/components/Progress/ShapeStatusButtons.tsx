@@ -13,7 +13,12 @@ export const ShapeStatusButtons = () => {
 
   return (
     <>
-      <div className="flex flex-col relative">
+      <div
+        className="flex flex-col relative"
+        style={{
+          userSelect: "none",
+        }}
+      >
         <TutorialPopover {...TUTORIAL_CONTENT.ADD_TO_PROGRESS} />
         <Button
           variant={isLearning ? "default" : "outline"}
@@ -25,7 +30,12 @@ export const ShapeStatusButtons = () => {
         </Button>
       </div>
 
-      <div className="flex flex-col relative">
+      <div
+        className="flex flex-col relative"
+        style={{
+          userSelect: "none",
+        }}
+      >
         <TutorialPopover {...TUTORIAL_CONTENT.ADD_LEARNED} />
         <Button
           variant={isLearned ? "secondary" : "outline"}

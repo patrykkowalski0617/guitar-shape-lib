@@ -8,13 +8,13 @@ interface IconWrapperProps {
 
 const shadowShine = keyframes`
     0%{
-        filter: drop-shadow(0px 0px 0px var(--secondary));
+        filter: drop-shadow(0px 0px 0px var(--secondary)) brightness(1) blur(0px);
     }
     50%{
-        filter: drop-shadow(0px 0px 4px var(--secondary));
+        filter: drop-shadow(0px 0px 2px var(--secondary)) brightness(1.5) blur(0.3px);
     }
     100%{
-        filter: drop-shadow(0px 0px 0px var(--secondary));
+        filter: drop-shadow(0px 0px 0px var(--secondary)) brightness(1) blur(0px);
     }
 `;
 
