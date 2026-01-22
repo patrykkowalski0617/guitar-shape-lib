@@ -30,7 +30,7 @@ export default function KeySelect() {
       <Label>{areDescriptiveLabels ? "Roots" : "Keys"}</Label>
 
       <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>
-        <SelectTrigger className="min-w-[100px]">
+        <SelectTrigger>
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

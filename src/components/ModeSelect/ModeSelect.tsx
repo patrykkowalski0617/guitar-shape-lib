@@ -23,7 +23,6 @@ export default function ModeSelect() {
         onValueChange={() => {
           setIsMajorMode(!isMajorMode);
         }}
-        className="min-w-[126px]"
       >
         {(Object.entries(musicMode) as [MusicModeId, typeof musicMode.major][]).map(
           ([id, data]) => (
