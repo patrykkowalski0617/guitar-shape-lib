@@ -16,10 +16,6 @@ const highlightedColor = "var(--muted-foreground)";
 const unHighlightedColor = "var(--muted)";
 
 const getStaticStyles = (isHighlighted: boolean) => css`
-  font-size: 12px;
-  height: 20px;
-  line-height: 1;
-  font-weight: bold;
   color: ${isHighlighted ? highlightedColor : unHighlightedColor};
 `;
 
@@ -31,14 +27,12 @@ const getLabelStyles = (
   isShapeNote: boolean,
 ) => {
   const y = isActive ? 10 * multiplier : -5 * multiplier;
-  const x = isActive ? 5 * multiplier : -4 * multiplier;
+  const x = isActive ? 8 * multiplier : -4 * multiplier;
   const transform = orientation === "vertical" ? `translateY(${y}px)` : `translate(${x}px, 0)`;
   const shouldHighlight =
     (isActive && isHighlighted) || (orientation === "vertical" && isShapeNote);
 
   return css`
-    height: 20px;
-    line-height: 1;
     font-size: ${isActive ? "12px" : "9px"};
     color: ${shouldHighlight ? highlightedColor : unHighlightedColor};
     opacity: ${isActive ? 1 : 0};
@@ -66,6 +60,18 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 12px;
+    line-height: 2;
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    font-weight: bold;
+    ${({ $orientation }) =>
+      $orientation === "vertical" &&
+      css`
+        background: #000000bb;
+        box-shadow: 0 0 8px var(--background);
+      `}
     will-change: transform, opacity, font-size, color;
     transition: ${({ $areAnimationsOn }) =>
       $areAnimationsOn

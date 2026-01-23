@@ -17,7 +17,7 @@ export const Fret = styled.div<FretProps>`
   margin: 2px;
   border-radius: 4px;
   background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
-  box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 -5px 10px 0px var(--input)"};
+  box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 -5px 8px 0px var(--input)"};
   ${({ $isLockedNote, $lockedRoleId }) => {
     if (!$isLockedNote) return null;
     const color = roleColors[($lockedRoleId as HighlightRole) || "none"];
@@ -63,7 +63,7 @@ export const Note = styled.div<NoteProps>`
     const color = roleColors[$isHighlightRole];
     return css`
       border-color: ${color};
-      box-shadow: inset 0 -5px 10px 0px ${color};
+      box-shadow: inset 0 -2px 5px 0px ${color};
     `;
   }}
 `;
