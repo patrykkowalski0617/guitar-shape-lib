@@ -7,13 +7,13 @@ interface IconWrapperProps {
 }
 
 const shadowShine = keyframes`
-    0%{
+    0% {
         filter: drop-shadow(0px 0px 0px var(--secondary)) brightness(1) blur(0px);
     }
-    50%{
+    50% {
         filter: drop-shadow(0px 0px 2px var(--secondary)) brightness(1.5) blur(0.3px);
     }
-    100%{
+    100% {
         filter: drop-shadow(0px 0px 0px var(--secondary)) brightness(1) blur(0px);
     }
 `;
@@ -24,7 +24,12 @@ export const IconWrapper = styled.div<IconWrapperProps>`
   position: absolute;
   left: ${({ $x }) => $x}px;
   top: ${({ $y }) => $y}px;
-  text-shadow: 0 0 8px;
-  animation: ${shadowShine} 700ms ${({ $animationOrder }) => $animationOrder * 500}ms forwards;
   opacity: 0.6;
+  text-shadow: 0 0 8px;
+  will-change: filter;
+  animation: ${shadowShine} 700ms ${({ $animationOrder }) => $animationOrder * 500}ms forwards;
+  &:hover {
+    opacity: 1;
+    transition: opacity 200ms ease-in-out;
+  }
 `;

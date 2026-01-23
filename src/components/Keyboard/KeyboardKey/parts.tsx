@@ -31,12 +31,14 @@ const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   B: css`&::after {left: -80%;}`,
 };
 
-const keyBorderRadius = "4px";
+export const keyBRadius = "4px";
+export const keyboardBRadius = "var(--radius-lg)";
 
 const commonStyleForKey = (areAnimationsOn: boolean) => css`
   ${KeyAndFretStyles}
   box-shadow: inset 0 0px 3px 0px var(--input);
-  border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
+  border-radius: 0 0 ${keyBRadius} ${keyBRadius};
+  will-change: box-shadow, border-color;
   transition: ${areAnimationsOn
     ? `box-shadow ${transitionTime}ms ease-in-out, border-color ${transitionTime}ms ease-in-out`
     : "none"};
@@ -45,7 +47,7 @@ const commonStyleForKey = (areAnimationsOn: boolean) => css`
 const whiteKey = (areAnimationsOn: boolean) => css`
   height: 95px;
   z-index: 1;
-  border-radius: 0 0 ${keyBorderRadius} ${keyBorderRadius};
+  border-radius: 0 0 ${keyBRadius} ${keyBRadius};
   padding-top: 1px; //- 1px difference to compensate border of black key
   &::after {
     content: "";
@@ -77,8 +79,6 @@ const blackKey = (areAnimationsOn: boolean) => css`
   }
 `;
 
-const keyboardBorderRadius = "var(--radius-lg)";
-
 export const Key = styled.div<KeyProps>`
   flex: 1;
   width: 0;
@@ -91,34 +91,27 @@ export const Key = styled.div<KeyProps>`
 
   ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
   
-  ${({ $isHighlighted, $isWhiteKey, $highlightRole, $areAnimationsOn }) => {
+  ${({ $isHighlighted, $isWhiteKey, $highlightRole }) => {
+    if (!$isHighlighted) return null;
     const color = roleColors[$highlightRole];
-    return (
-      $isHighlighted &&
-      ($isWhiteKey
-        ? css`
-            &::after {
-              border-color: ${color};
-              box-shadow: inset 0 -23px 35px -4px ${color};
-              transition: ${$areAnimationsOn
-                ? `box-shadow ${transitionTime}ms ease-in-out, border-color ${transitionTime}ms ease-in-out`
-                : "none"};
-            }
-          `
-        : css`
-            border-color: ${color};
-            box-shadow: inset 0 -17px 20px 0px ${color};
-            transition: ${$areAnimationsOn
-              ? `box-shadow ${transitionTime}ms ease-in-out, border-color ${transitionTime}ms ease-in-out`
-              : "none"};
-          `)
-    );
+
+    const shadow = $isWhiteKey
+      ? `inset 0 -23px 35px -4px ${color}`
+      : `inset 0 -17px 20px 0px ${color}`;
+    const target = $isWhiteKey ? css`&::after` : css`&`;
+
+    return css`
+      ${target} {
+        border-color: ${color};
+        box-shadow: ${shadow};
+      }
+    `;
   }}
 
   &:first-child::after {
-    border-radius: ${keyboardBorderRadius} 0 ${keyBorderRadius} ${keyBorderRadius};
+    border-radius: ${keyboardBRadius} 0 ${keyBRadius} ${keyBRadius};
   }
   &:last-child::after {
-    border-radius: 0 ${keyboardBorderRadius} ${keyBorderRadius} ${keyBorderRadius};
+    border-radius: 0 ${keyboardBRadius} ${keyBRadius} ${keyBRadius};
   }
 `;
