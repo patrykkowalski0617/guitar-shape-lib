@@ -26,6 +26,7 @@ export const TemplateWrapper = styled.div<TemplateWrapperProps>`
       (${$position} + (${KEY_PADDING} * ${LEFT_PADDING_FACTOR})) * ${KEY_WIDTH_CSS($numberOfKeys)}
     ))`;
   }};
+  will-change: transform;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn ? `transform ${transitionTime}ms ease-in-out` : "none"};
 `;
@@ -41,6 +42,7 @@ export const Marker = styled.div<MarkerProps>`
   background-color: ${({ $highlightRole }) => roleColors[$highlightRole]};
   box-shadow: 0 0 8px ${({ $highlightRole }) => roleColors[$highlightRole]};
   opacity: ${({ $isVisible }) => ($isVisible ? "1" : "0")};
+  will-change: left, opacity, background-color, box-shadow;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn
       ? `left ${transitionTime}ms ease-in-out,
@@ -60,6 +62,7 @@ export const Marker = styled.div<MarkerProps>`
     text-shadow: 0 0 8px ${({ $highlightRole }) => roleColors[$highlightRole]};
     opacity: ${({ $roleInterval, $isVisible }) => ($roleInterval && $isVisible ? "1" : "0")};
     top: ${({ $roleInterval }) => ($roleInterval ? "-17px" : "0px")};
+    will-change: top, opacity, color;
     transition: ${({ $areAnimationsOn }) =>
       $areAnimationsOn
         ? `top ${transitionTime}ms ease-in-out,

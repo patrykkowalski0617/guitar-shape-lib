@@ -17,20 +17,16 @@ export const Fret = styled.div<FretProps>`
   margin: 2px;
   border-radius: 4px;
   background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
-  box-shadow: ${({ $isShapeNote }) =>
-    $isShapeNote ? "inset 0 -5px 10px 0px var(--input)" : "none"};
+  box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 -5px 10px 0px var(--input)"};
   ${({ $isLockedNote, $lockedRoleId }) => {
-    if (!$isLockedNote) return "";
-    const roleKey =
-      $lockedRoleId && $lockedRoleId in roleColors ? ($lockedRoleId as HighlightRole) : "none";
-    const color = roleColors[roleKey];
-
+    if (!$isLockedNote) return null;
+    const color = roleColors[($lockedRoleId as HighlightRole) || "none"];
     return css`
       outline: 2px solid ${color};
+      z-index: 10;
       @media (min-width: 768px) {
         outline-offset: 2px;
       }
-      z-index: 10;
     `;
   }}
 `;
@@ -48,6 +44,7 @@ export const Note = styled.div<NoteProps>`
   box-shadow: inset 0 0px 2px 0px var(--input);
   border-radius: 4px;
   width: 100%;
+  height: 26px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,19 +53,17 @@ export const Note = styled.div<NoteProps>`
   z-index: 20;
   will-change: filter, box-shadow;
   transition: ${({ $areAnimationsOn }) =>
-    $areAnimationsOn ? `box-shadow ${transitionTime}ms ease-in-out` : "none"};
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "none")};
+    $areAnimationsOn && `box-shadow ${transitionTime}ms ease-in-out`};
+  filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
   opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.7")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   ${({ $isHighlighted, $isHighlightRole }) => {
-    const color = roleColors[$isHighlightRole as keyof typeof roleColors];
-    return (
-      $isHighlighted &&
-      css`
-        border-color: ${color};
-        box-shadow: inset 0 -5px 10px 0px ${color};
-      `
-    );
+    if (!$isHighlighted) return null;
+
+    const color = roleColors[$isHighlightRole];
+    return css`
+      border-color: ${color};
+      box-shadow: inset 0 -5px 10px 0px ${color};
+    `;
   }}
-  height: 26px;
 `;

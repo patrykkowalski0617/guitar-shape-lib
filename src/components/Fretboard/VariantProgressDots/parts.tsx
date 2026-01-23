@@ -16,26 +16,24 @@ export const Dot = styled.div<{
   $isLearning: boolean;
   $isActive: boolean;
 }>`
-  border-radius: 2px;
   width: 15px;
   min-height: 9px;
-  background-color: var(--card);
-  opacity: 0.8;
+  border-radius: 2px;
   border: 1px solid var(--accent-foreground);
-  ${({ $isLearned }) =>
-    $isLearned &&
-    css`
-      background-color: var(--secondary);
-    `}
-
-  ${({ $isLearning }) =>
-    $isLearning &&
-    css`
-      background-color: var(--primary);
-    `}
+  opacity: 0.8;
+  background-color: ${({ $isLearning, $isLearned }) => {
+    if ($isLearning) return "var(--primary)";
+    if ($isLearned) return "var(--secondary)";
+    return "var(--card)";
+  }};
   ${({ $isActive }) =>
     $isActive &&
     css`
       transform: scale(1.25);
+      opacity: 1;
     `}
+  will-change: transform, background-color;
+  transition:
+    transform 0.1s ease-in-out,
+    background-color 0.2s ease;
 `;

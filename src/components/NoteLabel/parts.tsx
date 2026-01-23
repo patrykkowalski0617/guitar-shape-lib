@@ -30,21 +30,17 @@ const getLabelStyles = (
   orientation: LabelOrientation,
   isShapeNote: boolean,
 ) => {
-  const valVertY = isActive ? 10 * multiplier : -5 * multiplier;
-  const valHorX = isActive ? 5 * multiplier : -4 * multiplier;
-  const valHorY = 0;
-  const transform =
-    orientation === "vertical"
-      ? `translateY(${valVertY}px)`
-      : `translate(${valHorX}px, ${valHorY}px)`;
+  const y = isActive ? 10 * multiplier : -5 * multiplier;
+  const x = isActive ? 5 * multiplier : -4 * multiplier;
+  const transform = orientation === "vertical" ? `translateY(${y}px)` : `translate(${x}px, 0)`;
+  const shouldHighlight =
+    (isActive && isHighlighted) || (orientation === "vertical" && isShapeNote);
 
   return css`
     height: 20px;
     line-height: 1;
     font-size: ${isActive ? "12px" : "9px"};
-    color: ${(isActive && isHighlighted) || (orientation === "vertical" && isShapeNote)
-      ? highlightedColor
-      : unHighlightedColor};
+    color: ${shouldHighlight ? highlightedColor : unHighlightedColor};
     opacity: ${isActive ? 1 : 0};
     font-weight: ${isActive ? "bold" : "normal"};
     transform: ${transform};
@@ -54,18 +50,23 @@ const getLabelStyles = (
 export const Wrapper = styled.div<StyledNoteLabelProps>`
   z-index: 1;
   position: relative;
-  height: ${({ $orientation }) => ($orientation === "vertical" ? "40px" : "20px")};
-  width: ${({ $orientation }) => ($orientation === "vertical" ? "auto" : "30px")};
   display: flex;
-  flex-direction: ${({ $orientation }) => ($orientation === "vertical" ? "column" : "row")};
   align-items: center;
   justify-content: center;
+  flex-direction: ${({ $orientation }) => ($orientation === "vertical" ? "column" : "row")};
+  height: ${({ $orientation }) => ($orientation === "vertical" ? "40px" : "20px")};
+  width: ${({ $orientation }) => ($orientation === "vertical" ? "auto" : "30px")};
   top: ${({ $orientation, $isShapeNote }) =>
     $orientation === "vertical" && $isShapeNote ? "20px" : "0"};
+  will-change: top;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn ? `top ${transitionTime}ms ease-in-out` : "none"};
   .mainLabel,
   .optionalLabel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform, opacity, font-size, color;
     transition: ${({ $areAnimationsOn }) =>
       $areAnimationsOn
         ? `transform ${transitionTime}ms ease-in-out, 
@@ -73,9 +74,6 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
            font-size ${transitionTime}ms ease-in-out, 
            color ${transitionTime}ms ease-in-out`
         : "none"};
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   .mainLabel {
