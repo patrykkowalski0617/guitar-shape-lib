@@ -13,11 +13,20 @@ import { ProgressActions } from "./components/Progress/ProgressActions";
 import Keyboard from "./components/Keyboard/Keyboard";
 import ControlsContainer from "./components/ControlsContainer/ControlsContainer";
 import { DevModeProvider } from "./components/DevModeProvider/DevModeProvider";
+import { useSettingsStore } from "./store/useSettingsStore";
 
 function App() {
   useMusicEngine();
+  const { tonicColor, subdominantColor, dominantColor } = useSettingsStore();
+
+  const globalStyles = {
+    "--secondary": `hsl(${tonicColor} 100% 45%)`,
+    "--primary": `hsl(${subdominantColor} 47% 45%)`,
+    "--tension": `hsl(${dominantColor} 92% 45%)`,
+  } as React.CSSProperties;
+
   return (
-    <AppWrapper>
+    <AppWrapper style={globalStyles}>
       <DevModeProvider />
       <Header />
       <MainContent>
