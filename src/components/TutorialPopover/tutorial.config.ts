@@ -26,7 +26,7 @@ Intervals 1 and 5 have a 'transparent' character, while 3 and 7 are known as 'gu
     title: "Fretboard",
     description: `Once a function is selected, the system highlights the root notes of the chosen shape on the fretboard diagram. You can then tap any root note to cycle through the available shape variants across the neck. 
     
-    Next to each root note, you will find dots representing the available variants of each shape. When you save a variant, its dot changes color to indicate your status: Pink for 'In Progress' and Blue for 'Learned'`,
+    Next to each root note, you will find dots representing the available variants of each shape. When you save a variant, its dot changes color to indicate your status: Subdominant color (Pink by default) for 'In Progress' and Tonic (Blue by default) for 'Learned'`,
     x: 5,
     y: 5,
     animationOrder: 3,
