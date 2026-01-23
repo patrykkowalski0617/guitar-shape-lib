@@ -21,9 +21,7 @@ export const useFretboardShapes = () => {
     const { stringIdx, fretIdx, variantIdx } = activeShapePoint;
     setCurrentShapeRootFret(fretIdx);
 
-    const allVariants = Object.entries(shapeData.shapesCoordinates).sort(([a], [b]) =>
-      a.localeCompare(b, undefined, { numeric: true }),
-    );
+    const allVariants = Object.entries(shapeData.shapesCoordinates);
 
     const validVariants = allVariants.filter(
       ([, coords]) => coords.length > 0 && coords[0][0] === stringIdx,
