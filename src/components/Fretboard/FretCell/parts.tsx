@@ -10,6 +10,8 @@ interface FretProps {
   $isShapeNote: boolean;
   $isLockedNote: boolean;
   $lockedRoleId: RoleId | null;
+  $isTuneNote: boolean;
+  $areAnimationsOn: boolean;
 }
 
 export const Fret = styled.div<FretProps>`
@@ -18,6 +20,10 @@ export const Fret = styled.div<FretProps>`
   border-radius: 4px;
   background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
   box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 -5px 8px 0px var(--input)"};
+  opacity: ${({ $isTuneNote, $isShapeNote }) => ($isTuneNote || $isShapeNote ? "1" : "0.2")};
+  will-change: opacity;
+  transition: ${({ $areAnimationsOn }) =>
+    $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
   ${({ $isLockedNote, $lockedRoleId }) => {
     if (!$isLockedNote) return null;
     const color = roleColors[($lockedRoleId as HighlightRole) || "none"];

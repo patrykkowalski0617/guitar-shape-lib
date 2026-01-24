@@ -9,6 +9,7 @@ interface StyledNoteLabelProps {
   $isHighlighted: boolean;
   $orientation: LabelOrientation;
   $isShapeNote: boolean;
+  $isTuneNote: boolean;
   $areAnimationsOn: boolean;
 }
 
@@ -52,8 +53,12 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   width: ${({ $orientation }) => ($orientation === "vertical" ? "auto" : "30px")};
   top: ${({ $orientation, $isShapeNote }) =>
     $orientation === "vertical" && $isShapeNote ? "18px" : "0"};
-  opacity: ${({ $isHighlighted, $orientation }) =>
-    $isHighlighted || $orientation === "horizontal" ? "1" : "0"};
+  opacity: ${({ $isHighlighted, $orientation, $isTuneNote, $isShapeNote }) =>
+    $isShapeNote ||
+    ($isHighlighted && $orientation === "vertical") ||
+    ($isTuneNote && $orientation === "horizontal")
+      ? "1"
+      : "0"};
   will-change: top, opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn
