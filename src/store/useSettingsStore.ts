@@ -21,9 +21,9 @@ const initialState = {
   areDescriptiveLabels: false,
   areAnimationsOn: true,
   isTutorialOn: true,
-  tonicColor: 215,
-  subdominantColor: 332,
-  dominantColor: 38,
+  tonicColor: 36,
+  subdominantColor: 247,
+  dominantColor: 111,
 };
 
 export const useSettingsStore = create<SettingsState>()(

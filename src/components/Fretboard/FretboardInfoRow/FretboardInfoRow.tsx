@@ -2,7 +2,7 @@ import * as S from "./parts";
 import { numberOfFrets } from "../helpers/constants";
 import { FretboardRow } from "../parts";
 
-export default function FretboardInfoRow() {
+export default function FretboardInfoRow({ isNumeric = false }: { isNumeric?: boolean }) {
   const infoCells = Array.from({ length: numberOfFrets });
 
   const singleDotFrets = [3, 5, 7, 9, 15, 17, 19, 21];
@@ -15,8 +15,13 @@ export default function FretboardInfoRow() {
         const isDoubleDot = doubleDotFrets.includes(index);
 
         return (
-          <S.FretInfoCell key={`info-${index}`} $singleDot={isSingleDot} $doubleDot={isDoubleDot}>
-            {index === 0 ? "" : index}
+          <S.FretInfoCell
+            key={`info-${index}`}
+            $singleDot={isSingleDot}
+            $doubleDot={isDoubleDot}
+            $isNumeric={isNumeric}
+          >
+            {isNumeric && index !== 0 ? index : ""}
           </S.FretInfoCell>
         );
       })}

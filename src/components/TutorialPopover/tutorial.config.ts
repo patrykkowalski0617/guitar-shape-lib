@@ -7,7 +7,7 @@ export const TUTORIAL_CONTENT = {
   
     You will also notice that each shape exposes different functional notes and sometimes even notes that do not belong to the function directly – these are called alterations.`,
     x: 5,
-    y: 5,
+    y: 0,
     animationOrder: 1,
   },
   SCALE_TEMPLATE: {
@@ -19,7 +19,7 @@ Numeric indicators highlight the specific intervals for each harmonic function s
 Intervals 1 and 5 have a 'transparent' character, while 3 and 7 are known as 'guide tones' and provide more harmonic color. The 9th, in most cases, is also very 'colorful'. Regarding the 11th and 13th – certain notes among them are sometimes referred to as 'avoid notes' due to their dissonant characteristics.`,
 
     x: 30,
-    y: 5,
+    y: 0,
     animationOrder: 2,
   },
   FRETBOARD: {
@@ -28,7 +28,7 @@ Intervals 1 and 5 have a 'transparent' character, while 3 and 7 are known as 'gu
     
     Next to each root note, you will find dots representing the available variants of each shape. When you save a variant, its dot changes color to indicate your status: Subdominant color (Pink by default) for 'In Progress' and Tonic (Blue by default) for 'Learned'`,
     x: 5,
-    y: 5,
+    y: 0,
     animationOrder: 3,
   },
   MODE_TOGGLE: {
@@ -56,7 +56,7 @@ Intervals 1 and 5 have a 'transparent' character, while 3 and 7 are known as 'gu
     title: "Shape List",
     description: `Browse and select specific fretboard patterns. The first part of each shape's name represents the note name, and the second represents the actual shape. Each shape provides a unique geometric layout of the scale, helping you visualize and master the harmonic landscape across different neck positions and functions.
     
-    You will notice that the list of shapes is not endless (9 aprs / 9 scales), as the same shape can be placed on different root notes. The Tonic and Subdominant share most shapes, acting as a 'release group' in contrast to the 'tension' of the Dominant. 
+    You will notice that the list of shapes is not endless (about 9 aprs / 9 scales in current app version), as the same shape can be placed on different root notes. The Tonic and Subdominant share most shapes, acting as a 'release group' in contrast to the 'tension' of the Dominant. 
 
     Explore arpeggios first if you want a more melodic approach. 
     `,

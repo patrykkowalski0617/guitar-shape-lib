@@ -51,10 +51,14 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   height: ${({ $orientation }) => ($orientation === "vertical" ? "40px" : "20px")};
   width: ${({ $orientation }) => ($orientation === "vertical" ? "auto" : "30px")};
   top: ${({ $orientation, $isShapeNote }) =>
-    $orientation === "vertical" && $isShapeNote ? "20px" : "0"};
-  will-change: top;
+    $orientation === "vertical" && $isShapeNote ? "18px" : "0"};
+  opacity: ${({ $isHighlighted, $orientation }) =>
+    $isHighlighted || $orientation === "horizontal" ? "1" : "0"};
+  will-change: top, opacity;
   transition: ${({ $areAnimationsOn }) =>
-    $areAnimationsOn ? `top ${transitionTime}ms ease-in-out` : "none"};
+    $areAnimationsOn
+      ? `opacity ${transitionTime}ms ease-in-out ,top ${transitionTime}ms ease-in-out`
+      : "none"};
   .mainLabel,
   .optionalLabel {
     display: flex;

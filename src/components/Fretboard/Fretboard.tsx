@@ -58,6 +58,7 @@ export default function Fretboard(): JSX.Element {
       </TutorialStickyIcons>
       <BoardWrapper>
         <S.Fretboard>
+          <FretboardInfoRow isNumeric />
           {STRINGS_FIRST_NOTES.map(({ noteName, octaveNumber }, stringIndex) => {
             const variantsForThisString = shapeData
               ? Object.entries(shapeData.shapesCoordinates)

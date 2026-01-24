@@ -3,9 +3,8 @@ import { Note } from "./FretCell/parts";
 import { keyboardBRadius, keyBRadius } from "../Keyboard/KeyboardKey/parts";
 
 export const Fretboard = styled.div`
-  padding-top: 2px; //- space for fretcell outline when shape is locked
-  padding-top: 35px;
   user-select: none;
+  padding-top: 5px;
 `;
 
 export const FretboardRow = styled.div`
