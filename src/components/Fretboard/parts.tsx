@@ -16,7 +16,7 @@ export const FretboardRow = styled.div`
     margin-right: 8px;
   }
 
-  &:first-child {
+  &:nth-child(2) {
     & > :first-child,
     & > :first-child ${Note} {
       border-radius: ${keyboardBRadius} ${keyBRadius} ${keyBRadius} ${keyBRadius};
@@ -27,7 +27,7 @@ export const FretboardRow = styled.div`
     }
   }
 
-  &:nth-child(6) {
+  &:nth-child(7) {
     & > :first-child,
     & > :first-child ${Note} {
       border-radius: ${keyBRadius} ${keyBRadius} ${keyBRadius} ${keyboardBRadius};
