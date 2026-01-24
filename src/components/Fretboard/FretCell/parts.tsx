@@ -8,6 +8,7 @@ interface FretProps {
   $numberOfFrets: number;
   $isDevNote: boolean;
   $isShapeNote: boolean;
+  $isShapeRootNote: boolean;
   $isLockedNote: boolean;
   $lockedRoleId: RoleId | null;
   $isTuneNote: boolean;
@@ -35,6 +36,13 @@ export const Fret = styled.div<FretProps>`
       }
     `;
   }}
+
+  ${({ $isShapeRootNote }) =>
+    $isShapeRootNote &&
+    css`
+      position: relative;
+      z-index: 1;
+    `}
 `;
 
 interface NoteProps {

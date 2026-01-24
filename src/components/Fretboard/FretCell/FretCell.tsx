@@ -57,6 +57,7 @@ const FretCell = memo(
         onMouseOver={() => onHover(note.noteId)}
         onMouseLeave={onLeave}
         $isDevNote={isDevNote}
+        $isShapeRootNote={isShapeRootNote}
         $isShapeNote={isShapeNote}
         $isLockedNote={isLockedNote}
         $lockedRoleId={lockedRoleId}
