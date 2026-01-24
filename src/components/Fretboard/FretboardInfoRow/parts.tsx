@@ -16,6 +16,7 @@ export const FretInfoCell = styled.div<{
   font-weight: 800;
   color: var(--border);
   opacity: 0.8;
+  user-select: none;
   ${({ $isNumeric }) =>
     !$isNumeric &&
     css`

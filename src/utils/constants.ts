@@ -1,1 +1,1 @@
-export const transitionTime = 500;
+export const transitionTime = 300;

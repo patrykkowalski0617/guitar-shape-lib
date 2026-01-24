@@ -13,6 +13,7 @@ interface FretCellProps {
   isFlatTune: boolean;
   isActive: boolean;
   isShapeRootNote: boolean;
+  isTuneNote: boolean;
   isShapeNote: boolean;
   isLockedNote: boolean;
   lockedRoleId: RoleId | null;
@@ -37,6 +38,7 @@ const FretCell = memo(
     lockedRoleId,
     isDevNote,
     isShapeRootNote,
+    isTuneNote,
     numberOfFrets,
     currentRoleId,
     onHover,
@@ -58,6 +60,8 @@ const FretCell = memo(
         $isShapeNote={isShapeNote}
         $isLockedNote={isLockedNote}
         $lockedRoleId={lockedRoleId}
+        $isTuneNote={isTuneNote}
+        $areAnimationsOn={areAnimationsOn}
       >
         <S.Note
           $isHighlighted={isHighlighted}
@@ -71,6 +75,8 @@ const FretCell = memo(
             isHighlighted={isHighlighted || isShapeNote}
             flatNoteName={note.flatNoteName}
             sharpNoteName={note.sharpNoteName}
+            isTuneNote={isTuneNote}
+            isShapeNote={isShapeNote}
             isFlatTune={isFlatTune}
             orientation="horizontal"
             isEnharmonic={note.isEnharmonic}
@@ -89,6 +95,7 @@ const FretCell = memo(
       prev.isHighlighted === next.isHighlighted &&
       prev.isFlatTune === next.isFlatTune &&
       prev.isShapeRootNote === next.isShapeRootNote &&
+      prev.isTuneNote === next.isTuneNote &&
       prev.currentRoleId === next.currentRoleId &&
       prev.isShapeNote === next.isShapeNote &&
       prev.isLockedNote === next.isLockedNote &&
