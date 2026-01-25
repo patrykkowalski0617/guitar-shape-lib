@@ -5,44 +5,43 @@ import { transitionTime } from "@/utils/constants";
 import styled, { css } from "styled-components";
 
 interface FretProps {
-  $numberOfFrets: number;
   $isDevNote: boolean;
   $isShapeNote: boolean;
   $isShapeRootNote: boolean;
-  $isLockedNote: boolean;
-  $lockedRoleId: RoleId | null;
   $isTuneNote: boolean;
   $areAnimationsOn: boolean;
 }
 
-export const Fret = styled.div<FretProps>`
-  width: ${({ $numberOfFrets }) => `calc(100% / ${$numberOfFrets})`};
+export const LockedEffectWrapper = styled.div<{
+  $isLockedNote: boolean;
+  $lockedRoleId: RoleId | null;
+}>`
+  flex: 1;
+  width: 0;
   margin: 2px;
   border-radius: 4px;
-  background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
-  box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 -5px 8px 0px var(--input)"};
-  opacity: ${({ $isTuneNote, $isShapeNote }) => ($isTuneNote || $isShapeNote ? "1" : "0.2")};
-  will-change: opacity;
-  transition: ${({ $areAnimationsOn }) =>
-    $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
+  position: relative;
   ${({ $isLockedNote, $lockedRoleId }) => {
     if (!$isLockedNote) return null;
     const color = roleColors[($lockedRoleId as HighlightRole) || "none"];
     return css`
       outline: 2px solid ${color};
-      z-index: 10;
       @media (min-width: 768px) {
         outline-offset: 2px;
       }
     `;
   }}
+`;
 
-  ${({ $isShapeRootNote }) =>
-    $isShapeRootNote &&
-    css`
-      position: relative;
-      z-index: 1;
-    `}
+export const Fret = styled.div<FretProps>`
+  width: 100%;
+  border-radius: 4px;
+  background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
+  box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 -5px 8px 0px var(--input)"};
+  opacity: ${({ $isTuneNote, $isShapeNote }) => ($isTuneNote || $isShapeNote ? "1" : "0.1")};
+  will-change: opacity;
+  transition: ${({ $areAnimationsOn }) =>
+    $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
 `;
 
 interface NoteProps {
@@ -55,7 +54,7 @@ interface NoteProps {
 
 export const Note = styled.div<NoteProps>`
   ${KeyAndFretStyles}
-  box-shadow: inset 0 0px 2px 0px var(--input);
+  box-shadow: inset 0 0px 6px 0px var(--input);
   border-radius: 4px;
   width: 100%;
   height: 26px;
@@ -69,7 +68,7 @@ export const Note = styled.div<NoteProps>`
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `box-shadow ${transitionTime}ms ease-in-out`};
   filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
-  opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.7")};
+  opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.5")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   ${({ $isHighlighted, $isHighlightRole }) => {
     if (!$isHighlighted) return null;

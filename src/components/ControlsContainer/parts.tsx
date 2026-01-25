@@ -20,6 +20,6 @@ export const GroupWrapper = styled.div`
   flex-grow: 1;
   max-width: 500px;
   @media (min-width: 500px) {
-    max-width: 300px;
+    max-width: 500px;
   }
 `;

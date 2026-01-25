@@ -31,7 +31,7 @@ export default function TutorialPopover({
     <Popover>
       <PopoverTrigger asChild>
         <IconWrapper $x={x} $y={y} $animationOrder={animationOrder}>
-          <Info size={20} strokeWidth={1} color="var(--secondary)" />
+          <Info size={20} strokeWidth={1} color="var(--accent)" />
         </IconWrapper>
       </PopoverTrigger>
 

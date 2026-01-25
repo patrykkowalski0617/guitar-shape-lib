@@ -6,8 +6,8 @@ export default function Header() {
     <S.HeaderWrapper>
       <S.HeaderContent>
         <S.TitleWrapper>
-          <S.Title>Guitar solo shapes</S.Title>
-          <S.Subtitle>Library</S.Subtitle>
+          <S.Title>Solo over changes</S.Title>
+          <S.Subtitle>Guitar Shapes Library</S.Subtitle>
         </S.TitleWrapper>
 
         <S.HeaderSide>

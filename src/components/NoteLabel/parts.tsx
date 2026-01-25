@@ -27,7 +27,7 @@ const getLabelStyles = (
   orientation: LabelOrientation,
   isShapeNote: boolean,
 ) => {
-  const y = isActive ? 10 * multiplier : -5 * multiplier;
+  const y = isActive ? 9 * multiplier : -5 * multiplier;
   const x = isActive ? 8 * multiplier : -4 * multiplier;
   const transform = orientation === "vertical" ? `translateY(${y}px)` : `translate(${x}px, 0)`;
   const shouldHighlight =
@@ -49,10 +49,10 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   align-items: center;
   justify-content: center;
   flex-direction: ${({ $orientation }) => ($orientation === "vertical" ? "column" : "row")};
-  height: ${({ $orientation }) => ($orientation === "vertical" ? "40px" : "20px")};
+  height: ${({ $orientation }) => ($orientation === "vertical" ? "30px" : "20px")};
   width: ${({ $orientation }) => ($orientation === "vertical" ? "auto" : "30px")};
   top: ${({ $orientation, $isShapeNote }) =>
-    $orientation === "vertical" && $isShapeNote ? "18px" : "0"};
+    $orientation === "vertical" && $isShapeNote ? "20px" : "0"};
   opacity: ${({ $isHighlighted, $orientation, $isTuneNote, $isShapeNote }) =>
     $isShapeNote ||
     ($isHighlighted && $orientation === "vertical") ||

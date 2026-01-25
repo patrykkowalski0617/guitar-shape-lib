@@ -58,7 +58,7 @@ export default function ShapeSelect() {
   return (
     <GroupWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.SHAPE_SELECTOR} />
-      <Label>{areDescriptiveLabels ? "Set of notes" : "Shapes"}</Label>
+      <Label>{areDescriptiveLabels ? "Set of notes" : "Chord/Scale"}</Label>
       <Select
         value={currentShapeValue}
         onValueChange={(v) => {

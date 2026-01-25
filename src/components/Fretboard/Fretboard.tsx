@@ -10,7 +10,7 @@ import { useFretboardDevEditor } from "./helpers/useFretboardDevEditor";
 import { useFretboardShapes } from "./helpers/useFretboardShapes";
 import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
 import { useDevStore } from "@/store/useDevStore";
-import shapes, { type Shapes } from "@/utils/shapes";
+import shapes from "@/utils/shapes";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
@@ -43,7 +43,7 @@ export default function Fretboard(): JSX.Element {
   const { isDevMode } = useDevStore();
   const { onDevClick, isDevNote } = useFretboardDevEditor();
   const { showShape, isPointInShape, currentVariantId } = useFretboardShapes();
-  const shapeData = currentShapeId ? (shapes as Shapes)[currentShapeId as string] : null;
+  const shapeData = currentShapeId ? shapes[currentShapeId] : null;
 
   const sharpNoteNamesInTune = useTuneSharpNoteNames();
 
@@ -100,7 +100,6 @@ export default function Fretboard(): JSX.Element {
                         isActive={activeNoteId === note.noteId}
                         isShapeRootNote={isShapeRootNote}
                         isTuneNote={isTuneNote}
-                        numberOfFrets={numberOfFrets}
                         onHover={setActiveNoteId}
                         onLeave={() => setActiveNoteId(null)}
                         isShapeNote={isShapeNote}

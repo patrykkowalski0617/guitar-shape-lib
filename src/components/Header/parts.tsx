@@ -35,7 +35,7 @@ const shakeIt = keyframes`
 
 export const TitleWrapper = styled.div`
   color: var(--foreground);
-  transform: rotate(-2deg) translateY(-2px);
+  transform: rotate(-2deg) translateY(-5px);
   margin: 0 40px;
   &:hover {
     animation: ${shakeIt} 0.15s linear 3;
