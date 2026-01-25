@@ -6,7 +6,7 @@ export const TUTORIAL_CONTENT = {
     The app demonstrates that notes for each function are built by extending the key template and selecting every second note from the correct starting point: the Tonic is based on the 1st degree, the Subdominant on the 4th, and the Dominant on the 5th degree of any key.
   
     You will also notice that each shape exposes different functional notes and sometimes even notes that do not belong to the function directly – these are called alterations.`,
-    x: 8,
+    x: 10,
     y: 0,
     animationOrder: 1,
   },
@@ -15,7 +15,7 @@ export const TUTORIAL_CONTENT = {
     description: `Once a function is selected, the system highlights the root notes of the chosen shape on the fretboard diagram. You can then tap any root note to cycle through the available shape variants across the neck. 
     
     Next to each root note, you will find dots representing the available variants of each shape. When you save a variant, its dot changes color to indicate your status: Subdominant color (Pink by default) for 'In Progress' and Tonic (Blue by default) for 'Learned'`,
-    x: 8,
+    x: 10,
     y: 0,
     animationOrder: 2,
   },
