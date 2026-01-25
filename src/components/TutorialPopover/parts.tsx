@@ -3,7 +3,6 @@ import styled from "styled-components";
 interface IconWrapperProps {
   $x: number;
   $y: number;
-  $animationOrder: number;
 }
 
 export const IconWrapper = styled.div<IconWrapperProps>`
