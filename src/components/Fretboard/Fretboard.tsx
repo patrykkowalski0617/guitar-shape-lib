@@ -1,4 +1,4 @@
-import { useEffect, type JSX } from "react";
+import { useEffect, type JSX, useRef } from "react";
 import * as S from "./parts";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { numberOfFrets, STRINGS_FIRST_NOTES } from "./helpers/constants";
@@ -15,8 +15,10 @@ import { useSettingsStore } from "@/store/useSettingsStore";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { useTuneSharpNoteNames } from "./helpers/useTuneSharpNoteNames";
+import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
 
 export default function Fretboard(): JSX.Element {
+  const scrollRef = useRef<HTMLDivElement>(null);
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeSemitoneOffsetFromC = useControlsStore(
@@ -47,6 +49,8 @@ export default function Fretboard(): JSX.Element {
 
   const sharpNoteNamesInTune = useTuneSharpNoteNames();
 
+  useHorizontalScroll(scrollRef);
+
   useEffect(() => {
     if (isDevMode && currentVariantId) {
       console.log("Variant ID:", currentVariantId);
@@ -54,7 +58,7 @@ export default function Fretboard(): JSX.Element {
   }, [currentVariantId, isDevMode]);
 
   return (
-    <BoardScrollWrapper>
+    <BoardScrollWrapper ref={scrollRef}>
       <TutorialStickyIcons>
         <TutorialPopover {...TUTORIAL_CONTENT.FRETBOARD} />
       </TutorialStickyIcons>
