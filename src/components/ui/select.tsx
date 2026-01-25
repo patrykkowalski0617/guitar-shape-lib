@@ -33,7 +33,7 @@ function SelectTrigger({
       className={cn(
         "flex w-full items-center justify-between gap-2 border bg-muted/30 border-muted-foreground/30 px-3 text-[12px] font-semibold tracking-tight shadow-none transition-none disabled:cursor-not-allowed disabled:opacity-30 whitespace-nowrap rounded-md relative",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 focus-visible:z-50",
-
+        "hover:bg-muted/50 hover:text-accent-foreground",
         size === "default" ? "h-10 text-sm" : "h-8",
         className,
       )}

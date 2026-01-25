@@ -49,13 +49,12 @@ export function SelectWithNext({
       </Select>
 
       <Button
-        variant="outline"
         size="icon"
         onClick={handleNext}
         className={cn(
+          "border border-muted-foreground/30 bg-primary/50 hover:bg-primary/90 text-foreground",
           "flex justify-center",
-          "h-8 w-8 shrink-0 rounded-l-none border-muted-foreground/30 bg-muted/30",
-          "hover:bg-muted/50 transition-none",
+          "h-8 w-8 shrink-0 rounded-l-none border-muted-foreground/30",
           "focus-visible:ring-2 focus-visible:z-20",
           "-ml-[1px]",
         )}
