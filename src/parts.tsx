@@ -3,8 +3,8 @@ import styled, { css } from "styled-components";
 export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   min-height: 100vh;
-  justify-content: space-around;
 `;
 
 export const MainContent = styled.main`
@@ -14,6 +14,7 @@ export const MainContent = styled.main`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  max-height: 900px;
 `;
 
 export const SectionCommonCss = css`
