@@ -36,7 +36,6 @@ export default function Keyboard(): JSX.Element {
     <BoardScrollWrapper>
       <TutorialStickyIcons>
         <TutorialPopover {...TUTORIAL_CONTENT.KEYBOARD} />
-        <TutorialPopover {...TUTORIAL_CONTENT.SCALE_TEMPLATE} />
       </TutorialStickyIcons>
       <BoardWrapper>
         <ScaleTemplate />
