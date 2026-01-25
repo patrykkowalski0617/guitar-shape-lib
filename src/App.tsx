@@ -2,7 +2,7 @@ import Fretboard from "./components/Fretboard/Fretboard";
 import KeySelect from "./components/KeySelect/KeySelect";
 import ModeSelect from "./components/ModeSelect/ModeSelect";
 import RoleSelect from "./components/RoleSelect/RoleSelect";
-import { useMusicEngine } from "./hooks/useMusicEngine/useMusicEngine";
+import { useMusicEngine } from "./hooks/useMusicEngine";
 import Header from "./components/Header/Header";
 import ShapeSelect from "./components/ShapeSelect/ShapeSelect";
 import Footer from "./components/Footer/Footer";
@@ -19,14 +19,14 @@ function App() {
   useMusicEngine();
   const { tonicColor, subdominantColor, dominantColor } = useSettingsStore();
 
-  const globalStyles = {
+  const roleColors = {
     "--secondary": `hsl(${tonicColor} 100% 45%)`,
     "--primary": `hsl(${subdominantColor} 47% 45%)`,
     "--tension": `hsl(${dominantColor} 92% 45%)`,
   } as React.CSSProperties;
 
   return (
-    <AppWrapper style={globalStyles}>
+    <AppWrapper style={roleColors}>
       <DevModeProvider />
       <Header />
       <MainContent>

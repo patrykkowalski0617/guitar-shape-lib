@@ -19,7 +19,7 @@ export const useKeyboardScroll = (
         const targetScrollLeft =
           container.scrollLeft + (elementRect.left - containerRect.left) - 25;
 
-        container.scrollTo({ left: targetScrollLeft });
+        container.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
       }
     }, 50);
 

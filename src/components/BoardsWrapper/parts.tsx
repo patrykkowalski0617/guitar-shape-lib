@@ -10,7 +10,6 @@ export const BoardWrapper = styled.div`
 export const BoardScrollWrapper = styled.div`
   overflow-x: auto;
   scrollbar-width: none;
-  scroll-behavior: smooth;
   mask-image: linear-gradient(
     to right,
     transparent,

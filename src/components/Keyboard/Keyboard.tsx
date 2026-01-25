@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { type JSX } from "react";
+import { type JSX, useRef } from "react";
 import * as S from "@/components/Keyboard/parts";
 import { majorScale, NOTES_SHARP, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { useControlsStore } from "@/store/useControlsStore";
@@ -17,6 +16,7 @@ import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { useKeyboardScroll } from "./helpers/useKeyboardScroll";
+import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 
 const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
@@ -39,11 +39,12 @@ export default function Keyboard(): JSX.Element {
   const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
   const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
+  useHorizontalScroll(scrollRef);
+  useKeyboardScroll(scrollRef, [currentRoleId, currentKeyId, isMajorMode]);
+
   const scrollTargetId =
     keyboardNotes.find((n) => currentRoleId && currentRoleNoteIds?.includes(n.noteId))?.noteId ||
     keyboardNotes.find((n) => currentScaleNoteIds.includes(n.noteId))?.noteId;
-
-  useKeyboardScroll(scrollRef, [currentRoleId, currentKeyId, isMajorMode]);
 
   return (
     <BoardScrollWrapper ref={scrollRef}>
