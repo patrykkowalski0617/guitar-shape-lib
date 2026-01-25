@@ -9,8 +9,8 @@ export const BoardWrapper = styled.div`
 
 export const BoardScrollWrapper = styled.div`
   overflow-x: auto;
-  position: relative;
   scrollbar-width: none;
+  scroll-behavior: smooth;
   mask-image: linear-gradient(
     to right,
     transparent,
@@ -18,6 +18,7 @@ export const BoardScrollWrapper = styled.div`
     var(--background) calc(100% - 15px),
     transparent
   );
+  position: relative;
   border-radius: var(--radius-lg);
   margin-left: -5px; //- compensation for VariantProgressDots
 `;

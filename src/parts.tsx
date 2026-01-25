@@ -14,7 +14,9 @@ export const MainContent = styled.main`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  max-height: 900px;
+  @media (min-width: 1000px) {
+    max-height: 900px;
+  }
 `;
 
 export const SectionCommonCss = css`

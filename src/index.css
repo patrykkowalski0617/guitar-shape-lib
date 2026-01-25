@@ -39,7 +39,7 @@
   --background: hsl(193 40% 1%);
   --foreground: hsl(0 0% 93%);
 
-  --card: hsl(193 20% 12%);
+  --card: hsl(195, 20%, 10%);
   --card-foreground: hsl(0 0% 93%);
   --popover: hsl(193 20% 10%);
   --popover-foreground: hsl(0 0% 93%);

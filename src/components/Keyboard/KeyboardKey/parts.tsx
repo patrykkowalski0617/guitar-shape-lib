@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { KeyAndFretStyles } from "@/components/Boards/parts";
+import { KeyAndFretStyles } from "@/components/BoardsWrapper/parts";
 import { transitionTime } from "@/utils/constants";
 import { roleColors, type HighlightRole } from "../../../utils/roleColors";
 

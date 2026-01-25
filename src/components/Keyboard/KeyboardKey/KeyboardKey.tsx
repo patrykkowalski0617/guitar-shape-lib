@@ -22,6 +22,7 @@ interface KeyboardKeyProps {
   //
   onLeave: () => void;
   onHover: (id: string) => void;
+  "data-role-highlight"?: boolean;
 }
 
 const KeyboardKey = memo(
@@ -43,6 +44,7 @@ const KeyboardKey = memo(
     //
     onHover,
     onLeave,
+    "data-role-highlight": dataRoleHighlight,
   }: KeyboardKeyProps) => {
     return (
       <S.Key
@@ -56,6 +58,7 @@ const KeyboardKey = memo(
         //
         onMouseOver={() => onHover(noteId)}
         onMouseLeave={onLeave}
+        data-role-highlight={dataRoleHighlight}
       >
         <NoteLabel
           isFlatTune={isFlatTune}
@@ -81,7 +84,8 @@ const KeyboardKey = memo(
       prev.isShapeNote === next.isShapeNote &&
       prev.flatNoteName === next.flatNoteName &&
       prev.sharpNoteName === next.sharpNoteName &&
-      prev.isEnharmonic === next.isEnharmonic
+      prev.isEnharmonic === next.isEnharmonic &&
+      prev["data-role-highlight"] === next["data-role-highlight"]
     );
   },
 );
