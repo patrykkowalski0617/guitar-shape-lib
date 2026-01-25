@@ -5,7 +5,7 @@ import { GroupWrapper, Label } from "../ControlsContainer/ControlsContainer";
 import { SelectItem } from "@/components/ui/select";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
-import { SelectWithNext } from "../ui/SelectWithNext";
+import { SelectWithNext } from "../ui/select-with-next";
 
 export default function KeySelect() {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
