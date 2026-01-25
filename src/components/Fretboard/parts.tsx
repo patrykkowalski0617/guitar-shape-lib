@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { Note } from "./FretCell/parts";
+import { Fret, Note } from "./FretCell/parts";
 import { keyboardBRadius, keyBRadius } from "../Keyboard/KeyboardKey/parts";
 
 export const FretboardWrapper = styled.div`
-  padding-top: 5px;
+  padding-top: 3px;
 `;
 
 export const Fretboard = styled.div`
@@ -21,22 +21,22 @@ export const FretboardRow = styled.div`
 
   &:first-child {
     & > :first-child,
-    & > :first-child ${Note} {
+    & > :first-child ${Note}, & > :first-child ${Fret} {
       border-radius: ${keyboardBRadius} ${keyBRadius} ${keyBRadius} ${keyBRadius};
     }
     & > :last-child,
-    & > :last-child ${Note} {
+    & > :last-child ${Note}, & > :last-child ${Fret} {
       border-radius: ${keyBRadius} ${keyboardBRadius} ${keyBRadius} ${keyBRadius};
     }
   }
 
   &:last-child {
     & > :first-child,
-    & > :first-child ${Note} {
+    & > :first-child ${Note}, & > :first-child ${Fret} {
       border-radius: ${keyBRadius} ${keyBRadius} ${keyBRadius} ${keyboardBRadius};
     }
     & > :last-child,
-    & > :last-child ${Note} {
+    & > :last-child ${Note}, & > :last-child ${Fret} {
       border-radius: ${keyBRadius} ${keyBRadius} ${keyboardBRadius} ${keyBRadius};
     }
   }

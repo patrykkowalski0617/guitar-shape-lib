@@ -62,7 +62,7 @@ export const LockShapeButton = () => {
     <GroupWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.LOCK_SHAPE} />
       <Button
-        variant="outline"
+        variant={isLocked ? "active" : "outline"}
         onClick={handleToggle}
         disabled={!activeShapePoint && !isLocked}
         fixedWidthLabel={labelPlaceholder}
