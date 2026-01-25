@@ -20,7 +20,7 @@ interface TemplateWrapperProps {
 }
 
 export const TemplateWrapper = styled.div<TemplateWrapperProps>`
-  height: 30px;
+  height: 27px;
   transform: ${({ $position, $numberOfKeys }) => {
     return `translateX(calc(
       (${$position} + (${KEY_PADDING} * ${LEFT_PADDING_FACTOR})) * ${KEY_WIDTH_CSS($numberOfKeys)}
