@@ -22,7 +22,7 @@ const initialState = {
   areAnimationsOn: true,
   isTutorialOn: true,
   tonicColor: 36,
-  subdominantColor: 247,
+  subdominantColor: 270,
   dominantColor: 111,
 };
 

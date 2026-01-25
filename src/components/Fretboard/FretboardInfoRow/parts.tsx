@@ -12,6 +12,7 @@ export const FretInfoCell = styled.div<{
   justify-content: center;
   width: 100%;
   height: 20px;
+  margin: 0 2px;
   font-size: 0.7rem;
   font-weight: 800;
   color: var(--border);

@@ -45,10 +45,10 @@ const commonStyleForKey = (areAnimationsOn: boolean) => css`
 `;
 
 const whiteKey = (areAnimationsOn: boolean) => css`
-  height: 95px;
+  height: 110px;
   z-index: 1;
   border-radius: 0 0 ${keyBRadius} ${keyBRadius};
-  padding-top: 1px; //- 1px difference to compensate border of black key
+  padding-top: 6px; //- 1px difference to compensate border of black key
   &::after {
     content: "";
     position: absolute;
@@ -68,9 +68,9 @@ const whiteKey = (areAnimationsOn: boolean) => css`
 
 const blackKey = (areAnimationsOn: boolean) => css`
   background-color: var(--background);
-  height: 60px;
+  height: 70px;
   z-index: 2;
-  padding-top: 0px;
+  padding-top: 5px;
   ${commonStyleForKey(areAnimationsOn)}
 
   @media (min-width: 768px) {

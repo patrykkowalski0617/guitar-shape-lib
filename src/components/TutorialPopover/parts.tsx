@@ -24,7 +24,7 @@ export const IconWrapper = styled.div<IconWrapperProps>`
   position: absolute;
   left: ${({ $x }) => $x}px;
   top: ${({ $y }) => $y}px;
-  opacity: 0.6;
+  opacity: 0.7;
   text-shadow: 0 0 8px;
   will-change: filter;
   animation: ${shadowShine} 700ms ${({ $animationOrder }) => $animationOrder * 500}ms forwards;

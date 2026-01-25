@@ -16,7 +16,7 @@ export const FretboardRow = styled.div`
   flex-direction: row;
 
   & > :first-child {
-    margin-right: 8px;
+    margin-right: 16px;
   }
 
   &:first-child {

@@ -18,7 +18,6 @@ interface FretCellProps {
   isLockedNote: boolean;
   lockedRoleId: RoleId | null;
   isDevNote: boolean;
-  numberOfFrets: number;
   onHover: (id: string) => void;
   onLeave: () => void;
   onClick: (() => void) | undefined;
@@ -39,7 +38,6 @@ const FretCell = memo(
     isDevNote,
     isShapeRootNote,
     isTuneNote,
-    numberOfFrets,
     currentRoleId,
     onHover,
     onLeave,
@@ -52,42 +50,40 @@ const FretCell = memo(
       isShapeRootNote && currentRoleId ? (currentRoleId as HighlightRole) : "none";
 
     return (
-      <S.Fret
-        $numberOfFrets={numberOfFrets}
-        onMouseOver={() => onHover(note.noteId)}
-        onMouseLeave={onLeave}
-        $isDevNote={isDevNote}
-        $isShapeRootNote={isShapeRootNote}
-        $isShapeNote={isShapeNote}
-        $isLockedNote={isLockedNote}
-        $lockedRoleId={lockedRoleId}
-        $isTuneNote={isTuneNote}
-        $areAnimationsOn={areAnimationsOn}
-      >
-        <S.Note
-          $isHighlighted={isHighlighted}
-          $isActiveNote={isActive}
-          $isHighlightRole={activeRole}
-          onClick={onClick}
+      <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={lockedRoleId}>
+        {isShapeRootNote && (
+          <VariantProgressDots variants={variants} isCurrentActiveRoot={isCurrentActiveRoot} />
+        )}
+        <S.Fret
+          onMouseOver={() => onHover(note.noteId)}
+          onMouseLeave={onLeave}
+          $isDevNote={isDevNote}
+          $isShapeRootNote={isShapeRootNote}
           $isShapeNote={isShapeNote}
+          $isTuneNote={isTuneNote}
           $areAnimationsOn={areAnimationsOn}
         >
-          <NoteLabel
-            isHighlighted={isHighlighted || isShapeNote}
-            flatNoteName={note.flatNoteName}
-            sharpNoteName={note.sharpNoteName}
-            isTuneNote={isTuneNote}
-            isShapeNote={isShapeNote}
-            isFlatTune={isFlatTune}
-            orientation="horizontal"
-            isEnharmonic={note.isEnharmonic}
-          />
-
-          {isShapeRootNote && (
-            <VariantProgressDots variants={variants} isCurrentActiveRoot={isCurrentActiveRoot} />
-          )}
-        </S.Note>
-      </S.Fret>
+          <S.Note
+            $isHighlighted={isHighlighted}
+            $isActiveNote={isActive}
+            $isHighlightRole={activeRole}
+            onClick={onClick}
+            $isShapeNote={isShapeNote}
+            $areAnimationsOn={areAnimationsOn}
+          >
+            <NoteLabel
+              isHighlighted={isHighlighted || isShapeNote}
+              flatNoteName={note.flatNoteName}
+              sharpNoteName={note.sharpNoteName}
+              isTuneNote={isTuneNote}
+              isShapeNote={isShapeNote}
+              isFlatTune={isFlatTune}
+              orientation="horizontal"
+              isEnharmonic={note.isEnharmonic}
+            />
+          </S.Note>
+        </S.Fret>
+      </S.LockedEffectWrapper>
     );
   },
   (prev, next) => {
