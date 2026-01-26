@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/select";
 import { useControlsStore } from "@/store/useControlsStore";
 import { GroupWrapper, Label } from "../ControlsContainer/ControlsContainer";
-import { useSettingsStore } from "@/store/useSettingsStore";
 import shapes, { type Shapes } from "@/utils/shapes";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { getFilteredShapeOptions } from "./helpers/shapeHelpers";
@@ -24,7 +23,6 @@ export default function ShapeSelect() {
     (state) => state.currentShapeSemitoneOffsetFromC,
   );
   const setShape = useControlsStore((state) => state.setShape);
-  const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
 
   const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
 
@@ -58,7 +56,7 @@ export default function ShapeSelect() {
   return (
     <GroupWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.SHAPE_SELECTOR} />
-      <Label>{areDescriptiveLabels ? "Set of notes" : "Chord/Scale"}</Label>
+      <Label>Chord/Scale</Label>
       <Select
         value={currentShapeValue}
         onValueChange={(v) => {
@@ -70,13 +68,7 @@ export default function ShapeSelect() {
       >
         <SelectTrigger disabled={isDisabled} style={{ minWidth: "194px" }}>
           <SelectValue
-            placeholder={
-              currentRoleId
-                ? "Select shape..."
-                : areDescriptiveLabels
-                  ? "Select energy first..."
-                  : "Select function first..."
-            }
+            placeholder={currentRoleId ? "Select shape..." : "Select function first..."}
           />
         </SelectTrigger>
         <SelectContent className="font-semibold">

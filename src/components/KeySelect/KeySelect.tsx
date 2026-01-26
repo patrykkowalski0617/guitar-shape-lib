@@ -1,5 +1,4 @@
 import { useControlsStore } from "@/store/useControlsStore";
-import { useSettingsStore } from "@/store/useSettingsStore";
 import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/utils";
 import { GroupWrapper, Label } from "../ControlsContainer/ControlsContainer";
 import { SelectItem } from "@/components/ui/select";
@@ -11,7 +10,6 @@ export default function KeySelect() {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const setCurrentKey = useControlsStore((state) => state.setCurrentKey);
-  const areDescriptiveLabels = useSettingsStore((state) => state.areDescriptiveLabels);
 
   const keyOptions = Object.entries(UNIFIED_MUSIC_KEYS).map(([id, data]) => ({
     value: id,
@@ -23,7 +21,7 @@ export default function KeySelect() {
   return (
     <GroupWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.KEY_SELECTOR} />
-      <Label>{areDescriptiveLabels ? "Root" : "Key"}</Label>
+      <Label>Key / Root Note</Label>
 
       <SelectWithNext
         value={currentKeyId}

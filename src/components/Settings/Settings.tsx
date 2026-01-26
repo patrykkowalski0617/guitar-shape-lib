@@ -12,7 +12,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import DescriptiveLabelsSelect from "./DescriptiveLabelsSelect/DescriptiveLabelsSelect";
 import Animations from "./Animations/Animations";
 import Tutorial from "./Tutorial/Tutorial";
 import ColorsSetting from "./ColorsSetting/ColorsSetting";
@@ -43,9 +42,6 @@ export function Settings() {
             }}
           >
             <section className="space-y-3">
-              <div className="px-6 py-2">
-                <DescriptiveLabelsSelect />
-              </div>
               <div className="px-6 py-2">
                 <Animations />
               </div>
