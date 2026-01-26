@@ -21,7 +21,7 @@ export default function KeySelect() {
   return (
     <GroupWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.KEY_SELECTOR} />
-      <Label>Key / Root Note</Label>
+      <Label>Key</Label>
 
       <SelectWithNext
         value={currentKeyId}
