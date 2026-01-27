@@ -58,7 +58,7 @@ export interface Shape {
     subdominant?: SemitoneOffsetFromMajorTonicRoot;
     dominant?: SemitoneOffsetFromMajorTonicRoot;
   };
-  shapesCoordinates: ShapesCoordinates;
+  coordinatesVariants: ShapesCoordinates;
 }
 
 export interface Shapes {
@@ -87,7 +87,7 @@ const shapes: Shapes = {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 4],[4, 2],[3, 1],[3, 2],[2, 1],[2, 4],[1, 4],[0, 0],[0, 4]],
@@ -135,7 +135,7 @@ const shapes: Shapes = {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 2],[3, 4],[2, 1],[1, 0],[0, 0],[0, 2],[0, 4]],
@@ -180,7 +180,7 @@ const shapes: Shapes = {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 1],[3, 2],[3, 4],[2, 1],[2, 4],[1, 4],[0, 0],[0, 2],[0, 4]],
@@ -222,7 +222,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       dominant: { majorMode: [_5], minorMode: [_M3] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[2, 4],[1, 3],[0, 0],[0, 4]],
@@ -272,7 +272,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       dominant: { minorMode: [_M3], majorMode: [_5] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 1],[5, 4],[4, 2],[3, 0],[3, 2],[3, 3],[2, 1],[1, 0],[1, 3],[0, 0],[0, 1],[0, 4]],
@@ -320,7 +320,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       dominant: { bothModes: [_M7] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 3],[4, 1],[3, 0],[3, 2],[2, 0],[2, 3],[1, 3],[0, 0],[0, 3]],
@@ -362,7 +362,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       dominant: { bothModes: [_M7] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[3, 5],[2, 3],[2, 6],[1, 5],[1, 8],[0, 6],[0, 9]],
@@ -419,7 +419,7 @@ const shapes: Shapes = {
       tonic: { bothModes: [_M6, _M3] },
       subdominant: { bothModes: [_M2, _M6] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 3],[4, 2],[3, 0],[3, 2],[2, 0],[1, 0],[1, 3],[0, 0],[0, 3]],
@@ -461,7 +461,7 @@ const shapes: Shapes = {
         bothModes: [_M6],
       },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 3],[4, 2],[3, 2],[3, 4],[2, 0],[1, 0],[0, 0],[0, 2],[0, 3]],
@@ -505,7 +505,7 @@ const shapes: Shapes = {
         bothModes: [_M6],
       },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 3],[4, 2],[3, 0],[3, 2],[3, 4],[2, 0],[1, 0],[1, 3],[0, 0],[0, 2],[0, 3]],
@@ -551,7 +551,7 @@ const shapes: Shapes = {
       subdominant: { bothModes: [_M2] },
       dominant: { majorMode: [_5, _M3] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 3],[4, 0],[4, 2],[3, 0],[3, 2],[2, 0],[2, 2],[1, 0],[1, 3],[0, 0],[0, 3]],
@@ -595,7 +595,7 @@ const shapes: Shapes = {
       subdominant: { bothModes: [_4] },
       dominant: { majorMode: [_5] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 2],[4, 4],[3, 2],[3, 4],[2, 1],[2, 4],[1, 2],[0, 0],[0, 2],[0, 4]],
@@ -636,7 +636,7 @@ const shapes: Shapes = {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 4],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
@@ -676,7 +676,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       tonic: { majorMode: [_1] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 5]],
@@ -726,7 +726,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       tonic: { minorMode: [_M6] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[2, 5],[1, 3],[1, 5],[1, 7],[0, 3],[0, 5],[0, 7]],
@@ -781,7 +781,7 @@ const shapes: Shapes = {
       tonic: { minorMode: [_M6] },
       subdominant: { minorMode: [_M2] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
@@ -833,7 +833,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       subdominant: { majorMode: [_4] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 1],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 3],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 6]],
@@ -885,7 +885,7 @@ const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       dominant: { majorMode: [_5], minorMode: [_M3] },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 4],[0, 5]],
@@ -941,7 +941,7 @@ const shapes: Shapes = {
         minorMode: [_M3],
       },
     },
-    shapesCoordinates: {
+    coordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 1],[5, 4],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 1],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 1],[0, 4],[0, 5]],

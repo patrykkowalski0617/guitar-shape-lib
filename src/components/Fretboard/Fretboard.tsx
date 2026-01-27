@@ -1,4 +1,4 @@
-import { useEffect, type JSX, useRef } from "react";
+import { type JSX, useRef } from "react";
 import * as S from "./parts";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { numberOfFrets, STRINGS_FIRST_NOTES } from "./helpers/constants";
@@ -7,7 +7,6 @@ import { useMusicStore } from "@/store/useMusicStore";
 import { BoardScrollWrapper, BoardWrapper, TutorialStickyIcons } from "../BoardsWrapper/parts";
 import FretCell from "./FretCell/FretCell";
 import { useFretboardDevEditor } from "./helpers/useFretboardDevEditor";
-import { useFretboardShapes } from "./helpers/useFretboardShapes";
 import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
 import { useDevStore } from "@/store/useDevStore";
 import shapes from "@/utils/shapes";
@@ -16,6 +15,8 @@ import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { useTuneSharpNoteNames } from "./helpers/useTuneSharpNoteNames";
 import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
+import { useShapeVariantIterator } from "./helpers/useShapeVariantIterator";
+import { useShapeNotes } from "./helpers/useShapeNotes";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -44,18 +45,15 @@ export default function Fretboard(): JSX.Element {
 
   const { isDevMode } = useDevStore();
   const { onDevClick, isDevNote } = useFretboardDevEditor();
-  const { showShape, isPointInShape, currentVariantId } = useFretboardShapes();
+
+  const { setNextShapeVariantLocationData } = useShapeVariantIterator();
+  const { isNoteInShape } = useShapeNotes();
+
   const shapeData = currentShapeId ? shapes[currentShapeId] : null;
 
   const sharpNoteNamesInTune = useTuneSharpNoteNames();
 
   useHorizontalScroll(scrollRef);
-
-  useEffect(() => {
-    if (isDevMode && currentVariantId) {
-      console.log("Variant ID:", currentVariantId);
-    }
-  }, [currentVariantId, isDevMode]);
 
   return (
     <BoardScrollWrapper ref={scrollRef}>
@@ -81,7 +79,6 @@ export default function Fretboard(): JSX.Element {
                     firstOctave: octaveNumber,
                   }).map((note, fretIndex) => {
                     const isShapeRootNote = shapeRootSharpNote === note.sharpNoteName;
-                    const isShapeNote = isPointInShape(stringIndex, fretIndex);
                     const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
                     const isLockedNote = !!lockedShape?.some(
                       (p) => p.s === stringIndex && p.f === fretIndex,
@@ -101,12 +98,12 @@ export default function Fretboard(): JSX.Element {
                         isHighlighted={isShapeRootNote}
                         currentRoleId={currentRoleId}
                         isFlatTune={isFlatTune}
-                        isActive={activeNoteId === note.noteId}
                         isShapeRootNote={isShapeRootNote}
                         isTuneNote={isTuneNote}
+                        isActive={activeNoteId === note.noteId}
                         onHover={setActiveNoteId}
                         onLeave={() => setActiveNoteId(null)}
-                        isShapeNote={isShapeNote}
+                        isShapeNote={isNoteInShape([stringIndex, fretIndex])}
                         isLockedNote={isLockedNote}
                         lockedRoleId={lockedRoleId}
                         isDevNote={isCurrentDevNote}
@@ -114,7 +111,8 @@ export default function Fretboard(): JSX.Element {
                         isCurrentActiveRoot={isCurrentActiveRoot}
                         onClick={() => {
                           if (isDevMode) onDevClick(stringIndex, fretIndex);
-                          if (isShapeRootNote) showShape(stringIndex, fretIndex);
+                          if (isShapeRootNote)
+                            setNextShapeVariantLocationData(stringIndex, fretIndex);
                         }}
                         areAnimationsOn={areAnimationsOn}
                       />

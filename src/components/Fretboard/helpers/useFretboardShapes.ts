@@ -8,7 +8,6 @@ export const useFretboardShapes = () => {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const activeShapePoint = useMusicStore((state) => state.activeShapePoint);
   const setActiveShapePoint = useMusicStore((state) => state.setActiveShapePoint);
-  const setCurrentShapeRootFret = useMusicStore((state) => state.setCurrentShapeRootFret);
   const { learned, learning } = useProgressStore();
 
   const { activeShapePoints, variantId, stringVariants } = useMemo(() => {
@@ -19,7 +18,6 @@ export const useFretboardShapes = () => {
     if (!shapeData) return { activeShapePoints: [], variantId: null, stringVariants: [] };
 
     const { stringIdx, fretIdx, variantIdx } = activeShapePoint;
-    setCurrentShapeRootFret(fretIdx);
 
     const allVariants = Object.entries(shapeData.shapesCoordinates);
 
@@ -51,7 +49,7 @@ export const useFretboardShapes = () => {
       variantId: selectedVariant.id,
       stringVariants: mappedVariants,
     };
-  }, [activeShapePoint, currentShapeId, setCurrentShapeRootFret, learned, learning]);
+  }, [activeShapePoint, currentShapeId, learned, learning]);
 
   const showShape = useCallback(
     (stringIndex: number, fretIndex: number) => {

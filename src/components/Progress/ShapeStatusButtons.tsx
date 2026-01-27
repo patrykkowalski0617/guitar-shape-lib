@@ -7,6 +7,7 @@ import { GroupWrapper } from "../ControlsContainer/parts";
 
 export const ShapeStatusButtons = () => {
   const { currentVariantId } = useFretboardShapes();
+
   const { learned, learning, toggleLearned, toggleLearning } = useProgressStore();
 
   const isLearned = currentVariantId ? learned.includes(currentVariantId) : false;

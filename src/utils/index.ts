@@ -1,5 +1,4 @@
 export * from "./arpsAndScales";
-export * from "./getMinorMajorScaleSteps";
 export * from "./getNotes";
 export * from "./intervals";
 export * from "./roles";
