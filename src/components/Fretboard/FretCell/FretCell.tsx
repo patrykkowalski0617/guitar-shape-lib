@@ -7,7 +7,7 @@ import type { HighlightRole } from "@/utils/roleColors";
 
 interface FretCellProps {
   note: NoteObject;
-  fretIndex: number;
+  stringIndex: number;
   isHighlighted: boolean;
   currentRoleId: RoleId | null;
   isFlatTune: boolean;
@@ -29,6 +29,7 @@ interface FretCellProps {
 const FretCell = memo(
   ({
     note,
+    stringIndex,
     isHighlighted,
     isFlatTune,
     isActive,
@@ -52,7 +53,11 @@ const FretCell = memo(
     return (
       <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={lockedRoleId}>
         {isShapeRootNote && (
-          <VariantProgressDots variants={variants} isCurrentActiveRoot={isCurrentActiveRoot} />
+          <VariantProgressDots
+            stringIndex={stringIndex}
+            variants={variants}
+            isCurrentActiveRoot={isCurrentActiveRoot}
+          />
         )}
         <S.Fret
           onMouseOver={() => onHover(note.noteId)}
@@ -88,6 +93,7 @@ const FretCell = memo(
   },
   (prev, next) => {
     return (
+      prev.stringIndex === next.stringIndex &&
       prev.isActive === next.isActive &&
       prev.isHighlighted === next.isHighlighted &&
       prev.isFlatTune === next.isFlatTune &&

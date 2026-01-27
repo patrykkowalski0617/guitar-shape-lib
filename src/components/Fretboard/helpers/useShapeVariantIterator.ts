@@ -2,7 +2,7 @@ import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import shapes from "@/utils/shapesNew";
 
-const STRING_MAP: Record<number, string> = {
+export const STRING_MAP: Record<number, string> = {
   5: "strE",
   4: "strA",
   3: "strD",

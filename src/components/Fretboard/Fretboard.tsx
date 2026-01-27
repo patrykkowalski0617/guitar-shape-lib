@@ -1,4 +1,4 @@
-import { type JSX, useRef } from "react";
+import { type JSX, useRef, useState } from "react";
 import * as S from "./parts";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { numberOfFrets, STRINGS_FIRST_NOTES } from "./helpers/constants";
@@ -31,8 +31,10 @@ export default function Fretboard(): JSX.Element {
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const lockedShape = useMusicStore((state) => state.lockedShape);
   const lockedRoleId = useMusicStore((state) => state.lockedRoleId);
-  const activeShapePoint = useMusicStore((state) => state.activeShapePoint);
   const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
+  const [clickedCell, setClickedCell] = useState<{ stringIndex: number; fretIndex: number } | null>(
+    null,
+  );
 
   const NOTES_SHARP = getNotes({ firstNote: currentKeyId }).map(
     ({ sharpNoteName }) => sharpNoteName,
@@ -87,14 +89,14 @@ export default function Fretboard(): JSX.Element {
 
                     const isCurrentActiveRoot =
                       isShapeRootNote &&
-                      activeShapePoint?.stringIdx === stringIndex &&
-                      activeShapePoint?.fretIdx === fretIndex;
+                      clickedCell?.stringIndex === stringIndex &&
+                      clickedCell?.fretIndex === fretIndex;
 
                     return (
                       <FretCell
                         key={`${stringIndex}-${fretIndex}`}
                         note={note}
-                        fretIndex={fretIndex}
+                        stringIndex={stringIndex}
                         isHighlighted={isShapeRootNote}
                         currentRoleId={currentRoleId}
                         isFlatTune={isFlatTune}
@@ -113,6 +115,7 @@ export default function Fretboard(): JSX.Element {
                           if (isDevMode) onDevClick(stringIndex, fretIndex);
                           if (isShapeRootNote)
                             setNextShapeVariantLocationData(stringIndex, fretIndex);
+                          setClickedCell({ stringIndex, fretIndex });
                         }}
                         areAnimationsOn={areAnimationsOn}
                       />
