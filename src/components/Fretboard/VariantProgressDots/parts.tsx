@@ -5,7 +5,7 @@ export const DotsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1px;
-  left: -7px;
+  left: 0px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 30;
@@ -16,7 +16,7 @@ export const Dot = styled.div<{
   $isLearning: boolean;
   $isActive: boolean;
 }>`
-  width: 15px;
+  width: 10px;
   min-height: 9px;
   border-radius: 2px;
   border: 1px solid var(--accent-foreground);
