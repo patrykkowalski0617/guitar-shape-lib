@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { GroupWrapper } from "../ControlsContainer/parts";
-import { useCurrentShapeVariantProgressId } from "./helpers/useCurrentShapeVariantProgressId";
+import { useCurrentShapeVariantProgressId } from "../../hooks/useCurrentShapeVariantProgressId";
 
 export const ShapeStatusButtons = () => {
   const { learned, toggleLearned } = useProgressStore();

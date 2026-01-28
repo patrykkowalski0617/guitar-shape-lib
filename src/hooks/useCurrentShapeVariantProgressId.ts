@@ -8,7 +8,7 @@ export const useCurrentShapeVariantProgressId = () => {
   );
   if (!currentShapeId || !currentShapeVariantLocationData) return null;
 
-  const { stringKey, variantId } = currentShapeVariantLocationData;
+  const { stringId, variantId } = currentShapeVariantLocationData;
 
-  return `${currentShapeId}-${stringKey}-${variantId}`;
+  return `${currentShapeId}-${stringId}-${variantId}`;
 };

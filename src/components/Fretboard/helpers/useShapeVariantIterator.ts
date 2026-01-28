@@ -37,16 +37,16 @@ export const useShapeVariantIterator = () => {
       lastLocation = { shapeId: currentShapeId, stringIdx, fretIdx: fretIndex };
     }
 
-    const stringKey = STRING_MAP[stringIdx];
+    const stringId = STRING_MAP[stringIdx];
     const variantsOfCurrentString =
-      coordinatesVariants[stringKey as keyof typeof coordinatesVariants];
+      coordinatesVariants[stringId as keyof typeof coordinatesVariants];
 
     if (variantsOfCurrentString) {
       const keys = Object.keys(variantsOfCurrentString);
       const activeVariantId = keys[currentStep % keys.length];
 
       setCurrentShapeVariantLocationData({
-        stringKey,
+        stringId,
         fretIdx: fretIndex,
         variantId: activeVariantId,
       });

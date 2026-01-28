@@ -2,7 +2,7 @@ import * as S from "./parts";
 import { STRING_MAP } from "../helpers/useShapeVariantIterator";
 import shapes from "@/utils/shapesNew";
 import { useControlsStore } from "@/store/useControlsStore";
-import { useCurrentShapeVariantProgressId } from "@/components/Progress/helpers/useCurrentShapeVariantProgressId";
+import { useCurrentShapeVariantProgressId } from "@/hooks/useCurrentShapeVariantProgressId";
 import { useProgressStore } from "@/store/useProgressStore";
 
 export const VariantProgressDots = ({ stringIndex }: { stringIndex: number }) => {
@@ -12,18 +12,18 @@ export const VariantProgressDots = ({ stringIndex }: { stringIndex: number }) =>
 
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
 
-  const stringKey = STRING_MAP[stringIndex];
+  const stringId = STRING_MAP[stringIndex];
   const coordinatesVariants = currentShapeId ? shapes[currentShapeId].coordinatesVariants : null;
 
   const variantsOfCurrentString =
-    coordinatesVariants?.[stringKey as keyof typeof coordinatesVariants];
+    coordinatesVariants?.[stringId as keyof typeof coordinatesVariants];
 
   if (!variantsOfCurrentString) return null;
 
   return (
     <S.DotsWrapper>
       {Object.entries(variantsOfCurrentString).map(([variantKey]) => {
-        const dotId = `${currentShapeId}-${stringKey}-${variantKey}`;
+        const dotId = `${currentShapeId}-${stringId}-${variantKey}`;
         return (
           <S.Dot
             key={dotId}

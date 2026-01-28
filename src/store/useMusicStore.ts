@@ -7,7 +7,7 @@ interface Point {
 }
 
 export interface CurrentShapeVariantLocation {
-  stringKey: string;
+  stringId: string;
   fretIdx: number;
   variantId: string;
 }

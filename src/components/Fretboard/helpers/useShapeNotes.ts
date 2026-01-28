@@ -14,12 +14,12 @@ export const useShapeNotes = () => {
     if (!shapeData) return [];
 
     const { coordinatesVariants } = shapeData;
-    const { stringKey, fretIdx, variantId } = currentShapeVariantLocationData || {};
+    const { stringId, fretIdx, variantId } = currentShapeVariantLocationData || {};
 
-    if (!stringKey || fretIdx === undefined || !variantId) return [];
+    if (!stringId || fretIdx === undefined || !variantId) return [];
 
     const variantCoordinates =
-      coordinatesVariants?.[stringKey as keyof typeof coordinatesVariants]?.[
+      coordinatesVariants?.[stringId as keyof typeof coordinatesVariants]?.[
         variantId as keyof (typeof coordinatesVariants)[keyof typeof coordinatesVariants]
       ];
 
