@@ -80,6 +80,7 @@ export default function Fretboard(): JSX.Element {
                         key={`${stringIndex}-${fretIndex}`}
                         note={note}
                         stringIndex={stringIndex}
+                        fretIndex={fretIndex}
                         isHighlighted={isShapeRootNote}
                         currentRoleId={currentRoleId}
                         isFlatTune={isFlatTune}

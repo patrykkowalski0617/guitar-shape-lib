@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import * as S from "./parts";
 import type { NoteObject, RoleId } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
@@ -8,6 +8,7 @@ import type { HighlightRole } from "@/utils/roleColors";
 interface FretCellProps {
   note: NoteObject;
   stringIndex: number;
+  fretIndex: number;
   isHighlighted: boolean;
   currentRoleId: RoleId | null;
   isFlatTune: boolean;
@@ -28,6 +29,7 @@ const FretCell = memo(
   ({
     note,
     stringIndex,
+    fretIndex,
     isHighlighted,
     isFlatTune,
     isActive,
@@ -45,10 +47,16 @@ const FretCell = memo(
   }: FretCellProps) => {
     const activeRole: HighlightRole =
       isShapeRootNote && currentRoleId ? (currentRoleId as HighlightRole) : "none";
-
+    const [clickedFret, setClickedFret] = useState<number | null>(null);
+    const handleClick = () => {
+      onClick?.();
+      setClickedFret(fretIndex);
+    };
     return (
       <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={lockedRoleId}>
-        {isShapeRootNote && <VariantProgressDots stringIndex={stringIndex} />}
+        {isShapeRootNote && (
+          <VariantProgressDots stringIndex={stringIndex} isActiveFret={fretIndex === clickedFret} />
+        )}
         <S.Fret
           onMouseOver={() => onHover(note.noteId)}
           onMouseLeave={onLeave}
@@ -62,7 +70,7 @@ const FretCell = memo(
             $isHighlighted={isHighlighted}
             $isActiveNote={isActive}
             $isHighlightRole={activeRole}
-            onClick={onClick}
+            onClick={handleClick}
             $isShapeNote={isShapeNote}
             $areAnimationsOn={areAnimationsOn}
           >
@@ -84,6 +92,7 @@ const FretCell = memo(
   (prev, next) => {
     return (
       prev.stringIndex === next.stringIndex &&
+      prev.fretIndex === next.fretIndex &&
       prev.isActive === next.isActive &&
       prev.isHighlighted === next.isHighlighted &&
       prev.isFlatTune === next.isFlatTune &&

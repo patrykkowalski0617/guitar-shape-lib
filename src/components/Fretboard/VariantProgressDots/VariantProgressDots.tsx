@@ -5,7 +5,13 @@ import { useControlsStore } from "@/store/useControlsStore";
 import { useCurrentShapeVariantProgressId } from "@/hooks/useCurrentShapeVariantProgressId";
 import { useProgressStore } from "@/store/useProgressStore";
 
-export const VariantProgressDots = ({ stringIndex }: { stringIndex: number }) => {
+export const VariantProgressDots = ({
+  stringIndex,
+  isActiveFret,
+}: {
+  stringIndex: number;
+  isActiveFret: boolean;
+}) => {
   const { learned } = useProgressStore();
 
   const currentVariantProgressId = useCurrentShapeVariantProgressId();
@@ -28,7 +34,7 @@ export const VariantProgressDots = ({ stringIndex }: { stringIndex: number }) =>
           <S.Dot
             key={dotId}
             $isLearned={learned.includes(dotId)}
-            $isActive={currentVariantProgressId === dotId}
+            $isActive={currentVariantProgressId === dotId && isActiveFret}
           />
         );
       })}
