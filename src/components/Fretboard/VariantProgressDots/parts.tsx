@@ -13,7 +13,6 @@ export const DotsWrapper = styled.div`
 
 export const Dot = styled.div<{
   $isLearned: boolean;
-  $isLearning: boolean;
   $isActive: boolean;
 }>`
   width: 10px;
@@ -21,8 +20,7 @@ export const Dot = styled.div<{
   border-radius: 2px;
   border: 1px solid var(--accent-foreground);
   opacity: 0.8;
-  background-color: ${({ $isLearning, $isLearned }) => {
-    if ($isLearning) return "var(--primary)";
+  background-color: ${({ $isLearned }) => {
     if ($isLearned) return "var(--secondary)";
     return "var(--card)";
   }};

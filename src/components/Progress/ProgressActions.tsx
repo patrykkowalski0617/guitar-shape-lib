@@ -6,12 +6,12 @@ import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { GroupWrapper } from "../ControlsContainer/parts";
 
 export const ProgressActions = () => {
-  const { learned, learning, importData } = useProgressStore();
+  const { learned, importData } = useProgressStore();
   return (
     <>
       <GroupWrapper>
         <TutorialPopover {...TUTORIAL_CONTENT.EXPORT_DATA} />
-        <Button variant="outline" onClick={() => exportProgress({ learned, learning })}>
+        <Button variant="outline" onClick={() => exportProgress({ learned })}>
           Export progress file
         </Button>
       </GroupWrapper>

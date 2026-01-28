@@ -484,7 +484,7 @@ const shapes: Shapes = {
       tonic: {
         bothModes: [_M6],
       },
-      subdominant: { bothModes: [_M2] },
+      subdominant: { bothModes: [_M2, _M6] },
       dominant: { majorMode: [_5, _M3] },
     },
     shapesCoordinates: {

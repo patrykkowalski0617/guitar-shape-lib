@@ -1,4 +1,4 @@
-import { type JSX, useRef, useState } from "react";
+import { type JSX, useRef } from "react";
 import * as S from "./parts";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { numberOfFrets, STRINGS_FIRST_NOTES } from "./helpers/constants";
@@ -9,7 +9,6 @@ import FretCell from "./FretCell/FretCell";
 import { useFretboardDevEditor } from "./helpers/useFretboardDevEditor";
 import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
 import { useDevStore } from "@/store/useDevStore";
-import shapes from "@/utils/shapes";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
@@ -21,7 +20,6 @@ import { useShapeNotes } from "./helpers/useShapeNotes";
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeSemitoneOffsetFromC = useControlsStore(
     (state) => state.currentShapeSemitoneOffsetFromC,
   );
@@ -32,9 +30,6 @@ export default function Fretboard(): JSX.Element {
   const lockedShape = useMusicStore((state) => state.lockedShape);
   const lockedRoleId = useMusicStore((state) => state.lockedRoleId);
   const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
-  const [clickedCell, setClickedCell] = useState<{ stringIndex: number; fretIndex: number } | null>(
-    null,
-  );
 
   const NOTES_SHARP = getNotes({ firstNote: currentKeyId }).map(
     ({ sharpNoteName }) => sharpNoteName,
@@ -49,9 +44,8 @@ export default function Fretboard(): JSX.Element {
   const { onDevClick, isDevNote } = useFretboardDevEditor();
 
   const { setNextShapeVariantLocationData } = useShapeVariantIterator();
-  const { isNoteInShape } = useShapeNotes();
 
-  const shapeData = currentShapeId ? shapes[currentShapeId] : null;
+  const { isNoteInShape } = useShapeNotes();
 
   const sharpNoteNamesInTune = useTuneSharpNoteNames();
 
@@ -67,12 +61,6 @@ export default function Fretboard(): JSX.Element {
           <FretboardInfoRow isNumeric />
           <S.Fretboard>
             {STRINGS_FIRST_NOTES.map(({ noteName, octaveNumber }, stringIndex) => {
-              const variantsForThisString = shapeData
-                ? Object.entries(shapeData.shapesCoordinates)
-                    .filter(([, coords]) => coords.length > 0 && coords[0][0] === stringIndex)
-                    .map(([id]) => ({ id }))
-                : [];
-
               return (
                 <S.FretboardRow key={`${stringIndex}-${noteName}`}>
                   {getNotes({
@@ -86,11 +74,6 @@ export default function Fretboard(): JSX.Element {
                       (p) => p.s === stringIndex && p.f === fretIndex,
                     );
                     const isTuneNote = sharpNoteNamesInTune.includes(note.sharpNoteName);
-
-                    const isCurrentActiveRoot =
-                      isShapeRootNote &&
-                      clickedCell?.stringIndex === stringIndex &&
-                      clickedCell?.fretIndex === fretIndex;
 
                     return (
                       <FretCell
@@ -109,13 +92,10 @@ export default function Fretboard(): JSX.Element {
                         isLockedNote={isLockedNote}
                         lockedRoleId={lockedRoleId}
                         isDevNote={isCurrentDevNote}
-                        variants={isShapeRootNote ? variantsForThisString : []}
-                        isCurrentActiveRoot={isCurrentActiveRoot}
                         onClick={() => {
                           if (isDevMode) onDevClick(stringIndex, fretIndex);
                           if (isShapeRootNote)
                             setNextShapeVariantLocationData(stringIndex, fretIndex);
-                          setClickedCell({ stringIndex, fretIndex });
                         }}
                         areAnimationsOn={areAnimationsOn}
                       />

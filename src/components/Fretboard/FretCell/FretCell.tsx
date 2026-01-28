@@ -21,8 +21,6 @@ interface FretCellProps {
   onHover: (id: string) => void;
   onLeave: () => void;
   onClick: (() => void) | undefined;
-  variants: { id: string }[];
-  isCurrentActiveRoot: boolean;
   areAnimationsOn: boolean;
 }
 
@@ -43,8 +41,6 @@ const FretCell = memo(
     onHover,
     onLeave,
     onClick,
-    variants,
-    isCurrentActiveRoot,
     areAnimationsOn,
   }: FretCellProps) => {
     const activeRole: HighlightRole =
@@ -52,13 +48,7 @@ const FretCell = memo(
 
     return (
       <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={lockedRoleId}>
-        {isShapeRootNote && (
-          <VariantProgressDots
-            stringIndex={stringIndex}
-            variants={variants}
-            isCurrentActiveRoot={isCurrentActiveRoot}
-          />
-        )}
+        {isShapeRootNote && <VariantProgressDots stringIndex={stringIndex} />}
         <S.Fret
           onMouseOver={() => onHover(note.noteId)}
           onMouseLeave={onLeave}
@@ -102,9 +92,7 @@ const FretCell = memo(
       prev.currentRoleId === next.currentRoleId &&
       prev.isShapeNote === next.isShapeNote &&
       prev.isLockedNote === next.isLockedNote &&
-      prev.isDevNote === next.isDevNote &&
-      prev.isCurrentActiveRoot === next.isCurrentActiveRoot &&
-      prev.variants === next.variants
+      prev.isDevNote === next.isDevNote
     );
   },
 );
