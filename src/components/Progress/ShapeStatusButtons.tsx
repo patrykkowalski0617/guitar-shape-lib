@@ -17,7 +17,7 @@ export const ShapeStatusButtons = () => {
     <GroupWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.ADD_LEARNED} />
       <Button
-        variant={isLearned ? "outlineActive" : "outline"}
+        variant={isLearned ? "active" : "outline"}
         disabled={!currentVariantProgressId}
         onClick={() => currentVariantProgressId && toggleLearned(currentVariantProgressId)}
         fixedWidthLabel={txtIsLearnedTrue}

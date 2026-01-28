@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
 export const HeaderWrapper = styled.header`
-  background-color: var(--primary);
+  background-color: color-mix(in oklab, var(--primary) 80%, #333);
   max-width: 1300px;
   margin: 0 auto;
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);

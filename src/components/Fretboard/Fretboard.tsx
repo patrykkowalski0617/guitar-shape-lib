@@ -27,9 +27,11 @@ export default function Fretboard(): JSX.Element {
   const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
-  const lockedShape = useMusicStore((state) => state.lockedShape);
   const lockedRoleId = useMusicStore((state) => state.lockedRoleId);
   const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
+  const currentShapeVariantLocationData = useMusicStore(
+    (state) => state.currentShapeVariantLocationData,
+  );
 
   const NOTES_SHARP = getNotes({ firstNote: currentKeyId }).map(
     ({ sharpNoteName }) => sharpNoteName,
@@ -45,7 +47,12 @@ export default function Fretboard(): JSX.Element {
 
   const { setNextShapeVariantLocationData } = useShapeVariantIterator();
 
-  const { isNoteInShape } = useShapeNotes();
+  const { isNoteInShape } = useShapeNotes(currentShapeVariantLocationData);
+  const { isNoteInShape: isLockedShapeNote } = useShapeNotes({
+    stringId: "strA",
+    fretIdx: 7,
+    variantId: "v3",
+  });
 
   const sharpNoteNamesInTune = useTuneSharpNoteNames();
 
@@ -70,9 +77,7 @@ export default function Fretboard(): JSX.Element {
                   }).map((note, fretIndex) => {
                     const isShapeRootNote = shapeRootSharpNote === note.sharpNoteName;
                     const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
-                    const isLockedNote = !!lockedShape?.some(
-                      (p) => p.s === stringIndex && p.f === fretIndex,
-                    );
+
                     const isTuneNote = sharpNoteNamesInTune.includes(note.sharpNoteName);
 
                     return (
@@ -90,7 +95,7 @@ export default function Fretboard(): JSX.Element {
                         onHover={setActiveNoteId}
                         onLeave={() => setActiveNoteId(null)}
                         isShapeNote={isNoteInShape([stringIndex, fretIndex])}
-                        isLockedNote={isLockedNote}
+                        isLockedNote={isLockedShapeNote([stringIndex, fretIndex])}
                         lockedRoleId={lockedRoleId}
                         isDevNote={isCurrentDevNote}
                         onClick={() => {

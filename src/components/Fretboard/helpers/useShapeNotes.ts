@@ -1,12 +1,14 @@
 import { useMemo } from "react";
 import { useControlsStore } from "@/store/useControlsStore";
-import { useMusicStore } from "@/store/useMusicStore";
 import shapes from "@/utils/shapesNew";
 
-export const useShapeNotes = () => {
-  const currentShapeVariantLocationData = useMusicStore(
-    (state) => state.currentShapeVariantLocationData,
-  );
+export const useShapeNotes = (
+  currentShapeVariantLocationData: {
+    stringId: string;
+    fretIdx: number;
+    variantId: string;
+  } | null,
+) => {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
 
   const notesInSapeCoordinates = useMemo(() => {
