@@ -21,7 +21,7 @@ export const Dot = styled.div<{
   border: 1px solid var(--accent-foreground);
   opacity: 0.8;
   background-color: ${({ $isLearned }) => {
-    if ($isLearned) return "var(--secondary)";
+    if ($isLearned) return "var(--primary)";
     return "var(--card)";
   }};
   ${({ $isActive }) =>
