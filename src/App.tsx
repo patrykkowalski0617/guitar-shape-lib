@@ -44,7 +44,6 @@ function App() {
             <ShapeSelect />
             <LockShapeButton />
             <ShapeStatusButtons />
-            <ProgressActions />
           </ControlsContainer>
         </Setcion>
       </MainContent>

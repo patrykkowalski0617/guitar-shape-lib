@@ -24,7 +24,7 @@ export const SectionCommonCss = css`
 `;
 
 export const Setcion = styled.div`
-  max-width: 1200px;
+  max-width: 1300px;
   width: 100%;
   ${SectionCommonCss}
 `;

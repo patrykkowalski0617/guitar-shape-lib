@@ -7,7 +7,7 @@ export const Container = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: calc(var(--spacing) * 8);
-  max-width: 1000px;
+  max-width: 700px;
   flex-direction: row;
   align-items: flex-end;
 `;

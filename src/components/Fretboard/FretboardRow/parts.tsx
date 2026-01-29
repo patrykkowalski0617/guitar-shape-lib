@@ -9,6 +9,23 @@ export const FretboardRow = styled.div`
 
   & > :first-child {
     margin-right: 16px;
+    position: relative;
+    &:first-child {
+      ${Fret} {
+        &::before {
+          content: "";
+          position: absolute;
+          height: 70px;
+          width: 1px;
+          border-right: 1px solid var(--background);
+          background: var(--primary);
+          box-shadow: 0 0 4px var(--primary);
+          right: -9px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
   }
 
   &:first-child {

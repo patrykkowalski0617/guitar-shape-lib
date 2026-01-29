@@ -56,18 +56,6 @@ Keys with offset labels (shifted downwards) indicate the notes belonging to the 
     x: -23,
     y: -19,
   },
-  EXPORT_DATA: {
-    title: "Export Progress",
-    description: `Downloads your progress as a file. Since all data is stored locally in your browser, use this feature regularly to create a secure backup of your learned and active shapes.`,
-    x: -23,
-    y: -19,
-  },
-  IMPORT_DATA: {
-    title: "Import Progress",
-    description: `Restores your progress from a previously saved file. This allows you to recover your learning history or seamlessly transfer your data across different browsers and devices.`,
-    x: -23,
-    y: -19,
-  },
 } as const;
 
 export type TutorialKey = keyof typeof TUTORIAL_CONTENT;

@@ -2,14 +2,14 @@ import styled, { keyframes } from "styled-components";
 
 export const HeaderWrapper = styled.header`
   background-color: color-mix(in oklab, var(--primary) 80%, #333);
-  max-width: 1300px;
+  max-width: 1500px;
   margin: 0 auto;
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   width: 100%;
 `;
 
 export const HeaderContent = styled.div`
-  max-width: 1200px;
+  max-width: 1300px;
   position: relative;
   display: flex;
   align-items: center;
@@ -17,6 +17,7 @@ export const HeaderContent = styled.div`
   padding: 22px 0;
   margin: auto;
   width: 100%;
+  text-shadow: 0 0 15px var(--background);
 `;
 
 const shakeIt = keyframes`
