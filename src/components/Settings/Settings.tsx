@@ -22,7 +22,7 @@ export function Settings() {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button size="icon" className="flex justify-center h-10 w-10">
+        <Button size="icon" className="flex justify-center h-10 w-10" variant="ghost">
           <S.IconHoverSpin>
             <Gear className="h-8 w-8" />
           </S.IconHoverSpin>
