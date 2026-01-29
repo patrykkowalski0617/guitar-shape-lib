@@ -11,7 +11,7 @@ export const ShapeStatusButtons = () => {
 
   const isLearned = currentVariantProgressId ? learned.includes(currentVariantProgressId) : false;
   const txtIsLearnedTrue = "This shape is learned";
-  const txtIsLearnedFalse = "Add to 'Learned'";
+  const txtIsLearnedFalse = "Mark current shape as 'Learned'";
 
   return (
     <GroupWrapper>
@@ -20,7 +20,7 @@ export const ShapeStatusButtons = () => {
         variant={isLearned ? "active" : "outline"}
         disabled={!currentVariantProgressId}
         onClick={() => currentVariantProgressId && toggleLearned(currentVariantProgressId)}
-        fixedWidthLabel={txtIsLearnedTrue}
+        fixedWidthLabel={txtIsLearnedFalse}
       >
         {isLearned ? txtIsLearnedTrue : txtIsLearnedFalse}
       </Button>

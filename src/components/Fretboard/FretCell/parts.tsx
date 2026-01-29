@@ -4,14 +4,6 @@ import type { RoleId } from "@/utils";
 import { transitionTime } from "@/utils/constants";
 import styled, { css } from "styled-components";
 
-interface FretProps {
-  $isDevNote: boolean;
-  $isShapeNote: boolean;
-  $isShapeRootNote: boolean;
-  $isTuneNote: boolean;
-  $areAnimationsOn: boolean;
-}
-
 export const LockedEffectWrapper = styled.div<{
   $isLockedNote: boolean;
   $lockedRoleId: RoleId | null;
@@ -33,26 +25,40 @@ export const LockedEffectWrapper = styled.div<{
   }}
 `;
 
+interface FretProps {
+  $isDevNote: boolean;
+  $isShapeNote: boolean;
+  $isShapeRootNoteWithVariants: boolean;
+  $isTuneNote: boolean;
+  $areAnimationsOn: boolean;
+}
+
 export const Fret = styled.div<FretProps>`
   width: 100%;
   border-radius: 4px;
   background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
   box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 -5px 8px 0px var(--input)"};
-  opacity: ${({ $isTuneNote, $isShapeNote }) => ($isTuneNote || $isShapeNote ? "1" : "0.1")};
+  opacity: ${({ $isTuneNote, $isShapeNote }) => ($isTuneNote || $isShapeNote ? "1" : "0.2")};
   will-change: opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
+
+  cursor: ${({ $isShapeRootNoteWithVariants }) =>
+    $isShapeRootNoteWithVariants ? "pointer" : "default"};
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 4px;
+    z-index: 10;
+  }
 `;
 
-interface NoteProps {
-  $isHighlighted: boolean;
+export const Note = styled.div<{
+  $isShapeRootNote: boolean;
   $isActiveNote: boolean;
   $isShapeNote: boolean;
-  $isHighlightRole: HighlightRole;
+  $highlightRole: HighlightRole;
   $areAnimationsOn: boolean;
-}
-
-export const Note = styled.div<NoteProps>`
+}>`
   ${KeyAndFretStyles}
   box-shadow: inset 0 0px 6px 0px var(--input);
   border-radius: 4px;
@@ -61,7 +67,6 @@ export const Note = styled.div<NoteProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   position: relative;
   z-index: 20;
   will-change: filter, box-shadow;
@@ -70,10 +75,10 @@ export const Note = styled.div<NoteProps>`
   filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
   opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.5")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
-  ${({ $isHighlighted, $isHighlightRole }) => {
-    if (!$isHighlighted) return null;
+  ${({ $isShapeRootNote, $highlightRole }) => {
+    if (!$isShapeRootNote) return null;
 
-    const color = roleColors[$isHighlightRole];
+    const color = roleColors[$highlightRole];
     return css`
       border-color: ${color};
       box-shadow: inset 0 -2px 5px 0px ${color};

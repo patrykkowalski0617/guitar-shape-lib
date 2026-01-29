@@ -19,7 +19,7 @@ export const GroupWrapper = styled.div`
   position: relative;
   flex-grow: 1;
   max-width: 500px;
-  @media (min-width: 500px) {
-    max-width: 500px;
+  @media (min-width: 600px) {
+    max-width: 350px;
   }
 `;
