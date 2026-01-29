@@ -7,11 +7,6 @@ export const getFilteredShapeOptions = (currentRoleId: string | null, isMajorMod
   const typedShapes = shapes as Shapes;
 
   Object.entries(typedShapes).forEach(([shapeId, shape]) => {
-    const hasCoordinates =
-      shape.shapesCoordinates && Object.keys(shape.shapesCoordinates).length > 0;
-
-    if (!hasCoordinates) return;
-
     const roleKey = currentRoleId as keyof typeof shape.semitoneOffsetFromMajorTonicRoot;
     const roleData = shape.semitoneOffsetFromMajorTonicRoot[roleKey];
 
