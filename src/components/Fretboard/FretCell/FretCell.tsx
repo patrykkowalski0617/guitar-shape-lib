@@ -6,14 +6,14 @@ import { VariantProgressDots } from "../VariantProgressDots/VariantProgressDots"
 import type { HighlightRole } from "@/utils/roleColors";
 
 interface FretCellProps {
-  note: NoteObject;
+  noteData: NoteObject;
   stringIndex: number;
   fretIndex: number;
-  isHighlighted: boolean;
+  isShapeRootNote: boolean;
   currentRoleId: RoleId | null;
   isFlatTune: boolean;
   isActive: boolean;
-  isShapeRootNote: boolean;
+  isShapeRootNoteWithVariants: boolean;
   isTuneNote: boolean;
   isShapeNote: boolean;
   isLockedNote: boolean;
@@ -27,17 +27,17 @@ interface FretCellProps {
 
 const FretCell = memo(
   ({
-    note,
+    noteData,
     stringIndex,
     fretIndex,
-    isHighlighted,
+    isShapeRootNote,
     isFlatTune,
     isActive,
     isShapeNote,
     isLockedNote,
     lockedRoleId,
     isDevNote,
-    isShapeRootNote,
+    isShapeRootNoteWithVariants,
     isTuneNote,
     currentRoleId,
     onHover,
@@ -53,35 +53,35 @@ const FretCell = memo(
     };
     return (
       <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={lockedRoleId}>
-        {isShapeRootNote && (
+        {isShapeRootNoteWithVariants && (
           <VariantProgressDots stringIndex={stringIndex} isActiveFret={fretIndex === clickedFret} />
         )}
         <S.Fret
-          onMouseOver={() => onHover(note.noteId)}
+          onMouseOver={() => onHover(noteData.noteId)}
           onMouseLeave={onLeave}
           $isDevNote={isDevNote}
-          $isShapeRootNote={isShapeRootNote}
+          $isShapeRootNoteWithVariants={isShapeRootNoteWithVariants}
           $isShapeNote={isShapeNote}
           $isTuneNote={isTuneNote}
           $areAnimationsOn={areAnimationsOn}
           onClick={handleClick}
         >
           <S.Note
-            $isHighlighted={isHighlighted}
+            $isShapeRootNote={isShapeRootNote}
             $isActiveNote={isActive}
             $highlightRole={activeRole}
             $isShapeNote={isShapeNote}
             $areAnimationsOn={areAnimationsOn}
           >
             <NoteLabel
-              isHighlighted={isHighlighted || isShapeNote}
-              flatNoteName={note.flatNoteName}
-              sharpNoteName={note.sharpNoteName}
+              isHighlighted={isShapeRootNote || isShapeNote}
+              flatNoteName={noteData.flatNoteName}
+              sharpNoteName={noteData.sharpNoteName}
               isTuneNote={isTuneNote}
               isShapeNote={isShapeNote}
               isFlatTune={isFlatTune}
               orientation="horizontal"
-              isEnharmonic={note.isEnharmonic}
+              isEnharmonic={noteData.isEnharmonic}
             />
           </S.Note>
         </S.Fret>
@@ -93,9 +93,9 @@ const FretCell = memo(
       prev.stringIndex === next.stringIndex &&
       prev.fretIndex === next.fretIndex &&
       prev.isActive === next.isActive &&
-      prev.isHighlighted === next.isHighlighted &&
-      prev.isFlatTune === next.isFlatTune &&
       prev.isShapeRootNote === next.isShapeRootNote &&
+      prev.isFlatTune === next.isFlatTune &&
+      prev.isShapeRootNoteWithVariants === next.isShapeRootNoteWithVariants &&
       prev.isTuneNote === next.isTuneNote &&
       prev.currentRoleId === next.currentRoleId &&
       prev.isShapeNote === next.isShapeNote &&

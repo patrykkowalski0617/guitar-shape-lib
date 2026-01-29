@@ -28,14 +28,14 @@ export const LockedEffectWrapper = styled.div<{
 interface FretProps {
   $isDevNote: boolean;
   $isShapeNote: boolean;
-  $isShapeRootNote: boolean;
+  $isShapeRootNoteWithVariants: boolean;
   $isTuneNote: boolean;
   $areAnimationsOn: boolean;
 }
 
 export const Fret = styled.div.attrs<FretProps>((props) => ({
-  as: props.$isShapeRootNote ? "button" : "div",
-  type: props.$isShapeRootNote ? "button" : undefined,
+  as: props.$isShapeRootNoteWithVariants ? "button" : "div",
+  type: props.$isShapeRootNoteWithVariants ? "button" : undefined,
 }))<FretProps>`
   width: 100%;
   border-radius: 4px;
@@ -45,7 +45,8 @@ export const Fret = styled.div.attrs<FretProps>((props) => ({
   will-change: opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
-  cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
+  cursor: ${({ $isShapeRootNoteWithVariants }) =>
+    $isShapeRootNoteWithVariants ? "pointer" : "default"};
   &:focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 4px;
@@ -62,7 +63,7 @@ export const Fret = styled.div.attrs<FretProps>((props) => ({
 `;
 
 export const Note = styled.div<{
-  $isHighlighted: boolean;
+  $isShapeRootNote: boolean;
   $isActiveNote: boolean;
   $isShapeNote: boolean;
   $highlightRole: HighlightRole;
@@ -84,8 +85,8 @@ export const Note = styled.div<{
   filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
   opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.5")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
-  ${({ $isHighlighted, $highlightRole }) => {
-    if (!$isHighlighted) return null;
+  ${({ $isShapeRootNote, $highlightRole }) => {
+    if (!$isShapeRootNote) return null;
 
     const color = roleColors[$highlightRole];
     return css`

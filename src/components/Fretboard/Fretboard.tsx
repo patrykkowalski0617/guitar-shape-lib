@@ -72,34 +72,34 @@ export default function Fretboard(): JSX.Element {
                     firstNote: noteName,
                     length: numberOfFrets,
                     firstOctave: octaveNumber,
-                  }).map((note, fretIndex) => {
-                    const isShapeRootNote =
-                      shapeRootSharpNote === note.sharpNoteName && stringIndex > 1;
+                  }).map((noteData, fretIndex) => {
+                    const isShapeRootNoteWithVariants =
+                      shapeRootSharpNote === noteData.sharpNoteName && stringIndex > 1;
                     const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
 
-                    const isTuneNote = sharpNoteNamesInTune.includes(note.sharpNoteName);
+                    const isTuneNote = sharpNoteNamesInTune.includes(noteData.sharpNoteName);
 
                     return (
                       <FretCell
                         key={`${stringIndex}-${fretIndex}`}
-                        note={note}
+                        noteData={noteData}
                         stringIndex={stringIndex}
                         fretIndex={fretIndex}
-                        isHighlighted={shapeRootSharpNote === note.sharpNoteName}
-                        currentRoleId={currentRoleId}
-                        isFlatTune={isFlatTune}
-                        isShapeRootNote={isShapeRootNote}
-                        isTuneNote={isTuneNote}
-                        isActive={activeNoteId === note.noteId}
-                        onHover={setActiveNoteId}
-                        onLeave={() => setActiveNoteId(null)}
                         isShapeNote={isNoteInShape([stringIndex, fretIndex])}
+                        isShapeRootNote={shapeRootSharpNote === noteData.sharpNoteName}
+                        isShapeRootNoteWithVariants={isShapeRootNoteWithVariants}
+                        isTuneNote={isTuneNote}
+                        isActive={activeNoteId === noteData.noteId}
                         isLockedNote={isLockedShapeNote([stringIndex, fretIndex])}
                         lockedRoleId={lockedRoleId}
+                        currentRoleId={currentRoleId}
+                        isFlatTune={isFlatTune}
                         isDevNote={isCurrentDevNote}
+                        onHover={setActiveNoteId}
+                        onLeave={() => setActiveNoteId(null)}
                         onClick={() => {
                           if (isDevMode) onDevClick(stringIndex, fretIndex);
-                          if (isShapeRootNote) {
+                          if (isShapeRootNoteWithVariants) {
                             setNextShapeVariantLocationData(stringIndex, fretIndex);
                           }
                         }}
