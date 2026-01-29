@@ -6,14 +6,14 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-interface SelectWithNextProps extends React.ComponentProps<typeof Select> {
+interface SelectPrevNextProps extends React.ComponentProps<typeof Select> {
   options: { value: string; label: string }[];
   placeholder?: string;
   className?: string;
   triggerClassName?: string;
 }
 
-export function SelectWithNext({
+export function SelectPrevNext({
   options,
   value,
   onValueChange,
@@ -21,7 +21,7 @@ export function SelectWithNext({
   className,
   triggerClassName,
   ...props
-}: SelectWithNextProps) {
+}: SelectPrevNextProps) {
   const shiftSelection = (direction: number) => {
     if (!options.length || !onValueChange) return;
     const currentIndex = options.findIndex((opt) => opt.value === value);
