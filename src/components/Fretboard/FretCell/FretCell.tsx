@@ -45,8 +45,7 @@ const FretCell = memo(
     onClick,
     areAnimationsOn,
   }: FretCellProps) => {
-    const activeRole: HighlightRole =
-      isShapeRootNote && currentRoleId ? (currentRoleId as HighlightRole) : "none";
+    const activeRole: HighlightRole = currentRoleId ? (currentRoleId as HighlightRole) : "none";
     const [clickedFret, setClickedFret] = useState<number | null>(null);
     const handleClick = () => {
       onClick?.();
@@ -65,12 +64,12 @@ const FretCell = memo(
           $isShapeNote={isShapeNote}
           $isTuneNote={isTuneNote}
           $areAnimationsOn={areAnimationsOn}
+          onClick={handleClick}
         >
           <S.Note
             $isHighlighted={isHighlighted}
             $isActiveNote={isActive}
-            $isHighlightRole={activeRole}
-            onClick={handleClick}
+            $highlightRole={activeRole}
             $isShapeNote={isShapeNote}
             $areAnimationsOn={areAnimationsOn}
           >

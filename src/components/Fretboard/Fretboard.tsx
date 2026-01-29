@@ -73,7 +73,8 @@ export default function Fretboard(): JSX.Element {
                     length: numberOfFrets,
                     firstOctave: octaveNumber,
                   }).map((note, fretIndex) => {
-                    const isShapeRootNote = shapeRootSharpNote === note.sharpNoteName;
+                    const isShapeRootNote =
+                      shapeRootSharpNote === note.sharpNoteName && stringIndex > 1;
                     const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
 
                     const isTuneNote = sharpNoteNamesInTune.includes(note.sharpNoteName);
@@ -84,7 +85,7 @@ export default function Fretboard(): JSX.Element {
                         note={note}
                         stringIndex={stringIndex}
                         fretIndex={fretIndex}
-                        isHighlighted={isShapeRootNote}
+                        isHighlighted={shapeRootSharpNote === note.sharpNoteName}
                         currentRoleId={currentRoleId}
                         isFlatTune={isFlatTune}
                         isShapeRootNote={isShapeRootNote}

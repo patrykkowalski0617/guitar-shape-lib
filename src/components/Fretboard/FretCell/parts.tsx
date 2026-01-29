@@ -4,14 +4,6 @@ import type { RoleId } from "@/utils";
 import { transitionTime } from "@/utils/constants";
 import styled, { css } from "styled-components";
 
-interface FretProps {
-  $isDevNote: boolean;
-  $isShapeNote: boolean;
-  $isShapeRootNote: boolean;
-  $isTuneNote: boolean;
-  $areAnimationsOn: boolean;
-}
-
 export const LockedEffectWrapper = styled.div<{
   $isLockedNote: boolean;
   $lockedRoleId: RoleId | null;
@@ -33,7 +25,18 @@ export const LockedEffectWrapper = styled.div<{
   }}
 `;
 
-export const Fret = styled.div<FretProps>`
+interface FretProps {
+  $isDevNote: boolean;
+  $isShapeNote: boolean;
+  $isShapeRootNote: boolean;
+  $isTuneNote: boolean;
+  $areAnimationsOn: boolean;
+}
+
+export const Fret = styled.div.attrs<FretProps>((props) => ({
+  as: props.$isShapeRootNote ? "button" : "div",
+  type: props.$isShapeRootNote ? "button" : undefined,
+}))<FretProps>`
   width: 100%;
   border-radius: 4px;
   background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
@@ -42,17 +45,29 @@ export const Fret = styled.div<FretProps>`
   will-change: opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
+  cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 4px;
+    z-index: 10;
+  }
+  border: none;
+  padding: 0;
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  vertical-align: middle;
 `;
 
-interface NoteProps {
+export const Note = styled.div<{
   $isHighlighted: boolean;
   $isActiveNote: boolean;
   $isShapeNote: boolean;
-  $isHighlightRole: HighlightRole;
+  $highlightRole: HighlightRole;
   $areAnimationsOn: boolean;
-}
-
-export const Note = styled.div<NoteProps>`
+}>`
   ${KeyAndFretStyles}
   box-shadow: inset 0 0px 6px 0px var(--input);
   border-radius: 4px;
@@ -61,7 +76,6 @@ export const Note = styled.div<NoteProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   position: relative;
   z-index: 20;
   will-change: filter, box-shadow;
@@ -70,10 +84,10 @@ export const Note = styled.div<NoteProps>`
   filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
   opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.5")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
-  ${({ $isHighlighted, $isHighlightRole }) => {
+  ${({ $isHighlighted, $highlightRole }) => {
     if (!$isHighlighted) return null;
 
-    const color = roleColors[$isHighlightRole];
+    const color = roleColors[$highlightRole];
     return css`
       border-color: ${color};
       box-shadow: inset 0 -2px 5px 0px ${color};

@@ -83,7 +83,6 @@ export const Key = styled.div<KeyProps>`
   flex: 1;
   width: 0;
   position: relative;
-  cursor: pointer;
   filter: ${({ $isActive }) => ($isActive ? "brightness(1.5)" : "")};
 
   ${({ $isWhiteKey, $areAnimationsOn }) =>
