@@ -6,14 +6,14 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-interface SelectWithNextProps extends React.ComponentProps<typeof Select> {
+interface SelectPrevNextProps extends React.ComponentProps<typeof Select> {
   options: { value: string; label: string }[];
   placeholder?: string;
   className?: string;
   triggerClassName?: string;
 }
 
-export function SelectWithNext({
+export function SelectPrevNext({
   options,
   value,
   onValueChange,
@@ -21,7 +21,7 @@ export function SelectWithNext({
   className,
   triggerClassName,
   ...props
-}: SelectWithNextProps) {
+}: SelectPrevNextProps) {
   const shiftSelection = (direction: number) => {
     if (!options.length || !onValueChange) return;
     const currentIndex = options.findIndex((opt) => opt.value === value);
@@ -48,7 +48,7 @@ export function SelectWithNext({
     <div
       className={cn(
         "flex items-center h-8 w-full",
-        "bg-muted/30 border border-muted-foreground/30 rounded-md overflow-hidden",
+        "bg-muted/30 border border-muted-foreground/30 rounded-md",
         className,
       )}
     >
@@ -56,7 +56,10 @@ export function SelectWithNext({
         variant="ghost"
         size="icon"
         onClick={handlePrev}
-        className={cn(itemStyles, "w-8 px-0 flex items-center justify-center grow-1 max-w-12")}
+        className={cn(
+          itemStyles,
+          "w-8 px-0 flex items-center justify-center grow-1 max-w-12 rounded-l-md",
+        )}
       >
         <ChevronLeftIcon className="size-3.5 opacity-50" />
       </Button>
@@ -81,7 +84,7 @@ export function SelectWithNext({
         onClick={handleNext}
         className={cn(
           itemStyles,
-          "w-8 px-0 flex items-center justify-center border-r-0  grow-1 max-w-12",
+          "w-8 px-0 flex items-center justify-center border-r-0  grow-1 max-w-12 rounded-r-md",
         )}
       >
         <ChevronRightIcon className="size-3.5 opacity-50" />

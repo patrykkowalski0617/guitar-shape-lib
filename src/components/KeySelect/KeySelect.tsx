@@ -4,7 +4,7 @@ import { GroupWrapper, Label } from "../ControlsContainer/ControlsContainer";
 import { SelectItem } from "@/components/ui/select";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
-import { SelectWithNext } from "../ui/select-prev-next";
+import { SelectPrevNext } from "../ui/select-prev-next";
 
 export default function KeySelect() {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
@@ -23,7 +23,7 @@ export default function KeySelect() {
       <TutorialPopover {...TUTORIAL_CONTENT.KEY_SELECTOR} />
       <Label>Key</Label>
 
-      <SelectWithNext
+      <SelectPrevNext
         value={currentKeyId}
         onValueChange={(v) => setCurrentKey(v as MusicKeyId)}
         options={keyOptions}
@@ -38,7 +38,7 @@ export default function KeySelect() {
             </span>
           </SelectItem>
         ))}
-      </SelectWithNext>
+      </SelectPrevNext>
     </GroupWrapper>
   );
 }
