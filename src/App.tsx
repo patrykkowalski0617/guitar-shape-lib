@@ -9,11 +9,10 @@ import Footer from "./components/Footer/Footer";
 import { AppWrapper, MainContent, Setcion } from "./parts";
 import { LockShapeButton } from "./components/LockShapeButton/LockShapeButton";
 import { ShapeStatusButtons } from "./components/Progress/ShapeStatusButtons";
-import { ProgressActions } from "./components/Progress/ProgressActions";
-import Keyboard from "./components/Keyboard/Keyboard";
 import ControlsContainer from "./components/ControlsContainer/ControlsContainer";
 import { DevModeProvider } from "./components/DevModeProvider/DevModeProvider";
 import { useSettingsStore } from "./store/useSettingsStore";
+import Keyboard from "./components/Keyboard/Keyboard";
 
 function App() {
   useMusicEngine();
