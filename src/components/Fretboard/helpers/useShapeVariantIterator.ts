@@ -46,6 +46,7 @@ export const useShapeVariantIterator = () => {
       const activeVariantId = keys[currentStep % keys.length];
 
       setCurrentShapeVariantLocationData({
+        currentShapeId,
         stringId,
         fretIdx: fretIndex,
         variantId: activeVariantId,

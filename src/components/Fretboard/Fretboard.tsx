@@ -32,7 +32,9 @@ export default function Fretboard(): JSX.Element {
   const currentShapeVariantLocationData = useMusicStore(
     (state) => state.currentShapeVariantLocationData,
   );
-
+  const lockedShapeVariantLocationData = useMusicStore(
+    (state) => state.lockedShapeVariantLocationData,
+  );
   const NOTES_SHARP = getNotes({ firstNote: currentKeyId }).map(
     ({ sharpNoteName }) => sharpNoteName,
   );
@@ -48,11 +50,7 @@ export default function Fretboard(): JSX.Element {
   const { setNextShapeVariantLocationData } = useShapeVariantIterator();
 
   const { isNoteInShape } = useShapeNotes(currentShapeVariantLocationData);
-  const { isNoteInShape: isLockedShapeNote } = useShapeNotes({
-    stringId: "strA",
-    fretIdx: 7,
-    variantId: "v3",
-  });
+  const { isNoteInShape: isLockedShapeNote } = useShapeNotes(lockedShapeVariantLocationData);
 
   const sharpNoteNamesInTune = useTuneSharpNoteNames();
 
@@ -100,8 +98,9 @@ export default function Fretboard(): JSX.Element {
                         isDevNote={isCurrentDevNote}
                         onClick={() => {
                           if (isDevMode) onDevClick(stringIndex, fretIndex);
-                          if (isShapeRootNote)
+                          if (isShapeRootNote) {
                             setNextShapeVariantLocationData(stringIndex, fretIndex);
+                          }
                         }}
                         areAnimationsOn={areAnimationsOn}
                       />

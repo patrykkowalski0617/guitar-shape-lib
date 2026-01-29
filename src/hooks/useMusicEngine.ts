@@ -11,13 +11,11 @@ export const useMusicEngine = () => {
   const isMajorMode = useControlsStore((s) => s.isMajorMode);
   const currentShapeId = useControlsStore((s) => s.currentShapeId);
 
-  const setActiveShapePoint = useMusicStore((s) => s.setActiveShapePoint);
   const setCurrentShapeVariantLocationData = useMusicStore(
     (s) => s.setCurrentShapeVariantLocationData,
   );
 
   useEffect(() => {
-    setActiveShapePoint(null);
     setCurrentShapeVariantLocationData(null);
   }, [
     isMajorMode,
@@ -25,7 +23,6 @@ export const useMusicEngine = () => {
     currentRoleId,
     currentShapeId,
     currentShapeSemitoneOffsetFromC,
-    setActiveShapePoint,
     setCurrentShapeVariantLocationData,
   ]);
 };

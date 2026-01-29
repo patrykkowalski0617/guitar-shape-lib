@@ -1,22 +1,20 @@
 import { useMemo } from "react";
-import { useControlsStore } from "@/store/useControlsStore";
 import shapes from "@/utils/shapesNew";
 
 export const useShapeNotes = (
   currentShapeVariantLocationData: {
+    currentShapeId: string | null;
     stringId: string;
     fretIdx: number;
     variantId: string;
   } | null,
 ) => {
-  const currentShapeId = useControlsStore((state) => state.currentShapeId);
-
   const notesInSapeCoordinates = useMemo(() => {
+    const { currentShapeId, stringId, fretIdx, variantId } = currentShapeVariantLocationData || {};
     const shapeData = currentShapeId ? shapes[currentShapeId] : null;
     if (!shapeData) return [];
 
     const { coordinatesVariants } = shapeData;
-    const { stringId, fretIdx, variantId } = currentShapeVariantLocationData || {};
 
     if (!stringId || fretIdx === undefined || !variantId) return [];
 
@@ -26,7 +24,7 @@ export const useShapeNotes = (
       ];
 
     return variantCoordinates?.map(([s, f]) => [s, f + fretIdx]) || [];
-  }, [currentShapeVariantLocationData, currentShapeId]);
+  }, [currentShapeVariantLocationData]);
 
   const isNoteInShape = (coords: [number, number]): boolean => {
     const [stringIndex, fretIndex] = coords;
