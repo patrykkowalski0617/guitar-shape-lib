@@ -1,6 +1,6 @@
 import * as S from "./parts";
 import { STRING_MAP } from "../helpers/useShapeVariantIterator";
-import shapes from "@/utils/shapesNew";
+import shapes from "@/utils/shapes";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useCurrentShapeVariantProgressId } from "@/hooks/useCurrentShapeVariantProgressId";
 import { useProgressStore } from "@/store/useProgressStore";

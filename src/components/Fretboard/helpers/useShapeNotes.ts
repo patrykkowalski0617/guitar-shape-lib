@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import shapes from "@/utils/shapesNew";
+import shapes from "@/utils/shapes";
 
 export const useShapeNotes = (
   currentShapeVariantLocationData: {

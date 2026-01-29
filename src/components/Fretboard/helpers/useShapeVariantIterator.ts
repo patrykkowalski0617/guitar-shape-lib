@@ -1,6 +1,6 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
-import shapes from "@/utils/shapesNew";
+import shapes from "@/utils/shapes";
 
 export const STRING_MAP: Record<number, string> = {
   5: "strE",
