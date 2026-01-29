@@ -51,6 +51,14 @@ const FretCell = memo(
       onClick?.();
       setClickedFret(fretIndex);
     };
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+      if (!isShapeRootNoteWithVariants) return;
+
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        onClick?.();
+      }
+    };
     return (
       <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={lockedRoleId}>
         {isShapeRootNoteWithVariants && (
@@ -65,6 +73,9 @@ const FretCell = memo(
           $isTuneNote={isTuneNote}
           $areAnimationsOn={areAnimationsOn}
           onClick={handleClick}
+          tabIndex={isShapeRootNoteWithVariants ? 0 : -1}
+          role={isShapeRootNoteWithVariants ? "button" : undefined}
+          onKeyDown={handleKeyDown}
         >
           <S.Note
             $isShapeRootNote={isShapeRootNote}

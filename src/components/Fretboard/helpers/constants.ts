@@ -1,11 +1,11 @@
 import type { Note } from "@/utils";
 
-interface STRINGS_FIRST_NOTES {
+interface STRINGS_CONFIG {
   noteName: Note;
   octaveNumber: number;
 }
 
-export const STRINGS_FIRST_NOTES = [
+export const STRINGS_CONFIG = [
   { noteName: "E", octaveNumber: 4 },
   { noteName: "B", octaveNumber: 3 },
   { noteName: "G", octaveNumber: 3 },

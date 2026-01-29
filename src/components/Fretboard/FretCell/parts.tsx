@@ -33,18 +33,16 @@ interface FretProps {
   $areAnimationsOn: boolean;
 }
 
-export const Fret = styled.div.attrs<FretProps>((props) => ({
-  as: props.$isShapeRootNoteWithVariants ? "button" : "div",
-  type: props.$isShapeRootNoteWithVariants ? "button" : undefined,
-}))<FretProps>`
+export const Fret = styled.div<FretProps>`
   width: 100%;
   border-radius: 4px;
   background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
   box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 -5px 8px 0px var(--input)"};
-  opacity: ${({ $isTuneNote, $isShapeNote }) => ($isTuneNote || $isShapeNote ? "1" : "0.1")};
+  opacity: ${({ $isTuneNote, $isShapeNote }) => ($isTuneNote || $isShapeNote ? "1" : "0.2")};
   will-change: opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
+
   cursor: ${({ $isShapeRootNoteWithVariants }) =>
     $isShapeRootNoteWithVariants ? "pointer" : "default"};
   &:focus-visible {
@@ -52,14 +50,6 @@ export const Fret = styled.div.attrs<FretProps>((props) => ({
     outline-offset: 4px;
     z-index: 10;
   }
-  border: none;
-  padding: 0;
-  appearance: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-  vertical-align: middle;
 `;
 
 export const Note = styled.div<{

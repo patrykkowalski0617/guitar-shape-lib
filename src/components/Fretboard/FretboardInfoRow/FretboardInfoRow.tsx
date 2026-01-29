@@ -1,6 +1,6 @@
 import * as S from "./parts";
 import { numberOfFrets } from "../helpers/constants";
-import { FretboardRow } from "../parts";
+import { FretboardRow } from "../FretboardRow/parts";
 
 export default function FretboardInfoRow({ isNumeric = false }: { isNumeric?: boolean }) {
   const infoCells = Array.from({ length: numberOfFrets });
