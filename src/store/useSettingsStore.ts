@@ -18,8 +18,8 @@ interface SettingsState {
 const initialState = {
   areAnimationsOn: true,
   isTutorialOn: true,
-  tonicColor: 36,
-  subdominantColor: 270,
+  tonicColor: 193,
+  subdominantColor: 40,
   dominantColor: 111,
 };
 

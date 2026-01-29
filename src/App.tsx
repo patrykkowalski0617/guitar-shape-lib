@@ -8,7 +8,6 @@ import ShapeSelect from "./components/ShapeSelect/ShapeSelect";
 import Footer from "./components/Footer/Footer";
 import { AppWrapper, MainContent, Setcion } from "./parts";
 import { LockShapeButton } from "./components/LockShapeButton/LockShapeButton";
-import { ShapeStatusButtons } from "./components/Progress/ShapeStatusButtons";
 import ControlsContainer from "./components/ControlsContainer/ControlsContainer";
 import { DevModeProvider } from "./components/DevModeProvider/DevModeProvider";
 import { useSettingsStore } from "./store/useSettingsStore";
@@ -42,7 +41,6 @@ function App() {
             <RoleSelect />
             <ShapeSelect />
             <LockShapeButton />
-            <ShapeStatusButtons />
           </ControlsContainer>
         </Setcion>
       </MainContent>

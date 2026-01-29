@@ -5,7 +5,7 @@ import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { GroupWrapper } from "../ControlsContainer/parts";
 import { useCurrentShapeVariantProgressId } from "../../hooks/useCurrentShapeVariantProgressId";
 
-export const ShapeStatusButtons = () => {
+export const MarkAsLearnedButton = () => {
   const { learned, toggleLearned } = useProgressStore();
   const currentVariantProgressId = useCurrentShapeVariantProgressId();
 
