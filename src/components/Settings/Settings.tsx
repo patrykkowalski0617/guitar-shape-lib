@@ -16,6 +16,7 @@ import Animations from "./Animations/Animations";
 import Tutorial from "./Tutorial/Tutorial";
 import ColorsSetting from "./ColorsSetting/ColorsSetting";
 import { ExportProgressFileButton, ImportProgressFileButton } from "../Progress/ProgressActions";
+import { MarkAsLearnedButton } from "../Progress/MarkAsLearnedButton";
 
 export function Settings() {
   const resetToDefaults = useSettingsStore((state) => state.resetToDefaults);
@@ -55,9 +56,11 @@ export function Settings() {
               <div className="px-6 py-2">
                 <ExportProgressFileButton />
               </div>
-
               <div className="px-6 py-2">
                 <ImportProgressFileButton />
+              </div>
+              <div className="px-6 py-2">
+                <MarkAsLearnedButton />
               </div>
             </section>
           </div>
