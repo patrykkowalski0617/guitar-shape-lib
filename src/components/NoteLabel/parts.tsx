@@ -80,6 +80,7 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
       css`
         background: #000000bb;
         box-shadow: 0 0 8px var(--background);
+        border: 1px solid color-mix(in oklab, var(--accent) 70%, #000);
       `}
     will-change: transform, opacity, font-size, color;
     transition: ${({ $areAnimationsOn }) =>

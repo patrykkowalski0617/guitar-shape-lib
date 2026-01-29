@@ -18,7 +18,7 @@ export const Dot = styled.div<{
   width: 6px;
   height: 8px;
   border-radius: 2px;
-  border: 1px solid var(--muted-foreground);
+  border: 1px solid color-mix(in oklab, var(--accent) 80%, #000);
   background-color: ${({ $isLearned }) => {
     if ($isLearned) return "var(--accent)";
     return "var(--background)";
