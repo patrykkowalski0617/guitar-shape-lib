@@ -48,7 +48,7 @@ export function SelectPrevNext({
     <div
       className={cn(
         "flex items-center h-8 w-full",
-        "bg-muted/30 border border-muted-foreground/30 rounded-md overflow-hidden",
+        "bg-muted/30 border border-muted-foreground/30 rounded-md",
         className,
       )}
     >
@@ -56,7 +56,10 @@ export function SelectPrevNext({
         variant="ghost"
         size="icon"
         onClick={handlePrev}
-        className={cn(itemStyles, "w-8 px-0 flex items-center justify-center grow-1 max-w-12")}
+        className={cn(
+          itemStyles,
+          "w-8 px-0 flex items-center justify-center grow-1 max-w-12 rounded-l-md",
+        )}
       >
         <ChevronLeftIcon className="size-3.5 opacity-50" />
       </Button>
@@ -81,7 +84,7 @@ export function SelectPrevNext({
         onClick={handleNext}
         className={cn(
           itemStyles,
-          "w-8 px-0 flex items-center justify-center border-r-0  grow-1 max-w-12",
+          "w-8 px-0 flex items-center justify-center border-r-0  grow-1 max-w-12 rounded-r-md",
         )}
       >
         <ChevronRightIcon className="size-3.5 opacity-50" />
