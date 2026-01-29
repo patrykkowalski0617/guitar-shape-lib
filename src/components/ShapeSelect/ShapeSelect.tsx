@@ -56,7 +56,7 @@ export default function ShapeSelect() {
   return (
     <GroupWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.SHAPE_SELECTOR} />
-      <Label>Chord/Scale</Label>
+      <Label>Arpeggio/Scale</Label>
       <Select
         value={currentShapeValue}
         onValueChange={(v) => {
