@@ -7,7 +7,7 @@ export const FooterWrapper = styled.footer`
   justify-content: center;
   padding: 15px;
   width: 100%;
-  background-color: var(--primary);
+  background-color: color-mix(in oklab, var(--primary) 80%, #333);
   max-width: 1300px;
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   ${SectionCommonCss}

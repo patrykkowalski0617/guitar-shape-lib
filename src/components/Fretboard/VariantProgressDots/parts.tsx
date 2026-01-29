@@ -3,37 +3,33 @@ import styled, { css } from "styled-components";
 export const DotsWrapper = styled.div`
   position: absolute;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1px;
-  left: -7px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  top: -4px;
+  transform: translateX(-50%);
   z-index: 30;
 `;
 
 export const Dot = styled.div<{
   $isLearned: boolean;
-  $isLearning: boolean;
   $isActive: boolean;
 }>`
-  width: 15px;
-  min-height: 9px;
+  width: 6px;
+  height: 8px;
   border-radius: 2px;
-  border: 1px solid var(--accent-foreground);
-  opacity: 0.8;
-  background-color: ${({ $isLearning, $isLearned }) => {
-    if ($isLearning) return "var(--primary)";
-    if ($isLearned) return "var(--secondary)";
-    return "var(--card)";
+  border: 1px solid var(--muted-foreground);
+  background-color: ${({ $isLearned }) => {
+    if ($isLearned) return "var(--accent)";
+    return "var(--background)";
   }};
   ${({ $isActive }) =>
     $isActive &&
     css`
-      transform: scale(1.25);
-      opacity: 1;
+      transform: scale(1.4) translateY(-1px);
     `}
   will-change: transform, background-color;
   transition:
     transform 0.1s ease-in-out,
-    background-color 0.2s ease;
+    background-color 0.1s ease;
 `;

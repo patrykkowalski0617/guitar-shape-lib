@@ -1,4 +1,4 @@
-import { useEffect, type JSX, useRef } from "react";
+import { type JSX, useRef } from "react";
 import * as S from "./parts";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { numberOfFrets, STRINGS_FIRST_NOTES } from "./helpers/constants";
@@ -7,20 +7,19 @@ import { useMusicStore } from "@/store/useMusicStore";
 import { BoardScrollWrapper, BoardWrapper, TutorialStickyIcons } from "../BoardsWrapper/parts";
 import FretCell from "./FretCell/FretCell";
 import { useFretboardDevEditor } from "./helpers/useFretboardDevEditor";
-import { useFretboardShapes } from "./helpers/useFretboardShapes";
 import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
 import { useDevStore } from "@/store/useDevStore";
-import shapes from "@/utils/shapes";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { useTuneSharpNoteNames } from "./helpers/useTuneSharpNoteNames";
 import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
+import { useShapeVariantIterator } from "./helpers/useShapeVariantIterator";
+import { useShapeNotes } from "./helpers/useShapeNotes";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeSemitoneOffsetFromC = useControlsStore(
     (state) => state.currentShapeSemitoneOffsetFromC,
   );
@@ -28,11 +27,14 @@ export default function Fretboard(): JSX.Element {
   const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
-  const lockedShape = useMusicStore((state) => state.lockedShape);
   const lockedRoleId = useMusicStore((state) => state.lockedRoleId);
-  const activeShapePoint = useMusicStore((state) => state.activeShapePoint);
   const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
-
+  const currentShapeVariantLocationData = useMusicStore(
+    (state) => state.currentShapeVariantLocationData,
+  );
+  const lockedShapeVariantLocationData = useMusicStore(
+    (state) => state.lockedShapeVariantLocationData,
+  );
   const NOTES_SHARP = getNotes({ firstNote: currentKeyId }).map(
     ({ sharpNoteName }) => sharpNoteName,
   );
@@ -44,18 +46,15 @@ export default function Fretboard(): JSX.Element {
 
   const { isDevMode } = useDevStore();
   const { onDevClick, isDevNote } = useFretboardDevEditor();
-  const { showShape, isPointInShape, currentVariantId } = useFretboardShapes();
-  const shapeData = currentShapeId ? shapes[currentShapeId] : null;
+
+  const { setNextShapeVariantLocationData } = useShapeVariantIterator();
+
+  const { isNoteInShape } = useShapeNotes(currentShapeVariantLocationData);
+  const { isNoteInShape: isLockedShapeNote } = useShapeNotes(lockedShapeVariantLocationData);
 
   const sharpNoteNamesInTune = useTuneSharpNoteNames();
 
   useHorizontalScroll(scrollRef);
-
-  useEffect(() => {
-    if (isDevMode && currentVariantId) {
-      console.log("Variant ID:", currentVariantId);
-    }
-  }, [currentVariantId, isDevMode]);
 
   return (
     <BoardScrollWrapper ref={scrollRef}>
@@ -67,12 +66,6 @@ export default function Fretboard(): JSX.Element {
           <FretboardInfoRow isNumeric />
           <S.Fretboard>
             {STRINGS_FIRST_NOTES.map(({ noteName, octaveNumber }, stringIndex) => {
-              const variantsForThisString = shapeData
-                ? Object.entries(shapeData.shapesCoordinates)
-                    .filter(([, coords]) => coords.length > 0 && coords[0][0] === stringIndex)
-                    .map(([id]) => ({ id }))
-                : [];
-
               return (
                 <S.FretboardRow key={`${stringIndex}-${noteName}`}>
                   {getNotes({
@@ -81,40 +74,33 @@ export default function Fretboard(): JSX.Element {
                     firstOctave: octaveNumber,
                   }).map((note, fretIndex) => {
                     const isShapeRootNote = shapeRootSharpNote === note.sharpNoteName;
-                    const isShapeNote = isPointInShape(stringIndex, fretIndex);
                     const isCurrentDevNote = isDevNote(stringIndex, fretIndex);
-                    const isLockedNote = !!lockedShape?.some(
-                      (p) => p.s === stringIndex && p.f === fretIndex,
-                    );
-                    const isTuneNote = sharpNoteNamesInTune.includes(note.sharpNoteName);
 
-                    const isCurrentActiveRoot =
-                      isShapeRootNote &&
-                      activeShapePoint?.stringIdx === stringIndex &&
-                      activeShapePoint?.fretIdx === fretIndex;
+                    const isTuneNote = sharpNoteNamesInTune.includes(note.sharpNoteName);
 
                     return (
                       <FretCell
                         key={`${stringIndex}-${fretIndex}`}
                         note={note}
+                        stringIndex={stringIndex}
                         fretIndex={fretIndex}
                         isHighlighted={isShapeRootNote}
                         currentRoleId={currentRoleId}
                         isFlatTune={isFlatTune}
-                        isActive={activeNoteId === note.noteId}
                         isShapeRootNote={isShapeRootNote}
                         isTuneNote={isTuneNote}
+                        isActive={activeNoteId === note.noteId}
                         onHover={setActiveNoteId}
                         onLeave={() => setActiveNoteId(null)}
-                        isShapeNote={isShapeNote}
-                        isLockedNote={isLockedNote}
+                        isShapeNote={isNoteInShape([stringIndex, fretIndex])}
+                        isLockedNote={isLockedShapeNote([stringIndex, fretIndex])}
                         lockedRoleId={lockedRoleId}
                         isDevNote={isCurrentDevNote}
-                        variants={isShapeRootNote ? variantsForThisString : []}
-                        isCurrentActiveRoot={isCurrentActiveRoot}
                         onClick={() => {
                           if (isDevMode) onDevClick(stringIndex, fretIndex);
-                          if (isShapeRootNote) showShape(stringIndex, fretIndex);
+                          if (isShapeRootNote) {
+                            setNextShapeVariantLocationData(stringIndex, fretIndex);
+                          }
                         }}
                         areAnimationsOn={areAnimationsOn}
                       />

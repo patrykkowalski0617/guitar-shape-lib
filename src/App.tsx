@@ -21,8 +21,8 @@ function App() {
 
   const roleColors = {
     "--secondary": `hsl(${tonicColor} 100% 45%)`,
-    "--primary": `hsl(${subdominantColor} 47% 45%)`,
-    "--tension": `hsl(${dominantColor} 92% 45%)`,
+    "--primary": `hsl(${subdominantColor} 90% 45%)`,
+    "--tension": `hsl(${dominantColor} 100% 45%)`,
   } as React.CSSProperties;
 
   return (

@@ -15,7 +15,6 @@ interface TutorialPopoverProps {
   description: string;
   x?: number;
   y?: number;
-  animationOrder: number;
 }
 
 export default function TutorialPopover({
@@ -23,14 +22,13 @@ export default function TutorialPopover({
   description,
   x = 0,
   y = 0,
-  animationOrder,
 }: TutorialPopoverProps) {
   const isTutorialOn = useSettingsStore((state) => state.isTutorialOn);
   if (!isTutorialOn) return null;
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <IconWrapper $x={x} $y={y} $animationOrder={animationOrder}>
+        <IconWrapper $x={x} $y={y}>
           <Info size={20} strokeWidth={1} color="var(--accent)" />
         </IconWrapper>
       </PopoverTrigger>

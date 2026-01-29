@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
-import { generateScaleSteps, getStepsCountForFunction } from "@/utils";
 
 export const useMusicEngine = () => {
   const currentRoleId = useControlsStore((s) => s.currentRoleId);
@@ -12,21 +11,18 @@ export const useMusicEngine = () => {
   const isMajorMode = useControlsStore((s) => s.isMajorMode);
   const currentShapeId = useControlsStore((s) => s.currentShapeId);
 
-  const setActiveScaleSteps = useMusicStore((s) => s.setActiveScaleSteps);
-  const setActiveShapePoint = useMusicStore((s) => s.setActiveShapePoint);
+  const setCurrentShapeVariantLocationData = useMusicStore(
+    (s) => s.setCurrentShapeVariantLocationData,
+  );
 
   useEffect(() => {
-    const count = getStepsCountForFunction(currentRoleId);
-    setActiveScaleSteps(generateScaleSteps(count));
-
-    setActiveShapePoint(null);
+    setCurrentShapeVariantLocationData(null);
   }, [
-    currentRoleId,
-    currentKeyId,
     isMajorMode,
+    currentKeyId,
+    currentRoleId,
     currentShapeId,
     currentShapeSemitoneOffsetFromC,
-    setActiveScaleSteps,
-    setActiveShapePoint,
+    setCurrentShapeVariantLocationData,
   ]);
 };
