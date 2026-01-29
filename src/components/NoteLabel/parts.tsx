@@ -1,13 +1,13 @@
 import { transitionTime } from "@/utils/constants";
 import styled, { css } from "styled-components";
 
-export type LabelOrientation = "vertical" | "horizontal";
+export type LabelOrientation = "keyboard" | "fretboard";
 
 interface StyledNoteLabelProps {
   $isFlatTune: boolean;
   $isEnharmonicNote: boolean;
   $isHighlighted: boolean;
-  $orientation: LabelOrientation;
+  $targetComponent: LabelOrientation;
   $isShapeNote: boolean;
   $isTuneNote: boolean;
   $areAnimationsOn: boolean;
@@ -24,14 +24,14 @@ const getLabelStyles = (
   isActive: boolean,
   isHighlighted: boolean,
   multiplier: number,
-  orientation: LabelOrientation,
+  targetComponent: LabelOrientation,
   isShapeNote: boolean,
 ) => {
   const y = isActive ? 9 * multiplier : -5 * multiplier;
   const x = isActive ? 8 * multiplier : -4 * multiplier;
-  const transform = orientation === "vertical" ? `translateY(${y}px)` : `translate(${x}px, 0)`;
+  const transform = targetComponent === "keyboard" ? `translateY(${y}px)` : `translate(${x}px, 0)`;
   const shouldHighlight =
-    (isActive && isHighlighted) || (orientation === "vertical" && isShapeNote);
+    (isActive && isHighlighted) || (targetComponent === "keyboard" && isShapeNote);
 
   return css`
     font-size: ${isActive ? "12px" : "9px"};
@@ -48,15 +48,15 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: ${({ $orientation }) => ($orientation === "vertical" ? "column" : "row")};
-  height: ${({ $orientation }) => ($orientation === "vertical" ? "30px" : "20px")};
-  width: ${({ $orientation }) => ($orientation === "vertical" ? "auto" : "30px")};
-  top: ${({ $orientation, $isShapeNote }) =>
-    $orientation === "vertical" && $isShapeNote ? "20px" : "0"};
-  opacity: ${({ $isHighlighted, $orientation, $isTuneNote, $isShapeNote }) =>
+  flex-direction: ${({ $targetComponent }) => ($targetComponent === "keyboard" ? "column" : "row")};
+  height: ${({ $targetComponent }) => ($targetComponent === "keyboard" ? "30px" : "20px")};
+  width: ${({ $targetComponent }) => ($targetComponent === "keyboard" ? "auto" : "30px")};
+  top: ${({ $targetComponent, $isShapeNote }) =>
+    $targetComponent === "keyboard" && $isShapeNote ? "20px" : "0"};
+  opacity: ${({ $isHighlighted, $targetComponent, $isTuneNote, $isShapeNote }) =>
     $isShapeNote ||
-    ($isHighlighted && $orientation === "vertical") ||
-    ($isTuneNote && $orientation === "horizontal")
+    ($isHighlighted && $targetComponent === "keyboard") ||
+    ($isTuneNote && $targetComponent === "fretboard")
       ? "1"
       : "0"};
   will-change: top, opacity;
@@ -75,8 +75,8 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
     width: 20px;
     border-radius: 100%;
     font-weight: bold;
-    ${({ $orientation }) =>
-      $orientation === "vertical" &&
+    ${({ $targetComponent }) =>
+      $targetComponent === "keyboard" &&
       css`
         background: #000000bb;
         box-shadow: 0 0 8px var(--background);
@@ -93,14 +93,14 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   }
 
   .mainLabel {
-    ${({ $isFlatTune, $isEnharmonicNote, $isHighlighted, $orientation, $isShapeNote }) =>
+    ${({ $isFlatTune, $isEnharmonicNote, $isHighlighted, $targetComponent, $isShapeNote }) =>
       !$isEnharmonicNote
         ? getStaticStyles($isHighlighted)
-        : getLabelStyles(!$isFlatTune, $isHighlighted, 1, $orientation, $isShapeNote)}
+        : getLabelStyles(!$isFlatTune, $isHighlighted, 1, $targetComponent, $isShapeNote)}
   }
 
   .optionalLabel {
-    ${({ $isFlatTune, $isHighlighted, $orientation, $isShapeNote }) =>
-      getLabelStyles($isFlatTune, $isHighlighted, -1, $orientation, $isShapeNote)}
+    ${({ $isFlatTune, $isHighlighted, $targetComponent, $isShapeNote }) =>
+      getLabelStyles($isFlatTune, $isHighlighted, -1, $targetComponent, $isShapeNote)}
   }
 `;

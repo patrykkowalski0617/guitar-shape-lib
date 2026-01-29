@@ -1,26 +1,26 @@
 import { useProgressStore } from "@/store/useProgressStore";
 import { Button } from "../ui/button";
 import { exportProgress, importProgress } from "./helpers/progressHelpers";
-import TutorialPopover from "../TutorialPopover/TutorialPopover";
-import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { GroupWrapper } from "../ControlsContainer/parts";
 
-export const ProgressActions = () => {
-  const { learned, importData } = useProgressStore();
+export const ExportProgressFileButton = () => {
+  const { learned } = useProgressStore();
   return (
-    <>
-      <GroupWrapper>
-        <TutorialPopover {...TUTORIAL_CONTENT.EXPORT_DATA} />
-        <Button variant="outline" onClick={() => exportProgress({ learned })}>
-          Export progress file
-        </Button>
-      </GroupWrapper>
-      <GroupWrapper>
-        <TutorialPopover {...TUTORIAL_CONTENT.IMPORT_DATA} />
-        <Button variant="outline" onClick={() => importProgress(importData)}>
-          Import progress file
-        </Button>
-      </GroupWrapper>
-    </>
+    <GroupWrapper>
+      <Button variant="outline" onClick={() => exportProgress({ learned })}>
+        Export progress file
+      </Button>
+    </GroupWrapper>
+  );
+};
+
+export const ImportProgressFileButton = () => {
+  const { importData } = useProgressStore();
+  return (
+    <GroupWrapper>
+      <Button variant="outline" onClick={() => importProgress(importData)}>
+        Import progress file
+      </Button>
+    </GroupWrapper>
   );
 };

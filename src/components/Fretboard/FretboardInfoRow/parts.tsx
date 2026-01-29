@@ -27,11 +27,13 @@ export const FretInfoCell = styled.div<{
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
+        border: 1px solid var(--background);
         border-radius: 50%;
         background-color: var(--primary);
         display: none;
+        box-shadow: 0 0 8px var(--primary);
       }
     `}
   ${({ $isNumeric, $singleDot }) =>
@@ -49,11 +51,11 @@ export const FretInfoCell = styled.div<{
     css`
       &::before {
         display: block;
-        transform: translate(-5px, -50%);
+        transform: translate(-7px, -50%);
       }
       &::after {
         display: block;
-        transform: translate(5px, -50%);
+        transform: translate(7px, -50%);
       }
     `}
 `;

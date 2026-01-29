@@ -91,7 +91,7 @@ const FretCell = memo(
               isTuneNote={isTuneNote}
               isShapeNote={isShapeNote}
               isFlatTune={isFlatTune}
-              orientation="horizontal"
+              targetComponent="fretboard"
               isEnharmonic={noteData.isEnharmonic}
             />
           </S.Note>

@@ -9,7 +9,7 @@ interface NoteLabelProps {
   isFlatTune: boolean;
   isHighlighted: boolean;
   isEnharmonic: boolean;
-  orientation?: S.LabelOrientation;
+  targetComponent?: S.LabelOrientation;
   isShapeNote?: boolean;
   isTuneNote?: boolean;
 }
@@ -20,7 +20,7 @@ export default function NoteLabel({
   sharpNoteName,
   flatNoteName,
   isEnharmonic,
-  orientation = "vertical",
+  targetComponent = "keyboard",
   isShapeNote = false,
   isTuneNote = false,
 }: NoteLabelProps): JSX.Element {
@@ -31,7 +31,7 @@ export default function NoteLabel({
       $isFlatTune={isFlatTune}
       $isEnharmonicNote={isEnharmonic}
       $isHighlighted={isHighlighted}
-      $orientation={orientation}
+      $targetComponent={targetComponent}
       $isShapeNote={isShapeNote}
       $areAnimationsOn={areAnimationsOn}
       $isTuneNote={isTuneNote}
