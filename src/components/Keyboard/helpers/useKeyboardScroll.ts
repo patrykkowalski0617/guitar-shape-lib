@@ -17,7 +17,7 @@ export const useKeyboardScroll = (
         const containerRect = container.getBoundingClientRect();
         const elementRect = firstHighlighted.getBoundingClientRect();
         const targetScrollLeft =
-          container.scrollLeft + (elementRect.left - containerRect.left) - 25;
+          container.scrollLeft + (elementRect.left - containerRect.left) - 35;
 
         container.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
       }

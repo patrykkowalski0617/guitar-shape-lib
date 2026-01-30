@@ -16,9 +16,25 @@ interface StyledNoteLabelProps {
 const highlightedColor = "var(--muted-foreground)";
 const unHighlightedColor = "var(--muted)";
 
-const getStaticStyles = (isHighlighted: boolean) => css`
-  color: ${isHighlighted ? highlightedColor : unHighlightedColor};
-`;
+const TARGET_COMPONENT_CONFIG = {
+  keyboard: css`
+    flex-direction: column;
+    height: 30px;
+    width: auto;
+
+    .mainLabel,
+    .optionalLabel {
+      background: #000000bb;
+      box-shadow: 0 0 8px var(--background);
+      border: 1px solid color-mix(in oklab, var(--accent) 70%, #000);
+    }
+  `,
+  fretboard: css`
+    flex-direction: row;
+    height: 20px;
+    width: 30px;
+  `,
+};
 
 const getLabelStyles = (
   isActive: boolean,
@@ -27,11 +43,12 @@ const getLabelStyles = (
   targetComponent: LabelOrientation,
   isShapeNote: boolean,
 ) => {
-  const y = isActive ? 9 * multiplier : -5 * multiplier;
-  const x = isActive ? 8 * multiplier : -4 * multiplier;
-  const transform = targetComponent === "keyboard" ? `translateY(${y}px)` : `translate(${x}px, 0)`;
-  const shouldHighlight =
-    (isActive && isHighlighted) || (targetComponent === "keyboard" && isShapeNote);
+  const isKeyboard = targetComponent === "keyboard";
+  const y = isActive ? 9 * multiplier : 0 * multiplier;
+  const x = isActive ? 12 * multiplier : 0 * multiplier;
+
+  const transform = isKeyboard ? `translateY(${y}px)` : `translate(${x}px, 0)`;
+  const shouldHighlight = (isActive && isHighlighted) || (isKeyboard && isShapeNote);
 
   return css`
     font-size: ${isActive ? "12px" : "9px"};
@@ -48,40 +65,37 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: ${({ $targetComponent }) => ($targetComponent === "keyboard" ? "column" : "row")};
-  height: ${({ $targetComponent }) => ($targetComponent === "keyboard" ? "30px" : "20px")};
-  width: ${({ $targetComponent }) => ($targetComponent === "keyboard" ? "auto" : "30px")};
+
+  ${({ $targetComponent }) => TARGET_COMPONENT_CONFIG[$targetComponent]}
+
   top: ${({ $targetComponent, $isShapeNote }) =>
     $targetComponent === "keyboard" && $isShapeNote ? "20px" : "0"};
-  opacity: ${({ $isHighlighted, $targetComponent, $isTuneNote, $isShapeNote }) =>
-    $isShapeNote ||
-    ($isHighlighted && $targetComponent === "keyboard") ||
-    ($isTuneNote && $targetComponent === "fretboard")
+
+  opacity: ${({ $isHighlighted, $targetComponent, $isTuneNote, $isShapeNote }) => {
+    const isKeyboard = $targetComponent === "keyboard";
+    const isFretboard = $targetComponent === "fretboard";
+    return $isShapeNote || (isKeyboard && $isHighlighted) || (isFretboard && $isTuneNote)
       ? "1"
-      : "0"};
+      : "0";
+  }};
+
   will-change: top, opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn
-      ? `opacity ${transitionTime}ms ease-in-out ,top ${transitionTime}ms ease-in-out`
+      ? `opacity ${transitionTime}ms ease-in-out, top ${transitionTime}ms ease-in-out`
       : "none"};
+
   .mainLabel,
   .optionalLabel {
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
-    line-height: 2;
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
+    line-height: 26px;
     border-radius: 100%;
     font-weight: bold;
-    ${({ $targetComponent }) =>
-      $targetComponent === "keyboard" &&
-      css`
-        background: #000000bb;
-        box-shadow: 0 0 8px var(--background);
-        border: 1px solid color-mix(in oklab, var(--accent) 70%, #000);
-      `}
     will-change: transform, opacity, font-size, color;
     transition: ${({ $areAnimationsOn }) =>
       $areAnimationsOn
@@ -95,7 +109,9 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   .mainLabel {
     ${({ $isFlatTune, $isEnharmonicNote, $isHighlighted, $targetComponent, $isShapeNote }) =>
       !$isEnharmonicNote
-        ? getStaticStyles($isHighlighted)
+        ? css`
+            color: ${$isHighlighted ? highlightedColor : unHighlightedColor};
+          `
         : getLabelStyles(!$isFlatTune, $isHighlighted, 1, $targetComponent, $isShapeNote)}
   }
 
