@@ -32,7 +32,7 @@ export function Settings() {
       </DrawerTrigger>
 
       <DrawerContent>
-        <div className="mx-auto w-full max-w-sm">
+        <div className="mx-auto w-full max-w-sm h-full overflow-auto px-6">
           <DrawerHeader className="border-b mb-4">
             <DrawerTitle className="text-2xl font-bold">Settings</DrawerTitle>
           </DrawerHeader>
