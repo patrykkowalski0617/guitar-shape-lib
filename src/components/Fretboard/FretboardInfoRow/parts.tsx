@@ -33,7 +33,7 @@ export const FretInfoCell = styled.div<{
         border-radius: 50%;
         background-color: var(--primary);
         display: none;
-        box-shadow: 0 0 8px var(--primary);
+        box-shadow: 0 0 10px var(--primary);
       }
     `}
   ${({ $isNumeric, $singleDot }) =>
