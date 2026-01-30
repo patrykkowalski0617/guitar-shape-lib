@@ -1,5 +1,5 @@
-import { transitionTime } from "@/utils/constants";
 import styled, { css } from "styled-components";
+import { transitionTime } from "@/utils/constants";
 
 export type LabelOrientation = "keyboard" | "fretboard";
 
@@ -19,14 +19,13 @@ const unHighlightedColor = "var(--muted)";
 const TARGET_COMPONENT_CONFIG = {
   keyboard: css`
     flex-direction: column;
-    height: 30px;
     width: auto;
-
     .mainLabel,
     .optionalLabel {
-      background: #000000bb;
+      background: color-mix(in oklab, var(--background) 70%, transparent);
       box-shadow: 0 0 8px var(--background);
-      border: 1px solid color-mix(in oklab, var(--accent) 70%, #000);
+      border: 1px solid color-mix(in oklab, var(--accent) 70%, transparent);
+      top: 0;
     }
   `,
   fretboard: css`
@@ -39,29 +38,21 @@ const TARGET_COMPONENT_CONFIG = {
 const getLabelStyles = (
   isActive: boolean,
   isHighlighted: boolean,
-  multiplier: number,
   targetComponent: LabelOrientation,
   isShapeNote: boolean,
 ) => {
   const isKeyboard = targetComponent === "keyboard";
-  const y = isActive ? 9 * multiplier : 0 * multiplier;
-  const x = isActive ? 12 * multiplier : 0 * multiplier;
-
-  const transform = isKeyboard ? `translateY(${y}px)` : `translate(${x}px, 0)`;
   const shouldHighlight = (isActive && isHighlighted) || (isKeyboard && isShapeNote);
 
   return css`
-    font-size: ${isActive ? "12px" : "9px"};
     color: ${shouldHighlight ? highlightedColor : unHighlightedColor};
     opacity: ${isActive ? 1 : 0};
-    font-weight: ${isActive ? "bold" : "normal"};
-    transform: ${transform};
   `;
 };
 
 export const Wrapper = styled.div<StyledNoteLabelProps>`
-  z-index: 1;
   position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,11 +60,12 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
   ${({ $targetComponent }) => TARGET_COMPONENT_CONFIG[$targetComponent]}
 
   top: ${({ $targetComponent, $isShapeNote }) =>
-    $targetComponent === "keyboard" && $isShapeNote ? "20px" : "0"};
+    $targetComponent === "keyboard" && $isShapeNote ? "25px" : "0"};
 
   opacity: ${({ $isHighlighted, $targetComponent, $isTuneNote, $isShapeNote }) => {
     const isKeyboard = $targetComponent === "keyboard";
     const isFretboard = $targetComponent === "fretboard";
+
     return $isShapeNote || (isKeyboard && $isHighlighted) || (isFretboard && $isTuneNote)
       ? "1"
       : "0";
@@ -90,19 +82,21 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
-    height: 25px;
     width: 25px;
-    line-height: 26px;
+    height: 25px;
     border-radius: 100%;
+    position: absolute;
+    font-size: 12px;
     font-weight: bold;
-    will-change: transform, opacity, font-size, color;
+    line-height: 26px;
+    will-change: opacity, font-size, color;
     transition: ${({ $areAnimationsOn }) =>
       $areAnimationsOn
-        ? `transform ${transitionTime}ms ease-in-out, 
-           opacity ${transitionTime}ms ease-in-out, 
-           font-size ${transitionTime}ms ease-in-out, 
-           color ${transitionTime}ms ease-in-out`
+        ? css`
+            opacity ${transitionTime}ms ease-in-out, 
+            font-size ${transitionTime}ms ease-in-out, 
+            color ${transitionTime}ms ease-in-out
+          `
         : "none"};
   }
 
@@ -112,11 +106,11 @@ export const Wrapper = styled.div<StyledNoteLabelProps>`
         ? css`
             color: ${$isHighlighted ? highlightedColor : unHighlightedColor};
           `
-        : getLabelStyles(!$isFlatTune, $isHighlighted, 1, $targetComponent, $isShapeNote)}
+        : getLabelStyles(!$isFlatTune, $isHighlighted, $targetComponent, $isShapeNote)}
   }
 
   .optionalLabel {
     ${({ $isFlatTune, $isHighlighted, $targetComponent, $isShapeNote }) =>
-      getLabelStyles($isFlatTune, $isHighlighted, -1, $targetComponent, $isShapeNote)}
+      getLabelStyles($isFlatTune, $isHighlighted, $targetComponent, $isShapeNote)}
   }
 `;

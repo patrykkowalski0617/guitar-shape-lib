@@ -17,7 +17,7 @@ export const Fretboard = styled.div`
         height: 32px;
         width: 1px;
         background: color-mix(in oklab, var(--primary) 50%, transparent);
-        box-shadow: 0 0 4px var(--primary);
+        box-shadow: 0 0 8px var(--primary);
         right: -9px;
         top: 50%;
         transform: translateY(-50%);
