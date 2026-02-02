@@ -9,26 +9,26 @@ Highlighted keys represent the notes belonging to the selected Key.
 
 Color-coded keys marked with numbers identify the specific intervals of the chosen Function.
 
-Keys with offset labels (shifted downwards) indicate the notes belonging to the current arpeggio or scale.
+Keys with offset labels (shifted downwards) indicate the notes belonging to the selected arpeggio or scale.
 `,
     x: 10,
     y: 0,
   },
   FRETBOARD: {
     title: "Fretboard",
-    description: `Once a function is selected, the app highlights the root notes of the chosen arpeggio or scale on the fretboard diagram. You can then tap any root note to cycle through the available shape variants across the neck.`,
+    description: `Once a function is selected, the app highlights the root notes of the chosen arpeggio or scale. You can then tap any root note to cycle through the available shape variants across the neck.`,
     x: 10,
     y: 0,
   },
   MODE_TOGGLE: {
     title: "Major/Minor Toggle",
-    description: `Switches between relative Major and Minor keys.`,
+    description: `Switches between relative Major (bright feeling) and Minor (dark mood) keys.`,
     x: -23,
     y: -6,
   },
   KEY_SELECTOR: {
     title: "Key Selector",
-    description: `Select your tonal center. Keys are organized as relative pairs (e.g., C Major and A Minor), sharing the same scale degrees while shifting the harmonic focus between bright and dark tonalities.`,
+    description: `Select your tonal center. Keys are organized as relative pairs (e.g., C Major and A Minor), which means they share the same notes.`,
     x: -23,
     y: -6,
   },
