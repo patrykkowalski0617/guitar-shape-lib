@@ -9,7 +9,7 @@ interface NoteLabelProps {
   isFlatTune: boolean;
   isHighlighted: boolean;
   isEnharmonic: boolean;
-  targetComponent?: S.LabelOrientation;
+  targetComponent?: S.TargetComponent;
   isShapeNote?: boolean;
   isTuneNote?: boolean;
 }

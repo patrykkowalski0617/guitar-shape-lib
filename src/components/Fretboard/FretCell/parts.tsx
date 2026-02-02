@@ -25,15 +25,13 @@ export const LockedEffectWrapper = styled.div<{
   }}
 `;
 
-interface FretProps {
+export const Fret = styled.div<{
   $isDevNote: boolean;
   $isShapeNote: boolean;
   $isShapeRootNoteWithVariants: boolean;
   $isTuneNote: boolean;
   $areAnimationsOn: boolean;
-}
-
-export const Fret = styled.div<FretProps>`
+}>`
   width: 100%;
   border-radius: 4px;
   background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};

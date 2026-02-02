@@ -26,7 +26,7 @@ export const useShapeNotes = (
     return variantCoordinates?.map(([s, f]) => [s, f + fretIdx]) || [];
   }, [currentShapeVariantLocationData]);
 
-  const isNoteInShape = (coords: [number, number]): boolean => {
+  const isShapeNote = (coords: [number, number]): boolean => {
     const [stringIndex, fretIndex] = coords;
     return notesInSapeCoordinates.some(
       ([shapeS, shapeF]) => shapeS === stringIndex && shapeF === fretIndex,
@@ -34,6 +34,6 @@ export const useShapeNotes = (
   };
 
   return {
-    isNoteInShape,
+    isShapeNote,
   };
 };

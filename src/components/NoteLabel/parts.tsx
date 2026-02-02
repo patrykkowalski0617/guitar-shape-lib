@@ -1,13 +1,13 @@
 import styled, { css } from "styled-components";
 import { transitionTime } from "@/utils/constants";
 
-export type LabelOrientation = "keyboard" | "fretboard";
+export type TargetComponent = "keyboard" | "fretboard";
 
 interface StyledNoteLabelProps {
   $isFlatTune: boolean;
   $isEnharmonicNote: boolean;
   $isHighlighted: boolean;
-  $targetComponent: LabelOrientation;
+  $targetComponent: TargetComponent;
   $isShapeNote: boolean;
   $isTuneNote: boolean;
   $areAnimationsOn: boolean;
@@ -38,7 +38,7 @@ const TARGET_COMPONENT_CONFIG = {
 const getLabelStyles = (
   isActive: boolean,
   isHighlighted: boolean,
-  targetComponent: LabelOrientation,
+  targetComponent: TargetComponent,
   isShapeNote: boolean,
 ) => {
   const isKeyboard = targetComponent === "keyboard";
