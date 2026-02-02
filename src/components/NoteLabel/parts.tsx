@@ -14,23 +14,14 @@ const BaseLabel = styled.div<{
   justify-content: center;
   width: 25px;
   height: 25px;
+  line-height: 25px;
   border-radius: 100%;
   position: absolute;
   font-size: 12px;
   font-weight: bold;
-  line-height: 25px;
-  color: ${unHighlightedColor};
   will-change: opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn ? `opacity ${transitionTime}ms ease-in-out` : "none"};
-`;
-
-export const BaseWrapper = css<{ $areAnimationsOn: boolean }>`
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 interface LabelStatusProps {
@@ -55,12 +46,11 @@ export const Wrapper = styled.div<{
   $areAnimationsOn: boolean;
   $variant: Variant;
 }>`
-  ${BaseWrapper}
-
   ${({ $variant, $areAnimationsOn, $isShapeNote, $isHighlighted }) =>
     $variant === "keyboard" &&
     css`
-      flex-direction: column;
+      position: relative;
+      z-index: 1;
 
       will-change: top, opacity;
       transition: ${$areAnimationsOn
@@ -79,9 +69,12 @@ export const Wrapper = styled.div<{
       }
     `}
 
-     ${({ $variant, $areAnimationsOn, $isShapeNote, $isTuneNote }) =>
+  ${({ $variant, $areAnimationsOn, $isShapeNote, $isTuneNote }) =>
     $variant === "fretboard" &&
     css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
       flex-direction: row;
       height: 20px;
       width: 30px;
