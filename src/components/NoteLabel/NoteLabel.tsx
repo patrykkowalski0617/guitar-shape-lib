@@ -2,6 +2,9 @@ import { type JSX } from "react";
 import * as S from "./parts";
 import { type Note } from "@/utils";
 import { useSettingsStore } from "@/store/useSettingsStore";
+import { MainLabel, OptionalLabel } from "@/components/NoteLabel/parts";
+
+export type Variant = "fretboard" | "keyboard";
 
 interface NoteLabelProps {
   flatNoteName: Note;
@@ -9,9 +12,9 @@ interface NoteLabelProps {
   isFlatTune: boolean;
   isHighlighted: boolean;
   isEnharmonic: boolean;
-  targetComponent?: S.LabelOrientation;
   isShapeNote?: boolean;
   isTuneNote?: boolean;
+  variant: Variant;
 }
 
 export default function NoteLabel({
@@ -20,9 +23,9 @@ export default function NoteLabel({
   sharpNoteName,
   flatNoteName,
   isEnharmonic,
-  targetComponent = "keyboard",
   isShapeNote = false,
   isTuneNote = false,
+  variant,
 }: NoteLabelProps): JSX.Element {
   const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
 
@@ -31,13 +34,29 @@ export default function NoteLabel({
       $isFlatTune={isFlatTune}
       $isEnharmonicNote={isEnharmonic}
       $isHighlighted={isHighlighted}
-      $targetComponent={targetComponent}
       $isShapeNote={isShapeNote}
       $areAnimationsOn={areAnimationsOn}
       $isTuneNote={isTuneNote}
+      $variant={variant}
     >
-      <div className="mainLabel">{sharpNoteName}</div>
-      {isEnharmonic && <div className="optionalLabel">{flatNoteName}</div>}
+      <MainLabel
+        $isFlatTune={isFlatTune}
+        $isEnharmonicNote={isEnharmonic}
+        $isHighlighted={isHighlighted}
+        $areAnimationsOn={areAnimationsOn}
+      >
+        {sharpNoteName}
+      </MainLabel>
+      {isEnharmonic && (
+        <OptionalLabel
+          $isFlatTune={isFlatTune}
+          $isEnharmonicNote={isEnharmonic}
+          $isHighlighted={isHighlighted}
+          $areAnimationsOn={areAnimationsOn}
+        >
+          {flatNoteName}
+        </OptionalLabel>
+      )}
     </S.Wrapper>
   );
 }

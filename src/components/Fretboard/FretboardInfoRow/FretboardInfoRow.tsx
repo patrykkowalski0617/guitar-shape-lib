@@ -1,5 +1,5 @@
 import * as S from "./parts";
-import { numberOfFrets } from "../helpers/constants";
+import { numberOfFrets } from "../FretboardRow/helpers/constants";
 import { FretboardRow } from "../FretboardRow/parts";
 
 export default function FretboardInfoRow({ isNumeric = false }: { isNumeric?: boolean }) {

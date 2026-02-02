@@ -25,15 +25,13 @@ export const LockedEffectWrapper = styled.div<{
   }}
 `;
 
-interface FretProps {
+export const Fret = styled.div<{
   $isDevNote: boolean;
   $isShapeNote: boolean;
   $isShapeRootNoteWithVariants: boolean;
   $isTuneNote: boolean;
   $areAnimationsOn: boolean;
-}
-
-export const Fret = styled.div<FretProps>`
+}>`
   width: 100%;
   border-radius: 4px;
   background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
@@ -73,7 +71,7 @@ export const Note = styled.div<{
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `box-shadow ${transitionTime}ms ease-in-out`};
   filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
-  opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.5")};
+  opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.4")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   ${({ $isShapeRootNote, $highlightRole }) => {
     if (!$isShapeRootNote) return null;

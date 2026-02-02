@@ -61,20 +61,20 @@ const whiteKey = (areAnimationsOn: boolean) => css`
   }
 
   @media (min-width: 768px) {
-    height: 130px;
+    height: 120px;
     padding-top: 11px; //- 1px difference to compensate border of black key
   }
 `;
 
 const blackKey = (areAnimationsOn: boolean) => css`
   background-color: var(--background);
-  height: 70px;
+  height: 67px;
   z-index: 2;
   padding-top: 5px;
   ${commonStyleForKey(areAnimationsOn)}
 
   @media (min-width: 768px) {
-    height: 80px;
+    height: 75px;
     padding-top: 10px;
   }
 `;

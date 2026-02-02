@@ -1,23 +1,23 @@
-import { memo, useState } from "react";
+import { memo, useState, useCallback } from "react";
 import * as S from "./parts";
 import type { NoteObject, RoleId } from "@/utils";
-import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { VariantProgressDots } from "../VariantProgressDots/VariantProgressDots";
 import type { HighlightRole } from "@/utils/roleColors";
+import type { StringIndex } from "../FretboardRow/FretboardRow";
+import NoteLabel from "@/components/NoteLabel/NoteLabel";
 
 interface FretCellProps {
   noteData: NoteObject;
-  stringIndex: number;
-  fretIndex: number;
-  isShapeRootNote: boolean;
+  stringIndex: StringIndex;
   currentRoleId: RoleId | null;
+  lockedRoleId: RoleId | null;
   isFlatTune: boolean;
   isActive: boolean;
+  isShapeRootNote: boolean;
   isShapeRootNoteWithVariants: boolean;
-  isTuneNote: boolean;
   isShapeNote: boolean;
+  isTuneNote: boolean;
   isLockedNote: boolean;
-  lockedRoleId: RoleId | null;
   isDevNote: boolean;
   onHover: (id: string) => void;
   onLeave: () => void;
@@ -25,95 +25,80 @@ interface FretCellProps {
   areAnimationsOn: boolean;
 }
 
-const FretCell = memo(
-  ({
+const FretCell = memo((props: FretCellProps) => {
+  const {
     noteData,
     stringIndex,
-    fretIndex,
-    isShapeRootNote,
+    currentRoleId,
+    lockedRoleId,
     isFlatTune,
     isActive,
-    isShapeNote,
-    isLockedNote,
-    lockedRoleId,
-    isDevNote,
+    isShapeRootNote,
     isShapeRootNoteWithVariants,
+    isShapeNote,
     isTuneNote,
-    currentRoleId,
+    isLockedNote,
+    isDevNote,
     onHover,
     onLeave,
     onClick,
     areAnimationsOn,
-  }: FretCellProps) => {
-    const activeRole: HighlightRole = currentRoleId ? (currentRoleId as HighlightRole) : "none";
-    const [clickedFret, setClickedFret] = useState<number | null>(null);
-    const handleClick = () => {
-      onClick?.();
-      setClickedFret(fretIndex);
-    };
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-      if (!isShapeRootNoteWithVariants) return;
+  } = props;
 
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        onClick?.();
-      }
-    };
-    return (
-      <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={lockedRoleId}>
-        {isShapeRootNoteWithVariants && (
-          <VariantProgressDots stringIndex={stringIndex} isActiveFret={fretIndex === clickedFret} />
-        )}
-        <S.Fret
-          onMouseOver={() => onHover(noteData.noteId)}
-          onMouseLeave={onLeave}
-          $isDevNote={isDevNote}
-          $isShapeRootNoteWithVariants={isShapeRootNoteWithVariants}
+  const [isActiveRootNote, setIsActiveRootNote] = useState(false);
+  const activeRole: HighlightRole = (currentRoleId as HighlightRole) || "none";
+
+  const handleClick = useCallback(() => {
+    onClick?.();
+    setIsActiveRootNote(true);
+  }, [onClick]);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (isShapeRootNoteWithVariants && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      handleClick();
+    }
+  };
+
+  return (
+    <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={lockedRoleId}>
+      {isShapeRootNoteWithVariants && (
+        <VariantProgressDots stringIndex={stringIndex} isActiveRootNote={isActiveRootNote} />
+      )}
+      <S.Fret
+        onMouseOver={() => onHover(noteData.noteId)}
+        onMouseLeave={onLeave}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+        $isDevNote={isDevNote}
+        $isShapeRootNoteWithVariants={isShapeRootNoteWithVariants}
+        $isShapeNote={isShapeNote}
+        $isTuneNote={isTuneNote}
+        $areAnimationsOn={areAnimationsOn}
+        tabIndex={isShapeRootNoteWithVariants ? 0 : -1}
+        role={isShapeRootNoteWithVariants ? "button" : undefined}
+      >
+        <S.Note
+          $isShapeRootNote={isShapeRootNote}
+          $isActiveNote={isActive}
+          $highlightRole={activeRole}
           $isShapeNote={isShapeNote}
-          $isTuneNote={isTuneNote}
           $areAnimationsOn={areAnimationsOn}
-          onClick={handleClick}
-          tabIndex={isShapeRootNoteWithVariants ? 0 : -1}
-          role={isShapeRootNoteWithVariants ? "button" : undefined}
-          onKeyDown={handleKeyDown}
         >
-          <S.Note
-            $isShapeRootNote={isShapeRootNote}
-            $isActiveNote={isActive}
-            $highlightRole={activeRole}
-            $isShapeNote={isShapeNote}
-            $areAnimationsOn={areAnimationsOn}
-          >
-            <NoteLabel
-              isHighlighted={isShapeRootNote || isShapeNote}
-              flatNoteName={noteData.flatNoteName}
-              sharpNoteName={noteData.sharpNoteName}
-              isTuneNote={isTuneNote}
-              isShapeNote={isShapeNote}
-              isFlatTune={isFlatTune}
-              targetComponent="fretboard"
-              isEnharmonic={noteData.isEnharmonic}
-            />
-          </S.Note>
-        </S.Fret>
-      </S.LockedEffectWrapper>
-    );
-  },
-  (prev, next) => {
-    return (
-      prev.stringIndex === next.stringIndex &&
-      prev.fretIndex === next.fretIndex &&
-      prev.isActive === next.isActive &&
-      prev.isShapeRootNote === next.isShapeRootNote &&
-      prev.isFlatTune === next.isFlatTune &&
-      prev.isShapeRootNoteWithVariants === next.isShapeRootNoteWithVariants &&
-      prev.isTuneNote === next.isTuneNote &&
-      prev.currentRoleId === next.currentRoleId &&
-      prev.isShapeNote === next.isShapeNote &&
-      prev.isLockedNote === next.isLockedNote &&
-      prev.isDevNote === next.isDevNote
-    );
-  },
-);
+          <NoteLabel
+            isHighlighted={isShapeRootNote || isShapeNote}
+            flatNoteName={noteData.flatNoteName}
+            sharpNoteName={noteData.sharpNoteName}
+            isTuneNote={isTuneNote}
+            isShapeNote={isShapeNote}
+            isFlatTune={isFlatTune}
+            isEnharmonic={noteData.isEnharmonic}
+            variant="fretboard"
+          />
+        </S.Note>
+      </S.Fret>
+    </S.LockedEffectWrapper>
+  );
+});
 
 export default FretCell;

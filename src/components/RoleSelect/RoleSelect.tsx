@@ -16,7 +16,7 @@ export default function RoleSelect() {
   return (
     <GroupWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.ROLE_SELECTOR} />
-      <Label>Harmonic Function</Label>
+      <Label>Function</Label>
       <ToggleGroup type="single" value={currentRoleId ?? ""} onValueChange={handleValueChange}>
         {(Object.entries(roles) as [RoleId, RoleData][]).map(([id, data]) => (
           <ToggleGroupItem key={id} value={id}>

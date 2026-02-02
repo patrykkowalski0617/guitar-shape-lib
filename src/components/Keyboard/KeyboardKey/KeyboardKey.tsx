@@ -1,8 +1,8 @@
 import { memo } from "react";
 import * as S from "./parts";
 import type { NoteFlat, NoteSharp } from "@/utils";
-import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import type { HighlightRole } from "../../../utils/roleColors";
+import NoteLabel from "@/components/NoteLabel/NoteLabel";
 
 interface KeyboardKeyProps {
   areAnimationsOn: boolean;
@@ -66,8 +66,8 @@ const KeyboardKey = memo(
           flatNoteName={flatNoteName}
           sharpNoteName={sharpNoteName}
           isEnharmonic={isEnharmonic}
-          //
           isHighlighted={isHighlighted}
+          variant="keyboard"
         />
       </S.Key>
     );
