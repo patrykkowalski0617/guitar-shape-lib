@@ -1,5 +1,6 @@
 import { transitionTime } from "@/utils/constants";
 import styled, { css } from "styled-components";
+import type { Variant } from "./NoteLabel";
 
 export const highlightedColor = "var(--muted-foreground)";
 export const unHighlightedColor = "var(--muted)";
@@ -24,7 +25,7 @@ const BaseLabel = styled.div<{
     $areAnimationsOn ? `opacity ${transitionTime}ms ease-in-out` : "none"};
 `;
 
-export const LabelWrapperBase = css<{ $areAnimationsOn: boolean }>`
+export const BaseWrapper = css<{ $areAnimationsOn: boolean }>`
   position: relative;
   z-index: 1;
   display: flex;
@@ -43,4 +44,54 @@ export const MainLabel = styled(BaseLabel)<LabelStatusProps>`
 
 export const OptionalLabel = styled(BaseLabel)<LabelStatusProps>`
   opacity: ${({ $isFlatTune }) => ($isFlatTune ? 1 : 0)};
+`;
+
+export const Wrapper = styled.div<{
+  $isFlatTune: boolean;
+  $isEnharmonicNote: boolean;
+  $isHighlighted: boolean;
+  $isShapeNote: boolean;
+  $isTuneNote: boolean;
+  $areAnimationsOn: boolean;
+  $variant: Variant;
+}>`
+  ${BaseWrapper}
+
+  ${({ $variant, $areAnimationsOn, $isShapeNote, $isHighlighted }) =>
+    $variant === "keyboard" &&
+    css`
+      flex-direction: column;
+
+      will-change: top, opacity;
+      transition: ${$areAnimationsOn
+        ? `opacity ${transitionTime}ms ease-in-out, top ${transitionTime}ms ease-in-out`
+        : "none"};
+
+      top: ${$isShapeNote ? "25px" : "0"};
+      opacity: ${$isShapeNote || $isHighlighted ? "1" : "0"};
+
+      ${MainLabel}, ${OptionalLabel} {
+        background: color-mix(in oklab, var(--background) 70%, transparent);
+        border: 1px solid color-mix(in oklab, var(--accent) 70%, transparent);
+        box-shadow: 0 0 8px var(--background);
+        top: 0;
+        color: ${highlightedColor};
+      }
+    `}
+
+     ${({ $variant, $areAnimationsOn, $isShapeNote, $isTuneNote }) =>
+    $variant === "fretboard" &&
+    css`
+      flex-direction: row;
+      height: 20px;
+      width: 30px;
+
+      will-change: opacity;
+      transition: ${$areAnimationsOn ? `opacity ${transitionTime}ms ease-in-out` : "none"};
+      opacity: ${$isShapeNote || $isTuneNote ? "1" : "0"};
+
+      ${MainLabel}, ${OptionalLabel} {
+        color: ${$isShapeNote ? highlightedColor : unHighlightedColor};
+      }
+    `}
 `;

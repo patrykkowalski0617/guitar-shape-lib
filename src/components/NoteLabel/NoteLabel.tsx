@@ -4,6 +4,8 @@ import { type Note } from "@/utils";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { MainLabel, OptionalLabel } from "@/components/NoteLabel/parts";
 
+export type Variant = "fretboard" | "keyboard";
+
 interface NoteLabelProps {
   flatNoteName: Note;
   sharpNoteName: Note;
@@ -12,6 +14,7 @@ interface NoteLabelProps {
   isEnharmonic: boolean;
   isShapeNote?: boolean;
   isTuneNote?: boolean;
+  variant: Variant;
 }
 
 export default function NoteLabel({
@@ -22,6 +25,7 @@ export default function NoteLabel({
   isEnharmonic,
   isShapeNote = false,
   isTuneNote = false,
+  variant,
 }: NoteLabelProps): JSX.Element {
   const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
 
@@ -33,6 +37,7 @@ export default function NoteLabel({
       $isShapeNote={isShapeNote}
       $areAnimationsOn={areAnimationsOn}
       $isTuneNote={isTuneNote}
+      $variant={variant}
     >
       <MainLabel
         $isFlatTune={isFlatTune}

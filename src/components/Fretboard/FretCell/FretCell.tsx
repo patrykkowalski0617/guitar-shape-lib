@@ -4,7 +4,7 @@ import type { NoteObject, RoleId } from "@/utils";
 import { VariantProgressDots } from "../VariantProgressDots/VariantProgressDots";
 import type { HighlightRole } from "@/utils/roleColors";
 import type { StringIndex } from "../FretboardRow/FretboardRow";
-import NoteLabel from "../NoteLabel/NoteLabel";
+import NoteLabel from "@/components/NoteLabel/NoteLabel";
 
 interface FretCellProps {
   noteData: NoteObject;
@@ -93,6 +93,7 @@ const FretCell = memo((props: FretCellProps) => {
             isShapeNote={isShapeNote}
             isFlatTune={isFlatTune}
             isEnharmonic={noteData.isEnharmonic}
+            variant="fretboard"
           />
         </S.Note>
       </S.Fret>
