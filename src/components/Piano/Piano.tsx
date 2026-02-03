@@ -12,6 +12,7 @@ import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
+import { usePianoScroll } from "./helpers/usePianoScroll";
 
 const TYPE_OF_PIANO_KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
@@ -25,6 +26,7 @@ const TYPE_OF_PIANO_KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
 
 export default function Piano(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const { activeNoteId, setActiveNoteId } = useMusicStore();
@@ -34,6 +36,7 @@ export default function Piano(): JSX.Element {
   const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
   useHorizontalScroll(scrollRef);
+  usePianoScroll(scrollRef, [currentRoleId, currentKeyId, isMajorMode]);
 
   const scrollTargetId =
     pianoNotes.find((n) => currentRoleId && currentRoleNoteIds?.includes(n.noteId))?.noteId ||
@@ -57,7 +60,7 @@ export default function Piano(): JSX.Element {
             return (
               <PianoKey
                 key={note.noteId}
-                //- sync hover effect between fretboard nad piano
+                //- sync hover effect between fretboard and piano
                 isActive={note.noteId === activeNoteId}
                 //- Key color (white/black) and shape
                 isWhitePianoKey={isWhitePianoKey}
