@@ -11,7 +11,7 @@ import { LockShapeButton } from "./components/LockShapeButton/LockShapeButton";
 import ControlsContainer from "./components/ControlsContainer/ControlsContainer";
 import { DevModeProvider } from "./components/DevModeProvider/DevModeProvider";
 import { useSettingsStore } from "./store/useSettingsStore";
-import Keyboard from "./components/Keyboard/Keyboard";
+import Piano from "./components/Piano/Piano";
 
 function App() {
   useMusicEngine();
@@ -29,7 +29,7 @@ function App() {
       <Header />
       <MainContent>
         <Setcion>
-          <Keyboard />
+          <Piano />
         </Setcion>
         <Setcion>
           <Fretboard />

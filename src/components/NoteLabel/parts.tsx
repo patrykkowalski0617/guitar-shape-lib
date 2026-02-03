@@ -47,7 +47,7 @@ export const Wrapper = styled.div<{
   $variant: Variant;
 }>`
   ${({ $variant, $areAnimationsOn, $isShapeNote, $isHighlighted }) =>
-    $variant === "keyboard" &&
+    $variant === "piano" &&
     css`
       position: relative;
       z-index: 1;

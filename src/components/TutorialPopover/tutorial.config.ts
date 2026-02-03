@@ -1,6 +1,6 @@
 export const TUTORIAL_CONTENT = {
   KEYBOARD: {
-    title: "Keyboard",
+    title: "Piano",
     description: `It is designed to visualize the relationship between the key, harmonic functions, and the specific chord or scale.
 
 Unlike the fretboard, which displays every possible arpeggio or scale position across the neck, this view provides a single, clear instance of each note set.

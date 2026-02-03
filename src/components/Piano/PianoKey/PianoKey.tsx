@@ -4,11 +4,11 @@ import type { NoteFlat, NoteSharp } from "@/utils";
 import type { HighlightRole } from "../../../utils/roleColors";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 
-interface KeyboardKeyProps {
+interface PianoKeyProps {
   areAnimationsOn: boolean;
   isActive: boolean;
-  isWhiteKey: boolean;
-  keyShape: S.KeyShape | undefined;
+  isWhitePianoKey: boolean;
+  pianoKeyShape: S.KeyShape | undefined;
   //
   noteId: string;
   isHighlighted: boolean;
@@ -25,12 +25,12 @@ interface KeyboardKeyProps {
   "data-role-highlight"?: boolean;
 }
 
-const KeyboardKey = memo(
+const PianoKey = memo(
   ({
     areAnimationsOn,
     isActive,
-    isWhiteKey,
-    keyShape,
+    isWhitePianoKey,
+    pianoKeyShape,
     //
     noteId,
     isHighlighted,
@@ -45,13 +45,13 @@ const KeyboardKey = memo(
     onHover,
     onLeave,
     "data-role-highlight": dataRoleHighlight,
-  }: KeyboardKeyProps) => {
+  }: PianoKeyProps) => {
     return (
       <S.Key
         $areAnimationsOn={areAnimationsOn}
         $isActive={isActive}
-        $isWhiteKey={isWhiteKey}
-        $keyShape={keyShape}
+        $isWhitePianoKey={isWhitePianoKey}
+        $pianoKeyShape={pianoKeyShape}
         //
         $isHighlighted={isHighlighted}
         $highlightRole={highlightRole}
@@ -67,11 +67,11 @@ const KeyboardKey = memo(
           sharpNoteName={sharpNoteName}
           isEnharmonic={isEnharmonic}
           isHighlighted={isHighlighted}
-          variant="keyboard"
+          variant="piano"
         />
       </S.Key>
     );
   },
 );
 
-export default KeyboardKey;
+export default PianoKey;

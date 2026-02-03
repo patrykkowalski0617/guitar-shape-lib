@@ -1,5 +1,5 @@
 import { type JSX, useRef } from "react";
-import * as S from "@/components/Keyboard/parts";
+import * as S from "@/components/Piano/parts";
 import { majorScale, NOTES_SHARP, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
@@ -9,13 +9,12 @@ import {
   BoardWrapper,
   TutorialStickyIcons,
 } from "@/components/BoardsWrapper/parts";
-import KeyboardKey from "./KeyboardKey/KeyboardKey";
+import PianoKey from "./PianoKey/PianoKey";
 import { useScaleLogic } from "./helpers/useScaleLogic";
-import { keyboardNotes, numberOfKeys } from "./helpers/constants";
+import { pianoNotes, numberOfKeys } from "./helpers/constants";
 import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
-import { useKeyboardScroll } from "./helpers/useKeyboardScroll";
 import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 
 const TYPE_OF_PIANO_KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
@@ -28,11 +27,10 @@ const TYPE_OF_PIANO_KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   11: "B",
 };
 
-export default function Keyboard(): JSX.Element {
+export default function Piano(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
-  const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const { activeNoteId, setActiveNoteId } = useMusicStore();
   const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
 
@@ -40,11 +38,10 @@ export default function Keyboard(): JSX.Element {
   const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
   useHorizontalScroll(scrollRef);
-  useKeyboardScroll(scrollRef, [currentRoleId, currentKeyId, isMajorMode]);
 
   const scrollTargetId =
-    keyboardNotes.find((n) => currentRoleId && currentRoleNoteIds?.includes(n.noteId))?.noteId ||
-    keyboardNotes.find((n) => currentScaleNoteIds.includes(n.noteId))?.noteId;
+    pianoNotes.find((n) => currentRoleId && currentRoleNoteIds?.includes(n.noteId))?.noteId ||
+    pianoNotes.find((n) => currentScaleNoteIds.includes(n.noteId))?.noteId;
 
   return (
     <BoardScrollWrapper ref={scrollRef}>
@@ -53,22 +50,22 @@ export default function Keyboard(): JSX.Element {
       </TutorialStickyIcons>
       <BoardWrapper>
         <ScaleTemplate />
-        <S.Keyboard $numberOfKeys={numberOfKeys}>
-          {keyboardNotes.map((note) => {
+        <S.Piano $numberOfKeys={numberOfKeys}>
+          {pianoNotes.map((note) => {
             //- Key color (white/black) and shape
             const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
-            const isWhiteKey = majorScale.includes(noteOctaveIndex);
-            const keyShape = TYPE_OF_PIANO_KEY_SHAPE_MAP[noteOctaveIndex];
+            const isWhitePianoKey = majorScale.includes(noteOctaveIndex);
+            const pianoKeyShape = TYPE_OF_PIANO_KEY_SHAPE_MAP[noteOctaveIndex];
             const isScrollTarget = note.noteId === scrollTargetId;
 
             return (
-              <KeyboardKey
+              <PianoKey
                 key={note.noteId}
-                //- sync hover effect between fretboard nad keyboard
+                //- sync hover effect between fretboard nad piano
                 isActive={note.noteId === activeNoteId}
                 //- Key color (white/black) and shape
-                isWhiteKey={isWhiteKey}
-                keyShape={keyShape}
+                isWhitePianoKey={isWhitePianoKey}
+                pianoKeyShape={pianoKeyShape}
                 //- specic states
                 isHighlighted={currentScaleNoteIds.includes(note.noteId)}
                 highlightRole={
@@ -92,7 +89,7 @@ export default function Keyboard(): JSX.Element {
               />
             );
           })}
-        </S.Keyboard>
+        </S.Piano>
       </BoardWrapper>
     </BoardScrollWrapper>
   );

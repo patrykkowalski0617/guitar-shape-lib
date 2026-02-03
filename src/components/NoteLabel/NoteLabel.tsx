@@ -4,7 +4,7 @@ import { type Note } from "@/utils";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { MainLabel, OptionalLabel } from "@/components/NoteLabel/parts";
 
-export type Variant = "fretboard" | "keyboard";
+export type Variant = "fretboard" | "piano";
 
 interface NoteLabelProps {
   flatNoteName: Note;

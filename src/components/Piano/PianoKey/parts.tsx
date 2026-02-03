@@ -6,15 +6,15 @@ import { roleColors, type HighlightRole } from "../../../utils/roleColors";
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
 interface KeyProps {
-  $isWhiteKey: boolean;
-  $keyShape?: KeyShape;
+  $isWhitePianoKey: boolean;
+  $pianoKeyShape?: KeyShape;
   $isHighlighted?: boolean;
   $highlightRole: HighlightRole;
   $isActive: boolean;
   $areAnimationsOn: boolean;
 }
 
-const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
+const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   // prettier-ignore
   C: css`&::after {right: -70%;}`,
   // prettier-ignore
@@ -32,7 +32,7 @@ const keyShapes: Record<KeyShape, ReturnType<typeof css>> = {
 };
 
 export const keyBRadius = "4px";
-export const keyboardBRadius = "var(--radius-lg)";
+export const pianoBRadius = "var(--radius-lg)";
 
 const commonStyleForKey = (areAnimationsOn: boolean) => css`
   ${KeyAndFretStyles}
@@ -44,7 +44,7 @@ const commonStyleForKey = (areAnimationsOn: boolean) => css`
     : "none"};
 `;
 
-const whiteKey = (areAnimationsOn: boolean) => css`
+const whitePianoKey = (areAnimationsOn: boolean) => css`
   height: 110px;
   z-index: 1;
   border-radius: 0 0 ${keyBRadius} ${keyBRadius};
@@ -66,7 +66,7 @@ const whiteKey = (areAnimationsOn: boolean) => css`
   }
 `;
 
-const blackKey = (areAnimationsOn: boolean) => css`
+const blackPianoKey = (areAnimationsOn: boolean) => css`
   background-color: var(--background);
   height: 67px;
   z-index: 2;
@@ -85,19 +85,19 @@ export const Key = styled.div<KeyProps>`
   position: relative;
   filter: ${({ $isActive }) => ($isActive ? "brightness(1.5)" : "")};
 
-  ${({ $isWhiteKey, $areAnimationsOn }) =>
-    $isWhiteKey ? whiteKey($areAnimationsOn) : blackKey($areAnimationsOn)}
+  ${({ $isWhitePianoKey, $areAnimationsOn }) =>
+    $isWhitePianoKey ? whitePianoKey($areAnimationsOn) : blackPianoKey($areAnimationsOn)}
 
-  ${({ $keyShape }) => $keyShape && keyShapes[$keyShape]}
+  ${({ $pianoKeyShape }) => $pianoKeyShape && pianoKeyShapes[$pianoKeyShape]}
   
-  ${({ $isHighlighted, $isWhiteKey, $highlightRole }) => {
+  ${({ $isHighlighted, $isWhitePianoKey, $highlightRole }) => {
     if (!$isHighlighted) return null;
     const color = roleColors[$highlightRole];
 
-    const shadow = $isWhiteKey
+    const shadow = $isWhitePianoKey
       ? `inset 0 -23px 35px -4px ${color}`
       : `inset 0 -17px 20px 0px ${color}`;
-    const target = $isWhiteKey ? css`&::after` : css`&`;
+    const target = $isWhitePianoKey ? css`&::after` : css`&`;
 
     return css`
       ${target} {
@@ -108,9 +108,9 @@ export const Key = styled.div<KeyProps>`
   }}
 
   &:first-child::after {
-    border-radius: ${keyboardBRadius} 0 ${keyBRadius} ${keyBRadius};
+    border-radius: ${pianoBRadius} 0 ${keyBRadius} ${keyBRadius};
   }
   &:last-child::after {
-    border-radius: 0 ${keyboardBRadius} ${keyBRadius} ${keyBRadius};
+    border-radius: 0 ${pianoBRadius} ${keyBRadius} ${keyBRadius};
   }
 `;
