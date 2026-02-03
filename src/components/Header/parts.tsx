@@ -1,11 +1,9 @@
+import { FooterAndHeaderStyles } from "@/parts";
 import styled, { keyframes } from "styled-components";
 
 export const HeaderWrapper = styled.header`
-  background-color: color-mix(in oklab, var(--primary) 80%, transparent);
-  max-width: 1500px;
-  margin: 0 auto;
+  ${FooterAndHeaderStyles}
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
-  width: 100%;
 `;
 
 export const HeaderContent = styled.div`
@@ -20,7 +18,7 @@ export const HeaderContent = styled.div`
   text-shadow: 0 0 15px var(--background);
 `;
 
-const shakeIt = keyframes`
+const shake = keyframes`
   0%   { transform: rotate(-1deg) translate(0, -2px); }
   10%  { transform: rotate(1deg)  translate(-5px, -5px); }
   20%  { transform: rotate(-1deg) translate(5px, 3px); }
@@ -39,7 +37,7 @@ export const TitleWrapper = styled.div`
   transform: rotate(-2deg) translateY(-5px);
   margin: 0 40px;
   &:hover {
-    animation: ${shakeIt} 0.15s linear 3;
+    animation: ${shake} 0.15s linear 3;
   }
 `;
 

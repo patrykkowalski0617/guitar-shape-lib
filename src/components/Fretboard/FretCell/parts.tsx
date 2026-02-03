@@ -1,4 +1,4 @@
-import { KeyAndFretStyles } from "@/components/BoardsWrapper/parts";
+import { PianoKeyAndFretStyles } from "@/parts";
 import { roleColors, type HighlightRole } from "@/utils/roleColors";
 import type { RoleId } from "@/utils";
 import { transitionTime } from "@/utils/constants";
@@ -57,7 +57,7 @@ export const Note = styled.div<{
   $highlightRole: HighlightRole;
   $areAnimationsOn: boolean;
 }>`
-  ${KeyAndFretStyles}
+  ${PianoKeyAndFretStyles}
   box-shadow: inset 0 0px 6px 0px var(--input);
   border-radius: 4px;
   width: 100%;

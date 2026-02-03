@@ -4,11 +4,7 @@ import { majorScale, NOTES_SHARP, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { useSettingsStore } from "@/store/useSettingsStore";
-import {
-  BoardScrollWrapper,
-  BoardWrapper,
-  TutorialStickyIcons,
-} from "@/components/BoardsWrapper/parts";
+import { InstrumentScrollWrapper, InstrumentWrapper, TutorialStickyIcons } from "@/parts";
 import PianoKey from "./PianoKey/PianoKey";
 import { useScaleLogic } from "./helpers/useScaleLogic";
 import { pianoNotes, numberOfKeys } from "./helpers/constants";
@@ -44,11 +40,11 @@ export default function Piano(): JSX.Element {
     pianoNotes.find((n) => currentScaleNoteIds.includes(n.noteId))?.noteId;
 
   return (
-    <BoardScrollWrapper ref={scrollRef}>
+    <InstrumentScrollWrapper ref={scrollRef}>
       <TutorialStickyIcons>
         <TutorialPopover {...TUTORIAL_CONTENT.KEYBOARD} />
       </TutorialStickyIcons>
-      <BoardWrapper>
+      <InstrumentWrapper>
         <ScaleTemplate />
         <S.Piano $numberOfKeys={numberOfKeys}>
           {pianoNotes.map((note) => {
@@ -90,7 +86,7 @@ export default function Piano(): JSX.Element {
             );
           })}
         </S.Piano>
-      </BoardWrapper>
-    </BoardScrollWrapper>
+      </InstrumentWrapper>
+    </InstrumentScrollWrapper>
   );
 }

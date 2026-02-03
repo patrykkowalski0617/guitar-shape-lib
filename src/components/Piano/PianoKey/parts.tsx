@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { KeyAndFretStyles } from "@/components/BoardsWrapper/parts";
+import { PianoKeyAndFretStyles } from "@/parts";
 import { transitionTime } from "@/utils/constants";
 import { roleColors, type HighlightRole } from "../../../utils/roleColors";
 
@@ -35,7 +35,7 @@ export const keyBRadius = "4px";
 export const pianoBRadius = "var(--radius-lg)";
 
 const commonStyleForKey = (areAnimationsOn: boolean) => css`
-  ${KeyAndFretStyles}
+  ${PianoKeyAndFretStyles}
   box-shadow: inset 0 0px 3px 0px var(--input);
   border-radius: 0 0 ${keyBRadius} ${keyBRadius};
   will-change: box-shadow, border-color;
