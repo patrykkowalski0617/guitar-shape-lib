@@ -19,10 +19,12 @@ export const VariantProgressDots = ({
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
 
   const stringId = STRING_MAP[stringIndex];
-  const coordinatesVariants = currentShapeId ? shapes[currentShapeId].coordinatesVariants : null;
+  const fretboardCoordinatesVariants = currentShapeId
+    ? shapes[currentShapeId].fretboardCoordinatesVariants
+    : null;
 
   const variantsOfCurrentString =
-    coordinatesVariants?.[stringId as keyof typeof coordinatesVariants];
+    fretboardCoordinatesVariants?.[stringId as keyof typeof fretboardCoordinatesVariants];
 
   if (!variantsOfCurrentString) return null;
 

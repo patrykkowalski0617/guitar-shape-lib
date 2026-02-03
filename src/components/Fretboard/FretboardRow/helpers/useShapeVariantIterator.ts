@@ -22,10 +22,12 @@ export const useShapeVariantIterator = () => {
     (state) => state.setCurrentShapeVariantLocationData,
   );
 
-  const coordinatesVariants = currentShapeId ? shapes[currentShapeId].coordinatesVariants : null;
+  const fretboardCoordinatesVariants = currentShapeId
+    ? shapes[currentShapeId].fretboardCoordinatesVariants
+    : null;
 
   const setNextShapeVariantLocationData = (stringIdx: number, fretIndex: number) => {
-    if (!coordinatesVariants) return;
+    if (!fretboardCoordinatesVariants) return;
 
     const isSameLocation =
       currentShapeId === lastLocation.shapeId &&
@@ -39,7 +41,7 @@ export const useShapeVariantIterator = () => {
 
     const stringId = STRING_MAP[stringIdx];
     const variantsOfCurrentString =
-      coordinatesVariants[stringId as keyof typeof coordinatesVariants];
+      fretboardCoordinatesVariants[stringId as keyof typeof fretboardCoordinatesVariants];
 
     if (variantsOfCurrentString) {
       const keys = Object.keys(variantsOfCurrentString);
