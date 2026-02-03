@@ -1,10 +1,38 @@
+"use client";
+
 import * as React from "react";
 import { Drawer as DrawerPrimitive } from "vaul";
 
 import { cn } from "@/lib/utils";
 
-function Drawer({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>) {
-  return <DrawerPrimitive.Root data-slot="drawer" {...props} />;
+const DrawerContext = React.createContext<{
+  setOpen: (open: boolean) => void;
+} | null>(null);
+
+function Drawer({
+  children,
+  open: externalOpen,
+  onOpenChange: setExternalOpen,
+  ...props
+}: React.ComponentProps<typeof DrawerPrimitive.Root>) {
+  const [internalOpen, setInternalOpen] = React.useState(false);
+
+  const open = externalOpen ?? internalOpen;
+  const setOpen = setExternalOpen ?? setInternalOpen;
+
+  return (
+    <DrawerContext.Provider value={{ setOpen }}>
+      <DrawerPrimitive.Root
+        data-slot="drawer"
+        open={open}
+        onOpenChange={setOpen}
+        dismissible={false}
+        {...props}
+      >
+        {children}
+      </DrawerPrimitive.Root>
+    </DrawerContext.Provider>
+  );
 }
 
 function DrawerTrigger({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Trigger>) {
@@ -15,17 +43,33 @@ function DrawerPortal({ ...props }: React.ComponentProps<typeof DrawerPrimitive.
   return <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} />;
 }
 
-function DrawerClose({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Close>) {
-  return <DrawerPrimitive.Close data-slot="drawer-close" {...props} />;
+function DrawerClose({ onClick, ...props }: React.ComponentProps<typeof DrawerPrimitive.Close>) {
+  const context = React.useContext(DrawerContext);
+
+  const handleClose = (e: React.MouseEvent<HTMLButtonElement>) => {
+    context?.setOpen(false);
+    onClick?.(e);
+  };
+
+  return <DrawerPrimitive.Close data-slot="drawer-close" onClick={handleClose} {...props} />;
 }
 
 function DrawerOverlay({
   className,
+  onClick,
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Overlay>) {
+  const context = React.useContext(DrawerContext);
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    context?.setOpen(false);
+    onClick?.(e);
+  };
+
   return (
     <DrawerPrimitive.Overlay
       data-slot="drawer-overlay"
+      onClick={handleOverlayClick}
       className={cn(
         "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-150 bg-black/50",
         className,
@@ -44,6 +88,7 @@ function DrawerContent({
     <DrawerPortal data-slot="drawer-portal">
       <DrawerOverlay />
       <DrawerPrimitive.Content
+        aria-describedby={undefined}
         data-slot="drawer-content"
         className={cn(
           "group/drawer-content bg-background fixed z-150 flex h-auto flex-col",
@@ -55,7 +100,6 @@ function DrawerContent({
         )}
         {...props}
       >
-        <div className="bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block" />
         {children}
       </DrawerPrimitive.Content>
     </DrawerPortal>
