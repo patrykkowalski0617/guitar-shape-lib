@@ -1,4 +1,4 @@
-import { memo, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import * as S from "./parts";
 import type { NoteObject, RoleId } from "@/utils";
 import { VariantProgressDots } from "../VariantProgressDots/VariantProgressDots";
@@ -25,26 +25,24 @@ interface FretCellProps {
   areAnimationsOn: boolean;
 }
 
-const FretCell = memo((props: FretCellProps) => {
-  const {
-    noteData,
-    stringIndex,
-    currentRoleId,
-    lockedRoleId,
-    isFlatTune,
-    isActive,
-    isShapeRootNote,
-    isShapeRootNoteWithVariants,
-    isShapeNote,
-    isTuneNote,
-    isLockedNote,
-    isDevNote,
-    onHover,
-    onLeave,
-    onClick,
-    areAnimationsOn,
-  } = props;
-
+const FretCell = ({
+  noteData,
+  stringIndex,
+  currentRoleId,
+  lockedRoleId,
+  isFlatTune,
+  isActive,
+  isShapeRootNote,
+  isShapeRootNoteWithVariants,
+  isShapeNote,
+  isTuneNote,
+  isLockedNote,
+  isDevNote,
+  onHover,
+  onLeave,
+  onClick,
+  areAnimationsOn,
+}: FretCellProps) => {
   const [isActiveRootNote, setIsActiveRootNote] = useState(false);
   const activeRole: HighlightRole = (currentRoleId as HighlightRole) || "none";
 
@@ -99,6 +97,5 @@ const FretCell = memo((props: FretCellProps) => {
       </S.Fret>
     </S.LockedEffectWrapper>
   );
-});
-
+};
 export default FretCell;
