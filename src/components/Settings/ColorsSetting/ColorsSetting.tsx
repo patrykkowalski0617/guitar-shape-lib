@@ -43,6 +43,7 @@ export default function ColorsSetting() {
           onValueChange={(val) => setDominantColor(val[0])}
           max={360}
           style={{ "--slider-color": getHsl(dominantColor) } as React.CSSProperties}
+          className="m-0"
         />
       </GroupWrapper>
     </>
