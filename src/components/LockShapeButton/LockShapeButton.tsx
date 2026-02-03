@@ -16,12 +16,11 @@ export const LockShapeButton = () => {
   const lockedShapeVariantLocationData = useMusicStore(
     (state) => state.lockedShapeVariantLocationData,
   );
-
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
-
   const setLockedRoleId = useMusicStore((state) => state.setLockedRoleId);
 
   const isLocked = lockedShapeVariantLocationData !== null;
+
   const handleToggle = () => {
     if (isLocked) {
       setLockedShapeVariantLocationData(null);

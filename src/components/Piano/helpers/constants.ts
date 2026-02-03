@@ -4,9 +4,9 @@ export const KEY_PADDING = 0.75; //- for proper css calc
 export const numberOfKeys = 49;
 
 export const firstNote: Note = "E";
-export const keyboardNotes = getNotes({ length: numberOfKeys, firstNote, firstOctave: 2 });
+export const pianoNotes = getNotes({ length: numberOfKeys, firstNote, firstOctave: 2 });
 
-export const lastNote: string = keyboardNotes[keyboardNotes.length - 1].sharpNoteName;
+export const lastNote: string = pianoNotes[pianoNotes.length - 1].sharpNoteName;
 
 export const LEFT_PADDING_FACTOR =
   (firstNote as string) === "C" || (firstNote as string) === "F" ? 0 : 1;

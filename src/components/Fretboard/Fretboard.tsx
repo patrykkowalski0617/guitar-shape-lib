@@ -1,23 +1,23 @@
 import { type JSX, useRef } from "react";
 import * as S from "./parts";
 import { STRINGS_CONFIG } from "./FretboardRow/helpers/constants";
-import { BoardScrollWrapper, BoardWrapper, TutorialStickyIcons } from "../BoardsWrapper/parts";
 import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
 import FretboardRow, { type StringIndex } from "./FretboardRow/FretboardRow";
+import { InstrumentScrollWrapper, InstrumentWrapper, TutorialStickyIcons } from "@/parts";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
   useHorizontalScroll(scrollRef);
 
   return (
-    <BoardScrollWrapper ref={scrollRef}>
+    <InstrumentScrollWrapper ref={scrollRef}>
       <TutorialStickyIcons>
         <TutorialPopover {...TUTORIAL_CONTENT.FRETBOARD} />
       </TutorialStickyIcons>
-      <BoardWrapper>
+      <InstrumentWrapper>
         <S.FretboardWrapper>
           <FretboardInfoRow isNumeric />
           <S.Fretboard>
@@ -34,7 +34,7 @@ export default function Fretboard(): JSX.Element {
           </S.Fretboard>
           <FretboardInfoRow />
         </S.FretboardWrapper>
-      </BoardWrapper>
-    </BoardScrollWrapper>
+      </InstrumentWrapper>
+    </InstrumentScrollWrapper>
   );
 }

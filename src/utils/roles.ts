@@ -1,4 +1,4 @@
-import { getSemitonesMap } from "./intervals";
+import { getIntervalSemitonesValues } from "./intervals";
 
 export const {
   _1,
@@ -25,12 +25,12 @@ export const {
   _M13,
   _m14,
   _M14,
-} = getSemitonesMap();
+} = getIntervalSemitonesValues();
 
 export type RoleId = "tonic" | "subdominant" | "dominant";
 
 export interface RoleData {
-  label: string;
+  label: "Tonic" | "Subdominant" | "Dominant";
 }
 
 export const roles: Record<RoleId, RoleData> = {

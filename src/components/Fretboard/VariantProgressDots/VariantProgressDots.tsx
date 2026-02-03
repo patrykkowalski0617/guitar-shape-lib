@@ -4,12 +4,13 @@ import shapes from "@/utils/shapes";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useCurrentShapeVariantProgressId } from "@/hooks/useCurrentShapeVariantProgressId";
 import { useProgressStore } from "@/store/useProgressStore";
+import type { StringIndex } from "../FretboardRow/FretboardRow";
 
 export const VariantProgressDots = ({
   stringIndex,
   isActiveRootNote,
 }: {
-  stringIndex: number;
+  stringIndex: StringIndex;
   isActiveRootNote: boolean;
 }) => {
   const { learned } = useProgressStore();
@@ -19,10 +20,12 @@ export const VariantProgressDots = ({
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
 
   const stringId = STRING_MAP[stringIndex];
-  const coordinatesVariants = currentShapeId ? shapes[currentShapeId].coordinatesVariants : null;
+  const fretboardCoordinatesVariants = currentShapeId
+    ? shapes[currentShapeId].fretboardCoordinatesVariants
+    : null;
 
   const variantsOfCurrentString =
-    coordinatesVariants?.[stringId as keyof typeof coordinatesVariants];
+    fretboardCoordinatesVariants?.[stringId as keyof typeof fretboardCoordinatesVariants];
 
   if (!variantsOfCurrentString) return null;
 

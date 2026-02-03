@@ -2,7 +2,6 @@ import Fretboard from "./components/Fretboard/Fretboard";
 import KeySelect from "./components/KeySelect/KeySelect";
 import ModeSelect from "./components/ModeSelect/ModeSelect";
 import RoleSelect from "./components/RoleSelect/RoleSelect";
-import { useMusicEngine } from "./hooks/useMusicEngine";
 import Header from "./components/Header/Header";
 import ShapeSelect from "./components/ShapeSelect/ShapeSelect";
 import Footer from "./components/Footer/Footer";
@@ -11,10 +10,9 @@ import { LockShapeButton } from "./components/LockShapeButton/LockShapeButton";
 import ControlsContainer from "./components/ControlsContainer/ControlsContainer";
 import { DevModeProvider } from "./components/DevModeProvider/DevModeProvider";
 import { useSettingsStore } from "./store/useSettingsStore";
-import Keyboard from "./components/Keyboard/Keyboard";
+import Piano from "./components/Piano/Piano";
 
 function App() {
-  useMusicEngine();
   const { tonicColor, subdominantColor, dominantColor } = useSettingsStore();
 
   const roleColors = {
@@ -29,7 +27,7 @@ function App() {
       <Header />
       <MainContent>
         <Setcion>
-          <Keyboard />
+          <Piano />
         </Setcion>
         <Setcion>
           <Fretboard />

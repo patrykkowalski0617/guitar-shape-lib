@@ -18,7 +18,7 @@ export const useFretboardDevEditor = () => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key.toLowerCase() === "c" && devPoints.length > 0 && currentShapeId) {
         const shapeData = (shapes as Shapes)[currentShapeId];
-        const currentCoords = shapeData?.coordinatesVariants || {};
+        const currentCoords = shapeData?.fretboardCoordinatesVariants || {};
 
         const existingVariantsStrings = new Set(
           Object.values(currentCoords).map((coords) => JSON.stringify(coords)),

@@ -28,3 +28,42 @@ export const Setcion = styled.div`
   width: 100%;
   ${SectionCommonCss}
 `;
+
+export const InstrumentWrapper = styled.div`
+  min-width: 1300px;
+  margin: auto;
+  overflow: hidden;
+  padding: 0 10px;
+`;
+
+export const InstrumentScrollWrapper = styled.div`
+  overflow-x: auto;
+  scrollbar-width: none;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    var(--background) 15px,
+    var(--background) calc(100% - 15px),
+    transparent
+  );
+  position: relative;
+  border-radius: var(--radius-lg);
+  margin-left: -5px; //- compensation for VariantProgressDots
+`;
+
+export const TutorialStickyIcons = styled.div`
+  position: sticky;
+  left: 0;
+  z-index: 40;
+`;
+
+export const PianoKeyAndFretStyles = css`
+  border: 1px solid var(--border);
+`;
+
+export const FooterAndHeaderStyles = css`
+  background-color: color-mix(in oklab, var(--primary) 80%, transparent);
+  max-width: 1500px;
+  margin: 0 auto;
+  width: 100%;
+`;

@@ -1,4 +1,4 @@
-import { getSemitonesMap } from "./intervals";
+import { getIntervalSemitonesValues } from "./intervals";
 import type { RoleId } from "./roles";
 
 export const {
@@ -26,7 +26,7 @@ export const {
   _M13,
   _m14,
   _M14,
-} = getSemitonesMap();
+} = getIntervalSemitonesValues();
 
 export type ShapeType = "Arpegio" | "Scale" | "Note Set";
 
@@ -38,9 +38,9 @@ export interface SemitoneOffsetFromMajorTonicRoot {
 
 export type Coordinate = [number, number];
 
-export type VariantKey = `v${number}`;
+export type VariantId = `v${number}`;
 
-export type StringVariants = Record<VariantKey, Coordinate[]>;
+export type StringVariants = Record<VariantId, Coordinate[]>;
 
 export interface ShapesCoordinates {
   strE: StringVariants;
@@ -53,12 +53,12 @@ export interface Shape {
   label: string;
   type: ShapeType;
   intervals: number[];
-  semitoneOffsetFromMajorTonicRoot: {
+  semitoneOffsetFromMajorTonicRootForRoles: {
     tonic?: SemitoneOffsetFromMajorTonicRoot;
     subdominant?: SemitoneOffsetFromMajorTonicRoot;
     dominant?: SemitoneOffsetFromMajorTonicRoot;
   };
-  coordinatesVariants: ShapesCoordinates;
+  fretboardCoordinatesVariants: ShapesCoordinates;
 }
 
 export interface Shapes {
@@ -83,11 +83,11 @@ const shapes: Shapes = {
     label: "M7",
     type: "Arpegio",
     intervals: [_1, _M3, _5, _M7],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 4],[4, 2],[3, 1],[3, 2],[2, 1],[2, 4],[1, 4],[0, 0],[0, 4]],
@@ -131,11 +131,11 @@ const shapes: Shapes = {
     label: "M(add9)",
     type: "Arpegio",
     intervals: [_1, _M3, _5, _M9],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 2],[3, 4],[2, 1],[1, 0],[0, 0],[0, 2],[0, 4]],
@@ -176,11 +176,11 @@ const shapes: Shapes = {
     label: "M9",
     type: "Arpegio",
     intervals: [_1, _M3, _5, _M7, _M9],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 1],[3, 2],[3, 4],[2, 1],[2, 4],[1, 4],[0, 0],[0, 2],[0, 4]],
@@ -219,10 +219,10 @@ const shapes: Shapes = {
     label: "7",
     type: "Arpegio",
     intervals: [_1, _M3, _5, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       dominant: { majorMode: [_5], minorMode: [_M3] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[2, 4],[1, 3],[0, 0],[0, 4]],
@@ -269,10 +269,10 @@ const shapes: Shapes = {
     label: "7b9",
     type: "Arpegio",
     intervals: [_1, _M3, _5, _m7, _m9],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       dominant: { minorMode: [_M3], majorMode: [_5] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 1],[5, 4],[4, 2],[3, 0],[3, 2],[3, 3],[2, 1],[1, 0],[1, 3],[0, 0],[0, 1],[0, 4]],
@@ -317,10 +317,10 @@ const shapes: Shapes = {
     label: "m7b5",
     type: "Arpegio",
     intervals: [_1, _m3, _T, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       dominant: { bothModes: [_M7] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 3],[4, 1],[3, 0],[3, 2],[2, 0],[2, 3],[1, 3],[0, 0],[0, 3]],
@@ -359,10 +359,10 @@ const shapes: Shapes = {
     label: "dim7",
     type: "Arpegio",
     intervals: [_1, _m3, _T, _M6],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       dominant: { bothModes: [_M7] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[3, 5],[2, 3],[2, 6],[1, 5],[1, 8],[0, 6],[0, 9]],
@@ -415,11 +415,11 @@ const shapes: Shapes = {
     label: "m7",
     type: "Arpegio",
     intervals: [_1, _m3, _5, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { bothModes: [_M6, _M3] },
       subdominant: { bothModes: [_M2, _M6] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 3],[4, 2],[3, 0],[3, 2],[2, 0],[1, 0],[1, 3],[0, 0],[0, 3]],
@@ -456,12 +456,12 @@ const shapes: Shapes = {
     label: "m(add9)",
     type: "Arpegio",
     intervals: [_1, _m3, _5, _M9],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: {
         bothModes: [_M6],
       },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 3],[4, 2],[3, 2],[3, 4],[2, 0],[1, 0],[0, 0],[0, 2],[0, 3]],
@@ -500,12 +500,12 @@ const shapes: Shapes = {
     label: "m9",
     type: "Arpegio",
     intervals: [_1, _m3, _5, _m7, _M9],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: {
         bothModes: [_M6],
       },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 3],[4, 2],[3, 0],[3, 2],[3, 4],[2, 0],[1, 0],[1, 3],[0, 0],[0, 2],[0, 3]],
@@ -544,14 +544,14 @@ const shapes: Shapes = {
     label: "Minor Pentatonic",
     type: "Scale",
     intervals: [_1, _m3, _4, _5, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: {
         bothModes: [_M6],
       },
       subdominant: { bothModes: [_M2] },
       dominant: { majorMode: [_5, _M3] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 3],[4, 0],[4, 2],[3, 0],[3, 2],[2, 0],[2, 2],[1, 0],[1, 3],[0, 0],[0, 3]],
@@ -590,12 +590,12 @@ const shapes: Shapes = {
     label: "Major Pentatonic",
     type: "Scale",
     intervals: [_1, _M2, _M3, _5, _M6],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
       dominant: { majorMode: [_5] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 2],[4, 4],[3, 2],[3, 4],[2, 1],[2, 4],[1, 2],[0, 0],[0, 2],[0, 4]],
@@ -632,11 +632,11 @@ const shapes: Shapes = {
     label: 'No "avoid notes"',
     type: "Note Set",
     intervals: [_1, _M2, _M3, _5, _M6, _M7],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 4],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
@@ -673,10 +673,10 @@ const shapes: Shapes = {
     label: "Ionian",
     type: "Scale",
     intervals: [_1, _M2, _M3, _4, _5, _M6, _M7],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { majorMode: [_1] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 5]],
@@ -723,10 +723,10 @@ const shapes: Shapes = {
     label: "Aeolian",
     type: "Scale",
     intervals: [_1, _M2, _m3, _4, _5, _m6, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { minorMode: [_M6] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[2, 5],[1, 3],[1, 5],[1, 7],[0, 3],[0, 5],[0, 7]],
@@ -777,11 +777,11 @@ const shapes: Shapes = {
     label: "Dorian",
     type: "Scale",
     intervals: [_1, _M2, _m3, _4, _5, _M6, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { minorMode: [_M6] },
       subdominant: { minorMode: [_M2] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
@@ -830,10 +830,10 @@ const shapes: Shapes = {
     label: "Lydian",
     type: "Scale",
     intervals: [_1, _M2, _M3, _T, _5, _M6, _M7],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       subdominant: { majorMode: [_4] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 1],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 3],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 6]],
@@ -882,10 +882,10 @@ const shapes: Shapes = {
     label: "Mixolydian",
     type: "Scale",
     intervals: [_1, _M2, _M3, _4, _5, _M6, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       dominant: { majorMode: [_5], minorMode: [_M3] },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 4],[0, 5]],
@@ -936,12 +936,12 @@ const shapes: Shapes = {
     label: "Phrygian Dominant",
     type: "Scale",
     intervals: [_1, _m2, _M3, _4, _5, _m6, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
+    semitoneOffsetFromMajorTonicRootForRoles: {
       dominant: {
         minorMode: [_M3],
       },
     },
-    coordinatesVariants: {
+    fretboardCoordinatesVariants: {
       strE: {
         // prettier-ignore
         v1: [[5, 0],[5, 1],[5, 4],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 1],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 1],[0, 4],[0, 5]],

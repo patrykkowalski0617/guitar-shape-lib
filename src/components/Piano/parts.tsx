@@ -8,11 +8,11 @@ import {
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
-interface KeyboardProps {
+interface PianoProps {
   $numberOfKeys: number;
 }
 
-export const Keyboard = styled.div<KeyboardProps>`
+export const Piano = styled.div<PianoProps>`
   user-select: none;
   display: flex;
   padding-left: ${({ $numberOfKeys }) =>

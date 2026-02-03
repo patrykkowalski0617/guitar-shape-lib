@@ -33,9 +33,9 @@ export const INTERVALS = {
 export const getSemitones = (keys: IntervalKey[]): number[] =>
   keys.map((key) => INTERVALS[key].semitones);
 
-export const getSemitonesMap = () => {
+export const getIntervalSemitonesValues = () => {
   return Object.fromEntries(
-    Object.entries(INTERVALS).map(([key, value]) => [key, value.semitones])
+    Object.entries(INTERVALS).map(([key, value]) => [key, value.semitones]),
   ) as { [K in keyof typeof INTERVALS]: number };
 };
 

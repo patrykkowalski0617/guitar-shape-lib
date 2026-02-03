@@ -121,7 +121,6 @@ describe("matchNotesToTarget()", () => {
     });
 
     it("should handle dim7", () => {
-      // Note the octave shift in minor context for G#-3
       expect(matchNotesToTarget(targetDomMinor, ["B-3", "D-4", "F-4", "G#-4"])).toEqual([
         "G#-3",
         "B-3",
@@ -131,7 +130,6 @@ describe("matchNotesToTarget()", () => {
     });
 
     it("should handle mixolydian", () => {
-      // Complex mapping with F#-3 and C#-4 shift
       const input = ["E-3", "F#-3", "G#-3", "A-3", "B-3", "C#-4", "D-4"];
       expect(matchNotesToTarget(targetDomMinor, input)).toEqual([
         "E-3",

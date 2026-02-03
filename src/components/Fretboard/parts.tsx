@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { FretboardRow } from "./FretboardRow/parts";
 import { Fret, Note } from "./FretCell/parts";
-import { keyboardBRadius, keyBRadius } from "../Keyboard/KeyboardKey/parts";
+import { pianoBRadius, keyBRadius } from "../Piano/PianoKey/parts";
 
 export const FretboardWrapper = styled.div`
   padding-top: 3px;
@@ -23,25 +23,25 @@ export const Fretboard = styled.div`
         transform: translateY(-50%);
       }
     }
+
     &:first-child {
       & > :first-child,
       & > :first-child ${Note}, & > :first-child ${Fret} {
-        border-radius: ${keyboardBRadius} ${keyBRadius} ${keyBRadius} ${keyBRadius};
+        border-radius: ${pianoBRadius} ${keyBRadius} ${keyBRadius} ${keyBRadius};
       }
       & > :last-child,
       & > :last-child ${Note}, & > :last-child ${Fret} {
-        border-radius: ${keyBRadius} ${keyboardBRadius} ${keyBRadius} ${keyBRadius};
+        border-radius: ${keyBRadius} ${pianoBRadius} ${keyBRadius} ${keyBRadius};
       }
     }
-
     &:last-child {
       & > :first-child,
       & > :first-child ${Note}, & > :first-child ${Fret} {
-        border-radius: ${keyBRadius} ${keyBRadius} ${keyBRadius} ${keyboardBRadius};
+        border-radius: ${keyBRadius} ${keyBRadius} ${keyBRadius} ${pianoBRadius};
       }
       & > :last-child,
       & > :last-child ${Note}, & > :last-child ${Fret} {
-        border-radius: ${keyBRadius} ${keyBRadius} ${keyboardBRadius} ${keyBRadius};
+        border-radius: ${keyBRadius} ${keyBRadius} ${pianoBRadius} ${keyBRadius};
       }
     }
   }

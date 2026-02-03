@@ -14,13 +14,13 @@ export const useShapeNotes = (
     const shapeData = currentShapeId ? shapes[currentShapeId] : null;
     if (!shapeData) return [];
 
-    const { coordinatesVariants } = shapeData;
+    const { fretboardCoordinatesVariants } = shapeData;
 
     if (!stringId || fretIdx === undefined || !variantId) return [];
 
     const variantCoordinates =
-      coordinatesVariants?.[stringId as keyof typeof coordinatesVariants]?.[
-        variantId as keyof (typeof coordinatesVariants)[keyof typeof coordinatesVariants]
+      fretboardCoordinatesVariants?.[stringId as keyof typeof fretboardCoordinatesVariants]?.[
+        variantId as keyof (typeof fretboardCoordinatesVariants)[keyof typeof fretboardCoordinatesVariants]
       ];
 
     return variantCoordinates?.map(([s, f]) => [s, f + fretIdx]) || [];

@@ -4,8 +4,8 @@ export interface MusicKeyInfo {
   readonly offsetFromC: number;
   readonly isFlatTune: boolean;
   readonly majorFirstNote: Note;
-  readonly majorName: string;
   readonly relativeMinorFirstNote: Note;
+  readonly majorName: string;
   readonly relativeMinorName: string;
 }
 
@@ -15,96 +15,96 @@ export const UNIFIED_MUSIC_KEYS = {
     isFlatTune: false,
     majorFirstNote: "C",
     majorName: "C",
-    relativeMinorName: "Am",
     relativeMinorFirstNote: "A",
+    relativeMinorName: "Am",
   },
   Db: {
     offsetFromC: 1,
     isFlatTune: true,
     majorFirstNote: "Db",
     majorName: "Db",
-    relativeMinorName: "Bbm",
     relativeMinorFirstNote: "Bb",
+    relativeMinorName: "Bbm",
   },
   D: {
     offsetFromC: 2,
     isFlatTune: false,
     majorFirstNote: "D",
     majorName: "D",
-    relativeMinorName: "Bm",
     relativeMinorFirstNote: "B",
+    relativeMinorName: "Bm",
   },
   Eb: {
     offsetFromC: 3,
     isFlatTune: true,
     majorFirstNote: "Eb",
     majorName: "Eb",
-    relativeMinorName: "Cm",
     relativeMinorFirstNote: "C",
+    relativeMinorName: "Cm",
   },
   E: {
     offsetFromC: 4,
     isFlatTune: false,
     majorFirstNote: "E",
     majorName: "E",
-    relativeMinorName: "C#m",
     relativeMinorFirstNote: "C#",
+    relativeMinorName: "C#m",
   },
   F: {
     offsetFromC: 5,
     isFlatTune: true,
     majorFirstNote: "F",
     majorName: "F",
-    relativeMinorName: "Dm",
     relativeMinorFirstNote: "D",
+    relativeMinorName: "Dm",
   },
   "F#": {
     offsetFromC: 6,
     isFlatTune: false,
     majorFirstNote: "F#",
     majorName: "F#",
-    relativeMinorName: "D#m",
     relativeMinorFirstNote: "D#",
+    relativeMinorName: "D#m",
   },
   G: {
     offsetFromC: 7,
     isFlatTune: false,
     majorFirstNote: "G",
     majorName: "G",
-    relativeMinorName: "Em",
     relativeMinorFirstNote: "E",
+    relativeMinorName: "Em",
   },
   Ab: {
     offsetFromC: 8,
     isFlatTune: true,
     majorFirstNote: "Ab",
     majorName: "Ab",
-    relativeMinorName: "Fm",
     relativeMinorFirstNote: "F",
+    relativeMinorName: "Fm",
   },
   A: {
     offsetFromC: 9,
     isFlatTune: false,
     majorFirstNote: "A",
     majorName: "A",
-    relativeMinorName: "F#m",
     relativeMinorFirstNote: "F#",
+    relativeMinorName: "F#m",
   },
   Bb: {
     offsetFromC: 10,
     isFlatTune: true,
     majorFirstNote: "Bb",
     majorName: "Bb",
-    relativeMinorName: "Gm",
     relativeMinorFirstNote: "G",
+    relativeMinorName: "Gm",
   },
   B: {
     offsetFromC: 11,
     isFlatTune: false,
     majorFirstNote: "B",
     majorName: "B",
-    relativeMinorName: "G#m",
     relativeMinorFirstNote: "G#",
+    relativeMinorName: "G#m",
   },
 } as const;
 

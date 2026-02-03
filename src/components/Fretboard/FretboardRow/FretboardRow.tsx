@@ -4,6 +4,7 @@ import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 import FretCell from "../FretCell/FretCell";
 import { useFretboardRow } from "./helpers/useFretboardRow";
 import type { NoteSharp } from "@/utils";
+import { useShapeReset } from "./helpers/useShapeReset";
 
 export type StringIndex = 0 | 1 | 2 | 3 | 4 | 5;
 
@@ -22,8 +23,7 @@ export default function FretboardRow({
   const { rowNotes, state, actions } = useFretboardRow(firstNoteInRow, octaveNumber);
 
   useHorizontalScroll(scrollRef);
-
-  // Wydzielona logika kliknięcia dla lepszej czytelności JSX
+  useShapeReset();
   const handleCellClick = useCallback(
     (fretIndex: number, isShapeRootNoteWithVariants: boolean) => {
       if (state.isDevMode) {

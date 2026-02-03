@@ -1,6 +1,6 @@
 import { useEffect, type DependencyList, type RefObject } from "react";
 
-export const useKeyboardScroll = (
+export const usePianoScroll = (
   containerRef: RefObject<HTMLDivElement | null>,
   dependencies: DependencyList,
 ) => {
