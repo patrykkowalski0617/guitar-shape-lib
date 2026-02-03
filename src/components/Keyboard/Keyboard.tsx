@@ -18,7 +18,7 @@ import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { useKeyboardScroll } from "./helpers/useKeyboardScroll";
 import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 
-const KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
+const TYPE_OF_PIANO_KEY_SHAPE_MAP: Record<number, S.KeyShape> = {
   0: "C",
   2: "D",
   4: "E",
@@ -58,7 +58,7 @@ export default function Keyboard(): JSX.Element {
             //- Key color (white/black) and shape
             const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
             const isWhiteKey = majorScale.includes(noteOctaveIndex);
-            const keyShape = KEY_SHAPE_MAP[noteOctaveIndex];
+            const keyShape = TYPE_OF_PIANO_KEY_SHAPE_MAP[noteOctaveIndex];
             const isScrollTarget = note.noteId === scrollTargetId;
 
             return (

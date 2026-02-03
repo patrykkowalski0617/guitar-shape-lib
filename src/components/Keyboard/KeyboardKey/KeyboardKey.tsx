@@ -72,22 +72,6 @@ const KeyboardKey = memo(
       </S.Key>
     );
   },
-  (prev, next) => {
-    return (
-      prev.areAnimationsOn === next.areAnimationsOn &&
-      prev.isActive === next.isActive &&
-      //
-      prev.isHighlighted === next.isHighlighted &&
-      prev.highlightRole === next.highlightRole &&
-      //
-      prev.isFlatTune === next.isFlatTune &&
-      prev.isShapeNote === next.isShapeNote &&
-      prev.flatNoteName === next.flatNoteName &&
-      prev.sharpNoteName === next.sharpNoteName &&
-      prev.isEnharmonic === next.isEnharmonic &&
-      prev["data-role-highlight"] === next["data-role-highlight"]
-    );
-  },
 );
 
 export default KeyboardKey;
