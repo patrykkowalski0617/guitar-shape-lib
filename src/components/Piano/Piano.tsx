@@ -51,7 +51,6 @@ export default function Piano(): JSX.Element {
         <ScaleTemplate />
         <S.Piano $numberOfKeys={numberOfKeys}>
           {pianoNotes.map((note) => {
-            //- Key color (white/black) and shape
             const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
             const isWhitePianoKey = majorScale.includes(noteOctaveIndex);
             const pianoKeyShape = TYPE_OF_PIANO_KEY_SHAPE_MAP[noteOctaveIndex];
@@ -60,28 +59,22 @@ export default function Piano(): JSX.Element {
             return (
               <PianoKey
                 key={note.noteId}
-                //- sync hover effect between fretboard and piano
                 isActive={note.noteId === activeNoteId}
-                //- Key color (white/black) and shape
                 isWhitePianoKey={isWhitePianoKey}
                 pianoKeyShape={pianoKeyShape}
-                //- specic states
                 isHighlighted={currentScaleNoteIds.includes(note.noteId)}
                 highlightRole={
                   currentRoleId && currentRoleNoteIds?.includes(note.noteId)
                     ? currentRoleId
                     : "none"
                 }
-                //
                 noteId={note.noteId}
                 areAnimationsOn={areAnimationsOn}
-                //- for NoteLabel only
                 isFlatTune={isFlatTune}
                 isShapeNote={currentShapeNoteIds.includes(note.noteId)}
                 flatNoteName={note.flatNoteName}
                 sharpNoteName={note.sharpNoteName}
                 isEnharmonic={note.isEnharmonic}
-                //- actions
                 onHover={setActiveNoteId}
                 onLeave={() => setActiveNoteId(null)}
                 data-role-highlight={isScrollTarget}
