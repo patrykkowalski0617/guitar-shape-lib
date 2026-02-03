@@ -1,11 +1,12 @@
 import { useProgressStore } from "@/store/useProgressStore";
 import { Button } from "../ui/button";
+import { exportProgress, importProgress } from "./helpers/progressHelpers";
+import { GroupWrapper } from "../ControlsContainer/parts";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
-import { GroupWrapper } from "../ControlsContainer/parts";
 import { useCurrentShapeVariantProgressId } from "../../hooks/useCurrentShapeVariantProgressId";
 
-export const MarkAsLearnedButton = () => {
+export const MarkAsLearned = () => {
   const { learned, toggleLearned } = useProgressStore();
   const currentVariantProgressId = useCurrentShapeVariantProgressId();
 
@@ -23,6 +24,28 @@ export const MarkAsLearnedButton = () => {
         fixedWidthLabel={txtIsLearnedFalse}
       >
         {isLearned ? txtIsLearnedTrue : txtIsLearnedFalse}
+      </Button>
+    </GroupWrapper>
+  );
+};
+
+export const ExportProgressFile = () => {
+  const { learned } = useProgressStore();
+  return (
+    <GroupWrapper>
+      <Button variant="outline" onClick={() => exportProgress({ learned })}>
+        Export progress file
+      </Button>
+    </GroupWrapper>
+  );
+};
+
+export const ImportProgressFile = () => {
+  const { importData } = useProgressStore();
+  return (
+    <GroupWrapper>
+      <Button variant="outline" onClick={() => importProgress(importData)}>
+        Import progress file
       </Button>
     </GroupWrapper>
   );

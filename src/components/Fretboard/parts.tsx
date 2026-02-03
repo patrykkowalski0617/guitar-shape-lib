@@ -23,6 +23,7 @@ export const Fretboard = styled.div`
         transform: translateY(-50%);
       }
     }
+
     &:first-child {
       & > :first-child,
       & > :first-child ${Note}, & > :first-child ${Fret} {
@@ -33,7 +34,6 @@ export const Fretboard = styled.div`
         border-radius: ${keyBRadius} ${pianoBRadius} ${keyBRadius} ${keyBRadius};
       }
     }
-
     &:last-child {
       & > :first-child,
       & > :first-child ${Note}, & > :first-child ${Fret} {

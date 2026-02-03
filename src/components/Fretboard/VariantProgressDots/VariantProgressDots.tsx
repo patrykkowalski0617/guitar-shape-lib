@@ -4,12 +4,13 @@ import shapes from "@/utils/shapes";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useCurrentShapeVariantProgressId } from "@/hooks/useCurrentShapeVariantProgressId";
 import { useProgressStore } from "@/store/useProgressStore";
+import type { StringIndex } from "../FretboardRow/FretboardRow";
 
 export const VariantProgressDots = ({
   stringIndex,
   isActiveRootNote,
 }: {
-  stringIndex: number;
+  stringIndex: StringIndex;
   isActiveRootNote: boolean;
 }) => {
   const { learned } = useProgressStore();

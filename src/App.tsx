@@ -2,7 +2,6 @@ import Fretboard from "./components/Fretboard/Fretboard";
 import KeySelect from "./components/KeySelect/KeySelect";
 import ModeSelect from "./components/ModeSelect/ModeSelect";
 import RoleSelect from "./components/RoleSelect/RoleSelect";
-import { useMusicEngine } from "./hooks/useMusicEngine";
 import Header from "./components/Header/Header";
 import ShapeSelect from "./components/ShapeSelect/ShapeSelect";
 import Footer from "./components/Footer/Footer";
@@ -14,7 +13,6 @@ import { useSettingsStore } from "./store/useSettingsStore";
 import Piano from "./components/Piano/Piano";
 
 function App() {
-  useMusicEngine();
   const { tonicColor, subdominantColor, dominantColor } = useSettingsStore();
 
   const roleColors = {
