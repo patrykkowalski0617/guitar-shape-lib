@@ -12,10 +12,10 @@ export const FretInfoCell = styled.div<{
   justify-content: center;
   width: 100%;
   height: 20px;
-  margin: 0 2px;
-  font-size: 0.7rem;
+  margin: 0 4px;
+  font-size: 12px;
   font-weight: 800;
-  color: var(--border);
+  color: var(--accent);
   opacity: 0.8;
   user-select: none;
   ${({ $isNumeric }) =>

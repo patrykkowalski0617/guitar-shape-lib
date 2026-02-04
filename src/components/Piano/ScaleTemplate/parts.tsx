@@ -56,12 +56,13 @@ export const Marker = styled.div<MarkerProps>`
     left: 0;
     right: 0;
     text-align: center;
-    font-size: 10px;
-    font-weight: bold;
+    font-size: 12px;
+    font-weight: 800;
     color: ${({ $highlightRole }) => roleColors[$highlightRole]};
+    filter: brightness(2);
     text-shadow: 0 0 8px ${({ $highlightRole }) => roleColors[$highlightRole]};
     opacity: ${({ $roleInterval, $isVisible }) => ($roleInterval && $isVisible ? "1" : "0")};
-    top: ${({ $roleInterval }) => ($roleInterval ? "-17px" : "0px")};
+    top: ${({ $roleInterval }) => ($roleInterval ? "-23px" : "0px")};
     will-change: top, opacity, color;
     transition: ${({ $areAnimationsOn }) =>
       $areAnimationsOn
