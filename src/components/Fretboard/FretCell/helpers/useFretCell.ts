@@ -4,12 +4,12 @@ import { useDevStore } from "@/store/useDevStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { getNotes, UNIFIED_MUSIC_KEYS, type NoteSharp } from "@/utils";
-import { useFretboardDevEditor } from "../helpers/useFretboardDevEditor";
-import { useShapeVariantIterator } from "../helpers/useShapeVariantIterator";
-import { useShapeNotes } from "../helpers/useShapeNotes";
-import { useInTuneSharpNoteNames } from "../helpers/useInTuneSharpNoteNames";
+import { useFretboardDevEditor } from "./useFretboardDevEditor";
+import { useShapeVariantIterator } from "./useShapeVariantIterator";
+import { useShapeNotes } from "./useShapeNotes";
+import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
 
-export const useFretboardRow = () => {
+export const useFretCell = () => {
   const { currentKeyId, currentShapeSemitoneOffsetFromC, currentRoleId } = useControlsStore();
   const { areAnimationsOn } = useSettingsStore();
   const { isDevMode } = useDevStore();

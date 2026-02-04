@@ -83,7 +83,7 @@ export const Wrapper = styled.div<{
 
       ${MainLabel}, ${OptionalLabel} {
         color: ${$isShapeNote ? highlightedColor : unHighlightedColor};
-        height: 13px;
+        height: 15px;
         width: 26px;
         border-radius: 4px;
       }
