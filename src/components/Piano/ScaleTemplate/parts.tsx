@@ -57,10 +57,10 @@ export const Marker = styled.div<MarkerProps>`
     right: 0;
     text-align: center;
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 400;
     color: ${({ $highlightRole }) => roleColors[$highlightRole]};
     filter: brightness(2);
-    text-shadow: 0 0 8px ${({ $highlightRole }) => roleColors[$highlightRole]};
+    text-shadow: 0 0 2px ${({ $highlightRole }) => roleColors[$highlightRole]};
     opacity: ${({ $roleInterval, $isVisible }) => ($roleInterval && $isVisible ? "1" : "0")};
     top: ${({ $roleInterval }) => ($roleInterval ? "-23px" : "0px")};
     will-change: top, opacity, color;

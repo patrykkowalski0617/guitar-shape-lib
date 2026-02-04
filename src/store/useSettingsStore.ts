@@ -18,9 +18,9 @@ interface SettingsState {
 const initialState = {
   areAnimationsOn: true,
   isTutorialOn: true,
-  tonicColor: 233,
-  subdominantColor: 320,
-  dominantColor: 120,
+  tonicColor: 230,
+  subdominantColor: 335,
+  dominantColor: 110,
 };
 
 export const useSettingsStore = create<SettingsState>()(
