@@ -36,11 +36,11 @@ export const Fret = styled.div<{
   border-radius: 4px;
   background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
   box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 -5px 8px 0px var(--input)"};
-  opacity: ${({ $isTuneNote, $isShapeNote }) => ($isTuneNote || $isShapeNote ? "1" : "0.25")};
+  opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNoteWithVariants }) =>
+    $isShapeNote ? "1" : $isShapeRootNoteWithVariants ? "0.75" : $isTuneNote ? "0.5" : "0.25"};
   will-change: opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
-
   cursor: ${({ $isShapeRootNoteWithVariants }) =>
     $isShapeRootNoteWithVariants ? "pointer" : "default"};
   &:focus-visible {
@@ -71,7 +71,6 @@ export const Note = styled.div<{
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `box-shadow ${transitionTime}ms ease-in-out`};
   filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
-  opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.4")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   ${({ $isShapeRootNote, $highlightRole }) => {
     if (!$isShapeRootNote) return null;

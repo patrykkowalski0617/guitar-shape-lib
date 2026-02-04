@@ -98,4 +98,5 @@ const FretCell = ({
     </S.LockedEffectWrapper>
   );
 };
+
 export default FretCell;
