@@ -18,9 +18,7 @@ export const LockedEffectWrapper = styled.div<{
     const color = roleColors[($lockedRoleId as HighlightRole) || "none"];
     return css`
       outline: 3px solid ${color};
-      @media (min-width: 768px) {
-        outline-offset: 2px;
-      }
+      outline-offset: 2px;
     `;
   }}
 `;
