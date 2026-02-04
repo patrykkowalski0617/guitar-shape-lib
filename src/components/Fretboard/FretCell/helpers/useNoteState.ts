@@ -41,14 +41,12 @@ export const useNoteState = ({
   const { isShapeNote: isLockedShapeNote } = useShapeNotes(lockedShapeVariantLocationData);
   const sharpNoteNamesInTune = useInTuneSharpNoteNames();
 
-  const isTuneNote = (sharpName: NoteSharp) => sharpNoteNamesInTune.includes(sharpName);
-
   return {
     isActiveNote: activeNoteId === noteId,
     isShapeRootNoteWithVariants: shapeRootSharpNote === sharpNoteName && stringIndex > 1,
     isShapeRootNote: shapeRootSharpNote === sharpNoteName,
     isShapeNote: isShapeNote([stringIndex, fretIndex]),
     isLockedNote: isLockedShapeNote([stringIndex, fretIndex]),
-    isTuneNote: isTuneNote(sharpNoteName),
+    isTuneNote: sharpNoteNamesInTune.includes(sharpNoteName),
   };
 };
