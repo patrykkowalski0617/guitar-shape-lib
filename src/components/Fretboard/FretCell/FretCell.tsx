@@ -1,55 +1,41 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import * as S from "./parts";
-import type { NoteObject, RoleId } from "@/utils";
+import type { NoteObject } from "@/utils";
 import { VariantProgressDots } from "../VariantProgressDots/VariantProgressDots";
-import type { HighlightRole } from "@/utils/roleColors";
 import type { StringIndex } from "../FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
+import { useFretCell } from "./helpers/useFretCell";
+import { useNoteState } from "./helpers/useNoteState";
 
 interface FretCellProps {
   noteData: NoteObject;
   stringIndex: StringIndex;
-  currentRoleId: RoleId | null;
-  lockedRoleId: RoleId | null;
-  isFlatTune: boolean;
-  isActive: boolean;
-  isShapeRootNote: boolean;
-  isShapeRootNoteWithVariants: boolean;
-  isShapeNote: boolean;
-  isTuneNote: boolean;
-  isLockedNote: boolean;
-  isDevNote: boolean;
-  onHover: (id: string) => void;
-  onLeave: () => void;
-  onClick: (() => void) | undefined;
-  areAnimationsOn: boolean;
+  fretIndex: number;
 }
 
-const FretCell = ({
-  noteData,
-  stringIndex,
-  currentRoleId,
-  lockedRoleId,
-  isFlatTune,
-  isActive,
-  isShapeRootNote,
-  isShapeRootNoteWithVariants,
-  isShapeNote,
-  isTuneNote,
-  isLockedNote,
-  isDevNote,
-  onHover,
-  onLeave,
-  onClick,
-  areAnimationsOn,
-}: FretCellProps) => {
+const FretCell = ({ noteData, stringIndex, fretIndex }: FretCellProps) => {
+  const { states, actions } = useFretCell();
+  const {
+    isActiveNote,
+    isShapeRootNoteWithVariants,
+    isShapeRootNote,
+    isShapeNote,
+    isLockedNote,
+    isTuneNote,
+  } = useNoteState({
+    sharpNoteName: noteData.sharpNoteName,
+    noteId: noteData.noteId,
+    stringIndex,
+    fretIndex,
+  });
   const [isActiveRootNote, setIsActiveRootNote] = useState(false);
-  const activeRole: HighlightRole = (currentRoleId as HighlightRole) || "none";
 
-  const handleClick = useCallback(() => {
-    onClick?.();
+  const handleClick = () => {
+    if (isShapeRootNoteWithVariants) {
+      actions.setNextShapeVariantLocationData(stringIndex, fretIndex);
+    }
     setIsActiveRootNote(true);
-  }, [onClick]);
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (isShapeRootNoteWithVariants && (e.key === "Enter" || e.key === " ")) {
@@ -59,29 +45,28 @@ const FretCell = ({
   };
 
   return (
-    <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={lockedRoleId}>
+    <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={states.lockedRoleId}>
       {isShapeRootNoteWithVariants && (
         <VariantProgressDots stringIndex={stringIndex} isActiveRootNote={isActiveRootNote} />
       )}
       <S.Fret
-        onMouseOver={() => onHover(noteData.noteId)}
-        onMouseLeave={onLeave}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        $isDevNote={isDevNote}
         $isShapeRootNoteWithVariants={isShapeRootNoteWithVariants}
         $isShapeNote={isShapeNote}
         $isTuneNote={isTuneNote}
-        $areAnimationsOn={areAnimationsOn}
+        $areAnimationsOn={states.areAnimationsOn}
         tabIndex={isShapeRootNoteWithVariants ? 0 : -1}
         role={isShapeRootNoteWithVariants ? "button" : undefined}
+        onMouseEnter={() => actions.setActiveNoteId(noteData.noteId)}
+        onMouseLeave={() => actions.setActiveNoteId(null)}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
       >
         <S.Note
+          $isActiveNote={isActiveNote}
           $isShapeRootNote={isShapeRootNote}
-          $isActiveNote={isActive}
-          $highlightRole={activeRole}
+          $highlightRole={states.activeRole}
           $isShapeNote={isShapeNote}
-          $areAnimationsOn={areAnimationsOn}
+          $areAnimationsOn={states.areAnimationsOn}
         >
           <NoteLabel
             isHighlighted={isShapeRootNote || isShapeNote}
@@ -89,7 +74,7 @@ const FretCell = ({
             sharpNoteName={noteData.sharpNoteName}
             isTuneNote={isTuneNote}
             isShapeNote={isShapeNote}
-            isFlatTune={isFlatTune}
+            isFlatTune={states.isFlatTune}
             isEnharmonic={noteData.isEnharmonic}
             variant="fretboard"
           />
@@ -98,4 +83,5 @@ const FretCell = ({
     </S.LockedEffectWrapper>
   );
 };
+
 export default FretCell;

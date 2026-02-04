@@ -30,7 +30,7 @@ export const Setcion = styled.div`
 `;
 
 export const InstrumentWrapper = styled.div`
-  min-width: 1300px;
+  width: 1300px;
   margin: auto;
   overflow: hidden;
   padding: 0 10px;

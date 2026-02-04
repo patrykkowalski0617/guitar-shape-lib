@@ -1,5 +1,5 @@
 import * as S from "./parts";
-import { STRING_MAP } from "../FretboardRow/helpers/useShapeVariantIterator";
+import { STRING_MAP } from "../FretCell/helpers/useShapeVariantIterator";
 import shapes from "@/utils/shapes";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useCurrentShapeVariantProgressId } from "@/hooks/useCurrentShapeVariantProgressId";

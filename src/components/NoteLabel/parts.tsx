@@ -12,16 +12,14 @@ const BaseLabel = styled.div<{
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 25px;
-  height: 25px;
-  line-height: 25px;
-  border-radius: 100%;
   position: absolute;
   font-size: 12px;
   font-weight: bold;
   will-change: opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn ? `opacity ${transitionTime}ms ease-in-out` : "none"};
+  background: color-mix(in oklab, var(--background) 70%, transparent);
+  box-shadow: 0 0 8px var(--background);
 `;
 
 interface LabelStatusProps {
@@ -61,9 +59,11 @@ export const Wrapper = styled.div<{
       opacity: ${$isShapeNote || $isHighlighted ? "1" : "0"};
 
       ${MainLabel}, ${OptionalLabel} {
-        background: color-mix(in oklab, var(--background) 70%, transparent);
         border: 1px solid color-mix(in oklab, var(--accent) 70%, transparent);
-        box-shadow: 0 0 8px var(--background);
+        border-radius: 100%;
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
         top: 0;
         color: ${highlightedColor};
       }
@@ -76,8 +76,6 @@ export const Wrapper = styled.div<{
       align-items: center;
       justify-content: center;
       flex-direction: row;
-      height: 20px;
-      width: 30px;
 
       will-change: opacity;
       transition: ${$areAnimationsOn ? `opacity ${transitionTime}ms ease-in-out` : "none"};
@@ -85,6 +83,9 @@ export const Wrapper = styled.div<{
 
       ${MainLabel}, ${OptionalLabel} {
         color: ${$isShapeNote ? highlightedColor : unHighlightedColor};
+        height: 15px;
+        width: 26px;
+        border-radius: 4px;
       }
     `}
 `;

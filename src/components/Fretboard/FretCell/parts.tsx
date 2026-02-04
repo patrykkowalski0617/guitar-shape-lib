@@ -10,14 +10,14 @@ export const LockedEffectWrapper = styled.div<{
 }>`
   flex: 1;
   width: 0;
-  margin: 2px;
+  margin: 4px;
   border-radius: 4px;
   position: relative;
   ${({ $isLockedNote, $lockedRoleId }) => {
     if (!$isLockedNote) return null;
     const color = roleColors[($lockedRoleId as HighlightRole) || "none"];
     return css`
-      outline: 2px solid ${color};
+      outline: 3px solid ${color};
       @media (min-width: 768px) {
         outline-offset: 2px;
       }
@@ -26,7 +26,6 @@ export const LockedEffectWrapper = styled.div<{
 `;
 
 export const Fret = styled.div<{
-  $isDevNote: boolean;
   $isShapeNote: boolean;
   $isShapeRootNoteWithVariants: boolean;
   $isTuneNote: boolean;
@@ -34,18 +33,17 @@ export const Fret = styled.div<{
 }>`
   width: 100%;
   border-radius: 4px;
-  background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
-  box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 -5px 8px 0px var(--input)"};
-  opacity: ${({ $isTuneNote, $isShapeNote }) => ($isTuneNote || $isShapeNote ? "1" : "0.25")};
+  box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 2px 8px 0px var(--input)"};
+  opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNoteWithVariants }) =>
+    $isShapeNote ? "1" : $isShapeRootNoteWithVariants ? "0.7" : $isTuneNote ? "0.5" : "0.15"};
   will-change: opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
-
   cursor: ${({ $isShapeRootNoteWithVariants }) =>
     $isShapeRootNoteWithVariants ? "pointer" : "default"};
   &:focus-visible {
     outline: 2px solid var(--ring);
-    outline-offset: 4px;
+    outline-offset: 6px;
     z-index: 10;
   }
 `;
@@ -71,15 +69,14 @@ export const Note = styled.div<{
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `box-shadow ${transitionTime}ms ease-in-out`};
   filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
-  opacity: ${({ $isShapeNote }) => ($isShapeNote ? "1" : "0.4")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
-  ${({ $isShapeRootNote, $highlightRole }) => {
-    if (!$isShapeRootNote) return null;
-
-    const color = roleColors[$highlightRole];
-    return css`
-      border-color: ${color};
-      box-shadow: inset 0 -2px 5px 0px ${color};
-    `;
+  ${({ $isShapeNote, $highlightRole }) => {
+    if ($isShapeNote) {
+      const color = roleColors[$highlightRole];
+      return css`
+        border-color: ${color};
+        box-shadow: inset 0 0px 8px 0px ${color};
+      `;
+    }
   }}
 `;
