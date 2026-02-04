@@ -15,9 +15,9 @@ function App() {
   const { tonicColor, subdominantColor, dominantColor } = useSettingsStore();
 
   const roleColors = {
-    "--secondary": `hsl(${tonicColor} 100% 45%)`,
+    "--secondary": `hsl(${tonicColor} 90% 45%)`,
     "--primary": `hsl(${subdominantColor} 90% 45%)`,
-    "--tension": `hsl(${dominantColor} 100% 45%)`,
+    "--tension": `hsl(${dominantColor} 90% 45%)`,
   } as React.CSSProperties;
 
   return (

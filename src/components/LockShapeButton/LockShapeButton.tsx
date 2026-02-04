@@ -41,13 +41,15 @@ export const LockShapeButton = () => {
     </span>
   );
 
+  const isDisabled = currentShapeVariantLocationData === null && !isLocked;
+
   return (
     <GroupWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.LOCK_SHAPE} />
       <Button
         variant={isLocked ? "active" : "outline"}
         onClick={handleToggle}
-        disabled={currentShapeVariantLocationData === null && !isLocked}
+        disabled={isDisabled}
         fixedWidthLabel={labelPlaceholder}
       >
         <span className="flex items-center justify-center gap-2">

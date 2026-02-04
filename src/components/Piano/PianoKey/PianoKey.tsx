@@ -1,61 +1,57 @@
 import * as S from "./parts";
-import type { NoteFlat, NoteSharp } from "@/utils";
-import type { HighlightRole } from "../../../utils/roleColors";
+import { majorScale, NOTES_SHARP, UNIFIED_MUSIC_KEYS, type NoteObject } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
+import { useMusicStore } from "@/store/useMusicStore";
+import { useControlsStore } from "@/store/useControlsStore";
+import { SHAPES_OF_WHITE_PIANO_KEYS } from "../helpers/constants";
+import { useSettingsStore } from "@/store/useSettingsStore";
+import { useScaleLogic } from "../helpers/useScaleLogic";
 
 interface PianoKeyProps {
-  areAnimationsOn: boolean;
-  isActive: boolean;
-  isWhitePianoKey: boolean;
-  pianoKeyShape: S.KeyShape | undefined;
-  noteId: string;
-  isHighlighted: boolean;
-  highlightRole: HighlightRole;
-  isFlatTune: boolean;
-  isShapeNote: boolean;
-  flatNoteName: NoteFlat;
-  sharpNoteName: NoteSharp;
-  isEnharmonic: boolean;
-  onLeave: () => void;
-  onHover: (id: string) => void;
-  "data-role-highlight"?: boolean;
+  note: NoteObject;
 }
 
-const PianoKey = ({
-  areAnimationsOn,
-  isActive,
-  isWhitePianoKey,
-  pianoKeyShape,
-  noteId,
-  isHighlighted,
-  highlightRole,
-  isFlatTune,
-  isShapeNote,
-  flatNoteName,
-  sharpNoteName,
-  isEnharmonic,
-  onHover,
-  onLeave,
-  "data-role-highlight": dataRoleHighlight,
-}: PianoKeyProps) => {
+const PianoKey = ({ note }: PianoKeyProps) => {
+  const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
+  const { activeNoteId, setActiveNoteId } = useMusicStore();
+  const currentKeyId = useControlsStore((state) => state.currentKeyId);
+  const currentRoleId = useControlsStore((state) => state.currentRoleId);
+
+  const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
+  const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
+  const isWhitePianoKey = majorScale.includes(noteOctaveIndex);
+  const pianoKeyShape = SHAPES_OF_WHITE_PIANO_KEYS[noteOctaveIndex];
+
+  const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
+
+  const isScrollTarget =
+    (!currentRoleId && currentScaleNoteIds.includes(note.noteId)) ||
+    (currentRoleId && currentRoleNoteIds.includes(note.noteId));
+
+  const isHighlighted = currentScaleNoteIds.includes(note.noteId);
+
   return (
     <S.Key
       $areAnimationsOn={areAnimationsOn}
-      $isActive={isActive}
+      $isActive={note.noteId === activeNoteId}
       $isWhitePianoKey={isWhitePianoKey}
       $pianoKeyShape={pianoKeyShape}
       $isHighlighted={isHighlighted}
-      $highlightRole={highlightRole}
-      onMouseOver={() => onHover(noteId)}
-      onMouseLeave={onLeave}
-      data-role-highlight={dataRoleHighlight}
+      $highlightRole={
+        currentRoleId && currentRoleNoteIds?.includes(note.noteId) ? currentRoleId : "none"
+      }
+      data-scroll-target={isScrollTarget}
+      onMouseOver={() => {
+        setActiveNoteId(note.noteId);
+      }}
+      onMouseLeave={() => setActiveNoteId(null)}
     >
       <NoteLabel
         isFlatTune={isFlatTune}
-        isShapeNote={isShapeNote}
-        flatNoteName={flatNoteName}
-        sharpNoteName={sharpNoteName}
-        isEnharmonic={isEnharmonic}
+        isShapeNote={currentShapeNoteIds.includes(note.noteId)}
+        flatNoteName={note.flatNoteName}
+        sharpNoteName={note.sharpNoteName}
+        isEnharmonic={note.isEnharmonic}
         isHighlighted={isHighlighted}
         variant="piano"
       />

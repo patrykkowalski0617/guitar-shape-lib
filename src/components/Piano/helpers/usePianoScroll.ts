@@ -1,16 +1,18 @@
-import { useEffect, type DependencyList, type RefObject } from "react";
+import { useControlsStore } from "@/store/useControlsStore";
+import { useEffect, type RefObject } from "react";
 
-export const usePianoScroll = (
-  containerRef: RefObject<HTMLDivElement | null>,
-  dependencies: DependencyList,
-) => {
+export const usePianoScroll = (containerRef: RefObject<HTMLDivElement | null>) => {
+  const isMajorMode = useControlsStore((state) => state.isMajorMode);
+  const currentKeyId = useControlsStore((state) => state.currentKeyId);
+  const currentRoleId = useControlsStore((state) => state.currentRoleId);
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const timer = setTimeout(() => {
       const firstHighlighted = container.querySelector(
-        '[data-role-highlight="true"]',
+        '[data-scroll-target="true"]',
       ) as HTMLElement;
 
       if (firstHighlighted) {
@@ -24,7 +26,5 @@ export const usePianoScroll = (
     }, 50);
 
     return () => clearTimeout(timer);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [containerRef, ...dependencies]);
+  }, [containerRef, isMajorMode, currentKeyId, currentRoleId]);
 };
