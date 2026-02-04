@@ -1,68 +1,32 @@
-import { useMemo, useCallback } from "react";
 import { useControlsStore } from "@/store/useControlsStore";
-import { useDevStore } from "@/store/useDevStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { useSettingsStore } from "@/store/useSettingsStore";
-import { getNotes, UNIFIED_MUSIC_KEYS, type NoteSharp } from "@/utils";
-import { useFretboardDevEditor } from "./useFretboardDevEditor";
+import { UNIFIED_MUSIC_KEYS } from "@/utils";
 import { useShapeVariantIterator } from "./useShapeVariantIterator";
-import { useShapeNotes } from "./useShapeNotes";
-import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
+import type { HighlightRole } from "@/utils/roleColors";
 
 export const useFretCell = () => {
-  const { currentKeyId, currentShapeSemitoneOffsetFromC, currentRoleId } = useControlsStore();
-  const { areAnimationsOn } = useSettingsStore();
-  const { isDevMode } = useDevStore();
-  const {
-    activeNoteId,
-    setActiveNoteId,
-    lockedRoleId,
-    currentShapeVariantLocationData,
-    lockedShapeVariantLocationData,
-  } = useMusicStore();
+  const currentKeyId = useControlsStore((state) => state.currentKeyId);
+  const currentRoleId = useControlsStore((state) => state.currentRoleId);
+  const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
+  const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
+  const lockedRoleId = useMusicStore((state) => state.lockedRoleId);
 
-  const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
-  const NOTES_SHARP = useMemo(
-    () => getNotes({ firstNote: currentKeyId }).map((n) => n.sharpNoteName),
-    [currentKeyId],
-  );
-  const shapeRootSharpNote = useMemo(
-    () =>
-      currentShapeSemitoneOffsetFromC !== null
-        ? NOTES_SHARP[currentShapeSemitoneOffsetFromC % 12]
-        : null,
-    [currentShapeSemitoneOffsetFromC, NOTES_SHARP],
-  );
-
-  const { onDevClick, isDevNote } = useFretboardDevEditor();
   const { setNextShapeVariantLocationData } = useShapeVariantIterator();
-  const { isShapeNote } = useShapeNotes(currentShapeVariantLocationData);
-  const { isShapeNote: isLockedShapeNote } = useShapeNotes(lockedShapeVariantLocationData);
-  const sharpNoteNamesInTune = useInTuneSharpNoteNames();
 
-  const isTuneNote = useCallback(
-    (sharpName: NoteSharp) => sharpNoteNamesInTune.includes(sharpName),
-    [sharpNoteNamesInTune],
-  );
+  const activeRole: HighlightRole = (currentRoleId as HighlightRole) || "none";
 
   return {
-    state: {
-      activeNoteId,
+    states: {
       lockedRoleId,
       currentRoleId,
-      isFlatTune,
-      shapeRootSharpNote,
-      isDevMode,
+      isFlatTune: UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune,
       areAnimationsOn,
+      activeRole,
     },
     actions: {
       setActiveNoteId,
-      onDevClick,
-      isDevNote,
-      isShapeNote,
-      isLockedShapeNote,
       setNextShapeVariantLocationData,
-      isTuneNote,
     },
   };
 };

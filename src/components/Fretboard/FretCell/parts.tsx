@@ -10,7 +10,7 @@ export const LockedEffectWrapper = styled.div<{
 }>`
   flex: 1;
   width: 0;
-  margin: 3px;
+  margin: 4px;
   border-radius: 4px;
   position: relative;
   ${({ $isLockedNote, $lockedRoleId }) => {
@@ -26,7 +26,6 @@ export const LockedEffectWrapper = styled.div<{
 `;
 
 export const Fret = styled.div<{
-  $isDevNote: boolean;
   $isShapeNote: boolean;
   $isShapeRootNoteWithVariants: boolean;
   $isTuneNote: boolean;
@@ -34,10 +33,9 @@ export const Fret = styled.div<{
 }>`
   width: 100%;
   border-radius: 4px;
-  background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
   box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 2px 8px 0px var(--input)"};
   opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNoteWithVariants }) =>
-    $isShapeNote ? "1" : $isShapeRootNoteWithVariants ? "0.6" : $isTuneNote ? "0.4" : "0.15"};
+    $isShapeNote ? "1" : $isShapeRootNoteWithVariants ? "0.7" : $isTuneNote ? "0.5" : "0.15"};
   will-change: opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
@@ -45,7 +43,7 @@ export const Fret = styled.div<{
     $isShapeRootNoteWithVariants ? "pointer" : "default"};
   &:focus-visible {
     outline: 2px solid var(--ring);
-    outline-offset: 4px;
+    outline-offset: 6px;
     z-index: 10;
   }
 `;

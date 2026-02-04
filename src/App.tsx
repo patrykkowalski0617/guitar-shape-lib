@@ -8,7 +8,6 @@ import Footer from "./components/Footer/Footer";
 import { AppWrapper, MainContent, Setcion } from "./parts";
 import { LockShapeButton } from "./components/LockShapeButton/LockShapeButton";
 import ControlsContainer from "./components/ControlsContainer/ControlsContainer";
-import { DevModeProvider } from "./components/DevModeProvider/DevModeProvider";
 import { useSettingsStore } from "./store/useSettingsStore";
 import Piano from "./components/Piano/Piano";
 
@@ -23,12 +22,8 @@ function App() {
 
   return (
     <AppWrapper style={roleColors}>
-      <DevModeProvider />
       <Header />
       <MainContent>
-        <Setcion>
-          <Piano />
-        </Setcion>
         <Setcion>
           <Fretboard />
         </Setcion>
@@ -40,6 +35,9 @@ function App() {
             <ShapeSelect />
             <LockShapeButton />
           </ControlsContainer>
+        </Setcion>
+        <Setcion>
+          <Piano />
         </Setcion>
       </MainContent>
       <Footer />

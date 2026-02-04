@@ -2,10 +2,10 @@ import { useState } from "react";
 import * as S from "./parts";
 import type { NoteObject } from "@/utils";
 import { VariantProgressDots } from "../VariantProgressDots/VariantProgressDots";
-import type { HighlightRole } from "@/utils/roleColors";
 import type { StringIndex } from "../FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretCell } from "./helpers/useFretCell";
+import { useNoteState } from "./helpers/useNoteState";
 
 interface FretCellProps {
   noteData: NoteObject;
@@ -14,24 +14,23 @@ interface FretCellProps {
 }
 
 const FretCell = ({ noteData, stringIndex, fretIndex }: FretCellProps) => {
-  const { state, actions } = useFretCell();
-
-  const isShapeRootNote = state.shapeRootSharpNote === noteData.sharpNoteName;
-  const isShapeRootNoteWithVariants = isShapeRootNote && stringIndex > 1;
-  const isShapeNote = actions.isShapeNote([stringIndex, fretIndex]);
-  const isLockedNote = actions.isLockedShapeNote([stringIndex, fretIndex]);
-  const isTuneNote = actions.isTuneNote(noteData.sharpNoteName);
-  const isActive = state.activeNoteId === noteData.noteId;
-  const isDevNote = actions.isDevNote(stringIndex, fretIndex);
-
+  const { states, actions } = useFretCell();
+  const {
+    isActiveNote,
+    isShapeRootNoteWithVariants,
+    isShapeRootNote,
+    isShapeNote,
+    isLockedNote,
+    isTuneNote,
+  } = useNoteState({
+    sharpNoteName: noteData.sharpNoteName,
+    noteId: noteData.noteId,
+    stringIndex,
+    fretIndex,
+  });
   const [isActiveRootNote, setIsActiveRootNote] = useState(false);
-  const activeRole: HighlightRole = (state.currentRoleId as HighlightRole) || "none";
 
   const handleClick = () => {
-    if (state.isDevMode) {
-      actions.onDevClick(stringIndex, fretIndex);
-    }
-
     if (isShapeRootNoteWithVariants) {
       actions.setNextShapeVariantLocationData(stringIndex, fretIndex);
     }
@@ -46,29 +45,28 @@ const FretCell = ({ noteData, stringIndex, fretIndex }: FretCellProps) => {
   };
 
   return (
-    <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={state.lockedRoleId}>
+    <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={states.lockedRoleId}>
       {isShapeRootNoteWithVariants && (
         <VariantProgressDots stringIndex={stringIndex} isActiveRootNote={isActiveRootNote} />
       )}
       <S.Fret
+        $isShapeRootNoteWithVariants={isShapeRootNoteWithVariants}
+        $isShapeNote={isShapeNote}
+        $isTuneNote={isTuneNote}
+        $areAnimationsOn={states.areAnimationsOn}
+        tabIndex={isShapeRootNoteWithVariants ? 0 : -1}
+        role={isShapeRootNoteWithVariants ? "button" : undefined}
         onMouseEnter={() => actions.setActiveNoteId(noteData.noteId)}
         onMouseLeave={() => actions.setActiveNoteId(null)}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
-        $isDevNote={isDevNote}
-        $isShapeRootNoteWithVariants={isShapeRootNoteWithVariants}
-        $isShapeNote={isShapeNote}
-        $isTuneNote={isTuneNote}
-        $areAnimationsOn={state.areAnimationsOn}
-        tabIndex={isShapeRootNoteWithVariants ? 0 : -1}
-        role={isShapeRootNoteWithVariants ? "button" : undefined}
       >
         <S.Note
+          $isActiveNote={isActiveNote}
           $isShapeRootNote={isShapeRootNote}
-          $isActiveNote={isActive}
-          $highlightRole={activeRole}
+          $highlightRole={states.activeRole}
           $isShapeNote={isShapeNote}
-          $areAnimationsOn={state.areAnimationsOn}
+          $areAnimationsOn={states.areAnimationsOn}
         >
           <NoteLabel
             isHighlighted={isShapeRootNote || isShapeNote}
@@ -76,7 +74,7 @@ const FretCell = ({ noteData, stringIndex, fretIndex }: FretCellProps) => {
             sharpNoteName={noteData.sharpNoteName}
             isTuneNote={isTuneNote}
             isShapeNote={isShapeNote}
-            isFlatTune={state.isFlatTune}
+            isFlatTune={states.isFlatTune}
             isEnharmonic={noteData.isEnharmonic}
             variant="fretboard"
           />

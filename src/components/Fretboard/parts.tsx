@@ -15,10 +15,10 @@ export const Fretboard = styled.div`
         content: "";
         position: absolute;
         height: 100%;
-        width: 1px;
+        width: 2px;
         background: color-mix(in oklab, var(--primary) 50%, transparent);
         box-shadow: 0 0 8px var(--primary);
-        right: -9px;
+        right: -10px;
         top: 50%;
         transform: translateY(-50%);
       }
