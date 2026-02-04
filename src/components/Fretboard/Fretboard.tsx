@@ -21,13 +21,13 @@ export default function Fretboard(): JSX.Element {
         <S.FretboardWrapper>
           <FretboardInfoRow isNumeric />
           <S.Fretboard>
-            {STRINGS_CONFIG.map(({ firstNoteInRow, octaveNumber }, index) => {
+            {STRINGS_CONFIG.map(({ firstNoteInRow, firstNoteOctaveNumber }, index) => {
               return (
                 <FretboardRow
                   key={index}
                   stringIndex={index as StringIndex}
                   firstNoteInRow={firstNoteInRow}
-                  octaveNumber={octaveNumber}
+                  firstNoteOctaveNumber={firstNoteOctaveNumber}
                 />
               );
             })}

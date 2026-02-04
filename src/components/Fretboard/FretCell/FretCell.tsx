@@ -1,55 +1,50 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import * as S from "./parts";
-import type { NoteObject, RoleId } from "@/utils";
+import type { NoteObject, NoteSharp } from "@/utils";
 import { VariantProgressDots } from "../VariantProgressDots/VariantProgressDots";
 import type { HighlightRole } from "@/utils/roleColors";
 import type { StringIndex } from "../FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
+import { useFretboardRow } from "../FretboardRow/helpers/useFretboardRow";
 
 interface FretCellProps {
   noteData: NoteObject;
   stringIndex: StringIndex;
-  currentRoleId: RoleId | null;
-  lockedRoleId: RoleId | null;
-  isFlatTune: boolean;
-  isActive: boolean;
-  isShapeRootNote: boolean;
-  isShapeRootNoteWithVariants: boolean;
-  isShapeNote: boolean;
-  isTuneNote: boolean;
-  isLockedNote: boolean;
-  isDevNote: boolean;
-  onHover: (id: string) => void;
-  onLeave: () => void;
-  onClick: (() => void) | undefined;
-  areAnimationsOn: boolean;
+  fretIndex: number;
+  firstNoteInRow: NoteSharp;
+  firstNoteOctaveNumber: number;
 }
 
 const FretCell = ({
   noteData,
   stringIndex,
-  currentRoleId,
-  lockedRoleId,
-  isFlatTune,
-  isActive,
-  isShapeRootNote,
-  isShapeRootNoteWithVariants,
-  isShapeNote,
-  isTuneNote,
-  isLockedNote,
-  isDevNote,
-  onHover,
-  onLeave,
-  onClick,
-  areAnimationsOn,
+  fretIndex,
+  firstNoteInRow,
+  firstNoteOctaveNumber,
 }: FretCellProps) => {
-  const [isActiveRootNote, setIsActiveRootNote] = useState(false);
-  const activeRole: HighlightRole = (currentRoleId as HighlightRole) || "none";
+  const { state, actions } = useFretboardRow(firstNoteInRow, firstNoteOctaveNumber);
 
-  const handleClick = useCallback(() => {
-    onClick?.();
+  const isShapeRootNote = state.shapeRootSharpNote === noteData.sharpNoteName;
+  const isShapeRootNoteWithVariants = isShapeRootNote && stringIndex > 1;
+  const isShapeNote = actions.isShapeNote([stringIndex, fretIndex]);
+  const isLockedNote = actions.isLockedShapeNote([stringIndex, fretIndex]);
+  const isTuneNote = actions.isTuneNote(noteData.sharpNoteName);
+  const isActive = state.activeNoteId === noteData.noteId;
+  const isDevNote = actions.isDevNote(stringIndex, fretIndex);
+
+  const [isActiveRootNote, setIsActiveRootNote] = useState(false);
+  const activeRole: HighlightRole = (state.currentRoleId as HighlightRole) || "none";
+
+  const handleClick = () => {
+    if (state.isDevMode) {
+      actions.onDevClick(stringIndex, fretIndex);
+    }
+
+    if (isShapeRootNoteWithVariants) {
+      actions.setNextShapeVariantLocationData(stringIndex, fretIndex);
+    }
     setIsActiveRootNote(true);
-  }, [onClick]);
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (isShapeRootNoteWithVariants && (e.key === "Enter" || e.key === " ")) {
@@ -59,20 +54,20 @@ const FretCell = ({
   };
 
   return (
-    <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={lockedRoleId}>
+    <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={state.lockedRoleId}>
       {isShapeRootNoteWithVariants && (
         <VariantProgressDots stringIndex={stringIndex} isActiveRootNote={isActiveRootNote} />
       )}
       <S.Fret
-        onMouseOver={() => onHover(noteData.noteId)}
-        onMouseLeave={onLeave}
+        onMouseEnter={() => actions.setActiveNoteId(noteData.noteId)}
+        onMouseLeave={() => actions.setActiveNoteId(null)}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         $isDevNote={isDevNote}
         $isShapeRootNoteWithVariants={isShapeRootNoteWithVariants}
         $isShapeNote={isShapeNote}
         $isTuneNote={isTuneNote}
-        $areAnimationsOn={areAnimationsOn}
+        $areAnimationsOn={state.areAnimationsOn}
         tabIndex={isShapeRootNoteWithVariants ? 0 : -1}
         role={isShapeRootNoteWithVariants ? "button" : undefined}
       >
@@ -81,7 +76,7 @@ const FretCell = ({
           $isActiveNote={isActive}
           $highlightRole={activeRole}
           $isShapeNote={isShapeNote}
-          $areAnimationsOn={areAnimationsOn}
+          $areAnimationsOn={state.areAnimationsOn}
         >
           <NoteLabel
             isHighlighted={isShapeRootNote || isShapeNote}
@@ -89,7 +84,7 @@ const FretCell = ({
             sharpNoteName={noteData.sharpNoteName}
             isTuneNote={isTuneNote}
             isShapeNote={isShapeNote}
-            isFlatTune={isFlatTune}
+            isFlatTune={state.isFlatTune}
             isEnharmonic={noteData.isEnharmonic}
             variant="fretboard"
           />

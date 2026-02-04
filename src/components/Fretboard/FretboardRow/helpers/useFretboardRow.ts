@@ -10,7 +10,7 @@ import { useShapeNotes } from "../helpers/useShapeNotes";
 import { useInTuneSharpNoteNames } from "../helpers/useInTuneSharpNoteNames";
 import { numberOfFrets } from "../helpers/constants";
 
-export const useFretboardRow = (firstNoteInRow: string, octaveNumber: number) => {
+export const useFretboardRow = (firstNoteInRow: string, firstNoteOctaveNumber: number) => {
   const { currentKeyId, currentShapeSemitoneOffsetFromC, currentRoleId } = useControlsStore();
   const { areAnimationsOn } = useSettingsStore();
   const { isDevMode } = useDevStore();
@@ -39,9 +39,9 @@ export const useFretboardRow = (firstNoteInRow: string, octaveNumber: number) =>
       getNotes({
         firstNote: firstNoteInRow as Note,
         length: numberOfFrets,
-        firstOctave: octaveNumber,
+        firstOctave: firstNoteOctaveNumber,
       }),
-    [firstNoteInRow, octaveNumber],
+    [firstNoteInRow, firstNoteOctaveNumber],
   );
 
   const { onDevClick, isDevNote } = useFretboardDevEditor();

@@ -10,14 +10,14 @@ export const LockedEffectWrapper = styled.div<{
 }>`
   flex: 1;
   width: 0;
-  margin: 2px;
+  margin: 3px;
   border-radius: 4px;
   position: relative;
   ${({ $isLockedNote, $lockedRoleId }) => {
     if (!$isLockedNote) return null;
     const color = roleColors[($lockedRoleId as HighlightRole) || "none"];
     return css`
-      outline: 2px solid ${color};
+      outline: 3px solid ${color};
       @media (min-width: 768px) {
         outline-offset: 2px;
       }
@@ -35,9 +35,9 @@ export const Fret = styled.div<{
   width: 100%;
   border-radius: 4px;
   background-color: ${({ $isDevNote }) => ($isDevNote ? "orange !important" : "var(--background)")};
-  box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 -5px 8px 0px var(--input)"};
+  box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 2px 8px 0px var(--input)"};
   opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNoteWithVariants }) =>
-    $isShapeNote ? "1" : $isShapeRootNoteWithVariants ? "0.75" : $isTuneNote ? "0.5" : "0.25"};
+    $isShapeNote ? "1" : $isShapeRootNoteWithVariants ? "0.6" : $isTuneNote ? "0.4" : "0.15"};
   will-change: opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
@@ -72,13 +72,13 @@ export const Note = styled.div<{
     $areAnimationsOn && `box-shadow ${transitionTime}ms ease-in-out`};
   filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
-  ${({ $isShapeRootNote, $highlightRole }) => {
-    if (!$isShapeRootNote) return null;
-
-    const color = roleColors[$highlightRole];
-    return css`
-      border-color: ${color};
-      box-shadow: inset 0 -2px 5px 0px ${color};
-    `;
+  ${({ $isShapeNote, $highlightRole }) => {
+    if ($isShapeNote) {
+      const color = roleColors[$highlightRole];
+      return css`
+        border-color: ${color};
+        box-shadow: inset 0 0px 8px 0px ${color};
+      `;
+    }
   }}
 `;

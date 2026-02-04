@@ -2,16 +2,16 @@ import type { Note } from "@/utils";
 
 interface STRINGS_CONFIG {
   firstNoteInRow: Note;
-  octaveNumber: number;
+  firstNoteOctaveNumber: number;
 }
 
 export const STRINGS_CONFIG = [
-  { firstNoteInRow: "E", octaveNumber: 4 },
-  { firstNoteInRow: "B", octaveNumber: 3 },
-  { firstNoteInRow: "G", octaveNumber: 3 },
-  { firstNoteInRow: "D", octaveNumber: 3 },
-  { firstNoteInRow: "A", octaveNumber: 2 },
-  { firstNoteInRow: "E", octaveNumber: 2 },
+  { firstNoteInRow: "E", firstNoteOctaveNumber: 4 },
+  { firstNoteInRow: "B", firstNoteOctaveNumber: 3 },
+  { firstNoteInRow: "G", firstNoteOctaveNumber: 3 },
+  { firstNoteInRow: "D", firstNoteOctaveNumber: 3 },
+  { firstNoteInRow: "A", firstNoteOctaveNumber: 2 },
+  { firstNoteInRow: "E", firstNoteOctaveNumber: 2 },
 ] as const;
 
 export const numberOfFrets = 25;
