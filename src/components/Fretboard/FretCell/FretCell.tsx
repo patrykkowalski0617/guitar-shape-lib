@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as S from "./parts";
-import type { NoteObject, NoteSharp } from "@/utils";
+import type { NoteObject } from "@/utils";
 import { VariantProgressDots } from "../VariantProgressDots/VariantProgressDots";
 import type { HighlightRole } from "@/utils/roleColors";
 import type { StringIndex } from "../FretboardRow/FretboardRow";
@@ -11,18 +11,10 @@ interface FretCellProps {
   noteData: NoteObject;
   stringIndex: StringIndex;
   fretIndex: number;
-  firstNoteInRow: NoteSharp;
-  firstNoteOctaveNumber: number;
 }
 
-const FretCell = ({
-  noteData,
-  stringIndex,
-  fretIndex,
-  firstNoteInRow,
-  firstNoteOctaveNumber,
-}: FretCellProps) => {
-  const { state, actions } = useFretboardRow(firstNoteInRow, firstNoteOctaveNumber);
+const FretCell = ({ noteData, stringIndex, fretIndex }: FretCellProps) => {
+  const { state, actions } = useFretboardRow();
 
   const isShapeRootNote = state.shapeRootSharpNote === noteData.sharpNoteName;
   const isShapeRootNoteWithVariants = isShapeRootNote && stringIndex > 1;

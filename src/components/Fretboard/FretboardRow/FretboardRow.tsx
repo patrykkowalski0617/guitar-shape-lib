@@ -2,9 +2,9 @@ import * as S from "./parts";
 import { useRef, type JSX } from "react";
 import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 import FretCell from "../FretCell/FretCell";
-import { useFretboardRow } from "./helpers/useFretboardRow";
-import type { NoteSharp } from "@/utils";
+import { getNotes, type Note, type NoteSharp } from "@/utils";
 import { useShapeReset } from "./helpers/useShapeReset";
+import { numberOfFrets } from "./helpers/constants";
 
 export type StringIndex = 0 | 1 | 2 | 3 | 4 | 5;
 
@@ -20,7 +20,12 @@ export default function FretboardRow({
   firstNoteOctaveNumber,
 }: FretboardRowProps): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { rowNotes } = useFretboardRow(firstNoteInRow, firstNoteOctaveNumber);
+
+  const rowNotes = getNotes({
+    firstNote: firstNoteInRow as Note,
+    length: numberOfFrets,
+    firstOctave: firstNoteOctaveNumber,
+  });
 
   useHorizontalScroll(scrollRef);
   useShapeReset();
@@ -34,8 +39,6 @@ export default function FretboardRow({
             noteData={noteData}
             stringIndex={stringIndex}
             fretIndex={fretIndex}
-            firstNoteInRow={firstNoteInRow}
-            firstNoteOctaveNumber={firstNoteOctaveNumber}
           />
         );
       })}

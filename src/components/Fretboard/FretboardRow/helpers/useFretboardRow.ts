@@ -3,14 +3,13 @@ import { useControlsStore } from "@/store/useControlsStore";
 import { useDevStore } from "@/store/useDevStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { useSettingsStore } from "@/store/useSettingsStore";
-import { getNotes, UNIFIED_MUSIC_KEYS, type Note, type NoteSharp } from "@/utils";
+import { getNotes, UNIFIED_MUSIC_KEYS, type NoteSharp } from "@/utils";
 import { useFretboardDevEditor } from "../helpers/useFretboardDevEditor";
 import { useShapeVariantIterator } from "../helpers/useShapeVariantIterator";
 import { useShapeNotes } from "../helpers/useShapeNotes";
 import { useInTuneSharpNoteNames } from "../helpers/useInTuneSharpNoteNames";
-import { numberOfFrets } from "../helpers/constants";
 
-export const useFretboardRow = (firstNoteInRow: string, firstNoteOctaveNumber: number) => {
+export const useFretboardRow = () => {
   const { currentKeyId, currentShapeSemitoneOffsetFromC, currentRoleId } = useControlsStore();
   const { areAnimationsOn } = useSettingsStore();
   const { isDevMode } = useDevStore();
@@ -34,15 +33,6 @@ export const useFretboardRow = (firstNoteInRow: string, firstNoteOctaveNumber: n
         : null,
     [currentShapeSemitoneOffsetFromC, NOTES_SHARP],
   );
-  const rowNotes = useMemo(
-    () =>
-      getNotes({
-        firstNote: firstNoteInRow as Note,
-        length: numberOfFrets,
-        firstOctave: firstNoteOctaveNumber,
-      }),
-    [firstNoteInRow, firstNoteOctaveNumber],
-  );
 
   const { onDevClick, isDevNote } = useFretboardDevEditor();
   const { setNextShapeVariantLocationData } = useShapeVariantIterator();
@@ -56,7 +46,6 @@ export const useFretboardRow = (firstNoteInRow: string, firstNoteOctaveNumber: n
   );
 
   return {
-    rowNotes,
     state: {
       activeNoteId,
       lockedRoleId,
