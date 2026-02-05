@@ -1,20 +1,20 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { GroupWrapper, Label } from "../ControlsContainer/ControlsContainer";
 import { musicMode, type MusicModeId } from "@/utils";
-import TutorialPopover from "../TutorialPopover/TutorialPopover";
-import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
+import TutorialPopover from "../../TutorialPopover/TutorialPopover";
+import { TUTORIAL_CONTENT } from "../../TutorialPopover/tutorial.config";
+import { ControlLabel, ControlWrapper } from "@/parts";
 
-export default function ModeSelect() {
+export function ModeSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
 
   const currentMode: MusicModeId = isMajorMode ? "major" : "minor";
 
   return (
-    <GroupWrapper>
+    <ControlWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.MODE_TOGGLE} />
-      <Label>Mode</Label>
+      <ControlLabel>Mode</ControlLabel>
       <ToggleGroup
         type="single"
         value={currentMode}
@@ -30,6 +30,6 @@ export default function ModeSelect() {
           ),
         )}
       </ToggleGroup>
-    </GroupWrapper>
+    </ControlWrapper>
   );
 }

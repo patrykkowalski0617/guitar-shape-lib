@@ -1,6 +1,6 @@
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { GroupWrapper, Label } from "@/components/ControlsContainer/ControlsContainer";
+import { ControlLabel, ControlWrapper } from "@/parts";
 
 const LABEL_OPTIONS = [
   {
@@ -19,8 +19,8 @@ export default function Tutorial() {
   const currentValue = isTutorialOn ? "tutorial-on" : "tutorial-off";
 
   return (
-    <GroupWrapper>
-      <Label>Tutorial</Label>
+    <ControlWrapper $isFullWidth>
+      <ControlLabel>Tutorial</ControlLabel>
       <ToggleGroup
         type="single"
         value={currentValue}
@@ -35,6 +35,6 @@ export default function Tutorial() {
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
-    </GroupWrapper>
+    </ControlWrapper>
   );
 }

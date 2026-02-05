@@ -1,11 +1,11 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { GroupWrapper, Label } from "../ControlsContainer/ControlsContainer";
 import { roles, type RoleData, type RoleId } from "@/utils";
-import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
-import TutorialPopover from "../TutorialPopover/TutorialPopover";
+import { TUTORIAL_CONTENT } from "../../TutorialPopover/tutorial.config";
+import TutorialPopover from "../../TutorialPopover/TutorialPopover";
+import { ControlLabel, ControlWrapper } from "@/parts";
 
-export default function RoleSelect() {
+export function RoleSelect() {
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);
 
@@ -14,9 +14,9 @@ export default function RoleSelect() {
   };
 
   return (
-    <GroupWrapper>
+    <ControlWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.ROLE_SELECTOR} />
-      <Label>Function</Label>
+      <ControlLabel>Function</ControlLabel>
       <ToggleGroup type="single" value={currentRoleId ?? ""} onValueChange={handleValueChange}>
         {(Object.entries(roles) as [RoleId, RoleData][]).map(([id, data]) => (
           <ToggleGroupItem key={id} value={id}>
@@ -24,6 +24,6 @@ export default function RoleSelect() {
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
-    </GroupWrapper>
+    </ControlWrapper>
   );
 }

@@ -6,13 +6,13 @@ import { useCurrentShapeVariantProgressId } from "@/hooks/useCurrentShapeVariant
 import { useProgressStore } from "@/store/useProgressStore";
 import type { StringIndex } from "../FretboardRow/FretboardRow";
 
-export const VariantProgressDots = ({
+export default function VariantProgressDots({
   stringIndex,
   isActiveRootNote,
 }: {
   stringIndex: StringIndex;
   isActiveRootNote: boolean;
-}) => {
+}) {
   const { learned } = useProgressStore();
 
   const currentVariantProgressId = useCurrentShapeVariantProgressId();
@@ -43,4 +43,4 @@ export const VariantProgressDots = ({
       })}
     </S.DotsWrapper>
   );
-};
+}

@@ -25,20 +25,19 @@ export const LockedEffectWrapper = styled.div<{
 
 export const Fret = styled.div<{
   $isShapeNote: boolean;
-  $isShapeRootNoteWithVariants: boolean;
+  $isShapeRootNote: boolean;
   $isTuneNote: boolean;
   $areAnimationsOn: boolean;
 }>`
   width: 100%;
   border-radius: 4px;
   box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 2px 8px 0px var(--input)"};
-  opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNoteWithVariants }) =>
-    $isShapeNote ? "1" : $isShapeRootNoteWithVariants ? "0.7" : $isTuneNote ? "0.5" : "0.15"};
+  opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNote }) =>
+    $isShapeNote ? "1" : $isShapeRootNote ? "0.7" : $isTuneNote ? "0.5" : "0.15"};
   will-change: opacity;
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
-  cursor: ${({ $isShapeRootNoteWithVariants }) =>
-    $isShapeRootNoteWithVariants ? "pointer" : "default"};
+  cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
   &:focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 6px;
@@ -47,7 +46,6 @@ export const Fret = styled.div<{
 `;
 
 export const Note = styled.div<{
-  $isShapeRootNote: boolean;
   $isActiveNote: boolean;
   $isShapeNote: boolean;
   $highlightRole: HighlightRole;

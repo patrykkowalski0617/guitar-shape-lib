@@ -1,12 +1,12 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/utils";
-import { GroupWrapper, Label } from "../ControlsContainer/ControlsContainer";
 import { SelectItem } from "@/components/ui/select";
-import TutorialPopover from "../TutorialPopover/TutorialPopover";
-import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
-import { SelectPrevNext } from "../ui/select-prev-next";
+import TutorialPopover from "../../TutorialPopover/TutorialPopover";
+import { TUTORIAL_CONTENT } from "../../TutorialPopover/tutorial.config";
+import { SelectPrevNext } from "../../ui/select-prev-next";
+import { ControlLabel, ControlWrapper } from "@/parts";
 
-export default function KeySelect() {
+export function KeySelect() {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const setCurrentKey = useControlsStore((state) => state.setCurrentKey);
@@ -19,9 +19,9 @@ export default function KeySelect() {
   }));
 
   return (
-    <GroupWrapper>
+    <ControlWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.KEY_SELECTOR} />
-      <Label>Key</Label>
+      <ControlLabel>Key</ControlLabel>
 
       <SelectPrevNext
         value={currentKeyId}
@@ -39,6 +39,6 @@ export default function KeySelect() {
           </SelectItem>
         ))}
       </SelectPrevNext>
-    </GroupWrapper>
+    </ControlWrapper>
   );
 }

@@ -1,6 +1,6 @@
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { GroupWrapper, Label } from "@/components/ControlsContainer/ControlsContainer";
+import { ControlLabel, ControlWrapper } from "@/parts";
 
 const LABEL_OPTIONS = [
   {
@@ -19,8 +19,8 @@ export default function Animations() {
   const currentValue = areAnimationsOn ? "animations-on" : "animations-off";
 
   return (
-    <GroupWrapper>
-      <Label>Animations</Label>
+    <ControlWrapper $isFullWidth>
+      <ControlLabel>Animations</ControlLabel>
       <ToggleGroup
         type="single"
         value={currentValue}
@@ -35,6 +35,6 @@ export default function Animations() {
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
-    </GroupWrapper>
+    </ControlWrapper>
   );
 }

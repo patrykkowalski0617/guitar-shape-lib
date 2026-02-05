@@ -1,10 +1,10 @@
 import { useProgressStore } from "@/store/useProgressStore";
-import { Button } from "../ui/button";
 import { exportProgress, importProgress } from "./helpers/progressHelpers";
-import { GroupWrapper } from "../ControlsContainer/parts";
-import TutorialPopover from "../TutorialPopover/TutorialPopover";
-import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
-import { useCurrentShapeVariantProgressId } from "../../hooks/useCurrentShapeVariantProgressId";
+import { useCurrentShapeVariantProgressId } from "@/hooks/useCurrentShapeVariantProgressId";
+import { TUTORIAL_CONTENT } from "@/components/TutorialPopover/tutorial.config";
+import TutorialPopover from "@/components/TutorialPopover/TutorialPopover";
+import { Button } from "@/components/ui/button";
+import { ControlWrapper } from "@/parts";
 
 export const MarkAsLearned = () => {
   const { learned, toggleLearned } = useProgressStore();
@@ -15,7 +15,7 @@ export const MarkAsLearned = () => {
   const txtIsLearnedFalse = "Mark current shape as 'Learned'";
 
   return (
-    <GroupWrapper>
+    <ControlWrapper $isFullWidth>
       <TutorialPopover {...TUTORIAL_CONTENT.ADD_LEARNED} />
       <Button
         variant={isLearned ? "active" : "outline"}
@@ -25,28 +25,28 @@ export const MarkAsLearned = () => {
       >
         {isLearned ? txtIsLearnedTrue : txtIsLearnedFalse}
       </Button>
-    </GroupWrapper>
+    </ControlWrapper>
   );
 };
 
 export const ExportProgressFile = () => {
   const { learned } = useProgressStore();
   return (
-    <GroupWrapper>
+    <ControlWrapper $isFullWidth>
       <Button variant="outline" onClick={() => exportProgress({ learned })}>
         Export progress file
       </Button>
-    </GroupWrapper>
+    </ControlWrapper>
   );
 };
 
 export const ImportProgressFile = () => {
   const { importData } = useProgressStore();
   return (
-    <GroupWrapper>
+    <ControlWrapper $isFullWidth>
       <Button variant="outline" onClick={() => importProgress(importData)}>
         Import progress file
       </Button>
-    </GroupWrapper>
+    </ControlWrapper>
   );
 };

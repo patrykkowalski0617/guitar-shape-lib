@@ -36,13 +36,13 @@ export interface SemitoneOffsetFromMajorTonicRoot {
   bothModes?: number[];
 }
 
-export type Coordinate = [number, number];
+export type FretboardCoordinate = [number, number];
 
 export type VariantId = `v${number}`;
 
-export type StringVariants = Record<VariantId, Coordinate[]>;
+export type StringVariants = Record<VariantId, FretboardCoordinate[]>;
 
-export interface ShapesCoordinates {
+export interface FretboardCoordinates {
   strE: StringVariants;
   strA: StringVariants;
   strD: StringVariants;
@@ -58,7 +58,7 @@ export interface Shape {
     subdominant?: SemitoneOffsetFromMajorTonicRoot;
     dominant?: SemitoneOffsetFromMajorTonicRoot;
   };
-  fretboardCoordinatesVariants: ShapesCoordinates;
+  fretboardCoordinatesVariants: FretboardCoordinates;
 }
 
 export interface Shapes {

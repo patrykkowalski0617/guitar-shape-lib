@@ -67,3 +67,39 @@ export const FooterAndHeaderStyles = css`
   margin: 0 auto;
   width: 100%;
 `;
+
+export const ControlContainer = styled.div`
+  padding: 5px 27px 0;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: calc(var(--spacing) * 8);
+  max-width: 1100px;
+  flex-direction: row;
+  align-items: flex-end;
+`;
+
+export const ControlWrapper = styled.div<{ $isFullWidth?: boolean }>`
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex-grow: 1;
+  max-width: 600px;
+  @media (min-width: 600px) {
+    ${({ $isFullWidth }) => (!$isFullWidth ? `max-width: fit-content` : "")}
+  }
+`;
+
+export const ControlLabel = styled.span`
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground);
+  margin-bottom: 6px;
+  margin-left: 4px;
+  line-height: 1;
+  display: inline-block;
+`;

@@ -7,14 +7,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useControlsStore } from "@/store/useControlsStore";
-import { GroupWrapper, Label } from "../ControlsContainer/ControlsContainer";
 import shapes, { type Shapes } from "@/utils/shapes";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
 import { getFilteredShapeOptions } from "./helpers/shapeHelpers";
-import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
-import TutorialPopover from "../TutorialPopover/TutorialPopover";
+import { ControlLabel, ControlWrapper } from "@/parts";
+import TutorialPopover from "@/components/TutorialPopover/TutorialPopover";
+import { TUTORIAL_CONTENT } from "@/components/TutorialPopover/tutorial.config";
 
-export default function ShapeSelect() {
+export function ShapeSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
@@ -54,9 +54,9 @@ export default function ShapeSelect() {
   const isDisabled = !currentRoleId || filteredOptions.length === 0;
 
   return (
-    <GroupWrapper>
+    <ControlWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.SHAPE_SELECTOR} />
-      <Label>Arpeggio/Scale</Label>
+      <ControlLabel>Arpeggio/Scale</ControlLabel>
       <Select
         value={currentShapeValue}
         onValueChange={(v) => {
@@ -79,6 +79,6 @@ export default function ShapeSelect() {
           ))}
         </SelectContent>
       </Select>
-    </GroupWrapper>
+    </ControlWrapper>
   );
 }

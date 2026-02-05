@@ -13,8 +13,8 @@ import { Settings as Gear, RotateCcw } from "lucide-react";
 import Animations from "./Animations/Animations";
 import Tutorial from "./Tutorial/Tutorial";
 import ColorsSetting from "./ColorsSetting/ColorsSetting";
-import { ExportProgressFile, ImportProgressFile, MarkAsLearned } from "../Progress/ProgressButtons";
 import { useSettingsStore } from "@/store/useSettingsStore";
+import { ExportProgressFile, ImportProgressFile, MarkAsLearned } from "./Progress/ProgressButtons";
 
 export function Settings() {
   const resetToDefaults = useSettingsStore((state) => state.resetToDefaults);

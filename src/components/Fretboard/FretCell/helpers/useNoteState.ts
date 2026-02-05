@@ -43,8 +43,7 @@ export const useNoteState = ({
 
   return {
     isActiveNote: activeNoteId === noteId,
-    isShapeRootNoteWithVariants: shapeRootSharpNote === sharpNoteName && stringIndex > 1,
-    isShapeRootNote: shapeRootSharpNote === sharpNoteName,
+    isShapeRootNote: shapeRootSharpNote === sharpNoteName && stringIndex > 1,
     isShapeNote: isShapeNote([stringIndex, fretIndex]),
     isLockedNote: isLockedShapeNote([stringIndex, fretIndex]),
     isTuneNote: sharpNoteNamesInTune.includes(sharpNoteName),
