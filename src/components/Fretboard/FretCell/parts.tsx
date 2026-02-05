@@ -4,7 +4,7 @@ import type { RoleId } from "@/utils";
 import styled, { css } from "styled-components";
 import { fretboardTransitionTime } from "./helpers/constants";
 
-export const LockedEffectWrapper = styled.div<{
+export const Fret = styled.div<{
   $isLockedNote: boolean;
   $lockedRoleId: RoleId | null;
 }>`
@@ -23,31 +23,11 @@ export const LockedEffectWrapper = styled.div<{
   }}
 `;
 
-export const Fret = styled.div<{
-  $isShapeNote: boolean;
-  $isShapeRootNote: boolean;
-  $isTuneNote: boolean;
-  $areAnimationsOn: boolean;
-}>`
-  width: 100%;
-  border-radius: ${instrumentElBRadius};
-  box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 2px 8px 0px var(--input)"};
-  opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNote }) =>
-    $isShapeNote ? "1" : $isShapeRootNote ? "0.7" : $isTuneNote ? "0.5" : "0.15"};
-  will-change: opacity;
-  transition: ${({ $areAnimationsOn }) =>
-    $areAnimationsOn && `opacity ${fretboardTransitionTime}ms ease-in-out`};
-  cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
-  &:focus-visible {
-    outline: 2px solid var(--ring);
-    outline-offset: 6px;
-    z-index: 10;
-  }
-`;
-
 export const Note = styled.div<{
   $isActiveNote: boolean;
   $isShapeNote: boolean;
+  $isShapeRootNote: boolean;
+  $isTuneNote: boolean;
   $highlightRole: HighlightRole;
   $areAnimationsOn: boolean;
 }>`
@@ -61,9 +41,14 @@ export const Note = styled.div<{
   align-items: center;
   position: relative;
   z-index: 20;
-  will-change: filter, box-shadow;
+  cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
+  will-change: box-shadow, opacity;
   transition: ${({ $areAnimationsOn }) =>
-    $areAnimationsOn && `box-shadow ${fretboardTransitionTime}ms ease-in-out`};
+    $areAnimationsOn &&
+    `box-shadow ${fretboardTransitionTime}ms ease-in-out, 
+    opacity ${fretboardTransitionTime}ms ease-in-out`};
+  opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNote }) =>
+    $isShapeNote ? "1" : $isShapeRootNote ? "0.7" : $isTuneNote ? "0.5" : "0.15"};
   filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   ${({ $isShapeNote, $highlightRole }) => {
@@ -75,4 +60,9 @@ export const Note = styled.div<{
       `;
     }
   }}
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 6px;
+    z-index: 10;
+  }
 `;

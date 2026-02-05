@@ -1,1 +1,1 @@
-export const fretboardTransitionTime = 200;
+export const fretboardTransitionTime = 150;

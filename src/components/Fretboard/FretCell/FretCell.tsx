@@ -38,40 +38,33 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
   };
 
   return (
-    <S.LockedEffectWrapper $isLockedNote={isLockedNote} $lockedRoleId={states.lockedRoleId}>
-      {isShapeRootNote && (
-        <VariantProgressDots stringIndex={stringIndex} isActiveRootNote={isActiveRootNote} />
-      )}
-      <S.Fret
+    <S.Fret $isLockedNote={isLockedNote} $lockedRoleId={states.lockedRoleId}>
+      {isShapeRootNote && <VariantProgressDots stringIndex={stringIndex} isActiveRootNote={isActiveRootNote} />}
+      <S.Note
+        $isActiveNote={isActiveNote}
         $isShapeRootNote={isShapeRootNote}
         $isShapeNote={isShapeNote}
         $isTuneNote={isTuneNote}
         $areAnimationsOn={states.areAnimationsOn}
-        tabIndex={isShapeRootNote ? 0 : -1}
-        role={isShapeRootNote ? "button" : undefined}
+        $highlightRole={states.activeRole}
         onMouseEnter={() => actions.setActiveNoteId(noteData.noteId)}
         onMouseLeave={() => actions.setActiveNoteId(null)}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
+        role={isShapeRootNote ? "button" : undefined}
+        tabIndex={isShapeRootNote ? 0 : -1}
       >
-        <S.Note
-          $isActiveNote={isActiveNote}
-          $highlightRole={states.activeRole}
-          $isShapeNote={isShapeNote}
-          $areAnimationsOn={states.areAnimationsOn}
-        >
-          <NoteLabel
-            isHighlighted={isShapeNote}
-            flatNoteName={noteData.flatNoteName}
-            sharpNoteName={noteData.sharpNoteName}
-            isTuneNote={isTuneNote}
-            isShapeNote={isShapeNote}
-            isFlatTune={states.isFlatTune}
-            isEnharmonic={noteData.isEnharmonic}
-            variant="fretboard"
-          />
-        </S.Note>
-      </S.Fret>
-    </S.LockedEffectWrapper>
+        <NoteLabel
+          isHighlighted={isShapeNote}
+          flatNoteName={noteData.flatNoteName}
+          sharpNoteName={noteData.sharpNoteName}
+          isShapeNote={isShapeNote}
+          isTuneNote={isTuneNote}
+          isFlatTune={states.isFlatTune}
+          isEnharmonic={noteData.isEnharmonic}
+          variant="fretboard"
+        />
+      </S.Note>
+    </S.Fret>
   );
 }
