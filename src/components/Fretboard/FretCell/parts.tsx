@@ -1,8 +1,8 @@
-import { PianoKeyAndFretStyles } from "@/parts";
+import { instrumentElBRadius, PianoKeyAndFretStyles } from "@/parts";
 import { roleColors, type HighlightRole } from "@/utils/roleColors";
 import type { RoleId } from "@/utils";
-import { transitionTime } from "@/utils/constants";
 import styled, { css } from "styled-components";
+import { fretboardTransitionTime } from "./helpers/constants";
 
 export const LockedEffectWrapper = styled.div<{
   $isLockedNote: boolean;
@@ -11,7 +11,7 @@ export const LockedEffectWrapper = styled.div<{
   flex: 1;
   width: 0;
   margin: 4px;
-  border-radius: 4px;
+  border-radius: ${instrumentElBRadius};
   position: relative;
   ${({ $isLockedNote, $lockedRoleId }) => {
     if (!$isLockedNote) return null;
@@ -30,13 +30,13 @@ export const Fret = styled.div<{
   $areAnimationsOn: boolean;
 }>`
   width: 100%;
-  border-radius: 4px;
+  border-radius: ${instrumentElBRadius};
   box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 2px 8px 0px var(--input)"};
   opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNote }) =>
     $isShapeNote ? "1" : $isShapeRootNote ? "0.7" : $isTuneNote ? "0.5" : "0.15"};
   will-change: opacity;
   transition: ${({ $areAnimationsOn }) =>
-    $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
+    $areAnimationsOn && `opacity ${fretboardTransitionTime}ms ease-in-out`};
   cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
   &:focus-visible {
     outline: 2px solid var(--ring);
@@ -53,7 +53,7 @@ export const Note = styled.div<{
 }>`
   ${PianoKeyAndFretStyles}
   box-shadow: inset 0 0px 6px 0px var(--input);
-  border-radius: 4px;
+  border-radius: ${instrumentElBRadius};
   width: 100%;
   height: 26px;
   display: flex;
@@ -63,7 +63,7 @@ export const Note = styled.div<{
   z-index: 20;
   will-change: filter, box-shadow;
   transition: ${({ $areAnimationsOn }) =>
-    $areAnimationsOn && `box-shadow ${transitionTime}ms ease-in-out`};
+    $areAnimationsOn && `box-shadow ${fretboardTransitionTime}ms ease-in-out`};
   filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   ${({ $isShapeNote, $highlightRole }) => {

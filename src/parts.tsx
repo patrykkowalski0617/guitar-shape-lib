@@ -75,9 +75,12 @@ export const ControlContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: calc(var(--spacing) * 8);
-  max-width: 1100px;
+  max-width: 600px;
   flex-direction: row;
   align-items: flex-end;
+  @media (min-width: 1024px) {
+    max-width: 1100px;
+  }
 `;
 
 export const ControlWrapper = styled.div<{ $isFullWidth?: boolean }>`
@@ -87,7 +90,7 @@ export const ControlWrapper = styled.div<{ $isFullWidth?: boolean }>`
   position: relative;
   flex-grow: 1;
   max-width: 600px;
-  @media (min-width: 600px) {
+  @media (min-width: 1024px) {
     ${({ $isFullWidth }) => (!$isFullWidth ? `max-width: fit-content` : "")}
   }
 `;
@@ -103,3 +106,6 @@ export const ControlLabel = styled.span`
   line-height: 1;
   display: inline-block;
 `;
+
+export const instrumentElBRadius = "6px";
+export const instrumentBRadius = "var(--radius-lg)";

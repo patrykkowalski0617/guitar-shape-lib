@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { PianoKeyAndFretStyles } from "@/parts";
+import { instrumentBRadius, instrumentElBRadius, PianoKeyAndFretStyles } from "@/parts";
 import { transitionTime } from "@/utils/constants";
 import { roleColors, type HighlightRole } from "../../../utils/roleColors";
 
@@ -31,13 +31,10 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   B: css`&::after {left: -80%;}`,
 };
 
-export const keyBRadius = "4px";
-export const pianoBRadius = "var(--radius-lg)";
-
 const commonStyleForKey = (areAnimationsOn: boolean) => css`
   ${PianoKeyAndFretStyles}
   box-shadow: inset 0 0px 3px 0px var(--input);
-  border-radius: 0 0 ${keyBRadius} ${keyBRadius};
+  border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   will-change: box-shadow, border-color;
   transition: ${areAnimationsOn
     ? `box-shadow ${transitionTime}ms ease-in-out, border-color ${transitionTime}ms ease-in-out`
@@ -47,7 +44,7 @@ const commonStyleForKey = (areAnimationsOn: boolean) => css`
 const whitePianoKey = (areAnimationsOn: boolean) => css`
   height: 110px;
   z-index: 1;
-  border-radius: 0 0 ${keyBRadius} ${keyBRadius};
+  border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   padding-top: 6px; //- 1px difference to compensate border of black key
   &::after {
     content: "";
@@ -108,9 +105,9 @@ export const Key = styled.div<KeyProps>`
   }}
 
   &:first-child::after {
-    border-radius: ${pianoBRadius} 0 ${keyBRadius} ${keyBRadius};
+    border-radius: ${instrumentBRadius} 0 ${instrumentElBRadius} ${instrumentElBRadius};
   }
   &:last-child::after {
-    border-radius: 0 ${pianoBRadius} ${keyBRadius} ${keyBRadius};
+    border-radius: 0 ${instrumentBRadius} ${instrumentElBRadius} ${instrumentElBRadius};
   }
 `;
