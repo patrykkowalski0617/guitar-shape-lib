@@ -12,7 +12,7 @@ export const HeaderContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 22px 0;
+  padding: 20px 0;
   margin: auto;
   width: 100%;
   text-shadow: 0 0 15px var(--background);

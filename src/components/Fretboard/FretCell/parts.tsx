@@ -1,17 +1,17 @@
-import { PianoKeyAndFretStyles } from "@/parts";
+import { instrumentElBRadius, PianoKeyAndFretStyles } from "@/parts";
 import { roleColors, type HighlightRole } from "@/utils/roleColors";
 import type { RoleId } from "@/utils";
-import { transitionTime } from "@/utils/constants";
 import styled, { css } from "styled-components";
+import { fretboardTransitionTime } from "./helpers/constants";
 
-export const LockedEffectWrapper = styled.div<{
+export const Fret = styled.div<{
   $isLockedNote: boolean;
   $lockedRoleId: RoleId | null;
 }>`
   flex: 1;
   width: 0;
   margin: 4px;
-  border-radius: 4px;
+  border-radius: ${instrumentElBRadius};
   position: relative;
   ${({ $isLockedNote, $lockedRoleId }) => {
     if (!$isLockedNote) return null;
@@ -23,39 +23,17 @@ export const LockedEffectWrapper = styled.div<{
   }}
 `;
 
-export const Fret = styled.div<{
-  $isShapeNote: boolean;
-  $isShapeRootNoteWithVariants: boolean;
-  $isTuneNote: boolean;
-  $areAnimationsOn: boolean;
-}>`
-  width: 100%;
-  border-radius: 4px;
-  box-shadow: ${({ $isShapeNote }) => $isShapeNote && "inset 0 2px 8px 0px var(--input)"};
-  opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNoteWithVariants }) =>
-    $isShapeNote ? "1" : $isShapeRootNoteWithVariants ? "0.7" : $isTuneNote ? "0.5" : "0.15"};
-  will-change: opacity;
-  transition: ${({ $areAnimationsOn }) =>
-    $areAnimationsOn && `opacity ${transitionTime}ms ease-in-out`};
-  cursor: ${({ $isShapeRootNoteWithVariants }) =>
-    $isShapeRootNoteWithVariants ? "pointer" : "default"};
-  &:focus-visible {
-    outline: 2px solid var(--ring);
-    outline-offset: 6px;
-    z-index: 10;
-  }
-`;
-
 export const Note = styled.div<{
-  $isShapeRootNote: boolean;
   $isActiveNote: boolean;
   $isShapeNote: boolean;
+  $isShapeRootNote: boolean;
+  $isTuneNote: boolean;
   $highlightRole: HighlightRole;
   $areAnimationsOn: boolean;
 }>`
   ${PianoKeyAndFretStyles}
   box-shadow: inset 0 0px 6px 0px var(--input);
-  border-radius: 4px;
+  border-radius: ${instrumentElBRadius};
   width: 100%;
   height: 26px;
   display: flex;
@@ -63,9 +41,14 @@ export const Note = styled.div<{
   align-items: center;
   position: relative;
   z-index: 20;
-  will-change: filter, box-shadow;
+  cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
+  will-change: box-shadow, opacity;
   transition: ${({ $areAnimationsOn }) =>
-    $areAnimationsOn && `box-shadow ${transitionTime}ms ease-in-out`};
+    $areAnimationsOn &&
+    `box-shadow ${fretboardTransitionTime}ms ease-in-out, 
+    opacity ${fretboardTransitionTime}ms ease-in-out`};
+  opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNote }) =>
+    $isShapeNote ? "1" : $isShapeRootNote ? "0.7" : $isTuneNote ? "0.5" : "0.15"};
   filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   ${({ $isShapeNote, $highlightRole }) => {
@@ -77,4 +60,9 @@ export const Note = styled.div<{
       `;
     }
   }}
+  &:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 6px;
+    z-index: 10;
+  }
 `;

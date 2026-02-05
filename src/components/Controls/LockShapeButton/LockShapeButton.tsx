@@ -1,12 +1,12 @@
 import { useMusicStore } from "@/store/useMusicStore";
-import { GroupWrapper } from "../ControlsContainer/ControlsContainer";
-import { Button } from "../ui/button";
 import { Lock, LockOpen } from "lucide-react";
-import TutorialPopover from "../TutorialPopover/TutorialPopover";
-import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { useControlsStore } from "@/store/useControlsStore";
+import { ControlWrapper } from "@/parts";
+import TutorialPopover from "@/components/TutorialPopover/TutorialPopover";
+import { TUTORIAL_CONTENT } from "@/components/TutorialPopover/tutorial.config";
+import { Button } from "@/components/ui/button";
 
-export const LockShapeButton = () => {
+export function LockShapeButton() {
   const setLockedShapeVariantLocationData = useMusicStore(
     (state) => state.setLockedShapeVariantLocationData,
   );
@@ -44,7 +44,7 @@ export const LockShapeButton = () => {
   const isDisabled = currentShapeVariantLocationData === null && !isLocked;
 
   return (
-    <GroupWrapper>
+    <ControlWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.LOCK_SHAPE} />
       <Button
         variant={isLocked ? "active" : "outline"}
@@ -61,6 +61,6 @@ export const LockShapeButton = () => {
           <span>{isLocked ? txtIsTrue : txtIsFalse}</span>
         </span>
       </Button>
-    </GroupWrapper>
+    </ControlWrapper>
   );
-};
+}

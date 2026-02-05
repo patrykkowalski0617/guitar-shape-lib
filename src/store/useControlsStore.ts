@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { type RoleId, type MusicKeyId } from "@/utils";
-import { getAutoSelectedShape } from "@/components/ShapeSelect/helpers/shapeHelpers";
+import { getAutoSelectedShape } from "@/components/Controls/ShapeSelect/helpers/shapeHelpers";
 
 interface ControlsState {
   isMajorMode: boolean;

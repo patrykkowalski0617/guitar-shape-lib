@@ -36,13 +36,13 @@ export interface SemitoneOffsetFromMajorTonicRoot {
   bothModes?: number[];
 }
 
-export type Coordinate = [number, number];
+export type FretboardCoordinate = [number, number];
 
 export type VariantId = `v${number}`;
 
-export type StringVariants = Record<VariantId, Coordinate[]>;
+export type StringVariants = Record<VariantId, FretboardCoordinate[]>;
 
-export interface ShapesCoordinates {
+export interface FretboardCoordinates {
   strE: StringVariants;
   strA: StringVariants;
   strD: StringVariants;
@@ -58,7 +58,7 @@ export interface Shape {
     subdominant?: SemitoneOffsetFromMajorTonicRoot;
     dominant?: SemitoneOffsetFromMajorTonicRoot;
   };
-  fretboardCoordinatesVariants: ShapesCoordinates;
+  fretboardCoordinatesVariants: FretboardCoordinates;
 }
 
 export interface Shapes {
@@ -215,202 +215,6 @@ const shapes: Shapes = {
       },
     },
   },
-  dominant: {
-    label: "7",
-    type: "Arpegio",
-    intervals: [_1, _M3, _5, _m7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
-      dominant: { majorMode: [_5], minorMode: [_M3] },
-    },
-    fretboardCoordinatesVariants: {
-      strE: {
-        // prettier-ignore
-        v1: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[2, 4],[1, 3],[0, 0],[0, 4]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[1, 3],[0, 0],[0, 4]],
-        // prettier-ignore
-        v3: [[5, 0],[4, -1],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[1, 3],[0, 0],[0, 4]],
-        // prettier-ignore
-        v4: [[5, 0],[4, -1],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v5: [[5, 0],[4, -1],[3, -3],[3, 0],[2, -3],[2, 1],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v6: [[5, 0],[4, -1],[3, -3],[3, 0],[2, -3],[1, -3],[1, 0],[0, -2],[0, 0]],
-      },
-      strA: {
-        // prettier-ignore
-        v1: [[4, 0],[4, 4],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0],[0, 3]],
-        // prettier-ignore
-        v2: [[4, 0],[3, -1],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[3, -1],[2, -3],[2, 0],[1, -2],[0, -3],[0, 0]],
-      },
-      strD: {
-        // prettier-ignore
-        v1: [[3, 0],[3, 4],[2, 2],[1, 1],[1, 3],[0, 2]],
-        // prettier-ignore
-        v2: [[3, 0],[2, -1],[2, 2],[1, 1],[0, -2],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[2, -1],[1, -2],[1, 1],[0, -2],[0, 2]],
-        // prettier-ignore
-        v4: [[3, 0],[2, -1],[1, -2],[0, -4],[0, -2]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[2, 4],[1, 3],[0, 1],[0, 3]],
-        // prettier-ignore
-        v2: [[2, 0],[1, 0],[1, 3],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[1, 0],[0, -2],[0, 1]],
-      },
-    },
-  },
-  "7b9": {
-    label: "7b9",
-    type: "Arpegio",
-    intervals: [_1, _M3, _5, _m7, _m9],
-    semitoneOffsetFromMajorTonicRootForRoles: {
-      dominant: { minorMode: [_M3], majorMode: [_5] },
-    },
-    fretboardCoordinatesVariants: {
-      strE: {
-        // prettier-ignore
-        v1: [[5, 0],[5, 1],[5, 4],[4, 2],[3, 0],[3, 2],[3, 3],[2, 1],[1, 0],[1, 3],[0, 0],[0, 1],[0, 4]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 1],[4, -1],[4, 2],[3, 0],[3, 2],[2, -2],[2, 1],[1, 0],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 1],[4, -1],[3, -3],[3, 0],[2, -3],[2, -2],[1, -3],[1, 0],[0, -2],[0, 0]],
-      },
-      strA: {
-        // prettier-ignore
-        v1: [[4, 0],[4, 1],[4, 4],[3, 2],[2, 0],[2, 2],[2, 3],[1, 2],[0, 0],[0, 3]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 1],[3, -1],[3, 2],[2, 0],[2, 2],[1, -1],[1, 2],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 1],[3, -1],[2, -3],[2, 0],[1, -2],[1, -1],[0, -3],[0, 0]],
-        // prettier-ignore
-        v4: [[4, 0],[3, -4],[3, -1],[2, -3],[2, 0],[1, -2],[1, -1],[0, -3],[0, 0]],
-      },
-      strD: {
-        // prettier-ignore
-        v1: [[3, 0],[3, 1],[3, 4],[2, 2],[1, 1],[1, 3],[1, 4],[0, 2]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 1],[2, -1],[2, 2],[1, 1],[1, 3],[0, -1],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 1],[2, -1],[1, -2],[1, 1],[0, -2],[0, -1],[0, 2]],
-        // prettier-ignore
-        v4: [[3, 0],[2, -4],[2, -1],[1, -2],[0, -4],[0, -2]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[2, 1],[2, 4],[1, 3],[0, 1],[0, 3],[0, 4]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 1],[1, 0],[1, 3],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 1],[1, 0],[0, -2],[0, 1]],
-        // prettier-ignore
-        v4: [[2, 0],[1, -3],[1, 0],[0, -2],[0, 1]],
-      },
-    },
-  },
-  m7b5: {
-    label: "m7b5",
-    type: "Arpegio",
-    intervals: [_1, _m3, _T, _m7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
-      dominant: { bothModes: [_M7] },
-    },
-    fretboardCoordinatesVariants: {
-      strE: {
-        // prettier-ignore
-        v1: [[5, 0],[5, 3],[4, 1],[3, 0],[3, 2],[2, 0],[2, 3],[1, 3],[0, 0],[0, 3]],
-        // prettier-ignore
-        v2: [[5, 0],[4, -2],[4, 1],[3, 0],[2, -3],[2, 0],[1, -1],[0, -2],[0, 0]],
-        // prettier-ignore
-        v3: [[5, 0],[4, -2],[3, -4],[3, 0],[2, -3],[1, -4],[1, -1],[0, -2],[0, 0]],
-      },
-      strA: {
-        // prettier-ignore
-        v1: [[4, 0],[4, 3],[3, 1],[2, 0],[2, 2],[1, 1],[0, -2],[0, 3]],
-        // prettier-ignore
-        v2: [[4, 0],[3, -2],[3, 1],[2, 0],[1, -2],[1, 1],[0, -1],[0, 3]],
-        // prettier-ignore
-        v3: [[4, 0],[3, -2],[2, -4],[2, 0],[1, -2],[0, -4],[0, -1]],
-      },
-      strD: {
-        // prettier-ignore
-        v1: [[3, 0],[3, 3],[2, 1],[1, 1],[1, 3],[0, 1],[0, 4]],
-        // prettier-ignore
-        v2: [[3, 0],[2, -2],[2, 1],[1, 1],[0, -2],[0, 1]],
-        // prettier-ignore
-        v3: [[3, 0],[2, -2],[1, -3],[1, 1],[0, -2],[0, 1]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[2, 3],[1, 2],[0, 1],[0, 3]],
-        // prettier-ignore
-        v2: [[2, 0],[1, -1],[1, 2],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[1, -1],[0, -3],[0, 1]],
-      },
-    },
-  },
-  dim7: {
-    label: "dim7",
-    type: "Arpegio",
-    intervals: [_1, _m3, _T, _M6],
-    semitoneOffsetFromMajorTonicRootForRoles: {
-      dominant: { bothModes: [_M7] },
-    },
-    fretboardCoordinatesVariants: {
-      strE: {
-        // prettier-ignore
-        v1: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[3, 5],[2, 3],[2, 6],[1, 5],[1, 8],[0, 6],[0, 9]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[3, 5],[2, 3],[2, 6],[1, 5],[0, 3],[0, 6]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
-        // prettier-ignore
-        v4: [[5, 0],[5, 3],[4, 1],[3, -1],[3, 2],[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
-        // prettier-ignore
-        v5: [[5, 0],[5, 3],[4, 1],[3, -1],[3, 2],[2, 0],[1, -1],[1, 2],[0, 0],[0, 3]],
-        // prettier-ignore
-        v6: [[5, 0],[4, -2],[4, 1],[3, -1],[2, -3],[2, 0],[1, -1],[0, -3],[0, 0]],
-        // prettier-ignore
-        v7: [[5, 0],[4, -2],[3, -4],[3, -1],[2, -3],[1, -4],[1, -1],[0, -3]],
-      },
-      strA: {
-        // prettier-ignore
-        v1: [[4, 0],[4, 3],[3, 1],[3, 4],[2, 2],[2, 5],[1, 4],[1, 7],[0, 5],[0, 8]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 3],[3, 1],[3, 4],[2, 2],[1, 1],[1, 4],[0, 2]],
-        // prettier-ignore
-        v3: [[4, 0],[3, -2],[3, 1],[2, -1],[1, -2],[1, 1],[0, -1]],
-        // prettier-ignore
-        v4: [[4, 0],[3, -2],[2, -4],[2, -1],[1, -2],[0, -4],[0, -1]],
-      },
-      strD: {
-        // prettier-ignore
-        v1: [[3, 0],[3, 3],[2, 1],[2, 4],[1, 3],[1, 6],[0, 4],[0, 7]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 3],[2, 1],[2, 4],[1, 3],[0, 1],[0, 4]],
-        // prettier-ignore
-        v3: [[3, 0],[2, -2],[2, 1],[1, 0],[0, -2],[0, 1]],
-        // prettier-ignore
-        v4: [[3, 0],[2, -2],[1, -3],[1, 0],[0, -2]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[2, 3],[1, 2],[1, 5],[0, 3],[0, 6]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[1, -1],[1, 2],[0, 0]],
-        // prettier-ignore
-        v4: [[2, 0],[1, -1],[0, -3],[0, 0]],
-      },
-    },
-  },
   m7: {
     label: "m7",
     type: "Arpegio",
@@ -537,6 +341,209 @@ const shapes: Shapes = {
         v2: [[2, 0],[2, 2],[1, -1],[1, 3],[0, 1],[0, 3]],
         // prettier-ignore
         v3: [[2, 0],[1, -2],[1, -1],[0, -2],[0, 1]],
+      },
+    },
+  },
+  dominant: {
+    label: "7",
+    type: "Arpegio",
+    intervals: [_1, _M3, _5, _m7],
+    semitoneOffsetFromMajorTonicRootForRoles: {
+      dominant: { majorMode: [_5], minorMode: [_M3] },
+    },
+    fretboardCoordinatesVariants: {
+      strE: {
+        // prettier-ignore
+        v1: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[2, 4],[1, 3],[0, 0],[0, 4]],
+        // prettier-ignore
+        v2: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[1, 3],[0, 0],[0, 4]],
+        // prettier-ignore
+        v3: [[5, 0],[4, -1],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[1, 3],[0, 0],[0, 4]],
+        // prettier-ignore
+        v4: [[5, 0],[4, -1],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[0, -2],[0, 0]],
+        // prettier-ignore
+        v5: [[5, 0],[4, -1],[3, -3],[3, 0],[2, -3],[2, 1],[1, 0],[0, -2],[0, 0]],
+        // prettier-ignore
+        v6: [[5, 0],[4, -1],[3, -3],[3, 0],[2, -3],[1, -3],[1, 0],[0, -2],[0, 0]],
+      },
+      strA: {
+        // prettier-ignore
+        v1: [[4, 0],[4, 4],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0],[0, 3]],
+        // prettier-ignore
+        v2: [[4, 0],[3, -1],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0]],
+        // prettier-ignore
+        v3: [[4, 0],[3, -1],[2, -3],[2, 0],[1, -2],[0, -3],[0, 0]],
+      },
+      strD: {
+        // prettier-ignore
+        v1: [[3, 0],[3, 4],[2, 2],[1, 1],[1, 3],[0, 2]],
+        // prettier-ignore
+        v2: [[3, 0],[2, -1],[2, 2],[1, 1],[0, -2],[0, 2]],
+        // prettier-ignore
+        v3: [[3, 0],[2, -1],[1, -2],[1, 1],[0, -2],[0, 2]],
+        // prettier-ignore
+        v4: [[3, 0],[2, -1],[1, -2],[0, -4],[0, -2]],
+      },
+      strG: {
+        // prettier-ignore
+        v1: [[2, 0],[2, 4],[1, 3],[0, 1],[0, 3]],
+        // prettier-ignore
+        v2: [[2, 0],[1, 0],[1, 3],[0, 1],[0, 3]],
+        // prettier-ignore
+        v3: [[2, 0],[1, 0],[0, -2],[0, 1]],
+      },
+    },
+  },
+  "7b9": {
+    label: "7b9",
+    type: "Arpegio",
+    intervals: [_1, _M3, _5, _m7, _m9],
+    semitoneOffsetFromMajorTonicRootForRoles: {
+      dominant: { minorMode: [_M3], majorMode: [_5] },
+    },
+    fretboardCoordinatesVariants: {
+      strE: {
+        // prettier-ignore
+        v1: [[5, 0],[5, 1],[5, 4],[4, 2],[3, 0],[3, 2],[3, 3],[2, 1],[1, 0],[1, 3],[0, 0],[0, 1],[0, 4]],
+        // prettier-ignore
+        v2: [[5, 0],[5, 1],[4, -1],[4, 2],[3, 0],[3, 2],[2, -2],[2, 1],[1, 0],[0, -2],[0, 0],[0, 1]],
+        // prettier-ignore
+        v3: [[5, 0],[5, 1],[4, -1],[3, -3],[3, 0],[2, -3],[2, -2],[1, -3],[1, 0],[0, -2],[0, 0]],
+      },
+      strA: {
+        // prettier-ignore
+        v1: [[4, 0],[4, 1],[4, 4],[3, 2],[2, 0],[2, 2],[2, 3],[1, 2],[0, 0],[0, 3]],
+        // prettier-ignore
+        v2: [[4, 0],[4, 1],[3, -1],[3, 2],[2, 0],[2, 2],[1, -1],[1, 2],[0, 0]],
+        // prettier-ignore
+        v3: [[4, 0],[4, 1],[3, -1],[2, -3],[2, 0],[1, -2],[1, -1],[0, -3],[0, 0]],
+        // prettier-ignore
+        v4: [[4, 0],[3, -4],[3, -1],[2, -3],[2, 0],[1, -2],[1, -1],[0, -3],[0, 0]],
+      },
+      strD: {
+        // prettier-ignore
+        v1: [[3, 0],[3, 1],[3, 4],[2, 2],[1, 1],[1, 3],[1, 4],[0, 2]],
+        // prettier-ignore
+        v2: [[3, 0],[3, 1],[2, -1],[2, 2],[1, 1],[1, 3],[0, -1],[0, 2]],
+        // prettier-ignore
+        v3: [[3, 0],[3, 1],[2, -1],[1, -2],[1, 1],[0, -2],[0, -1],[0, 2]],
+        // prettier-ignore
+        v4: [[3, 0],[2, -4],[2, -1],[1, -2],[0, -4],[0, -2]],
+      },
+      strG: {
+        // prettier-ignore
+        v1: [[2, 0],[2, 1],[2, 4],[1, 3],[0, 1],[0, 3],[0, 4]],
+        // prettier-ignore
+        v2: [[2, 0],[2, 1],[1, 0],[1, 3],[0, 1],[0, 3]],
+        // prettier-ignore
+        v3: [[2, 0],[2, 1],[1, 0],[0, -2],[0, 1]],
+        // prettier-ignore
+        v4: [[2, 0],[1, -3],[1, 0],[0, -2],[0, 1]],
+      },
+    },
+  },
+  m7b5: {
+    label: "m7b5",
+    type: "Arpegio",
+    intervals: [_1, _m3, _T, _m7],
+    semitoneOffsetFromMajorTonicRootForRoles: {
+      dominant: { majorMode: [_M7] },
+      subdominant: { minorMode: [_M7] },
+    },
+    fretboardCoordinatesVariants: {
+      strE: {
+        // prettier-ignore
+        v1: [[5, 0],[5, 3],[4, 1],[4, 5],[3, 2],[3, 5],[2, 3],[1, 3],[1, 5],[0, 3],[0, 6]],
+        // prettier-ignore
+        v2: [[5, 0],[5, 3],[4, 1],[3, 0],[3, 2],[2, 0],[2, 3],[1, 3],[0, 0],[0, 3]],
+        // prettier-ignore
+        v3: [[5, 0],[4, -2],[4, 1],[3, 0],[2, -3],[2, 0],[1, -1],[0, -2],[0, 0]],
+        // prettier-ignore
+        v4: [[5, 0],[4, -2],[3, -4],[3, 0],[2, -3],[1, -4],[1, -1],[0, -2],[0, 0]],
+      },
+      strA: {
+        // prettier-ignore
+        v1: [[4, 0],[4, 3],[3, 1],[3, 5],[2, 2],[2, 5],[1, 4],[0, 3],[0, 5]],
+        // prettier-ignore
+        v2: [[4, 0],[4, 3],[3, 1],[2, 0],[2, 2],[1, 1],[1, 4],[0, 3]],
+        // prettier-ignore
+        v3: [[4, 0],[4, 3],[3, 1],[2, 0],[2, 2],[1, 1],[0, -1],[0, 3]],
+        // prettier-ignore
+        v4: [[4, 0],[3, -2],[3, 1],[2, 0],[1, -2],[1, 1],[0, -1],[0, 3]],
+        // prettier-ignore
+        v5: [[4, 0],[3, -2],[2, -4],[2, 0],[1, -2],[0, -4],[0, -1]],
+      },
+      strD: {
+        // prettier-ignore
+        v1: [[3, 0],[3, 3],[2, 1],[1, 1],[1, 3],[0, 1],[0, 4]],
+        // prettier-ignore
+        v2: [[3, 0],[2, -2],[2, 1],[1, 1],[0, -2],[0, 1]],
+        // prettier-ignore
+        v3: [[3, 0],[2, -2],[1, -3],[1, 1],[0, -2],[0, 1]],
+      },
+      strG: {
+        // prettier-ignore
+        v1: [[2, 0],[2, 3],[1, 2],[0, 1],[0, 3]],
+        // prettier-ignore
+        v2: [[2, 0],[1, -1],[1, 2],[0, 1],[0, 3]],
+        // prettier-ignore
+        v3: [[2, 0],[1, -1],[0, -3],[0, 1]],
+      },
+    },
+  },
+  dim7: {
+    label: "dim7",
+    type: "Arpegio",
+    intervals: [_1, _m3, _T, _M6],
+    semitoneOffsetFromMajorTonicRootForRoles: {
+      dominant: { bothModes: [_M7] },
+    },
+    fretboardCoordinatesVariants: {
+      strE: {
+        // prettier-ignore
+        v1: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[3, 5],[2, 3],[2, 6],[1, 5],[1, 8],[0, 6],[0, 9]],
+        // prettier-ignore
+        v2: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[3, 5],[2, 3],[2, 6],[1, 5],[0, 3],[0, 6]],
+        // prettier-ignore
+        v3: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
+        // prettier-ignore
+        v4: [[5, 0],[5, 3],[4, 1],[3, -1],[3, 2],[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
+        // prettier-ignore
+        v5: [[5, 0],[5, 3],[4, 1],[3, -1],[3, 2],[2, 0],[1, -1],[1, 2],[0, 0],[0, 3]],
+        // prettier-ignore
+        v6: [[5, 0],[4, -2],[4, 1],[3, -1],[2, -3],[2, 0],[1, -1],[0, -3],[0, 0]],
+        // prettier-ignore
+        v7: [[5, 0],[4, -2],[3, -4],[3, -1],[2, -3],[1, -4],[1, -1],[0, -3]],
+      },
+      strA: {
+        // prettier-ignore
+        v1: [[4, 0],[4, 3],[3, 1],[3, 4],[2, 2],[2, 5],[1, 4],[1, 7],[0, 5],[0, 8]],
+        // prettier-ignore
+        v2: [[4, 0],[4, 3],[3, 1],[3, 4],[2, 2],[1, 1],[1, 4],[0, 2]],
+        // prettier-ignore
+        v3: [[4, 0],[3, -2],[3, 1],[2, -1],[1, -2],[1, 1],[0, -1]],
+        // prettier-ignore
+        v4: [[4, 0],[3, -2],[2, -4],[2, -1],[1, -2],[0, -4],[0, -1]],
+      },
+      strD: {
+        // prettier-ignore
+        v1: [[3, 0],[3, 3],[2, 1],[2, 4],[1, 3],[1, 6],[0, 4],[0, 7]],
+        // prettier-ignore
+        v2: [[3, 0],[3, 3],[2, 1],[2, 4],[1, 3],[0, 1],[0, 4]],
+        // prettier-ignore
+        v3: [[3, 0],[2, -2],[2, 1],[1, 0],[0, -2],[0, 1]],
+        // prettier-ignore
+        v4: [[3, 0],[2, -2],[1, -3],[1, 0],[0, -2]],
+      },
+      strG: {
+        // prettier-ignore
+        v1: [[2, 0],[2, 3],[1, 2],[1, 5],[0, 3],[0, 6]],
+        // prettier-ignore
+        v2: [[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
+        // prettier-ignore
+        v3: [[2, 0],[1, -1],[1, 2],[0, 0]],
+        // prettier-ignore
+        v4: [[2, 0],[1, -1],[0, -3],[0, 0]],
       },
     },
   },
