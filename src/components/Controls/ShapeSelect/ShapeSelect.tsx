@@ -59,14 +59,14 @@ export function ShapeSelect() {
         }}
         disabled={isDisabled}
       >
-        <SelectTrigger disabled={isDisabled} style={{ minWidth: "194px" }}>
+        <SelectTrigger disabled={isDisabled} className="md:min-w-[194px]">
           <SelectValue placeholder={currentRoleId ? "Select shape..." : "Select function first..."} />
         </SelectTrigger>
         <SelectContent className="font-semibold">
           {filteredOptions.map((opt) => (
             <SelectItem key={opt.value} value={opt.value}>
-              <span className={"opacity-100"}>{opt.labelRootNote}</span>
-              <span className={"opacity-50"}>{opt.labelShapeNama}</span>
+              <span className={"opacity-50"}>{opt.labelRootNote}</span>
+              <span>{opt.labelShapeNama}</span>
             </SelectItem>
           ))}
         </SelectContent>
