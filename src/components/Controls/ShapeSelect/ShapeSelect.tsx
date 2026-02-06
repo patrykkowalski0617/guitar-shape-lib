@@ -59,7 +59,7 @@ export function ShapeSelect() {
         }}
         disabled={isDisabled}
       >
-        <SelectTrigger disabled={isDisabled} style={{ minWidth: "194px" }}>
+        <SelectTrigger disabled={isDisabled} className="md:min-w-[194px]">
           <SelectValue placeholder={currentRoleId ? "Select shape..." : "Select function first..."} />
         </SelectTrigger>
         <SelectContent className="font-semibold">
