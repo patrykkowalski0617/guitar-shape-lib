@@ -49,14 +49,12 @@ export const Note = styled.div<{
     `box-shadow ${fretboardTransitionTime}ms ease-in-out, 
     opacity ${transitionTime}ms ease-in-out`};
   opacity: ${({ $isShapeNote, $isShapeRootNote, $isRoleSelected, $isTuneNote, $isActiveNote }) => {
-    if ($isActiveNote && !$isRoleSelected) return "1";
-    if ($isActiveNote && !$isShapeRootNote) return "0.4";
-
-    if ($isShapeNote || $isShapeRootNote || (!$isRoleSelected && $isTuneNote)) {
+    if (($isActiveNote && !$isRoleSelected) || $isShapeNote || $isShapeRootNote || (!$isRoleSelected && $isTuneNote))
       return "1";
-    }
 
-    return $isTuneNote ? "0.4" : "0";
+    if ($isActiveNote || $isTuneNote) return "0.4";
+
+    return "0";
   }};
   filter: ${({ $isActiveNote, $isTuneNote }) => ($isActiveNote && $isTuneNote ? "brightness(1.5)" : "")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
