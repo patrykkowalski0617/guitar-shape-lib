@@ -40,16 +40,17 @@ export const NoteWrapper = styled.div<{
   $isEnharmonicNote: boolean;
   $isShapeNote: boolean;
   $areAnimationsOn: boolean;
+  $isActiveNote: boolean;
   $variant: Variant;
 }>`
-  ${({ $variant, $areAnimationsOn, $isShapeNote }) =>
+  ${({ $variant, $areAnimationsOn, $isShapeNote, $isActiveNote }) =>
     $variant === "piano" &&
     css`
       position: relative;
       z-index: 1;
       will-change: opacity;
       transition: ${$areAnimationsOn ? `opacity 100ms ease-in-out` : "none"};
-      opacity: ${$isShapeNote ? "1" : "0"};
+      opacity: ${$isShapeNote || $isActiveNote ? "1" : "0"};
       ${MainLabel}, ${OptionalLabel} {
         border: 1px solid color-mix(in oklab, var(--accent) 70%, transparent);
         border-radius: ${instrumentElBRadius};
