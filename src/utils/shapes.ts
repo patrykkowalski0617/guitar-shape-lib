@@ -28,7 +28,7 @@ export const {
   _M14,
 } = getIntervalSemitonesValues();
 
-export type ShapeType = "Arpeggio" | "Scale" | "Note Set";
+export type ShapeType = "Arpeggio" | "Scale" | "Set";
 
 export interface SemitoneOffsetFromMajorTonicRoot {
   majorMode?: number[];
@@ -637,7 +637,7 @@ const shapes: Shapes = {
   },
   no_avoid_notes_t_s_major: {
     label: 'No "avoid notes"',
-    type: "Note Set",
+    type: "Set",
     intervals: [_1, _M2, _M3, _5, _M6, _M7],
     semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { bothModes: [_1] },
