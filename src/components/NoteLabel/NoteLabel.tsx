@@ -13,7 +13,6 @@ interface NoteLabelProps {
   isHighlighted: boolean;
   isEnharmonic: boolean;
   isShapeNote?: boolean;
-  isTuneNote?: boolean;
   variant: Variant;
 }
 
@@ -24,19 +23,16 @@ export default function NoteLabel({
   flatNoteName,
   isEnharmonic,
   isShapeNote = false,
-  isTuneNote = false,
   variant,
 }: NoteLabelProps): JSX.Element {
   const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
 
   return (
-    <S.Wrapper
+    <S.NoteWrapper
       $isFlatTune={isFlatTune}
       $isEnharmonicNote={isEnharmonic}
-      $isHighlighted={isHighlighted}
       $isShapeNote={isShapeNote}
       $areAnimationsOn={areAnimationsOn}
-      $isTuneNote={isTuneNote}
       $variant={variant}
     >
       <MainLabel
@@ -57,6 +53,6 @@ export default function NoteLabel({
           {flatNoteName}
         </OptionalLabel>
       )}
-    </S.Wrapper>
+    </S.NoteWrapper>
   );
 }

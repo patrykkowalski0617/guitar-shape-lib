@@ -3,6 +3,7 @@ import { roleColors, type HighlightRole } from "@/utils/roleColors";
 import type { RoleId } from "@/utils";
 import styled, { css } from "styled-components";
 import { fretboardTransitionTime } from "./helpers/constants";
+import { transitionTime } from "@/utils/constants";
 
 export const Fret = styled.div<{
   $isLockedNote: boolean;
@@ -30,9 +31,9 @@ export const Note = styled.div<{
   $isTuneNote: boolean;
   $highlightRole: HighlightRole;
   $areAnimationsOn: boolean;
+  $isRoleSelected: boolean;
 }>`
   ${PianoKeyAndFretStyles}
-  box-shadow: inset 0 0px 6px 0px var(--input);
   border-radius: ${instrumentElBRadius};
   width: 100%;
   height: 26px;
@@ -46,10 +47,18 @@ export const Note = styled.div<{
   transition: ${({ $areAnimationsOn }) =>
     $areAnimationsOn &&
     `box-shadow ${fretboardTransitionTime}ms ease-in-out, 
-    opacity ${fretboardTransitionTime}ms ease-in-out`};
-  opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNote }) =>
-    $isShapeNote ? "1" : $isShapeRootNote ? "0.7" : $isTuneNote ? "0.5" : "0.15"};
-  filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
+    opacity ${transitionTime}ms ease-in-out`};
+  opacity: ${({ $isShapeNote, $isShapeRootNote, $isRoleSelected, $isTuneNote, $isActiveNote }) => {
+    if ($isActiveNote && !$isRoleSelected) return "1";
+    if ($isActiveNote && !$isShapeRootNote) return "0.4";
+
+    if ($isShapeNote || $isShapeRootNote || (!$isRoleSelected && $isTuneNote)) {
+      return "1";
+    }
+
+    return $isTuneNote ? "0.4" : "0";
+  }};
+  filter: ${({ $isActiveNote, $isTuneNote }) => ($isActiveNote && $isTuneNote ? "brightness(1.5)" : "")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   ${({ $isShapeNote, $highlightRole }) => {
     if ($isShapeNote) {

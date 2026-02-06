@@ -28,7 +28,7 @@ export const Dot = styled.div<{
     if ($isLearned) return "var(--background)";
     return "var(--accent)";
   }};
-  filter: brightness(1.5);
+  filter: brightness(1.2);
   ${({ $isActive }) =>
     $isActive &&
     css`

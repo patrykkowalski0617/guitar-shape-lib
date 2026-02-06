@@ -4,8 +4,7 @@ import type { NoteObject } from "@/utils";
 import VariantProgressDots from "../VariantProgressDots/VariantProgressDots";
 import type { StringIndex } from "../FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
-import { useFretCell } from "./helpers/useFretCell";
-import { useNoteState } from "./helpers/useNoteState";
+import { useFretCell, useNoteState, useFretboardStates } from "./helpers";
 
 interface FretCellProps {
   noteData: NoteObject;
@@ -14,14 +13,15 @@ interface FretCellProps {
 }
 
 export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellProps) {
+  const [isActiveRootNote, setIsActiveRootNote] = useState(false);
   const { states, actions } = useFretCell();
+  const { isRoleSelected } = useFretboardStates();
   const { isActiveNote, isShapeRootNote, isShapeNote, isLockedNote, isTuneNote } = useNoteState({
     sharpNoteName: noteData.sharpNoteName,
     noteId: noteData.noteId,
     stringIndex,
     fretIndex,
   });
-  const [isActiveRootNote, setIsActiveRootNote] = useState(false);
 
   const handleClick = () => {
     if (isShapeRootNote) {
@@ -47,6 +47,7 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
         $isTuneNote={isTuneNote}
         $areAnimationsOn={states.areAnimationsOn}
         $highlightRole={states.activeRole}
+        $isRoleSelected={isRoleSelected}
         onMouseEnter={() => actions.setActiveNoteId(noteData.noteId)}
         onMouseLeave={() => actions.setActiveNoteId(null)}
         onClick={handleClick}
@@ -59,7 +60,6 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
           flatNoteName={noteData.flatNoteName}
           sharpNoteName={noteData.sharpNoteName}
           isShapeNote={isShapeNote}
-          isTuneNote={isTuneNote}
           isFlatTune={states.isFlatTune}
           isEnharmonic={noteData.isEnharmonic}
           variant="fretboard"
