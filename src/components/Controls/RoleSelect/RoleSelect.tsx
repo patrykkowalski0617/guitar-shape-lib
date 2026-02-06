@@ -32,7 +32,7 @@ export function RoleSelect() {
       <div className="md:hidden">
         <Select value={currentRoleId ?? ""} onValueChange={handleValueChange}>
           <SelectTrigger>
-            <SelectValue />
+            <SelectValue placeholder={"Select function"} />
           </SelectTrigger>
           <SelectContent>
             {options.map(([id, data]) => (
