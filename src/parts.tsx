@@ -75,7 +75,7 @@ export const ControlContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: calc(var(--spacing) * 8);
+  gap: calc(var(--spacing) * 6) calc(var(--spacing) * 8);
   max-width: 600px;
   flex-direction: row;
   align-items: flex-end;

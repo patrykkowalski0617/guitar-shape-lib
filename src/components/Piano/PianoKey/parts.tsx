@@ -42,7 +42,7 @@ const commonStyleForKey = (areAnimationsOn: boolean) => css`
 `;
 
 const whitePianoKey = (areAnimationsOn: boolean) => css`
-  height: 110px;
+  height: 100px;
   z-index: 1;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   padding-top: 6px; //- 1px difference to compensate border of black key
@@ -65,13 +65,13 @@ const whitePianoKey = (areAnimationsOn: boolean) => css`
 
 const blackPianoKey = (areAnimationsOn: boolean) => css`
   background-color: var(--background);
-  height: 67px;
+  height: 60px;
   z-index: 2;
   padding-top: 5px;
   ${commonStyleForKey(areAnimationsOn)}
 
   @media (min-width: 768px) {
-    height: 75px;
+    height: 70px;
     padding-top: 10px;
   }
 `;

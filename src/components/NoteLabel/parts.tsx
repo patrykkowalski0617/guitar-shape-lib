@@ -58,7 +58,7 @@ export const NoteWrapper = styled.div<{
         height: 22px;
         line-height: 22px;
         color: ${highlightedColor};
-        top: 0;
+        top: 10px;
         transform: translateX(-50%);
       }
     `}
