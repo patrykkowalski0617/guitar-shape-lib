@@ -1,11 +1,5 @@
 import { useMemo } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useControlsStore } from "@/store/useControlsStore";
 import shapes, { type Shapes } from "@/utils/shapes";
 import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
@@ -19,9 +13,7 @@ export function ShapeSelect() {
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const currentShapeSemitoneOffsetFromC = useControlsStore(
-    (state) => state.currentShapeSemitoneOffsetFromC,
-  );
+  const currentShapeSemitoneOffsetFromC = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
   const setShape = useControlsStore((state) => state.setShape);
 
   const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
@@ -41,7 +33,8 @@ export function ShapeSelect() {
 
       return {
         value: `${shapeId}|${offset}`,
-        label: `${rootNoteName} ${shape.label} ${shape.type}`,
+        labelRootNote: rootNoteName,
+        labelShapeNama: ` ${shape.label} ${shape.type}`,
       };
     });
   }, [currentRoleId, isMajorMode, currentKeyNotes]);
@@ -67,14 +60,13 @@ export function ShapeSelect() {
         disabled={isDisabled}
       >
         <SelectTrigger disabled={isDisabled} style={{ minWidth: "194px" }}>
-          <SelectValue
-            placeholder={currentRoleId ? "Select shape..." : "Select function first..."}
-          />
+          <SelectValue placeholder={currentRoleId ? "Select shape..." : "Select function first..."} />
         </SelectTrigger>
         <SelectContent className="font-semibold">
           {filteredOptions.map((opt) => (
             <SelectItem key={opt.value} value={opt.value}>
-              <span className={isMajorMode ? "opacity-100" : "opacity-90"}>{opt.label}</span>
+              <span className={"opacity-100"}>{opt.labelRootNote}</span>
+              <span className={"opacity-50"}>{opt.labelShapeNama}</span>
             </SelectItem>
           ))}
         </SelectContent>

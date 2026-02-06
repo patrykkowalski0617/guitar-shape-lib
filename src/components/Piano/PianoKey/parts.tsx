@@ -11,7 +11,7 @@ interface KeyProps {
   $pianoKeyShape?: KeyShape;
   $isHighlighted?: boolean;
   $highlightRole: HighlightRole;
-  $isActive: boolean;
+  $isActiveNote: boolean;
   $areAnimationsOn: boolean;
 }
 
@@ -82,7 +82,7 @@ export const Key = styled.div<KeyProps>`
   position: relative;
   display: flex;
   justify-content: center;
-  filter: ${({ $isActive }) => ($isActive ? "brightness(1.5)" : "")};
+  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "")};
 
   ${({ $isWhitePianoKey, $areAnimationsOn }) =>
     $isWhitePianoKey ? whitePianoKey($areAnimationsOn) : blackPianoKey($areAnimationsOn)}
