@@ -44,8 +44,9 @@ export const Note = styled.div<{
   z-index: 20;
   cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
   will-change: box-shadow, opacity;
-  transition: ${({ $areAnimationsOn }) =>
+  transition: ${({ $areAnimationsOn, $isActiveNote }) =>
     $areAnimationsOn &&
+    !$isActiveNote &&
     `box-shadow ${fretboardTransitionTime}ms ease-in-out, 
     opacity ${transitionTime}ms ease-in-out`};
   opacity: ${({ $isShapeNote, $isShapeRootNote, $isRoleSelected, $isTuneNote, $isActiveNote }) => {
