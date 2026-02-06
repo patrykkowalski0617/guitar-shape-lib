@@ -28,7 +28,7 @@ export const {
   _M14,
 } = getIntervalSemitonesValues();
 
-export type ShapeType = "Arpegio" | "Scale" | "Note Set";
+export type ShapeType = "Arpeggio" | "Scale" | "Note Set";
 
 export interface SemitoneOffsetFromMajorTonicRoot {
   majorMode?: number[];
@@ -81,7 +81,7 @@ export const DEFAULT_SHAPES_CONFIG: Record<ModeRoleKey, ExistingShapeIds> = {
 const shapes: Shapes = {
   M7: {
     label: "M7",
-    type: "Arpegio",
+    type: "Arpeggio",
     intervals: [_1, _M3, _5, _M7],
     semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { bothModes: [_1] },
@@ -129,7 +129,7 @@ const shapes: Shapes = {
   },
   M_add9: {
     label: "M(add9)",
-    type: "Arpegio",
+    type: "Arpeggio",
     intervals: [_1, _M3, _5, _M9],
     semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { bothModes: [_1] },
@@ -174,7 +174,7 @@ const shapes: Shapes = {
   },
   M9: {
     label: "M9",
-    type: "Arpegio",
+    type: "Arpeggio",
     intervals: [_1, _M3, _5, _M7, _M9],
     semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { bothModes: [_1] },
@@ -217,7 +217,7 @@ const shapes: Shapes = {
   },
   m7: {
     label: "m7",
-    type: "Arpegio",
+    type: "Arpeggio",
     intervals: [_1, _m3, _5, _m7],
     semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: { bothModes: [_M6, _M3] },
@@ -258,7 +258,7 @@ const shapes: Shapes = {
   },
   m_add9: {
     label: "m(add9)",
-    type: "Arpegio",
+    type: "Arpeggio",
     intervals: [_1, _m3, _5, _M9],
     semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: {
@@ -302,7 +302,7 @@ const shapes: Shapes = {
   },
   m9: {
     label: "m9",
-    type: "Arpegio",
+    type: "Arpeggio",
     intervals: [_1, _m3, _5, _m7, _M9],
     semitoneOffsetFromMajorTonicRootForRoles: {
       tonic: {
@@ -346,7 +346,7 @@ const shapes: Shapes = {
   },
   dominant: {
     label: "7",
-    type: "Arpegio",
+    type: "Arpeggio",
     intervals: [_1, _M3, _5, _m7],
     semitoneOffsetFromMajorTonicRootForRoles: {
       dominant: { majorMode: [_5], minorMode: [_M3] },
@@ -396,7 +396,7 @@ const shapes: Shapes = {
   },
   "7b9": {
     label: "7b9",
-    type: "Arpegio",
+    type: "Arpeggio",
     intervals: [_1, _M3, _5, _m7, _m9],
     semitoneOffsetFromMajorTonicRootForRoles: {
       dominant: { minorMode: [_M3], majorMode: [_5] },
@@ -444,7 +444,7 @@ const shapes: Shapes = {
   },
   m7b5: {
     label: "m7b5",
-    type: "Arpegio",
+    type: "Arpeggio",
     intervals: [_1, _m3, _T, _m7],
     semitoneOffsetFromMajorTonicRootForRoles: {
       dominant: { majorMode: [_M7] },
@@ -493,7 +493,7 @@ const shapes: Shapes = {
   },
   dim7: {
     label: "dim7",
-    type: "Arpegio",
+    type: "Arpeggio",
     intervals: [_1, _m3, _T, _M6],
     semitoneOffsetFromMajorTonicRootForRoles: {
       dominant: { bothModes: [_M7] },

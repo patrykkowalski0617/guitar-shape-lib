@@ -1,26 +1,14 @@
 import { useControlsStore } from "@/store/useControlsStore";
-import {
-  getNotes,
-  hramonicMinorScale,
-  majorScale,
-  minorScale,
-  UNIFIED_MUSIC_KEYS,
-  type Note,
-} from "@/utils";
+import { getNotes, hramonicMinorScale, majorScale, minorScale, UNIFIED_MUSIC_KEYS, type Note } from "@/utils";
 import shapes, { type Shape } from "@/utils/shapes";
 import { matchNotesToTarget } from "./matchNotesToTarget";
 
 export const useScaleLogic = () => {
-  const {
-    isMajorMode,
-    currentKeyId,
-    currentRoleId,
-    currentShapeId,
-    currentShapeSemitoneOffsetFromC,
-  } = useControlsStore();
+  const { isMajorMode, currentKeyId, currentRoleId, currentShapeId, currentShapeSemitoneOffsetFromC } =
+    useControlsStore();
 
   const FIRST_OCTAVE_NO_FOR_PRESENTATION = 3;
-  const presentationScaleLength = 36;
+  const PRESENTATION_SCALE_LENGTH = 36;
 
   const currentMusicKey = UNIFIED_MUSIC_KEYS[currentKeyId];
   const currentMajorFirstNote: Note = currentMusicKey.majorFirstNote;
@@ -47,8 +35,7 @@ export const useScaleLogic = () => {
     majorRootOffsetFromC: number,
     firstNote: Note,
   ) => {
-    const firstOctave =
-      majorRootOffsetFromC >= 3 ? relativeMajorFirstOctave : relativeMajorFirstOctave - 1;
+    const firstOctave = majorRootOffsetFromC >= 3 ? relativeMajorFirstOctave : relativeMajorFirstOctave - 1;
     return getNotes({
       firstNote,
       firstOctave,
@@ -58,12 +45,12 @@ export const useScaleLogic = () => {
 
   const allNotesFromMajorRoot = getAllNotesFromMajorRoot(
     FIRST_OCTAVE_NO_FOR_PRESENTATION,
-    presentationScaleLength,
+    PRESENTATION_SCALE_LENGTH,
     currentMajorFirstNote,
   );
   const allNotesFromNearestRelativeMinorRoot = getAllNotesFromNearestRelativeMinorRoot(
     FIRST_OCTAVE_NO_FOR_PRESENTATION,
-    presentationScaleLength,
+    PRESENTATION_SCALE_LENGTH,
     currentMajorRootOffsetFromC,
     currentRelativeMinorFirstNote,
   );
@@ -71,35 +58,22 @@ export const useScaleLogic = () => {
   const getOnlyScaleNotesIds = (scaleTemplate: number[]) => {
     const allNotes = isMajorMode ? allNotesFromMajorRoot : allNotesFromNearestRelativeMinorRoot;
 
-    return allNotes
-      .filter((_, index) => scaleTemplate.includes(index % 12))
-      .map(({ noteId }) => noteId);
+    return allNotes.filter((_, index) => scaleTemplate.includes(index % 12)).map(({ noteId }) => noteId);
   };
 
   const currentScaleNoteIdsLength =
-    currentRoleId === "tonic"
-      ? 13
-      : currentRoleId === "subdominant"
-        ? 16
-        : currentRoleId === "dominant"
-          ? 17
-          : 7;
+    currentRoleId === "tonic" ? 13 : currentRoleId === "subdominant" ? 16 : currentRoleId === "dominant" ? 17 : 7;
 
-  const currentScaleNoteIds = getOnlyScaleNotesIds(currentScaleTemplate).slice(
-    0,
-    currentScaleNoteIdsLength,
-  );
+  const currentScaleNoteIds = getOnlyScaleNotesIds(currentScaleTemplate).slice(0, currentScaleNoteIdsLength);
 
   //- >>>> getting role note ids (currentRoleNoteIds)
-  const roleIntervalOffeset =
-    currentRoleId === "tonic" ? 0 : currentRoleId === "subdominant" ? 3 : 4;
+  const roleIntervalOffeset = currentRoleId === "tonic" ? 0 : currentRoleId === "subdominant" ? 3 : 4;
   const currentRoleNoteIds = [...currentScaleNoteIds]
     .splice(roleIntervalOffeset)
     .filter((_, i) => (i + 1) % 2)
     .slice(0, 7);
 
-  //- >>>> geting shape note id (currentShapeNoteIds)
-
+  //- >>>> geting shape note ids (currentShapeNoteIds)
   let currentShapeNoteIds: string[] = [];
   if (currentShape && currentShapeSemitoneOffsetFromC !== null) {
     const shapeIntervals = currentShape?.intervals;

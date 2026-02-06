@@ -34,7 +34,6 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
 
 const commonStyleForKey = (areAnimationsOn: boolean) => css`
   ${PianoKeyAndFretStyles}
-  box-shadow: inset 0 0px 3px 0px var(--input);
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   will-change: box-shadow, border-color;
   transition: ${areAnimationsOn

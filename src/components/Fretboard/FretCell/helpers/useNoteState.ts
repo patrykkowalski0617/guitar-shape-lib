@@ -12,30 +12,17 @@ interface UseFretCellProp {
   fretIndex: number;
 }
 
-export const useNoteState = ({
-  sharpNoteName,
-  noteId,
-  stringIndex,
-  fretIndex,
-}: UseFretCellProp) => {
+export const useNoteState = ({ sharpNoteName, noteId, stringIndex, fretIndex }: UseFretCellProp) => {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const currentShapeSemitoneOffsetFromC = useControlsStore(
-    (state) => state.currentShapeSemitoneOffsetFromC,
-  );
+  const currentShapeSemitoneOffsetFromC = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
-  const currentShapeVariantLocationData = useMusicStore(
-    (state) => state.currentShapeVariantLocationData,
-  );
-  const lockedShapeVariantLocationData = useMusicStore(
-    (state) => state.lockedShapeVariantLocationData,
-  );
+  const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
+  const lockedShapeVariantLocationData = useMusicStore((state) => state.lockedShapeVariantLocationData);
 
   const NOTES_SHARP = getNotes({ firstNote: currentKeyId }).map((n) => n.sharpNoteName);
 
   const shapeRootSharpNote =
-    currentShapeSemitoneOffsetFromC !== null
-      ? NOTES_SHARP[currentShapeSemitoneOffsetFromC % 12]
-      : null;
+    currentShapeSemitoneOffsetFromC !== null ? NOTES_SHARP[currentShapeSemitoneOffsetFromC % 12] : null;
 
   const { isShapeNote } = useShapeNotes(currentShapeVariantLocationData);
   const { isShapeNote: isLockedShapeNote } = useShapeNotes(lockedShapeVariantLocationData);

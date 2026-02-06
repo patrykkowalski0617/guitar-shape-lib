@@ -27,8 +27,7 @@ export const TemplateWrapper = styled.div<TemplateWrapperProps>`
     ))`;
   }};
   will-change: transform;
-  transition: ${({ $areAnimationsOn }) =>
-    $areAnimationsOn ? `transform ${transitionTime}ms ease-in-out` : "none"};
+  transition: ${({ $areAnimationsOn }) => ($areAnimationsOn ? `transform ${transitionTime}ms ease-in-out` : "none")};
 `;
 
 export const Marker = styled.div<MarkerProps>`
@@ -40,7 +39,7 @@ export const Marker = styled.div<MarkerProps>`
   width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
   background-color: ${({ $highlightRole }) => roleColors[$highlightRole]};
-  box-shadow: 0 0 8px ${({ $highlightRole }) => roleColors[$highlightRole]};
+  box-shadow: 0 0 6px ${({ $highlightRole }) => roleColors[$highlightRole]};
   opacity: ${({ $isVisible }) => ($isVisible ? "1" : "0")};
   will-change: left, opacity, background-color, box-shadow;
   transition: ${({ $areAnimationsOn }) =>
@@ -57,18 +56,16 @@ export const Marker = styled.div<MarkerProps>`
     right: 0;
     text-align: center;
     font-size: 12px;
-    font-weight: 400;
-    color: ${({ $highlightRole }) => roleColors[$highlightRole]};
-    filter: brightness(1.5);
-    text-shadow: 0 0 2px ${({ $highlightRole }) => roleColors[$highlightRole]};
+    font-weight: 800;
+    color: var(--accent);
+    /* text-shadow: 0 0 2px ${({ $highlightRole }) => roleColors[$highlightRole]}; */
     opacity: ${({ $roleInterval, $isVisible }) => ($roleInterval && $isVisible ? "1" : "0")};
     top: ${({ $roleInterval }) => ($roleInterval ? "-23px" : "0px")};
-    will-change: top, opacity, color;
+    will-change: top, opacity;
     transition: ${({ $areAnimationsOn }) =>
       $areAnimationsOn
         ? `top ${transitionTime}ms ease-in-out,
-           opacity ${transitionTime}ms ease-in-out,
-           color ${transitionTime}ms ease-in-out`
+           opacity ${transitionTime}ms ease-in-out`
         : "none"};
   }
 `;

@@ -62,7 +62,8 @@ export const PianoKeyAndFretStyles = css`
 `;
 
 export const FooterAndHeaderStyles = css`
-  background-color: color-mix(in oklab, var(--primary) 90%, #333);
+  background-color: var(--primary);
+  box-shadow: 0 0 6px var(--primary) inset;
   max-width: 1500px;
   margin: 0 auto;
   width: 100%;
