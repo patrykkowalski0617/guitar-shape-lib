@@ -48,7 +48,7 @@ export const Note = styled.div<{
     `box-shadow ${fretboardTransitionTime}ms ease-in-out, 
     opacity ${fretboardTransitionTime}ms ease-in-out`};
   opacity: ${({ $isTuneNote, $isShapeNote, $isShapeRootNote }) =>
-    $isShapeNote ? "1" : $isShapeRootNote ? "0.7" : $isTuneNote ? "0.5" : "0.15"};
+    $isShapeNote || $isShapeRootNote ? "1" : $isTuneNote ? "0.5" : "0"};
   filter: ${({ $isActiveNote }) => $isActiveNote && "brightness(1.5)"};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   ${({ $isShapeNote, $highlightRole }) => {

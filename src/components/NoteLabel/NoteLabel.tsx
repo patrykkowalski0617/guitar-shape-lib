@@ -30,10 +30,9 @@ export default function NoteLabel({
   const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
 
   return (
-    <S.Wrapper
+    <S.NoteWrapper
       $isFlatTune={isFlatTune}
       $isEnharmonicNote={isEnharmonic}
-      $isHighlighted={isHighlighted}
       $isShapeNote={isShapeNote}
       $areAnimationsOn={areAnimationsOn}
       $isTuneNote={isTuneNote}
@@ -57,6 +56,6 @@ export default function NoteLabel({
           {flatNoteName}
         </OptionalLabel>
       )}
-    </S.Wrapper>
+    </S.NoteWrapper>
   );
 }

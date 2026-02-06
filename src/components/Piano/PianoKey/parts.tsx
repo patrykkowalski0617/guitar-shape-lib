@@ -2,6 +2,7 @@ import styled, { css } from "styled-components";
 import { instrumentBRadius, instrumentElBRadius, PianoKeyAndFretStyles } from "@/parts";
 import { transitionTime } from "@/utils/constants";
 import { roleColors, type HighlightRole } from "../../../utils/roleColors";
+import { NoteWrapper } from "@/components/NoteLabel/parts";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
@@ -50,7 +51,7 @@ const whitePianoKey = (areAnimationsOn: boolean) => css`
     content: "";
     position: absolute;
     inset: 0;
-    background-color: var(--card);
+    background-color: var(--background);
     ${commonStyleForKey(areAnimationsOn)}
   }
   &:not(:last-child)::after {
@@ -80,6 +81,8 @@ export const Key = styled.div<KeyProps>`
   flex: 1;
   width: 0;
   position: relative;
+  display: flex;
+  justify-content: center;
   filter: ${({ $isActive }) => ($isActive ? "brightness(1.5)" : "")};
 
   ${({ $isWhitePianoKey, $areAnimationsOn }) =>
@@ -91,9 +94,7 @@ export const Key = styled.div<KeyProps>`
     if (!$isHighlighted) return null;
     const color = roleColors[$highlightRole];
 
-    const shadow = $isWhitePianoKey
-      ? `inset 0 -23px 35px -4px ${color}`
-      : `inset 0 -17px 20px 0px ${color}`;
+    const shadow = $isWhitePianoKey ? `inset 0 -23px 35px -4px ${color}` : `inset 0 -17px 20px 0px ${color}`;
     const target = $isWhitePianoKey ? css`&::after` : css`&`;
 
     return css`
@@ -109,5 +110,10 @@ export const Key = styled.div<KeyProps>`
   }
   &:last-child::after {
     border-radius: 0 ${instrumentBRadius} ${instrumentElBRadius} ${instrumentElBRadius};
+  }
+  &:hover {
+    ${NoteWrapper} {
+      opacity: 1;
+    }
   }
 `;
