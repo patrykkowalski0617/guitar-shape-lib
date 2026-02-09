@@ -1,10 +1,10 @@
 import { type CSSProperties } from "react";
 import styled from "styled-components";
 
-export const DotsContainer = styled.div<{ $gap: number }>`
+export const DotsContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: ${({ $gap }) => $gap}px;
+  gap: 8px;
   padding: 0;
   margin: 0;
 `;
@@ -14,7 +14,7 @@ export const Dot = styled.div<{ $color: CSSProperties["color"]; $size: number }>
   height: ${({ $size }) => $size}px;
   background-color: ${({ $color }) => $color};
   border-radius: 6px;
-  border: 2px solid var(--background);
+  border: 1px solid var(--accent-foreground);
 `;
 
 export const PresetsGrid = styled.div`
