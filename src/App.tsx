@@ -4,21 +4,16 @@ import Footer from "./components/Footer/Footer";
 import { AppWrapper, ControlContainer, MainContent, Setcion } from "./parts";
 import { useSettingsStore } from "./store/useSettingsStore";
 import Piano from "./components/Piano/Piano";
-import {
-  KeySelect,
-  LockShapeButton,
-  ModeSelect,
-  RoleSelect,
-  ShapeSelect,
-} from "./components/Controls";
+import { KeySelect, LockShapeButton, ModeSelect, RoleSelect, ShapeSelect } from "./components/Controls";
+import { getTSD_HSLColor } from "./utils/getTSD_HSLColor";
 
 export default function App() {
   const { tonicColor, subdominantColor, dominantColor } = useSettingsStore();
 
   const roleColors = {
-    "--secondary": `hsl(${tonicColor} 90% 45%)`,
-    "--primary": `hsl(${subdominantColor} 90% 45%)`,
-    "--tension": `hsl(${dominantColor} 90% 45%)`,
+    "--secondary": getTSD_HSLColor(tonicColor),
+    "--primary": getTSD_HSLColor(subdominantColor),
+    "--tension": getTSD_HSLColor(dominantColor),
   } as React.CSSProperties;
 
   return (
