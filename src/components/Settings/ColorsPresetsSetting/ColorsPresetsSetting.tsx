@@ -1,7 +1,6 @@
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { ControlLabel, ControlWrapper } from "@/parts";
 import { getTSD_HSLColor } from "@/utils/getTSD_HSLColor";
-import { Button } from "@/components/ui/button";
 import ColorDots from "./ColorDots";
 import * as S from "./parts";
 
@@ -32,7 +31,7 @@ export default function ColorsPresetsSetting() {
           const isActive = tonicColor === preset[0] && subdominantColor === preset[1] && dominantColor === preset[2];
 
           return (
-            <Button
+            <S.Button
               variant={isActive ? "active" : "borderOnly"}
               key={String(preset)}
               onClick={() => handlePresetClick(preset)}
@@ -41,7 +40,7 @@ export default function ColorsPresetsSetting() {
                 colors={[getTSD_HSLColor(preset[0]), getTSD_HSLColor(preset[1]), getTSD_HSLColor(preset[2])]}
                 size={18}
               />
-            </Button>
+            </S.Button>
           );
         })}
       </S.PresetsGrid>

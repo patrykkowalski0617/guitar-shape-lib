@@ -10,9 +10,9 @@ type ColorDotsProps = {
 export default function ColorDots({ colors, size = 12 }: ColorDotsProps): JSX.Element {
   return (
     <S.DotsContainer>
-      <S.Dot $color={colors[0]} $size={size} />
-      <S.Dot $color={colors[1]} $size={size} />
-      <S.Dot $color={colors[2]} $size={size} />
+      T <S.Dot $color={colors[0]} $size={size} />
+      S <S.Dot $color={colors[1]} $size={size} />
+      D <S.Dot $color={colors[2]} $size={size} />
     </S.DotsContainer>
   );
 }

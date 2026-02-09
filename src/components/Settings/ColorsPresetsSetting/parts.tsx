@@ -1,12 +1,11 @@
+import { Button as Btn } from "@/components/ui/button";
 import { type CSSProperties } from "react";
 import styled from "styled-components";
 
 export const DotsContainer = styled.div`
   display: flex;
-  align-items: center;
   gap: 8px;
-  padding: 0;
-  margin: 0;
+  justify-content: space-around;
 `;
 
 export const Dot = styled.div<{ $color: CSSProperties["color"]; $size: number }>`
@@ -19,7 +18,10 @@ export const Dot = styled.div<{ $color: CSSProperties["color"]; $size: number }>
 
 export const PresetsGrid = styled.div`
   display: flex;
-  justify-content: space-evenly;
-  gap: 16px;
   flex-wrap: wrap;
+  gap: 8px;
+`;
+
+export const Button = styled(Btn)`
+  flex: 1 1 0;
 `;

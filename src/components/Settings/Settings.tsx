@@ -46,7 +46,7 @@ export function Settings() {
             </div>
             <div className="px-6 py-2">
               <ImportProgressFile />
-            </div>{" "}
+            </div>
             <div className="px-6 py-2">
               <ColorsSetting />
             </div>
