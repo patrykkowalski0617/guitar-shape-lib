@@ -57,25 +57,24 @@ export function Settings() {
             <div className="px-6 py-2">
               <ColorsPresetsSetting />
             </div>
-            <div className="px-6 py-2">
-              <Button
-                variant="outlineActive"
-                className="w-full text-muted-foreground hover:text-destructive transition-colors"
-                onClick={() => {
-                  if (window.confirm("Restore all settings to default?")) {
-                    resetToDefaults();
-                  }
-                }}
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <RotateCcw className="h-4 w-4" />
-                  <span>Restore Defaults</span>
-                </span>
-              </Button>
-            </div>
+            <div className="px-6 py-2"></div>
           </section>
         </div>
         <DrawerFooter>
+          <Button
+            variant="outlineActive"
+            className="w-full text-muted-foreground hover:text-destructive transition-colors"
+            onClick={() => {
+              if (window.confirm("Restore all settings to default?")) {
+                resetToDefaults();
+              }
+            }}
+          >
+            <span className="flex items-center justify-center gap-2">
+              <RotateCcw className="h-4 w-4" />
+              <span>Restore Defaults</span>
+            </span>
+          </Button>
           <DrawerClose asChild>
             <Button variant="outline" className="w-full">
               Close

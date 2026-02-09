@@ -21,6 +21,7 @@ const Dot = styled.div<{ $color: React.CSSProperties["color"]; $size: number }>`
   background-color: ${({ $color }) => $color};
   border-radius: 50%;
   flex-shrink: 0;
+  border: 2px solid var(--background);
 `;
 
 export default function ColorDots({ colors, size = 12, gap = 8 }: ColorDotsProps): JSX.Element {

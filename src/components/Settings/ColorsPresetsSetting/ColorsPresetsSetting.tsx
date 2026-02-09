@@ -39,13 +39,13 @@ export default function ColorsPresetsSetting() {
 
           return (
             <Button
-              variant={isActive ? "outlineActive" : "outline"}
+              variant={isActive ? "active" : "borderOnly"}
               key={String(preset)}
               onClick={() => handlePresetClick(preset)}
             >
               <ColorDots
                 colors={[getTSD_HSLColor(preset[0]), getTSD_HSLColor(preset[1]), getTSD_HSLColor(preset[2])]}
-                size={15}
+                size={18}
               />
             </Button>
           );
