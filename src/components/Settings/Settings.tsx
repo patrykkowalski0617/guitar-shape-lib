@@ -15,6 +15,7 @@ import Tutorial from "./Tutorial/Tutorial";
 import ColorsSetting from "./ColorsSetting/ColorsSetting";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { ExportProgressFile, ImportProgressFile, MarkAsLearned } from "./Progress/ProgressButtons";
+import ColorsPresetsSetting from "./ColorsPresetsSetting/ColorsPresetsSetting";
 
 export function Settings() {
   const resetToDefaults = useSettingsStore((state) => state.resetToDefaults);
@@ -52,6 +53,9 @@ export function Settings() {
             </div>
             <div className="px-6 py-2">
               <ColorsSetting />
+            </div>
+            <div className="px-6 py-2">
+              <ColorsPresetsSetting />
             </div>
             <div className="px-6 py-2">
               <Button
