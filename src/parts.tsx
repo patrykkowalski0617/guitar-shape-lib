@@ -91,7 +91,6 @@ export const ControlWrapper = styled.div<{ $isFullWidth?: boolean }>`
   position: relative;
   max-width: 600px;
   flex: 1 1 40%;
-  min-width: 0;
   @media (min-width: 1024px) {
     ${({ $isFullWidth }) => (!$isFullWidth ? `max-width: fit-content` : "")}
   }
