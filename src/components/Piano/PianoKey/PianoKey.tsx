@@ -4,7 +4,6 @@ import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useMusicStore } from "@/store/useMusicStore";
 import { useControlsStore } from "@/store/useControlsStore";
 import { SHAPES_OF_WHITE_PIANO_KEYS } from "../helpers/constants";
-import { useSettingsStore } from "@/store/useSettingsStore";
 import { useScaleLogic } from "../helpers/useScaleLogic";
 
 interface PianoKeyProps {
@@ -12,7 +11,6 @@ interface PianoKeyProps {
 }
 
 const PianoKey = ({ note }: PianoKeyProps) => {
-  const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
   const { activeNoteId, setActiveNoteId } = useMusicStore();
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
@@ -32,7 +30,6 @@ const PianoKey = ({ note }: PianoKeyProps) => {
   const isActiveNote = note.noteId === activeNoteId;
   return (
     <S.Key
-      $areAnimationsOn={areAnimationsOn}
       $isActiveNote={isActiveNote}
       $isWhitePianoKey={isWhitePianoKey}
       $pianoKeyShape={pianoKeyShape}

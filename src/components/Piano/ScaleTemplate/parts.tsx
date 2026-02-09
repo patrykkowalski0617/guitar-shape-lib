@@ -10,13 +10,11 @@ interface MarkerProps {
   $isVisible: boolean;
   $highlightRole: HighlightRole;
   $roleInterval: string;
-  $areAnimationsOn: boolean;
 }
 
 interface TemplateWrapperProps {
   $position: number;
   $numberOfKeys: number;
-  $areAnimationsOn: boolean;
 }
 
 export const TemplateWrapper = styled.div<TemplateWrapperProps>`
@@ -27,7 +25,7 @@ export const TemplateWrapper = styled.div<TemplateWrapperProps>`
     ))`;
   }};
   will-change: transform;
-  transition: ${({ $areAnimationsOn }) => ($areAnimationsOn ? `transform ${transitionTime}ms ease-in-out` : "none")};
+  transition: transform ${transitionTime}ms ease-in-out;
 `;
 
 export const Marker = styled.div<MarkerProps>`
@@ -42,13 +40,10 @@ export const Marker = styled.div<MarkerProps>`
   box-shadow: 0 0 6px ${({ $highlightRole }) => roleColors[$highlightRole]};
   opacity: ${({ $isVisible }) => ($isVisible ? "1" : "0")};
   will-change: left, opacity, background-color, box-shadow;
-  transition: ${({ $areAnimationsOn }) =>
-    $areAnimationsOn
-      ? `left ${transitionTime}ms ease-in-out,
+  transition: ${`left ${transitionTime}ms ease-in-out,
          opacity ${transitionTime}ms ease-in-out,
          background-color ${transitionTime}ms ease-in-out,
-         box-shadow ${transitionTime}ms ease-in-out`
-      : "none"};
+         box-shadow ${transitionTime}ms ease-in-out`};
   &::after {
     content: "${({ $roleInterval }) => $roleInterval}";
     position: absolute;
@@ -58,14 +53,11 @@ export const Marker = styled.div<MarkerProps>`
     font-size: 12px;
     font-weight: 800;
     color: var(--accent);
-    /* text-shadow: 0 0 2px ${({ $highlightRole }) => roleColors[$highlightRole]}; */
+
     opacity: ${({ $roleInterval, $isVisible }) => ($roleInterval && $isVisible ? "1" : "0")};
     top: ${({ $roleInterval }) => ($roleInterval ? "-23px" : "0px")};
     will-change: top, opacity;
-    transition: ${({ $areAnimationsOn }) =>
-      $areAnimationsOn
-        ? `top ${transitionTime}ms ease-in-out,
-           opacity ${transitionTime}ms ease-in-out`
-        : "none"};
+    transition: ${`top ${transitionTime}ms ease-in-out,
+           opacity ${transitionTime}ms ease-in-out`};
   }
 `;

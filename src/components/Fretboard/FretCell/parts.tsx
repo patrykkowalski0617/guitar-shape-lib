@@ -30,7 +30,6 @@ export const Note = styled.div<{
   $isShapeRootNote: boolean;
   $isTuneNote: boolean;
   $highlightRole: HighlightRole;
-  $areAnimationsOn: boolean;
   $isRoleSelected: boolean;
 }>`
   ${PianoKeyAndFretStyles}
@@ -44,8 +43,7 @@ export const Note = styled.div<{
   z-index: 20;
   cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
   will-change: box-shadow, opacity;
-  transition: ${({ $areAnimationsOn, $isActiveNote }) =>
-    $areAnimationsOn &&
+  transition: ${({ $isActiveNote }) =>
     !$isActiveNote &&
     `box-shadow ${fretboardTransitionTime}ms ease-in-out, 
     opacity ${transitionTime}ms ease-in-out`};

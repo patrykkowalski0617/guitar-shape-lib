@@ -45,7 +45,6 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
         $isShapeRootNote={isShapeRootNote}
         $isShapeNote={isShapeNote}
         $isTuneNote={isTuneNote}
-        $areAnimationsOn={states.areAnimationsOn}
         $highlightRole={states.activeRole}
         $isRoleSelected={isRoleSelected}
         onMouseEnter={() => actions.setActiveNoteId(noteData.noteId)}
