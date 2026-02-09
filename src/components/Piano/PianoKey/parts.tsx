@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import { instrumentBRadius, instrumentElBRadius, PianoKeyAndFretStyles } from "@/parts";
 import { transitionTime } from "@/utils/constants";
 import { roleColors, type HighlightRole } from "../../../utils/roleColors";
-import { NoteWrapper } from "@/components/NoteLabel/parts";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
@@ -107,10 +106,5 @@ export const Key = styled.div<KeyProps>`
   }
   &:last-child::after {
     border-radius: 0 ${instrumentBRadius} ${instrumentElBRadius} ${instrumentElBRadius};
-  }
-  &:hover {
-    ${NoteWrapper} {
-      opacity: 1;
-    }
   }
 `;
