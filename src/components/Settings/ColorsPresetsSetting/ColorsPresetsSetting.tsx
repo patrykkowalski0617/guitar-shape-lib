@@ -1,18 +1,12 @@
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { ControlLabel, ControlWrapper } from "@/parts";
-import styled from "styled-components";
 import { getTSD_HSLColor } from "@/utils/getTSD_HSLColor";
 import { Button } from "@/components/ui/button";
 import ColorDots from "./ColorDots";
-
-const PresetsGrid = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  gap: 16px;
-  flex-wrap: wrap;
-`;
+import * as S from "./parts";
 
 type ColorPreset = [number, number, number];
+
 const COLOR_PRESETS: ColorPreset[] = [
   [230, 335, 110],
   [52, 258, 119],
@@ -33,7 +27,7 @@ export default function ColorsPresetsSetting() {
   return (
     <ControlWrapper $isFullWidth>
       <ControlLabel>Color Presets</ControlLabel>
-      <PresetsGrid>
+      <S.PresetsGrid>
         {COLOR_PRESETS.map((preset) => {
           const isActive = tonicColor === preset[0] && subdominantColor === preset[1] && dominantColor === preset[2];
 
@@ -50,7 +44,7 @@ export default function ColorsPresetsSetting() {
             </Button>
           );
         })}
-      </PresetsGrid>
+      </S.PresetsGrid>
     </ControlWrapper>
   );
 }

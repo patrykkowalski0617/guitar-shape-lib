@@ -1,35 +1,18 @@
-import styled from "styled-components";
-import { type JSX } from "react";
+import { type JSX, type CSSProperties } from "react";
+import * as S from "./parts";
 
 type ColorDotsProps = {
-  colors: [React.CSSProperties["color"], React.CSSProperties["color"], React.CSSProperties["color"]];
+  colors: [CSSProperties["color"], CSSProperties["color"], CSSProperties["color"]];
   size?: number;
   gap?: number;
 };
 
-const DotsContainer = styled.div<{ $gap: number }>`
-  display: flex;
-  align-items: center;
-  gap: ${({ $gap }) => $gap}px;
-  padding: 0;
-  margin: 0;
-`;
-
-const Dot = styled.div<{ $color: React.CSSProperties["color"]; $size: number }>`
-  width: ${({ $size }) => $size}px;
-  height: ${({ $size }) => $size}px;
-  background-color: ${({ $color }) => $color};
-  border-radius: 50%;
-  flex-shrink: 0;
-  border: 2px solid var(--background);
-`;
-
 export default function ColorDots({ colors, size = 12, gap = 8 }: ColorDotsProps): JSX.Element {
   return (
-    <DotsContainer $gap={gap}>
-      <Dot $color={colors[0]} $size={size} />
-      <Dot $color={colors[1]} $size={size} />
-      <Dot $color={colors[2]} $size={size} />
-    </DotsContainer>
+    <S.DotsContainer $gap={gap}>
+      <S.Dot $color={colors[0]} $size={size} />
+      <S.Dot $color={colors[1]} $size={size} />
+      <S.Dot $color={colors[2]} $size={size} />
+    </S.DotsContainer>
   );
 }

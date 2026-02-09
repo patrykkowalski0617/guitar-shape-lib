@@ -36,12 +36,6 @@ export function Settings() {
         <div className="no-scrollbar overflow-y-auto px-4">
           <section className="space-y-3">
             <div className="px-6 py-2">
-              <ColorsSetting />
-            </div>
-            <div className="px-6 py-2">
-              <ColorsPresetsSetting />
-            </div>
-            <div className="px-6 py-2">
               <Tutorial />
             </div>
             <div className="px-6 py-2">
@@ -52,8 +46,13 @@ export function Settings() {
             </div>
             <div className="px-6 py-2">
               <ImportProgressFile />
+            </div>{" "}
+            <div className="px-6 py-2">
+              <ColorsSetting />
             </div>
-            <div className="px-6 py-2"></div>
+            <div className="px-6 py-2">
+              <ColorsPresetsSetting />
+            </div>
           </section>
         </div>
         <DrawerFooter>
