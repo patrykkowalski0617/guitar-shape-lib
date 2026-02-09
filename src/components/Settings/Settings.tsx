@@ -48,10 +48,10 @@ export function Settings() {
               <ImportProgressFile />
             </div>
             <div className="px-6 py-2">
-              <ColorsSetting />
+              <ColorsPresetsSetting />
             </div>
             <div className="px-6 py-2">
-              <ColorsPresetsSetting />
+              <ColorsSetting />
             </div>
           </section>
         </div>

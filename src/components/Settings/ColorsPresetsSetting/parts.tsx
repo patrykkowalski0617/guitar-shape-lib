@@ -1,11 +1,21 @@
-import { Button as Btn } from "@/components/ui/button";
 import { type CSSProperties } from "react";
 import styled from "styled-components";
 
 export const DotsContainer = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 16px;
   justify-content: space-around;
+  background-color: var(--background);
+  padding: 4px 16px;
+  border-radius: 6px;
+  max-width: 200px;
+  margin: -2px auto;
+  border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
+`;
+
+export const ColorContainer = styled.div`
+  display: flex;
+  gap: 0 12px;
 `;
 
 export const Dot = styled.div<{ $color: CSSProperties["color"]; $size: number }>`
@@ -13,15 +23,5 @@ export const Dot = styled.div<{ $color: CSSProperties["color"]; $size: number }>
   height: ${({ $size }) => $size}px;
   background-color: ${({ $color }) => $color};
   border-radius: 6px;
-  border: 1px solid var(--accent-foreground);
-`;
-
-export const PresetsGrid = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-`;
-
-export const Button = styled(Btn)`
-  flex: 1 1 0;
+  border: 1px solid var(--accent);
 `;
