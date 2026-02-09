@@ -1,35 +1,23 @@
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { ControlLabel, ControlWrapper } from "@/parts";
 import styled from "styled-components";
-import TriColorCircle from "./TriColorCircle";
 import { getTSD_HSLColor } from "@/utils/getTSD_HSLColor";
-import { Button as Btn } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+import ColorDots from "./ColorDots";
 
 const PresetsGrid = styled.div`
   display: flex;
-  gap: 8px;
+  justify-content: space-evenly;
+  gap: 16px;
   flex-wrap: wrap;
-`;
-const Button = styled(Btn)`
-  position: relative;
-  overflow: hidden;
-  width: 50px;
-  ${({ $isActive }) => ($isActive ? "border: 6px solid var(--background)" : "")}
-`;
-
-const ColorCircle = styled.div`
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
 `;
 
 type ColorPreset = [number, number, number];
 const COLOR_PRESETS: ColorPreset[] = [
   [230, 335, 110],
-  [200, 320, 40],
-  [30, 60, 15],
-  [180, 210, 250],
+  [52, 258, 119],
+  [117, 15, 243],
+  [228, 42, 360],
 ];
 
 export default function ColorsPresetsSetting() {
@@ -51,17 +39,14 @@ export default function ColorsPresetsSetting() {
 
           return (
             <Button
-              variant={"outline"}
-              $isActive={isActive}
+              variant={isActive ? "outlineActive" : "outline"}
               key={String(preset)}
               onClick={() => handlePresetClick(preset)}
             >
-              <ColorCircle>
-                <TriColorCircle
-                  size={60}
-                  colors={[getTSD_HSLColor(preset[0]), getTSD_HSLColor(preset[1]), getTSD_HSLColor(preset[2])]}
-                />
-              </ColorCircle>
+              <ColorDots
+                colors={[getTSD_HSLColor(preset[0]), getTSD_HSLColor(preset[1]), getTSD_HSLColor(preset[2])]}
+                size={15}
+              />
             </Button>
           );
         })}
