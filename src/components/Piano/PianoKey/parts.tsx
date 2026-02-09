@@ -12,7 +12,6 @@ interface KeyProps {
   $isHighlighted?: boolean;
   $highlightRole: HighlightRole;
   $isActiveNote: boolean;
-  $areAnimationsOn: boolean;
 }
 
 const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
@@ -32,16 +31,16 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   B: css`&::after {left: -80%;}`,
 };
 
-const commonStyleForKey = (areAnimationsOn: boolean) => css`
+const commonStyleForKey = css`
   ${PianoKeyAndFretStyles}
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   will-change: box-shadow, border-color;
-  transition: ${areAnimationsOn
-    ? `box-shadow ${transitionTime}ms ease-in-out, border-color ${transitionTime}ms ease-in-out`
-    : "none"};
+  transition:
+    box-shadow ${transitionTime}ms ease-in-out,
+    border-color ${transitionTime}ms ease-in-out;
 `;
 
-const whitePianoKey = (areAnimationsOn: boolean) => css`
+const whitePianoKey = css`
   height: 100px;
   z-index: 1;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
@@ -51,7 +50,7 @@ const whitePianoKey = (areAnimationsOn: boolean) => css`
     position: absolute;
     inset: 0;
     background-color: var(--background);
-    ${commonStyleForKey(areAnimationsOn)}
+    ${commonStyleForKey}
   }
   &:not(:last-child)::after {
     border-right: none;
@@ -63,12 +62,12 @@ const whitePianoKey = (areAnimationsOn: boolean) => css`
   }
 `;
 
-const blackPianoKey = (areAnimationsOn: boolean) => css`
+const blackPianoKey = css`
   background-color: var(--background);
   height: 60px;
   z-index: 2;
   padding-top: 5px;
-  ${commonStyleForKey(areAnimationsOn)}
+  ${commonStyleForKey}
 
   @media (min-width: 768px) {
     height: 70px;
@@ -84,8 +83,7 @@ export const Key = styled.div<KeyProps>`
   justify-content: center;
   filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "")};
 
-  ${({ $isWhitePianoKey, $areAnimationsOn }) =>
-    $isWhitePianoKey ? whitePianoKey($areAnimationsOn) : blackPianoKey($areAnimationsOn)}
+  ${({ $isWhitePianoKey }) => ($isWhitePianoKey ? whitePianoKey : blackPianoKey)}
 
   ${({ $pianoKeyShape }) => $pianoKeyShape && pianoKeyShapes[$pianoKeyShape]}
   

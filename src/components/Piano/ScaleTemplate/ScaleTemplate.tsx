@@ -4,15 +4,10 @@ import { numberOfKeys } from "../helpers/constants";
 import { useScaleTemplate } from "./helpers/useScaleTemplate";
 
 export default function ScaleTemplate(): JSX.Element {
-  const { position, visibleIndexes, highlightRole, currentRoleId, areAnimationsOn } =
-    useScaleTemplate();
+  const { position, visibleIndexes, highlightRole, currentRoleId } = useScaleTemplate();
 
   return (
-    <S.TemplateWrapper
-      $numberOfKeys={numberOfKeys}
-      $areAnimationsOn={areAnimationsOn}
-      $position={position}
-    >
+    <S.TemplateWrapper $numberOfKeys={numberOfKeys} $position={position}>
       {Array.from({ length: 33 }).map((_, i) => {
         const roleIndex = highlightRole.indexOf(i);
         const isHighlighted = roleIndex !== -1 && !!currentRoleId;
@@ -27,7 +22,6 @@ export default function ScaleTemplate(): JSX.Element {
             $isVisible={isVisible}
             $highlightRole={isHighlighted ? currentRoleId : "none"}
             $roleInterval={intervalValue ? String(intervalValue) : ""}
-            $areAnimationsOn={areAnimationsOn}
           />
         );
       })}

@@ -7,7 +7,6 @@ export const highlightedColor = "var(--muted-foreground)";
 export const unHighlightedColor = "var(--muted)";
 
 const BaseLabel = styled.div<{
-  $areAnimationsOn: boolean;
   $isHighlighted: boolean;
 }>`
   display: flex;
@@ -16,7 +15,7 @@ const BaseLabel = styled.div<{
   font-size: 12px;
   font-weight: bold;
   will-change: opacity;
-  transition: ${({ $areAnimationsOn }) => ($areAnimationsOn ? `opacity ${transitionTime}ms ease-in-out` : "none")};
+  transition: opacity ${transitionTime}ms ease-in-out;
   background: color-mix(in oklab, var(--background) 70%, transparent);
   box-shadow: 0 0 8px var(--background);
   position: absolute;
@@ -39,17 +38,16 @@ export const NoteWrapper = styled.div<{
   $isFlatTune: boolean;
   $isEnharmonicNote: boolean;
   $isShapeNote: boolean;
-  $areAnimationsOn: boolean;
   $isActiveNote: boolean;
   $variant: Variant;
 }>`
-  ${({ $variant, $areAnimationsOn, $isShapeNote, $isActiveNote }) =>
+  ${({ $variant, $isShapeNote, $isActiveNote }) =>
     $variant === "piano" &&
     css`
       position: relative;
       z-index: 1;
       will-change: opacity;
-      transition: ${$areAnimationsOn ? `opacity 100ms ease-in-out` : "none"};
+      transition: opacity 100ms ease-in-out;
       opacity: ${$isShapeNote || $isActiveNote ? "1" : "0"};
       ${MainLabel}, ${OptionalLabel} {
         border: 1px solid color-mix(in oklab, var(--accent) 70%, transparent);
@@ -63,7 +61,7 @@ export const NoteWrapper = styled.div<{
       }
     `}
 
-  ${({ $variant, $areAnimationsOn, $isShapeNote }) =>
+  ${({ $variant, $isShapeNote }) =>
     $variant === "fretboard" &&
     css`
       display: flex;
@@ -71,7 +69,7 @@ export const NoteWrapper = styled.div<{
       justify-content: center;
       flex-direction: row;
       will-change: opacity;
-      transition: ${$areAnimationsOn ? `opacity ${transitionTime}ms ease-in-out` : "none"};
+      transition: opacity ${transitionTime}ms ease-in-out;
 
       ${MainLabel}, ${OptionalLabel} {
         color: ${$isShapeNote ? highlightedColor : unHighlightedColor};

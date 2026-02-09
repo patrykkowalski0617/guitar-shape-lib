@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/drawer";
 import * as S from "./parts";
 import { Settings as Gear, RotateCcw } from "lucide-react";
-import Animations from "./Animations/Animations";
 import Tutorial from "./Tutorial/Tutorial";
 import ColorsSetting from "./ColorsSetting/ColorsSetting";
 import { useSettingsStore } from "@/store/useSettingsStore";
@@ -36,9 +35,6 @@ export function Settings() {
         </DrawerHeader>
         <div className="no-scrollbar overflow-y-auto px-4">
           <section className="space-y-3">
-            <div className="px-6 py-2">
-              <Animations />
-            </div>
             <div className="px-6 py-2">
               <Tutorial />
             </div>

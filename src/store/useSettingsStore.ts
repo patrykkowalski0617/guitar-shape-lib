@@ -2,8 +2,6 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface SettingsState {
-  areAnimationsOn: boolean;
-  setAreAnimationOn: (val: boolean) => void;
   isTutorialOn: boolean;
   setIsTutorialOn: (val: boolean) => void;
   tonicColor: number;
@@ -16,7 +14,6 @@ interface SettingsState {
 }
 
 const initialState = {
-  areAnimationsOn: true,
   isTutorialOn: true,
   tonicColor: 230,
   subdominantColor: 335,
@@ -28,7 +25,6 @@ export const useSettingsStore = create<SettingsState>()(
     (set) => ({
       ...initialState,
 
-      setAreAnimationOn: (val) => set({ areAnimationsOn: val }),
       setIsTutorialOn: (val) => set({ isTutorialOn: val }),
 
       setTonicColor: (val) => set({ tonicColor: val }),

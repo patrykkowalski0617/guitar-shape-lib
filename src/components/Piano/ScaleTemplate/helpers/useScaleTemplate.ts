@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { useControlsStore } from "@/store/useControlsStore";
-import { useSettingsStore } from "@/store/useSettingsStore";
 import { UNIFIED_MUSIC_KEYS } from "@/utils";
 
 type Role = "none" | "tonic" | "subdominant" | "dominant";
@@ -27,7 +26,6 @@ export const useScaleTemplate = () => {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
-  const areAnimationsOn = useSettingsStore((state) => state.areAnimationsOn);
 
   const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
   const basePositionKeyIndex = 5;
@@ -57,6 +55,5 @@ export const useScaleTemplate = () => {
     visibleIndexes,
     highlightRole,
     currentRoleId,
-    areAnimationsOn,
   };
 };
