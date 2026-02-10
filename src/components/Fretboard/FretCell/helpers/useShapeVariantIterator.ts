@@ -18,13 +18,9 @@ let lastLocation = {
 
 export const useShapeVariantIterator = () => {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const setCurrentShapeVariantLocationData = useMusicStore(
-    (state) => state.setCurrentShapeVariantLocationData,
-  );
+  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
 
-  const fretboardCoordinatesVariants = currentShapeId
-    ? shapes[currentShapeId].fretboardCoordinatesVariants
-    : null;
+  const fretboardCoordinatesVariants = currentShapeId ? shapes[currentShapeId].fretboardCoordinatesVariants : null;
 
   const setNextShapeVariantLocationData = (stringIdx: number, fretIndex: number) => {
     if (!fretboardCoordinatesVariants) return;
@@ -40,8 +36,7 @@ export const useShapeVariantIterator = () => {
     }
 
     const stringId = STRING_MAP[stringIdx];
-    const variantsOfCurrentString =
-      fretboardCoordinatesVariants[stringId as keyof typeof fretboardCoordinatesVariants];
+    const variantsOfCurrentString = fretboardCoordinatesVariants[stringId as keyof typeof fretboardCoordinatesVariants];
 
     if (variantsOfCurrentString) {
       const keys = Object.keys(variantsOfCurrentString);

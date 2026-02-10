@@ -1,34 +1,24 @@
-import { useControlsStore } from "@/store/useControlsStore";
 import { Button } from "@/components/ui/button";
 import { Dices } from "lucide-react";
-import { UNIFIED_MUSIC_KEYS, roles, type MusicKeyId, type RoleId } from "@/utils";
-import { getFilteredShapeOptions } from "../ShapeSelect/helpers/shapeHelpers";
+import { useRandomizeMode } from "./helpers/useRandomizeMode";
+import { useRandomizeKey } from "./helpers/useRandomizeKey";
+import { useRandomizeRole } from "./helpers/useRandomizeRole";
+import { useRandomizeShape } from "./helpers/useRandomizeShape";
+import { useRandomizeShapeVariant } from "./helpers/useRandomizeShapeVariant";
 
 export function RandomizeControls() {
-  const { setIsMajorMode, setCurrentKey, setCurrentRoleId, setShape } = useControlsStore();
+  const setRandomMode = useRandomizeMode();
+  const setRandomKey = useRandomizeKey();
+  const setRandomRole = useRandomizeRole();
+  const setRandomShape = useRandomizeShape();
+  const setRandomShapeVariant = useRandomizeShapeVariant();
 
   const handleRandomize = () => {
-    // Mode
-    const newIsMajorMode = Math.random() > 0.5;
-    setIsMajorMode(newIsMajorMode);
-
-    // Key
-    const keyIds = Object.keys(UNIFIED_MUSIC_KEYS) as MusicKeyId[];
-    const randomKey = keyIds[Math.floor(Math.random() * keyIds.length)];
-    setCurrentKey(randomKey);
-
-    // Function (Role)
-    const roleIds = Object.keys(roles) as RoleId[];
-    const randomRole = roleIds[Math.floor(Math.random() * roleIds.length)];
-    setCurrentRoleId(randomRole);
-
-    // Shape
-    const shapeOptions = getFilteredShapeOptions(randomRole, newIsMajorMode);
-
-    if (shapeOptions.length > 0) {
-      const randomShape = shapeOptions[Math.floor(Math.random() * shapeOptions.length)];
-      setShape(randomShape.shapeId as string, randomShape.offset);
-    }
+    const randomIsMajorMode = setRandomMode();
+    const randomKey = setRandomKey();
+    const randomRole = setRandomRole();
+    const offset = setRandomShape(randomRole, randomIsMajorMode);
+    setRandomShapeVariant(randomKey, offset);
   };
 
   return (
