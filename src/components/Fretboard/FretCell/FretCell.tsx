@@ -1,4 +1,3 @@
-import { useState } from "react";
 import * as S from "./parts";
 import type { NoteObject } from "@/utils";
 import VariantProgressDots from "../VariantProgressDots/VariantProgressDots";
@@ -13,7 +12,6 @@ interface FretCellProps {
 }
 
 export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellProps) {
-  const [isActiveRootNote, setIsActiveRootNote] = useState(false);
   const { states, actions } = useFretCell();
   const { isRoleSelected } = useFretboardStates();
   const { isActiveNote, isShapeRootNote, isShapeNote, isLockedNote, isTuneNote } = useNoteState({
@@ -27,7 +25,6 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
     if (isShapeRootNote) {
       actions.setNextShapeVariantLocationData(stringIndex, fretIndex);
     }
-    setIsActiveRootNote(true);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -39,7 +36,7 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
 
   return (
     <S.Fret $isLockedNote={isLockedNote} $lockedRoleId={states.lockedRoleId}>
-      {isShapeRootNote && <VariantProgressDots stringIndex={stringIndex} isActiveRootNote={isActiveRootNote} />}
+      {isShapeRootNote && <VariantProgressDots stringIndex={stringIndex} fretIndex={fretIndex} />}
       <S.Note
         $isActiveNote={isActiveNote}
         $isShapeRootNote={isShapeRootNote}
