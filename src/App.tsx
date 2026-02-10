@@ -4,7 +4,14 @@ import Footer from "./components/Footer/Footer";
 import { AppWrapper, ControlContainer, MainContent, Setcion } from "./parts";
 import { useSettingsStore } from "./store/useSettingsStore";
 import Piano from "./components/Piano/Piano";
-import { KeySelect, LockShapeButton, ModeSelect, RoleSelect, ShapeSelect } from "./components/Controls";
+import {
+  KeySelect,
+  LockShapeButton,
+  ModeSelect,
+  RandomizeControls,
+  RoleSelect,
+  ShapeSelect,
+} from "./components/Controls";
 import { getTSD_HSLColor } from "./utils/getTSD_HSLColor";
 
 export default function App() {
@@ -30,6 +37,7 @@ export default function App() {
             <RoleSelect />
             <ShapeSelect />
             <LockShapeButton />
+            <RandomizeControls />
           </ControlContainer>
         </Setcion>
         <Setcion>
