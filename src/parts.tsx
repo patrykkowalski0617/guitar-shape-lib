@@ -91,7 +91,6 @@ export const ControlWrapper = styled.div<{ $isFullWidth?: boolean }>`
   position: relative;
   max-width: 600px;
   flex: 1 1 40%;
-  min-width: 0;
   @media (min-width: 1024px) {
     ${({ $isFullWidth }) => (!$isFullWidth ? `max-width: fit-content` : "")}
   }
@@ -103,7 +102,7 @@ export const ControlLabel = styled.span`
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--muted-foreground);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   margin-left: 4px;
   line-height: 1;
   display: inline-block;

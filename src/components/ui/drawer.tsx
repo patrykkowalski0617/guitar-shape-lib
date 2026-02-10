@@ -22,13 +22,7 @@ function Drawer({
 
   return (
     <DrawerContext.Provider value={{ setOpen }}>
-      <DrawerPrimitive.Root
-        data-slot="drawer"
-        open={open}
-        onOpenChange={setOpen}
-        dismissible={false}
-        {...props}
-      >
+      <DrawerPrimitive.Root data-slot="drawer" open={open} onOpenChange={setOpen} dismissible={false} {...props}>
         {children}
       </DrawerPrimitive.Root>
     </DrawerContext.Provider>
@@ -54,11 +48,7 @@ function DrawerClose({ onClick, ...props }: React.ComponentProps<typeof DrawerPr
   return <DrawerPrimitive.Close data-slot="drawer-close" onClick={handleClose} {...props} />;
 }
 
-function DrawerOverlay({
-  className,
-  onClick,
-  ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Overlay>) {
+function DrawerOverlay({ className, onClick, ...props }: React.ComponentProps<typeof DrawerPrimitive.Overlay>) {
   const context = React.useContext(DrawerContext);
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -79,11 +69,7 @@ function DrawerOverlay({
   );
 }
 
-function DrawerContent({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Content>) {
+function DrawerContent({ className, children, ...props }: React.ComponentProps<typeof DrawerPrimitive.Content>) {
   return (
     <DrawerPortal data-slot="drawer-portal">
       <DrawerOverlay />
@@ -120,13 +106,7 @@ function DrawerHeader({ className, ...props }: React.ComponentProps<"div">) {
 }
 
 function DrawerFooter({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="drawer-footer"
-      className={cn("mt-auto flex flex-col gap-2 p-4", className)}
-      {...props}
-    />
-  );
+  return <div data-slot="drawer-footer" className={cn("mt-auto flex flex-col gap-2 p-4", className)} {...props} />;
 }
 
 function DrawerTitle({ className, ...props }: React.ComponentProps<typeof DrawerPrimitive.Title>) {
@@ -139,10 +119,7 @@ function DrawerTitle({ className, ...props }: React.ComponentProps<typeof Drawer
   );
 }
 
-function DrawerDescription({
-  className,
-  ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Description>) {
+function DrawerDescription({ className, ...props }: React.ComponentProps<typeof DrawerPrimitive.Description>) {
   return (
     <DrawerPrimitive.Description
       data-slot="drawer-description"

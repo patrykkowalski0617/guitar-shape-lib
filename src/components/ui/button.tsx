@@ -15,6 +15,7 @@ const buttonVariants = cva(
         destructive: "bg-destructive text-white hover:bg-destructive/90",
         outline: "border border-muted-foreground/30 bg-muted/30 hover:bg-muted/50 text-foreground",
         outlineActive: "border border-accent/100 bg-muted/30 hover:bg-muted/50 text-foreground",
+        borderOnly: "border border-accent/100 bg-transparent hover:bg-muted/50 text-foreground",
         active: "border border-muted-foreground/30 bg-accent text-accent-foreground",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "bg-transparent",
@@ -39,15 +40,7 @@ interface ButtonProps extends React.ComponentProps<"button">, VariantProps<typeo
   fixedWidthLabel?: React.ReactNode;
 }
 
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  fixedWidthLabel,
-  children,
-  ...props
-}: ButtonProps) {
+function Button({ className, variant, size, asChild = false, fixedWidthLabel, children, ...props }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
 
   return (
