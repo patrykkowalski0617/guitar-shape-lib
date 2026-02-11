@@ -12,7 +12,7 @@ export const useShapeNotes = (
   const notesInSapeCoordinates = useMemo(() => {
     const { currentShapeId, stringId, fretIdx, variantId } = currentShapeVariantLocationData || {};
     const shapeData = currentShapeId ? shapes[currentShapeId] : null;
-    if (!shapeData) return [];
+    if (!shapeData || currentShapeVariantLocationData === null) return [];
 
     const { fretboardCoordinatesVariants } = shapeData;
 
@@ -28,9 +28,7 @@ export const useShapeNotes = (
 
   const isShapeNote = (coords: [number, number]): boolean => {
     const [stringIndex, fretIndex] = coords;
-    return notesInSapeCoordinates.some(
-      ([shapeS, shapeF]) => shapeS === stringIndex && shapeF === fretIndex,
-    );
+    return notesInSapeCoordinates.some(([shapeS, shapeF]) => shapeS === stringIndex && shapeF === fretIndex);
   };
 
   return {

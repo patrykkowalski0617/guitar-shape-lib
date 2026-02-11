@@ -7,10 +7,12 @@ import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
 import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
 import FretboardRow, { type StringIndex } from "./FretboardRow/FretboardRow";
 import { InstrumentScrollWrapper, InstrumentWrapper, TutorialStickyIcons } from "@/parts";
+import { useShapeReset } from "./helpers/useShapeReset";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
   useHorizontalScroll(scrollRef);
+  useShapeReset();
 
   return (
     <InstrumentScrollWrapper ref={scrollRef}>

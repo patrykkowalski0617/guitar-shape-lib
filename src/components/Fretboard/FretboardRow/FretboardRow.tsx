@@ -1,9 +1,7 @@
 import * as S from "./parts";
 import { useRef, type JSX } from "react";
-import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 import FretCell from "../FretCell/FretCell";
 import { getNotes, type Note, type NoteSharp } from "@/utils";
-import { useShapeReset } from "./helpers/useShapeReset";
 import { numberOfFrets } from "./helpers/constants";
 
 export type StringIndex = 0 | 1 | 2 | 3 | 4 | 5;
@@ -26,9 +24,6 @@ export default function FretboardRow({
     length: numberOfFrets,
     firstOctave: firstNoteOctaveNumber,
   });
-
-  useHorizontalScroll(scrollRef);
-  useShapeReset();
 
   return (
     <S.FretboardRow ref={scrollRef}>

@@ -18,8 +18,10 @@ export function RandomizeControls() {
     const randomIsMajorMode = setRandomMode();
     const randomKey = setRandomKey();
     const randomRole = setRandomRole();
-    const offset = setRandomShape(randomRole, randomIsMajorMode);
-    setRandomShapeVariant(randomKey, offset);
+
+    const { shapeId, offset } = setRandomShape(randomRole, randomIsMajorMode);
+
+    setRandomShapeVariant(randomKey, offset, shapeId);
   };
 
   return (
