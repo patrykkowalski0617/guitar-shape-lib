@@ -17,7 +17,7 @@ export function ModeSelect() {
       <TutorialPopover {...TUTORIAL_CONTENT.MODE_TOGGLE} />
       <ControlLabel>Mode</ControlLabel>
 
-      <div className="hidden md:block">
+      <div className="hidden sm:block">
         <ToggleGroup
           type="single"
           value={currentMode}
@@ -33,7 +33,7 @@ export function ModeSelect() {
         </ToggleGroup>
       </div>
 
-      <div className="md:hidden">
+      <div className="sm:hidden">
         <Select
           value={currentMode}
           onValueChange={() => {

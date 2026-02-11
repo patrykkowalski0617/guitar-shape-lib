@@ -19,7 +19,7 @@ export function RoleSelect() {
       <TutorialPopover {...TUTORIAL_CONTENT.ROLE_SELECTOR} />
       <ControlLabel>Function</ControlLabel>
 
-      <div className="hidden md:block">
+      <div className="hidden sm:block">
         <ToggleGroup type="single" value={currentRoleId ?? ""} onValueChange={handleValueChange}>
           {options.map(([id, data]) => (
             <ToggleGroupItem key={id} value={id}>
@@ -29,7 +29,7 @@ export function RoleSelect() {
         </ToggleGroup>
       </div>
 
-      <div className="md:hidden">
+      <div className="sm:hidden">
         <Select value={currentRoleId ?? ""} onValueChange={handleValueChange}>
           <SelectTrigger>
             <SelectValue placeholder={"Select function"} />
