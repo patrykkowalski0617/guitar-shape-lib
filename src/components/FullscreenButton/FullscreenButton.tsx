@@ -24,7 +24,7 @@ export default function FullscreenButton() {
         }
       }
     } catch (err) {
-      console.error(`Błąd przy próbie przełączenia Fullscreen: ${err}`);
+      console.error(`Fullscreen Error: ${err}`);
     }
   };
 
