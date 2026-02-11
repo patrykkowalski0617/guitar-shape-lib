@@ -38,7 +38,9 @@ export const useShapeVariantIterator = () => {
 
       let nextIndex = 0;
 
-      if (isSameLocation && currentShapeVariantLocationData) {
+      if (!isSameLocation) {
+        nextIndex = 0;
+      } else if (isSameLocation && currentShapeVariantLocationData) {
         const currentIndex = keys.indexOf(currentShapeVariantLocationData.variantId);
         nextIndex = (currentIndex + 1) % keys.length;
       } else {

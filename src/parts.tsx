@@ -80,7 +80,7 @@ export const ControlContainer = styled.div`
   flex-direction: row;
   align-items: flex-end;
   @media (min-width: 1024px) {
-    max-width: 900px;
+    max-width: unset;
   }
 `;
 

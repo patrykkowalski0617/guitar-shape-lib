@@ -4,4 +4,5 @@ export * from "./useFretboardStates";
 export * from "./useInTuneSharpNoteNames";
 export * from "./useNoteState";
 export * from "./useShapeNotes";
+export * from "./useShapeNotes";
 export * from "./useShapeVariantIterator";

@@ -14,7 +14,7 @@ export const useRandomizeShape = () => {
 
     setShape(shapeId, offset);
 
-    return offset;
+    return { shapeId, offset };
   };
 
   return setRandomShape;
