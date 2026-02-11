@@ -1,6 +1,11 @@
 import { useMemo } from "react";
 import shapes from "@/utils/shapes";
 
+export const isShapeNote = (coords: [number, number], notesInSapeCoordinates: number[][]): boolean => {
+  const [stringIndex, fretIndex] = coords;
+  return notesInSapeCoordinates.some(([shapeS, shapeF]) => shapeS === stringIndex && shapeF === fretIndex);
+};
+
 export const useShapeNotes = (
   currentShapeVariantLocationData: {
     currentShapeId: string | null;
@@ -12,10 +17,10 @@ export const useShapeNotes = (
   const notesInSapeCoordinates = useMemo(() => {
     const { currentShapeId, stringId, fretIdx, variantId } = currentShapeVariantLocationData || {};
     const shapeData = currentShapeId ? shapes[currentShapeId] : null;
+
     if (!shapeData || currentShapeVariantLocationData === null) return [];
 
     const { fretboardCoordinatesVariants } = shapeData;
-
     if (!stringId || fretIdx === undefined || !variantId) return [];
 
     const variantCoordinates =
@@ -26,12 +31,5 @@ export const useShapeNotes = (
     return variantCoordinates?.map(([s, f]) => [s, f + fretIdx]) || [];
   }, [currentShapeVariantLocationData]);
 
-  const isShapeNote = (coords: [number, number]): boolean => {
-    const [stringIndex, fretIndex] = coords;
-    return notesInSapeCoordinates.some(([shapeS, shapeF]) => shapeS === stringIndex && shapeF === fretIndex);
-  };
-
-  return {
-    isShapeNote,
-  };
+  return notesInSapeCoordinates;
 };

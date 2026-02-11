@@ -1,7 +1,7 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { getNotes, type NoteSharp } from "@/utils";
-import { useShapeNotes } from "./useShapeNotes";
+import { useShapeNotes, isShapeNote } from "./useShapeNotes"; // Importujemy hook i helper
 import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
 import type { StringIndex } from "../../FretboardRow/FretboardRow";
 
@@ -24,15 +24,18 @@ export const useNoteState = ({ sharpNoteName, noteId, stringIndex, fretIndex }: 
   const shapeRootSharpNote =
     currentShapeSemitoneOffsetFromC !== null ? NOTES_SHARP[currentShapeSemitoneOffsetFromC % 12] : null;
 
-  const { isShapeNote } = useShapeNotes(currentShapeVariantLocationData);
-  const { isShapeNote: isLockedShapeNote } = useShapeNotes(lockedShapeVariantLocationData);
+  const currentShapeNotes = useShapeNotes(currentShapeVariantLocationData);
+  const lockedShapeNotes = useShapeNotes(lockedShapeVariantLocationData);
+
   const sharpNoteNamesInTune = useInTuneSharpNoteNames();
+
+  const currentCoords: [number, number] = [stringIndex, fretIndex];
 
   return {
     isActiveNote: activeNoteId === noteId,
     isShapeRootNote: shapeRootSharpNote === sharpNoteName && stringIndex > 1,
-    isShapeNote: isShapeNote([stringIndex, fretIndex]),
-    isLockedNote: isLockedShapeNote([stringIndex, fretIndex]),
+    isShapeNote: isShapeNote(currentCoords, currentShapeNotes),
+    isLockedNote: isShapeNote(currentCoords, lockedShapeNotes),
     isTuneNote: sharpNoteNamesInTune.includes(sharpNoteName),
   };
 };
