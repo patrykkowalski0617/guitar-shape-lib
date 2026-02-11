@@ -13,6 +13,7 @@ import {
   ShapeSelect,
 } from "./components/Controls";
 import { getTSD_HSLColor } from "./utils/getTSD_HSLColor";
+import FullscreenButton from "./components/FullscreenButton/FullscreenButton";
 
 export default function App() {
   const { tonicColor, subdominantColor, dominantColor } = useSettingsStore();
@@ -26,6 +27,7 @@ export default function App() {
   return (
     <AppWrapper style={roleColors}>
       <Header />
+      <FullscreenButton />
       <MainContent>
         <Setcion>
           <Fretboard />
