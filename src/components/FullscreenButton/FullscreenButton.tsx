@@ -34,10 +34,10 @@ export default function FullscreenButton() {
         variant="ghost"
         size="icon"
         onClick={toggleFullscreen}
-        className="flex items-center justify-center h-12 w-12 rounded-full shadow-lg border border-primary/20 bg-background/80 backdrop-blur-sm hover:scale-110 transition-transform"
+        className="flex items-center justify-center h-12 w-12 rounded-full shadow-lg border border-accent/90 bg-background/50 backdrop-blur-sm hover:scale-110 transition-transform"
         title={isFullscreen ? "Close fullscreen" : "Fullscreen"}
       >
-        {isFullscreen ? <Minimize className="h-6 w-6 text-primary" /> : <Maximize className="h-6 w-6 text-primary" />}
+        {isFullscreen ? <Minimize className="h-6 w-6 text-accent" /> : <Maximize className="h-6 w-6 text-accent" />}
       </Button>
     </div>
   );
