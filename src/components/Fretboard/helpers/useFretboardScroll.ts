@@ -11,7 +11,7 @@ export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || !currentShapeVariantLocationData || theLowestFret === 0) return;
+    if (!container || !currentShapeVariantLocationData) return;
 
     const timer = setTimeout(() => {
       const targetCell = container.querySelector(`[data-fret="${theLowestFret}"]`) as HTMLElement;
