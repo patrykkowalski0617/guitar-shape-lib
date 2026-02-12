@@ -42,36 +42,22 @@ export function SelectPrevNext({
   };
 
   const itemStyles =
-    "h-full border-y-0 border-l-0 border-r border-muted-foreground/30 shadow-none transition-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:z-20 rounded-none bg-transparent hover:bg-muted/50";
+    "h-full border-y-0 border-l-0 border-r border-border/50 shadow-none transition-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:z-20 rounded-none bg-transparent hover:bg-muted/50";
 
   return (
-    <div
-      className={cn(
-        "flex items-center h-8 w-full",
-        "bg-muted/30 border border-muted-foreground/30 rounded-md",
-        className,
-      )}
-    >
+    <div className={cn("flex items-center h-8 w-full", "bg-muted/30 border border-border/50 rounded-md", className)}>
       <Button
         variant="ghost"
         size="icon"
         onClick={handlePrev}
-        className={cn(
-          itemStyles,
-          "w-8 px-0 flex items-center justify-center grow-1 max-w-12 rounded-l-md",
-        )}
+        className={cn(itemStyles, "w-8 px-0 flex items-center justify-center grow max-w-12 rounded-l-md")}
       >
         <ChevronLeftIcon className="size-3.5 opacity-50" />
       </Button>
 
       <Select value={value} onValueChange={onValueChange} {...props}>
         <SelectTrigger
-          className={cn(
-            itemStyles,
-            "flex-1 border-l-0",
-            "data-[placeholder]:text-muted-foreground",
-            triggerClassName,
-          )}
+          className={cn(itemStyles, "flex-1 border-l-0", "data-placeholder:text-muted-foreground", triggerClassName)}
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
@@ -82,10 +68,7 @@ export function SelectPrevNext({
         variant="ghost"
         size="icon"
         onClick={handleNext}
-        className={cn(
-          itemStyles,
-          "w-8 px-0 flex items-center justify-center border-r-0  grow-1 max-w-12 rounded-r-md",
-        )}
+        className={cn(itemStyles, "w-8 px-0 flex items-center justify-center border-r-0  grow max-w-12 rounded-r-md")}
       >
         <ChevronRightIcon className="size-3.5 opacity-50" />
       </Button>

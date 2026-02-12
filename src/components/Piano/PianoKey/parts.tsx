@@ -1,17 +1,9 @@
 import styled, { css } from "styled-components";
-import { instrumentBRadius, instrumentElBRadius, PianoKeyAndFretStyles } from "@/parts";
+import { instrumentBRadius, instrumentElBRadius } from "@/parts";
 import { transitionTime } from "@/utils/constants";
 import { roleColors, type HighlightRole } from "../../../utils/roleColors";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
-
-interface KeyProps {
-  $isWhitePianoKey: boolean;
-  $pianoKeyShape?: KeyShape;
-  $isHighlighted?: boolean;
-  $highlightRole: HighlightRole;
-  $isActiveNote: boolean;
-}
 
 const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   // prettier-ignore
@@ -23,15 +15,15 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   // prettier-ignore
   F: css`&::after {right: -80%;}`,
   // prettier-ignore
-  G: css`&::after {left: -30%;right: -55%;}`,
+  G: css`&::after {left: -30%; right: -55%;}`,
   // prettier-ignore
-  A: css`&::after {left: -55%;right: -30%;}`,
+  A: css`&::after {left: -55%; right: -30%;}`,
   // prettier-ignore
   B: css`&::after {left: -80%;}`,
 };
 
 const commonStyleForKey = css`
-  ${PianoKeyAndFretStyles}
+  border: 1px solid color-mix(in oklab, var(--border) 95%, transparent);
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   will-change: box-shadow, border-color;
   transition:
@@ -74,7 +66,14 @@ const blackPianoKey = css`
   }
 `;
 
-export const Key = styled.div<KeyProps>`
+export const Key = styled.div<{
+  $isRoleSelected: boolean;
+  $isWhitePianoKey: boolean;
+  $pianoKeyShape?: KeyShape;
+  $isHighlighted?: boolean;
+  $highlightRole: HighlightRole;
+  $isActiveNote: boolean;
+}>`
   flex: 1;
   width: 0;
   position: relative;
@@ -85,7 +84,7 @@ export const Key = styled.div<KeyProps>`
   ${({ $isWhitePianoKey }) => ($isWhitePianoKey ? whitePianoKey : blackPianoKey)}
 
   ${({ $pianoKeyShape }) => $pianoKeyShape && pianoKeyShapes[$pianoKeyShape]}
-  
+
   ${({ $isHighlighted, $isWhitePianoKey, $highlightRole }) => {
     if (!$isHighlighted) return null;
     const color = roleColors[$highlightRole];
@@ -95,10 +94,20 @@ export const Key = styled.div<KeyProps>`
 
     return css`
       ${target} {
-        border-color: ${color};
         box-shadow: ${shadow};
       }
     `;
+  }}
+
+${({ $isRoleSelected, $isWhitePianoKey }) => {
+    const target = $isWhitePianoKey ? css`&::after` : css`&`;
+
+    if ($isRoleSelected)
+      return css`
+        ${target} {
+          border: 1px solid color-mix(in oklab, var(--border) 40%, transparent);
+        }
+      `;
   }}
 
   &:first-child::after {

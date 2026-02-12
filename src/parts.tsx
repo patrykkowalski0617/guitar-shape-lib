@@ -57,10 +57,6 @@ export const TutorialStickyIcons = styled.div`
   z-index: 40;
 `;
 
-export const PianoKeyAndFretStyles = css`
-  border: 1px solid var(--border);
-`;
-
 export const FooterAndHeaderStyles = css`
   background-color: var(--primary);
   box-shadow: 0 0 6px var(--primary) inset;
@@ -84,15 +80,15 @@ export const ControlContainer = styled.div`
   }
 `;
 
-export const ControlWrapper = styled.div<{ $isFullWidth?: boolean }>`
+export const ControlWrapper = styled.div`
   user-select: none;
   display: flex;
   flex-direction: column;
   position: relative;
-  max-width: 600px;
-  flex: 1 1 40%;
+  flex: 1 1 calc(50% - var(--spacing) * 8);
+  width: 0;
   @media (min-width: 1024px) {
-    ${({ $isFullWidth }) => (!$isFullWidth ? `max-width: fit-content` : "")}
+    max-width: fit-content;
   }
 `;
 
