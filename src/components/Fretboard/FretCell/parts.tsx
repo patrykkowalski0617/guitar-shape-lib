@@ -51,7 +51,7 @@ export const Note = styled.div<{
     if (($isActiveNote && !$isRoleSelected) || $isShapeNote || $isShapeRootNote || (!$isRoleSelected && $isTuneNote))
       return "1";
 
-    if ($isActiveNote || $isTuneNote) return "0.4";
+    if ($isActiveNote || $isTuneNote) return "0.5";
 
     return "0";
   }};
