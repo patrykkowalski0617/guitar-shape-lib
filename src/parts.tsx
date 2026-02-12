@@ -80,15 +80,15 @@ export const ControlContainer = styled.div`
   }
 `;
 
-export const ControlWrapper = styled.div<{ $isFullWidth?: boolean }>`
+export const ControlWrapper = styled.div`
   user-select: none;
   display: flex;
   flex-direction: column;
   position: relative;
   flex: 1 1 calc(50% - var(--spacing) * 8);
-  width: ${({ $isFullWidth }) => ($isFullWidth ? "auto" : "0")};
+  width: 0;
   @media (min-width: 1024px) {
-    ${({ $isFullWidth }) => (!$isFullWidth ? `max-width: fit-content` : "")}
+    max-width: fit-content;
   }
 `;
 

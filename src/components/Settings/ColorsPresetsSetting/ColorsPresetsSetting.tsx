@@ -1,5 +1,6 @@
 import { useSettingsStore } from "@/store/useSettingsStore";
-import { ControlLabel, ControlWrapper } from "@/parts";
+import { ControlLabel } from "@/parts";
+import * as S from "@/components/Settings/parts";
 import { getTSD_HSLColor } from "@/utils/getTSD_HSLColor";
 import ColorDots from "./ColorDots";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -26,9 +27,9 @@ export default function ColorsPresetsSetting() {
     setSubdominantColor(s);
     setDominantColor(d);
   };
-  // TODO: clicking outside of the select bu inside of drawer close drawer
+
   return (
-    <ControlWrapper $isFullWidth>
+    <S.ControlWrapper>
       <ControlLabel>Color Presets</ControlLabel>
       <Select value={currentPresetValue} onValueChange={handleValueChange}>
         <SelectTrigger className="w-full">
@@ -48,6 +49,6 @@ export default function ColorsPresetsSetting() {
           })}
         </SelectContent>
       </Select>
-    </ControlWrapper>
+    </S.ControlWrapper>
   );
 }

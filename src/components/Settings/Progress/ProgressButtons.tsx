@@ -4,7 +4,7 @@ import { useCurrentShapeVariantProgressId } from "@/hooks/useCurrentShapeVariant
 import { TUTORIAL_CONTENT } from "@/components/TutorialPopover/tutorial.config";
 import TutorialPopover from "@/components/TutorialPopover/TutorialPopover";
 import { Button } from "@/components/ui/button";
-import { ControlWrapper } from "@/parts";
+import * as S from "@/components/Settings/parts";
 
 export const MarkAsLearned = () => {
   const { learned, toggleLearned } = useProgressStore();
@@ -15,7 +15,7 @@ export const MarkAsLearned = () => {
   const txtIsLearnedFalse = "Mark current shape as 'Learned'";
 
   return (
-    <ControlWrapper $isFullWidth>
+    <S.ControlWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.ADD_LEARNED} />
       <Button
         variant={isLearned ? "active" : "outline"}
@@ -25,28 +25,28 @@ export const MarkAsLearned = () => {
       >
         {isLearned ? txtIsLearnedTrue : txtIsLearnedFalse}
       </Button>
-    </ControlWrapper>
+    </S.ControlWrapper>
   );
 };
 
 export const ExportProgressFile = () => {
   const { learned } = useProgressStore();
   return (
-    <ControlWrapper $isFullWidth>
+    <S.ControlWrapper>
       <Button variant="outline" onClick={() => exportProgress({ learned })}>
         Export progress file
       </Button>
-    </ControlWrapper>
+    </S.ControlWrapper>
   );
 };
 
 export const ImportProgressFile = () => {
   const { importData } = useProgressStore();
   return (
-    <ControlWrapper $isFullWidth>
+    <S.ControlWrapper>
       <Button variant="outline" onClick={() => importProgress(importData)}>
         Import progress file
       </Button>
-    </ControlWrapper>
+    </S.ControlWrapper>
   );
 };
