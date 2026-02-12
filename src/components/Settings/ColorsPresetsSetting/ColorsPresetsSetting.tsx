@@ -8,11 +8,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 type ColorPreset = [number, number, number];
 
 const COLOR_PRESETS: ColorPreset[] = [
+  [42, 291, 138],
+  [52, 258, 119],
   [230, 335, 110],
   [222, 289, 98],
-  [117, 15, 243],
-  [52, 258, 119],
   [228, 42, 360],
+  [53, 113, 360],
+  [123, 53, 360],
+  [117, 15, 243],
 ];
 
 export default function ColorsPresetsSetting() {
