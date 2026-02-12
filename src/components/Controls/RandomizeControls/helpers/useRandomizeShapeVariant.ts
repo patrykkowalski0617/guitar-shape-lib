@@ -45,6 +45,7 @@ export const useRandomizeShapeVariant = () => {
     setFretIdx(randomFret);
     setShapeId(shapeId);
   };
+
   // set variant
   useEffect(() => {
     if (fretIdx === null || stringId === null || !shapeId) return;
