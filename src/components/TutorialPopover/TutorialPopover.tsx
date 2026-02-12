@@ -17,19 +17,14 @@ interface TutorialPopoverProps {
   y?: number;
 }
 
-export default function TutorialPopover({
-  title,
-  description,
-  x = 0,
-  y = 0,
-}: TutorialPopoverProps) {
+export default function TutorialPopover({ title, description, x = 0, y = 0 }: TutorialPopoverProps) {
   const isTutorialOn = useSettingsStore((state) => state.isTutorialOn);
   if (!isTutorialOn) return null;
   return (
     <Popover>
       <PopoverTrigger asChild>
         <IconWrapper $x={x} $y={y}>
-          <Info size={20} strokeWidth={1} color="var(--accent)" />
+          <Info size={20} strokeWidth={1} className="text-border/70" />
         </IconWrapper>
       </PopoverTrigger>
 
