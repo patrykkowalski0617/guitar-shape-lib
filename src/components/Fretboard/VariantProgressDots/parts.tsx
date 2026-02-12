@@ -19,7 +19,7 @@ export const Dot = styled.div<{
   height: 9px;
   border-radius: 3px;
   position: relative;
-  border: 1px solid color-mix(in oklab, var(--accent) 80%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
   background-color: ${({ $isLearned }) => {
     if ($isLearned) return "var(--accent)";
     return "var(--background)";

@@ -23,7 +23,7 @@ export function KeySelect() {
       <TutorialPopover {...TUTORIAL_CONTENT.KEY_SELECTOR} />
       <ControlLabel>Key</ControlLabel>
 
-      <div className="hidden md:block">
+      <div className="hidden sm:block">
         <SelectPrevNext
           value={currentKeyId}
           onValueChange={(v) => setCurrentKey(v as MusicKeyId)}
@@ -40,7 +40,7 @@ export function KeySelect() {
         </SelectPrevNext>
       </div>
 
-      <div className="md:hidden">
+      <div className="sm:hidden">
         <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>
           <SelectTrigger>
             <SelectValue />

@@ -4,8 +4,16 @@ import Footer from "./components/Footer/Footer";
 import { AppWrapper, ControlContainer, MainContent, Setcion } from "./parts";
 import { useSettingsStore } from "./store/useSettingsStore";
 import Piano from "./components/Piano/Piano";
-import { KeySelect, LockShapeButton, ModeSelect, RoleSelect, ShapeSelect } from "./components/Controls";
+import {
+  KeySelect,
+  LockShapeButton,
+  ModeSelect,
+  RandomizeControls,
+  RoleSelect,
+  ShapeSelect,
+} from "./components/Controls";
 import { getTSD_HSLColor } from "./utils/getTSD_HSLColor";
+import FullscreenButton from "./components/FullscreenButton/FullscreenButton";
 
 export default function App() {
   const { tonicColor, subdominantColor, dominantColor } = useSettingsStore();
@@ -19,6 +27,7 @@ export default function App() {
   return (
     <AppWrapper style={roleColors}>
       <Header />
+      <FullscreenButton />
       <MainContent>
         <Setcion>
           <Fretboard />
@@ -30,6 +39,7 @@ export default function App() {
             <RoleSelect />
             <ShapeSelect />
             <LockShapeButton />
+            <RandomizeControls />
           </ControlContainer>
         </Setcion>
         <Setcion>

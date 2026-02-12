@@ -9,7 +9,6 @@ export const STRING_MAP: Record<number, string> = {
   2: "strG",
 };
 
-let currentStep = 0;
 let lastLocation = {
   shapeId: null as string | null,
   stringIdx: null as number | null,
@@ -18,34 +17,43 @@ let lastLocation = {
 
 export const useShapeVariantIterator = () => {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const setCurrentShapeVariantLocationData = useMusicStore(
-    (state) => state.setCurrentShapeVariantLocationData,
-  );
+  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
+  const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
 
-  const fretboardCoordinatesVariants = currentShapeId
-    ? shapes[currentShapeId].fretboardCoordinatesVariants
-    : null;
+  const fretboardCoordinatesVariants = currentShapeId ? shapes[currentShapeId].fretboardCoordinatesVariants : null;
 
   const setNextShapeVariantLocationData = (stringIdx: number, fretIndex: number) => {
     if (!fretboardCoordinatesVariants) return;
 
-    const isSameLocation =
-      currentShapeId === lastLocation.shapeId &&
-      stringIdx === lastLocation.stringIdx &&
-      fretIndex === lastLocation.fretIdx;
-
-    if (!isSameLocation) {
-      currentStep = 0;
-      lastLocation = { shapeId: currentShapeId, stringIdx, fretIdx: fretIndex };
-    }
-
     const stringId = STRING_MAP[stringIdx];
-    const variantsOfCurrentString =
-      fretboardCoordinatesVariants[stringId as keyof typeof fretboardCoordinatesVariants];
+    const variantsOfCurrentString = fretboardCoordinatesVariants[stringId as keyof typeof fretboardCoordinatesVariants];
 
     if (variantsOfCurrentString) {
       const keys = Object.keys(variantsOfCurrentString);
-      const activeVariantId = keys[currentStep % keys.length];
+
+      const isSameLocation =
+        currentShapeId === lastLocation.shapeId &&
+        stringIdx === lastLocation.stringIdx &&
+        fretIndex === lastLocation.fretIdx;
+
+      let nextIndex = 0;
+
+      if (!isSameLocation) {
+        nextIndex = 0;
+      } else if (isSameLocation && currentShapeVariantLocationData) {
+        const currentIndex = keys.indexOf(currentShapeVariantLocationData.variantId);
+        nextIndex = (currentIndex + 1) % keys.length;
+      } else {
+        const externalIndex = currentShapeVariantLocationData
+          ? keys.indexOf(currentShapeVariantLocationData.variantId)
+          : -1;
+
+        nextIndex = externalIndex !== -1 ? (externalIndex + 1) % keys.length : 0;
+      }
+
+      lastLocation = { shapeId: currentShapeId, stringIdx, fretIdx: fretIndex };
+
+      const activeVariantId = keys[nextIndex];
 
       setCurrentShapeVariantLocationData({
         currentShapeId,
@@ -53,12 +61,8 @@ export const useShapeVariantIterator = () => {
         fretIdx: fretIndex,
         variantId: activeVariantId,
       });
-
-      currentStep++;
     }
   };
 
-  return {
-    setNextShapeVariantLocationData,
-  };
+  return { setNextShapeVariantLocationData };
 };

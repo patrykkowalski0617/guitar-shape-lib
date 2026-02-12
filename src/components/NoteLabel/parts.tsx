@@ -47,11 +47,12 @@ export const NoteWrapper = styled.div<{
       position: relative;
       z-index: 1;
       will-change: opacity;
-      transition: opacity 100ms ease-in-out;
+      transition: ${!$isActiveNote ? `opacity ${transitionTime}ms ease-in-out` : "none"};
       opacity: ${$isShapeNote || $isActiveNote ? "1" : "0"};
       ${MainLabel}, ${OptionalLabel} {
-        border: 1px solid color-mix(in oklab, var(--accent) 70%, transparent);
+        border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
         border-radius: ${instrumentElBRadius};
+        background: color-mix(in oklab, var(--background) 90%, transparent);
         width: 22px;
         height: 22px;
         line-height: 22px;

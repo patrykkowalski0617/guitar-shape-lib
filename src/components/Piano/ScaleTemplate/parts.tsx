@@ -34,6 +34,7 @@ export const Marker = styled.div<MarkerProps>`
   height: 8px;
   border-radius: 4px 4px 0 0;
   border: 1px solid var(--border);
+  border-bottom: none;
   width: ${({ $numberOfKeys }) => `calc(${KEY_WIDTH_CSS($numberOfKeys)})`};
   left: ${({ $step, $numberOfKeys }) => `calc(${$step} * ${KEY_WIDTH_CSS($numberOfKeys)})`};
   background-color: ${({ $highlightRole }) => roleColors[$highlightRole]};

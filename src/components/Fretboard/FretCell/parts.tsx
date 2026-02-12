@@ -1,4 +1,4 @@
-import { instrumentElBRadius, PianoKeyAndFretStyles } from "@/parts";
+import { instrumentElBRadius } from "@/parts";
 import { roleColors, type HighlightRole } from "@/utils/roleColors";
 import type { RoleId } from "@/utils";
 import styled, { css } from "styled-components";
@@ -32,7 +32,7 @@ export const Note = styled.div<{
   $highlightRole: HighlightRole;
   $isRoleSelected: boolean;
 }>`
-  ${PianoKeyAndFretStyles}
+  border: 1px solid var(--border);
   border-radius: ${instrumentElBRadius};
   width: 100%;
   height: 26px;
