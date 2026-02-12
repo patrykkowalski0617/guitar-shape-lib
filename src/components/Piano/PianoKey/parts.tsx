@@ -23,7 +23,7 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
 };
 
 const commonStyleForKey = css`
-  border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 95%, transparent);
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   will-change: box-shadow, border-color;
   transition:
@@ -105,7 +105,7 @@ ${({ $isRoleSelected, $isWhitePianoKey }) => {
     if ($isRoleSelected)
       return css`
         ${target} {
-          border: 1px solid color-mix(in oklab, var(--border) 50%, transparent);
+          border: 1px solid color-mix(in oklab, var(--border) 40%, transparent);
         }
       `;
   }}
