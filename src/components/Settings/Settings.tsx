@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
   SheetFooter,
@@ -73,9 +72,6 @@ export function Settings() {
                 <span>Restore Defaults</span>
               </span>
             </Button>
-            <SheetClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </SheetClose>
           </SheetFooter>
         </SheetContent>
       </Sheet>

@@ -15,7 +15,9 @@ export const HeaderContent = styled.div`
   padding: 20px 0;
   margin: auto;
   width: 100%;
-  text-shadow: 0 0 15px var(--background);
+  text-shadow:
+    0px 0px 20px var(--background),
+    0px 0px 20px var(--background);
 `;
 
 const shake = keyframes`

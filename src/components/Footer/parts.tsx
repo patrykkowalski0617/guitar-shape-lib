@@ -9,6 +9,8 @@ export const FooterWrapper = styled.footer`
   padding: 10px;
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   font-weight: bold;
-  text-shadow: 0 0 15px var(--background);
+  text-shadow:
+    0px 0px 20px var(--background),
+    0px 0px 20px var(--background);
   ${SectionCommonCss}
 `;
