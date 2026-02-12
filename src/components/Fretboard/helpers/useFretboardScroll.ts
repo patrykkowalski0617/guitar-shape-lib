@@ -7,13 +7,19 @@ export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null
   const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
 
   const notes = useShapeNotes(currentShapeVariantLocationData);
-  const theLowestFret = getTheLowestFret(notes);
+  const rawLowestFret = getTheLowestFret(notes);
+  const theLowestFret = rawLowestFret === -1 ? 0 : rawLowestFret;
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container || !currentShapeVariantLocationData) return;
 
     const timer = setTimeout(() => {
+      if (theLowestFret === 0) {
+        container.scrollTo({ left: 0, behavior: "smooth" });
+        return;
+      }
+
       const targetCell = container.querySelector(`[data-fret="${theLowestFret}"]`) as HTMLElement;
 
       if (targetCell) {
@@ -25,6 +31,7 @@ export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null
         container.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
       }
     }, 100);
+
     return () => clearTimeout(timer);
   }, [containerRef, currentShapeVariantLocationData, theLowestFret]);
 };
