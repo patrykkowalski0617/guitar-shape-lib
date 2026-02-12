@@ -53,10 +53,10 @@
   --muted: hsl(0, 0%, 11%);
   --muted-foreground: hsl(193 25% 55%);
 
-  --accent: hsl(195, 55%, 31%);
+  --accent: hsl(190, 60%, 30%);
   --accent-foreground: hsl(0 0% 100%);
 
-  --border: rgb(24, 134, 167);
+  --border: hsl(190, 65%, 50%);
   --input: hsl(194, 23%, 41%);
   --ring: hsl(195, 61%, 69%);
 }

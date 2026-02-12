@@ -25,7 +25,7 @@ export const FretInfoCell = styled.div<{
       &::after {
         content: "";
         position: absolute;
-        top: 50%;
+        top: 40%;
         transform: translateY(-50%);
         width: 8px;
         height: 8px;
@@ -33,7 +33,7 @@ export const FretInfoCell = styled.div<{
         border-radius: 50%;
         background-color: var(--primary);
         display: none;
-        box-shadow: 0 0 10px var(--primary);
+        box-shadow: 0 0 8px 0 var(--primary);
       }
     `}
   ${({ $isNumeric, $singleDot }) =>
