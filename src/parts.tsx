@@ -57,10 +57,6 @@ export const TutorialStickyIcons = styled.div`
   z-index: 40;
 `;
 
-export const PianoKeyAndFretStyles = css`
-  border: 1px solid var(--border);
-`;
-
 export const FooterAndHeaderStyles = css`
   background-color: var(--primary);
   box-shadow: 0 0 6px var(--primary) inset;
@@ -90,7 +86,8 @@ export const ControlWrapper = styled.div<{ $isFullWidth?: boolean }>`
   flex-direction: column;
   position: relative;
   flex: 1 1 calc(50% - var(--spacing) * 8);
-  width: 0;
+  ${({ $isFullWidth }) => ($isFullWidth ? "" : "width: 0;")}
+
   @media (min-width: 1024px) {
     ${({ $isFullWidth }) => (!$isFullWidth ? `max-width: fit-content` : "")}
   }

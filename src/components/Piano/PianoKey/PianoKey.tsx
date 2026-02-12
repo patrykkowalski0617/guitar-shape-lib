@@ -30,6 +30,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
   const isActiveNote = note.noteId === activeNoteId;
   return (
     <S.Key
+      $isRoleSelected={!!currentRoleId}
       $isActiveNote={isActiveNote}
       $isWhitePianoKey={isWhitePianoKey}
       $pianoKeyShape={pianoKeyShape}

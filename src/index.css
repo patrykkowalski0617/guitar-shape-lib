@@ -36,7 +36,7 @@
 :root {
   --radius: 0.65rem;
 
-  --background: hsl(193 40% 1%);
+  --background: hsl(0, 0%, 0%);
   --foreground: hsl(0 0% 93%);
 
   --card: hsl(195, 20%, 10%);
@@ -50,17 +50,15 @@
   --secondary: hsl(215 100% 45%);
   --secondary-foreground: hsl(0 0% 100%);
 
-  --muted: hsl(0 0% 30%);
+  --muted: hsl(0, 0%, 11%);
   --muted-foreground: hsl(193 25% 55%);
 
-  --accent: hsl(195 45% 41%);
+  --accent: hsl(195, 55%, 31%);
   --accent-foreground: hsl(0 0% 100%);
 
-  --border: hsl(193 38% 32%);
-  --input: hsl(193 38% 32%);
+  --border: rgb(16, 99, 124);
+  --input: hsl(194, 23%, 41%);
   --ring: hsl(195, 61%, 69%);
-
-  --tension: hsl(38 92% 45%);
 }
 
 @layer base {
