@@ -105,7 +105,7 @@ ${({ $isRoleSelected, $isWhitePianoKey }) => {
     if ($isRoleSelected)
       return css`
         ${target} {
-          border: 1px solid color-mix(in oklab, var(--border) 40%, transparent);
+          border: 1px solid color-mix(in oklab, var(--border) 50%, transparent);
         }
       `;
   }}
