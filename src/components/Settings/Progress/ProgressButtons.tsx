@@ -4,7 +4,7 @@ import { useCurrentShapeVariantProgressId } from "@/hooks/useCurrentShapeVariant
 import { TUTORIAL_CONTENT } from "@/components/TutorialPopover/tutorial.config";
 import TutorialPopover from "@/components/TutorialPopover/TutorialPopover";
 import { Button } from "@/components/ui/button";
-import * as S from "@/components/Settings/parts";
+import * as S from "@/components/Settings/Progress/parts";
 
 export const MarkAsLearned = () => {
   const { learned, toggleLearned } = useProgressStore();
