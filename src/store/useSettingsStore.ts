@@ -1,3 +1,4 @@
+import { COLOR_PRESETS } from "@/utils/constants";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -15,9 +16,9 @@ interface SettingsState {
 
 const initialState = {
   isTutorialOn: true,
-  tonicColor: 230,
-  subdominantColor: 335,
-  dominantColor: 110,
+  tonicColor: COLOR_PRESETS[14][0],
+  subdominantColor: COLOR_PRESETS[14][1],
+  dominantColor: COLOR_PRESETS[14][2],
 };
 
 export const useSettingsStore = create<SettingsState>()(
