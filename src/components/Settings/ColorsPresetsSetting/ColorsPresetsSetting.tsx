@@ -8,6 +8,7 @@ type ColorPreset = [number, number, number];
 
 const COLOR_PRESETS: ColorPreset[] = [
   [230, 335, 110],
+  [222, 289, 98],
   [117, 15, 243],
   [52, 258, 119],
   [228, 42, 360],
