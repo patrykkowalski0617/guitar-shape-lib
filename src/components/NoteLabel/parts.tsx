@@ -3,8 +3,8 @@ import styled, { css } from "styled-components";
 import type { Variant } from "./NoteLabel";
 import { instrumentElBRadius } from "@/parts";
 
-export const highlightedColor = "var(--muted-foreground)";
-export const unHighlightedColor = "var(--muted)";
+export const highlightedColor = "var(--foreground)";
+export const unHighlightedColor = "var(--border)";
 
 const BaseLabel = styled.div<{
   $isHighlighted: boolean;
