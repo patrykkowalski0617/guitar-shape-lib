@@ -86,8 +86,7 @@ export const ControlWrapper = styled.div<{ $isFullWidth?: boolean }>`
   flex-direction: column;
   position: relative;
   flex: 1 1 calc(50% - var(--spacing) * 8);
-  ${({ $isFullWidth }) => ($isFullWidth ? "" : "width: 0;")}
-
+  width: ${({ $isFullWidth }) => ($isFullWidth ? "auto" : "0")};
   @media (min-width: 1024px) {
     ${({ $isFullWidth }) => (!$isFullWidth ? `max-width: fit-content` : "")}
   }
