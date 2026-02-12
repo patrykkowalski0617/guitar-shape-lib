@@ -53,7 +53,7 @@ export const Marker = styled.div<MarkerProps>`
     text-align: center;
     font-size: 12px;
     font-weight: 800;
-    color: var(--accent);
+    color: var(--border);
 
     opacity: ${({ $roleInterval, $isVisible }) => ($roleInterval && $isVisible ? "1" : "0")};
     top: ${({ $roleInterval }) => ($roleInterval ? "-23px" : "0px")};
