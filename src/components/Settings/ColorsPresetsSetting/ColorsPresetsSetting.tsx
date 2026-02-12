@@ -21,7 +21,10 @@ export default function ColorsPresetsSetting() {
 
   const currentPresetValue = `${tonicColor},${subdominantColor},${dominantColor}`;
 
+  const isPresetSelected = COLOR_PRESETS.some((preset) => preset.join(",") === currentPresetValue);
+
   const handleValueChange = (value: string) => {
+    if (!value) return;
     const [t, s, d] = value.split(",").map(Number);
     setTonicColor(t);
     setSubdominantColor(s);
@@ -31,9 +34,9 @@ export default function ColorsPresetsSetting() {
   return (
     <S.ControlWrapper>
       <ControlLabel>Color Presets</ControlLabel>
-      <Select value={currentPresetValue} onValueChange={handleValueChange}>
+      <Select value={isPresetSelected ? currentPresetValue : ""} onValueChange={handleValueChange}>
         <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select colors..." />
+          <SelectValue placeholder="Custom colors" />
         </SelectTrigger>
         <SelectContent>
           {COLOR_PRESETS.map((preset) => {
