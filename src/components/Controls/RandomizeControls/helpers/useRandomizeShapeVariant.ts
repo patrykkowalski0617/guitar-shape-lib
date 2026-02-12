@@ -1,9 +1,12 @@
-import { STRINGS_CONFIG } from "@/components/Fretboard/FretboardRow/helpers/constants";
+import { numberOfFrets, STRINGS_CONFIG } from "@/components/Fretboard/FretboardRow/helpers/constants";
 import { STRING_MAP } from "@/components/Fretboard/FretCell/helpers";
 import { useMusicStore } from "@/store/useMusicStore";
 import { getNotes, type Note } from "@/utils";
 import shapes from "@/utils/shapes";
 import { useEffect, useState } from "react";
+
+const MAX_FRET = numberOfFrets - 4;
+const MIN_FRET = 3;
 
 export const useRandomizeShapeVariant = () => {
   const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
@@ -23,29 +26,47 @@ export const useRandomizeShapeVariant = () => {
     const notesSharp = getNotes({ firstNote: randomKey }).map((n) => n.sharpNoteName);
     const shapeRootSharpNote = offset !== null ? notesSharp[offset % 12] : null;
     const stringConfig = STRINGS_CONFIG[randomStringIdx];
+
     const rowNotes = getNotes({
       firstNote: stringConfig.firstNoteInRow as Note,
-      length: 24,
+      length: numberOfFrets,
     });
-    const validFrets = rowNotes
+
+    const allValidFrets = rowNotes
       .map((note, idx) => (note.sharpNoteName === shapeRootSharpNote ? idx : null))
       .filter((idx): idx is number => idx !== null);
-    const randomFret = validFrets[Math.floor(Math.random() * validFrets.length)];
+
+    const constrainedFrets = allValidFrets.filter((fret) => fret >= MIN_FRET && fret <= MAX_FRET);
+
+    const finalFrets = constrainedFrets.length > 0 ? constrainedFrets : allValidFrets;
+    const randomFret = finalFrets[Math.floor(Math.random() * finalFrets.length)];
 
     setStringId(stringId);
     setFretIdx(randomFret);
     setShapeId(shapeId);
   };
-
+  // set variant
   useEffect(() => {
-    // set variant
-    if (fretIdx === null || stringId === null) return;
-    const fretboardCoordinatesVariants = shapeId ? shapes[shapeId].fretboardCoordinatesVariants : null;
+    if (fretIdx === null || stringId === null || !shapeId) return;
+
+    const fretboardCoordinatesVariants = shapes[shapeId].fretboardCoordinatesVariants;
     const variantsOfCurrentString =
       fretboardCoordinatesVariants?.[stringId as keyof typeof fretboardCoordinatesVariants];
+
     if (variantsOfCurrentString === undefined) return;
+
     const variantKeys = Object.keys(variantsOfCurrentString);
-    const randomVariantId = variantKeys[Math.floor(Math.random() * variantKeys.length)];
+
+    let availableVariants = [...variantKeys];
+
+    if (fretIdx <= MIN_FRET) {
+      const half = Math.ceil(variantKeys.length / 2);
+      availableVariants = variantKeys.slice(0, half);
+    } else if (fretIdx >= MAX_FRET) {
+      const half = Math.floor(variantKeys.length / 2);
+      availableVariants = variantKeys.slice(half);
+    }
+    const randomVariantId = availableVariants[Math.floor(Math.random() * availableVariants.length)];
 
     setCurrentShapeVariantLocationData({
       currentShapeId: shapeId,
