@@ -55,7 +55,7 @@ export const Note = styled.div<{
 
     return "0";
   }};
-  filter: ${({ $isActiveNote, $isTuneNote }) => ($isActiveNote && $isTuneNote ? "brightness(1.5)" : "")};
+  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   ${({ $isShapeNote, $highlightRole }) => {
     if ($isShapeNote) {
