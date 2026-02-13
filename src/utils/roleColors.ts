@@ -4,5 +4,5 @@ export const roleColors: Record<HighlightRole, string> = {
   tonic: "var(--secondary)",
   subdominant: "var(--primary)",
   dominant: "var(--tension)",
-  none: "var(--border)",
+  none: "var(--accent)",
 };
