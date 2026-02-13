@@ -32,7 +32,7 @@ export const Note = styled.div<{
   $highlightRole: HighlightRole;
   $isRoleSelected: boolean;
 }>`
-  border: 1px solid var(--border);
+  border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
   border-radius: ${instrumentElBRadius};
   width: 100%;
   height: 26px;

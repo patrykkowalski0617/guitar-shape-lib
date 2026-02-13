@@ -23,7 +23,7 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
 };
 
 const commonStyleForKey = css`
-  border: 1px solid color-mix(in oklab, var(--border) 95%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   will-change: box-shadow, border-color;
   transition:
