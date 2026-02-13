@@ -39,9 +39,9 @@
   --background: hsl(0, 0%, 0%);
   --foreground: hsl(0 0% 93%);
 
-  --card: hsl(195, 20%, 10%);
+  --card: hsl(190, 20%, 10%);
   --card-foreground: hsl(0 0% 93%);
-  --popover: hsl(193 20% 10%);
+  --popover: hsl(190 20% 10%);
   --popover-foreground: hsl(0 0% 93%);
 
   --primary: hsl(332 47% 45%);
@@ -51,14 +51,14 @@
   --secondary-foreground: hsl(0 0% 100%);
 
   --muted: hsl(0, 0%, 11%);
-  --muted-foreground: hsl(193 25% 55%);
+  --muted-foreground: hsl(200 25% 55%);
 
-  --accent: hsl(190, 60%, 30%);
+  --accent: hsl(190, 80%, 35%);
   --accent-foreground: hsl(0 0% 100%);
 
   --border: hsl(190, 65%, 50%);
   --input: hsl(194, 23%, 41%);
-  --ring: hsl(195, 61%, 69%);
+  --ring: hsl(190, 61%, 69%);
 }
 
 @layer base {
