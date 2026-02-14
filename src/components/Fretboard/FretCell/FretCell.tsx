@@ -21,19 +21,6 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
     fretIndex,
   });
 
-  const handleClick = () => {
-    if (isShapeRootNote) {
-      actions.setNextShapeVariantLocationData(stringIndex, fretIndex);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (isShapeRootNote && (e.key === "Enter" || e.key === " ")) {
-      e.preventDefault();
-      handleClick();
-    }
-  };
-
   return (
     <S.Fret $isLockedNote={isLockedNote} $lockedRoleId={states.lockedRoleId} data-fret={fretIndex}>
       {isShapeRootNote && <VariantProgressDots stringIndex={stringIndex} fretIndex={fretIndex} />}
@@ -46,10 +33,6 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
         $isRoleSelected={isRoleSelected}
         onMouseEnter={() => actions.setActiveNoteId(noteData.noteId)}
         onMouseLeave={() => actions.setActiveNoteId(null)}
-        // onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        role={isShapeRootNote ? "button" : undefined}
-        tabIndex={isShapeRootNote ? 0 : -1}
       >
         <NoteLabel
           isHighlighted={isShapeNote}

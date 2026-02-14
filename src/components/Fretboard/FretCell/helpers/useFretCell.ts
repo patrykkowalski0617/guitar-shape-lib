@@ -1,7 +1,6 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { UNIFIED_MUSIC_KEYS } from "@/utils";
-import { useShapeVariantIterator } from "./useShapeVariantIterator";
 import type { HighlightRole } from "@/utils/roleColors";
 
 export const useFretCell = () => {
@@ -9,8 +8,6 @@ export const useFretCell = () => {
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const lockedRoleId = useMusicStore((state) => state.lockedRoleId);
-
-  const { setNextShapeVariantLocationData } = useShapeVariantIterator();
 
   const activeRole: HighlightRole = (currentRoleId as HighlightRole) || "none";
 
@@ -23,7 +20,6 @@ export const useFretCell = () => {
     },
     actions: {
       setActiveNoteId,
-      setNextShapeVariantLocationData,
     },
   };
 };

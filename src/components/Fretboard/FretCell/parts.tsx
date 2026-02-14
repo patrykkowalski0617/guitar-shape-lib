@@ -5,6 +5,7 @@ import styled, { css } from "styled-components";
 import { fretboardTransitionTime } from "./helpers/constants";
 import { transitionTime } from "@/utils/constants";
 import { DotsWrapper } from "../VariantProgressDots/parts";
+import { activeDotsStyles } from "../VariantProgressDots/constants";
 
 export const Fret = styled.div<{
   $isLockedNote: boolean;
@@ -24,11 +25,7 @@ export const Fret = styled.div<{
     `;
   }}
   &:hover ${DotsWrapper} {
-    transform: translate(-50%, 10%) scale(1);
-    background: color-mix(in oklab, var(--background) 90%, transparent);
-    box-shadow: 0 0 8px 8px var(--background);
-    color: var(--background);
-    padding: 5px;
+    ${activeDotsStyles}
   }
 `;
 

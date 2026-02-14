@@ -1,5 +1,5 @@
 import { numberOfFrets, STRINGS_CONFIG } from "@/components/Fretboard/FretboardRow/helpers/constants";
-import { STRING_MAP } from "@/components/Fretboard/FretCell/helpers";
+import { STRING_MAP } from "@/components/Fretboard/helpers/constants";
 import { useMusicStore } from "@/store/useMusicStore";
 import { getNotes, type Note } from "@/utils";
 import shapes from "@/utils/shapes";

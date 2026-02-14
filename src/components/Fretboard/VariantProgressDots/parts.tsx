@@ -1,6 +1,8 @@
 import styled, { css } from "styled-components";
+import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
+import { activeDotsStyles } from "./constants";
 
-export const DotsWrapper = styled.div`
+export const DotsWrapper = styled(ToggleGroupPrimitive.Root)`
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -15,6 +17,9 @@ export const DotsWrapper = styled.div`
   border-radius: 24px;
   transition: transform 0.025s ease-in-out;
   color: transparent;
+  &:focus-within {
+    ${activeDotsStyles}
+  }
 `;
 
 export const Dot = styled.div<{
