@@ -23,7 +23,7 @@ export const useShapeVariantIterator = () => {
 
     if (!variantsOfCurrentString) return;
 
-    const variantKeys = Object.keys(variantsOfCurrentString);
+    const variantIds = Object.keys(variantsOfCurrentString);
 
     const isMatchingLocation =
       currentShapeVariantLocationData?.stringId === stringId &&
@@ -33,11 +33,11 @@ export const useShapeVariantIterator = () => {
     let nextIndex = 0;
 
     if (isMatchingLocation && currentShapeVariantLocationData) {
-      const currentIndex = variantKeys.indexOf(currentShapeVariantLocationData.variantId);
-      nextIndex = currentIndex !== -1 ? (currentIndex + 1) % variantKeys.length : 0;
+      const currentIndex = variantIds.indexOf(currentShapeVariantLocationData.variantId);
+      nextIndex = currentIndex !== -1 ? (currentIndex + 1) % variantIds.length : 0;
     }
 
-    const activeVariantId = variantKeys[nextIndex];
+    const activeVariantId = variantIds[nextIndex];
 
     setCurrentShapeVariantLocationData({
       currentShapeId,

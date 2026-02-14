@@ -1,43 +1,58 @@
 import * as S from "./parts";
-import { STRING_MAP } from "../FretCell/helpers/useShapeVariantIterator";
 import shapes from "@/utils/shapes";
+import { STRING_MAP } from "../FretCell/helpers/useShapeVariantIterator";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useProgressStore } from "@/store/useProgressStore";
-import type { StringIndex } from "../FretboardRow/FretboardRow";
 import { useMusicStore } from "@/store/useMusicStore";
+import type { StringIndex } from "../FretboardRow/FretboardRow";
 
-export default function VariantProgressDots({
-  stringIndex,
-  fretIndex,
-}: {
+interface Props {
   stringIndex: StringIndex;
   fretIndex: number;
-}) {
-  const { learned } = useProgressStore();
+}
+
+export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
+  const { learned, toggleLearned } = useProgressStore();
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
+  const { currentShapeVariantLocationData, setCurrentShapeVariantLocationData } = useMusicStore();
 
   const stringId = STRING_MAP[stringIndex];
-  const fretboardCoordinatesVariants = currentShapeId ? shapes[currentShapeId].fretboardCoordinatesVariants : null;
+  const currentShape = currentShapeId ? shapes[currentShapeId] : null;
+  const variants =
+    currentShape?.fretboardCoordinatesVariants?.[stringId as keyof typeof currentShape.fretboardCoordinatesVariants];
 
-  const variantsOfCurrentString = fretboardCoordinatesVariants?.[stringId as keyof typeof fretboardCoordinatesVariants];
+  if (!variants || !currentShapeId) return null;
 
-  if (!variantsOfCurrentString) return null;
+  const handleDotClick = (variantId: string, dotId: string, isActive: boolean) => () => {
+    if (isActive) {
+      toggleLearned(dotId);
+      return;
+    }
+
+    setCurrentShapeVariantLocationData({
+      currentShapeId,
+      stringId,
+      fretIdx: fretIndex,
+      variantId,
+    });
+  };
 
   return (
     <S.DotsWrapper>
-      {Object.entries(variantsOfCurrentString).map(([variantKey]) => {
-        const dotId = `${currentShapeId}-${stringId}-${variantKey}`;
+      {Object.entries(variants).map(([variantId]) => {
+        const dotId = `${currentShapeId}-${stringId}-${variantId}`;
+
+        const isActive =
+          currentShapeVariantLocationData?.variantId === variantId &&
+          currentShapeVariantLocationData?.fretIdx === fretIndex &&
+          currentShapeVariantLocationData?.stringId === stringId;
 
         return (
           <S.Dot
             key={dotId}
             $isLearned={learned.includes(dotId)}
-            $isActive={
-              currentShapeVariantLocationData?.variantId === variantKey &&
-              fretIndex === currentShapeVariantLocationData.fretIdx &&
-              stringId === currentShapeVariantLocationData?.stringId
-            }
+            $isActive={isActive}
+            onClick={handleDotClick(variantId, dotId, isActive)}
           />
         );
       })}
