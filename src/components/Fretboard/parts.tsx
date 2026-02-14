@@ -14,7 +14,7 @@ export const Fretboard = styled.div`
       &::before {
         content: "";
         position: absolute;
-        height: 100%;
+        height: 35px;
         width: 2px;
         border-radius: 2px;
         background: color-mix(in oklab, var(--primary) 80%, transparent);
