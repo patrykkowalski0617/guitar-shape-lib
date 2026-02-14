@@ -36,7 +36,7 @@ export const Dot = styled.div<{
   font-size: 12px;
   line-height: 1;
   font-weight: bold;
-  background-color: ${({ $isLearned }) => ($isLearned ? "var(--primary)" : "var(--accent)")};
+  background-color: ${({ $isLearned }) => ($isLearned ? "var(--tension)" : "var(--accent)")};
   cursor: pointer;
   transition:
     transform 0.1s ease-in-out,
@@ -47,10 +47,10 @@ export const Dot = styled.div<{
     css`
       transform: scale(1.3);
       z-index: 1;
-      ${$isLearned ? "background-color: color-mix(in oklab, var(--primary) 60%, #fff);" : "filter: brightness(2);"};
+      ${$isLearned ? "background-color: color-mix(in oklab, var(--tension) 70%, #fff);" : "filter: brightness(2);"};
     `}
   &:hover {
     ${({ $isLearned }) =>
-      $isLearned ? "background-color: color-mix(in oklab, var(--primary) 60%, #fff);" : "filter: brightness(2);"};
+      $isLearned ? "background-color: color-mix(in oklab, var(--tension) 70%, #fff);" : "filter: brightness(2);"};
   }
 `;
