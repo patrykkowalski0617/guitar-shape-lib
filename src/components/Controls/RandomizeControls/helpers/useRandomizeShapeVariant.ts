@@ -56,16 +56,16 @@ export const useRandomizeShapeVariant = () => {
 
     if (variantsOfCurrentString === undefined) return;
 
-    const variantKeys = Object.keys(variantsOfCurrentString);
+    const variantIds = Object.keys(variantsOfCurrentString);
 
-    let availableVariants = [...variantKeys];
+    let availableVariants = [...variantIds];
 
     if (fretIdx <= MIN_FRET) {
-      const half = Math.ceil(variantKeys.length / 2);
-      availableVariants = variantKeys.slice(0, half);
+      const half = Math.ceil(variantIds.length / 2);
+      availableVariants = variantIds.slice(0, half);
     } else if (fretIdx >= MAX_FRET) {
-      const half = Math.floor(variantKeys.length / 2);
-      availableVariants = variantKeys.slice(half);
+      const half = Math.floor(variantIds.length / 2);
+      availableVariants = variantIds.slice(half);
     }
     const randomVariantId = availableVariants[Math.floor(Math.random() * availableVariants.length)];
 

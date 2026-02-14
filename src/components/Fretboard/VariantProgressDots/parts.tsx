@@ -4,39 +4,43 @@ export const DotsWrapper = styled.div`
   position: absolute;
   display: flex;
   flex-direction: row;
-  gap: 1px;
+  gap: 3px;
   left: 50%;
   top: -5px;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(0.33);
+  transform-origin: center top;
   z-index: 30;
+  background-color: var(--background);
+  padding: 6px 9px;
+  border-radius: 18px;
+  transition: transform 0.1s ease-in-out;
+  &:hover {
+    transform: translateX(-50%) scale(1);
+  }
 `;
 
 export const Dot = styled.div<{
   $isLearned: boolean;
   $isActive: boolean;
 }>`
-  width: 7px;
-  height: 9px;
-  border-radius: 3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
   position: relative;
-  border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
-  background-color: ${({ $isLearned }) => {
-    if ($isLearned) return "var(--accent)";
-    return "var(--background)";
-  }};
-  border-color: ${({ $isLearned }) => {
-    if ($isLearned) return "var(--background)";
-    return "var(--accent)";
-  }};
+  background-color: ${({ $isLearned }) => ($isLearned ? "var(--primary)" : "var(--accent)")};
+
   filter: brightness(1.2);
+  transition:
+    transform 0.1s ease-in-out,
+    background-color 0.1s ease,
+    filter 0.1s;
+  will-change: transform, filter;
+
   ${({ $isActive }) =>
     $isActive &&
     css`
-      transform: scale(1.3) translateY(-1px);
+      transform: scale(1.3);
       z-index: 1;
+      filter: brightness(2);
     `}
-  will-change: transform, background-color;
-  transition:
-    transform 0.1s ease-in-out,
-    background-color 0.1s ease;
 `;
