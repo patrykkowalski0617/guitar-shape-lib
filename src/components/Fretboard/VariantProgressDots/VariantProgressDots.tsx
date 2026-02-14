@@ -6,6 +6,7 @@ import { useProgressStore } from "@/store/useProgressStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import type { StringIndex } from "../FretboardRow/FretboardRow";
 import { STRING_MAP } from "../helpers/constants";
+import { toast } from "sonner";
 
 interface Props {
   stringIndex: StringIndex;
@@ -28,10 +29,19 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
   const isCorrectLocation =
     currentShapeVariantLocationData?.fretIdx === fretIndex && currentShapeVariantLocationData?.stringId === stringId;
 
+  const handleToggleLearned = (dotId: string) => {
+    const isAdding = !learned.includes(dotId);
+    toggleLearned(dotId);
+
+    toast(isAdding ? "Added to 'learned'." : "Removed from 'learned'.", {
+      duration: 5000,
+    });
+  };
+
   const onValueChange = (newVariantId: string) => {
     if (!newVariantId) {
       if (activeVariantId && isCorrectLocation) {
-        toggleLearned(`${currentShapeId}-${stringId}-${activeVariantId}`);
+        handleToggleLearned(`${currentShapeId}-${stringId}-${activeVariantId}`);
       }
       return;
     }

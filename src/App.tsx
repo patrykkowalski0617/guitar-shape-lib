@@ -14,6 +14,7 @@ import {
 } from "./components/Controls";
 import { getTSD_HSLColor } from "./utils/getTSD_HSLColor";
 import FullscreenButton from "./components/FullscreenButton/FullscreenButton";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function App() {
   const { tonicColor, subdominantColor, dominantColor } = useSettingsStore();
@@ -26,6 +27,7 @@ export default function App() {
 
   return (
     <AppWrapper style={roleColors}>
+      <Toaster position="top-center" />
       <Header />
       <FullscreenButton />
       <MainContent>

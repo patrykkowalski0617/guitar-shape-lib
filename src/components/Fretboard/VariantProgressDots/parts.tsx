@@ -45,7 +45,7 @@ export const Dot = styled.div<{
   ${({ $isActive, $isLearned }) =>
     $isActive &&
     css`
-      transform: scale(1.2);
+      transform: scale(1.3);
       z-index: 1;
       ${$isLearned ? "background-color: color-mix(in oklab, var(--primary) 60%, #fff);" : "filter: brightness(2);"};
     `}

@@ -48,12 +48,6 @@ Unlike the fretboard, which displays every possible arpeggio/scale variant acros
     x: -23,
     y: -19,
   },
-  ADD_LEARNED: {
-    title: "Add to Learned",
-    description: `Adds the current shape and its selected variant to your 'Learned' list. Your data is stored locally in the browser's memory. Remember to use the Export and Import features regularly to back up your progress and prevent potential data loss.`,
-    x: -23,
-    y: -19,
-  },
 } as const;
 
 export type TutorialKey = keyof typeof TUTORIAL_CONTENT;
