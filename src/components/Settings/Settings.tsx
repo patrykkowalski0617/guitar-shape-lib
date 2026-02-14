@@ -11,7 +11,7 @@ import {
 import * as S from "./parts";
 import { Settings as Gear, RotateCcw } from "lucide-react";
 import Tutorial from "./Tutorial/Tutorial";
-import { ExportProgressFile, ImportProgressFile, MarkAsLearned } from "./Progress/ProgressButtons";
+import { ExportProgressFile, ImportProgressFile } from "./Progress/ProgressButtons";
 import ColorsPresetsSetting from "./ColorsPresetsSetting/ColorsPresetsSetting";
 import ColorsSetting from "./ColorsSetting/ColorsSetting";
 import { useSettingsStore } from "@/store/useSettingsStore";
@@ -40,9 +40,6 @@ export function Settings() {
           <div className="no-scrollbar overflow-y-auto px-4">
             <div className="px-6 py-2">
               <Tutorial />
-            </div>
-            <div className="px-6 py-2">
-              <MarkAsLearned />
             </div>
             <div className="px-6 py-2">
               <ExportProgressFile />
