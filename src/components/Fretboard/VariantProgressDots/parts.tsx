@@ -13,7 +13,7 @@ export const DotsWrapper = styled.div`
   background-color: var(--background);
   padding: 8px 12px;
   border-radius: 24px;
-  transition: transform 0.1s ease-in-out;
+  transition: transform 0.025s ease-in-out;
   color: transparent;
 `;
 
@@ -32,18 +32,20 @@ export const Dot = styled.div<{
   line-height: 1;
   font-weight: bold;
   background-color: ${({ $isLearned }) => ($isLearned ? "var(--primary)" : "var(--accent)")};
-  filter: brightness(1.2);
+  cursor: pointer;
   transition:
     transform 0.1s ease-in-out,
-    background-color 0.1s ease,
+    background-color 0.3s ease,
     filter 0.1s;
-  will-change: transform, filter;
-
-  ${({ $isActive }) =>
+  ${({ $isActive, $isLearned }) =>
     $isActive &&
     css`
       transform: scale(1.2);
       z-index: 1;
-      filter: brightness(2);
+      ${$isLearned ? "background-color: color-mix(in oklab, var(--primary) 60%, #fff);" : "filter: brightness(2);"};
     `}
+  &:hover {
+    ${({ $isLearned }) =>
+      $isLearned ? "background-color: color-mix(in oklab, var(--primary) 60%, #fff);" : "filter: brightness(2);"};
+  }
 `;
