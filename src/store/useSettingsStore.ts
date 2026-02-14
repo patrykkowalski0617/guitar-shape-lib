@@ -16,9 +16,9 @@ interface SettingsState {
 
 const initialState = {
   isTutorialOn: true,
-  tonicColor: COLOR_PRESETS[14][0],
-  subdominantColor: COLOR_PRESETS[14][1],
-  dominantColor: COLOR_PRESETS[14][2],
+  tonicColor: COLOR_PRESETS[3][0],
+  subdominantColor: COLOR_PRESETS[3][1],
+  dominantColor: COLOR_PRESETS[3][2],
 };
 
 export const useSettingsStore = create<SettingsState>()(
