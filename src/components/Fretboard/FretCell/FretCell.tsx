@@ -46,7 +46,7 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
         $isRoleSelected={isRoleSelected}
         onMouseEnter={() => actions.setActiveNoteId(noteData.noteId)}
         onMouseLeave={() => actions.setActiveNoteId(null)}
-        onClick={handleClick}
+        // onClick={handleClick}
         onKeyDown={handleKeyDown}
         role={isShapeRootNote ? "button" : undefined}
         tabIndex={isShapeRootNote ? 0 : -1}

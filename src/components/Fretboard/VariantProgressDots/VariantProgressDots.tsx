@@ -39,7 +39,7 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
 
   return (
     <S.DotsWrapper>
-      {Object.entries(variants).map(([variantId]) => {
+      {Object.entries(variants).map(([variantId], i) => {
         const dotId = `${currentShapeId}-${stringId}-${variantId}`;
 
         const isActive =
@@ -53,7 +53,9 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
             $isLearned={learned.includes(dotId)}
             $isActive={isActive}
             onClick={handleDotClick(variantId, dotId, isActive)}
-          />
+          >
+            {i + 1}
+          </S.Dot>
         );
       })}
     </S.DotsWrapper>
