@@ -4,31 +4,34 @@ export const DotsWrapper = styled.div`
   position: absolute;
   display: flex;
   flex-direction: row;
-  gap: 3px;
+  gap: 4px;
   left: 50%;
   top: -5px;
-  transform: translateX(-50%) scale(0.33);
+  transform: translateX(-50%) scale(0.25);
   transform-origin: center top;
   z-index: 30;
   background-color: var(--background);
-  padding: 6px 9px;
-  border-radius: 18px;
+  padding: 8px 12px;
+  border-radius: 24px;
   transition: transform 0.1s ease-in-out;
-  &:hover {
-    transform: translateX(-50%) scale(1);
-  }
+  color: transparent;
 `;
 
 export const Dot = styled.div<{
   $isLearned: boolean;
   $isActive: boolean;
 }>`
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: bold;
   background-color: ${({ $isLearned }) => ($isLearned ? "var(--primary)" : "var(--accent)")};
-
   filter: brightness(1.2);
   transition:
     transform 0.1s ease-in-out,
@@ -39,7 +42,7 @@ export const Dot = styled.div<{
   ${({ $isActive }) =>
     $isActive &&
     css`
-      transform: scale(1.3);
+      transform: scale(1.2);
       z-index: 1;
       filter: brightness(2);
     `}
