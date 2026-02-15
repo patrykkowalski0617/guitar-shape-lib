@@ -15,7 +15,6 @@ export const DotsWrapper = styled(ToggleGroupPrimitive.Root)`
   background-color: var(--background);
   padding: 8px 12px;
   border-radius: 24px;
-  transition: transform 0.025s ease-in-out;
   color: transparent;
   &:focus-within {
     ${activeDotsStyles}
@@ -33,7 +32,7 @@ export const Dot = styled.div<{
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 1;
   font-weight: bold;
   background-color: ${({ $isLearned }) => ($isLearned ? "var(--tension)" : "var(--accent)")};
