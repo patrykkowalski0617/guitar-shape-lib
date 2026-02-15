@@ -14,7 +14,9 @@ Unlike the fretboard, which displays every possible arpeggio/scale variant acros
   },
   FRETBOARD: {
     title: "Fretboard",
-    description: `Once a function is selected, the app highlights the root notes of the chosen arpeggio/scale. You can then tap any root note to cycle through the available shape variants across the neck.`,
+    description: `Once a function is selected, the app highlights all corresponding root notes. Interact with any root note to reveal available shape variants, then select a numbered dot to display it. 
+    
+    Clicking the active dot again will toggle it as "learned" to track your progress.`,
     x: 10,
     y: 0,
   },
