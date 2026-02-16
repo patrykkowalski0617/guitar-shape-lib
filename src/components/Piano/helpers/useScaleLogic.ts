@@ -1,7 +1,8 @@
 import { useControlsStore } from "@/store/useControlsStore";
-import { getNotes, hramonicMinorScale, majorScale, minorScale, UNIFIED_MUSIC_KEYS, type Note } from "@/utils";
-import shapes, { type Shape } from "@/utils/shapes";
-import { matchNotesToTarget } from "./matchNotesToTarget";
+import { shapes, type Shape, hramonicMinorScale, majorScale, minorScale, UNIFIED_MUSIC_KEYS } from "@/data";
+import { matchShapeNotesToRoleNotes } from "./matchShapeNotesToRoleNotes";
+import { getNotes } from "@/utils";
+import { type Note } from "@/data";
 
 export const useScaleLogic = () => {
   const { isMajorMode, currentKeyId, currentRoleId, currentShapeId, currentShapeSemitoneOffsetFromC } =
@@ -82,7 +83,7 @@ export const useScaleLogic = () => {
       .filter((_, i) => shapeIntervals.includes(i))
       .map(({ noteId }) => noteId);
 
-    currentShapeNoteIds = matchNotesToTarget(currentRoleNoteIds, shapeSharpNoteId);
+    currentShapeNoteIds = matchShapeNotesToRoleNotes(currentRoleNoteIds, shapeSharpNoteId);
   }
 
   return { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds };

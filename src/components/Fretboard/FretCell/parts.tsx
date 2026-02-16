@@ -1,11 +1,11 @@
 import { instrumentElBRadius } from "@/parts";
-import { roleColors, type HighlightRole } from "@/utils/roleColors";
-import type { RoleId } from "@/utils";
+import { roleColors, type HighlightRole } from "@/data/roleColors";
 import styled, { css } from "styled-components";
 import { fretboardTransitionTime } from "./helpers/constants";
-import { transitionTime } from "@/utils/constants";
-import { DotsWrapper } from "../VariantProgressDots/parts";
-import { activeDotsStyles } from "../VariantProgressDots/constants";
+import { transitionTime } from "@/data/constants";
+import { DotsWrapper } from "@/components/Fretboard/VariantProgressDots/parts";
+import { activeDotsStyles } from "@/components/Fretboard/VariantProgressDots/constants";
+import type { RoleId } from "@/data/roles";
 
 export const Fret = styled.div<{
   $isLockedNote: boolean;

@@ -1,4 +1,4 @@
-import { type Note } from "@/utils";
+import { type Note } from "@/data";
 
 export interface MusicKeyInfo {
   readonly offsetFromC: number;

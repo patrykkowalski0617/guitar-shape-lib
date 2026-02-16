@@ -26,7 +26,7 @@ export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null
         const containerRect = container.getBoundingClientRect();
         const elementRect = targetCell.getBoundingClientRect();
 
-        const targetScrollLeft = container.scrollLeft + (elementRect.left - containerRect.left) - 35;
+        const targetScrollLeft = container.scrollLeft + (elementRect.left - containerRect.left) - 60;
 
         container.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
       }

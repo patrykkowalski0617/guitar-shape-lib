@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Dices } from "lucide-react";
-import { useRandomizeMode } from "./helpers/useRandomizeMode";
-import { useRandomizeKey } from "./helpers/useRandomizeKey";
-import { useRandomizeRole } from "./helpers/useRandomizeRole";
-import { useRandomizeShape } from "./helpers/useRandomizeShape";
-import { useRandomizeShapeVariant } from "./helpers/useRandomizeShapeVariant";
+import { useRandomizeMode } from "./hooks/useRandomizeMode";
+import { useRandomizeKey } from "./hooks/useRandomizeKey";
+import { useRandomizeRole } from "./hooks/useRandomizeRole";
+import { useRandomizeShape } from "./hooks/useRandomizeShape";
+import { useRandomizeShapeVariant } from "./hooks/useRandomizeShapeVariant";
 import { ControlWrapper } from "@/parts";
 
 export function RandomizeControls() {

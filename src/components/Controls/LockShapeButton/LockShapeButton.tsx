@@ -7,15 +7,9 @@ import { TUTORIAL_CONTENT } from "@/components/TutorialPopover/tutorial.config";
 import { Button } from "@/components/ui/button";
 
 export function LockShapeButton() {
-  const setLockedShapeVariantLocationData = useMusicStore(
-    (state) => state.setLockedShapeVariantLocationData,
-  );
-  const currentShapeVariantLocationData = useMusicStore(
-    (state) => state.currentShapeVariantLocationData,
-  );
-  const lockedShapeVariantLocationData = useMusicStore(
-    (state) => state.lockedShapeVariantLocationData,
-  );
+  const setLockedShapeVariantLocationData = useMusicStore((state) => state.setLockedShapeVariantLocationData);
+  const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
+  const lockedShapeVariantLocationData = useMusicStore((state) => state.lockedShapeVariantLocationData);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const setLockedRoleId = useMusicStore((state) => state.setLockedRoleId);
 
@@ -53,11 +47,7 @@ export function LockShapeButton() {
         fixedWidthLabel={labelPlaceholder}
       >
         <span className="flex items-center justify-center gap-2">
-          {isLocked ? (
-            <Lock className="h-3.5 w-3.5 fill-current" />
-          ) : (
-            <LockOpen className="h-3.5 w-3.5 opacity-50" />
-          )}
+          {isLocked ? <Lock className="h-3.5 w-3.5 fill-current" /> : <LockOpen className="h-3.5 w-3.5 opacity-50" />}
           <span>{isLocked ? txtIsTrue : txtIsFalse}</span>
         </span>
       </Button>

@@ -1,6 +1,6 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { roles, type RoleData, type RoleId } from "@/utils";
+import { roles, type RoleData, type RoleId } from "@/data";
 import { TUTORIAL_CONTENT } from "../../TutorialPopover/tutorial.config";
 import TutorialPopover from "../../TutorialPopover/TutorialPopover";
 import { ControlLabel, ControlWrapper } from "@/parts";

@@ -1,36 +1,4 @@
-export const NOTES_SHARP = [
-  "C",
-  "C#",
-  "D",
-  "D#",
-  "E",
-  "F",
-  "F#",
-  "G",
-  "G#",
-  "A",
-  "A#",
-  "B",
-] as const;
-
-export const NOTES_FLAT = [
-  "C",
-  "Db",
-  "D",
-  "Eb",
-  "E",
-  "F",
-  "Gb",
-  "G",
-  "Ab",
-  "A",
-  "Bb",
-  "B",
-] as const;
-
-export type NoteSharp = (typeof NOTES_SHARP)[number];
-export type NoteFlat = (typeof NOTES_FLAT)[number];
-export type Note = NoteSharp | NoteFlat;
+import { NOTES_FLAT, NOTES_SHARP, type NoteFlat, type NoteSharp } from "@/data";
 
 export interface NoteObject {
   sharpNoteName: NoteSharp;
@@ -38,20 +6,17 @@ export interface NoteObject {
   octaveNumber: number;
   isEnharmonic: boolean;
   noteId: string;
-  noteIndex: number;
-}
-
-interface GetNotesArgs {
-  firstNote?: NoteSharp | NoteFlat;
-  firstOctave?: number;
-  length?: number;
 }
 
 export const getNotes = ({
   firstNote = "C",
   firstOctave = 0,
   length = 12,
-}: GetNotesArgs): NoteObject[] => {
+}: {
+  firstNote?: NoteSharp | NoteFlat;
+  firstOctave?: number;
+  length?: number;
+}): NoteObject[] => {
   const startIndex =
     (NOTES_SHARP as readonly string[]).indexOf(firstNote) !== -1
       ? (NOTES_SHARP as readonly string[]).indexOf(firstNote)
@@ -78,7 +43,6 @@ export const getNotes = ({
       octaveNumber,
       isEnharmonic,
       noteId,
-      noteIndex,
     };
   });
 };

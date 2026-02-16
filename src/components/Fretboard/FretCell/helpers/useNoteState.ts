@@ -1,9 +1,10 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
-import { getNotes, type NoteSharp } from "@/utils";
-import { useShapeNotes, isShapeNote } from "./useShapeNotes"; // Importujemy hook i helper
+import { getNotes } from "@/utils";
+import { type NoteSharp } from "@/data";
+import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
+import { useShapeNotes, isShapeNote } from "./useShapeNotes";
 import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
-import type { StringIndex } from "../../FretboardRow/FretboardRow";
 
 interface UseFretCellProp {
   sharpNoteName: NoteSharp;

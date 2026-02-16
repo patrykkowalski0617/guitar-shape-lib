@@ -1,7 +1,8 @@
 import * as S from "./parts";
 import { useRef, type JSX } from "react";
 import FretCell from "../FretCell/FretCell";
-import { getNotes, type Note, type NoteSharp } from "@/utils";
+import { getNotes } from "@/utils";
+import { type Note, type NoteSharp } from "@/data";
 import { numberOfFrets } from "./helpers/constants";
 
 export type StringIndex = 0 | 1 | 2 | 3 | 4 | 5;

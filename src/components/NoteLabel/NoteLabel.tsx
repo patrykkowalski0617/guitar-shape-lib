@@ -1,6 +1,6 @@
 import { type JSX } from "react";
 import * as S from "./parts";
-import { type Note } from "@/utils";
+import { type Note } from "@/data";
 import { MainLabel, OptionalLabel } from "@/components/NoteLabel/parts";
 
 export type Variant = "fretboard" | "piano";

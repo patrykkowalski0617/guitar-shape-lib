@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import { type RoleId } from "@/utils";
+import { type RoleId } from "@/data";
 
-export interface CurrentShapeVariantLocation {
-  currentShapeId: string | null;
+export interface ShapeVariantLocationData {
+  shapeId: string | null;
   stringId: string;
-  fretIdx: number;
+  fretIndex: number;
   variantId: string;
 }
 
@@ -15,11 +15,11 @@ interface MusicState {
   lockedRoleId: RoleId | null;
   setLockedRoleId: (id: RoleId | null) => void;
 
-  currentShapeVariantLocationData: CurrentShapeVariantLocation | null;
-  setCurrentShapeVariantLocationData: (target: CurrentShapeVariantLocation | null) => void;
+  currentShapeVariantLocationData: ShapeVariantLocationData | null;
+  setCurrentShapeVariantLocationData: (target: ShapeVariantLocationData | null) => void;
 
-  lockedShapeVariantLocationData: CurrentShapeVariantLocation | null;
-  setLockedShapeVariantLocationData: (target: CurrentShapeVariantLocation | null) => void;
+  lockedShapeVariantLocationData: ShapeVariantLocationData | null;
+  setLockedShapeVariantLocationData: (target: ShapeVariantLocationData | null) => void;
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
@@ -30,10 +30,8 @@ export const useMusicStore = create<MusicState>((set) => ({
   setLockedRoleId: (points) => set({ lockedRoleId: points }),
 
   currentShapeVariantLocationData: null,
-  setCurrentShapeVariantLocationData: (currentShapeVariantLocationData) =>
-    set({ currentShapeVariantLocationData }),
+  setCurrentShapeVariantLocationData: (currentShapeVariantLocationData) => set({ currentShapeVariantLocationData }),
 
   lockedShapeVariantLocationData: null,
-  setLockedShapeVariantLocationData: (lockedShapeVariantLocationData) =>
-    set({ lockedShapeVariantLocationData }),
+  setLockedShapeVariantLocationData: (lockedShapeVariantLocationData) => set({ lockedShapeVariantLocationData }),
 }));

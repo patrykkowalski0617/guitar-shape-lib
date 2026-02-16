@@ -1,5 +1,6 @@
 import * as S from "./parts";
-import { majorScale, NOTES_SHARP, UNIFIED_MUSIC_KEYS, type NoteObject } from "@/utils";
+import { NOTES_SHARP, majorScale, UNIFIED_MUSIC_KEYS } from "@/data";
+import { type NoteObject } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useMusicStore } from "@/store/useMusicStore";
 import { useControlsStore } from "@/store/useControlsStore";

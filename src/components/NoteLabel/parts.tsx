@@ -1,4 +1,4 @@
-import { transitionTime } from "@/utils/constants";
+import { transitionTime } from "@/data/constants";
 import styled, { css } from "styled-components";
 import type { Variant } from "./NoteLabel";
 import { instrumentElBRadius } from "@/parts";
