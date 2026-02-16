@@ -1,7 +1,7 @@
 import * as S from "./parts";
 import type { NoteObject } from "@/utils";
-import VariantProgressDots from "../VariantProgressDots/VariantProgressDots";
-import type { StringIndex } from "../FretboardRow/FretboardRow";
+import VariantProgressDots from "@/components/Fretboard/VariantProgressDots/VariantProgressDots";
+import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretCell, useNoteState, useFretboardStates } from "./helpers";
 

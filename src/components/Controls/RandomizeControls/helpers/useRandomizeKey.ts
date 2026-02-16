@@ -1,5 +1,5 @@
 import { useControlsStore } from "@/store/useControlsStore";
-import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/utils";
+import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/data";
 
 export const useRandomizeKey = () => {
   const setCurrentKey = useControlsStore((state) => state.setCurrentKey);

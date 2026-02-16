@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import shapes from "@/utils/shapes";
+import { shapes } from "@/data";
 
 export const isShapeNote = (coords: [number, number], notesInSapeCoordinates: number[][]): boolean => {
   const [stringIndex, fretIndex] = coords;

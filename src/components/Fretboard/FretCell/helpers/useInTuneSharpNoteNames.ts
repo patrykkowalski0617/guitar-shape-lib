@@ -1,5 +1,6 @@
 import { useControlsStore } from "@/store/useControlsStore";
-import { getNotes, majorScale, UNIFIED_MUSIC_KEYS } from "@/utils";
+import { majorScale, UNIFIED_MUSIC_KEYS } from "@/data";
+import { getNotes } from "@/utils";
 
 export const useInTuneSharpNoteNames = () => {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);

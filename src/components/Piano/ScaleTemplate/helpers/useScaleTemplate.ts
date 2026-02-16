@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useControlsStore } from "@/store/useControlsStore";
-import { UNIFIED_MUSIC_KEYS } from "@/utils";
+import { UNIFIED_MUSIC_KEYS } from "@/data";
 
 type Role = "none" | "tonic" | "subdominant" | "dominant";
 

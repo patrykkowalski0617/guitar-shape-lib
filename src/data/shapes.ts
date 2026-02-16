@@ -1,32 +1,7 @@
 import { getIntervalSemitonesValues } from "./intervals";
 import type { RoleId } from "./roles";
 
-export const {
-  _1,
-  _m2,
-  _M2,
-  _m3,
-  _M3,
-  _4,
-  _T,
-  _5,
-  _m6,
-  _M6,
-  _m7,
-  _M7,
-  _8,
-  _m9,
-  _M9,
-  _m10,
-  _M10,
-  _11,
-  _TT,
-  _12,
-  _m13,
-  _M13,
-  _m14,
-  _M14,
-} = getIntervalSemitonesValues();
+const { _1, _m2, _M2, _m3, _M3, _4, _T, _5, _m6, _M6, _m7, _M7, _m9, _M9 } = getIntervalSemitonesValues();
 
 export type ShapeType = "Arpeggio" | "Scale" | "Set";
 
@@ -78,7 +53,7 @@ export const DEFAULT_SHAPES_CONFIG: Record<ModeRoleKey, ExistingShapeIds> = {
   minor_dominant: "dominant",
 };
 
-const shapes: Shapes = {
+export const shapes: Shapes = {
   M7: {
     label: "M7",
     type: "Arpeggio",
@@ -995,5 +970,3 @@ const shapes: Shapes = {
     },
   },
 };
-
-export default shapes;

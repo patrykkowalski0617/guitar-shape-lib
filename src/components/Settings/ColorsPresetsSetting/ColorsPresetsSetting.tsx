@@ -1,10 +1,10 @@
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { ControlLabel } from "@/parts";
 import * as S from "@/components/Settings/parts";
-import { getTSD_HSLColor } from "@/utils/getTSD_HSLColor";
-import ColorDots from "./ColorDots";
+import { getRoleHSLColor } from "@/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { COLOR_PRESETS } from "@/utils/constants";
+import { COLOR_PRESETS } from "@/data/constants";
+import ColorDots from "./ColorDots";
 
 export default function ColorsPresetsSetting() {
   const { tonicColor, setTonicColor, subdominantColor, setSubdominantColor, dominantColor, setDominantColor } =
@@ -35,7 +35,7 @@ export default function ColorsPresetsSetting() {
             return (
               <SelectItem key={val} value={val}>
                 <ColorDots
-                  colors={[getTSD_HSLColor(preset[0]), getTSD_HSLColor(preset[1]), getTSD_HSLColor(preset[2])]}
+                  colors={[getRoleHSLColor(preset[0]), getRoleHSLColor(preset[1]), getRoleHSLColor(preset[2])]}
                   size={18}
                 />
               </SelectItem>

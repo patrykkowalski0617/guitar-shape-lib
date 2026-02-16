@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { instrumentBRadius, instrumentElBRadius } from "@/parts";
-import { transitionTime } from "@/utils/constants";
-import { roleColors, type HighlightRole } from "../../../utils/roleColors";
+import { transitionTime } from "@/data/constants";
+import { roleColors, type HighlightRole } from "../../../data/roleColors";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 

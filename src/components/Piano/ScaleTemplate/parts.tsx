@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { KEY_PADDING, KEY_WIDTH_CSS, LEFT_PADDING_FACTOR } from "../helpers/constants";
-import { transitionTime } from "@/utils/constants";
-import type { HighlightRole } from "../../../utils/roleColors";
-import { roleColors } from "../../../utils/roleColors";
+import { transitionTime } from "@/data/constants";
+import type { HighlightRole } from "../../../data/roleColors";
+import { roleColors } from "../../../data/roleColors";
 
 interface MarkerProps {
   $step: number;

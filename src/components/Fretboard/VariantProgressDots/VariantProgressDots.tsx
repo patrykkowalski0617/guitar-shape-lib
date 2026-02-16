@@ -1,6 +1,6 @@
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
 import * as S from "./parts";
-import shapes from "@/utils/shapes";
+import { shapes } from "@/data";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useProgressStore } from "@/store/useProgressStore";
 import { useMusicStore } from "@/store/useMusicStore";

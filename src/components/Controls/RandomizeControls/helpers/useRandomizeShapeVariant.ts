@@ -2,7 +2,7 @@ import { numberOfFrets, STRINGS_CONFIG } from "@/components/Fretboard/FretboardR
 import { STRING_MAP } from "@/components/Fretboard/helpers/constants";
 import { useMusicStore } from "@/store/useMusicStore";
 import { getNotes, type Note } from "@/utils";
-import shapes from "@/utils/shapes";
+import { shapes } from "@/data";
 import { useEffect, useState } from "react";
 
 const MAX_FRET = numberOfFrets - 4;

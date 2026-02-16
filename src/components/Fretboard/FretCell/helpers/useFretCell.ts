@@ -1,7 +1,6 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
-import { UNIFIED_MUSIC_KEYS } from "@/utils";
-import type { HighlightRole } from "@/utils/roleColors";
+import { UNIFIED_MUSIC_KEYS, type HighlightRole } from "@/data";
 
 export const useFretCell = () => {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);

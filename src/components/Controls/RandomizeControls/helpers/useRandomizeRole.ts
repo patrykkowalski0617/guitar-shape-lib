@@ -1,5 +1,5 @@
 import { useControlsStore } from "@/store/useControlsStore";
-import { roles, type RoleId } from "@/utils";
+import { roles, type RoleId } from "@/data";
 
 export const useRandomizeRole = () => {
   const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);

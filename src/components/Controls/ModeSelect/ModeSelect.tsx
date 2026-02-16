@@ -1,6 +1,6 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { musicMode, type MusicModeId } from "@/utils";
+import { musicMode, type MusicModeId } from "@/data";
 import TutorialPopover from "../../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../../TutorialPopover/tutorial.config";
 import { ControlLabel, ControlWrapper } from "@/parts";

@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useControlsStore } from "@/store/useControlsStore";
-import shapes, { type Shapes } from "@/utils/shapes";
-import { getNotes, UNIFIED_MUSIC_KEYS } from "@/utils";
+import { shapes, type Shapes, UNIFIED_MUSIC_KEYS } from "@/data";
+import { getNotes } from "@/utils";
 import { getFilteredShapeOptions } from "./helpers/shapeHelpers";
 import { ControlLabel, ControlWrapper } from "@/parts";
 import TutorialPopover from "@/components/TutorialPopover/TutorialPopover";

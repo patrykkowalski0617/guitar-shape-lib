@@ -1,4 +1,4 @@
-import shapes, { DEFAULT_SHAPES_CONFIG, type Shapes } from "@/utils/shapes";
+import { shapes, DEFAULT_SHAPES_CONFIG, type Shapes } from "@/data";
 
 export const getFilteredShapeOptions = (currentRoleId: string | null, isMajorMode: boolean) => {
   if (!currentRoleId) return [];
@@ -28,9 +28,7 @@ export const getFilteredShapeOptions = (currentRoleId: string | null, isMajorMod
 export const getAutoSelectedShape = (roleId: string, isMajorMode: boolean) => {
   const options = getFilteredShapeOptions(roleId, isMajorMode);
 
-  const configKey = `${
-    isMajorMode ? "major" : "minor"
-  }_${roleId}` as keyof typeof DEFAULT_SHAPES_CONFIG;
+  const configKey = `${isMajorMode ? "major" : "minor"}_${roleId}` as keyof typeof DEFAULT_SHAPES_CONFIG;
   const defaultShapeId = DEFAULT_SHAPES_CONFIG[configKey];
 
   const defaultOption = options.find((opt) => opt.shapeId === defaultShapeId);

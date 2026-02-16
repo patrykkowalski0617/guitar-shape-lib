@@ -30,13 +30,12 @@ export const INTERVALS = {
   _M14: { semitones: 23, unifiedName: "M14" },
 } as const;
 
-export const getSemitones = (keys: IntervalKey[]): number[] =>
-  keys.map((key) => INTERVALS[key].semitones);
+export const getSemitones = (keys: IntervalKey[]): number[] => keys.map((key) => INTERVALS[key].semitones);
 
 export const getIntervalSemitonesValues = () => {
-  return Object.fromEntries(
-    Object.entries(INTERVALS).map(([key, value]) => [key, value.semitones]),
-  ) as { [K in keyof typeof INTERVALS]: number };
+  return Object.fromEntries(Object.entries(INTERVALS).map(([key, value]) => [key, value.semitones])) as {
+    [K in keyof typeof INTERVALS]: number;
+  };
 };
 
 export type IntervalKey = keyof typeof INTERVALS;

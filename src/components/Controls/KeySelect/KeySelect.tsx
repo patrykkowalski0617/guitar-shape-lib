@@ -1,5 +1,5 @@
 import { useControlsStore } from "@/store/useControlsStore";
-import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/utils";
+import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/data";
 import TutorialPopover from "../../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../../TutorialPopover/tutorial.config";
 import { SelectPrevNext } from "../../ui/select-prev-next";
