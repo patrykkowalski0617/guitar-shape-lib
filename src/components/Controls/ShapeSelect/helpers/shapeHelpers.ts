@@ -35,7 +35,7 @@ export const getAutoSelectedShape = (roleId: string, isMajorMode: boolean) => {
   const finalSelection = defaultOption || options[0];
 
   return {
-    shapeId: (finalSelection?.shapeId as string) ?? null,
-    offset: finalSelection?.offset ?? null,
+    shapeId: finalSelection ? String(finalSelection.shapeId) : null,
+    offset: finalSelection ? finalSelection.offset : null,
   };
 };

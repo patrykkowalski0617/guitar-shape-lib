@@ -810,6 +810,7 @@ export const shapes: Shapes = {
     type: "Scale",
     intervals: [_1, _M2, _M3, _T, _5, _M6, _M7],
     semitoneOffsetFromMajorTonicRootForRoles: {
+      tonic: { majorMode: [_1] },
       subdominant: { majorMode: [_4] },
     },
     fretboardCoordinatesVariants: {

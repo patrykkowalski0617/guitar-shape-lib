@@ -9,7 +9,7 @@ export const useRandomizeShape = () => {
     const shapeOptions = getFilteredShapeOptions(randomRole, randomIsMajorMode);
 
     const randomShape = shapeOptions[Math.floor(Math.random() * shapeOptions.length)];
-    const shapeId = randomShape.shapeId as string;
+    const shapeId = String(randomShape.shapeId);
     const offset = randomShape.offset;
 
     setShape(shapeId, offset);

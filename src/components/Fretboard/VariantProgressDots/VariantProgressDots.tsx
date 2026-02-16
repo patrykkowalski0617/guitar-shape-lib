@@ -5,7 +5,7 @@ import { useControlsStore } from "@/store/useControlsStore";
 import { useProgressStore } from "@/store/useProgressStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import type { StringIndex } from "../FretboardRow/FretboardRow";
-import { STRING_MAP } from "../helpers/constants";
+import { STRING_ID_MAP } from "../helpers/constants";
 import { toast } from "sonner";
 
 interface Props {
@@ -18,7 +18,7 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const { currentShapeVariantLocationData, setCurrentShapeVariantLocationData } = useMusicStore();
 
-  const stringId = STRING_MAP[stringIndex];
+  const stringId = STRING_ID_MAP[stringIndex];
   const currentShape = currentShapeId ? shapes[currentShapeId] : null;
   const variants =
     currentShape?.fretboardCoordinatesVariants?.[stringId as keyof typeof currentShape.fretboardCoordinatesVariants];
