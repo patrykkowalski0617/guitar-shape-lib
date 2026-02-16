@@ -1,6 +1,6 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { shapes, type Shape, hramonicMinorScale, majorScale, minorScale, UNIFIED_MUSIC_KEYS } from "@/data";
-import { matchNotesToTarget } from "./matchNotesToTarget";
+import { matchShapeNotesToRoleNotes } from "./matchShapeNotesToRoleNotes";
 import { getNotes } from "@/utils";
 import { type Note } from "@/data";
 
@@ -83,7 +83,7 @@ export const useScaleLogic = () => {
       .filter((_, i) => shapeIntervals.includes(i))
       .map(({ noteId }) => noteId);
 
-    currentShapeNoteIds = matchNotesToTarget(currentRoleNoteIds, shapeSharpNoteId);
+    currentShapeNoteIds = matchShapeNotesToRoleNotes(currentRoleNoteIds, shapeSharpNoteId);
   }
 
   return { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds };
