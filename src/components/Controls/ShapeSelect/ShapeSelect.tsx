@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useControlsStore } from "@/store/useControlsStore";
 import { shapes, type Shapes, UNIFIED_MUSIC_KEYS } from "@/data";
@@ -18,26 +17,22 @@ export function ShapeSelect() {
 
   const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
 
-  const currentKeyNotes = useMemo(() => {
-    return getNotes({ firstNote: currentKeyId }).map(({ sharpNoteName, flatNoteName }) =>
-      isFlatTune ? flatNoteName : sharpNoteName,
-    );
-  }, [currentKeyId, isFlatTune]);
+  const currentKeyNotes = getNotes({ firstNote: currentKeyId }).map(({ sharpNoteName, flatNoteName }) =>
+    isFlatTune ? flatNoteName : sharpNoteName,
+  );
 
-  const filteredOptions = useMemo(() => {
-    const rawOptions = getFilteredShapeOptions(currentRoleId, isMajorMode);
+  const rawOptions = getFilteredShapeOptions(currentRoleId, isMajorMode);
 
-    return rawOptions.map(({ shapeId, offset }) => {
-      const shape = (shapes as Shapes)[shapeId as keyof Shapes];
-      const rootNoteName = currentKeyNotes[offset % 12];
+  const filteredOptions = rawOptions.map(({ shapeId, offset }) => {
+    const shape = shapes[shapeId as keyof Shapes];
+    const rootNote = currentKeyNotes[offset % 12];
 
-      return {
-        value: `${shapeId}|${offset}`,
-        labelRootNote: rootNoteName,
-        labelShapeNama: ` ${shape.label} ${shape.type}`,
-      };
-    });
-  }, [currentRoleId, isMajorMode, currentKeyNotes]);
+    return {
+      value: `${shapeId}|${offset}`,
+      labelRootNote: rootNote,
+      labelShapeNama: ` ${shape.label} ${shape.type}`,
+    };
+  });
 
   const currentShapeValue =
     currentShapeId !== null && currentShapeSemitoneOffsetFromC !== null

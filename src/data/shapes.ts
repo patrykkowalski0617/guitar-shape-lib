@@ -26,7 +26,7 @@ export interface Shape {
   label: string;
   type: ShapeType;
   intervals: number[];
-  semitoneOffsetFromMajorTonicRootForRoles: {
+  semitoneOffsetFromMajorTonicRoot: {
     tonic?: SemitoneOffsetFromMajorTonicRoot;
     subdominant?: SemitoneOffsetFromMajorTonicRoot;
     dominant?: SemitoneOffsetFromMajorTonicRoot;
@@ -56,7 +56,7 @@ export const shapes: Shapes = {
     label: "M7",
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _M7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
@@ -103,7 +103,7 @@ export const shapes: Shapes = {
     label: "M(add9)",
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _M9],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
@@ -148,7 +148,7 @@ export const shapes: Shapes = {
     label: "M9",
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _M7, _M9],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
@@ -191,9 +191,9 @@ export const shapes: Shapes = {
     label: "m7",
     type: "Arpeggio",
     intervals: [_1, _m3, _5, _m7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
-      tonic: { bothModes: [_M6, _M3] },
-      subdominant: { bothModes: [_M2, _M6] },
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: { bothModes: [_M6], majorMode: [_M3] },
+      subdominant: { bothModes: [_M2], majorMode: [_M6] },
     },
     fretboardCoordinatesVariants: {
       strE: {
@@ -232,10 +232,11 @@ export const shapes: Shapes = {
     label: "m(add9)",
     type: "Arpeggio",
     intervals: [_1, _m3, _5, _M9],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       tonic: {
-        bothModes: [_M6],
+        minorMode: [_M6],
       },
+      subdominant: { minorMode: [_M2], majorMode: [_M6] },
     },
     fretboardCoordinatesVariants: {
       strE: {
@@ -276,10 +277,11 @@ export const shapes: Shapes = {
     label: "m9",
     type: "Arpeggio",
     intervals: [_1, _m3, _5, _m7, _M9],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       tonic: {
-        bothModes: [_M6],
+        minorMode: [_M6],
       },
+      subdominant: { minorMode: [_M2], majorMode: [_M6] },
     },
     fretboardCoordinatesVariants: {
       strE: {
@@ -320,7 +322,7 @@ export const shapes: Shapes = {
     label: "7",
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _m7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       dominant: { majorMode: [_5], minorMode: [_M3] },
     },
     fretboardCoordinatesVariants: {
@@ -370,7 +372,7 @@ export const shapes: Shapes = {
     label: "7b9",
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _m7, _m9],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       dominant: { minorMode: [_M3], majorMode: [_5] },
     },
     fretboardCoordinatesVariants: {
@@ -418,7 +420,7 @@ export const shapes: Shapes = {
     label: "m7b5",
     type: "Arpeggio",
     intervals: [_1, _m3, _T, _m7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       dominant: { majorMode: [_M7] },
       subdominant: { minorMode: [_M7] },
     },
@@ -467,7 +469,7 @@ export const shapes: Shapes = {
     label: "dim7",
     type: "Arpeggio",
     intervals: [_1, _m3, _T, _M6],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       dominant: { bothModes: [_M7] },
     },
     fretboardCoordinatesVariants: {
@@ -523,11 +525,11 @@ export const shapes: Shapes = {
     label: "Minor Pentatonic",
     type: "Scale",
     intervals: [_1, _m3, _4, _5, _m7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       tonic: {
         bothModes: [_M6],
       },
-      subdominant: { bothModes: [_M2] },
+      subdominant: { minorMode: [_M2] },
       dominant: { majorMode: [_5, _M3] },
     },
     fretboardCoordinatesVariants: {
@@ -569,7 +571,7 @@ export const shapes: Shapes = {
     label: "Major Pentatonic",
     type: "Scale",
     intervals: [_1, _M2, _M3, _5, _M6],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
       dominant: { majorMode: [_5] },
@@ -611,7 +613,7 @@ export const shapes: Shapes = {
     label: 'No "avoid notes"',
     type: "Set",
     intervals: [_1, _M2, _M3, _5, _M6, _M7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       tonic: { bothModes: [_1] },
       subdominant: { bothModes: [_4] },
     },
@@ -652,7 +654,7 @@ export const shapes: Shapes = {
     label: "Ionian",
     type: "Scale",
     intervals: [_1, _M2, _M3, _4, _5, _M6, _M7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       tonic: { majorMode: [_1] },
     },
     fretboardCoordinatesVariants: {
@@ -702,7 +704,7 @@ export const shapes: Shapes = {
     label: "Aeolian",
     type: "Scale",
     intervals: [_1, _M2, _m3, _4, _5, _m6, _m7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       tonic: { minorMode: [_M6] },
     },
     fretboardCoordinatesVariants: {
@@ -756,9 +758,9 @@ export const shapes: Shapes = {
     label: "Dorian",
     type: "Scale",
     intervals: [_1, _M2, _m3, _4, _5, _M6, _m7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       tonic: { minorMode: [_M6] },
-      subdominant: { minorMode: [_M2] },
+      subdominant: { bothModes: [_M2] },
     },
     fretboardCoordinatesVariants: {
       strE: {
@@ -809,9 +811,9 @@ export const shapes: Shapes = {
     label: "Lydian",
     type: "Scale",
     intervals: [_1, _M2, _M3, _T, _5, _M6, _M7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       tonic: { majorMode: [_1] },
-      subdominant: { majorMode: [_4] },
+      subdominant: { bothModes: [_4] },
     },
     fretboardCoordinatesVariants: {
       strE: {
@@ -862,7 +864,7 @@ export const shapes: Shapes = {
     label: "Mixolydian",
     type: "Scale",
     intervals: [_1, _M2, _M3, _4, _5, _M6, _m7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       dominant: { majorMode: [_5], minorMode: [_M3] },
     },
     fretboardCoordinatesVariants: {
@@ -922,7 +924,7 @@ export const shapes: Shapes = {
     label: "Phrygian Dominant",
     type: "Scale",
     intervals: [_1, _m2, _M3, _4, _5, _m6, _m7],
-    semitoneOffsetFromMajorTonicRootForRoles: {
+    semitoneOffsetFromMajorTonicRoot: {
       dominant: {
         minorMode: [_M3],
       },
