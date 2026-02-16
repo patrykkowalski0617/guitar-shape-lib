@@ -12,7 +12,7 @@ vi.mock("@/data", async (importOriginal) => {
     shapes: {
       "test-shape": {
         fretboardCoordinatesVariants: {
-          "string-E": { v1: {}, v2: {}, v3: {}, v4: {} },
+          strE: { v1: {}, v2: {}, v3: {}, v4: {} },
         },
       },
     },
@@ -45,7 +45,7 @@ describe("RandomizeShapeVariant Logic", () => {
 
   describe("getRandomVariantId()", () => {
     const shapeId = "test-shape";
-    const stringId = "string-E";
+    const stringId = "strE";
 
     it("should return the first half when fretIndex is low", () => {
       vi.spyOn(Math, "random").mockReturnValue(0);
