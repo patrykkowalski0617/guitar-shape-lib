@@ -1,4 +1,4 @@
-import type { Note } from "@/utils";
+import type { Note } from "@/data";
 
 interface STRINGS_CONFIG {
   firstNoteInRow: Note;

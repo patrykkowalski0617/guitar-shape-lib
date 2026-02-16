@@ -1,7 +1,8 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { shapes, type Shape, hramonicMinorScale, majorScale, minorScale, UNIFIED_MUSIC_KEYS } from "@/data";
 import { matchNotesToTarget } from "./matchNotesToTarget";
-import { getNotes, type Note } from "@/utils";
+import { getNotes } from "@/utils";
+import { type Note } from "@/data";
 
 export const useScaleLogic = () => {
   const { isMajorMode, currentKeyId, currentRoleId, currentShapeId, currentShapeSemitoneOffsetFromC } =

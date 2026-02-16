@@ -1,8 +1,6 @@
 export const transitionTime = 300;
 
-type ColorPreset = [number, number, number];
-
-export const COLOR_PRESETS: ColorPreset[] = [
+export const COLOR_PRESETS = [
   [5, 120, 235],
   [15, 130, 260],
   [45, 127, 300],

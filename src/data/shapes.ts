@@ -1,7 +1,5 @@
-import { getIntervalSemitonesValues } from "./intervals";
+import { _1, _m2, _M2, _m3, _M3, _4, _T, _5, _m6, _M6, _m7, _M7, _m9, _M9 } from "./intervals";
 import type { RoleId } from "./roles";
-
-const { _1, _m2, _M2, _m3, _M3, _4, _T, _5, _m6, _M6, _m7, _M7, _m9, _M9 } = getIntervalSemitonesValues();
 
 export type ShapeType = "Arpeggio" | "Scale" | "Set";
 

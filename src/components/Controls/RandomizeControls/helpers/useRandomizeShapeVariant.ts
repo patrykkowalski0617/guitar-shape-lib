@@ -1,8 +1,8 @@
 import { numberOfFrets, STRINGS_CONFIG } from "@/components/Fretboard/FretboardRow/helpers/constants";
 import { STRING_MAP } from "@/components/Fretboard/helpers/constants";
 import { useMusicStore } from "@/store/useMusicStore";
-import { getNotes, type Note } from "@/utils";
-import { shapes } from "@/data";
+import { getNotes } from "@/utils";
+import { shapes, type Note } from "@/data";
 import { useEffect, useState } from "react";
 
 const MAX_FRET = numberOfFrets - 4;
@@ -11,7 +11,7 @@ const MIN_FRET = 3;
 export const useRandomizeShapeVariant = () => {
   const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
 
-  const [fretIdx, setFretIdx] = useState<number | null>(null);
+  const [fretIndex, setFretIdx] = useState<number | null>(null);
   const [stringId, setStringId] = useState<string | null>(null);
   const [shapeId, setShapeId] = useState<string | null>(null);
 
@@ -48,7 +48,7 @@ export const useRandomizeShapeVariant = () => {
 
   // set variant
   useEffect(() => {
-    if (fretIdx === null || stringId === null || !shapeId) return;
+    if (fretIndex === null || stringId === null || !shapeId) return;
 
     const fretboardCoordinatesVariants = shapes[shapeId].fretboardCoordinatesVariants;
     const variantsOfCurrentString =
@@ -60,22 +60,22 @@ export const useRandomizeShapeVariant = () => {
 
     let availableVariants = [...variantIds];
 
-    if (fretIdx <= MIN_FRET) {
+    if (fretIndex <= MIN_FRET) {
       const half = Math.ceil(variantIds.length / 2);
       availableVariants = variantIds.slice(0, half);
-    } else if (fretIdx >= MAX_FRET) {
+    } else if (fretIndex >= MAX_FRET) {
       const half = Math.floor(variantIds.length / 2);
       availableVariants = variantIds.slice(half);
     }
     const randomVariantId = availableVariants[Math.floor(Math.random() * availableVariants.length)];
 
     setCurrentShapeVariantLocationData({
-      currentShapeId: shapeId,
+      shapeId,
       stringId,
-      fretIdx,
+      fretIndex,
       variantId: randomVariantId,
     });
-  }, [shapeId, fretIdx, stringId, setCurrentShapeVariantLocationData]);
+  }, [shapeId, fretIndex, stringId, setCurrentShapeVariantLocationData]);
 
   return setRandomShapeVariant;
 };

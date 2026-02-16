@@ -2,9 +2,9 @@ import { create } from "zustand";
 import { type RoleId } from "@/data";
 
 export interface ShapeVariantLocationData {
-  currentShapeId: string | null;
+  shapeId: string | null;
   stringId: string;
-  fretIdx: number;
+  fretIndex: number;
   variantId: string;
 }
 

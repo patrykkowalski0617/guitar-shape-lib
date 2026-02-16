@@ -27,7 +27,7 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
 
   const activeVariantId = currentShapeVariantLocationData?.variantId;
   const isCorrectLocation =
-    currentShapeVariantLocationData?.fretIdx === fretIndex && currentShapeVariantLocationData?.stringId === stringId;
+    currentShapeVariantLocationData?.fretIndex === fretIndex && currentShapeVariantLocationData?.stringId === stringId;
 
   const handleToggleLearned = (dotId: string) => {
     const isAdding = !learned.includes(dotId);
@@ -47,9 +47,9 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
     }
 
     setCurrentShapeVariantLocationData({
-      currentShapeId,
+      shapeId: currentShapeId,
       stringId,
-      fretIdx: fretIndex,
+      fretIndex,
       variantId: newVariantId,
     });
   };
