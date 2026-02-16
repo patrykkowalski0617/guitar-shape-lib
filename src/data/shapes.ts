@@ -187,6 +187,46 @@ export const shapes: Shapes = {
       },
     },
   },
+  _6: {
+    label: "6",
+    type: "Arpeggio",
+    intervals: [_1, _M3, _5, _M6],
+    semitoneOffsetFromMajorTonicRoot: {
+      tonic: { majorMode: [_1] },
+    },
+    fretboardCoordinatesVariants: {
+      strE: {
+        // prettier-ignore
+        v1: [[5, 0],[4, -1],[3, -3],[3, -1],[2, -3],[1, -3],[1, 0],[0, -3],[0, 0]],
+        // prettier-ignore
+        v2: [[5, 0],[4, -1],[4, 2],[3, -1],[3, 2],[2, 1],[1, 0],[1, 2],[0, 0]],
+        // prettier-ignore
+        v3: [[5, 0],[5, 4],[4, 2],[4, 4],[3, 2],[2, 1],[2, 4],[1, 2],[0, 0],[0, 4]],
+      },
+      strA: {
+        // prettier-ignore
+        v1: [[4, 0],[3, -1],[2, -3],[2, -1],[1, -2],[0, -3],[0, 0]],
+        // prettier-ignore
+        v2: [[4, 0],[3, -1],[3, 2],[2, -1],[2, 2],[1, 2],[0, 0],[0, 2]],
+        // prettier-ignore
+        v3: [[4, 0],[4, 4],[3, 2],[3, 4],[2, 2],[1, 2],[0, 0],[0, 2]],
+      },
+      strD: {
+        // prettier-ignore
+        v1: [[3, 0],[2, -1],[1, -2],[1, 0],[0, -2]],
+        // prettier-ignore
+        v2: [[3, 0],[2, -1],[2, 2],[1, 0],[0, -2],[0, 2]],
+        // prettier-ignore
+        v3: [[3, 0],[3, 4],[2, 2],[1, 0],[1, 3],[0, 2]],
+      },
+      strG: {
+        // prettier-ignore
+        v1: [[2, 0],[1, 0],[0, -2],[0, 0]],
+        // prettier-ignore
+        v2: [[2, 0],[1, 0],[1, 3],[0, 0],[0, 3]],
+      },
+    },
+  },
   m7: {
     label: "m7",
     type: "Arpeggio",
