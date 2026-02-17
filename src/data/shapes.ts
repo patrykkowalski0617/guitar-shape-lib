@@ -363,7 +363,7 @@ export const shapes: Shapes = {
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _m7],
     semitoneOffsetFromMajorTonicRoot: {
-      dominant: { majorMode: [_5], minorMode: [_M3] },
+      dominant: { majorMode: [_5, _m2], minorMode: [_M3] },
     },
     fretboardCoordinatesVariants: {
       strE: {
