@@ -561,6 +561,21 @@ export const shapes: Shapes = {
       },
     },
   },
+
+  alt: {
+    label: "alt",
+    type: "Scale",
+    intervals: [_1, _m2, _m3, _M3, _T, _m6, _m7],
+    semitoneOffsetFromMajorTonicRoot: {
+      dominant: { majorMode: [_5], minorMode: [_M3] },
+    },
+    fretboardCoordinatesVariants: {
+      strE: {},
+      strA: {},
+      strD: {},
+      strG: {},
+    },
+  },
   minor_pent: {
     label: "Minor Pentatonic",
     type: "Scale",
