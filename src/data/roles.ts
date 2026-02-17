@@ -1,10 +1,13 @@
-export type RoleId = "tonic" | "subdominant" | "dominant";
+export type RoleId = "tonic" | "subdominant" | "dominant" | "all";
 
 export interface RoleData {
-  label: "Tonic" | "Subdominant" | "Dominant";
+  label: "All" | "Tonic" | "Subdominant" | "Dominant";
 }
 
 export const roles: Record<RoleId, RoleData> = {
+  all: {
+    label: "All",
+  },
   tonic: {
     label: "Tonic",
   },

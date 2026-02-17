@@ -15,7 +15,6 @@ import {
 import { getRoleHSLColor } from "@/utils";
 import FullscreenButton from "@/components/FullscreenButton/FullscreenButton";
 import { Toaster } from "@/components/ui/sonner";
-import { logAllShapeOptionsDebug } from "./components/Controls/ShapeSelect/helpers/logAllShapeOptionsDebug";
 
 export default function App() {
   const { tonicColor, subdominantColor, dominantColor } = useSettingsStore();
@@ -25,7 +24,7 @@ export default function App() {
     "--primary": getRoleHSLColor(subdominantColor),
     "--tension": getRoleHSLColor(dominantColor),
   } as React.CSSProperties;
-  logAllShapeOptionsDebug();
+
   return (
     <AppWrapper style={roleColors}>
       <Toaster position="top-center" />

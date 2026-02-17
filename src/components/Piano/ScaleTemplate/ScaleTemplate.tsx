@@ -20,7 +20,7 @@ export default function ScaleTemplate(): JSX.Element {
             $step={i}
             $numberOfKeys={numberOfKeys}
             $isVisible={isVisible}
-            $highlightRole={isHighlighted ? currentRoleId : "none"}
+            $highlightRole={isHighlighted ? currentRoleId : "all"}
             $roleInterval={intervalValue ? String(intervalValue) : ""}
           />
         );

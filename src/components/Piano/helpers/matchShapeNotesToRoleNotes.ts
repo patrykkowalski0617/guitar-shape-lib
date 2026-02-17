@@ -37,7 +37,6 @@ export const matchShapeNotesToRoleNotes = (target: string[], input: string[]): s
 
     return matchedNotes;
   }, []);
-  console.log({ target, input, output: [...matchedFromTarget, ...inputPool] });
 
   return [...matchedFromTarget, ...inputPool];
 };

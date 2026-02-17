@@ -1,12 +1,16 @@
 import { shapes, DEFAULT_SHAPES_CONFIG, type Shapes } from "@/data";
 
 export const getFilteredShapeOptions = (currentRoleId: string | null, isMajorMode: boolean) => {
-  if (!currentRoleId) return [];
+  if (currentRoleId === "all") {
+    return Object.keys(shapes).map((shapeId) => ({
+      shapeId: shapeId as keyof Shapes,
+      offset: 0,
+    }));
+  }
 
   const options: { shapeId: keyof Shapes; offset: number }[] = [];
-  const typedShapes = shapes as Shapes;
 
-  Object.entries(typedShapes).forEach(([shapeId, shape]) => {
+  Object.entries(shapes).forEach(([shapeId, shape]) => {
     const roleKey = currentRoleId as keyof typeof shape.semitoneOffsetFromMajorTonicRoot;
     const roleData = shape.semitoneOffsetFromMajorTonicRoot[roleKey];
 
@@ -25,7 +29,11 @@ export const getFilteredShapeOptions = (currentRoleId: string | null, isMajorMod
   return options;
 };
 
-export const getAutoSelectedShape = (roleId: string, isMajorMode: boolean) => {
+export const getAutoSelectedShape = (roleId: string | null, isMajorMode: boolean) => {
+  if (!roleId || roleId === "all") {
+    return { shapeId: null, offset: null };
+  }
+
   const options = getFilteredShapeOptions(roleId, isMajorMode);
 
   const configKey = `${isMajorMode ? "major" : "minor"}_${roleId}` as keyof typeof DEFAULT_SHAPES_CONFIG;

@@ -13,7 +13,7 @@ interface FretCellProps {
 
 export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellProps) {
   const { states, actions } = useFretCell();
-  const { isRoleSelected } = useFretboardStates();
+  const { isShapeSelected, isRoleSelected } = useFretboardStates();
   const { isActiveNote, isShapeRootNote, isShapeNote, isLockedNote, isTuneNote } = useNoteState({
     sharpNoteName: noteData.sharpNoteName,
     noteId: noteData.noteId,
@@ -30,6 +30,7 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
         $isShapeNote={isShapeNote}
         $isTuneNote={isTuneNote}
         $highlightRole={states.activeRole}
+        $isShapeSelected={isShapeSelected}
         $isRoleSelected={isRoleSelected}
         onMouseEnter={() => actions.setActiveNoteId(noteData.noteId)}
         onMouseLeave={() => actions.setActiveNoteId(null)}

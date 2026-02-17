@@ -25,10 +25,6 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
 const commonStyleForKey = css`
   border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
-  will-change: box-shadow, border-color;
-  transition:
-    box-shadow ${transitionTime}ms ease-in-out,
-    border-color ${transitionTime}ms ease-in-out;
 `;
 
 const whitePianoKey = css`
@@ -68,6 +64,7 @@ const blackPianoKey = css`
 
 export const Key = styled.div<{
   $isRoleSelected: boolean;
+  $isShapeSelected: boolean;
   $isWhitePianoKey: boolean;
   $pianoKeyShape?: KeyShape;
   $isHighlighted?: boolean;
@@ -79,7 +76,13 @@ export const Key = styled.div<{
   position: relative;
   display: flex;
   justify-content: center;
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "")};
+  will-change: box-shadow, border-color, filter;
+  transition: ${({ $isShapeSelected }) =>
+    $isShapeSelected &&
+    `box-shadow ${transitionTime}ms ease-in-out,
+    filter ${transitionTime}ms ease-in-out,
+    border-color ${transitionTime}ms ease-in-out`};
+  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(2)" : "")};
 
   ${({ $isWhitePianoKey }) => ($isWhitePianoKey ? whitePianoKey : blackPianoKey)}
 

@@ -5,8 +5,10 @@ export const useRandomizeRole = () => {
   const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);
 
   const setRandomRole = () => {
-    const roleIds = Object.keys(roles) as RoleId[];
-    const randomRole = roleIds[Math.floor(Math.random() * roleIds.length)];
+    const functionalRoles = (Object.keys(roles) as RoleId[]).filter((roleId) => roleId !== "all");
+
+    const randomRole = functionalRoles[Math.floor(Math.random() * functionalRoles.length)];
+
     setCurrentRoleId(randomRole);
 
     return randomRole;

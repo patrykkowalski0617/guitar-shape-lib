@@ -39,8 +39,6 @@ export function ShapeSelect() {
       ? `${currentShapeId}|${currentShapeSemitoneOffsetFromC}`
       : "";
 
-  const isDisabled = !currentRoleId || filteredOptions.length === 0;
-
   return (
     <ControlWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.SHAPE_SELECTOR} />
@@ -52,9 +50,8 @@ export function ShapeSelect() {
           const offset = parseInt(offsetStr, 10);
           setShape(id, offset);
         }}
-        disabled={isDisabled}
       >
-        <SelectTrigger disabled={isDisabled} className="md:min-w-[194px]">
+        <SelectTrigger className="md:min-w-[194px]">
           <SelectValue placeholder={currentRoleId ? "Select shape..." : "Select function first..."} />
         </SelectTrigger>
         <SelectContent className="font-semibold">

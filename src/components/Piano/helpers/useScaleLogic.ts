@@ -68,7 +68,9 @@ export const useScaleLogic = () => {
   const currentScaleNoteIds = getOnlyScaleNotesIds(currentScaleTemplate).slice(0, currentScaleNoteIdsLength);
 
   //- >>>> getting role note ids (currentRoleNoteIds)
-  const roleIntervalOffeset = currentRoleId === "tonic" ? 0 : currentRoleId === "subdominant" ? 3 : 4;
+  const roleIntervalOffeset =
+    currentRoleId === "tonic" || currentRoleId === "all" ? 0 : currentRoleId === "subdominant" ? 3 : 4;
+
   const currentRoleNoteIds = [...currentScaleNoteIds]
     .splice(roleIntervalOffeset)
     .filter((_, i) => (i + 1) % 2)

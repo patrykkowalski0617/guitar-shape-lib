@@ -31,7 +31,7 @@ export const useControlsStore = create<ControlsState>((set) => ({
   currentKeyId: "C",
   setCurrentKey: (id) => set({ currentKeyId: id }),
 
-  currentRoleId: null,
+  currentRoleId: "all",
   setCurrentRoleId: (id) =>
     set((state) => {
       if (id === null || id.length === 0) {

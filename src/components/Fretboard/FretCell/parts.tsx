@@ -35,6 +35,7 @@ export const Note = styled.div<{
   $isShapeRootNote: boolean;
   $isTuneNote: boolean;
   $highlightRole: HighlightRole;
+  $isShapeSelected: boolean;
   $isRoleSelected: boolean;
 }>`
   border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
@@ -48,20 +49,22 @@ export const Note = styled.div<{
   z-index: 20;
   cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
   will-change: box-shadow, opacity;
-  transition: ${({ $isActiveNote }) =>
-    !$isActiveNote &&
+  transition: ${({ $isShapeSelected }) =>
+    $isShapeSelected &&
     `box-shadow ${fretboardTransitionTime}ms ease-in-out, 
-    opacity ${transitionTime}ms ease-in-out`};
-  opacity: ${({ $isShapeNote, $isShapeRootNote, $isRoleSelected, $isTuneNote, $isActiveNote }) => {
-    if (($isActiveNote && !$isRoleSelected) || $isShapeNote || $isShapeRootNote || (!$isRoleSelected && $isTuneNote))
+    opacity ${transitionTime}ms ease-in-out,
+    border ${transitionTime}ms ease-in-out,
+    filter ${transitionTime}ms ease-in-out`};
+  opacity: ${({ $isShapeNote, $isShapeRootNote, $isShapeSelected, $isRoleSelected, $isTuneNote, $isActiveNote }) => {
+    if (($isActiveNote && !$isShapeSelected) || $isShapeNote || $isShapeRootNote || (!$isShapeSelected && $isTuneNote))
       return "1";
 
-    if ($isActiveNote || $isTuneNote) return "0.5";
+    if ($isActiveNote || $isTuneNote || !$isRoleSelected) return "0.5";
 
     return "0";
   }};
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "")};
-  border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
+  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(2) contrast(5)" : "")};
+  border-width: ${({ $isShapeNote, $isActiveNote }) => ($isShapeNote || $isActiveNote ? "3px" : "1px")};
   ${({ $isShapeNote, $highlightRole }) => {
     if ($isShapeNote) {
       const color = roleColors[$highlightRole];
