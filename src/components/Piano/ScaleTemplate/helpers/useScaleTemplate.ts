@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { useControlsStore } from "@/store/useControlsStore";
 import { UNIFIED_MUSIC_KEYS } from "@/data";
 
-// Role, które faktycznie definiują unikalne zestawy widocznych indeksów
 type Role = "none" | "tonic" | "subdominant" | "dominant";
 
 const getEveryNthElement = <T>(array: readonly T[], step: number, startIndex: number = 0): T[] =>
@@ -35,24 +34,20 @@ export const useScaleTemplate = () => {
   const visibleIndexes = useMemo(() => {
     const modeKey = isMajorMode ? "major" : "minor";
 
-    // Jeśli rola to "all" lub null, traktujemy to jako "none"
     const roleKey = !currentRoleId || currentRoleId === "all" ? "none" : (currentRoleId as Role);
 
     return VISIBLE_INDEXES_MAP[modeKey][roleKey];
   }, [isMajorMode, currentRoleId]);
 
   const highlightRole = useMemo(() => {
-    // Role funkcjonalne (akordowe)
     const highlightConfig = {
       tonic: { step: 2, start: 0 },
       subdominant: { step: 2, start: 3 },
       dominant: { step: 2, start: 4 },
     } as const;
 
-    // Sprawdzamy, czy aktualna rola ma przypisaną logikę podświetlania
     const config = highlightConfig[currentRoleId as keyof typeof highlightConfig];
 
-    // Jeśli to "all", "none" lub jakakolwiek inna rola bez configu -> brak podświetlenia
     if (!config) return [] as number[];
 
     return getEveryNthElement(visibleIndexes, config.step, config.start);
