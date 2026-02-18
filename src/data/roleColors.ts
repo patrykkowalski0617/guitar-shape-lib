@@ -1,8 +1,8 @@
 export type HighlightRole = "tonic" | "subdominant" | "dominant" | "all";
 
 export const roleColors: Record<HighlightRole, string> = {
-  tonic: "var(--secondary)",
+  tonic: "var(--primary)",
   subdominant: "var(--primary)",
-  dominant: "var(--tension)",
-  all: "var(--border)",
+  dominant: "var(--primary)",
+  all: "var(--accent)",
 };

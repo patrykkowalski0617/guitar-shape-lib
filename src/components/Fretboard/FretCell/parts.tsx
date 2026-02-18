@@ -13,7 +13,7 @@ export const Fret = styled.div<{
 }>`
   flex: 1;
   width: 0;
-  margin: 4px;
+  margin: 1px;
   border-radius: ${instrumentElBRadius};
   position: relative;
   ${({ $isLockedNote, $lockedRoleId }) => {

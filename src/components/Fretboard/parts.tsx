@@ -14,14 +14,12 @@ export const Fretboard = styled.div`
       &::before {
         content: "";
         position: absolute;
-        height: 35px;
-        width: 2px;
-        border-radius: 2px;
-        background: color-mix(in oklab, var(--primary) 80%, transparent);
-        box-shadow: 0 0 8px var(--primary);
-        right: -10px;
-        top: 50%;
-        transform: translateY(-50%);
+        width: 1px;
+        height: 100%;
+        border-radius: 5px;
+        background-color: var(--primary);
+        box-shadow: 0 0 8px 0 var(--primary);
+        right: -9px;
       }
     }
 
