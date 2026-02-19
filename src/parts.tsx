@@ -58,7 +58,7 @@ export const TutorialStickyIcons = styled.div`
 `;
 
 export const FooterAndHeaderStyles = css`
-  background-color: color-mix(in oklab, var(--primary) 70%, transparent);
+  background-color: color-mix(in oklab, var(--accent) 70%, transparent);
   max-width: 1500px;
   margin: 0 auto;
   width: 100%;
@@ -103,5 +103,5 @@ export const ControlLabel = styled.span`
   display: inline-block;
 `;
 
-export const instrumentElBRadius = "6px";
+export const instrumentElBRadius = "4px";
 export const instrumentBRadius = "var(--radius-lg)";

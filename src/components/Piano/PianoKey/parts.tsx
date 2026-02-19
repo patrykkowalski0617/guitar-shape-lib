@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 import { instrumentBRadius, instrumentElBRadius } from "@/parts";
 import { transitionTime } from "@/data/constants";
-import { roleColors, type HighlightRole } from "../../../data/roleColors";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
@@ -25,9 +24,10 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
 const commonStyleForKey = css`
   border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
-  will-change: box-shadow, border-color;
+  will-change: box-shadow, border-color, filter;
   transition:
     box-shadow ${transitionTime}ms ease-in-out,
+    filter ${transitionTime}ms ease-in-out,
     border-color ${transitionTime}ms ease-in-out;
 `;
 
@@ -40,7 +40,7 @@ const whitePianoKey = css`
     content: "";
     position: absolute;
     inset: 0;
-    background-color: var(--background);
+    background-color: color-mix(in oklab, var(--accent) 5%, transparent);
     ${commonStyleForKey}
   }
   &:not(:last-child)::after {
@@ -68,33 +68,35 @@ const blackPianoKey = css`
 
 export const Key = styled.div<{
   $isRoleSelected: boolean;
+  $isShapeSelected: boolean;
   $isWhitePianoKey: boolean;
   $pianoKeyShape?: KeyShape;
   $isHighlighted?: boolean;
-  $highlightRole: HighlightRole;
   $isActiveNote: boolean;
+  $isShapeNote: boolean;
+  $isRoleNote: boolean;
 }>`
   flex: 1;
   width: 0;
   position: relative;
   display: flex;
   justify-content: center;
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "")};
+  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(2)" : "")};
 
   ${({ $isWhitePianoKey }) => ($isWhitePianoKey ? whitePianoKey : blackPianoKey)}
 
   ${({ $pianoKeyShape }) => $pianoKeyShape && pianoKeyShapes[$pianoKeyShape]}
 
-  ${({ $isHighlighted, $isWhitePianoKey, $highlightRole }) => {
-    if (!$isHighlighted) return null;
-    const color = roleColors[$highlightRole];
+  ${({ $isShapeNote, $isHighlighted, $isWhitePianoKey, $isRoleNote, $isRoleSelected }) => {
+    if (!$isHighlighted && !$isRoleSelected) return null;
+    const color = $isShapeNote ? "var(--primary)" : "var(--accent)";
 
     const shadow = $isWhitePianoKey ? `inset 0 -23px 35px -4px ${color}` : `inset 0 -17px 20px 0px ${color}`;
     const target = $isWhitePianoKey ? css`&::after` : css`&`;
 
     return css`
       ${target} {
-        box-shadow: ${shadow};
+        ${$isRoleNote || !$isRoleSelected || $isShapeNote ? `box-shadow: ${shadow};` : ""}
       }
     `;
   }}

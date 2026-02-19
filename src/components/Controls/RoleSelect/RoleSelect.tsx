@@ -11,16 +11,20 @@ export function RoleSelect() {
   const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);
 
   const handleValueChange = (v: string) => {
-    setCurrentRoleId(v as RoleId);
+    setCurrentRoleId((v || "all") as RoleId);
   };
+
   const options = Object.entries(roles) as [RoleId, RoleData][];
   return (
     <ControlWrapper>
       <TutorialPopover {...TUTORIAL_CONTENT.ROLE_SELECTOR} />
-      <ControlLabel>Function</ControlLabel>
+      <ControlLabel>
+        <span className="hidden lg:block">Filter Arp/scale by Function</span>
+        <span className="lg:hidden">Filter Arp/scale</span>
+      </ControlLabel>
 
-      <div className="hidden sm:block">
-        <ToggleGroup type="single" value={currentRoleId ?? ""} onValueChange={handleValueChange}>
+      <div className="hidden lg:block">
+        <ToggleGroup type="single" value={currentRoleId ?? "all"} onValueChange={handleValueChange}>
           {options.map(([id, data]) => (
             <ToggleGroupItem key={id} value={id}>
               {data.label}
@@ -29,8 +33,8 @@ export function RoleSelect() {
         </ToggleGroup>
       </div>
 
-      <div className="sm:hidden">
-        <Select value={currentRoleId ?? ""} onValueChange={handleValueChange}>
+      <div className="lg:hidden">
+        <Select value={currentRoleId ?? "all"} onValueChange={handleValueChange}>
           <SelectTrigger>
             <SelectValue placeholder={"Select function"} />
           </SelectTrigger>

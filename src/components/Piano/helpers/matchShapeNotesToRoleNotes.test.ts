@@ -69,6 +69,16 @@ describe("matchShapeNotesToRoleNotes()", () => {
 
       expect(result).toEqual(["C-3", "E-3", "G-3", "Bb-3", "D-4", "F#-4", "A-4"]);
     });
+
+    it("should handle Altered scale (G7alt) correctly", () => {
+      const targetG7 = ["G-3", "B-3", "D-4", "F-4", "A-4", "C-5", "E-5"];
+
+      const input = ["G-3", "G#-3", "A#-3", "B-3", "C#-4", "D#-4", "F-4"];
+
+      const result = matchShapeNotesToRoleNotes(targetG7, input);
+
+      expect(result).toEqual(["G-3", "B-3", "F-4", "G#-4", "A#-4", "C#-5", "D#-4"]);
+    });
   });
 
   describe("Flat Keys and Specific Voicings", () => {
@@ -77,17 +87,6 @@ describe("matchShapeNotesToRoleNotes()", () => {
       const input = ["Db-3", "Eb-3", "F-3", "Gb-3", "Ab-3", "Bb-3", "C-4"];
 
       expect(matchShapeNotesToRoleNotes(target, input)).toEqual(["Db-3", "F-3", "Ab-3", "C-4", "Eb-4", "Gb-4", "Bb-4"]);
-    });
-
-    it("should handle Altered scale (G7alt) with multiple alterations", () => {
-      const targetG7 = ["G-3", "B-3", "D-4", "F-4", "A-4", "C-5", "E-5"];
-      const input = ["G-3", "Ab-3", "Bb-3", "B-3", "Db-4", "Eb-4", "F-4"];
-
-      const result = matchShapeNotesToRoleNotes(targetG7, input);
-      expect(result).toContain("G-3");
-      expect(result).toContain("B-3");
-      expect(result).toContain("F-4");
-      expect(result).toContain("Ab-4");
     });
   });
 
@@ -100,5 +99,28 @@ describe("matchShapeNotesToRoleNotes()", () => {
 
       expect(result).toEqual(["G-3", "D-4", "F-4", "Bb-4", "C-5"]);
     });
+  });
+});
+
+describe("Octave Boundary Cases (Fix for B-4/C-5 issue)", () => {
+  it("should keep B in octave 4 when matching target C-5 (closest pitch logic)", () => {
+    const target = ["A#-3", "D-4", "F-4", "G#-4", "C-5", "D#-5", "G-5"];
+    const input = ["D-4", "F-4", "G#-4", "B-4"];
+
+    const result = matchShapeNotesToRoleNotes(target, input);
+
+    expect(result).toContain("B-4");
+    expect(result).not.toContain("B-5");
+
+    expect(result).toEqual(["D-4", "F-4", "G#-4", "B-4"]);
+  });
+
+  it("should jump to octave 5 only if it is actually closer to target", () => {
+    const target = ["C-5"];
+    const input = ["B-5"];
+
+    const result = matchShapeNotesToRoleNotes(target, input);
+
+    expect(result).toEqual(["B-5"]);
   });
 });

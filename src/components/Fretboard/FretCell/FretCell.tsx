@@ -13,7 +13,7 @@ interface FretCellProps {
 
 export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellProps) {
   const { states, actions } = useFretCell();
-  const { isRoleSelected } = useFretboardStates();
+  const { isShapeSelected, isRoleSelected } = useFretboardStates();
   const { isActiveNote, isShapeRootNote, isShapeNote, isLockedNote, isTuneNote } = useNoteState({
     sharpNoteName: noteData.sharpNoteName,
     noteId: noteData.noteId,
@@ -22,28 +22,32 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
   });
 
   return (
-    <S.Fret $isLockedNote={isLockedNote} $lockedRoleId={states.lockedRoleId} data-fret={fretIndex}>
-      {isShapeRootNote && <VariantProgressDots stringIndex={stringIndex} fretIndex={fretIndex} />}
-      <S.Note
-        $isActiveNote={isActiveNote}
-        $isShapeRootNote={isShapeRootNote}
-        $isShapeNote={isShapeNote}
-        $isTuneNote={isTuneNote}
-        $highlightRole={states.activeRole}
-        $isRoleSelected={isRoleSelected}
-        onMouseEnter={() => actions.setActiveNoteId(noteData.noteId)}
-        onMouseLeave={() => actions.setActiveNoteId(null)}
-      >
-        <NoteLabel
-          isHighlighted={isShapeNote}
-          flatNoteName={noteData.flatNoteName}
-          sharpNoteName={noteData.sharpNoteName}
-          isShapeNote={isShapeNote}
-          isFlatTune={states.isFlatTune}
-          isEnharmonic={noteData.isEnharmonic}
-          variant="fretboard"
-        />
-      </S.Note>
-    </S.Fret>
+    <S.FretWrapper
+      onMouseEnter={() => actions.setActiveNoteId(noteData.noteId)}
+      onMouseLeave={() => actions.setActiveNoteId(null)}
+    >
+      <S.Fret $isLockedNote={isLockedNote} data-fret={fretIndex}>
+        {isShapeRootNote && <VariantProgressDots stringIndex={stringIndex} fretIndex={fretIndex} />}
+        <S.Note
+          $isLockedNote={isLockedNote}
+          $isActiveNote={isActiveNote}
+          $isShapeRootNote={isShapeRootNote}
+          $isShapeNote={isShapeNote}
+          $isTuneNote={isTuneNote}
+          $isShapeSelected={isShapeSelected}
+          $isRoleSelected={isRoleSelected}
+        >
+          <NoteLabel
+            isHighlighted={isShapeNote}
+            flatNoteName={noteData.flatNoteName}
+            sharpNoteName={noteData.sharpNoteName}
+            isShapeNote={isShapeNote}
+            isFlatTune={states.isFlatTune}
+            isEnharmonic={noteData.isEnharmonic}
+            variant="fretboard"
+          />
+        </S.Note>
+      </S.Fret>
+    </S.FretWrapper>
   );
 }

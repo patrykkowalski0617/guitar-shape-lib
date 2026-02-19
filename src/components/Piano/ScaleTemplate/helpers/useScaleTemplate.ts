@@ -1,24 +1,17 @@
-import { useMemo } from "react";
 import { useControlsStore } from "@/store/useControlsStore";
-import { UNIFIED_MUSIC_KEYS } from "@/data";
-
-type Role = "none" | "tonic" | "subdominant" | "dominant";
-
-const getEveryNthElement = <T>(array: readonly T[], step: number, startIndex: number = 0): T[] =>
-  array.slice(startIndex).filter((_, index) => index % step === 0);
-
-const VISIBLE_INDEXES_MAP: Record<"major" | "minor", Record<Role, readonly number[]>> = {
+import { UNIFIED_MUSIC_KEYS, type RoleId } from "@/data";
+import { useScaleLogic } from "../../helpers/useScaleLogic";
+import { pianoNotes } from "../../helpers/constants";
+const VISIBLE_INDEXES_MAP: Record<"major" | "minor", Partial<Record<RoleId, readonly number[]>>> = {
   major: {
-    none: [3, 5, 7, 8, 10, 12, 14],
-    tonic: [3, 5, 7, 8, 10, 12, 14, 15, 17, 19, 20, 22, 24],
-    subdominant: [3, 5, 7, 8, 10, 12, 14, 15, 17, 19, 20, 22, 24, 26, 27, 29],
-    dominant: [3, 5, 7, 8, 10, 12, 14, 15, 17, 19, 20, 22, 24, 26, 27, 29, 31],
+    tonic: [3, 7, 10, 14, 17, 20, 24],
+    subdominant: [3, 7, 10, 14, 17, 21, 24],
+    dominant: [3, 7, 10, 13, 17, 20, 24],
   },
   minor: {
-    none: [0, 2, 3, 5, 7, 8, 10],
-    tonic: [0, 2, 3, 5, 7, 8, 10, 12, 14, 15, 17, 19, 20],
-    subdominant: [0, 2, 3, 5, 7, 8, 10, 12, 14, 15, 17, 19, 20, 22, 24, 26],
-    dominant: [0, 2, 3, 5, 7, 8, 11, 12, 14, 15, 17, 19, 20, 23, 24, 26, 27],
+    tonic: [0, 3, 7, 10, 14, 17, 20],
+    subdominant: [0, 3, 7, 10, 14, 17, 21],
+    dominant: [0, 4, 7, 10, 13, 17, 20],
   },
 } as const;
 
@@ -27,33 +20,35 @@ export const useScaleTemplate = () => {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
 
-  const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC;
-  const basePositionKeyIndex = 5;
-  const position = basePositionKeyIndex + templateOffset;
+  const { currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
-  const visibleIndexes = useMemo(() => {
-    const modeKey = isMajorMode ? "major" : "minor";
-    const roleKey = currentRoleId ?? "none";
-    return VISIBLE_INDEXES_MAP[modeKey][roleKey as Role];
-  }, [isMajorMode, currentRoleId]);
+  const roleOffset = currentRoleId === "subdominant" ? 5 : currentRoleId === "dominant" ? 7 : 0;
+  const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC + roleOffset;
+  const position = 5 + templateOffset;
 
-  const highlightRole = useMemo(() => {
-    if (!currentRoleId) return [] as number[];
+  const modeKey = isMajorMode ? "major" : "minor";
+  const modeMap = VISIBLE_INDEXES_MAP[modeKey];
+  const effectiveRoleId = currentRoleId && currentRoleId !== "all" ? currentRoleId : "tonic";
 
-    const config = {
-      tonic: { step: 2, start: 0 },
-      subdominant: { step: 2, start: 3 },
-      dominant: { step: 2, start: 4 },
-    } as const;
+  const highlightRole = currentRoleId && currentRoleId !== "all" ? (modeMap[effectiveRoleId as RoleId] ?? []) : [];
 
-    const { step, start } = config[currentRoleId as keyof typeof config];
-    return getEveryNthElement(visibleIndexes, step, start);
-  }, [visibleIndexes, currentRoleId]);
+  const altIndexes =
+    currentRoleId !== "all"
+      ? Array.from({ length: 33 }, (_, i) => i).filter((stepIndex) => {
+          const pianoNote = pianoNotes[position + stepIndex];
+          if (!pianoNote) return false;
+
+          const isShapeNote = currentShapeNoteIds.includes(pianoNote.noteId);
+          const isRoleNote = currentRoleNoteIds.includes(pianoNote.noteId);
+
+          return isShapeNote && !isRoleNote;
+        })
+      : [];
 
   return {
     position,
-    visibleIndexes,
     highlightRole,
+    altIndexes,
     currentRoleId,
   };
 };

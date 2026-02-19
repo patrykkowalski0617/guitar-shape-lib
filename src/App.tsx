@@ -12,17 +12,15 @@ import {
   RoleSelect,
   ShapeSelect,
 } from "@/components/Controls";
-import { getRoleHSLColor } from "@/utils";
 import FullscreenButton from "@/components/FullscreenButton/FullscreenButton";
 import { Toaster } from "@/components/ui/sonner";
+import { getHSLColorFromHue } from "./utils";
 
 export default function App() {
-  const { tonicColor, subdominantColor, dominantColor } = useSettingsStore();
+  const { primaryColor } = useSettingsStore();
 
   const roleColors = {
-    "--secondary": getRoleHSLColor(tonicColor),
-    "--primary": getRoleHSLColor(subdominantColor),
-    "--tension": getRoleHSLColor(dominantColor),
+    "--primary": getHSLColorFromHue(primaryColor),
   } as React.CSSProperties;
 
   return (
@@ -40,8 +38,8 @@ export default function App() {
             <KeySelect />
             <RoleSelect />
             <ShapeSelect />
-            <LockShapeButton />
             <RandomizeControls />
+            <LockShapeButton />
           </ControlContainer>
         </Setcion>
         <Setcion>

@@ -1,25 +1,31 @@
-import { type CSSProperties } from "react";
 import styled from "styled-components";
+import { instrumentElBRadius } from "@/parts";
 
-export const DotsContainer = styled.div`
+export const PresetItemWrapper = styled.div`
   display: flex;
+  align-items: center;
   gap: 16px;
-  justify-content: space-around;
-  padding: 4px 16px;
-  border-radius: 6px;
-  max-width: 200px;
-  margin: -2px auto;
+  width: 100%;
+  justify-content: center;
 `;
 
-export const ColorContainer = styled.div`
+export const ColorPreviewContainer = styled.div`
+  width: 50px;
+  height: 26px;
+  background-color: var(--background);
+  border-radius: ${instrumentElBRadius};
   display: flex;
-  gap: 0 12px;
 `;
 
-export const Dot = styled.div<{ $color: CSSProperties["color"]; $size: number }>`
-  width: ${({ $size }) => $size}px;
-  height: ${({ $size }) => $size}px;
-  background-color: ${({ $color }) => $color};
-  border-radius: 6px;
-  border: 1px solid var(--accent);
+export const ColorPreview = styled.div<{ $color: string }>`
+  flex: 1;
+  border-radius: ${instrumentElBRadius};
+  background-color: color-mix(in oklab, var(--accent) 5%, transparent);
+  border: 3px solid ${({ $color }) => $color};
+  box-shadow: inset 0 0px 10px 0px ${({ $color }) => $color};
+`;
+
+export const Label = styled.span`
+  white-space: nowrap;
+  width: 100px;
 `;

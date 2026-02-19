@@ -1,2 +1,2 @@
 export * from "./getNotes";
-export * from "./getRoleHSLColor";
+export * from "./getHSLColorFromHue";

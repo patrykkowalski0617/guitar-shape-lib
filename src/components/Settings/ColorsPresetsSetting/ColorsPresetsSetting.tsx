@@ -1,48 +1,51 @@
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { ControlLabel } from "@/parts";
-import * as S from "@/components/Settings/parts";
-import { getRoleHSLColor } from "@/utils";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import * as S from "@/components/Settings/ColorsPresetsSetting/parts";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { COLOR_PRESETS } from "@/data/constants";
-import ColorDots from "./ColorDots";
+import { getHSLColorFromHue } from "@/utils";
+import { ControlWrapper } from "../parts";
 
 export default function ColorsPresetsSetting() {
-  const { tonicColor, setTonicColor, subdominantColor, setSubdominantColor, dominantColor, setDominantColor } =
-    useSettingsStore();
+  const { primaryColor, setPrimaryColor } = useSettingsStore();
 
-  const currentPresetValue = `${tonicColor},${subdominantColor},${dominantColor}`;
-
-  const isPresetSelected = COLOR_PRESETS.some((preset) => preset.join(",") === currentPresetValue);
+  const currentPreset = COLOR_PRESETS.find((p) => p.hue === primaryColor);
+  const currentVal = currentPreset ? String(currentPreset.hue) : "";
 
   const handleValueChange = (value: string) => {
     if (!value) return;
-    const [t, s, d] = value.split(",").map(Number);
-    setTonicColor(t);
-    setSubdominantColor(s);
-    setDominantColor(d);
+    setPrimaryColor(Number(value));
   };
 
   return (
-    <S.ControlWrapper>
-      <ControlLabel>Color Presets</ControlLabel>
-      <Select value={isPresetSelected ? currentPresetValue : ""} onValueChange={handleValueChange}>
+    <ControlWrapper>
+      <ControlLabel>Primary Color</ControlLabel>
+      <Select value={currentVal} onValueChange={handleValueChange}>
         <SelectTrigger className="w-full">
-          <SelectValue placeholder="Custom colors" />
+          <S.PresetItemWrapper>
+            <S.ColorPreviewContainer>
+              <S.ColorPreview $color={getHSLColorFromHue(primaryColor)} />
+            </S.ColorPreviewContainer>
+            <S.Label>{currentPreset ? currentPreset.name : "Custom Color"}</S.Label>
+          </S.PresetItemWrapper>
         </SelectTrigger>
+
         <SelectContent>
           {COLOR_PRESETS.map((preset) => {
-            const val = preset.join(",");
+            const val = String(preset.hue);
             return (
               <SelectItem key={val} value={val}>
-                <ColorDots
-                  colors={[getRoleHSLColor(preset[0]), getRoleHSLColor(preset[1]), getRoleHSLColor(preset[2])]}
-                  size={18}
-                />
+                <S.PresetItemWrapper>
+                  <S.ColorPreviewContainer>
+                    <S.ColorPreview $color={getHSLColorFromHue(preset.hue)} />
+                  </S.ColorPreviewContainer>
+                  <S.Label>{preset.name}</S.Label>
+                </S.PresetItemWrapper>
               </SelectItem>
             );
           })}
         </SelectContent>
       </Select>
-    </S.ControlWrapper>
+    </ControlWrapper>
   );
 }

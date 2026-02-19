@@ -1,32 +1,34 @@
 import { instrumentElBRadius } from "@/parts";
-import { roleColors, type HighlightRole } from "@/data/roleColors";
 import styled, { css } from "styled-components";
 import { fretboardTransitionTime } from "./helpers/constants";
 import { transitionTime } from "@/data/constants";
 import { DotsWrapper } from "@/components/Fretboard/VariantProgressDots/parts";
 import { activeDotsStyles } from "@/components/Fretboard/VariantProgressDots/constants";
-import type { RoleId } from "@/data/roles";
 
-export const Fret = styled.div<{
-  $isLockedNote: boolean;
-  $lockedRoleId: RoleId | null;
-}>`
-  flex: 1;
-  width: 0;
-  margin: 4px;
-  border-radius: ${instrumentElBRadius};
+export const FretWrapper = styled.div`
   position: relative;
-  ${({ $isLockedNote, $lockedRoleId }) => {
-    if (!$isLockedNote) return null;
-    const color = roleColors[($lockedRoleId as HighlightRole) || "none"];
-    return css`
-      outline: 3px solid ${color};
-      outline-offset: 2px;
-    `;
-  }}
+  flex: 1 1 0;
+  width: 0;
+  height: 28px;
+  padding: 1px;
   &:hover ${DotsWrapper} {
     ${activeDotsStyles}
   }
+`;
+
+export const Fret = styled.div<{
+  $isLockedNote: boolean;
+}>`
+  height: 100%;
+  border-radius: ${instrumentElBRadius};
+  ${({ $isLockedNote }) => {
+    if (!$isLockedNote) return null;
+
+    return css`
+      outline: 2px solid var(--primary-foreground);
+      padding: 2px;
+    `;
+  }}
 `;
 
 export const Note = styled.div<{
@@ -34,13 +36,14 @@ export const Note = styled.div<{
   $isShapeNote: boolean;
   $isShapeRootNote: boolean;
   $isTuneNote: boolean;
-  $highlightRole: HighlightRole;
+  $isShapeSelected: boolean;
   $isRoleSelected: boolean;
+  $isLockedNote: boolean;
 }>`
+  background-color: color-mix(in oklab, var(--accent) 5%, transparent);
   border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
   border-radius: ${instrumentElBRadius};
-  width: 100%;
-  height: 26px;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,32 +51,25 @@ export const Note = styled.div<{
   z-index: 20;
   cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
   will-change: box-shadow, opacity;
-  transition: ${({ $isActiveNote }) =>
-    !$isActiveNote &&
-    `box-shadow ${fretboardTransitionTime}ms ease-in-out, 
-    opacity ${transitionTime}ms ease-in-out`};
-  opacity: ${({ $isShapeNote, $isShapeRootNote, $isRoleSelected, $isTuneNote, $isActiveNote }) => {
-    if (($isActiveNote && !$isRoleSelected) || $isShapeNote || $isShapeRootNote || (!$isRoleSelected && $isTuneNote))
+  transition:
+    box-shadow ${fretboardTransitionTime}ms ease-in-out,
+    opacity ${transitionTime}ms ease-in-out;
+  opacity: ${({ $isShapeNote, $isShapeRootNote, $isShapeSelected, $isRoleSelected, $isTuneNote, $isActiveNote }) => {
+    if (($isActiveNote && !$isShapeSelected) || $isShapeNote || $isShapeRootNote || (!$isShapeSelected && $isTuneNote))
       return "1";
 
-    if ($isActiveNote || $isTuneNote) return "0.5";
+    if ($isActiveNote || $isTuneNote || !$isRoleSelected) return "0.5";
 
     return "0";
   }};
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(1.5)" : "")};
+  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(2)" : "")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
-  ${({ $isShapeNote, $highlightRole }) => {
+  ${({ $isShapeNote }) => {
     if ($isShapeNote) {
-      const color = roleColors[$highlightRole];
       return css`
-        border-color: ${color};
-        box-shadow: inset 0 0px 8px 0px ${color};
+        border-color: var(--primary);
+        box-shadow: inset 0 0px 8px 0px var(--primary);
       `;
     }
   }}
-  &:focus-visible {
-    outline: 2px solid var(--ring);
-    outline-offset: 6px;
-    z-index: 10;
-  }
 `;

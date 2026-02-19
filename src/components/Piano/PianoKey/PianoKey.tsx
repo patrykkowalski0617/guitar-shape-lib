@@ -14,6 +14,7 @@ interface PianoKeyProps {
 const PianoKey = ({ note }: PianoKeyProps) => {
   const { activeNoteId, setActiveNoteId } = useMusicStore();
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
+  const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
 
   const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
@@ -23,20 +24,27 @@ const PianoKey = ({ note }: PianoKeyProps) => {
 
   const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
+  const isRoleActive = currentRoleId && currentRoleId !== "all";
+
   const isScrollTarget =
-    (!currentRoleId && currentScaleNoteIds.includes(note.noteId)) ||
-    (currentRoleId && currentRoleNoteIds.includes(note.noteId));
+    (!isRoleActive && currentScaleNoteIds.includes(note.noteId)) ||
+    (isRoleActive && currentRoleNoteIds.includes(note.noteId));
 
   const isHighlighted = currentScaleNoteIds.includes(note.noteId);
-  const isActiveNote = note.noteId === activeNoteId;
+  const isActiveNote = note.noteId === activeNoteId && !currentShapeId;
+  const isShapeNote = !!isRoleActive && currentShapeNoteIds.includes(note.noteId);
+  const isRoleNote = currentRoleNoteIds?.includes(note.noteId);
+
   return (
     <S.Key
-      $isRoleSelected={!!currentRoleId}
+      $isRoleSelected={!!isRoleActive}
+      $isShapeSelected={!!currentShapeId}
+      $isShapeNote={isShapeNote}
       $isActiveNote={isActiveNote}
       $isWhitePianoKey={isWhitePianoKey}
       $pianoKeyShape={pianoKeyShape}
       $isHighlighted={isHighlighted}
-      $highlightRole={currentRoleId && currentRoleNoteIds?.includes(note.noteId) ? currentRoleId : "none"}
+      $isRoleNote={isRoleNote}
       data-scroll-target={isScrollTarget}
       onMouseOver={() => {
         setActiveNoteId(note.noteId);
@@ -45,7 +53,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
     >
       <NoteLabel
         isFlatTune={isFlatTune}
-        isShapeNote={currentShapeNoteIds.includes(note.noteId)}
+        isShapeNote={isShapeNote}
         flatNoteName={note.flatNoteName}
         sharpNoteName={note.sharpNoteName}
         isEnharmonic={note.isEnharmonic}
