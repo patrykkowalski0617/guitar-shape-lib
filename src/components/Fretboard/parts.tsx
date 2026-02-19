@@ -10,17 +10,16 @@ export const FretboardWrapper = styled.div`
 export const Fretboard = styled.div`
   user-select: none;
   ${FretboardRow} {
-    & > :first-child {
-      &::before {
-        content: "";
-        position: absolute;
-        width: 1px;
-        height: 100%;
-        border-radius: 5px;
-        background-color: var(--primary);
-        box-shadow: 0 0 8px 0 var(--primary);
-        right: -9px;
-      }
+    > :first-child::before {
+      content: "";
+      position: absolute;
+      width: 1px;
+      border-radius: 5px;
+      background-color: var(--primary);
+      box-shadow: 0 0 8px 0 var(--primary);
+      top: -2px;
+      bottom: -2px;
+      right: -9px;
     }
 
     &:first-child {

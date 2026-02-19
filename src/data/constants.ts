@@ -1,23 +1,15 @@
 export const transitionTime = 300;
 
 export const COLOR_PRESETS = [
-  [5, 120, 220],
-  [15, 130, 260],
-  [45, 127, 300],
-  [65, 140, 335],
-
-  [120, 220, 5],
-  [130, 260, 15],
-  [127, 300, 45],
-  [140, 335, 65],
-
-  [220, 120, 5],
-  [260, 130, 15],
-  [300, 127, 45],
-  [335, 140, 65],
-
-  [120, 5, 220],
-  [130, 15, 260],
-  [127, 45, 300],
-  [140, 65, 335],
-];
+  { hue: 360, name: "Ruby Red" },
+  { hue: 15, name: "Sunset Orange" },
+  { hue: 45, name: "Amber Gold" },
+  { hue: 65, name: "Electric Lime" },
+  { hue: 120, name: "Forest Green" },
+  { hue: 130, name: "Malachite" },
+  { hue: 140, name: "Emerald Sea" },
+  { hue: 220, name: "Sapphire Blue" },
+  { hue: 260, name: "Royal Violet" },
+  { hue: 300, name: "Deep Magenta" },
+  { hue: 335, name: "Crimson Pink" },
+] as const;

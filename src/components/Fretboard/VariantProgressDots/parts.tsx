@@ -9,7 +9,7 @@ export const DotsWrapper = styled(ToggleGroupPrimitive.Root)`
   gap: 4px;
   left: 50%;
   top: -5px;
-  transform: translateX(-50%) scale(0.25);
+  transform: translateX(-50%) scale(0.27);
   transform-origin: center top;
   z-index: 30;
   background-color: var(--background);
@@ -43,7 +43,7 @@ export const Dot = styled.div<{
   ${({ $isActive, $isLearned }) =>
     $isActive &&
     css`
-      transform: scale(var(--dot-active-scale, 1.3));
+      transform: scale(1.1);
       z-index: 1;
       ${$isLearned
         ? "background-color: color-mix(in oklab, var(--primary) 70%, #fff);"

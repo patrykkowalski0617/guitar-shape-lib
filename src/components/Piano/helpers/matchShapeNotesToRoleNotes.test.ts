@@ -101,3 +101,26 @@ describe("matchShapeNotesToRoleNotes()", () => {
     });
   });
 });
+
+describe("Octave Boundary Cases (Fix for B-4/C-5 issue)", () => {
+  it("should keep B in octave 4 when matching target C-5 (closest pitch logic)", () => {
+    const target = ["A#-3", "D-4", "F-4", "G#-4", "C-5", "D#-5", "G-5"];
+    const input = ["D-4", "F-4", "G#-4", "B-4"];
+
+    const result = matchShapeNotesToRoleNotes(target, input);
+
+    expect(result).toContain("B-4");
+    expect(result).not.toContain("B-5");
+
+    expect(result).toEqual(["D-4", "F-4", "G#-4", "B-4"]);
+  });
+
+  it("should jump to octave 5 only if it is actually closer to target", () => {
+    const target = ["C-5"];
+    const input = ["B-5"];
+
+    const result = matchShapeNotesToRoleNotes(target, input);
+
+    expect(result).toEqual(["B-5"]);
+  });
+});

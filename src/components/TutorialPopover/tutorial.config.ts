@@ -1,14 +1,27 @@
 export const TUTORIAL_CONTENT = {
   KEYBOARD: {
     title: "Piano",
-    description: `It is designed to visualize the relationship between the key, function, and the specific arpeggio/scale.
+    description: `Visualizes a single instance of function and scale.
 
-Unlike the fretboard, which displays every possible arpeggio/scale variant across the neck, this view provides a single, clear instance of key, function and arpeggio/scale.
+#Regular Color
+Shows the current key notes or - when function is selected - all function intervals from 1 to 13.
 
-# Highlighted keys represent the notes belonging to the selected key.
-# Color-coded keys marked with numbers identify the specific intervals of the chosen function.
-# Keys with labels indicate the notes belonging to the selected arpeggio/scale.
-`,
+#Primary Color
+Indicates specific arpeggio/scale notes.
+
+#Conflict Markers
+Notes outside the functional scale are marked with "!".
+
+#Scale Basis
+Major Mode: 
+Tonic - Ionian Scale, 
+Subdominant - Lydian Scale, 
+Dominant - Mixolydian Scale.
+
+Minor Mode: 
+Tonic - Aeolian Scale, 
+Subdominant - Dorian Scale, 
+Dominant - Phrygian Dominant Scale`,
     x: 10,
     y: 0,
   },

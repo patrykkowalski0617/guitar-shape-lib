@@ -5,20 +5,14 @@ import { persist } from "zustand/middleware";
 interface SettingsState {
   isTutorialOn: boolean;
   setIsTutorialOn: (val: boolean) => void;
-  tonicColor: number;
-  setTonicColor: (val: number) => void;
-  subdominantColor: number;
-  setSubdominantColor: (val: number) => void;
-  dominantColor: number;
-  setDominantColor: (val: number) => void;
+  primaryColor: number;
+  setPrimaryColor: (val: number) => void;
   resetToDefaults: () => void;
 }
 
 const initialState = {
   isTutorialOn: true,
-  tonicColor: COLOR_PRESETS[3][0],
-  subdominantColor: COLOR_PRESETS[3][1],
-  dominantColor: COLOR_PRESETS[3][2],
+  primaryColor: COLOR_PRESETS[0].hue,
 };
 
 export const useSettingsStore = create<SettingsState>()(
@@ -28,9 +22,7 @@ export const useSettingsStore = create<SettingsState>()(
 
       setIsTutorialOn: (val) => set({ isTutorialOn: val }),
 
-      setTonicColor: (val) => set({ tonicColor: val }),
-      setSubdominantColor: (val) => set({ subdominantColor: val }),
-      setDominantColor: (val) => set({ dominantColor: val }),
+      setPrimaryColor: (val) => set({ primaryColor: val }),
 
       resetToDefaults: () => set(initialState),
     }),

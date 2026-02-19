@@ -3,7 +3,6 @@ export * from "./intervals";
 export * from "./musicKeys";
 export * from "./musicMode";
 export * from "./noteNames";
-export * from "./roleColors";
 export * from "./roles";
 export * from "./scalesSemitoneTemplates";
 export * from "./shapes";

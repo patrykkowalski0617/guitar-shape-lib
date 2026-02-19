@@ -37,17 +37,17 @@
   --radius: 0.65rem;
 
   --background: hsl(0, 0%, 0%);
-  --foreground: hsl(0 0% 93%);
+  --foreground: hsl(0, 0%, 100%);
 
   --card: hsl(190, 20%, 10%);
   --card-foreground: hsl(0 0% 93%);
   --popover: hsl(190 20% 10%);
   --popover-foreground: hsl(0 0% 93%);
 
-  --primary: hsl(332 47% 45%);
-  --primary-foreground: hsl(0 0% 100%);
+  --primary: hsl(332 90%, 45%);
+  --primary-foreground: hsl(0, 0%, 80%);
 
-  --secondary: hsl(215 100% 45%);
+  --secondary: hsl(215 90% 45%);
   --secondary-foreground: hsl(0 0% 100%);
 
   --muted: hsl(0, 0%, 11%);

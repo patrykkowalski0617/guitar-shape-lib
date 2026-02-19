@@ -1,5 +1,5 @@
 import { useControlsStore } from "@/store/useControlsStore";
-import { shapes, type Shape, hramonicMinorScale, majorScale, minorScale, UNIFIED_MUSIC_KEYS } from "@/data";
+import { shapes, type Shape, harmonicMinorScale, majorScale, minorScale, UNIFIED_MUSIC_KEYS } from "@/data";
 import { matchShapeNotesToRoleNotes } from "./matchShapeNotesToRoleNotes";
 import { getNotes } from "@/utils";
 import { type Note } from "@/data";
@@ -19,7 +19,7 @@ export const useScaleLogic = () => {
     ? majorScale
     : !isMajorMode && currentRoleId !== "dominant"
       ? minorScale
-      : hramonicMinorScale;
+      : harmonicMinorScale;
   const currentShape: Shape | null = shapes && currentShapeId ? shapes[currentShapeId] : null;
 
   //- >>>> getting scale note ids (currentScaleNoteIds)
@@ -71,10 +71,13 @@ export const useScaleLogic = () => {
   const roleIntervalOffeset =
     currentRoleId === "tonic" || currentRoleId === "all" ? 0 : currentRoleId === "subdominant" ? 3 : 4;
 
-  const currentRoleNoteIds = [...currentScaleNoteIds]
-    .splice(roleIntervalOffeset)
-    .filter((_, i) => (i + 1) % 2)
-    .slice(0, 7);
+  const currentRoleNoteIds =
+    currentRoleId !== "all"
+      ? [...currentScaleNoteIds]
+          .splice(roleIntervalOffeset)
+          .filter((_, i) => (i + 1) % 2)
+          .slice(0, 7)
+      : [];
 
   //- >>>> geting shape note ids (currentShapeNoteIds)
   let currentShapeNoteIds: string[] = [];

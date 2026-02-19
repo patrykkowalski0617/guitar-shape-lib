@@ -8,7 +8,7 @@ export const FooterWrapper = styled.footer`
   justify-content: center;
   padding: 10px;
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  font-weight: bold;
+  font-weight: 400;
   text-shadow:
     0px 0px 20px var(--background),
     0px 0px 20px var(--background);

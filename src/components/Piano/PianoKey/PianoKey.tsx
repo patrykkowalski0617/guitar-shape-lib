@@ -32,16 +32,19 @@ const PianoKey = ({ note }: PianoKeyProps) => {
 
   const isHighlighted = currentScaleNoteIds.includes(note.noteId);
   const isActiveNote = note.noteId === activeNoteId && !currentShapeId;
+  const isShapeNote = !!isRoleActive && currentShapeNoteIds.includes(note.noteId);
+  const isRoleNote = currentRoleNoteIds?.includes(note.noteId);
 
   return (
     <S.Key
       $isRoleSelected={!!isRoleActive}
       $isShapeSelected={!!currentShapeId}
+      $isShapeNote={isShapeNote}
       $isActiveNote={isActiveNote}
       $isWhitePianoKey={isWhitePianoKey}
       $pianoKeyShape={pianoKeyShape}
       $isHighlighted={isHighlighted}
-      $highlightRole={isRoleActive && currentRoleNoteIds?.includes(note.noteId) ? currentRoleId : "all"}
+      $isRoleNote={isRoleNote}
       data-scroll-target={isScrollTarget}
       onMouseOver={() => {
         setActiveNoteId(note.noteId);
@@ -50,7 +53,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
     >
       <NoteLabel
         isFlatTune={isFlatTune}
-        isShapeNote={!!isRoleActive && currentShapeNoteIds.includes(note.noteId)}
+        isShapeNote={isShapeNote}
         flatNoteName={note.flatNoteName}
         sharpNoteName={note.sharpNoteName}
         isEnharmonic={note.isEnharmonic}

@@ -1,6 +1,5 @@
 import { useMusicStore } from "@/store/useMusicStore";
 import { Lock, LockOpen } from "lucide-react";
-import { useControlsStore } from "@/store/useControlsStore";
 import { ControlWrapper } from "@/parts";
 import TutorialPopover from "@/components/TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "@/components/TutorialPopover/tutorial.config";
@@ -10,18 +9,14 @@ export function LockShapeButton() {
   const setLockedShapeVariantLocationData = useMusicStore((state) => state.setLockedShapeVariantLocationData);
   const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
   const lockedShapeVariantLocationData = useMusicStore((state) => state.lockedShapeVariantLocationData);
-  const currentRoleId = useControlsStore((state) => state.currentRoleId);
-  const setLockedRoleId = useMusicStore((state) => state.setLockedRoleId);
 
   const isLocked = lockedShapeVariantLocationData !== null;
 
   const handleToggle = () => {
     if (isLocked) {
       setLockedShapeVariantLocationData(null);
-      setLockedRoleId(null);
     } else {
       setLockedShapeVariantLocationData(currentShapeVariantLocationData);
-      setLockedRoleId(currentRoleId);
     }
   };
 

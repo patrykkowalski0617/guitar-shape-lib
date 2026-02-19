@@ -80,10 +80,11 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
       {Object.entries(variants).map(([variantId], i) => {
         const dotId = `${currentShapeId}-${stringId}-${variantId}`;
         const isActive = activeVariantId === variantId && isCorrectLocation;
+        const isLearned = learned.includes(dotId);
 
         return (
           <ToggleGroupPrimitive.Item key={dotId} value={variantId} asChild>
-            <S.Dot as="button" $isLearned={learned.includes(dotId)} $isActive={isActive}>
+            <S.Dot as="button" $isLearned={isLearned} $isActive={isActive}>
               {i + 1}
             </S.Dot>
           </ToggleGroupPrimitive.Item>

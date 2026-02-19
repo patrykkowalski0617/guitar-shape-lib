@@ -6,5 +6,4 @@ export const activeDotsStyles = css`
   box-shadow: 0 0 4px 4px var(--background);
   color: var(--background);
   padding: 2px;
-  --dot-active-scale: 1.1;
 `;
