@@ -22,37 +22,31 @@ export const DotsWrapper = styled(ToggleGroupPrimitive.Root)`
 `;
 
 export const Dot = styled.div<{
-  $isLearned: boolean;
   $isActive: boolean;
 }>`
   width: 20px;
   height: 20px;
-  border-radius: 50%;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 10px;
+  font-weight: 900;
   line-height: 1;
-  font-weight: bold;
-  background-color: ${({ $isLearned }) => ($isLearned ? "var(--primary)" : "var(--accent)")};
+  background-color: var(--accent);
+  border-radius: 50%;
   cursor: pointer;
   transition:
     transform 0.025s ease-in-out,
-    background-color 0.1s ease;
-  ${({ $isActive, $isLearned }) =>
+    border-radius 0.1s ease;
+  ${({ $isActive }) =>
     $isActive &&
     css`
       transform: scale(1.1);
       z-index: 1;
-      ${$isLearned
-        ? "background-color: color-mix(in oklab, var(--primary) 70%, #fff);"
-        : "background-color: color-mix(in oklab, var(--accent) 50%, #b0f2ff);"};
+      background-color: var(--primary);
     `}
   &:hover {
-    ${({ $isLearned }) =>
-      $isLearned
-        ? "background-color: color-mix(in oklab, var(--primary) 70%, #fff);"
-        : "background-color: color-mix(in oklab, var(--accent) 50%, #b0f2ff);"};
+    filter: brightness(1.5);
   }
 `;

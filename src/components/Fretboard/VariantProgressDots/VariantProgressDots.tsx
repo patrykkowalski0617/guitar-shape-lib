@@ -7,6 +7,7 @@ import { useMusicStore } from "@/store/useMusicStore";
 import type { StringIndex } from "../FretboardRow/FretboardRow";
 import { STRING_ID_MAP } from "../helpers/constants";
 import { toast } from "sonner";
+import { Check } from "lucide-react";
 
 interface Props {
   stringIndex: StringIndex;
@@ -84,8 +85,8 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
 
         return (
           <ToggleGroupPrimitive.Item key={dotId} value={variantId} asChild>
-            <S.Dot as="button" $isLearned={isLearned} $isActive={isActive}>
-              {i + 1}
+            <S.Dot as="button" $isActive={isActive}>
+              {isLearned ? <Check size={12} strokeWidth={3} /> : i + 1}
             </S.Dot>
           </ToggleGroupPrimitive.Item>
         );

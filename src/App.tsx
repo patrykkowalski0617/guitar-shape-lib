@@ -15,6 +15,7 @@ import {
 import FullscreenButton from "@/components/FullscreenButton/FullscreenButton";
 import { Toaster } from "@/components/ui/sonner";
 import { getHSLColorFromHue } from "./utils";
+import { ShapeExplorerSlider } from "./components/Controls/ShapeExplorerSlider/ShapeExplorerSlider";
 
 export default function App() {
   const { primaryColor } = useSettingsStore();
@@ -31,6 +32,7 @@ export default function App() {
       <MainContent>
         <Setcion>
           <Fretboard />
+          <ShapeExplorerSlider />
         </Setcion>
         <Setcion>
           <ControlContainer>
