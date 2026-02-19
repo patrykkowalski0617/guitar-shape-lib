@@ -3,14 +3,20 @@ import { numberOfFrets, STRINGS_CONFIG } from "@/components/Fretboard/FretboardR
 import { STRING_ID_MAP } from "@/components/Fretboard/helpers/constants";
 import { getNotes } from "@/utils";
 
-interface ShapeLocation {
+export interface ShapeLocation {
   shapeId: string;
   stringId: string;
   fretIndex: number;
   variantId: string;
+  id: string;
+  isLearned: boolean;
 }
 
-export const getOrderedShapeLocations = (shapeId: string | null, rootNoteName: string | null): ShapeLocation[] => {
+export const getOrderedShapeLocations = (
+  shapeId: string | null,
+  rootNoteName: string | null,
+  learnedIds: string[],
+): ShapeLocation[] => {
   if (!shapeId || !rootNoteName) return [];
 
   const locations: ShapeLocation[] = [];
@@ -33,11 +39,14 @@ export const getOrderedShapeLocations = (shapeId: string | null, rootNoteName: s
 
         if (variants) {
           Object.keys(variants).forEach((vId) => {
+            const id = `${shapeId}-${stringId}-${vId}`;
             locations.push({
               shapeId,
               stringId,
               fretIndex: fIdx,
               variantId: vId,
+              id,
+              isLearned: learnedIds.includes(id),
             });
           });
         }

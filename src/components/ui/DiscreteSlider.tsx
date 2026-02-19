@@ -4,18 +4,31 @@ import { cn } from "@/lib/utils";
 import styled from "styled-components";
 import { transitionTime } from "@/data";
 
-const Tick = styled.div<{ $isCurrent: boolean }>`
+const Tick = styled.div<{ $isCurrent: boolean; $isLearned: boolean }>`
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: ${({ $isCurrent }) => ($isCurrent ? "var(--slider-color)" : "var(--muted)")};
-  box-shadow: ${({ $isCurrent }) => ($isCurrent ? "0 0 12px var(--slider-color)" : "none")};
+  background-color: ${({ $isCurrent, $isLearned }) =>
+    $isCurrent ? "var(--slider-color)" : $isLearned ? "var(--accent)" : "var(--muted)"};
+
+  box-shadow: ${({ $isCurrent, $isLearned }) => {
+    if ($isCurrent) return "0 0 12px var(--slider-color)";
+    if ($isLearned) return "0 0 8px var(--accent)";
+    return "none";
+  }};
+
+  opacity: ${({ $isCurrent, $isLearned }) => ($isLearned && !$isCurrent ? 0.7 : 1)};
+
   transition: all ${transitionTime}ms ease-in-out;
   z-index: 50;
 `;
+
+interface DiscreteSliderProps extends React.ComponentProps<typeof SliderPrimitive.Root> {
+  learnedIndexes?: number[];
+}
 
 function DiscreteSlider({
   className,
@@ -23,8 +36,9 @@ function DiscreteSlider({
   min = 0,
   max = 100,
   style,
+  learnedIndexes = [],
   ...props
-}: React.ComponentProps<typeof SliderPrimitive.Root>) {
+}: DiscreteSliderProps) {
   const currentValue = value?.[0] ?? 0;
   const thumbSize = 20;
 
@@ -46,6 +60,7 @@ function DiscreteSlider({
             <Tick
               key={i}
               $isCurrent={i === currentValue && currentValue !== 0}
+              $isLearned={learnedIndexes.includes(i)}
               style={{ left: `${(i / max) * 100}%` }}
             />
           ))}

@@ -5,8 +5,8 @@ import { getNotes } from "@/utils";
 import { shapes, type Note } from "@/data";
 import { useEffect, useState } from "react";
 
-const MAX_FRET = numberOfFrets - 4;
-const MIN_FRET = 3;
+const MAX_FRET = numberOfFrets - 0;
+const MIN_FRET = 0;
 
 export const getRandomStringIndex = () => {
   const validIndexes = [2, 3, 4, 5];
