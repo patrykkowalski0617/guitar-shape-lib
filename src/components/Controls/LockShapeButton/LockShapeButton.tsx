@@ -29,7 +29,7 @@ export function LockShapeButton() {
     <ControlWrapper>
       <Button
         variant={isLocked ? "active" : "outline"}
-        className={isDisabled ? "opacity-20 cursor-not-allowed" : ""}
+        className={isDisabled ? "opacity-50 cursor-not-allowed" : ""}
         onClick={handleToggle}
       >
         <span className="flex items-center justify-center gap-2">
