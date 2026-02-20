@@ -2,7 +2,6 @@ import * as React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
 import styled from "styled-components";
-import { transitionTime } from "@/data";
 
 const Tick = styled.div<{ $isCurrent: boolean; $isLearned: boolean }>`
   position: absolute;
@@ -15,15 +14,14 @@ const Tick = styled.div<{ $isCurrent: boolean; $isLearned: boolean }>`
     $isCurrent ? "var(--slider-color)" : $isLearned ? "var(--accent)" : "var(--muted)"};
 
   box-shadow: ${({ $isCurrent, $isLearned }) => {
-    if ($isCurrent) return "0 0 12px var(--slider-color)";
+    if ($isCurrent) return "0 0 8px var(--slider-color)";
     if ($isLearned) return "0 0 8px var(--accent)";
     return "none";
   }};
 
-  opacity: ${({ $isCurrent, $isLearned }) => ($isLearned && !$isCurrent ? 0.7 : 1)};
+  transition: all 0.05s ease-in-out;
 
-  transition: all ${transitionTime}ms ease-in-out;
-  z-index: 50;
+  z-index: ${({ $isCurrent }) => ($isCurrent ? " 10" : "")};
 `;
 
 interface DiscreteSliderProps extends React.ComponentProps<typeof SliderPrimitive.Root> {

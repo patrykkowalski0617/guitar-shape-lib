@@ -51,7 +51,7 @@ export function ShapeSelect() {
           setShape(id, offset);
         }}
       >
-        <SelectTrigger className="md:min-w-[194px]">
+        <SelectTrigger className="md:min-w-[200px]">
           <SelectValue placeholder={currentRoleId ? "Select shape..." : "Select function first..."} />
         </SelectTrigger>
         <SelectContent className="font-semibold">

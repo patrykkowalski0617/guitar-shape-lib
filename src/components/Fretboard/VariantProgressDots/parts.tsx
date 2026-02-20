@@ -8,12 +8,12 @@ export const DotsWrapper = styled(ToggleGroupPrimitive.Root)`
   flex-direction: row;
   gap: 4px;
   left: 50%;
-  top: -5px;
+  top: -4px;
   transform: translateX(-50%) scale(0.27);
   transform-origin: center top;
   z-index: 30;
   background-color: var(--background);
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: 24px;
   color: transparent;
   &:focus-within {
@@ -23,6 +23,7 @@ export const DotsWrapper = styled(ToggleGroupPrimitive.Root)`
 
 export const Dot = styled.div<{
   $isActive: boolean;
+  $isLearned: boolean;
 }>`
   width: 20px;
   height: 20px;
@@ -33,12 +34,13 @@ export const Dot = styled.div<{
   font-size: 10px;
   font-weight: 900;
   line-height: 1;
-  background-color: var(--accent);
+  background-color: ${({ $isActive, $isLearned }) =>
+    $isActive ? "var(--primary)" : $isLearned ? "var(--accent)" : "var(--muted)"};
   border-radius: 50%;
   cursor: pointer;
   transition:
     transform 0.025s ease-in-out,
-    border-radius 0.1s ease;
+    background-color 0.2s ease;
   ${({ $isActive }) =>
     $isActive &&
     css`
@@ -46,7 +48,8 @@ export const Dot = styled.div<{
       z-index: 1;
       background-color: var(--primary);
     `}
+
   &:hover {
-    filter: brightness(1.5);
+    filter: brightness(1.2);
   }
 `;

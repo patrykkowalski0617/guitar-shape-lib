@@ -1,13 +1,13 @@
-import { shapes, type Note } from "@/data";
+import { shapes, type FretboardStringId, type Note, type VariantId } from "@/data";
+import { getValidVariants, type VariantsRecord, getNotes } from "@/utils";
 import { numberOfFrets, STRINGS_CONFIG } from "@/components/Fretboard/FretboardRow/helpers/constants";
 import { STRING_ID_MAP } from "@/components/Fretboard/helpers/constants";
-import { getNotes } from "@/utils";
 
 export interface ShapeLocation {
   shapeId: string;
-  stringId: string;
+  stringId: FretboardStringId;
   fretIndex: number;
-  variantId: string;
+  variantId: VariantId;
   id: string;
   isLearned: boolean;
 }
@@ -38,13 +38,15 @@ export const getOrderedShapeLocations = (
           shapeData.fretboardCoordinatesVariants?.[stringId as keyof typeof shapeData.fretboardCoordinatesVariants];
 
         if (variants) {
-          Object.keys(variants).forEach((vId) => {
-            const id = `${shapeId}-${stringId}-${vId}`;
+          const validEntries = getValidVariants(fIdx, variants as VariantsRecord);
+
+          validEntries.forEach(([variantId]) => {
+            const id = `${shapeId}-${stringId}-${variantId}`;
             locations.push({
               shapeId,
               stringId,
               fretIndex: fIdx,
-              variantId: vId,
+              variantId: variantId,
               id,
               isLearned: learnedIds.includes(id),
             });

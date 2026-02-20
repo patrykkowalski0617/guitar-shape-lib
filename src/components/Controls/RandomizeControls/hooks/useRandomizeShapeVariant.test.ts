@@ -3,7 +3,7 @@
  */
 import { describe, it, expect, vi, afterEach } from "vitest";
 import { getRandomStringIndex, getRandomFret, getRandomVariantId } from "./useRandomizeShapeVariant";
-import type { Note } from "@/data";
+import type { Note, FretboardStringId } from "@/data";
 
 vi.mock("@/data", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@/data")>();
@@ -12,7 +12,12 @@ vi.mock("@/data", async (importOriginal) => {
     shapes: {
       "test-shape": {
         fretboardCoordinatesVariants: {
-          strE: { v1: {}, v2: {}, v3: {}, v4: {} },
+          strE: {
+            v1: [[5, 0]],
+            v2: [[5, 1]],
+            v3: [[5, 0]],
+            v4: [[5, 1]],
+          },
         },
       },
     },
@@ -34,10 +39,10 @@ describe("RandomizeShapeVariant Logic", () => {
   });
 
   describe("getRandomFret()", () => {
-    it("should pick a fret using Math.random without failing on missing data", () => {
+    it("should pick a fret using Math.random and require shapeId", () => {
       vi.spyOn(Math, "random").mockReturnValue(0);
 
-      const fret = getRandomFret("C" as Note, 0, 5);
+      const fret = getRandomFret("C" as Note, 0, 5, "test-shape");
 
       expect(typeof fret).toBe("number");
     });
@@ -45,25 +50,25 @@ describe("RandomizeShapeVariant Logic", () => {
 
   describe("getRandomVariantId()", () => {
     const shapeId = "test-shape";
-    const stringId = "strE";
+    const stringId: FretboardStringId = "strE";
 
-    it("should return the first half when fretIndex is low", () => {
+    it("should return a valid variant ID (e.g., v1) when random is 0", () => {
       vi.spyOn(Math, "random").mockReturnValue(0);
       const variantId = getRandomVariantId(shapeId, stringId, 1);
+
       expect(variantId).toBe("v1");
     });
 
-    it("should return the last half when fretIndex is high", () => {
-      vi.spyOn(Math, "random").mockReturnValue(0);
-
+    it("should return null if fret is out of bounds (making variant invalid)", () => {
       const variantId = getRandomVariantId(shapeId, stringId, 100);
 
-      expect(variantId).toBe("v3");
+      expect(variantId).toBeNull();
     });
 
-    it("should return any variant when fret is in the middle", () => {
+    it("should return the last variant when random is high", () => {
       vi.spyOn(Math, "random").mockReturnValue(0.99);
-      const variantId = getRandomVariantId(shapeId, stringId, 10);
+      const variantId = getRandomVariantId(shapeId, stringId, 5);
+
       expect(variantId).toBe("v4");
     });
   });

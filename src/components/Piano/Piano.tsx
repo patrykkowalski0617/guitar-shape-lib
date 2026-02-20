@@ -1,12 +1,12 @@
 import { type JSX, useRef } from "react";
-import * as S from "@/components/Piano/parts";
+import { useHorizontalScroll } from "@/hooks";
 import { InstrumentScrollWrapper, InstrumentWrapper, TutorialStickyIcons } from "@/parts";
+import * as S from "@/components/Piano/parts";
 import PianoKey from "./PianoKey/PianoKey";
 import { pianoNotes, numberOfKeys } from "./helpers/constants";
 import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
-import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 import { usePianoScroll } from "./helpers/usePianoScroll";
 
 export default function Piano(): JSX.Element {

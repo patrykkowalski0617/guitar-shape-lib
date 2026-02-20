@@ -28,10 +28,10 @@ export function KeySelect() {
           value={currentKeyId}
           onValueChange={(v) => setCurrentKey(v as MusicKeyId)}
           options={keyOptions}
-          triggerClassName="min-w-[100px]"
+          className="md:min-w-[200px]"
         >
           {keyOptions.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value} className="!min-w-[100px]">
+            <SelectItem key={opt.value} value={opt.value}>
               <span className={isMajorMode ? "opacity-100" : "opacity-50"}>{opt.majorName}</span>
               <span className="mx-1 opacity-50">/</span>
               <span className={!isMajorMode ? "opacity-100" : "opacity-50"}>{opt.relativeMinorName}</span>
@@ -47,7 +47,7 @@ export function KeySelect() {
           </SelectTrigger>
           <SelectContent>
             {keyOptions.map((opt) => (
-              <SelectItem key={opt.value} value={opt.value} className="!min-w-[100px]">
+              <SelectItem key={opt.value} value={opt.value}>
                 <span className={isMajorMode ? "opacity-100" : "opacity-50"}>{opt.majorName}</span>
                 <span className="mx-1 opacity-50">/</span>
                 <span className={!isMajorMode ? "opacity-100" : "opacity-50"}>{opt.relativeMinorName}</span>

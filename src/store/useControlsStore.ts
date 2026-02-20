@@ -12,6 +12,8 @@ interface ControlsState {
   currentShapeId: string | null;
   currentShapeSemitoneOffsetFromC: number | null;
   setShape: (id: string | null, offset: number | null) => void;
+  showPiano: boolean;
+  setShowPiano: (show: boolean) => void;
 }
 
 export const useControlsStore = create<ControlsState>((set) => ({
@@ -49,4 +51,7 @@ export const useControlsStore = create<ControlsState>((set) => ({
   currentShapeId: null,
   currentShapeSemitoneOffsetFromC: null,
   setShape: (id, offset) => set({ currentShapeId: id, currentShapeSemitoneOffsetFromC: offset }),
+
+  showPiano: false,
+  setShowPiano: (show) => set({ showPiano: show }),
 }));

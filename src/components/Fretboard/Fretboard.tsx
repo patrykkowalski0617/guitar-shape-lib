@@ -4,7 +4,7 @@ import { STRINGS_CONFIG } from "./FretboardRow/helpers/constants";
 import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
 import TutorialPopover from "../TutorialPopover/TutorialPopover";
 import { TUTORIAL_CONTENT } from "../TutorialPopover/tutorial.config";
-import { useHorizontalScroll } from "../../hooks/useHorizontalScroll";
+import { useHorizontalScroll } from "@/hooks";
 import FretboardRow, { type StringIndex } from "./FretboardRow/FretboardRow";
 import { InstrumentScrollWrapper, InstrumentWrapper, TutorialStickyIcons } from "@/parts";
 import { useShapeReset } from "./helpers/useShapeReset";
