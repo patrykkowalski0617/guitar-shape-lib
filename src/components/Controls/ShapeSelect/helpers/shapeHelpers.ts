@@ -9,6 +9,7 @@ export const getFilteredShapeOptions = (currentRoleId: string | null, isMajorMod
   }
 
   const options: { shapeId: keyof Shapes; offset: number }[] = [];
+  if (!currentRoleId) return options;
 
   Object.entries(shapes).forEach(([shapeId, shape]) => {
     const roleKey = currentRoleId as keyof typeof shape.semitoneOffsetFromMajorTonicRoot;

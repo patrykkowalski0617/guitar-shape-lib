@@ -21,12 +21,7 @@ export function KeySelect() {
       <ControlLabel>Key</ControlLabel>
 
       <div className="hidden sm:block">
-        <SelectPrevNext
-          value={currentKeyId}
-          onValueChange={(v) => setCurrentKey(v as MusicKeyId)}
-          options={keyOptions}
-          className="md:min-w-[200px]"
-        >
+        <SelectPrevNext value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)} options={keyOptions}>
           {keyOptions.map((opt) => (
             <SelectItem key={opt.value} value={opt.value}>
               <span className={isMajorMode ? "opacity-100" : "opacity-50"}>{opt.majorName}</span>
