@@ -32,7 +32,7 @@ export function ModeAndRoleSelect() {
       <ControlLabel>Filter Arp/Scale</ControlLabel>
 
       <Select value={currentValue} onValueChange={handleValueChange}>
-        <SelectTrigger>
+        <SelectTrigger className="md:min-w-[200px]">
           <SelectValue placeholder="Select mode & function" />
         </SelectTrigger>
         <SelectContent>

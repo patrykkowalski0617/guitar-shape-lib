@@ -20,7 +20,7 @@ export function KeySelect() {
     <ControlWrapper>
       <ControlLabel>Key</ControlLabel>
 
-      <div className="hidden sm:block">
+      <div className="hidden sm:block md:min-w-[200px]">
         <SelectPrevNext value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)} options={keyOptions}>
           {keyOptions.map((opt) => (
             <SelectItem key={opt.value} value={opt.value}>

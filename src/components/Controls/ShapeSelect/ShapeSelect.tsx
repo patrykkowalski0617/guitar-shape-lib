@@ -56,7 +56,7 @@ export function ShapeSelect() {
         }}
       >
         <AnimatedWrapper>
-          <SelectTrigger>
+          <SelectTrigger className="md:min-w-[200px]">
             <SelectValue placeholder="Select shape..." />
           </SelectTrigger>
         </AnimatedWrapper>
