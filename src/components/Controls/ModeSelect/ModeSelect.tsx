@@ -1,8 +1,6 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { musicMode, type MusicModeId } from "@/data";
-import TutorialPopover from "../../TutorialPopover/TutorialPopover";
-import { TUTORIAL_CONTENT } from "../../TutorialPopover/tutorial.config";
 import { ControlLabel, ControlWrapper } from "@/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -14,7 +12,6 @@ export function ModeSelect() {
   const options = Object.entries(musicMode) as [MusicModeId, typeof musicMode.major][];
   return (
     <ControlWrapper>
-      <TutorialPopover {...TUTORIAL_CONTENT.MODE_TOGGLE} />
       <ControlLabel>Mode</ControlLabel>
 
       <div className="hidden sm:block">

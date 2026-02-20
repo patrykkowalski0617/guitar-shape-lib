@@ -4,8 +4,6 @@ import { shapes, type Shapes, UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
 import { getFilteredShapeOptions } from "./helpers/shapeHelpers";
 import { ControlLabel, ControlWrapper } from "@/parts";
-import TutorialPopover from "@/components/TutorialPopover/TutorialPopover";
-import { TUTORIAL_CONTENT } from "@/components/TutorialPopover/tutorial.config";
 
 export function ShapeSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
@@ -41,7 +39,6 @@ export function ShapeSelect() {
 
   return (
     <ControlWrapper>
-      <TutorialPopover {...TUTORIAL_CONTENT.SHAPE_SELECTOR} />
       <ControlLabel>Arpeggio/Scale</ControlLabel>
       <Select
         value={currentShapeValue}

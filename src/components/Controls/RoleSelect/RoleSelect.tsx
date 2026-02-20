@@ -1,8 +1,6 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { roles, type RoleData, type RoleId } from "@/data";
-import { TUTORIAL_CONTENT } from "../../TutorialPopover/tutorial.config";
-import TutorialPopover from "../../TutorialPopover/TutorialPopover";
 import { ControlLabel, ControlWrapper } from "@/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
@@ -17,7 +15,6 @@ export function RoleSelect() {
   const options = Object.entries(roles) as [RoleId, RoleData][];
   return (
     <ControlWrapper>
-      <TutorialPopover {...TUTORIAL_CONTENT.ROLE_SELECTOR} />
       <ControlLabel>
         <span className="hidden lg:block">Filter Arp/scale by Function</span>
         <span className="lg:hidden">Filter Arp/scale</span>

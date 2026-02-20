@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/sheet";
 import * as S from "./parts";
 import { Settings as Gear, RotateCcw } from "lucide-react";
-import Tutorial from "./Tutorial/Tutorial";
 import { ExportProgressFile, ImportProgressFile } from "./Progress/ProgressButtons";
 import ColorsPresetsSetting from "./ColorsPresetsSetting/ColorsPresetsSetting";
 import ColorsSetting from "./ColorsSetting/ColorsSetting";
@@ -39,19 +38,16 @@ export function Settings() {
           </SheetHeader>
           <div className="no-scrollbar overflow-y-auto px-4">
             <div className="px-6 py-2">
-              <Tutorial />
+              <ColorsPresetsSetting />
+            </div>
+            <div className="px-6 py-2">
+              <ColorsSetting />
             </div>
             <div className="px-6 py-2">
               <ExportProgressFile />
             </div>
             <div className="px-6 py-2">
               <ImportProgressFile />
-            </div>
-            <div className="px-6 py-2">
-              <ColorsPresetsSetting />
-            </div>
-            <div className="px-6 py-2">
-              <ColorsSetting />
             </div>
           </div>
           <SheetFooter>
