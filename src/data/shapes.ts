@@ -15,6 +15,8 @@ export type VariantId = `v${number}`;
 
 export type StringVariants = Record<VariantId, FretboardCoordinate[]>;
 
+export type FretboardStringId = keyof FretboardCoordinates;
+
 export interface FretboardCoordinates {
   strE: StringVariants;
   strA: StringVariants;

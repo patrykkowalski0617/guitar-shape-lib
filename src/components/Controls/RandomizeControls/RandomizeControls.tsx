@@ -28,7 +28,6 @@ export function RandomizeControls() {
     <ControlWrapper>
       <Button variant="outline" onClick={handleRandomize} className="flex items-center gap-2 border-primary/50">
         <Dices className="h-4 w-4" />
-        <span>Randomize</span>
       </Button>
     </ControlWrapper>
   );

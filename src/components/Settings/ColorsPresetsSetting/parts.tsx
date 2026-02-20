@@ -10,8 +10,8 @@ export const PresetItemWrapper = styled.div`
 `;
 
 export const ColorPreviewContainer = styled.div`
-  width: 50px;
-  height: 26px;
+  width: 40px;
+  height: 20px;
   background-color: var(--background);
   border-radius: ${instrumentElBRadius};
   display: flex;

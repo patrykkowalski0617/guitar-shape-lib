@@ -1,9 +1,17 @@
 import { FooterAndHeaderStyles } from "@/parts";
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
-export const HeaderWrapper = styled.header`
+export const HeaderWrapper = styled.header<{ $isHidden: boolean }>`
   ${FooterAndHeaderStyles}
   border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  max-height: 77px;
+  height: 77px;
+  ${({ $isHidden }) =>
+    $isHidden &&
+    css`
+      max-height: 0;
+      opacity: 0;
+    `}
 `;
 
 export const HeaderContent = styled.div`
@@ -12,7 +20,6 @@ export const HeaderContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px 0;
   margin: auto;
   width: 100%;
   text-shadow:

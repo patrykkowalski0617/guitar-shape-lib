@@ -30,10 +30,6 @@ export const getFilteredShapeOptions = (currentRoleId: string | null, isMajorMod
 };
 
 export const getAutoSelectedShape = (roleId: string | null, isMajorMode: boolean) => {
-  if (!roleId || roleId === "all") {
-    return { shapeId: null, offset: null };
-  }
-
   const options = getFilteredShapeOptions(roleId, isMajorMode);
 
   const configKey = `${isMajorMode ? "major" : "minor"}_${roleId}` as keyof typeof DEFAULT_SHAPES_CONFIG;

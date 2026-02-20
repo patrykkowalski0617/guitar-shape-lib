@@ -1,10 +1,11 @@
+import type { FretboardStringId, VariantId } from "@/data";
 import { create } from "zustand";
 
 export interface ShapeVariantLocationData {
   shapeId: string | null;
-  stringId: string;
+  stringId: FretboardStringId;
   fretIndex: number;
-  variantId: string;
+  variantId: VariantId;
 }
 
 interface MusicState {

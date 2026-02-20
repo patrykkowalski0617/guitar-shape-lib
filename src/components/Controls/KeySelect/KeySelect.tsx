@@ -1,7 +1,5 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/data";
-import TutorialPopover from "../../TutorialPopover/TutorialPopover";
-import { TUTORIAL_CONTENT } from "../../TutorialPopover/tutorial.config";
 import { SelectPrevNext } from "../../ui/select-prev-next";
 import { ControlLabel, ControlWrapper } from "@/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -20,7 +18,6 @@ export function KeySelect() {
 
   return (
     <ControlWrapper>
-      <TutorialPopover {...TUTORIAL_CONTENT.KEY_SELECTOR} />
       <ControlLabel>Key</ControlLabel>
 
       <div className="hidden sm:block">
@@ -28,10 +25,10 @@ export function KeySelect() {
           value={currentKeyId}
           onValueChange={(v) => setCurrentKey(v as MusicKeyId)}
           options={keyOptions}
-          triggerClassName="min-w-[100px]"
+          className="md:min-w-[200px]"
         >
           {keyOptions.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value} className="!min-w-[100px]">
+            <SelectItem key={opt.value} value={opt.value}>
               <span className={isMajorMode ? "opacity-100" : "opacity-50"}>{opt.majorName}</span>
               <span className="mx-1 opacity-50">/</span>
               <span className={!isMajorMode ? "opacity-100" : "opacity-50"}>{opt.relativeMinorName}</span>
@@ -47,7 +44,7 @@ export function KeySelect() {
           </SelectTrigger>
           <SelectContent>
             {keyOptions.map((opt) => (
-              <SelectItem key={opt.value} value={opt.value} className="!min-w-[100px]">
+              <SelectItem key={opt.value} value={opt.value}>
                 <span className={isMajorMode ? "opacity-100" : "opacity-50"}>{opt.majorName}</span>
                 <span className="mx-1 opacity-50">/</span>
                 <span className={!isMajorMode ? "opacity-100" : "opacity-50"}>{opt.relativeMinorName}</span>

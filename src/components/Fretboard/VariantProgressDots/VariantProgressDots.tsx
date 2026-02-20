@@ -1,6 +1,7 @@
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group";
 import * as S from "./parts";
-import { shapes } from "@/data";
+import { shapes, type StringVariants, type VariantId } from "@/data";
+import { getValidVariants } from "@/utils";
 import { useControlsStore } from "@/store/useControlsStore";
 import { useProgressStore } from "@/store/useProgressStore";
 import { useMusicStore } from "@/store/useMusicStore";
@@ -20,10 +21,14 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
 
   const stringId = STRING_ID_MAP[stringIndex];
   const currentShape = currentShapeId ? shapes[currentShapeId] : null;
-  const variants =
+  const allVariants =
     currentShape?.fretboardCoordinatesVariants?.[stringId as keyof typeof currentShape.fretboardCoordinatesVariants];
 
-  if (!variants || !currentShapeId) return null;
+  if (!allVariants || !currentShapeId) return null;
+
+  const validVariants = getValidVariants(fretIndex, allVariants as StringVariants);
+
+  if (validVariants.length === 0) return null;
 
   const activeVariantId = currentShapeVariantLocationData?.variantId;
   const isCorrectLocation =
@@ -32,13 +37,10 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
   const handleToggleLearned = (dotId: string) => {
     const isAdding = !learned.includes(dotId);
     toggleLearned(dotId);
-
-    toast(isAdding ? "Added to 'learned'." : "Removed from 'learned'.", {
-      duration: 5000,
-    });
+    toast(isAdding ? "Added to 'learned'." : "Removed from 'learned'.", { duration: 3000 });
   };
 
-  const onValueChange = (newVariantId: string) => {
+  const onValueChange = (newVariantId: VariantId) => {
     if (!newVariantId) {
       if (activeVariantId && isCorrectLocation) {
         handleToggleLearned(`${currentShapeId}-${stringId}-${activeVariantId}`);
@@ -54,37 +56,24 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
     });
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Escape") {
-      if (e.currentTarget.contains(document.activeElement)) {
-        (document.activeElement as HTMLElement).blur();
-      }
-    }
-  };
-
-  const clearFocus = () => {
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
-    }
-  };
-
   return (
     <S.DotsWrapper
       type="single"
       value={isCorrectLocation ? activeVariantId : ""}
       onValueChange={onValueChange}
       onClick={(e) => e.stopPropagation()}
-      onKeyDown={handleKeyDown}
-      onMouseLeave={clearFocus}
+      onMouseLeave={() => {
+        if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+      }}
     >
-      {Object.entries(variants).map(([variantId], i) => {
+      {validVariants.map(([variantId], i) => {
         const dotId = `${currentShapeId}-${stringId}-${variantId}`;
         const isActive = activeVariantId === variantId && isCorrectLocation;
         const isLearned = learned.includes(dotId);
 
         return (
           <ToggleGroupPrimitive.Item key={dotId} value={variantId} asChild>
-            <S.Dot as="button" $isLearned={isLearned} $isActive={isActive}>
+            <S.Dot as="button" $isActive={isActive} $isLearned={isLearned}>
               {i + 1}
             </S.Dot>
           </ToggleGroupPrimitive.Item>
