@@ -35,7 +35,11 @@ export const Dot = styled.div<{
   font-weight: 900;
   line-height: 1;
   background-color: ${({ $isActive, $isLearned }) =>
-    $isActive ? "var(--primary)" : $isLearned ? "var(--accent)" : "var(--muted)"};
+    $isActive
+      ? "var(--primary)"
+      : $isLearned
+        ? "var(--accent)"
+        : "color-mix(in oklab, var(--muted) 50%, var(--foreground))"};
   border-radius: 50%;
   cursor: pointer;
   transition:

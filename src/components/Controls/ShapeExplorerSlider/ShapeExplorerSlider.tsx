@@ -41,11 +41,13 @@ export function ShapeExplorerSlider() {
     () => options.map((opt, i) => (opt.isLearned ? i + 1 : null)).filter((v): v is number => v !== null),
     [options],
   );
+  const disabled = !currentShapeId || options.length === 0;
 
   return (
     <ControlWrapper style={{ width: "calc(100% - 60px)", maxWidth: "unset", margin: "8px auto 32px" }}>
       <DiscreteSlider
-        value={[currentIndex]}
+        key={disabled ? "disabled" : "enabled"}
+        value={disabled ? [0] : [currentIndex]}
         max={options.length}
         step={1}
         learnedIndexes={learnedIndexes}
@@ -53,8 +55,7 @@ export function ShapeExplorerSlider() {
           const val = v[0];
           setCurrentLocation(val === 0 ? null : options[val - 1]);
         }}
-        disabled={!currentShapeId || options.length === 0}
-        style={{ "--slider-color": "var(--primary)" } as React.CSSProperties}
+        disabled={disabled}
       />
     </ControlWrapper>
   );

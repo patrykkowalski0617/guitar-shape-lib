@@ -11,16 +11,17 @@ const Tick = styled.div<{ $isCurrent: boolean; $isLearned: boolean }>`
   height: 6px;
   border-radius: 50%;
   background-color: ${({ $isCurrent, $isLearned }) =>
-    $isCurrent ? "var(--slider-color)" : $isLearned ? "var(--accent)" : "var(--muted)"};
-
+    $isCurrent
+      ? "var(--primary)"
+      : $isLearned
+        ? "var(--accent)"
+        : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
   box-shadow: ${({ $isCurrent, $isLearned }) => {
-    if ($isCurrent) return "0 0 8px var(--slider-color)";
+    if ($isCurrent) return "0 0 8px var(--primary)";
     if ($isLearned) return "0 0 8px var(--accent)";
     return "none";
   }};
-
   transition: all 0.05s ease-in-out;
-
   z-index: ${({ $isCurrent }) => ($isCurrent ? " 10" : "")};
 `;
 
@@ -69,13 +70,14 @@ function DiscreteSlider({
           "block rounded-full border-2 bg-background shadow-lg",
           "cursor-grab active:cursor-grabbing z-10",
           "hover:scale-110 transition-transform",
+          "data-[disabled]:scale-100 data-[disabled]:opacity-20",
           "focus:outline-none focus:ring-0 focus:ring-offset-0",
           "focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-0",
         )}
         style={{
           width: `${thumbSize}px`,
           height: `${thumbSize}px`,
-          borderColor: "var(--slider-color)",
+          borderColor: "var(--primary)",
         }}
       />
     </SliderPrimitive.Root>
