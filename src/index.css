@@ -36,7 +36,7 @@
 :root {
   --radius: 0.65rem;
 
-  --background: hsl(0, 0%, 1%);
+  --background: hsl(0, 0%, 0%);
   --foreground: hsl(0, 0%, 100%);
 
   --card: hsl(190, 20%, 10%);
