@@ -4,7 +4,10 @@ import { ControlLabel, ControlWrapper } from "@/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export function ModeAndRoleSelect() {
-  const { isMajorMode, setIsMajorMode, currentRoleId, setCurrentRoleId } = useControlsStore();
+  const isMajorMode = useControlsStore((state) => state.isMajorMode);
+  const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
+  const currentRoleId = useControlsStore((state) => state.currentRoleId);
+  const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);
   const currentValue =
     currentRoleId === "all" || !currentRoleId ? "all" : `${isMajorMode ? "major" : "minor"}-${currentRoleId}`;
   const roles = [
@@ -29,7 +32,7 @@ export function ModeAndRoleSelect() {
       <ControlLabel>Filter Arp/Scale</ControlLabel>
 
       <Select value={currentValue} onValueChange={handleValueChange}>
-        <SelectTrigger className="w-full xl:min-w-[200px]">
+        <SelectTrigger>
           <SelectValue placeholder="Select mode & function" />
         </SelectTrigger>
         <SelectContent>

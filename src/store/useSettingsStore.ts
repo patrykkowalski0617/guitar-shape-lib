@@ -15,7 +15,7 @@ interface SettingsState {
 const initialState = {
   isFullscreen: false,
   isTutorialOn: true,
-  primaryColor: COLOR_PRESETS[0].hue,
+  primaryColor: COLOR_PRESETS[6].hue,
 };
 
 export const useSettingsStore = create<SettingsState>()(

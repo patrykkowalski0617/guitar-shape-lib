@@ -5,22 +5,39 @@ import type { MusicKeyId, RoleId } from "@/data";
 interface ControlsState {
   isMajorMode: boolean;
   setIsMajorMode: (isMajorMode: boolean) => void;
+
   currentKeyId: MusicKeyId;
   setCurrentKey: (id: MusicKeyId) => void;
+
   currentRoleId: RoleId | null;
   setCurrentRoleId: (id: RoleId | null) => void;
+
   currentShapeId: string | null;
   currentShapeSemitoneOffsetFromC: number | null;
   setShape: (id: string | null, offset: number | null) => void;
+
   showPiano: boolean;
   setShowPiano: (show: boolean) => void;
+
+  resetControls: () => void;
 }
 
-export const useControlsStore = create<ControlsState>((set) => ({
+const initialState = {
   isMajorMode: true,
+  currentKeyId: "C" as MusicKeyId,
+  currentRoleId: "all" as RoleId | null,
+  currentShapeId: null as string | null,
+  currentShapeSemitoneOffsetFromC: null as number | null,
+  showPiano: false,
+};
+
+export const useControlsStore = create<ControlsState>((set) => ({
+  ...initialState,
+
   setIsMajorMode: (isMajorMode) =>
     set((state) => {
       if (!state.currentRoleId) return { isMajorMode };
+
       const { shapeId, offset } = getAutoSelectedShape(state.currentRoleId, isMajorMode);
 
       return {
@@ -30,15 +47,18 @@ export const useControlsStore = create<ControlsState>((set) => ({
       };
     }),
 
-  currentKeyId: "C",
   setCurrentKey: (id) => set({ currentKeyId: id }),
 
-  currentRoleId: "all",
   setCurrentRoleId: (id) =>
     set((state) => {
-      if (id === null || id.length === 0) {
-        return { currentRoleId: null, currentShapeId: null, currentShapeSemitoneOffsetFromC: null };
+      if (!id) {
+        return {
+          currentRoleId: null,
+          currentShapeId: null,
+          currentShapeSemitoneOffsetFromC: null,
+        };
       }
+
       const { shapeId, offset } = getAutoSelectedShape(id, state.isMajorMode);
 
       return {
@@ -48,10 +68,13 @@ export const useControlsStore = create<ControlsState>((set) => ({
       };
     }),
 
-  currentShapeId: null,
-  currentShapeSemitoneOffsetFromC: null,
-  setShape: (id, offset) => set({ currentShapeId: id, currentShapeSemitoneOffsetFromC: offset }),
+  setShape: (id, offset) =>
+    set({
+      currentShapeId: id,
+      currentShapeSemitoneOffsetFromC: offset,
+    }),
 
-  showPiano: false,
   setShowPiano: (show) => set({ showPiano: show }),
+
+  resetControls: () => set(initialState),
 }));
