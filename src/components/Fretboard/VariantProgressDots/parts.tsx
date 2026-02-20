@@ -39,7 +39,7 @@ export const Dot = styled.div<{
       ? "var(--primary)"
       : $isLearned
         ? "var(--accent)"
-        : "color-mix(in oklab, var(--muted) 50%, var(--foreground))"};
+        : "color-mix(in oklab, var(--muted) 70%, var(--foreground))"};
   border-radius: 50%;
   cursor: pointer;
   transition:
