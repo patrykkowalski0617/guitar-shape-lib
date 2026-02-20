@@ -6,6 +6,7 @@ export const AppWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
+  overflow-x: hidden;
 `;
 
 export const MainContent = styled.main`

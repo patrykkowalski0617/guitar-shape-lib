@@ -6,7 +6,7 @@ const pulseHighlight = keyframes`
     box-shadow: 0 0 0 0px var(--primary);
   }
   50% {
-    box-shadow: 0 0 20px 3px rgba(0, 0, 0, 0);
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0);
   }
   100% {
     box-shadow: 0 0 0 0px rgba(0, 0, 0, 0);

@@ -15,8 +15,6 @@ export function ShapeSelect() {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeSemitoneOffsetFromC = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
   const setShape = useControlsStore((state) => state.setShape);
-  const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
-  const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);
 
   const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
 
@@ -50,8 +48,6 @@ export function ShapeSelect() {
         onValueChange={(v) => {
           if (v === NONE_SHAPE_VALUE) {
             setShape(null, null);
-            setIsMajorMode(true);
-            setCurrentRoleId("all");
             return;
           }
           const [id, offsetStr] = v.split("|");
