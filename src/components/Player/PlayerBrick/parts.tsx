@@ -12,9 +12,8 @@ const flash = keyframes`
   }
 `;
 
-export const EditButton = styled.button<{ $isEditable: boolean }>`
+export const BrickOptions = styled.div<{ $isEditable: boolean }>`
   height: 100%;
-  width: 20px;
   padding: 0px;
   border-radius: var(--radius-sm);
   font-size: 10px;
@@ -25,6 +24,10 @@ export const EditButton = styled.button<{ $isEditable: boolean }>`
   display: none;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  inset: 0;
+  background-color: color-mix(in oklab, var(--accent) 20%, var(--background));
+  opacity: ${({ $isEditable }) => ($isEditable ? 0 : 0.9)};
 `;
 
 export const Container = styled.div<{ $isEditable: boolean }>`
@@ -35,6 +38,7 @@ export const Container = styled.div<{ $isEditable: boolean }>`
   height: 24px;
   padding: 0 6px;
   border-radius: var(--radius-sm);
+  position: relative;
   cursor: pointer;
   user-select: none;
   border: 1px solid color-mix(in oklab, var(--border) 50%, transparent);
@@ -42,8 +46,7 @@ export const Container = styled.div<{ $isEditable: boolean }>`
   color: var(--foreground);
   transition: background-color 0.15s ease-in-out;
   &:hover {
-    background-color: color-mix(in oklab, var(--accent) 20%, transparent);
-    ${EditButton} {
+    ${BrickOptions} {
       display: flex;
     }
   }
