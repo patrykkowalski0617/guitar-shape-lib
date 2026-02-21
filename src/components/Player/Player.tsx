@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useShapeRootNote } from "@/hooks/useShapeRootNote";
 import { useControlsStore } from "@/store/useControlsStore";
 import { shapes, type MusicKeyId, type RoleId, type Shapes } from "@/data";
@@ -20,67 +20,43 @@ export default function Player() {
   const currentKeyId = useControlsStore((s) => s.currentKeyId);
   const isMajorMode = useControlsStore((s) => s.isMajorMode);
   const currentRoleId = useControlsStore((s) => s.currentRoleId);
-  const activeRootNote = useShapeRootNote();
   const currentShapeId = useControlsStore((s) => s.currentShapeId);
-  const activeShape = shapes[currentShapeId as keyof Shapes] || null;
+  const currentShapeSemitoneOffsetFromC = useControlsStore((s) => s.currentShapeSemitoneOffsetFromC);
+
+  const setCurrentKey = useControlsStore((s) => s.setCurrentKey);
+  const setCurrentRoleId = useControlsStore((s) => s.setCurrentRoleId);
+  const setIsMajorMode = useControlsStore((s) => s.setIsMajorMode);
+  const setShape = useControlsStore((s) => s.setShape);
+
   const currentShapeVariantLocationData = useMusicStore((s) => s.currentShapeVariantLocationData);
   const setCurrentShapeVariantLocationData = useMusicStore((s) => s.setCurrentShapeVariantLocationData);
-  const setCurrentKey = useControlsStore((state) => state.setCurrentKey);
-  const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);
-  const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
-  const currentShapeSemitoneOffsetFromC = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
-  const setShape = useControlsStore((state) => state.setShape);
 
-  const [isLocked, setIsLocked] = useState(false);
+  const activeRootNote = useShapeRootNote();
+  const activeShape = shapes[currentShapeId as keyof Shapes] || null;
+
   const [lockedSnapshot, setLockedSnapshot] = useState<Snapshot | null>(null);
+  const isLocked = !!lockedSnapshot;
 
-  const liveRef = useRef<Snapshot>({
+  const currentSnapshot: Snapshot = {
     keyId: currentKeyId,
-    currentShapeVariantLocationData: currentShapeVariantLocationData,
+    isMajorMode,
+    currentRoleId,
+    currentShapeVariantLocationData,
     rootNote: activeRootNote,
     shapeLabel: activeShape?.label,
-    isMajorMode,
-    currentRoleId,
     currentShapeSemitoneOffsetFromC,
     currentShapeId,
-  });
+  };
 
-  useEffect(() => {
-    liveRef.current = {
-      keyId: currentKeyId,
-      currentShapeVariantLocationData: currentShapeVariantLocationData,
-      rootNote: activeRootNote,
-      shapeLabel: activeShape?.label,
-      isMajorMode,
-      currentRoleId,
-      currentShapeSemitoneOffsetFromC,
-      currentShapeId,
-    };
-  }, [
-    currentKeyId,
-    currentShapeVariantLocationData,
-    activeRootNote,
-    activeShape?.label,
-    isMajorMode,
-    currentRoleId,
-    currentShapeSemitoneOffsetFromC,
-    currentShapeId,
-    isLocked,
-  ]);
+  const displayData = lockedSnapshot ?? currentSnapshot;
 
   const toggleLock = () => {
-    if (isLocked) {
-      setIsLocked(false);
-      setLockedSnapshot(null);
-    } else {
-      const snap: Snapshot = { ...liveRef.current };
-      setLockedSnapshot(snap);
-      setIsLocked(true);
-    }
+    setLockedSnapshot((prev) => (prev ? null : { ...currentSnapshot }));
   };
 
   const logLockedData = () => {
     if (!lockedSnapshot) return;
+
     setCurrentShapeVariantLocationData(lockedSnapshot.currentShapeVariantLocationData);
     setCurrentKey(lockedSnapshot.keyId);
     setCurrentRoleId(lockedSnapshot.currentRoleId);
@@ -88,15 +64,13 @@ export default function Player() {
     setShape(lockedSnapshot.currentShapeId, lockedSnapshot.currentShapeSemitoneOffsetFromC);
   };
 
-  const displayRoot = isLocked && lockedSnapshot ? lockedSnapshot.rootNote : activeRootNote;
-  const displayLabel = isLocked && lockedSnapshot ? lockedSnapshot.shapeLabel : activeShape?.label;
-
   return (
     <S.Container $locked={isLocked}>
       <span onClick={logLockedData}>
-        {displayRoot} {displayLabel || "—"}
+        {displayData.rootNote} {displayData.shapeLabel || "—"}
       </span>
-      <span onClick={toggleLock}> {isLocked ? "Edit" : "Save"}</span>
+
+      <button onClick={toggleLock}>{isLocked ? "Edit" : "Save"}</button>
     </S.Container>
   );
 }
