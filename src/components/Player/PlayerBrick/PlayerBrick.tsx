@@ -8,17 +8,15 @@ interface PlayerBrickProps {
 }
 
 export default function PlayerBrick({ isEditable, onToggleEdit }: PlayerBrickProps) {
-  const { displayData, toggleLock, logLockedData } = usePlayerSnapshot(isEditable, onToggleEdit);
+  const { displayData, handleClick } = usePlayerSnapshot(isEditable, onToggleEdit);
 
   return (
-    <S.Container $isEditable={isEditable} onClick={logLockedData}>
+    <S.Container $isEditable={isEditable} onClick={handleClick}>
       <S.Label>
         {displayData.rootNote} {displayData.shapeLabel || "—"}
       </S.Label>
 
-      <S.EditButton onClick={toggleLock} $isEditable={isEditable}>
-        {!isEditable ? <Pencil size={14} /> : <Check size={20} />}
-      </S.EditButton>
+      <S.EditButton $isEditable={isEditable}>{!isEditable ? <Pencil size={14} /> : <Check size={20} />}</S.EditButton>
     </S.Container>
   );
 }

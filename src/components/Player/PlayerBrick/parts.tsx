@@ -2,13 +2,13 @@ import styled, { css, keyframes } from "styled-components";
 
 const flash = keyframes`
   0% {
-    background-color: color-mix(in oklab, var(--primary) 10%, transparent);
-  }
-  50% {
     background-color: color-mix(in oklab, var(--primary) 40%, transparent);
   }
+  50% {
+    background-color: color-mix(in oklab, var(--primary) 80%, transparent);
+  }
   100% {
-    background-color: color-mix(in oklab, var(--primary) 10%, transparent);
+    background-color: color-mix(in oklab, var(--primary) 40%, transparent);
   }
 `;
 

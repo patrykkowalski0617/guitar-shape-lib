@@ -49,12 +49,8 @@ export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void)
     ...currentLiveState,
   }));
 
-  // --- SYNCHRONIZACJA (PODCZAS RENDERU - BEZPIECZNA) ---
-  // Jeśli jesteśmy w trybie edycji, "pompujemy" dane z Live do snapshotu.
-  // Dzięki temu w momencie, gdy isEditable zmieni się na false (klikniesz inną cegiełkę),
-  // lockedSnapshot posiada już ostatnie zmiany, które wprowadziłeś.
+  // --- SYNCHRONIZACJA (PODCZAS RENDERU) ---
   if (isEditable) {
-    // Sprawdzamy czy dane się różnią, żeby nie zapętlić renderu (choć React i tak to zoptymalizuje)
     if (
       lockedSnapshot.currentShapeVariantLocationData !== currentLiveState.currentShapeVariantLocationData ||
       lockedSnapshot.rootNote !== currentLiveState.rootNote
@@ -74,26 +70,19 @@ export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void)
   };
 
   // --- HANDLERS ---
-  const toggleLock = (e: React.MouseEvent) => {
+  const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (!isEditable) {
-      // Wchodzimy w edycję: Najpierw wczytujemy stan cegiełki do aplikacji
       applySnapshotToStore(lockedSnapshot);
     }
-    // Przy wychodzeniu z edycji (Save) snapshot jest już aktualny dzięki synchronizacji powyżej
-    onToggleEdit();
-  };
 
-  const logLockedData = () => {
-    if (isEditable) return;
-    applySnapshotToStore(lockedSnapshot);
+    onToggleEdit();
   };
 
   return {
     isEditable,
     displayData,
-    toggleLock,
-    logLockedData,
+    handleClick,
   };
 }
