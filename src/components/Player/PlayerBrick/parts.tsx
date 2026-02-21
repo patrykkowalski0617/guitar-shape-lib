@@ -2,13 +2,13 @@ import styled, { css, keyframes } from "styled-components";
 
 const flash = keyframes`
   0% {
-    background-color: color-mix(in oklab, var(--accent) 10%, transparent);
+    background-color: color-mix(in oklab, var(--primary) 10%, transparent);
   }
   50% {
-    background-color: color-mix(in oklab, var(--accent) 5%, transparent);
+    background-color: color-mix(in oklab, var(--primary) 40%, transparent);
   }
   100% {
-    background-color: color-mix(in oklab, var(--accent) 10%, transparent);
+    background-color: color-mix(in oklab, var(--primary) 10%, transparent);
   }
 `;
 
@@ -38,7 +38,7 @@ export const Container = styled.div<{ $isEditable: boolean }>`
   cursor: pointer;
   user-select: none;
   border: 1px solid color-mix(in oklab, var(--border) 50%, transparent);
-  background-color: color-mix(in oklab, var(--accent) 10%, transparent);
+  background-color: color-mix(in oklab, var(--accent) 5%, transparent);
   color: var(--foreground);
   transition: background-color 0.15s ease-in-out;
   &:hover {
@@ -51,7 +51,7 @@ export const Container = styled.div<{ $isEditable: boolean }>`
     $isEditable &&
     css`
       border-color: var(--accent);
-      animation: ${flash} 2s ease-in-out infinite;
+      animation: ${flash} 1.5s ease-in-out infinite;
     `}
 `;
 

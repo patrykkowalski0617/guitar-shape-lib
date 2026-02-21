@@ -2,8 +2,13 @@ import { Pencil, Check } from "lucide-react";
 import { usePlayerSnapshot } from "./hooks/usePlayerSnapshot";
 import * as S from "./parts";
 
-export default function PlayerBrick() {
-  const { isEditable, displayData, toggleLock, logLockedData } = usePlayerSnapshot();
+interface PlayerBrickProps {
+  isEditable: boolean;
+  onToggleEdit: () => void;
+}
+
+export default function PlayerBrick({ isEditable, onToggleEdit }: PlayerBrickProps) {
+  const { displayData, toggleLock, logLockedData } = usePlayerSnapshot(isEditable, onToggleEdit);
 
   return (
     <S.Container $isEditable={isEditable} onClick={logLockedData}>
