@@ -9,9 +9,9 @@ export const Container = styled.div<{ $locked: boolean }>`
   width: 200px;
   background: ${({ $locked }) => ($locked ? "#2a2a2a" : "#1e2a1e")};
   color: ${({ $locked }) => ($locked ? "#ccc" : "#ccffcc")};
-  border: 1px solid ${({ $locked }) => ($locked ? "#555" : "#2a5")};
+  border: 1px solid ${({ $locked }) => ($locked ? "#555" : "var(--accent)")};
   cursor: pointer;
   &:hover {
-    background: ${({ $locked }) => ($locked ? "#555" : "#2a5")};
+    background: ${({ $locked }) => ($locked ? "#555" : "var(--accent)")};
   }
 `;
