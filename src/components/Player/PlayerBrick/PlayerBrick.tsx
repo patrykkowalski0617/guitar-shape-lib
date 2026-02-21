@@ -1,4 +1,4 @@
-import { Pencil } from "lucide-react";
+import { Pencil, Check } from "lucide-react";
 import { usePlayerSnapshot } from "./hooks/usePlayerSnapshot";
 import * as S from "./parts";
 
@@ -10,16 +10,14 @@ interface PlayerBrickProps {
 export default function PlayerBrick({ isEditable, onToggleEdit }: PlayerBrickProps) {
   const { displayData, handleClick } = usePlayerSnapshot(isEditable, onToggleEdit);
 
+  const hasData = displayData.currentShapeVariantLocationData !== null;
+
   return (
     <S.Brick $isEditable={isEditable} onClick={handleClick}>
-      <S.Label>
-        {displayData.currentShapeVariantLocationData !== null
-          ? `${displayData.rootNote} ${displayData.shapeLabel}`
-          : "Empty"}
-      </S.Label>
+      <S.Label>{hasData ? `${displayData.rootNote} ${displayData.shapeLabel}` : "Empty"}</S.Label>
 
       <S.BrickOptions $isEditable={isEditable}>
-        <Pencil size={14} />
+        {isEditable ? <Check size={16} /> : <Pencil size={14} />}
       </S.BrickOptions>
     </S.Brick>
   );

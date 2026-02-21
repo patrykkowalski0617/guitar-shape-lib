@@ -1,3 +1,4 @@
+import { instrumentElBRadius } from "@/parts";
 import styled, { css, keyframes } from "styled-components";
 
 const flash = keyframes`
@@ -15,7 +16,7 @@ const flash = keyframes`
 export const BrickOptions = styled.div<{ $isEditable: boolean }>`
   height: 100%;
   padding: 0px;
-  border-radius: var(--radius-sm);
+  border-radius: ${instrumentElBRadius};
   transition: all 0.1s ease;
   display: none;
   justify-content: center;
@@ -33,7 +34,7 @@ export const Brick = styled.div<{ $isEditable: boolean }>`
   width: 150px;
   height: 100%;
   padding: 0 6px;
-  border-radius: var(--radius-sm);
+  border-radius: ${instrumentElBRadius};
   position: relative;
   cursor: pointer;
   user-select: none;

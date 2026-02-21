@@ -51,7 +51,7 @@ function DiscreteSlider({
       {...props}
     >
       <SliderPrimitive.Track
-        className="relative grow h-0.5 w-full bg-muted/20 rounded-full"
+        className="relative grow h-0.5 w-full bg-muted/50 rounded-full"
         style={{ margin: `0 ${thumbSize / 2}px` }}
       >
         {max > 0 &&
@@ -70,7 +70,7 @@ function DiscreteSlider({
           "block rounded-full border-2 bg-background shadow-lg",
           "cursor-grab active:cursor-grabbing z-10",
           "hover:scale-110 transition-transform",
-          "data-[disabled]:scale-100 data-[disabled]:opacity-20",
+          "data-[disabled]:scale-100 data-[disabled]:opacity-50",
           "focus:outline-none focus:ring-0 focus:ring-offset-0",
           "focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-0",
         )}

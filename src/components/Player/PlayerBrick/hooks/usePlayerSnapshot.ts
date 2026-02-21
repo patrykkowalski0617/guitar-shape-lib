@@ -45,15 +45,20 @@ export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void)
   };
 
   // --- STATE ---
+
   const [lockedSnapshot, setLockedSnapshot] = useState<Snapshot>(() => ({
     ...currentLiveState,
+    currentShapeVariantLocationData: null,
+    rootNote: null,
+    shapeLabel: undefined,
   }));
 
   // --- SYNCHRONIZACJA (PODCZAS RENDERU) ---
   if (isEditable) {
     if (
       lockedSnapshot.currentShapeVariantLocationData !== currentLiveState.currentShapeVariantLocationData ||
-      lockedSnapshot.rootNote !== currentLiveState.rootNote
+      lockedSnapshot.rootNote !== currentLiveState.rootNote ||
+      lockedSnapshot.keyId !== currentLiveState.keyId
     ) {
       setLockedSnapshot({ ...currentLiveState });
     }
@@ -74,7 +79,9 @@ export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void)
     e.stopPropagation();
 
     if (!isEditable) {
-      applySnapshotToStore(lockedSnapshot);
+      if (lockedSnapshot.rootNote !== null) {
+        applySnapshotToStore(lockedSnapshot);
+      }
     }
 
     onToggleEdit();
