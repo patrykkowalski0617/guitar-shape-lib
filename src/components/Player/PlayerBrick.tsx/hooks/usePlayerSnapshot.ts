@@ -48,7 +48,7 @@ export function usePlayerSnapshot() {
     currentShapeId,
   };
 
-  const isLocked = !!lockedSnapshot;
+  const isEditable = !lockedSnapshot;
   const displayData = lockedSnapshot ?? currentSnapshot;
 
   // --- HANDLERS ---
@@ -67,7 +67,7 @@ export function usePlayerSnapshot() {
   };
 
   return {
-    isLocked,
+    isEditable,
     displayData,
     toggleLock,
     logLockedData,

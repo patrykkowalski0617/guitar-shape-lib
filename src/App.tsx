@@ -37,11 +37,13 @@ export default function App() {
         <Setcion>
           <Fretboard />
           <ShapeExplorerSlider />
+        </Setcion>
 
-          <Setcion>
-            <Player />
-          </Setcion>
+        <Setcion>
+          <Player />
+        </Setcion>
 
+        <Setcion>
           <ControlContainer>
             <KeySelect />
             <ModeAndRoleSelect />
