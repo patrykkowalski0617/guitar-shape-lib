@@ -34,7 +34,6 @@ export default function Player() {
   const [isLocked, setIsLocked] = useState(false);
   const [lockedSnapshot, setLockedSnapshot] = useState<Snapshot | null>(null);
 
-  // Ref na najświeższe dane live
   const liveRef = useRef<Snapshot>({
     keyId: currentKeyId,
     currentShapeVariantLocationData: currentShapeVariantLocationData,
@@ -46,7 +45,6 @@ export default function Player() {
     currentShapeId,
   });
 
-  // Aktualizacja refa za każdym razem
   useEffect(() => {
     liveRef.current = {
       keyId: currentKeyId,
@@ -58,10 +56,6 @@ export default function Player() {
       currentShapeSemitoneOffsetFromC,
       currentShapeId,
     };
-
-    if (!isLocked) {
-      console.log(currentKeyId, currentShapeVariantLocationData, activeRootNote, activeShape?.label);
-    }
   }, [
     currentKeyId,
     currentShapeVariantLocationData,
@@ -78,45 +72,31 @@ export default function Player() {
     if (isLocked) {
       setIsLocked(false);
       setLockedSnapshot(null);
-      console.log("→ wracam do live");
     } else {
       const snap: Snapshot = { ...liveRef.current };
       setLockedSnapshot(snap);
       setIsLocked(true);
-      console.log("→ ZAPISANO:", snap.keyId, snap.currentShapeVariantLocationData, snap.rootNote, snap.shapeLabel);
     }
   };
 
   const logLockedData = () => {
-    if (lockedSnapshot) {
-      console.log("[ZAPAMIĘTANE]", lockedSnapshot);
-      setCurrentShapeVariantLocationData(lockedSnapshot.currentShapeVariantLocationData);
-      setCurrentKey(lockedSnapshot.keyId);
-      setCurrentRoleId(lockedSnapshot.currentRoleId);
-      setIsMajorMode(lockedSnapshot.isMajorMode);
-      setShape(lockedSnapshot.currentShapeId, lockedSnapshot.currentShapeSemitoneOffsetFromC);
-    } else {
-      console.log("[ZAPAMIĘTANE] Brak zapisanych danych");
-    }
+    if (!lockedSnapshot) return;
+    setCurrentShapeVariantLocationData(lockedSnapshot.currentShapeVariantLocationData);
+    setCurrentKey(lockedSnapshot.keyId);
+    setCurrentRoleId(lockedSnapshot.currentRoleId);
+    setIsMajorMode(lockedSnapshot.isMajorMode);
+    setShape(lockedSnapshot.currentShapeId, lockedSnapshot.currentShapeSemitoneOffsetFromC);
   };
 
-  // Co wyświetlamy w divie
-  const displayKeyId = isLocked && lockedSnapshot ? lockedSnapshot.keyId : currentKeyId;
   const displayRoot = isLocked && lockedSnapshot ? lockedSnapshot.rootNote : activeRootNote;
   const displayLabel = isLocked && lockedSnapshot ? lockedSnapshot.shapeLabel : activeShape?.label;
 
   return (
-    <S.Container>
-      <S.MainDisplay $locked={isLocked} onClick={toggleLock}>
-        {isLocked ? "Zablokowane:" : "Live:"}{" "}
-        <strong>
-          Key {displayKeyId} | {displayRoot} {displayLabel || "—"}
-        </strong>
-      </S.MainDisplay>
-
-      <S.Controls>
-        <S.LogButton onClick={logLockedData}>Log zapamiętane dane</S.LogButton>
-      </S.Controls>
+    <S.Container $locked={isLocked}>
+      <span onClick={logLockedData}>
+        {displayRoot} {displayLabel || "—"}
+      </span>
+      <span onClick={toggleLock}> {isLocked ? "Edit" : "Save"}</span>
     </S.Container>
   );
 }
