@@ -31,7 +31,7 @@ export const Brick = styled.div<{ $isEditable: boolean }>`
   align-items: center;
   justify-content: space-between;
   width: 150px;
-  height: 24px;
+  height: 100%;
   padding: 0 6px;
   border-radius: var(--radius-sm);
   position: relative;
