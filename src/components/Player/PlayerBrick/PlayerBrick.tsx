@@ -11,14 +11,16 @@ export default function PlayerBrick({ isEditable, onToggleEdit }: PlayerBrickPro
   const { displayData, handleClick } = usePlayerSnapshot(isEditable, onToggleEdit);
 
   return (
-    <S.Container $isEditable={isEditable} onClick={handleClick}>
+    <S.Brick $isEditable={isEditable} onClick={handleClick}>
       <S.Label>
-        {displayData.rootNote} {displayData.shapeLabel || "Empty"}
+        {displayData.currentShapeVariantLocationData !== null
+          ? `${displayData.rootNote} ${displayData.shapeLabel}`
+          : "Empty"}
       </S.Label>
 
       <S.BrickOptions $isEditable={isEditable}>
         <Pencil size={14} />
       </S.BrickOptions>
-    </S.Container>
+    </S.Brick>
   );
 }
