@@ -13,11 +13,12 @@ import {
   ShapeSelect,
   ModeAndRoleSelect,
 } from "@/components/Controls";
-import FullscreenButton from "@/components/FullscreenButton/FullscreenButton";
+import FullscreenButton from "@/components/Settings/FullscreenButton/FullscreenButton";
 import { Toaster } from "@/components/ui/sonner";
 import { getHSLColorFromHue } from "./utils";
 import { ShapeExplorerSlider } from "./components/Controls/ShapeExplorerSlider/ShapeExplorerSlider";
 import PianoToggleButton from "./components/Controls/PianoToggleButton/PianoToggleButton";
+import Player from "./components/Player/Player";
 
 export default function App() {
   const { primaryColor } = useSettingsStore();
@@ -36,6 +37,11 @@ export default function App() {
         <Setcion>
           <Fretboard />
           <ShapeExplorerSlider />
+
+          <Setcion>
+            <Player />
+          </Setcion>
+
           <ControlContainer>
             <KeySelect />
             <ModeAndRoleSelect />

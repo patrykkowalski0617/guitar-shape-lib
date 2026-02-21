@@ -3,9 +3,9 @@ import { useControlsStore } from "@/store/useControlsStore";
 import { useMusicStore } from "@/store/useMusicStore";
 import { useProgressStore } from "@/store/useProgressStore";
 import { getNotes } from "@/utils";
-import { ControlWrapper } from "@/parts";
 import { getOrderedShapeLocations } from "./helpers/getOrderedShapeLocations";
 import { DiscreteSlider } from "@/components/ui/DiscreteSlider";
+import * as S from "./parts";
 
 export function ShapeExplorerSlider() {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
@@ -13,8 +13,8 @@ export function ShapeExplorerSlider() {
   const offset = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
 
   const { learned } = useProgressStore();
-  const currentLocation = useMusicStore((state) => state.currentShapeVariantLocationData);
-  const setCurrentLocation = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
+  const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
+  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
 
   const rootNoteName = useMemo(() => {
     if (offset === null) return null;
@@ -27,15 +27,15 @@ export function ShapeExplorerSlider() {
   );
 
   const currentIndex = useMemo(() => {
-    if (!currentLocation) return 0;
+    if (!currentShapeVariantLocationData) return 0;
     const foundIdx = options.findIndex(
       (opt) =>
-        opt.fretIndex === currentLocation.fretIndex &&
-        opt.stringId === currentLocation.stringId &&
-        opt.variantId === currentLocation.variantId,
+        opt.fretIndex === currentShapeVariantLocationData.fretIndex &&
+        opt.stringId === currentShapeVariantLocationData.stringId &&
+        opt.variantId === currentShapeVariantLocationData.variantId,
     );
     return foundIdx !== -1 ? foundIdx + 1 : 0;
-  }, [currentLocation, options]);
+  }, [currentShapeVariantLocationData, options]);
 
   const learnedIndexes = useMemo(
     () => options.map((opt, i) => (opt.isLearned ? i + 1 : null)).filter((v): v is number => v !== null),
@@ -44,7 +44,7 @@ export function ShapeExplorerSlider() {
   const disabled = !currentShapeId || options.length === 0;
 
   return (
-    <ControlWrapper style={{ width: "calc(100% - 60px)", maxWidth: "unset", margin: "8px auto 32px" }}>
+    <S.Wrapper>
       <DiscreteSlider
         key={disabled ? "disabled" : "enabled"}
         value={disabled ? [0] : [currentIndex]}
@@ -53,10 +53,10 @@ export function ShapeExplorerSlider() {
         learnedIndexes={learnedIndexes}
         onValueChange={(v) => {
           const val = v[0];
-          setCurrentLocation(val === 0 ? null : options[val - 1]);
+          setCurrentShapeVariantLocationData(val === 0 ? null : options[val - 1]);
         }}
         disabled={disabled}
       />
-    </ControlWrapper>
+    </S.Wrapper>
   );
 }

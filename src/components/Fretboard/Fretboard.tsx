@@ -5,15 +5,12 @@ import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
 import { useHorizontalScroll } from "@/hooks";
 import FretboardRow, { type StringIndex } from "./FretboardRow/FretboardRow";
 import { InstrumentScrollWrapper, InstrumentWrapper } from "@/parts";
-import { useShapeReset } from "./helpers/useShapeReset";
 import { useFretboardScroll } from "./helpers/useFretboardScroll";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
   useHorizontalScroll(scrollRef);
   useFretboardScroll(scrollRef);
-
-  useShapeReset();
 
   return (
     <InstrumentScrollWrapper ref={scrollRef}>

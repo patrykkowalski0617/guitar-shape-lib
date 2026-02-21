@@ -3,11 +3,13 @@ import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/data";
 import { SelectPrevNext } from "../../ui/select-prev-next";
 import { ControlLabel, ControlWrapper } from "@/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useMusicStore } from "@/store/useMusicStore";
 
 export function KeySelect() {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const setCurrentKey = useControlsStore((state) => state.setCurrentKey);
+  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
 
   const keyOptions = Object.entries(UNIFIED_MUSIC_KEYS).map(([id, data]) => ({
     value: id,
@@ -16,12 +18,17 @@ export function KeySelect() {
     ...data,
   }));
 
+  const handleValueChange = (value: string) => {
+    setCurrentKey(value as MusicKeyId);
+    setCurrentShapeVariantLocationData(null);
+  };
+
   return (
     <ControlWrapper>
       <ControlLabel>Key/Root Note</ControlLabel>
 
       <div className="hidden sm:block md:min-w-[200px]">
-        <SelectPrevNext value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)} options={keyOptions}>
+        <SelectPrevNext value={currentKeyId} onValueChange={handleValueChange} options={keyOptions}>
           {keyOptions.map((opt) => (
             <SelectItem key={opt.value} value={opt.value}>
               <span className={isMajorMode ? "opacity-100" : "opacity-50"}>{opt.majorName}</span>
@@ -33,7 +40,7 @@ export function KeySelect() {
       </div>
 
       <div className="sm:hidden">
-        <Select value={currentKeyId} onValueChange={(v) => setCurrentKey(v as MusicKeyId)}>
+        <Select value={currentKeyId} onValueChange={handleValueChange}>
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
