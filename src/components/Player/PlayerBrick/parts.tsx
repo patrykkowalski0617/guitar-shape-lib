@@ -2,9 +2,9 @@ import { instrumentElBRadius } from "@/parts";
 import styled, { css, keyframes } from "styled-components";
 
 const flash = keyframes`
-  0% { background-color: color-mix(in oklab, var(--accent) 10%, transparent); }
-  50% { background-color: color-mix(in oklab, var(--accent) 40%, transparent); }
-  100% { background-color: color-mix(in oklab, var(--accent) 10%, transparent); }
+  0% { background-color: color-mix(in oklab, var(--accent) 10%, var(--background)); }
+  50% { background-color: color-mix(in oklab, var(--accent) 40%, var(--background)); }
+  100% { background-color: color-mix(in oklab, var(--accent) 10%, var(--background)); }
 `;
 
 export const TicksContainer = styled.div`
@@ -31,6 +31,9 @@ export const Tick = styled.div<{ $unit: number }>`
     height: 1px;
     background-color: var(--border);
     opacity: 0.7;
+  }
+  &:first-child {
+    background-color: color-mix(in oklab, var(--accent) 40%, var(--background));
   }
 `;
 
@@ -60,8 +63,8 @@ export const Brick = styled.div<{ $isEditable: boolean; $widthUnit: number; $uni
   position: relative;
   cursor: ${({ $isEditable }) => ($isEditable ? "ew-resize" : "pointer")};
   user-select: none;
-  border: 1px solid color-mix(in oklab, var(--border) 20%, transparent);
-  background-color: color-mix(in oklab, var(--accent) 5%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 50%, var(--background));
+  background-color: color-mix(in oklab, var(--accent) 15%, var(--background));
   color: var(--foreground);
   transition:
     background-color 0.15s ease-in-out,

@@ -22,7 +22,6 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
 };
 
 const commonStyleForKey = css`
-  border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   will-change: box-shadow, border-color, filter;
   transition:
@@ -40,7 +39,7 @@ const whitePianoKey = css`
     content: "";
     position: absolute;
     inset: 0;
-    background-color: color-mix(in oklab, var(--accent) 5%, transparent);
+    background-color: color-mix(in oklab, var(--accent) 25%, var(--background));
     ${commonStyleForKey}
   }
   &:not(:last-child)::after {
@@ -101,15 +100,13 @@ export const Key = styled.div<{
     `;
   }}
 
-${({ $isRoleSelected, $isWhitePianoKey }) => {
+${({ $isWhitePianoKey }) => {
     const target = $isWhitePianoKey ? css`&::after` : css`&`;
-
-    if ($isRoleSelected)
-      return css`
-        ${target} {
-          border: 1px solid color-mix(in oklab, var(--border) 50%, transparent);
-        }
-      `;
+    return css`
+      ${target} {
+        border: 1px solid var(--background);
+      }
+    `;
   }}
 
   &:first-child::after {

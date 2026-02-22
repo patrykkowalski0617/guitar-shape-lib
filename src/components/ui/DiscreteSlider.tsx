@@ -10,6 +10,10 @@ const Tick = styled.div<{ $isCurrent: boolean; $isLearned: boolean }>`
   width: 6px;
   height: 6px;
   border-radius: 50%;
+  &:first-child {
+    display: none;
+  }
+
   background-color: ${({ $isCurrent, $isLearned }) =>
     $isCurrent
       ? "var(--primary)"
@@ -22,7 +26,7 @@ const Tick = styled.div<{ $isCurrent: boolean; $isLearned: boolean }>`
     return "none";
   }};
   transition: all 0.05s ease-in-out;
-  z-index: ${({ $isCurrent }) => ($isCurrent ? " 10" : "")};
+  z-index: ${({ $isCurrent }) => ($isCurrent ? "10" : "")};
 `;
 
 interface DiscreteSliderProps extends React.ComponentProps<typeof SliderPrimitive.Root> {

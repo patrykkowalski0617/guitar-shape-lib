@@ -6,6 +6,7 @@ import PianoKey from "./PianoKey/PianoKey";
 import { pianoNotes, numberOfKeys } from "./helpers/constants";
 import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import { usePianoScroll } from "./helpers/usePianoScroll";
+import { MajorModeSwitch } from "./MajorModeSwitch/MajorModeSwitch";
 
 export default function Piano(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -13,15 +14,18 @@ export default function Piano(): JSX.Element {
   usePianoScroll(scrollRef);
 
   return (
-    <InstrumentScrollWrapper ref={scrollRef}>
-      <InstrumentWrapper>
-        <ScaleTemplate />
-        <S.Piano $numberOfKeys={numberOfKeys}>
-          {pianoNotes.map((note) => (
-            <PianoKey key={note.noteId} note={note} />
-          ))}
-        </S.Piano>
-      </InstrumentWrapper>
-    </InstrumentScrollWrapper>
+    <>
+      <MajorModeSwitch />
+      <InstrumentScrollWrapper ref={scrollRef}>
+        <InstrumentWrapper>
+          <ScaleTemplate />
+          <S.Piano $numberOfKeys={numberOfKeys}>
+            {pianoNotes.map((note) => (
+              <PianoKey key={note.noteId} note={note} />
+            ))}
+          </S.Piano>
+        </InstrumentWrapper>
+      </InstrumentScrollWrapper>
+    </>
   );
 }

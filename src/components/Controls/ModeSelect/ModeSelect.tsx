@@ -1,8 +1,7 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { musicMode, type MusicModeId } from "@/data";
-import { ControlLabel, ControlWrapper } from "@/parts";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ControlWrapper } from "@/parts";
 
 export function ModeSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
@@ -12,43 +11,19 @@ export function ModeSelect() {
   const options = Object.entries(musicMode) as [MusicModeId, typeof musicMode.major][];
   return (
     <ControlWrapper>
-      <ControlLabel>Mode</ControlLabel>
-
-      <div className="hidden sm:block">
-        <ToggleGroup
-          type="single"
-          value={currentMode}
-          onValueChange={() => {
-            setIsMajorMode(!isMajorMode);
-          }}
-        >
-          {options.map(([id, data]) => (
-            <ToggleGroupItem key={id} value={id}>
-              {data.label}
-            </ToggleGroupItem>
-          ))}
-        </ToggleGroup>
-      </div>
-
-      <div className="sm:hidden">
-        <Select
-          value={currentMode}
-          onValueChange={() => {
-            setIsMajorMode(!isMajorMode);
-          }}
-        >
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {options.map(([id, data]) => (
-              <SelectItem key={id} value={id}>
-                {data.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <ToggleGroup
+        type="single"
+        value={currentMode}
+        onValueChange={() => {
+          setIsMajorMode(!isMajorMode);
+        }}
+      >
+        {options.map(([id, data]) => (
+          <ToggleGroupItem key={id} value={id}>
+            {data.label}
+          </ToggleGroupItem>
+        ))}
+      </ToggleGroup>
     </ControlWrapper>
   );
 }
