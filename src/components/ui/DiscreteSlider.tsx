@@ -70,7 +70,7 @@ function DiscreteSlider({
           "block rounded-full border-2 bg-background shadow-lg",
           "cursor-grab active:cursor-grabbing z-10",
           "hover:scale-110 transition-transform",
-          "data-[disabled]:scale-100 data-[disabled]:opacity-50",
+          "data-[disabled]:scale-100 data-[disabled]:opacity-50 data-[disabled]:left-[calc(10px)] data-[disabled]:relative",
           "focus:outline-none focus:ring-0 focus:ring-offset-0",
           "focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-0",
         )}

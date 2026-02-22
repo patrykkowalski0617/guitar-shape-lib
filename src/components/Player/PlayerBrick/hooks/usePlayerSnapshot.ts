@@ -30,6 +30,7 @@ export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void)
   const setIsMajorMode = useControlsStore((s) => s.setIsMajorMode);
   const setShape = useControlsStore((s) => s.setShape);
   const setCurrentShapeVariantLocationData = useMusicStore((s) => s.setCurrentShapeVariantLocationData);
+  const setLockedShapeVariantLocationData = useMusicStore((state) => state.setLockedShapeVariantLocationData);
 
   const activeShape = shapes[currentShapeId as keyof Shapes] || null;
 
@@ -77,7 +78,10 @@ export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void)
   // --- HANDLERS ---
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-
+    const isEmpty = displayData.currentShapeVariantLocationData === null;
+    if (isEmpty) {
+      setLockedShapeVariantLocationData(currentShapeVariantLocationData);
+    }
     if (!isEditable) {
       if (lockedSnapshot.rootNote !== null) {
         applySnapshotToStore(lockedSnapshot);

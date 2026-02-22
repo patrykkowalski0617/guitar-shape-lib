@@ -1,7 +1,8 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Pencil, Check } from "lucide-react";
 import { usePlayerSnapshot } from "./hooks/usePlayerSnapshot";
 import * as S from "./parts";
+import { useBrickWidthUnit } from "./hooks/useBrickWidthUnit";
 
 interface PlayerBrickProps {
   isEditable: boolean;
@@ -12,12 +13,16 @@ interface PlayerBrickProps {
 
 export default function PlayerBrick({ isEditable, width, onToggleEdit, onWidthChange }: PlayerBrickProps) {
   const { displayData, handleClick } = usePlayerSnapshot(isEditable, onToggleEdit);
+  const [isResizing, setIsResizing] = useState(false);
   const startX = useRef<number | null>(null);
   const startWidth = useRef<number>(width);
+
+  const birckWidthUnit = useBrickWidthUnit();
 
   const hasData = displayData.currentShapeVariantLocationData !== null;
 
   const handleMouseDown = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (!isEditable) return;
     startX.current = e.clientX;
     startWidth.current = width;
@@ -27,13 +32,16 @@ export default function PlayerBrick({ isEditable, width, onToggleEdit, onWidthCh
 
   const handleMouseMove = (e: MouseEvent) => {
     if (startX.current === null) return;
+    if (!isResizing) setIsResizing(true);
+
     const delta = e.clientX - startX.current;
-    const newWidth = Math.round(startWidth.current + delta / S.birckWidthUnit);
-    if (newWidth !== width) onWidthChange(newWidth);
+    const newWidth = Math.round(startWidth.current + delta / birckWidthUnit);
+    onWidthChange(newWidth);
   };
 
   const handleMouseUp = () => {
     startX.current = null;
+    setIsResizing(false);
     window.removeEventListener("mousemove", handleMouseMove);
     window.removeEventListener("mouseup", handleMouseUp);
   };
@@ -46,28 +54,34 @@ export default function PlayerBrick({ isEditable, width, onToggleEdit, onWidthCh
 
   const handleTouchMove = (e: React.TouchEvent) => {
     if (startX.current === null) return;
+    if (!isResizing) setIsResizing(true);
+
     const delta = e.touches[0].clientX - startX.current;
-    const newWidth = Math.round(startWidth.current + delta / S.birckWidthUnit);
+    const newWidth = Math.round(startWidth.current + delta / birckWidthUnit);
     if (newWidth !== width) onWidthChange(newWidth);
+  };
+
+  const handleTouchEnd = () => {
+    startX.current = null;
+    setIsResizing(false);
   };
 
   return (
     <S.Brick
       $isEditable={isEditable}
+      $unit={birckWidthUnit}
       $widthUnit={width}
       onClick={handleClick}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
-      onTouchEnd={() => {
-        startX.current = null;
-      }}
+      onTouchEnd={handleTouchEnd}
     >
-      <S.Label>{hasData ? `${displayData.rootNote} ${displayData.shapeLabel}` : "Empty"}</S.Label>
+      <S.Label>{isResizing ? width : hasData ? `${displayData.rootNote} ${displayData.shapeLabel}` : "Empty"}</S.Label>
 
       <S.TicksContainer>
         {Array.from({ length: width }).map((_, i) => (
-          <S.Tick key={i} />
+          <S.Tick key={i} $unit={birckWidthUnit} />
         ))}
       </S.TicksContainer>
 

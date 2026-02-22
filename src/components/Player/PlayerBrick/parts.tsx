@@ -2,12 +2,10 @@ import { instrumentElBRadius } from "@/parts";
 import styled, { css, keyframes } from "styled-components";
 
 const flash = keyframes`
-  0% { background-color: color-mix(in oklab, var(--primary) 10%, transparent); }
-  50% { background-color: color-mix(in oklab, var(--primary) 40%, transparent); }
-  100% { background-color: color-mix(in oklab, var(--primary) 10%, transparent); }
+  0% { background-color: color-mix(in oklab, var(--accent) 10%, transparent); }
+  50% { background-color: color-mix(in oklab, var(--accent) 40%, transparent); }
+  100% { background-color: color-mix(in oklab, var(--accent) 10%, transparent); }
 `;
-
-export const birckWidthUnit = 15;
 
 export const TicksContainer = styled.div`
   position: absolute;
@@ -16,8 +14,8 @@ export const TicksContainer = styled.div`
   justify-content: flex-start;
 `;
 
-export const Tick = styled.div`
-  width: ${birckWidthUnit}px;
+export const Tick = styled.div<{ $unit: number }>`
+  width: ${({ $unit }) => $unit}px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -51,13 +49,13 @@ export const BrickOptions = styled.div<{ $isEditable: boolean }>`
   z-index: 2;
 `;
 
-export const Brick = styled.div<{ $isEditable: boolean; $widthUnit: number }>`
+export const Brick = styled.div<{ $isEditable: boolean; $widthUnit: number; $unit: number }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${({ $widthUnit }) => $widthUnit * birckWidthUnit}px;
+  width: ${({ $widthUnit, $unit }) => $widthUnit * $unit}px;
   height: 100%;
-  padding: 0 6px;
+  padding: 0 4px;
   border-radius: ${instrumentElBRadius};
   position: relative;
   cursor: ${({ $isEditable }) => ($isEditable ? "ew-resize" : "pointer")};
@@ -88,7 +86,7 @@ export const Label = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: 600;
+  font-weight: 400;
   font-size: 11px;
   color: var(--foreground);
   pointer-events: none;
