@@ -1,14 +1,29 @@
 import { instrumentElBRadius } from "@/parts";
 import styled from "styled-components";
 
+export const PlayerScrollWrapper = styled.div`
+  width: 100%;
+  overflow-x: auto;
+  display: flex;
+  align-items: center;
+  height: 26px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+`;
+
 export const PlayerRow = styled.div`
   display: flex;
   gap: 8px;
-  width: 100%;
-  overflow-x: auto;
   align-items: center;
-  justify-content: center;
-  height: 24px;
+  height: 100%;
+  padding: 0 16px;
+  margin-left: auto;
+  margin-right: auto;
+  flex-shrink: 0;
+  width: max-content;
 `;
 
 const BasePlayerButton = styled.button`
@@ -17,7 +32,7 @@ const BasePlayerButton = styled.button`
   justify-content: center;
   border-radius: ${instrumentElBRadius};
   height: 100%;
-  width: 24px;
+  width: 26px;
   color: var(--primary-foreground);
   border: none;
   cursor: pointer;
