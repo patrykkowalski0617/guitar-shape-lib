@@ -5,6 +5,7 @@ import * as S from "./parts";
 import { useBrickWidthUnit } from "./hooks/useBrickWidthUnit";
 import { useBrickResize } from "./hooks/useBrickResize";
 import { usePlayerStore, type Brick } from "@/store/usePlayerStore";
+import { useMusicStore } from "@/store/useMusicStore";
 
 interface PlayerBrickProps {
   brick: Brick;
@@ -15,6 +16,12 @@ interface PlayerBrickProps {
 
 export default function PlayerBrick({ brick, isEditable, onToggleEdit, onWidthChange }: PlayerBrickProps) {
   const { id, width } = brick;
+
+  const setLockedShapeVariantLocationData = useMusicStore((state) => state.setLockedShapeVariantLocationData);
+  const currentStep = usePlayerStore((s) => s.currentStep);
+  const bricks = usePlayerStore((s) => s.bricks);
+  const isPlaying = usePlayerStore((s) => s.isPlaying);
+  const isCountingIn = usePlayerStore((s) => s.isCountingIn);
 
   const { displayData, handleClick, applySnapshotToStore, lockedSnapshot } = usePlayerSnapshot(
     isEditable,
@@ -33,31 +40,43 @@ export default function PlayerBrick({ brick, isEditable, onToggleEdit, onWidthCh
     setIsResizing,
   });
 
-  const currentStep = usePlayerStore((s) => s.currentStep);
-  const bricks = usePlayerStore((s) => s.bricks);
-  const isPlaying = usePlayerStore((s) => s.isPlaying);
-  const isCountingIn = usePlayerStore((s) => s.isCountingIn);
+  const myIndex = bricks.findIndex((b) => b.id === id);
 
-  const activePart = (() => {
-    if (!isPlaying || isCountingIn) return 0;
+  const activeBrickIndex = bricks.findIndex((b, idx) => {
+    const stepStart = bricks.slice(0, idx).reduce((sum, prev) => sum + prev.width, 0);
+    return currentStep >= stepStart && currentStep < stepStart + b.width;
+  });
 
-    const brickIndex = bricks.findIndex((b) => b.id === id);
-    if (brickIndex === -1) return 0;
+  const isMeActive = activeBrickIndex === myIndex && isPlaying && !isCountingIn;
 
-    const stepStart = bricks.slice(0, brickIndex).reduce((sum, b) => sum + b.width, 0);
+  const isMeNext = (activeBrickIndex + 1) % bricks.length === myIndex && isPlaying && !isCountingIn;
 
-    if (currentStep >= stepStart && currentStep < stepStart + width) {
-      return currentStep - stepStart + 1;
-    }
-
-    return 0;
-  })();
+  const activePart = isMeActive ? currentStep - bricks.slice(0, myIndex).reduce((sum, b) => sum + b.width, 0) + 1 : 0;
 
   useEffect(() => {
-    if (activePart === 1 && lockedSnapshot.currentShapeVariantLocationData !== null) {
+    if (activePart === 1 && lockedSnapshot.rootNote !== null) {
       applySnapshotToStore(lockedSnapshot);
     }
-  }, [activePart, id, applySnapshotToStore, lockedSnapshot]);
+  }, [activePart, applySnapshotToStore, lockedSnapshot]);
+
+  useEffect(() => {
+    const currentActiveBrick = bricks[activeBrickIndex];
+    if (!currentActiveBrick) return;
+
+    const stepStartOfActive = bricks.slice(0, activeBrickIndex).reduce((sum, b) => sum + b.width, 0);
+    const activePartInCurrentBrick = currentStep - stepStartOfActive + 1;
+
+    if (isMeNext && activePartInCurrentBrick === currentActiveBrick.width) {
+      setLockedShapeVariantLocationData(lockedSnapshot.currentShapeVariantLocationData);
+    }
+  }, [
+    isMeNext,
+    currentStep,
+    activeBrickIndex,
+    bricks,
+    lockedSnapshot.currentShapeVariantLocationData,
+    setLockedShapeVariantLocationData,
+  ]);
 
   const hasData = displayData.currentShapeVariantLocationData !== null;
 
