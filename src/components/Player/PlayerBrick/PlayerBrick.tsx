@@ -33,18 +33,17 @@ export default function PlayerBrick({ isEditable, width, id, onToggleEdit, onWid
   const bricks = usePlayerStore((s) => s.bricks);
   const isPlaying = usePlayerStore((s) => s.isPlaying);
 
+  const isCountingIn = usePlayerStore((s) => s.isCountingIn);
+
   const activePart = (() => {
-    if (!isPlaying) {
+    if (!isPlaying || isCountingIn) {
       return 0;
     }
 
     const brickIndex = bricks.findIndex((b) => b.id === id);
-    if (brickIndex === -1) {
-      return 0;
-    }
+    if (brickIndex === -1) return 0;
 
     const stepStart = bricks.slice(0, brickIndex).reduce((sum, b) => sum + b.width, 0);
-
     const brick = bricks[brickIndex];
 
     if (currentStep >= stepStart && currentStep < stepStart + brick.width) {

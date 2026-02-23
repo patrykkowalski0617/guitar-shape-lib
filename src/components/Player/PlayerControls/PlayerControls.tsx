@@ -9,12 +9,20 @@ interface Props {
 export const PlayerControls = ({ onBpmChange }: Props) => {
   const bpm = usePlayerStore((s) => s.bpm);
   const isPlaying = usePlayerStore((s) => s.isPlaying);
+  const isCountingIn = usePlayerStore((s) => s.isCountingIn);
+  const countIn = usePlayerStore((s) => s.countIn);
   const togglePlay = usePlayerStore((state) => state.togglePlay);
 
   return (
     <>
       <S.PlayButton $isPlaying={isPlaying} onClick={togglePlay} $bpm={bpm}>
-        {isPlaying ? <Square size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+        {isCountingIn ? (
+          <span style={{ fontSize: "16px", fontWeight: "bold" }}>{countIn}</span>
+        ) : isPlaying ? (
+          <Square size={14} fill="currentColor" />
+        ) : (
+          <Play size={14} fill="currentColor" />
+        )}
       </S.PlayButton>
       <S.BpmInput type="number" value={bpm} onChange={onBpmChange} min={20} max={360} />
     </>

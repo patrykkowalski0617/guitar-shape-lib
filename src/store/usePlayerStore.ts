@@ -10,17 +10,17 @@ interface PlayerState {
   activeBrickId: number | null;
   bpm: number;
   isPlaying: boolean;
-
   currentStep: number;
+
+  countIn: number;
+  isCountingIn: boolean;
 
   addBrick: (lockedDataSetter: () => void) => void;
   removeBrick: (id: number) => void;
   updateBrickWidth: (id: number, newWidth: number) => void;
-
   setActiveBrickId: (id: number | null) => void;
   setBpm: (bpm: number) => void;
   togglePlay: () => void;
-
   nextStep: () => void;
   getTotalSteps: () => number;
 }
@@ -30,14 +30,13 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   activeBrickId: null,
   bpm: 70,
   isPlaying: false,
-
   currentStep: 0,
+  countIn: 0,
+  isCountingIn: false,
 
   addBrick: (lockedDataSetter) => {
     lockedDataSetter();
-
     const newId = Date.now();
-
     set((state) => ({
       bricks: [...state.bricks, { id: newId, width: 4 }],
       activeBrickId: newId,
@@ -57,16 +56,26 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
 
   setActiveBrickId: (id) => set({ activeBrickId: id }),
 
-  setBpm: (bpm) =>
-    set({
-      bpm: Math.max(20, Math.min(360, bpm)),
-    }),
+  setBpm: (bpm) => set({ bpm: Math.max(20, Math.min(360, bpm)) }),
 
-  togglePlay: () =>
-    set((state) => ({
-      isPlaying: !state.isPlaying,
-      currentStep: 0,
-    })),
+  togglePlay: () => {
+    const { isPlaying } = get();
+    if (!isPlaying) {
+      set({
+        isPlaying: true,
+        isCountingIn: true,
+        countIn: 4,
+        currentStep: 0,
+      });
+    } else {
+      set({
+        isPlaying: false,
+        isCountingIn: false,
+        countIn: 0,
+        currentStep: 0,
+      });
+    }
+  },
 
   getTotalSteps: () => {
     const { bricks } = get();
@@ -74,9 +83,18 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   },
 
   nextStep: () => {
-    const { currentStep, getTotalSteps } = get();
-    const total = getTotalSteps();
+    const { currentStep, getTotalSteps, isCountingIn, countIn } = get();
 
+    if (isCountingIn) {
+      if (countIn > 1) {
+        set({ countIn: countIn - 1 });
+      } else {
+        set({ isCountingIn: false, countIn: 0, currentStep: 0 });
+      }
+      return;
+    }
+
+    const total = getTotalSteps();
     if (total === 0) return;
 
     set({

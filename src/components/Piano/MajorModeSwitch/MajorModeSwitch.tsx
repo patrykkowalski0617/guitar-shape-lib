@@ -19,7 +19,7 @@ export function MajorModeSwitch() {
       <div className="flex items-center space-x-2">
         <Switch id="major-mode-switch" checked={isMajorMode} onCheckedChange={handleValueChange} />
         <Label htmlFor="major-mode-switch" className="text-muted-foreground font-light">
-          {isMajorMode ? "Major Mode" : "Minor Mode"}
+          {isMajorMode ? "Relative Major" : "Relative Minor"}
         </Label>
       </div>
     </S.ControlContainer>
