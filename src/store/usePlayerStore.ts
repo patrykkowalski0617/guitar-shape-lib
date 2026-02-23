@@ -11,6 +11,8 @@ interface PlayerState {
   bpm: number;
   isPlaying: boolean;
 
+  currentStep: number;
+
   addBrick: (lockedDataSetter: () => void) => void;
   removeBrick: (id: number) => void;
   updateBrickWidth: (id: number, newWidth: number) => void;
@@ -18,13 +20,18 @@ interface PlayerState {
   setActiveBrickId: (id: number | null) => void;
   setBpm: (bpm: number) => void;
   togglePlay: () => void;
+
+  nextStep: () => void;
+  getTotalSteps: () => number;
 }
 
-export const usePlayerStore = create<PlayerState>((set) => ({
+export const usePlayerStore = create<PlayerState>((set, get) => ({
   bricks: [],
   activeBrickId: null,
   bpm: 70,
   isPlaying: false,
+
+  currentStep: 0,
 
   addBrick: (lockedDataSetter) => {
     lockedDataSetter();
@@ -59,4 +66,20 @@ export const usePlayerStore = create<PlayerState>((set) => ({
     set((state) => ({
       isPlaying: !state.isPlaying,
     })),
+
+  getTotalSteps: () => {
+    const { bricks } = get();
+    return bricks.reduce((sum, b) => sum + b.width, 0);
+  },
+
+  nextStep: () => {
+    const { currentStep, getTotalSteps } = get();
+    const total = getTotalSteps();
+
+    if (total === 0) return;
+
+    set({
+      currentStep: (currentStep + 1) % total,
+    });
+  },
 }));

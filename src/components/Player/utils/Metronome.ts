@@ -1,4 +1,3 @@
-// utils/Metronome.ts
 export class Metronome {
   private audioContext: AudioContext | null = null;
   private nextTickTime: number = 0;
@@ -10,7 +9,7 @@ export class Metronome {
 
   constructor(onTick: () => void) {
     this.onTick = onTick;
-    // Inicjalizacja Workera
+
     this.worker = new Worker(new URL("./metronome.worker.ts", import.meta.url));
     this.worker.onmessage = (e) => {
       if (e.data === "tick") {
@@ -28,7 +27,7 @@ export class Metronome {
     osc.frequency.setValueAtTime(800, time);
     osc.frequency.exponentialRampToValueAtTime(40, time + 0.05);
 
-    envelope.gain.setValueAtTime(0.25, time); // Zmniejszyłem głośność dla czystości
+    envelope.gain.setValueAtTime(0.25, time);
     envelope.gain.exponentialRampToValueAtTime(0.001, time + 0.05);
 
     osc.connect(envelope);
@@ -41,7 +40,6 @@ export class Metronome {
   private scheduler = () => {
     if (!this.audioContext) return;
 
-    // Planowanie dźwięków w wątku Audio (sprzętowym)
     while (this.nextTickTime < this.audioContext.currentTime + this.scheduleAheadTime) {
       this.playClick(this.nextTickTime);
       this.onTick();

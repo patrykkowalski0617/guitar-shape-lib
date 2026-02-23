@@ -8,21 +8,17 @@ export function usePlayer() {
 
   const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
 
-  const bricks = usePlayerStore((state) => state.bricks);
-  const activeBrickId = usePlayerStore((state) => state.activeBrickId);
   const bpm = usePlayerStore((state) => state.bpm);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   const addBrickStore = usePlayerStore((state) => state.addBrick);
-  const removeBrick = usePlayerStore((state) => state.removeBrick);
-  const updateBrickWidth = usePlayerStore((state) => state.updateBrickWidth);
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
   const setBpm = usePlayerStore((state) => state.setBpm);
-  const togglePlay = usePlayerStore((state) => state.togglePlay);
 
+  const nextStep = usePlayerStore((state) => state.nextStep);
   const handleTick = useCallback(() => {
-    console.log("Tick at BPM:", bpm);
-  }, [bpm]);
+    nextStep();
+  }, [nextStep]);
 
   const { toggleMetronome } = useMetronome(bpm, handleTick);
 
@@ -46,16 +42,8 @@ export function usePlayer() {
   };
 
   return {
-    bricks,
-    activeBrickId,
-    bpm,
-    isPlaying,
     addBrick,
-    removeBrick,
-    updateBrickWidth,
     handleBpmChange,
-    togglePlay,
     closeEdit,
-    setActiveBrickId,
   };
 }

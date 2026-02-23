@@ -5,35 +5,15 @@ import { PlayerBricksContainer } from "./PlayerBricksContainer/PlayerBricksConta
 import { PlayerControls } from "./PlayerControls/PlayerControls";
 
 export default function Player() {
-  const {
-    bricks,
-    activeBrickId,
-    setActiveBrickId,
-    bpm,
-    isPlaying,
-    addBrick,
-    removeBrick,
-    updateBrickWidth,
-    handleBpmChange,
-    togglePlay,
-    closeEdit,
-  } = usePlayer();
+  const { handleBpmChange, closeEdit, addBrick } = usePlayer();
 
   return (
     <S.PlayerContainer>
       <S.PlayerSection>
-        <PlayerBricksContainer
-          bricks={bricks}
-          activeBrickId={activeBrickId}
-          onAdd={addBrick}
-          onRemove={removeBrick}
-          onUpdateWidth={updateBrickWidth}
-          onSelect={setActiveBrickId}
-          onCloseEdit={closeEdit}
-        />
+        <PlayerBricksContainer onCloseEdit={closeEdit} onAdd={addBrick} />
       </S.PlayerSection>
       <S.PlayerSection>
-        <PlayerControls isPlaying={isPlaying} bpm={bpm} onTogglePlay={togglePlay} onBpmChange={handleBpmChange} />
+        <PlayerControls onBpmChange={handleBpmChange} />
       </S.PlayerSection>
     </S.PlayerContainer>
   );

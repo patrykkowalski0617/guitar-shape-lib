@@ -8,7 +8,7 @@ import { useBrickResize } from "./hooks/useBrickResize";
 interface PlayerBrickProps {
   isEditable: boolean;
   width: number;
-  activePart: number;
+  activePart?: number;
   onToggleEdit: () => void;
   onWidthChange: (newWidth: number) => void;
 }
