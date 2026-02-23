@@ -4,20 +4,20 @@ import { usePlayerSnapshot } from "./hooks/usePlayerSnapshot";
 import * as S from "./parts";
 import { useBrickWidthUnit } from "./hooks/useBrickWidthUnit";
 import { useBrickResize } from "./hooks/useBrickResize";
-import { usePlayerStore } from "@/store/usePlayerStore";
+import { usePlayerStore, type Brick } from "@/store/usePlayerStore";
 
 interface PlayerBrickProps {
+  brick: Brick;
   isEditable: boolean;
-  width: number;
-  id: number;
   onToggleEdit: () => void;
   onWidthChange: (newWidth: number) => void;
 }
 
-export default function PlayerBrick({ isEditable, width, id, onToggleEdit, onWidthChange }: PlayerBrickProps) {
+export default function PlayerBrick({ brick, isEditable, onToggleEdit, onWidthChange }: PlayerBrickProps) {
+  const { id, width } = brick;
+
   const { displayData, handleClick } = usePlayerSnapshot(isEditable, onToggleEdit);
   const [isResizing, setIsResizing] = useState(false);
-
   const birckWidthUnit = useBrickWidthUnit();
 
   const { handleMouseDown, handleTouchStart, handleTouchMove, handleTouchEnd } = useBrickResize({
@@ -32,23 +32,18 @@ export default function PlayerBrick({ isEditable, width, id, onToggleEdit, onWid
   const currentStep = usePlayerStore((s) => s.currentStep);
   const bricks = usePlayerStore((s) => s.bricks);
   const isPlaying = usePlayerStore((s) => s.isPlaying);
-
   const isCountingIn = usePlayerStore((s) => s.isCountingIn);
 
   const activePart = (() => {
-    if (!isPlaying || isCountingIn) {
-      return 0;
-    }
+    if (!isPlaying || isCountingIn) return 0;
 
     const brickIndex = bricks.findIndex((b) => b.id === id);
     if (brickIndex === -1) return 0;
 
     const stepStart = bricks.slice(0, brickIndex).reduce((sum, b) => sum + b.width, 0);
-    const brick = bricks[brickIndex];
 
-    if (currentStep >= stepStart && currentStep < stepStart + brick.width) {
-      const part = currentStep - stepStart + 1;
-      return part;
+    if (currentStep >= stepStart && currentStep < stepStart + width) {
+      return currentStep - stepStart + 1;
     }
 
     return 0;

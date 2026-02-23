@@ -26,8 +26,7 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
         {bricks.map((brick) => (
           <PlayerBrick
             key={brick.id}
-            id={brick.id}
-            width={brick.width}
+            brick={brick} // Przekazujemy cały obiekt
             isEditable={activeBrickId === brick.id}
             onToggleEdit={() => setActiveBrickId(activeBrickId === brick.id ? null : brick.id)}
             onWidthChange={(newWidth) => updateBrickWidth(brick.id, newWidth)}
