@@ -5,10 +5,9 @@ export const PlayerContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: calc(var(--spacing) * 4);
-  width: 100%;
   max-width: 1300px;
-  padding: 0 35px;
   @media (min-width: 768px) {
+    padding: 0 35px;
     flex-direction: row;
     max-width: 1230px;
     margin: auto;
@@ -30,13 +29,16 @@ export const PlayerSection = styled.div`
   @media (min-width: 768px) {
     &:first-child {
       flex-grow: 1;
+      flex-shrink: 1;
       width: auto;
+      min-width: 0;
+      overflow: hidden;
     }
 
     &:last-child {
       flex-grow: 0;
-      width: auto;
       flex-shrink: 0;
+      width: auto;
     }
   }
 `;

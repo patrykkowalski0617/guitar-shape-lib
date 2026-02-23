@@ -45,7 +45,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
       $pianoKeyShape={pianoKeyShape}
       $isHighlighted={isHighlighted}
       $isRoleNote={isRoleNote}
-      data-scroll-target={isScrollTarget}
+      data-piano-scroll-target={isScrollTarget}
       onMouseOver={() => {
         setActiveNoteId(note.noteId);
       }}
