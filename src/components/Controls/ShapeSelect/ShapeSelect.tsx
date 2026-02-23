@@ -56,7 +56,7 @@ export function ShapeSelect() {
 
   return (
     <ControlWrapper>
-      <ControlLabel>Arpeggio/Scale</ControlLabel>
+      <ControlLabel>Arp/Scale</ControlLabel>
       <Select value={currentShapeValue} onValueChange={handleValueChange}>
         <AnimatedWrapper>
           <SelectTrigger className="md:min-w-[200px]">
