@@ -1,5 +1,3 @@
-export const transitionTime = 300;
-
 export const COLOR_PRESETS = [
   { hue: 65, name: "Cyber Funk" },
   { hue: 60, name: "Submarine" },

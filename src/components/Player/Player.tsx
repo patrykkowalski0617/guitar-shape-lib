@@ -5,7 +5,7 @@ import { PlayerBricksContainer } from "./PlayerBricksContainer/PlayerBricksConta
 import { PlayerControls } from "./PlayerControls/PlayerControls";
 
 export default function Player() {
-  const { handleBpmChange, closeEdit, addBrick } = usePlayer();
+  const { closeEdit, addBrick } = usePlayer();
 
   return (
     <S.PlayerContainer>
@@ -13,7 +13,7 @@ export default function Player() {
         <PlayerBricksContainer onCloseEdit={closeEdit} onAdd={addBrick} />
       </S.PlayerSection>
       <S.PlayerSection>
-        <PlayerControls onBpmChange={handleBpmChange} />
+        <PlayerControls />
       </S.PlayerSection>
     </S.PlayerContainer>
   );

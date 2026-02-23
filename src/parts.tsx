@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { transitionTime } from "./data";
+import { transitionTime } from "./store/usePlayerStore";
 
 export const AppWrapper = styled.div`
   display: flex;

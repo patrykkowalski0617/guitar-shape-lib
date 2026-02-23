@@ -5,13 +5,15 @@ export interface Brick {
   width: number;
 }
 
+export const transitionTime = 3000;
+
 interface PlayerState {
   bricks: Brick[];
   activeBrickId: number | null;
   bpm: number;
   isPlaying: boolean;
   currentStep: number;
-
+  transitionTime: number;
   countIn: number;
   isCountingIn: boolean;
 
@@ -31,6 +33,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   bpm: 70,
   isPlaying: false,
   currentStep: 0,
+  transitionTime: transitionTime,
   countIn: 0,
   isCountingIn: false,
 
@@ -66,6 +69,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
         isCountingIn: true,
         countIn: 4,
         currentStep: 0,
+        transitionTime: 0,
       });
     } else {
       set({
@@ -73,6 +77,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
         isCountingIn: false,
         countIn: 0,
         currentStep: 0,
+        transitionTime: transitionTime,
       });
     }
   },

@@ -1,4 +1,4 @@
-import { COLOR_PRESETS } from "@/data/constants";
+import { COLOR_PRESETS } from "@/components/Settings/colorPresets";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

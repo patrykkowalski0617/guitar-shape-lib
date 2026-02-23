@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { instrumentBRadius, instrumentElBRadius } from "@/parts";
-import { transitionTime } from "@/data/constants";
+import { transitionTime } from "@/store/usePlayerStore";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 

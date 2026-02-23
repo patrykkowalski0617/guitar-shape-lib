@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { KEY_PADDING, KEY_WIDTH_CSS, LEFT_PADDING_FACTOR } from "../helpers/constants";
 import { numberOfKeys } from "../helpers/constants";
-import { transitionTime } from "@/data/constants";
+import { transitionTime } from "@/store/usePlayerStore";
 
 interface TemplateWrapperProps {
   $position: number;

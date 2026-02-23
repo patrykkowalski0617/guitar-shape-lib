@@ -2,7 +2,7 @@ import { useSettingsStore } from "@/store/useSettingsStore";
 import { ControlLabel } from "@/parts";
 import * as S from "@/components/Settings/ColorsPresetsSetting/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
-import { COLOR_PRESETS } from "@/data/constants";
+import { COLOR_PRESETS } from "@/components/Settings/colorPresets";
 import { getHSLColorFromHue } from "@/utils";
 import { ControlWrapper } from "../parts";
 

@@ -1,7 +1,6 @@
 import { instrumentElBRadius } from "@/parts";
 import styled, { css } from "styled-components";
 import { fretboardTransitionTime } from "./helpers/constants";
-import { transitionTime } from "@/data/constants";
 import { DotsWrapper } from "@/components/Fretboard/VariantProgressDots/parts";
 import { activeDotsStyles } from "@/components/Fretboard/VariantProgressDots/constants";
 
@@ -39,6 +38,7 @@ export const Note = styled.div<{
   $isShapeSelected: boolean;
   $isRoleSelected: boolean;
   $isLockedNote: boolean;
+  $transitionTime: number;
 }>`
   background-color: color-mix(in oklab, var(--accent) 5%, transparent);
   border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
@@ -53,7 +53,7 @@ export const Note = styled.div<{
   will-change: box-shadow, opacity;
   transition:
     box-shadow ${fretboardTransitionTime}ms ease-in-out,
-    opacity ${transitionTime}ms ease-in-out;
+    opacity ${({ $transitionTime }) => $transitionTime}ms ease-in-out;
   opacity: ${({ $isShapeNote, $isShapeRootNote, $isShapeSelected, $isRoleSelected, $isTuneNote, $isActiveNote }) => {
     if (($isActiveNote && !$isShapeSelected) || $isShapeNote || $isShapeRootNote || (!$isShapeSelected && $isTuneNote))
       return "1";

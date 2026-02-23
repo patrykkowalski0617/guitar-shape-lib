@@ -1,4 +1,4 @@
-export * from "./constants";
+export * from "../components/Settings/colorPresets";
 export * from "./intervals";
 export * from "./musicKeys";
 export * from "./musicMode";

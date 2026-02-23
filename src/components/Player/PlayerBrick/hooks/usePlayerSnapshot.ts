@@ -90,5 +90,7 @@ export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void)
     isEditable,
     displayData,
     handleClick,
+    lockedSnapshot,
+    applySnapshotToStore,
   };
 }

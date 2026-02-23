@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Pencil, Check } from "lucide-react";
 import { usePlayerSnapshot } from "./hooks/usePlayerSnapshot";
 import * as S from "./parts";
@@ -16,7 +16,11 @@ interface PlayerBrickProps {
 export default function PlayerBrick({ brick, isEditable, onToggleEdit, onWidthChange }: PlayerBrickProps) {
   const { id, width } = brick;
 
-  const { displayData, handleClick } = usePlayerSnapshot(isEditable, onToggleEdit);
+  const { displayData, handleClick, applySnapshotToStore, lockedSnapshot } = usePlayerSnapshot(
+    isEditable,
+    onToggleEdit,
+  );
+
   const [isResizing, setIsResizing] = useState(false);
   const birckWidthUnit = useBrickWidthUnit();
 
@@ -48,6 +52,12 @@ export default function PlayerBrick({ brick, isEditable, onToggleEdit, onWidthCh
 
     return 0;
   })();
+
+  useEffect(() => {
+    if (activePart === 1 && lockedSnapshot.currentShapeVariantLocationData !== null) {
+      applySnapshotToStore(lockedSnapshot);
+    }
+  }, [activePart, id, applySnapshotToStore, lockedSnapshot]);
 
   const hasData = displayData.currentShapeVariantLocationData !== null;
 
