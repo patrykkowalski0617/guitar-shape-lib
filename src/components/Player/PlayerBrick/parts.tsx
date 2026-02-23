@@ -14,7 +14,7 @@ export const TicksContainer = styled.div`
   justify-content: flex-start;
 `;
 
-export const Tick = styled.div<{ $unit: number }>`
+export const Tick = styled.div<{ $unit: number; $activePart: number }>`
   width: ${({ $unit }) => $unit}px;
   display: flex;
   flex-direction: column;
@@ -32,9 +32,13 @@ export const Tick = styled.div<{ $unit: number }>`
     background-color: var(--border);
     opacity: 0.7;
   }
-  &:first-child {
-    background-color: color-mix(in oklab, var(--accent) 40%, var(--background));
-  }
+  ${({ $activePart }) => {
+    return css`
+      &:nth-child(${$activePart}) {
+        background-color: color-mix(in oklab, var(--accent) 40%, var(--background));
+      }
+    `;
+  }}
 `;
 
 export const BrickOptions = styled.div<{ $isEditable: boolean }>`

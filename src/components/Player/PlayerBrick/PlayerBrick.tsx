@@ -1,70 +1,40 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Pencil, Check } from "lucide-react";
 import { usePlayerSnapshot } from "./hooks/usePlayerSnapshot";
 import * as S from "./parts";
 import { useBrickWidthUnit } from "./hooks/useBrickWidthUnit";
+import { useBrickResize } from "./hooks/useBrickResize";
 
 interface PlayerBrickProps {
   isEditable: boolean;
   width: number;
+  activePart: number;
   onToggleEdit: () => void;
   onWidthChange: (newWidth: number) => void;
 }
 
-export default function PlayerBrick({ isEditable, width, onToggleEdit, onWidthChange }: PlayerBrickProps) {
+export default function PlayerBrick({
+  isEditable,
+  width,
+  activePart = 2,
+  onToggleEdit,
+  onWidthChange,
+}: PlayerBrickProps) {
   const { displayData, handleClick } = usePlayerSnapshot(isEditable, onToggleEdit);
   const [isResizing, setIsResizing] = useState(false);
-  const startX = useRef<number | null>(null);
-  const startWidth = useRef<number>(width);
 
   const birckWidthUnit = useBrickWidthUnit();
 
+  const { handleMouseDown, handleTouchStart, handleTouchMove, handleTouchEnd } = useBrickResize({
+    isEditable,
+    width,
+    onWidthChange,
+    birckWidthUnit,
+    isResizing,
+    setIsResizing,
+  });
+
   const hasData = displayData.currentShapeVariantLocationData !== null;
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (!isEditable) return;
-    startX.current = e.clientX;
-    startWidth.current = width;
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-  };
-
-  const handleMouseMove = (e: MouseEvent) => {
-    if (startX.current === null) return;
-    if (!isResizing) setIsResizing(true);
-
-    const delta = e.clientX - startX.current;
-    const newWidth = Math.round(startWidth.current + delta / birckWidthUnit);
-    onWidthChange(newWidth);
-  };
-
-  const handleMouseUp = () => {
-    startX.current = null;
-    setIsResizing(false);
-    window.removeEventListener("mousemove", handleMouseMove);
-    window.removeEventListener("mouseup", handleMouseUp);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (!isEditable) return;
-    startX.current = e.touches[0].clientX;
-    startWidth.current = width;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (startX.current === null) return;
-    if (!isResizing) setIsResizing(true);
-
-    const delta = e.touches[0].clientX - startX.current;
-    const newWidth = Math.round(startWidth.current + delta / birckWidthUnit);
-    if (newWidth !== width) onWidthChange(newWidth);
-  };
-
-  const handleTouchEnd = () => {
-    startX.current = null;
-    setIsResizing(false);
-  };
 
   return (
     <S.Brick
@@ -81,7 +51,7 @@ export default function PlayerBrick({ isEditable, width, onToggleEdit, onWidthCh
 
       <S.TicksContainer>
         {Array.from({ length: width }).map((_, i) => (
-          <S.Tick key={i} $unit={birckWidthUnit} />
+          <S.Tick key={i} $unit={birckWidthUnit} $activePart={activePart} />
         ))}
       </S.TicksContainer>
 

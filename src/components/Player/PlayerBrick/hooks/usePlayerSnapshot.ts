@@ -16,7 +16,6 @@ export type Snapshot = {
 };
 
 export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void) {
-  // --- STORE DATA (LIVE) ---
   const currentKeyId = useControlsStore((s) => s.currentKeyId);
   const isMajorMode = useControlsStore((s) => s.isMajorMode);
   const currentRoleId = useControlsStore((s) => s.currentRoleId);
@@ -45,8 +44,6 @@ export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void)
     currentShapeId,
   };
 
-  // --- STATE ---
-
   const [lockedSnapshot, setLockedSnapshot] = useState<Snapshot>(() => ({
     ...currentLiveState,
     currentShapeVariantLocationData: null,
@@ -54,7 +51,6 @@ export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void)
     shapeLabel: undefined,
   }));
 
-  // --- SYNCHRONIZACJA (PODCZAS RENDERU) ---
   if (isEditable) {
     if (
       lockedSnapshot.currentShapeVariantLocationData !== currentLiveState.currentShapeVariantLocationData ||
@@ -75,7 +71,6 @@ export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void)
     setShape(data.currentShapeId, data.currentShapeSemitoneOffsetFromC);
   };
 
-  // --- HANDLERS ---
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     const isEmpty = displayData.currentShapeVariantLocationData === null;
