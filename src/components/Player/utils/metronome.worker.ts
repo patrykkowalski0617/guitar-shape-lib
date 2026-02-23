@@ -1,5 +1,5 @@
-// utils/metronome.worker.ts
 let timerID: any = null;
+
 const interval = 25;
 
 self.onmessage = (e) => {

@@ -1,3 +1,6 @@
+interface Window {
+  webkitAudioContext?: typeof AudioContext;
+}
 export class Metronome {
   private audioContext: AudioContext | null = null;
   private nextTickTime: number = 0;
@@ -53,14 +56,19 @@ export class Metronome {
 
   public async start(initialBpm: number) {
     if (!this.audioContext) {
-      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      this.audioContext = new (window.AudioContext || (window as Window).webkitAudioContext)();
     }
     if (this.audioContext.state === "suspended") {
       await this.audioContext.resume();
     }
 
     this.bpm = initialBpm;
-    this.nextTickTime = this.audioContext.currentTime;
+    const secondsPerBeat = 60.0 / this.bpm;
+
+    this.nextTickTime = this.audioContext.currentTime + secondsPerBeat;
+
+    this.playClick(this.audioContext.currentTime);
+
     this.worker?.postMessage("start");
   }
 

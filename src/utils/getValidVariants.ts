@@ -1,5 +1,5 @@
 import { numberOfFrets } from "@/components/Fretboard/FretboardRow/helpers/constants";
-import { type VariantId } from "@/data"; // Importujemy Twój typ v${number}
+import { type VariantId } from "@/data";
 
 export type Coordinate = number[];
 export type VariantsRecord = Record<VariantId, Coordinate[]>;
