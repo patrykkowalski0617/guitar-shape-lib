@@ -34,26 +34,12 @@ export default function PlayerBrick({ isEditable, width, id, onToggleEdit, onWid
   const isPlaying = usePlayerStore((s) => s.isPlaying);
 
   const activePart = (() => {
-    const timestamp = new Date().toISOString();
-
-    console.log(
-      `[${timestamp}] PlayerBrick activePart calc start`,
-      JSON.stringify({
-        id,
-        currentStep,
-        isPlaying,
-        bricks,
-      }),
-    );
-
     if (!isPlaying) {
-      console.log(`[${timestamp}] PlayerBrick not playing → activePart = 0`);
       return 0;
     }
 
     const brickIndex = bricks.findIndex((b) => b.id === id);
     if (brickIndex === -1) {
-      console.log(`[${timestamp}] Brick not found → activePart = 0`);
       return 0;
     }
 
@@ -61,15 +47,11 @@ export default function PlayerBrick({ isEditable, width, id, onToggleEdit, onWid
 
     const brick = bricks[brickIndex];
 
-    console.log(`[${timestamp}] BrickIndex: ${brickIndex}, stepStart: ${stepStart}, brickWidth: ${brick.width}`);
-
     if (currentStep >= stepStart && currentStep < stepStart + brick.width) {
-      const part = currentStep - stepStart + 1; // jeśli liczymy od 1
-      console.log(`[${timestamp}] activePart calculated: ${part}`);
+      const part = currentStep - stepStart + 1;
       return part;
     }
 
-    console.log(`[${timestamp}] currentStep outside this brick → activePart = 0`);
     return 0;
   })();
 
