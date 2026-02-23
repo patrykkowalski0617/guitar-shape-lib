@@ -29,7 +29,7 @@ export const ControlWrapper = styled.div`
   @media (max-width: 767px) {
     &:last-child {
       flex: 0 0 auto;
-      width: auto;
+      width: 70px;
     }
 
     &:nth-last-child(2) {
