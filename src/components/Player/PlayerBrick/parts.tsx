@@ -12,18 +12,17 @@ export const TicksContainer = styled.div`
   inset: 0;
   display: flex;
   justify-content: flex-start;
+  overflow: hidden;
 `;
 
-export const Tick = styled.div<{ $unit: number; $activePart: number }>`
+export const Tick = styled.div<{ $unit: number; $isActive: boolean }>`
   width: ${({ $unit }) => $unit}px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
   flex-shrink: 0;
-  &:last-child {
-    display: none;
-  }
+
   &::after,
   &::before {
     content: "";
@@ -32,13 +31,12 @@ export const Tick = styled.div<{ $unit: number; $activePart: number }>`
     background-color: var(--border);
     opacity: 0.7;
   }
-  ${({ $activePart }) => {
-    return css`
-      &:nth-child(${$activePart}) {
-        background-color: color-mix(in oklab, var(--accent) 40%, var(--background));
-      }
-    `;
-  }}
+
+  ${({ $isActive }) =>
+    $isActive &&
+    css`
+      background-color: color-mix(in oklab, var(--accent) 40%, var(--background));
+    `}
 `;
 
 export const BrickOptions = styled.div<{ $isEditable: boolean }>`

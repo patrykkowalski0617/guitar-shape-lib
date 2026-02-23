@@ -4,22 +4,17 @@ import { usePlayerSnapshot } from "./hooks/usePlayerSnapshot";
 import * as S from "./parts";
 import { useBrickWidthUnit } from "./hooks/useBrickWidthUnit";
 import { useBrickResize } from "./hooks/useBrickResize";
+import { usePlayerStore } from "@/store/usePlayerStore";
 
 interface PlayerBrickProps {
   isEditable: boolean;
   width: number;
-  activePart?: number;
+  id: number;
   onToggleEdit: () => void;
   onWidthChange: (newWidth: number) => void;
 }
 
-export default function PlayerBrick({
-  isEditable,
-  width,
-  activePart = 2,
-  onToggleEdit,
-  onWidthChange,
-}: PlayerBrickProps) {
+export default function PlayerBrick({ isEditable, width, id, onToggleEdit, onWidthChange }: PlayerBrickProps) {
   const { displayData, handleClick } = usePlayerSnapshot(isEditable, onToggleEdit);
   const [isResizing, setIsResizing] = useState(false);
 
@@ -33,6 +28,50 @@ export default function PlayerBrick({
     isResizing,
     setIsResizing,
   });
+
+  const currentStep = usePlayerStore((s) => s.currentStep);
+  const bricks = usePlayerStore((s) => s.bricks);
+  const isPlaying = usePlayerStore((s) => s.isPlaying);
+
+  const activePart = (() => {
+    const timestamp = new Date().toISOString();
+
+    console.log(
+      `[${timestamp}] PlayerBrick activePart calc start`,
+      JSON.stringify({
+        id,
+        currentStep,
+        isPlaying,
+        bricks,
+      }),
+    );
+
+    if (!isPlaying) {
+      console.log(`[${timestamp}] PlayerBrick not playing → activePart = 0`);
+      return 0;
+    }
+
+    const brickIndex = bricks.findIndex((b) => b.id === id);
+    if (brickIndex === -1) {
+      console.log(`[${timestamp}] Brick not found → activePart = 0`);
+      return 0;
+    }
+
+    const stepStart = bricks.slice(0, brickIndex).reduce((sum, b) => sum + b.width, 0);
+
+    const brick = bricks[brickIndex];
+
+    console.log(`[${timestamp}] BrickIndex: ${brickIndex}, stepStart: ${stepStart}, brickWidth: ${brick.width}`);
+
+    if (currentStep >= stepStart && currentStep < stepStart + brick.width) {
+      const part = currentStep - stepStart + 1; // jeśli liczymy od 1
+      console.log(`[${timestamp}] activePart calculated: ${part}`);
+      return part;
+    }
+
+    console.log(`[${timestamp}] currentStep outside this brick → activePart = 0`);
+    return 0;
+  })();
 
   const hasData = displayData.currentShapeVariantLocationData !== null;
 
@@ -51,7 +90,7 @@ export default function PlayerBrick({
 
       <S.TicksContainer>
         {Array.from({ length: width }).map((_, i) => (
-          <S.Tick key={i} $unit={birckWidthUnit} $activePart={activePart} />
+          <S.Tick key={i} $unit={birckWidthUnit} $isActive={i + 1 === activePart} />
         ))}
       </S.TicksContainer>
 

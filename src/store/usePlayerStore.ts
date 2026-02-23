@@ -65,6 +65,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   togglePlay: () =>
     set((state) => ({
       isPlaying: !state.isPlaying,
+      currentStep: 0,
     })),
 
   getTotalSteps: () => {
