@@ -44,10 +44,9 @@ type ExistingShapeIds = keyof typeof shapes;
 
 type ModeRoleKey = `${"major" | "minor"}_${RoleId}`;
 
-// TODO: should define shape id and offset (root note)
 export const DEFAULT_SHAPES_CONFIG: Record<ModeRoleKey, ExistingShapeIds> = {
-  major_all: "M7",
-  minor_all: "m7",
+  major_all: "xx",
+  minor_all: "xx",
   major_tonic: "M7",
   major_subdominant: "M7",
   major_dominant: "dominant",

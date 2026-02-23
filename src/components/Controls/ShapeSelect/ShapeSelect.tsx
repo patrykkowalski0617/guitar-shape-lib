@@ -3,7 +3,8 @@ import { useControlsStore } from "@/store/useControlsStore";
 import { shapes, type Shapes, UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
 import { getFilteredShapeOptions } from "./helpers/shapeHelpers";
-import { ControlLabel, ControlWrapper } from "@/parts";
+import { ControlLabel } from "@/parts";
+import { ControlWrapper } from "../parts";
 import { AnimatedWrapper } from "./parts";
 import { useMusicStore } from "@/store/useMusicStore";
 

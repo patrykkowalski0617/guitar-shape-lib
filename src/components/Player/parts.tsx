@@ -5,14 +5,23 @@ export const PlayerContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 100%;
-  background-color: color-mix(in oklab, var(--muted) 10%, transparent);
-  padding: 6px 12px;
-  border-radius: ${instrumentElBRadius};
   @media (min-width: 1024px) {
     flex-direction: row;
     justify-content: space-between;
     max-width: 1230px;
     margin: auto;
   }
+`;
+
+export const PlayerSection = styled.div`
+  background-color: color-mix(in oklab, var(--muted) 10%, transparent);
+  border-radius: ${instrumentElBRadius};
+  padding: 6px 12px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-direction: row;
+  width: 100%;
 `;

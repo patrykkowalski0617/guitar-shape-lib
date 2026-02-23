@@ -1,6 +1,7 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { type RoleId } from "@/data";
-import { ControlLabel, ControlWrapper } from "@/parts";
+import { ControlWrapper } from "../parts";
+import { ControlLabel } from "@/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useMusicStore } from "@/store/useMusicStore";
 
@@ -9,6 +10,7 @@ export function ModeAndRoleSelect() {
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);
+  const setShape = useControlsStore((state) => state.setShape);
   const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
 
   const currentValue =
@@ -24,6 +26,7 @@ export function ModeAndRoleSelect() {
 
     if (value === "all") {
       setCurrentRoleId("all");
+      setShape(null, null);
       return;
     }
 

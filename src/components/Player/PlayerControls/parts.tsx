@@ -7,14 +7,6 @@ const pulse = keyframes`
   100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 0%, transparent); }
 `;
 
-export const ControlsRow = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  height: 28px;
-`;
-
 export const PlayButton = styled.button<{ $isPlaying?: boolean; $bpm?: number }>`
   display: flex;
   align-items: center;

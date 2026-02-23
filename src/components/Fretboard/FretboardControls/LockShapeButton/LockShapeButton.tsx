@@ -1,6 +1,6 @@
 import { useMusicStore } from "@/store/useMusicStore";
 import { Lock, LockOpen } from "lucide-react";
-import { ControlWrapper } from "@/parts";
+import { ControlWrapper } from "../parts";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 

@@ -1,7 +1,7 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { musicMode, type MusicModeId } from "@/data";
-import { ControlWrapper } from "@/parts";
+import { ControlWrapper } from "../parts";
 
 export function ModeSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);

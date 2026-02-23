@@ -21,16 +21,20 @@ export default function Player() {
 
   return (
     <S.PlayerContainer>
-      <PlayerBricksContainer
-        bricks={bricks}
-        activeBrickId={activeBrickId}
-        onAdd={addBrick}
-        onRemove={removeBrick}
-        onUpdateWidth={updateBrickWidth}
-        onSelect={setActiveBrickId}
-        onCloseEdit={closeEdit}
-      />
-      <PlayerControls isPlaying={isPlaying} bpm={bpm} onTogglePlay={togglePlay} onBpmChange={handleBpmChange} />
+      <S.PlayerSection>
+        <PlayerBricksContainer
+          bricks={bricks}
+          activeBrickId={activeBrickId}
+          onAdd={addBrick}
+          onRemove={removeBrick}
+          onUpdateWidth={updateBrickWidth}
+          onSelect={setActiveBrickId}
+          onCloseEdit={closeEdit}
+        />
+      </S.PlayerSection>
+      <S.PlayerSection>
+        <PlayerControls isPlaying={isPlaying} bpm={bpm} onTogglePlay={togglePlay} onBpmChange={handleBpmChange} />
+      </S.PlayerSection>
     </S.PlayerContainer>
   );
 }

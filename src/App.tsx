@@ -1,24 +1,15 @@
 import Fretboard from "@/components/Fretboard/Fretboard";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-import { AppWrapper, CollapsibleSection, ControlContainer, MainContent, Setcion } from "@/parts";
+import { AppWrapper, CollapsibleSection, MainContent, Setcion } from "@/parts";
 import { useSettingsStore } from "./store/useSettingsStore";
 import { useControlsStore } from "./store/useControlsStore";
 import Piano from "@/components/Piano/Piano";
-import {
-  AddToList,
-  KeySelect,
-  LockShapeButton,
-  RandomizeControls,
-  ShapeSelect,
-  ModeAndRoleSelect,
-} from "@/components/Controls";
 import FullscreenButton from "@/components/Settings/FullscreenButton/FullscreenButton";
 import { Toaster } from "@/components/ui/sonner";
 import { getHSLColorFromHue } from "./utils";
-import { ShapeExplorerSlider } from "./components/Controls/ShapeExplorerSlider/ShapeExplorerSlider";
-import PianoToggleButton from "./components/Controls/PianoToggleButton/PianoToggleButton";
 import Player from "./components/Player/Player";
+import Controls from "./components/Controls/Controls";
 
 export default function App() {
   const { primaryColor } = useSettingsStore();
@@ -36,7 +27,6 @@ export default function App() {
       <MainContent>
         <Setcion>
           <Fretboard />
-          <ShapeExplorerSlider />
         </Setcion>
 
         <Setcion>
@@ -44,15 +34,7 @@ export default function App() {
         </Setcion>
 
         <Setcion>
-          <ControlContainer>
-            <KeySelect />
-            <ModeAndRoleSelect />
-            <ShapeSelect />
-            <RandomizeControls />
-            <LockShapeButton />
-            <AddToList />
-            <PianoToggleButton />
-          </ControlContainer>
+          <Controls />
         </Setcion>
 
         <CollapsibleSection $isVisible={showPiano}>

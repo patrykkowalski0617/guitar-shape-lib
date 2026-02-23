@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <S.FooterWrapper $isHidden={isFullscreen}>
-      <p>&copy; P. Asp</p>
+      <p>&copy; Interactive Image</p>
     </S.FooterWrapper>
   );
 }

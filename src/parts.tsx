@@ -71,48 +71,6 @@ export const FooterAndHeaderStyles = css`
     opacity ${transitionTime}ms 1000ms ease-in-out;
 `;
 
-export const ControlContainer = styled.div`
-  padding: 5px 27px 0;
-  margin: auto;
-  display: grid;
-  gap: calc(var(--spacing) * 6) calc(var(--spacing) * 8);
-  max-width: 700px;
-  align-items: end;
-  grid-template-columns: repeat(4, 1fr);
-
-  & > *:nth-child(1),
-  & > *:nth-child(2) {
-    grid-column: span 2;
-  }
-
-  & > *:nth-child(3) {
-    grid-column: span 4;
-  }
-
-  & > *:nth-child(n + 4) {
-    grid-column: span 1;
-  }
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(12, 1fr);
-
-    & > *:nth-child(-n + 3) {
-      grid-column: span 4;
-    }
-
-    & > *:nth-child(n + 4) {
-      grid-column: span 3;
-    }
-  }
-
-  @media (min-width: 1440px) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: unset;
-  }
-`;
-
 export const ControlWrapper = styled.div`
   user-select: none;
   display: flex;

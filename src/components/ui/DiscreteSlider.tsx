@@ -43,7 +43,7 @@ function DiscreteSlider({
   ...props
 }: DiscreteSliderProps) {
   const currentValue = value?.[0] ?? 0;
-  const thumbSize = 20;
+  const thumbSize = 25;
 
   return (
     <SliderPrimitive.Root
@@ -71,17 +71,16 @@ function DiscreteSlider({
 
       <SliderPrimitive.Thumb
         className={cn(
-          "block rounded-full border-2 bg-background shadow-lg",
+          "block rounded-full border-2 bg-background shadow-lg border-primary",
           "cursor-grab active:cursor-grabbing z-10",
           "hover:scale-110 transition-transform",
-          "data-[disabled]:scale-100 data-[disabled]:opacity-50 data-[disabled]:left-[calc(10px)] data-[disabled]:relative",
+          "data-[disabled]:scale-100 data-[disabled]:border-primary/35 data-[disabled]:left-[calc(10px)] data-[disabled]:relative",
           "focus:outline-none focus:ring-0 focus:ring-offset-0",
           "focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-0",
         )}
         style={{
           width: `${thumbSize}px`,
           height: `${thumbSize}px`,
-          borderColor: "var(--primary)",
         }}
       />
     </SliderPrimitive.Root>

@@ -1,7 +1,8 @@
 import { useControlsStore } from "@/store/useControlsStore";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { roles, type RoleData, type RoleId } from "@/data";
-import { ControlLabel, ControlWrapper } from "@/parts";
+import { ControlLabel } from "@/parts";
+import { ControlWrapper } from "../parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export function RoleSelect() {

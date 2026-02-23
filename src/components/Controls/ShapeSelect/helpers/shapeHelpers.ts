@@ -37,7 +37,7 @@ export const getAutoSelectedShape = (roleId: string | null, isMajorMode: boolean
   const defaultShapeId = DEFAULT_SHAPES_CONFIG[configKey];
 
   const defaultOption = options.find((opt) => opt.shapeId === defaultShapeId);
-  const finalSelection = defaultOption || options[0];
+  const finalSelection = defaultOption || null;
 
   return {
     shapeId: finalSelection ? String(finalSelection.shapeId) : null,

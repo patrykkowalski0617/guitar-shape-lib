@@ -2,16 +2,14 @@ import styled from "styled-components";
 import { instrumentElBRadius } from "@/parts";
 
 export const PlayerScrollWrapper = styled.div`
-  width: 100%;
   overflow-x: auto;
-  display: flex;
   align-items: center;
-  height: 28px;
   &::-webkit-scrollbar {
     display: none;
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
+  height: 100%;
 `;
 
 export const PlayerRow = styled.div`
@@ -19,7 +17,6 @@ export const PlayerRow = styled.div`
   gap: 8px;
   align-items: center;
   height: 100%;
-  padding: 0 16px;
   margin-left: auto;
   margin-right: auto;
   flex-shrink: 0;

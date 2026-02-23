@@ -5,7 +5,7 @@ import { useRandomizeKey } from "./hooks/useRandomizeKey";
 import { useRandomizeRole } from "./hooks/useRandomizeRole";
 import { useRandomizeShape } from "./hooks/useRandomizeShape";
 import { useRandomizeShapeVariant } from "./hooks/useRandomizeShapeVariant";
-import { ControlWrapper } from "@/parts";
+import { ControlWrapper } from "../parts";
 
 export function RandomizeControls() {
   const setRandomMode = useRandomizeMode();

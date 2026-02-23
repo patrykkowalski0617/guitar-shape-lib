@@ -31,10 +31,8 @@ const commonStyleForKey = css`
 `;
 
 const whitePianoKey = css`
-  height: 100px;
   z-index: 1;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
-  padding-top: 6px; //- 1px difference to compensate border of black key
   &::after {
     content: "";
     position: absolute;
@@ -45,24 +43,16 @@ const whitePianoKey = css`
   &:not(:last-child)::after {
     border-right: none;
   }
-
-  @media (min-width: 768px) {
-    height: 120px;
-    padding-top: 11px; //- 1px difference to compensate border of black key
-  }
+  height: 125px;
+  padding-top: 11px; //- 1px difference to compensate border of black key
 `;
 
 const blackPianoKey = css`
   background-color: var(--background);
-  height: 60px;
   z-index: 2;
-  padding-top: 5px;
   ${commonStyleForKey}
-
-  @media (min-width: 768px) {
-    height: 70px;
-    padding-top: 10px;
-  }
+  height: 75px;
+  padding-top: 10px;
 `;
 
 export const Key = styled.div<{
