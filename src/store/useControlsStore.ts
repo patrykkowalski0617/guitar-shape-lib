@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getAutoSelectedShape } from "@/components/Controls/ShapeSelect/helpers/shapeHelpers";
+import { getAutoSelectedShape } from "@/components/Controls/ShapeSelect/helpers";
 import type { MusicKeyId, RoleId } from "@/data";
 
 interface ControlsState {
@@ -25,7 +25,7 @@ interface ControlsState {
 const initialState = {
   isMajorMode: true,
   currentKeyId: "C" as MusicKeyId,
-  currentRoleId: "all" as RoleId | null,
+  currentRoleId: "all-one-instacne" as RoleId | null,
   currentShapeId: null as string | null,
   currentShapeSemitoneOffsetFromC: null as number | null,
   isPianoVisable: false,

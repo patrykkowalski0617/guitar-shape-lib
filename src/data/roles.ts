@@ -1,12 +1,15 @@
-export type RoleId = "tonic" | "subdominant" | "dominant" | "all";
+export type RoleId = "tonic" | "subdominant" | "dominant" | "all-one-instacne" | "all-maching-key";
 
 export interface RoleData {
-  label: "All" | "Tonic" | "Subdominant" | "Dominant";
+  label: string;
 }
 
 export const roles: Record<RoleId, RoleData> = {
-  all: {
-    label: "All",
+  "all-maching-key": {
+    label: "All maching current Key",
+  },
+  "all-one-instacne": {
+    label: "One instance of each arp/scale",
   },
   tonic: {
     label: "Tonic",

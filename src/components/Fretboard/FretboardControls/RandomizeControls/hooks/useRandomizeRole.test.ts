@@ -14,7 +14,7 @@ vi.mock("@/store", () => ({
 describe("useRandomizeRole()", () => {
   const setCurrentRoleIdMock = vi.fn();
 
-  const functionalRoles = (Object.keys(roles) as RoleId[]).filter((id) => id !== "all");
+  const functionalRoles = (Object.keys(roles) as RoleId[]).filter((id) => id !== "all-one-instacne");
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -38,7 +38,7 @@ describe("useRandomizeRole()", () => {
 
     expect(randomRole).toBe(expectedRole);
     expect(setCurrentRoleIdMock).toHaveBeenCalledWith(expectedRole);
-    expect(randomRole).not.toBe("all");
+    expect(randomRole).not.toBe("all-one-instacne");
 
     mathSpy.mockRestore();
   });
@@ -57,7 +57,7 @@ describe("useRandomizeRole()", () => {
 
     expect(randomRole).toBe(expectedRole);
     expect(setCurrentRoleIdMock).toHaveBeenCalledWith(expectedRole);
-    expect(randomRole).not.toBe("all");
+    expect(randomRole).not.toBe("all-one-instacne");
 
     mathSpy.mockRestore();
   });
@@ -70,7 +70,7 @@ describe("useRandomizeRole()", () => {
       act(() => {
         randomRole = result.current();
       });
-      expect(randomRole).not.toBe("all");
+      expect(randomRole).not.toBe("all-one-instacne");
     }
   });
 });

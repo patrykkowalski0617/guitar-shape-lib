@@ -45,8 +45,10 @@ type ExistingShapeIds = keyof typeof shapes;
 type ModeRoleKey = `${"major" | "minor"}_${RoleId}`;
 
 export const DEFAULT_SHAPES_CONFIG: Record<ModeRoleKey, ExistingShapeIds> = {
-  major_all: "xx",
-  minor_all: "xx",
+  "major_all-maching-key": "xx",
+  "minor_all-maching-key": "xx",
+  "major_all-one-instacne": "xx",
+  "minor_all-one-instacne": "xx",
   major_tonic: "M7",
   major_subdominant: "M7",
   major_dominant: "dominant",

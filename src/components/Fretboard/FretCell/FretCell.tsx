@@ -15,7 +15,7 @@ interface FretCellProps {
 export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellProps) {
   const transitionTime = usePlayerStore((state) => state.transitionTime);
   const { states, actions } = useFretCell();
-  const { isShapeSelected, isRoleSelected } = useFretboardStates();
+  const { isShapeSelected, shouldMarkTuneNotes } = useFretboardStates();
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   const { isActiveNote, isShapeRootNote, isShapeNote, isLockedNote, isTuneNote } = useNoteState({
@@ -39,7 +39,7 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
           $isShapeNote={isShapeNote}
           $isTuneNote={isTuneNote}
           $isShapeSelected={isShapeSelected}
-          $isRoleSelected={isRoleSelected}
+          $shouldMarkTuneNotes={shouldMarkTuneNotes}
           $transitionTime={transitionTime}
         >
           <NoteLabel

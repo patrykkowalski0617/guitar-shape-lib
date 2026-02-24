@@ -36,7 +36,7 @@ export const Note = styled.div<{
   $isShapeRootNote: boolean;
   $isTuneNote: boolean;
   $isShapeSelected: boolean;
-  $isRoleSelected: boolean;
+  $shouldMarkTuneNotes: boolean;
   $isLockedNote: boolean;
   $transitionTime: number;
 }>`
@@ -54,11 +54,24 @@ export const Note = styled.div<{
   transition:
     box-shadow ${fretboardTransitionTime}ms ease-in-out,
     opacity ${({ $transitionTime }) => $transitionTime}ms ease-in-out;
-  opacity: ${({ $isShapeNote, $isShapeRootNote, $isShapeSelected, $isRoleSelected, $isTuneNote, $isActiveNote }) => {
-    if (($isActiveNote && !$isShapeSelected) || $isShapeNote || $isShapeRootNote || (!$isShapeSelected && $isTuneNote))
+  opacity: ${({
+    $isShapeNote,
+    $isShapeRootNote,
+    $isShapeSelected,
+    $isTuneNote,
+    $isActiveNote,
+    $shouldMarkTuneNotes,
+  }) => {
+    if (
+      ($isActiveNote && !$isShapeSelected) ||
+      $isShapeNote ||
+      $isShapeRootNote ||
+      (!$isShapeSelected && $isTuneNote) ||
+      (!$shouldMarkTuneNotes && !$isShapeSelected)
+    )
       return "1";
 
-    if ($isActiveNote || $isTuneNote || !$isRoleSelected) return "0.3";
+    if ($isActiveNote || $isTuneNote || !$shouldMarkTuneNotes || $isTuneNote) return "0.4";
 
     return "0";
   }};

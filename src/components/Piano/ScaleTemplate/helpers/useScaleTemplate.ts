@@ -28,12 +28,18 @@ export const useScaleTemplate = () => {
 
   const modeKey = isMajorMode ? "major" : "minor";
   const modeMap = VISIBLE_INDEXES_MAP[modeKey];
-  const effectiveRoleId = currentRoleId && currentRoleId !== "all" ? currentRoleId : "tonic";
+  const effectiveRoleId =
+    currentRoleId && currentRoleId !== "all-one-instacne" && currentRoleId !== "all-maching-key"
+      ? currentRoleId
+      : "tonic";
 
-  const highlightRole = currentRoleId && currentRoleId !== "all" ? (modeMap[effectiveRoleId as RoleId] ?? []) : [];
+  const highlightRole =
+    currentRoleId && currentRoleId !== "all-one-instacne" && currentRoleId !== "all-maching-key"
+      ? (modeMap[effectiveRoleId as RoleId] ?? [])
+      : [];
 
   const altIndexes =
-    currentRoleId !== "all"
+    currentRoleId !== "all-one-instacne" && currentRoleId !== "all-maching-key"
       ? Array.from({ length: 33 }, (_, i) => i).filter((stepIndex) => {
           const pianoNote = pianoNotes[position + stepIndex];
           if (!pianoNote) return false;
