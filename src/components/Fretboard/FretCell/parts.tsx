@@ -1,6 +1,5 @@
 import { instrumentElBRadius } from "@/parts";
 import styled, { css } from "styled-components";
-import { fretboardTransitionTime } from "./helpers/constants";
 import { DotsWrapper } from "@/components/Fretboard/VariantProgressDots/parts";
 import { activeDotsStyles } from "@/components/Fretboard/VariantProgressDots/constants";
 
@@ -52,7 +51,7 @@ export const Note = styled.div<{
   cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
   will-change: box-shadow, opacity;
   transition:
-    box-shadow ${fretboardTransitionTime}ms ease-in-out,
+    box-shadow ${({ $transitionTime }) => $transitionTime}ms ease-in-out,
     opacity ${({ $transitionTime }) => $transitionTime}ms ease-in-out;
   opacity: ${({
     $isShapeNote,

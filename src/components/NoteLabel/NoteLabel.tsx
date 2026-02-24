@@ -2,6 +2,7 @@ import { type JSX } from "react";
 import * as S from "./parts";
 import { type Note } from "@/data";
 import { MainLabel, OptionalLabel } from "@/components/NoteLabel/parts";
+import { usePlayerStore } from "@/store";
 
 export type Variant = "fretboard" | "piano";
 
@@ -26,6 +27,8 @@ export default function NoteLabel({
   isActiveNote = false,
   variant,
 }: NoteLabelProps): JSX.Element {
+  const transitionTime = usePlayerStore((state) => state.transitionTime);
+
   return (
     <S.NoteWrapper
       $isFlatTune={isFlatTune}
@@ -33,6 +36,7 @@ export default function NoteLabel({
       $isShapeNote={isShapeNote}
       $variant={variant}
       $isActiveNote={isActiveNote}
+      $transitionTime={transitionTime}
     >
       <MainLabel $isFlatTune={isFlatTune} $isEnharmonicNote={isEnharmonic} $isHighlighted={isHighlighted}>
         {sharpNoteName}
