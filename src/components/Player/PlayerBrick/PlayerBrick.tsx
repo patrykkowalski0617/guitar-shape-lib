@@ -8,10 +8,11 @@ interface PlayerBrickProps {
   isEditable: boolean;
   onToggleEdit: () => void;
   onWidthChange: (newWidth: number) => void;
+  $isDragging?: boolean;
 }
 
 export default function PlayerBrick(props: PlayerBrickProps) {
-  const { brick, isEditable } = props;
+  const { brick, isEditable, $isDragging } = props;
   const { birckWidthUnit, activePart, label, handleClick, resizeHandlers } = usePlayerBrickLogic(props);
 
   return (
@@ -19,6 +20,7 @@ export default function PlayerBrick(props: PlayerBrickProps) {
       $isEditable={isEditable}
       $unit={birckWidthUnit}
       $widthUnit={brick.width}
+      $isDragging={$isDragging}
       onClick={handleClick}
       onMouseDown={resizeHandlers.handleMouseDown}
       onTouchStart={resizeHandlers.handleTouchStart}
