@@ -1,8 +1,11 @@
 import { useMusicStore, useControlsStore } from "@/store";
-import { type RoleId } from "@/data";
+import { type RoleId, roles } from "@/data";
 import { ControlWrapper } from "../parts";
 import { ControlLabel } from "@/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+const isGlobalRole = (roleId: RoleId | null): roleId is "all-one-instacne" | "all-maching-key" =>
+  roleId === "all-one-instacne" || roleId === "all-maching-key";
 
 export function ModeAndRoleSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
@@ -12,19 +15,17 @@ export function ModeAndRoleSelect() {
   const setShape = useControlsStore((state) => state.setShape);
   const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
 
-  const currentValue =
-    currentRoleId === "all" || !currentRoleId ? "all" : `${isMajorMode ? "major" : "minor"}-${currentRoleId}`;
-  const roles = [
-    { id: "tonic", label: "Tonic" },
-    { id: "subdominant", label: "Subdominant" },
-    { id: "dominant", label: "Dominant" },
-  ];
+  const effectiveRoleId = currentRoleId ?? "all-one-instacne";
+
+  const currentValue = isGlobalRole(effectiveRoleId)
+    ? effectiveRoleId
+    : `${isMajorMode ? "major" : "minor"}-${effectiveRoleId}`;
 
   const handleValueChange = (value: string) => {
     setCurrentShapeVariantLocationData(null);
 
-    if (value === "all") {
-      setCurrentRoleId("all");
+    if (value in roles && isGlobalRole(value as RoleId)) {
+      setCurrentRoleId(value as RoleId);
       setShape(null, null);
       return;
     }
@@ -33,6 +34,8 @@ export function ModeAndRoleSelect() {
     setIsMajorMode(mode === "major");
     setCurrentRoleId(role);
   };
+
+  const functionalRoles = (Object.entries(roles) as [RoleId, { label: string }][]).filter(([id]) => !isGlobalRole(id));
 
   return (
     <ControlWrapper>
@@ -43,18 +46,20 @@ export function ModeAndRoleSelect() {
           <SelectValue placeholder="Select mode & function" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All</SelectItem>
-          <div className="border-t my-1"></div>
-          {roles.map((f) => (
-            <SelectItem key={`major-${f.id}`} value={`major-${f.id}`}>
-              Major {f.label}
+          <SelectItem value="all-one-instacne">{roles["all-one-instacne"].label}</SelectItem>
+          <SelectItem value="all-maching-key">{roles["all-maching-key"].label}</SelectItem>
+
+          <div className="border-t my-1" />
+          {functionalRoles.map(([id, data]) => (
+            <SelectItem key={`major-${id}`} value={`major-${id}`}>
+              Major {data.label}
             </SelectItem>
           ))}
 
-          <div className="border-t my-1"></div>
-          {roles.map((f) => (
-            <SelectItem key={`minor-${f.id}`} value={`minor-${f.id}`}>
-              Minor {f.label}
+          <div className="border-t my-1" />
+          {functionalRoles.map(([id, data]) => (
+            <SelectItem key={`minor-${id}`} value={`minor-${id}`}>
+              Minor {data.label}
             </SelectItem>
           ))}
         </SelectContent>

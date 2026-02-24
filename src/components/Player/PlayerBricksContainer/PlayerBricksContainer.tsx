@@ -4,6 +4,7 @@ import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 import PlayerBrick from "../PlayerBrick/PlayerBrick";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
+import { usePlayerBricksDrag } from "./hooks/usePlayerBricksDrag";
 
 interface Props {
   onCloseEdit: () => void;
@@ -18,26 +19,43 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
   const updateBrickWidth = usePlayerStore((state) => state.updateBrickWidth);
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
 
+  const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } = usePlayerBricksDrag();
+
   const scrollRef = useRef<HTMLDivElement>(null);
   useHorizontalScroll(scrollRef);
 
   return (
     <S.PlayerScrollWrapper ref={scrollRef} $isPlaying={isPlaying}>
       <S.PlayerRow>
-        {bricks.map((brick) => (
-          <PlayerBrick
-            key={brick.id}
-            brick={brick}
-            isEditable={activeBrickId === brick.id}
-            onToggleEdit={() => setActiveBrickId(activeBrickId === brick.id ? null : brick.id)}
-            onWidthChange={(newWidth) => updateBrickWidth(brick.id, newWidth)}
-          />
-        ))}
+        {bricks.map((brick, index) => {
+          const isEditable = activeBrickId === brick.id;
+          const isBeingDragged = draggedIndex === index;
+
+          return (
+            <div
+              key={brick.id}
+              draggable={!isEditable && !isPlaying}
+              onDragStart={() => handleDragStart(index, isEditable)}
+              onDragOver={(e) => handleDragOver(e, index)}
+              onDragEnd={handleDragEnd}
+            >
+              <PlayerBrick
+                brick={brick}
+                isEditable={isEditable}
+                $isDragging={isBeingDragged}
+                onToggleEdit={() => setActiveBrickId(isEditable ? null : brick.id)}
+                onWidthChange={(newWidth) => updateBrickWidth(brick.id, newWidth)}
+              />
+            </div>
+          );
+        })}
+
         {!isPlaying && (
           <S.AddBrickButton onClick={onAdd}>
             <Plus size={16} />
           </S.AddBrickButton>
         )}
+
         {activeBrickId !== null && (
           <>
             <S.DeleteButton onClick={() => removeBrick(activeBrickId)}>

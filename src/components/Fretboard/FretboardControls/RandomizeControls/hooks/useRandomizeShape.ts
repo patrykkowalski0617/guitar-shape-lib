@@ -1,5 +1,5 @@
 import { useControlsStore } from "@/store";
-import { getFilteredShapeOptions } from "@/components/Controls/ShapeSelect/helpers/shapeHelpers";
+import { getFilteredShapeOptions } from "@/components/Controls/ShapeSelect/helpers/getFilteredShapeOptions";
 import type { RoleId } from "@/data";
 
 export const useRandomizeShape = () => {

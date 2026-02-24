@@ -1,4 +1,3 @@
-export * from "./constants";
 export * from "./useFretboardStates";
 export * from "./useFretCell";
 export * from "./useInTuneSharpNoteNames";

@@ -5,7 +5,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useRandomizeShape } from "./useRandomizeShape";
 import { useControlsStore } from "@/store";
-import { getFilteredShapeOptions } from "@/components/Controls/ShapeSelect/helpers/shapeHelpers";
+import { getFilteredShapeOptions } from "@/components/Controls/ShapeSelect/helpers/getFilteredShapeOptions";
 import type { RoleId } from "@/data";
 
 vi.mock("@/store", () => ({

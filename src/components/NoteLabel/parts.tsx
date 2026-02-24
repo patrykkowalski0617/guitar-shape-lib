@@ -38,6 +38,7 @@ export const NoteWrapper = styled.div<{
   $isEnharmonicNote: boolean;
   $isShapeNote: boolean;
   $isActiveNote: boolean;
+  $transitionTime: number;
   $variant: Variant;
 }>`
   ${({ $variant, $isShapeNote, $isActiveNote }) =>
@@ -61,7 +62,7 @@ export const NoteWrapper = styled.div<{
       }
     `}
 
-  ${({ $variant, $isShapeNote }) =>
+  ${({ $variant, $isShapeNote, $transitionTime }) =>
     $variant === "fretboard" &&
     css`
       display: flex;
@@ -69,7 +70,7 @@ export const NoteWrapper = styled.div<{
       justify-content: center;
       flex-direction: row;
       will-change: opacity;
-      transition: opacity ${transitionTime}ms ease-in-out;
+      transition: opacity ${$transitionTime}ms ease-in-out;
 
       ${MainLabel}, ${OptionalLabel} {
         color: ${$isShapeNote ? highlightedColor : unHighlightedColor};

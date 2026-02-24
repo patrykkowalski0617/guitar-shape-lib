@@ -2,8 +2,8 @@ import { css } from "styled-components";
 
 export const activeDotsStyles = css`
   transform: translate(-50%, 80%) scale(1.5);
-  background: color-mix(in oklab, var(--background) 90%, transparent);
+  background: var(--background);
   box-shadow: 0 0 4px 4px var(--background);
   color: var(--background);
-  padding: 2px;
+  padding: 0px;
 `;

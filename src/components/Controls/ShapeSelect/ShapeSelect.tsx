@@ -2,7 +2,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useControlsStore, useMusicStore } from "@/store";
 import { shapes, type Shapes, UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
-import { getFilteredShapeOptions } from "./helpers/shapeHelpers";
+import { getFilteredShapeOptions } from "./helpers/getFilteredShapeOptions";
 import { ControlLabel } from "@/parts";
 import { ControlWrapper } from "../parts";
 
@@ -16,7 +16,9 @@ export function ShapeSelect() {
   const currentShapeSemitoneOffsetFromC = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
   const setShape = useControlsStore((state) => state.setShape);
   const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
-  const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
+
+  const musicKey = UNIFIED_MUSIC_KEYS[currentKeyId];
+  const isFlatTune = musicKey?.isFlatTune ?? false;
 
   const currentKeyNotes = getNotes({ firstNote: currentKeyId }).map(({ sharpNoteName, flatNoteName }) =>
     isFlatTune ? flatNoteName : sharpNoteName,
@@ -26,12 +28,14 @@ export function ShapeSelect() {
 
   const filteredOptions = rawOptions.map(({ shapeId, offset }) => {
     const shape = shapes[shapeId as keyof Shapes];
-    const rootNote = currentKeyNotes[offset % 12];
+
+    const noteIndex = ((offset % 12) + 12) % 12;
+    const rootNote = currentKeyNotes[noteIndex];
 
     return {
       value: `${shapeId}|${offset}`,
       labelRootNote: rootNote,
-      labelShapeName: ` ${shape.label} ${shape.type}`,
+      labelShapeName: `${shape.label} ${shape.type}`,
     };
   });
 
@@ -47,9 +51,9 @@ export function ShapeSelect() {
       setShape(null, null);
       return;
     }
+
     const [id, offsetStr] = value.split("|");
-    const offset = parseInt(offsetStr, 10);
-    setShape(id, offset);
+    setShape(id, parseInt(offsetStr, 10));
   };
 
   return (
@@ -61,11 +65,13 @@ export function ShapeSelect() {
         </SelectTrigger>
 
         <SelectContent className="font-semibold">
-          <SelectItem value={NONE_SHAPE_VALUE}>None (Explore All Notes)</SelectItem>
+          <SelectItem value={NONE_SHAPE_VALUE}>
+            {currentRoleId === "all-one-instacne" ? "All Notes" : "All Notes Matching Key"}
+          </SelectItem>
 
           {filteredOptions.map((option) => (
             <SelectItem key={option.value} value={option.value}>
-              <span className="opacity-50">{option.labelRootNote}</span>
+              <span className="opacity-50 mr-2">{option.labelRootNote}</span>
               <span>{option.labelShapeName}</span>
             </SelectItem>
           ))}

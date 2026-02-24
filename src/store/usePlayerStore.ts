@@ -28,6 +28,7 @@ interface PlayerState {
   togglePlay: () => void;
   nextStep: () => void;
   getTotalSteps: () => number;
+  reorderBricks: (startIndex: number, endIndex: number) => void;
 }
 
 export const usePlayerStore = create<PlayerState>((set, get) => ({
@@ -106,5 +107,15 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     const total = getTotalSteps();
     if (total === 0) return;
     set({ currentStep: (currentStep + 1) % total });
+  },
+
+  reorderBricks: (startIndex: number, endIndex: number) => {
+    set((state) => {
+      const newBricks = Array.from(state.bricks);
+      const [removed] = newBricks.splice(startIndex, 1);
+      newBricks.splice(endIndex, 0, removed);
+
+      return { bricks: newBricks };
+    });
   },
 }));

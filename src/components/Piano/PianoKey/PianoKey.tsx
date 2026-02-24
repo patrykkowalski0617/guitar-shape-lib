@@ -23,7 +23,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
 
   const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
-  const isRoleActive = currentRoleId && currentRoleId !== "all";
+  const isRoleActive = currentRoleId && currentRoleId !== "all-one-instacne" && currentRoleId !== "all-maching-key";
 
   const isScrollTarget =
     (!isRoleActive && currentScaleNoteIds.includes(note.noteId)) ||

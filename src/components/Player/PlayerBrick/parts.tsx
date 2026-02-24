@@ -2,12 +2,12 @@ import { instrumentElBRadius } from "@/parts";
 import styled, { css, keyframes } from "styled-components";
 
 const flash = keyframes`
-  0% { background-color: color-mix(in oklab, var(--accent) 10%, var(--background)); }
+  0% { background-color: color-mix(in oklab, var(--accent) 20%, var(--background)); }
   50% { background-color: color-mix(in oklab, var(--accent) 40%, var(--background)); }
-  100% { background-color: color-mix(in oklab, var(--accent) 10%, var(--background)); }
+  100% { background-color: color-mix(in oklab, var(--accent) 20%, var(--background)); }
 `;
 
-export const TicksContainer = styled.div`
+export const PartsContainer = styled.div`
   position: absolute;
   inset: 0;
   display: flex;
@@ -15,14 +15,13 @@ export const TicksContainer = styled.div`
   overflow: hidden;
 `;
 
-export const Tick = styled.div<{ $unit: number; $isActive: boolean }>`
+export const Part = styled.div<{ $unit: number; $isActive: boolean }>`
   width: ${({ $unit }) => $unit}px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
   flex-shrink: 0;
-
   &::after,
   &::before {
     content: "";
@@ -54,7 +53,7 @@ export const BrickOptions = styled.div<{ $isEditable: boolean }>`
   z-index: 2;
 `;
 
-export const Brick = styled.div<{ $isEditable: boolean; $widthUnit: number; $unit: number }>`
+export const Brick = styled.div<{ $isEditable: boolean; $widthUnit: number; $unit: number; $isDragging?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,15 +62,24 @@ export const Brick = styled.div<{ $isEditable: boolean; $widthUnit: number; $uni
   padding: 0 4px;
   border-radius: ${instrumentElBRadius};
   position: relative;
-  cursor: ${({ $isEditable }) => ($isEditable ? "ew-resize" : "pointer")};
   user-select: none;
   border: 1px solid color-mix(in oklab, var(--border) 50%, var(--background));
   background-color: color-mix(in oklab, var(--accent) 15%, var(--background));
   color: var(--foreground);
-  transition:
-    background-color 0.15s ease-in-out,
-    width 0.1s ease-out;
   flex-shrink: 0;
+  opacity: ${({ $isDragging }) => ($isDragging ? 0.4 : 1)};
+  cursor: ${({ $isEditable }) => ($isEditable ? "ew-resize" : "grab")};
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+  ${({ $isDragging }) =>
+    $isDragging &&
+    css`
+      opacity: 0.2;
+      transform: scale(0.9);
+      border: 1px dashed var(--border);
+      pointer-events: none;
+    `}
 
   &:hover {
     ${BrickOptions} {
