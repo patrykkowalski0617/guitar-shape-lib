@@ -32,7 +32,7 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
           const isBeingDragged = draggedIndex === index;
 
           return (
-            <div
+            <S.BrickDragWrapper
               key={brick.id}
               draggable={!isEditable && !isPlaying}
               onDragStart={() => handleDragStart(index, isEditable)}
@@ -46,7 +46,7 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
                 onToggleEdit={() => setActiveBrickId(isEditable ? null : brick.id)}
                 onWidthChange={(newWidth) => updateBrickWidth(brick.id, newWidth)}
               />
-            </div>
+            </S.BrickDragWrapper>
           );
         })}
 
