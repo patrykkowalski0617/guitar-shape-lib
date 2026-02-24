@@ -1,8 +1,10 @@
 import { create } from "zustand";
+import { type Snapshot } from "@/components/Player/PlayerBrick/hooks/usePlayerSnapshot";
 
 export interface Brick {
   id: number;
   width: number;
+  snapshot: Snapshot | null;
 }
 
 export const transitionTime = 200;
@@ -17,9 +19,10 @@ interface PlayerState {
   countIn: number;
   isCountingIn: boolean;
 
-  addBrick: (lockedDataSetter: () => void) => void;
+  addBrick: (snapshot: Snapshot) => void;
   removeBrick: (id: number) => void;
   updateBrickWidth: (id: number, newWidth: number) => void;
+  updateBrickSnapshot: (id: number, snapshot: Snapshot) => void;
   setActiveBrickId: (id: number | null) => void;
   setBpm: (bpm: number) => void;
   togglePlay: () => void;
@@ -37,14 +40,18 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   countIn: 0,
   isCountingIn: false,
 
-  addBrick: (lockedDataSetter) => {
-    lockedDataSetter();
+  addBrick: (snapshot) => {
     const newId = Date.now();
     set((state) => ({
-      bricks: [...state.bricks, { id: newId, width: 4 }],
+      bricks: [...state.bricks, { id: newId, width: 4, snapshot }],
       activeBrickId: newId,
     }));
   },
+
+  updateBrickSnapshot: (id, snapshot) =>
+    set((state) => ({
+      bricks: state.bricks.map((b) => (b.id === id ? { ...b, snapshot } : b)),
+    })),
 
   removeBrick: (id) =>
     set((state) => ({
@@ -58,7 +65,6 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     })),
 
   setActiveBrickId: (id) => set({ activeBrickId: id }),
-
   setBpm: (bpm) => set({ bpm: Math.max(20, Math.min(360, bpm)) }),
 
   togglePlay: () => {
@@ -89,7 +95,6 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
 
   nextStep: () => {
     const { currentStep, getTotalSteps, isCountingIn, countIn } = get();
-
     if (isCountingIn) {
       if (countIn > 1) {
         set({ countIn: countIn - 1 });
@@ -98,12 +103,8 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
       }
       return;
     }
-
     const total = getTotalSteps();
     if (total === 0) return;
-
-    set({
-      currentStep: (currentStep + 1) % total,
-    });
+    set({ currentStep: (currentStep + 1) % total });
   },
 }));

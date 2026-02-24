@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useShapeRootNote } from "@/hooks/useShapeRootNote";
-import { useControlsStore, useMusicStore, type ShapeVariantLocationData } from "@/store";
+import { useEffect, useMemo } from "react";
+import { useShapeRootNote } from "@/hooks";
+import { useControlsStore, useMusicStore, usePlayerStore, type ShapeVariantLocationData } from "@/store";
 import { shapes, type MusicKeyId, type RoleId, type Shapes } from "@/data";
 
 export type Snapshot = {
@@ -14,7 +14,10 @@ export type Snapshot = {
   currentShapeId: string | null;
 };
 
-export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void) {
+export function usePlayerSnapshot(brickId: number, isEditable: boolean, onToggleEdit: () => void) {
+  const updateBrickSnapshot = usePlayerStore((state) => state.updateBrickSnapshot);
+  const brick = usePlayerStore((state) => state.bricks.find((b) => b.id === brickId));
+
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
@@ -32,35 +35,38 @@ export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void)
 
   const activeShape = shapes[currentShapeId as keyof Shapes] || null;
 
-  const currentLiveState: Snapshot = {
-    keyId: currentKeyId,
-    isMajorMode,
-    currentRoleId,
-    currentShapeVariantLocationData,
-    rootNote: activeRootNote,
-    shapeLabel: activeShape?.label,
-    currentShapeSemitoneOffsetFromC,
-    currentShapeId,
-  };
+  const currentLiveState: Snapshot = useMemo(
+    () => ({
+      keyId: currentKeyId,
+      isMajorMode,
+      currentRoleId,
+      currentShapeVariantLocationData,
+      rootNote: activeRootNote,
+      shapeLabel: activeShape?.label,
+      currentShapeSemitoneOffsetFromC,
+      currentShapeId,
+    }),
+    [
+      currentKeyId,
+      isMajorMode,
+      currentRoleId,
+      currentShapeVariantLocationData,
+      activeRootNote,
+      activeShape,
+      currentShapeSemitoneOffsetFromC,
+      currentShapeId,
+    ],
+  );
 
-  const [lockedSnapshot, setLockedSnapshot] = useState<Snapshot>(() => ({
-    ...currentLiveState,
-    currentShapeVariantLocationData: null,
-    rootNote: null,
-    shapeLabel: undefined,
-  }));
-
-  if (isEditable) {
-    if (
-      lockedSnapshot.currentShapeVariantLocationData !== currentLiveState.currentShapeVariantLocationData ||
-      lockedSnapshot.rootNote !== currentLiveState.rootNote ||
-      lockedSnapshot.keyId !== currentLiveState.keyId
-    ) {
-      setLockedSnapshot({ ...currentLiveState });
+  useEffect(() => {
+    if (isEditable) {
+      updateBrickSnapshot(brickId, currentLiveState);
     }
-  }
+  }, [isEditable, currentLiveState, brickId, updateBrickSnapshot]);
 
-  const displayData = isEditable ? currentLiveState : lockedSnapshot;
+  const displayData = isEditable ? currentLiveState : brick?.snapshot || currentLiveState;
+
+  const lockedSnapshot = brick?.snapshot || currentLiveState;
 
   const applySnapshotToStore = (data: Snapshot) => {
     setCurrentShapeVariantLocationData(data.currentShapeVariantLocationData);
@@ -72,14 +78,13 @@ export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void)
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const isEmpty = displayData.currentShapeVariantLocationData === null;
-    if (isEmpty) {
+
+    if (displayData.currentShapeVariantLocationData === null) {
       setLockedShapeVariantLocationData(currentShapeVariantLocationData);
     }
-    if (!isEditable) {
-      if (lockedSnapshot.rootNote !== null) {
-        applySnapshotToStore(lockedSnapshot);
-      }
+
+    if (!isEditable && lockedSnapshot.rootNote !== null) {
+      applySnapshotToStore(lockedSnapshot);
     }
 
     onToggleEdit();
