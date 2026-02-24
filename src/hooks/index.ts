@@ -1,3 +1,3 @@
-export * from "./useCurrentShapeVariantProgressId";
 export * from "./useHorizontalScroll";
-export * from "./useShapeUniqueId";
+export * from "./useShapeRootNote";
+export * from "./useWakeLock";

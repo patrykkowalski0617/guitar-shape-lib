@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useMetronome } from "./useMetronome";
 import { usePlayerStore, useMusicStore, useControlsStore } from "@/store";
-import { useShapeRootNote } from "@/hooks/useShapeRootNote";
+import { useShapeRootNote } from "@/hooks";
 import { shapes, type Shapes } from "@/data";
 
 export function usePlayer() {

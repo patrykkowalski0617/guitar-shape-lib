@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { Play, Square } from "lucide-react";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
+import { useWakeLock } from "@/hooks";
 
 export const PlayButton = ({ onCloseEdit }: { onCloseEdit: () => void }) => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -8,6 +10,14 @@ export const PlayButton = ({ onCloseEdit }: { onCloseEdit: () => void }) => {
   const countIn = usePlayerStore((state) => state.countIn);
   const togglePlay = usePlayerStore((state) => state.togglePlay);
   const bpm = usePlayerStore((state) => state.bpm);
+
+  const { toggleWakeLock, isActive } = useWakeLock();
+
+  useEffect(() => {
+    if (isPlaying !== isActive) {
+      toggleWakeLock();
+    }
+  }, [isPlaying, isActive, toggleWakeLock]);
 
   const handleClick = () => {
     onCloseEdit();

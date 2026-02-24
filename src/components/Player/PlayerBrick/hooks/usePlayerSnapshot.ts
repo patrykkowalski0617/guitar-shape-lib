@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useShapeRootNote } from "@/hooks/useShapeRootNote";
+import { useShapeRootNote } from "@/hooks";
 import { useControlsStore, useMusicStore, usePlayerStore, type ShapeVariantLocationData } from "@/store";
 import { shapes, type MusicKeyId, type RoleId, type Shapes } from "@/data";
 
