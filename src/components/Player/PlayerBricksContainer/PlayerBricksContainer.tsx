@@ -33,11 +33,11 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
             onWidthChange={(newWidth) => updateBrickWidth(brick.id, newWidth)}
           />
         ))}
-
-        <S.AddBrickButton onClick={onAdd}>
-          <Plus size={16} />
-        </S.AddBrickButton>
-
+        {!isPlaying && (
+          <S.AddBrickButton onClick={onAdd}>
+            <Plus size={16} />
+          </S.AddBrickButton>
+        )}
         {activeBrickId !== null && (
           <>
             <S.DeleteButton onClick={() => removeBrick(activeBrickId)}>
