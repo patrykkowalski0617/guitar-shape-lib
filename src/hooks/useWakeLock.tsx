@@ -4,10 +4,9 @@ export const useWakeLock = () => {
   const [isActive, setIsActive] = useState(false);
   const [wakeLock, setWakeLock] = useState<WakeLockSentinel | null>(null);
 
-  // Deklaracja funkcji żądającej blokady
   const requestWakeLock = useCallback(async () => {
     if (!("wakeLock" in navigator)) {
-      console.warn("Wake Lock API nie jest wspierane w tej przeglądarce.");
+      console.warn("Wake Lock API is not supported in this browser.");
       return;
     }
 
@@ -25,12 +24,11 @@ export const useWakeLock = () => {
       if (err instanceof Error) {
         console.error(`${err.name}: ${err.message}`);
       } else {
-        console.error("Wystąpił nieoczekiwany błąd podczas blokowania ekranu.");
+        console.error("An unexpected error occurred while locking the screen.");
       }
     }
   }, []);
 
-  // Deklaracja funkcji zwalniającej blokadę
   const releaseWakeLock = useCallback(async () => {
     if (wakeLock) {
       try {
@@ -39,13 +37,12 @@ export const useWakeLock = () => {
         setIsActive(false);
       } catch (err: unknown) {
         if (err instanceof Error) {
-          console.error(`Błąd podczas zwalniania: ${err.message}`);
+          console.error(err.message);
         }
       }
     }
   }, [wakeLock]);
 
-  // Funkcja przełączająca (Logika if/else zamiast ternary dla ESLint)
   const toggleWakeLock = useCallback(() => {
     if (isActive) {
       releaseWakeLock();
@@ -54,13 +51,10 @@ export const useWakeLock = () => {
     }
   }, [isActive, releaseWakeLock, requestWakeLock]);
 
-  // Automatyczne czyszczenie przy odmontowaniu
   useEffect(() => {
     return () => {
       if (wakeLock) {
-        wakeLock.release().catch(() => {
-          /* Ignoruj błędy przy odmontowaniu */
-        });
+        wakeLock.release().catch(() => {});
       }
     };
   }, [wakeLock]);
