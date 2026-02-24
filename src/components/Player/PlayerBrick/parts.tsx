@@ -2,12 +2,12 @@ import { instrumentElBRadius } from "@/parts";
 import styled, { css, keyframes } from "styled-components";
 
 const flash = keyframes`
-  0% { background-color: color-mix(in oklab, var(--accent) 10%, var(--background)); }
+  0% { background-color: color-mix(in oklab, var(--accent) 20%, var(--background)); }
   50% { background-color: color-mix(in oklab, var(--accent) 40%, var(--background)); }
-  100% { background-color: color-mix(in oklab, var(--accent) 10%, var(--background)); }
+  100% { background-color: color-mix(in oklab, var(--accent) 20%, var(--background)); }
 `;
 
-export const TicksContainer = styled.div`
+export const PartsContainer = styled.div`
   position: absolute;
   inset: 0;
   display: flex;
@@ -15,14 +15,13 @@ export const TicksContainer = styled.div`
   overflow: hidden;
 `;
 
-export const Tick = styled.div<{ $unit: number; $isActive: boolean }>`
+export const Part = styled.div<{ $unit: number; $isActive: boolean }>`
   width: ${({ $unit }) => $unit}px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
   flex-shrink: 0;
-
   &::after,
   &::before {
     content: "";

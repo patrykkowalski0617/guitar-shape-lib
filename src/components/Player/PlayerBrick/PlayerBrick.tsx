@@ -98,11 +98,11 @@ export default function PlayerBrick({ brick, isEditable, onToggleEdit, onWidthCh
     >
       <S.Label>{isResizing ? width : hasData ? `${displayData.rootNote} ${displayData.shapeLabel}` : "Empty"}</S.Label>
 
-      <S.TicksContainer>
+      <S.PartsContainer>
         {Array.from({ length: width }).map((_, i) => (
-          <S.Tick key={i} $unit={birckWidthUnit} $isActive={i + 1 === activePart} />
+          <S.Part key={i} $unit={birckWidthUnit} $isActive={i + 1 === activePart} />
         ))}
-      </S.TicksContainer>
+      </S.PartsContainer>
 
       <S.BrickOptions $isEditable={isEditable}>
         {isEditable ? <Check size={16} /> : <Pencil size={14} />}
