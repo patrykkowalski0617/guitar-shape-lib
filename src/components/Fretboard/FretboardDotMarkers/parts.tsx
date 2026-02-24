@@ -20,7 +20,7 @@ export const Marker = styled.div<{
   &::after {
     content: "";
     position: absolute;
-    top: -10px;
+    top: -12px;
     transform: translateY(-50%);
     width: 6px;
     height: 6px;
