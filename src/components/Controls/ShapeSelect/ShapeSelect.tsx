@@ -5,7 +5,6 @@ import { getNotes } from "@/utils";
 import { getFilteredShapeOptions } from "./helpers/shapeHelpers";
 import { ControlLabel } from "@/parts";
 import { ControlWrapper } from "../parts";
-import { AnimatedWrapper } from "./parts";
 
 export const NONE_SHAPE_VALUE = "none";
 
@@ -57,11 +56,9 @@ export function ShapeSelect() {
     <ControlWrapper>
       <ControlLabel>Arp/Scale</ControlLabel>
       <Select value={currentShapeValue} onValueChange={handleValueChange}>
-        <AnimatedWrapper>
-          <SelectTrigger className="md:min-w-[200px]">
-            <SelectValue placeholder="Select shape..." />
-          </SelectTrigger>
-        </AnimatedWrapper>
+        <SelectTrigger className="md:min-w-[200px]">
+          <SelectValue placeholder="Select shape..." />
+        </SelectTrigger>
 
         <SelectContent className="font-semibold">
           <SelectItem value={NONE_SHAPE_VALUE}>None (Explore All Notes)</SelectItem>
