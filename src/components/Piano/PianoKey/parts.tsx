@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { instrumentBRadius, instrumentElBRadius } from "@/parts";
-import { transitionTime } from "@/store/usePlayerStore";
+import { transitionTime } from "@/store";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
@@ -37,7 +37,7 @@ const whitePianoKey = css`
     content: "";
     position: absolute;
     inset: 0;
-    background-color: color-mix(in oklab, var(--accent) 25%, var(--background));
+    background-color: color-mix(in oklab, var(--accent) 30%, var(--background));
     ${commonStyleForKey}
   }
   &:not(:last-child)::after {
@@ -70,7 +70,7 @@ export const Key = styled.div<{
   position: relative;
   display: flex;
   justify-content: center;
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(2)" : "")};
+  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(2) contrast(0.95)" : "")};
 
   ${({ $isWhitePianoKey }) => ($isWhitePianoKey ? whitePianoKey : blackPianoKey)}
 

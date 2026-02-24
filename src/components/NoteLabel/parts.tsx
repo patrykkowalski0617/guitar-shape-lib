@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import type { Variant } from "./NoteLabel";
 import { instrumentElBRadius } from "@/parts";
-import { transitionTime } from "@/store/usePlayerStore";
+import { transitionTime } from "@/store";
 
 export const highlightedColor = "var(--foreground)";
 export const unHighlightedColor = "var(--border)";

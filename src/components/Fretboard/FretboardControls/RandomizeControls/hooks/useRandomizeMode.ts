@@ -1,4 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore } from "@/store";
 
 export const useRandomizeMode = () => {
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);

@@ -1,7 +1,5 @@
 import { useMemo } from "react";
-import { useControlsStore } from "@/store/useControlsStore";
-import { useMusicStore } from "@/store/useMusicStore";
-import { useProgressStore } from "@/store/useProgressStore";
+import { useControlsStore, useMusicStore, useProgressStore, usePlayerStore } from "@/store";
 import { getNotes } from "@/utils";
 import { getOrderedShapeLocations } from "./helpers/getOrderedShapeLocations";
 import { DiscreteSlider } from "@/components/ui/DiscreteSlider";
@@ -11,6 +9,7 @@ export function ShapeExplorerSlider() {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
   const offset = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   const { learned } = useProgressStore();
   const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
@@ -44,7 +43,7 @@ export function ShapeExplorerSlider() {
   const disabled = !currentShapeId || options.length === 0;
 
   return (
-    <S.Wrapper>
+    <S.ShapeExplorerWrapper $isVisible={!isPlaying}>
       <DiscreteSlider
         key={disabled ? "disabled" : "enabled"}
         value={disabled ? [0] : [currentIndex]}
@@ -57,6 +56,6 @@ export function ShapeExplorerSlider() {
         }}
         disabled={disabled}
       />
-    </S.Wrapper>
+    </S.ShapeExplorerWrapper>
   );
 }

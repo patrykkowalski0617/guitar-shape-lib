@@ -1,13 +1,13 @@
 import { Play, Square } from "lucide-react";
 import * as S from "./parts";
-import { usePlayerStore } from "@/store/usePlayerStore";
+import { usePlayerStore } from "@/store";
 
 export const PlayButton = ({ onCloseEdit }: { onCloseEdit: () => void }) => {
-  const isPlaying = usePlayerStore((s) => s.isPlaying);
-  const isCountingIn = usePlayerStore((s) => s.isCountingIn);
-  const countIn = usePlayerStore((s) => s.countIn);
-  const togglePlay = usePlayerStore((s) => s.togglePlay);
-  const bpm = usePlayerStore((s) => s.bpm);
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const isCountingIn = usePlayerStore((state) => state.isCountingIn);
+  const countIn = usePlayerStore((state) => state.countIn);
+  const togglePlay = usePlayerStore((state) => state.togglePlay);
+  const bpm = usePlayerStore((state) => state.bpm);
 
   const handleClick = () => {
     onCloseEdit();

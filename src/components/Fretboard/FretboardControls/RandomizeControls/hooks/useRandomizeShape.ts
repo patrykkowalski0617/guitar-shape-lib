@@ -1,4 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore } from "@/store";
 import { getFilteredShapeOptions } from "@/components/Controls/ShapeSelect/helpers/shapeHelpers";
 import type { RoleId } from "@/data";
 

@@ -45,7 +45,7 @@ export function SelectPrevNext({
     "h-full border-y-0 border-l-0 border-r border-background shadow-none transition-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:z-20 rounded-none bg-transparent hover:bg-muted/50";
 
   return (
-    <div className={cn("flex items-center h-8 w-full", "bg-muted/30 border border-background rounded-md", className)}>
+    <div className={cn("flex items-center h-8 w-full", "bg-muted/50 border border-background rounded-md", className)}>
       <Button
         variant="ghost"
         size="icon"

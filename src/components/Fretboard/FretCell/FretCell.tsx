@@ -4,7 +4,7 @@ import VariantProgressDots from "@/components/Fretboard/VariantProgressDots/Vari
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretCell, useNoteState, useFretboardStates } from "./helpers";
-import { usePlayerStore } from "@/store/usePlayerStore";
+import { usePlayerStore } from "@/store";
 
 interface FretCellProps {
   noteData: NoteObject;
@@ -13,9 +13,10 @@ interface FretCellProps {
 }
 
 export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellProps) {
-  const transitionTime = usePlayerStore((s) => s.transitionTime);
+  const transitionTime = usePlayerStore((state) => state.transitionTime);
   const { states, actions } = useFretCell();
   const { isShapeSelected, isRoleSelected } = useFretboardStates();
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   const { isActiveNote, isShapeRootNote, isShapeNote, isLockedNote, isTuneNote } = useNoteState({
     sharpNoteName: noteData.sharpNoteName,
@@ -34,7 +35,7 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
         <S.Note
           $isLockedNote={isLockedNote}
           $isActiveNote={isActiveNote}
-          $isShapeRootNote={isShapeRootNote}
+          $isShapeRootNote={isShapeRootNote && !isPlaying}
           $isShapeNote={isShapeNote}
           $isTuneNote={isTuneNote}
           $isShapeSelected={isShapeSelected}

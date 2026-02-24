@@ -1,7 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { useMetronome } from "./useMetronome";
-import { useMusicStore } from "@/store/useMusicStore";
-import { usePlayerStore } from "@/store/usePlayerStore";
+import { usePlayerStore, useMusicStore } from "@/store";
 
 export function usePlayer() {
   const setLockedShapeVariantLocationData = useMusicStore((state) => state.setLockedShapeVariantLocationData);

@@ -1,12 +1,11 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore, useMusicStore } from "@/store";
 import { shapes, type Shapes, UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
 import { getFilteredShapeOptions } from "./helpers/shapeHelpers";
 import { ControlLabel } from "@/parts";
 import { ControlWrapper } from "../parts";
 import { AnimatedWrapper } from "./parts";
-import { useMusicStore } from "@/store/useMusicStore";
 
 export const NONE_SHAPE_VALUE = "none";
 

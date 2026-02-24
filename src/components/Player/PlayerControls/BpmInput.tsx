@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as S from "./parts";
-import { usePlayerStore } from "@/store/usePlayerStore";
+import { usePlayerStore } from "@/store";
 
 export const BpmInput = () => {
-  const globalBpm = usePlayerStore((s) => s.bpm);
-  const setGlobalBpm = usePlayerStore((s) => s.setBpm);
+  const globalBpm = usePlayerStore((state) => state.bpm);
+  const setGlobalBpm = usePlayerStore((state) => state.setBpm);
 
   const [inputValue, setInputValue] = useState(globalBpm.toString());
   const [isDraggingState, setIsDraggingState] = useState(false);

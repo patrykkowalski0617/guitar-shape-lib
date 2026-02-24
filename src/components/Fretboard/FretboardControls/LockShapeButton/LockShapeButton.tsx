@@ -1,4 +1,4 @@
-import { useMusicStore } from "@/store/useMusicStore";
+import { useMusicStore } from "@/store";
 import { Lock, LockOpen } from "lucide-react";
 import { ControlWrapper } from "../parts";
 import { Button } from "@/components/ui/button";

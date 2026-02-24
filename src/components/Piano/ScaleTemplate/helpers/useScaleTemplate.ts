@@ -1,4 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore } from "@/store";
 import { UNIFIED_MUSIC_KEYS, type RoleId } from "@/data";
 import { useScaleLogic } from "../../helpers/useScaleLogic";
 import { pianoNotes } from "../../helpers/constants";

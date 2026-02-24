@@ -4,7 +4,7 @@ import { afterEach } from "vitest";
 
 /**
  * Automatically unmounts React trees after each test
- * to prevent memory leaks and state bleeding between tests.
+ * to prevent memory leaks and state bleeding between teststate.
  */
 afterEach(() => {
   cleanup();

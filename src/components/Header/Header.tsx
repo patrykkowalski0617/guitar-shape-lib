@@ -1,6 +1,6 @@
 import * as S from "./parts";
 import { Settings } from "../Settings/Settings";
-import { useSettingsStore } from "@/store/useSettingsStore";
+import { useSettingsStore } from "@/store";
 
 export default function Header() {
   const isFullscreen = useSettingsStore((state) => state.isFullscreen);

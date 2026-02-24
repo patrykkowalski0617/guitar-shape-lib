@@ -1,4 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore } from "@/store";
 import { shapes, type Shape, harmonicMinorScale, majorScale, minorScale, UNIFIED_MUSIC_KEYS } from "@/data";
 import { matchShapeNotesToRoleNotes } from "./matchShapeNotesToRoleNotes";
 import { getNotes } from "@/utils";

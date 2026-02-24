@@ -1,6 +1,6 @@
 import { numberOfFrets, STRINGS_CONFIG } from "@/components/Fretboard/FretboardRow/helpers/constants";
 import { STRING_ID_MAP } from "@/components/Fretboard/helpers/constants";
-import { useMusicStore } from "@/store/useMusicStore";
+import { useMusicStore } from "@/store";
 import { shapes, type FretboardStringId, type Note, type VariantId } from "@/data";
 import { useEffect, useState } from "react";
 import { getNotes, getValidVariants, type VariantsRecord } from "@/utils";

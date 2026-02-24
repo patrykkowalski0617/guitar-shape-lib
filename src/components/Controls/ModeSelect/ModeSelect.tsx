@@ -1,4 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore } from "@/store";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { musicMode, type MusicModeId } from "@/data";
 import { ControlWrapper } from "../parts";

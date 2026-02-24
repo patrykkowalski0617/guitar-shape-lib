@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { transitionTime } from "./store/usePlayerStore";
+import { transitionTime } from "@/store";
 
 export const AppWrapper = styled.div`
   display: flex;
@@ -19,7 +19,10 @@ export const MainContent = styled.main`
 `;
 
 export const SectionCommonCss = css`
-  margin: 50px auto 0;
+  margin: 25px auto 0;
+  @media (min-width: 1024px) {
+    margin: 50px auto 0;
+  }
 `;
 
 export const Setcion = styled.div`
@@ -108,7 +111,6 @@ export const CollapsibleSection = styled(Setcion)<{ $isVisible: boolean }>`
     margin 0.4s ease-in-out;
   overflow: hidden;
   will-change: transform, opacity, max-height;
-
   ${({ $isVisible }) =>
     $isVisible
       ? css`
@@ -119,7 +121,7 @@ export const CollapsibleSection = styled(Setcion)<{ $isVisible: boolean }>`
         `
       : css`
           opacity: 0;
-          transform: translateY(20px) scale(0.98);
+          transform: translateY(20px) scale(0.9);
           max-height: 0;
           margin-top: 0;
           pointer-events: none;

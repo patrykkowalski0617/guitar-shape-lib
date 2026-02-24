@@ -1,4 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore } from "@/store";
 import { majorScale, UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
 

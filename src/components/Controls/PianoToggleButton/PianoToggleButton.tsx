@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore } from "@/store";
 import { ControlWrapper } from "../parts";
 import { Button } from "@/components/ui/button";
 import { Piano } from "lucide-react";

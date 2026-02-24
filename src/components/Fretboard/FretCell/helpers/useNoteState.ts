@@ -1,5 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
-import { useMusicStore } from "@/store/useMusicStore";
+import { useMusicStore, useControlsStore } from "@/store";
 import { getNotes } from "@/utils";
 import { type NoteSharp } from "@/data";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";

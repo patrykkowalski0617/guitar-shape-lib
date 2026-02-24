@@ -4,10 +4,10 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useRandomizeRole } from "./useRandomizeRole";
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore } from "@/store";
 import { roles, type RoleId } from "@/data";
 
-vi.mock("@/store/useControlsStore", () => ({
+vi.mock("@/store", () => ({
   useControlsStore: vi.fn(),
 }));
 

@@ -2,8 +2,7 @@ import * as S from "./parts";
 import { NOTES_SHARP, majorScale, UNIFIED_MUSIC_KEYS } from "@/data";
 import { type NoteObject } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
-import { useMusicStore } from "@/store/useMusicStore";
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore, useMusicStore } from "@/store";
 import { SHAPES_OF_WHITE_PIANO_KEYS } from "../helpers/constants";
 import { useScaleLogic } from "../helpers/useScaleLogic";
 

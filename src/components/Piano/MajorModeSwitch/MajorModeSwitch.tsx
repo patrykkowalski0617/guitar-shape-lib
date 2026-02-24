@@ -1,8 +1,7 @@
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { useControlsStore } from "@/store/useControlsStore";
+import { useMusicStore, useControlsStore } from "@/store";
 import * as S from "./parts";
-import { useMusicStore } from "@/store/useMusicStore";
 
 export function MajorModeSwitch() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);

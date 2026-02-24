@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const PlayerContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: calc(var(--spacing) * 4);
+  gap: calc(var(--spacing) * 2);
   max-width: 1300px;
   @media (min-width: 768px) {
     padding: 0 35px;
@@ -14,7 +14,7 @@ export const PlayerContainer = styled.div`
 `;
 
 export const PlayerSection = styled.div`
-  background-color: color-mix(in oklab, var(--muted) 10%, transparent);
+  background-color: color-mix(in oklab, var(--muted) 30%, transparent);
   border-radius: ${instrumentElBRadius};
   padding: 6px 12px;
   height: 36px;

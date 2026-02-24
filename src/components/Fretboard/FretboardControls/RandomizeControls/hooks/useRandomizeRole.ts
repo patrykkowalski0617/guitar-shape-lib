@@ -1,4 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore } from "@/store";
 import { roles, type RoleId } from "@/data";
 
 export const useRandomizeRole = () => {

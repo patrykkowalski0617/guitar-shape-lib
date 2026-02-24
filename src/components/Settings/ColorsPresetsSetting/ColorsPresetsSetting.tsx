@@ -1,4 +1,4 @@
-import { useSettingsStore } from "@/store/useSettingsStore";
+import { useSettingsStore } from "@/store";
 import { ControlLabel } from "@/parts";
 import * as S from "@/components/Settings/ColorsPresetsSetting/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";

@@ -1,5 +1,4 @@
-import { useMusicStore } from "@/store/useMusicStore";
-import { useProgressStore } from "@/store/useProgressStore";
+import { useProgressStore, useMusicStore } from "@/store";
 import { ControlWrapper } from "../parts";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";

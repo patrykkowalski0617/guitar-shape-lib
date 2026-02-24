@@ -1,4 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore } from "@/store";
 import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/data";
 
 export const useRandomizeKey = () => {

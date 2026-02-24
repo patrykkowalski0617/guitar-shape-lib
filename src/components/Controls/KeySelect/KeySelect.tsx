@@ -1,9 +1,8 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useMusicStore, useControlsStore } from "@/store";
 import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/data";
 import { SelectPrevNext } from "../../ui/select-prev-next";
 import { ControlLabel } from "@/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useMusicStore } from "@/store/useMusicStore";
 import { ControlWrapper } from "../parts";
 
 export function KeySelect() {

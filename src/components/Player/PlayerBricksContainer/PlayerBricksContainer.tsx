@@ -3,7 +3,7 @@ import { Plus, Trash2, Check } from "lucide-react";
 import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 import PlayerBrick from "../PlayerBrick/PlayerBrick";
 import * as S from "./parts";
-import { usePlayerStore } from "@/store/usePlayerStore";
+import { usePlayerStore } from "@/store";
 
 interface Props {
   onCloseEdit: () => void;
@@ -14,11 +14,11 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   useHorizontalScroll(scrollRef);
 
-  const bricks = usePlayerStore((s) => s.bricks);
-  const activeBrickId = usePlayerStore((s) => s.activeBrickId);
-  const removeBrick = usePlayerStore((s) => s.removeBrick);
-  const updateBrickWidth = usePlayerStore((s) => s.updateBrickWidth);
-  const setActiveBrickId = usePlayerStore((s) => s.setActiveBrickId);
+  const bricks = usePlayerStore((state) => state.bricks);
+  const activeBrickId = usePlayerStore((state) => state.activeBrickId);
+  const removeBrick = usePlayerStore((state) => state.removeBrick);
+  const updateBrickWidth = usePlayerStore((state) => state.updateBrickWidth);
+  const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
 
   return (
     <S.PlayerScrollWrapper ref={scrollRef}>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useShapeRootNote } from "@/hooks/useShapeRootNote";
-import { useControlsStore } from "@/store/useControlsStore";
-import { useMusicStore, type ShapeVariantLocationData } from "@/store/useMusicStore";
+import { useControlsStore, useMusicStore, type ShapeVariantLocationData } from "@/store";
 import { shapes, type MusicKeyId, type RoleId, type Shapes } from "@/data";
 
 export type Snapshot = {
@@ -16,19 +15,19 @@ export type Snapshot = {
 };
 
 export function usePlayerSnapshot(isEditable: boolean, onToggleEdit: () => void) {
-  const currentKeyId = useControlsStore((s) => s.currentKeyId);
-  const isMajorMode = useControlsStore((s) => s.isMajorMode);
-  const currentRoleId = useControlsStore((s) => s.currentRoleId);
-  const currentShapeId = useControlsStore((s) => s.currentShapeId);
-  const currentShapeSemitoneOffsetFromC = useControlsStore((s) => s.currentShapeSemitoneOffsetFromC);
-  const currentShapeVariantLocationData = useMusicStore((s) => s.currentShapeVariantLocationData);
+  const currentKeyId = useControlsStore((state) => state.currentKeyId);
+  const isMajorMode = useControlsStore((state) => state.isMajorMode);
+  const currentRoleId = useControlsStore((state) => state.currentRoleId);
+  const currentShapeId = useControlsStore((state) => state.currentShapeId);
+  const currentShapeSemitoneOffsetFromC = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
+  const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
   const activeRootNote = useShapeRootNote();
 
-  const setCurrentKey = useControlsStore((s) => s.setCurrentKey);
-  const setCurrentRoleId = useControlsStore((s) => s.setCurrentRoleId);
-  const setIsMajorMode = useControlsStore((s) => s.setIsMajorMode);
-  const setShape = useControlsStore((s) => s.setShape);
-  const setCurrentShapeVariantLocationData = useMusicStore((s) => s.setCurrentShapeVariantLocationData);
+  const setCurrentKey = useControlsStore((state) => state.setCurrentKey);
+  const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);
+  const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
+  const setShape = useControlsStore((state) => state.setShape);
+  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
   const setLockedShapeVariantLocationData = useMusicStore((state) => state.setLockedShapeVariantLocationData);
 
   const activeShape = shapes[currentShapeId as keyof Shapes] || null;

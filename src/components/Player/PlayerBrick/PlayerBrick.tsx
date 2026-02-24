@@ -4,8 +4,7 @@ import { usePlayerSnapshot } from "./hooks/usePlayerSnapshot";
 import * as S from "./parts";
 import { useBrickWidthUnit } from "./hooks/useBrickWidthUnit";
 import { useBrickResize } from "./hooks/useBrickResize";
-import { usePlayerStore, type Brick } from "@/store/usePlayerStore";
-import { useMusicStore } from "@/store/useMusicStore";
+import { useMusicStore, usePlayerStore, type Brick } from "@/store";
 
 interface PlayerBrickProps {
   brick: Brick;
@@ -18,10 +17,10 @@ export default function PlayerBrick({ brick, isEditable, onToggleEdit, onWidthCh
   const { id, width } = brick;
 
   const setLockedShapeVariantLocationData = useMusicStore((state) => state.setLockedShapeVariantLocationData);
-  const currentStep = usePlayerStore((s) => s.currentStep);
-  const bricks = usePlayerStore((s) => s.bricks);
-  const isPlaying = usePlayerStore((s) => s.isPlaying);
-  const isCountingIn = usePlayerStore((s) => s.isCountingIn);
+  const currentStep = usePlayerStore((state) => state.currentStep);
+  const bricks = usePlayerStore((state) => state.bricks);
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const isCountingIn = usePlayerStore((state) => state.isCountingIn);
 
   const { displayData, handleClick, applySnapshotToStore, lockedSnapshot } = usePlayerSnapshot(
     isEditable,

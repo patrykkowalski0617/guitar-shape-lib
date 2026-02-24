@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Maximize, Minimize } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useSettingsStore } from "@/store/useSettingsStore";
+import { useSettingsStore } from "@/store";
 
 export default function FullscreenButton() {
   const isFullscreen = useSettingsStore((state) => state.isFullscreen);

@@ -1,5 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
-import { useMusicStore } from "@/store/useMusicStore";
+import { useMusicStore, useControlsStore } from "@/store";
 import { UNIFIED_MUSIC_KEYS } from "@/data";
 
 export const useFretCell = () => {

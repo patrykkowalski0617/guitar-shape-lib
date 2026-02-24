@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/popover";
 import { Info } from "lucide-react";
 import { IconWrapper } from "./parts";
-import { useSettingsStore } from "@/store/useSettingsStore";
+import { useSettingsStore } from "@/store";
 
 interface TutorialPopoverProps {
   title: string;

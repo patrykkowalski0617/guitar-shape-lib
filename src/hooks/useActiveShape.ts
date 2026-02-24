@@ -1,4 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore } from "@/store";
 import { shapes, type Shapes } from "@/data";
 
 export function useActiveShape() {

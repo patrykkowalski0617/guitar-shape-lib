@@ -1,4 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore } from "@/store";
 import { useEffect, type RefObject } from "react";
 
 export const usePianoScroll = (containerRef: RefObject<HTMLDivElement | null>) => {
