@@ -53,10 +53,16 @@ export default function PlayerBrick({ brick, isEditable, onToggleEdit, onWidthCh
   const activePart = isMeActive ? currentStep - bricks.slice(0, myIndex).reduce((sum, b) => sum + b.width, 0) + 1 : 0;
 
   useEffect(() => {
-    if (activePart === 1 && lockedSnapshot.rootNote !== null) {
-      applySnapshotToStore(lockedSnapshot);
+    if (activePart === 1) {
+      if (lockedSnapshot.rootNote !== null) {
+        applySnapshotToStore(lockedSnapshot);
+      }
+
+      if (width > 1) {
+        setLockedShapeVariantLocationData(null);
+      }
     }
-  }, [activePart, applySnapshotToStore, lockedSnapshot]);
+  }, [activePart, applySnapshotToStore, lockedSnapshot, width, setLockedShapeVariantLocationData]);
 
   useEffect(() => {
     const currentActiveBrick = bricks[activeBrickIndex];
