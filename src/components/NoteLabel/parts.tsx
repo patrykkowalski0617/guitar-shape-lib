@@ -15,7 +15,6 @@ const BaseLabel = styled.div<{
   font-size: 12px;
   font-weight: bold;
   will-change: opacity;
-  transition: opacity ${transitionTime}ms ease-in-out;
   background: color-mix(in oklab, var(--background) 70%, transparent);
   box-shadow: 0 0 8px var(--background);
   position: absolute;

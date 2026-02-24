@@ -13,7 +13,7 @@ export default function Player() {
         <PlayerBricksContainer onCloseEdit={closeEdit} onAdd={addBrick} />
       </S.PlayerSection>
       <S.PlayerSection>
-        <PlayerControls />
+        <PlayerControls onCloseEdit={closeEdit} />
       </S.PlayerSection>
     </S.PlayerContainer>
   );

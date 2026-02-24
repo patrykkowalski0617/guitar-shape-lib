@@ -5,7 +5,7 @@ export interface Brick {
   width: number;
 }
 
-export const transitionTime = 300;
+export const transitionTime = 200;
 
 interface PlayerState {
   bricks: Brick[];

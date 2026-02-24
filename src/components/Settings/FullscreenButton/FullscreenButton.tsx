@@ -31,15 +31,15 @@ export default function FullscreenButton() {
   };
 
   return (
-    <div className="fixed bottom-3 right-3 z-50">
+    <div className="fixed bottom-2 right-2 z-50">
       <Button
         variant="ghost"
         size="icon"
         onClick={toggleFullscreen}
-        className="flex items-center justify-center h-10 w-10 rounded-full shadow-lg border border-foreground bg-background/80 backdrop-blur-sm hover:scale-110 transition-transform"
+        className="flex items-center justify-center h-8 w-8 rounded-full shadow-lg border border-foreground bg-background/60 backdrop-blur-sm hover:scale-110 transition-transform"
         title={isFullscreen ? "Close fullscreen" : "Fullscreen"}
       >
-        {isFullscreen ? <Minimize className="h-6 w-6" /> : <Maximize className="h-6 w-6" />}
+        {isFullscreen ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}
       </Button>
     </div>
   );

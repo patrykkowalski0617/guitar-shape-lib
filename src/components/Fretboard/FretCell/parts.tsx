@@ -58,11 +58,11 @@ export const Note = styled.div<{
     if (($isActiveNote && !$isShapeSelected) || $isShapeNote || $isShapeRootNote || (!$isShapeSelected && $isTuneNote))
       return "1";
 
-    if ($isActiveNote || $isTuneNote || !$isRoleSelected) return "0.5";
+    if ($isActiveNote || $isTuneNote || !$isRoleSelected) return "0.3";
 
     return "0";
   }};
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(2)" : "")};
+  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(3)" : "")};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   ${({ $isShapeNote }) => {
     if ($isShapeNote) {

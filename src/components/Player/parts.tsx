@@ -9,7 +9,6 @@ export const PlayerContainer = styled.div`
   @media (min-width: 768px) {
     padding: 0 35px;
     flex-direction: row;
-    max-width: 1230px;
     margin: auto;
   }
 `;

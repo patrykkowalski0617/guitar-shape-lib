@@ -31,7 +31,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
     (isRoleActive && currentRoleNoteIds.includes(note.noteId));
 
   const isHighlighted = currentScaleNoteIds.includes(note.noteId);
-  const isActiveNote = note.noteId === activeNoteId && !currentShapeId;
+  const isActiveNote = note.noteId === activeNoteId;
   const isShapeNote = !!isRoleActive && currentShapeNoteIds.includes(note.noteId);
   const isRoleNote = currentRoleNoteIds?.includes(note.noteId);
 

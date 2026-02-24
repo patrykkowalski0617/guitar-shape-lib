@@ -13,15 +13,12 @@ import Controls from "./components/Controls/Controls";
 
 export default function App() {
   const { primaryColor } = useSettingsStore();
-  const showPiano = useControlsStore((state) => state.showPiano);
-
-  const roleColors = {
-    "--primary": getHSLColorFromHue(primaryColor),
-  } as React.CSSProperties;
+  const isPianoVisable = useControlsStore((state) => state.isPianoVisable);
 
   return (
-    <AppWrapper style={roleColors}>
+    <AppWrapper style={{ "--primary": getHSLColorFromHue(primaryColor) }}>
       <Toaster position="top-center" />
+
       <Header />
 
       <MainContent>
@@ -37,12 +34,13 @@ export default function App() {
           <Controls />
         </Setcion>
 
-        <CollapsibleSection $isVisible={showPiano}>
+        <CollapsibleSection $isVisible={isPianoVisable}>
           <Piano />
         </CollapsibleSection>
       </MainContent>
 
       <FullscreenButton />
+
       <Footer />
     </AppWrapper>
   );

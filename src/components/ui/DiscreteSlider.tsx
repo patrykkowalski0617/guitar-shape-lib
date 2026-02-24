@@ -14,14 +14,9 @@ const Tick = styled.div<{ $isCurrent: boolean; $isLearned: boolean }>`
     display: none;
   }
 
-  background-color: ${({ $isCurrent, $isLearned }) =>
-    $isCurrent
-      ? "var(--primary)"
-      : $isLearned
-        ? "var(--accent)"
-        : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
-  box-shadow: ${({ $isCurrent, $isLearned }) => {
-    if ($isCurrent) return "0 0 8px var(--primary)";
+  background-color: ${({ $isLearned }) =>
+    $isLearned ? "var(--accent)" : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
+  box-shadow: ${({ $isLearned }) => {
     if ($isLearned) return "0 0 8px var(--accent)";
     return "none";
   }};
@@ -73,7 +68,7 @@ function DiscreteSlider({
         className={cn(
           "block rounded-full border-2 bg-background shadow-lg border-primary",
           "cursor-grab active:cursor-grabbing z-10",
-          "hover:scale-110 transition-transform",
+          "hover:scale-120 transition-transform",
           "data-[disabled]:scale-100 data-[disabled]:border-primary/35 data-[disabled]:left-[calc(10px)] data-[disabled]:relative",
           "focus:outline-none focus:ring-0 focus:ring-offset-0",
           "focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-0",

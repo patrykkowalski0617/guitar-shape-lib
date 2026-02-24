@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Piano } from "lucide-react";
 
 export default function PianoToggleButton() {
-  const showPiano = useControlsStore((state) => state.showPiano);
-  const setShowPiano = useControlsStore((state) => state.setShowPiano);
+  const isPianoVisable = useControlsStore((state) => state.isPianoVisable);
+  const setIsPianoVisable = useControlsStore((state) => state.setIsPianoVisable);
 
   useEffect(() => {
-    if (showPiano) {
+    if (isPianoVisable) {
       const timer = setTimeout(() => {
         const target = document.querySelector('[data-piano-scroll-target="true"]');
         if (target) {
@@ -22,17 +22,17 @@ export default function PianoToggleButton() {
 
       return () => clearTimeout(timer);
     }
-  }, [showPiano]);
+  }, [isPianoVisable]);
 
   const handleToggle = () => {
-    setShowPiano(!showPiano);
+    setIsPianoVisable(!isPianoVisable);
   };
 
   return (
     <ControlWrapper>
-      <Button variant={showPiano ? "active" : "outline"} onClick={handleToggle}>
+      <Button variant={isPianoVisable ? "active" : "outline"} onClick={handleToggle}>
         <span className="flex items-center justify-center">
-          <Piano className={`h-4 w-4 ${showPiano ? "opacity-100" : "opacity-50"}`} />
+          <Piano className={`h-4 w-4 ${isPianoVisable ? "opacity-100" : "opacity-50"}`} />
         </span>
       </Button>
     </ControlWrapper>

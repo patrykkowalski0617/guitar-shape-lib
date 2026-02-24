@@ -1,10 +1,10 @@
 import { BpmInput } from "./BpmInput";
 import { PlayButton } from "./PlayButton";
 
-export const PlayerControls = () => {
+export const PlayerControls = ({ onCloseEdit }: { onCloseEdit: () => void }) => {
   return (
     <>
-      <PlayButton />
+      <PlayButton onCloseEdit={onCloseEdit} />
       <BpmInput />
     </>
   );
