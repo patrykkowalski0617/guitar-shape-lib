@@ -1,7 +1,7 @@
-import { transitionTime } from "@/data/constants";
 import styled, { css } from "styled-components";
 import type { Variant } from "./NoteLabel";
 import { instrumentElBRadius } from "@/parts";
+import { transitionTime } from "@/store";
 
 export const highlightedColor = "var(--foreground)";
 export const unHighlightedColor = "var(--border)";
@@ -15,7 +15,6 @@ const BaseLabel = styled.div<{
   font-size: 12px;
   font-weight: bold;
   will-change: opacity;
-  transition: opacity ${transitionTime}ms ease-in-out;
   background: color-mix(in oklab, var(--background) 70%, transparent);
   box-shadow: 0 0 8px var(--background);
   position: absolute;

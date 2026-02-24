@@ -1,4 +1,4 @@
-import { useProgressStore } from "@/store/useProgressStore";
+import { useProgressStore } from "@/store";
 import { exportProgress, importProgress } from "./helpers/progressHelpers";
 import { Button } from "@/components/ui/button";
 import * as S from "@/components/Settings/Progress/parts";

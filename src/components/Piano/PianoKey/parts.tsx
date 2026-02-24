@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { instrumentBRadius, instrumentElBRadius } from "@/parts";
-import { transitionTime } from "@/data/constants";
+import { transitionTime } from "@/store";
 
 export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
@@ -22,7 +22,6 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
 };
 
 const commonStyleForKey = css`
-  border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   will-change: box-shadow, border-color, filter;
   transition:
@@ -32,38 +31,28 @@ const commonStyleForKey = css`
 `;
 
 const whitePianoKey = css`
-  height: 100px;
   z-index: 1;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
-  padding-top: 6px; //- 1px difference to compensate border of black key
   &::after {
     content: "";
     position: absolute;
     inset: 0;
-    background-color: color-mix(in oklab, var(--accent) 5%, transparent);
+    background-color: color-mix(in oklab, var(--accent) 30%, var(--background));
     ${commonStyleForKey}
   }
   &:not(:last-child)::after {
     border-right: none;
   }
-
-  @media (min-width: 768px) {
-    height: 120px;
-    padding-top: 11px; //- 1px difference to compensate border of black key
-  }
+  height: 125px;
+  padding-top: 11px; //- 1px difference to compensate border of black key
 `;
 
 const blackPianoKey = css`
   background-color: var(--background);
-  height: 60px;
   z-index: 2;
-  padding-top: 5px;
   ${commonStyleForKey}
-
-  @media (min-width: 768px) {
-    height: 70px;
-    padding-top: 10px;
-  }
+  height: 75px;
+  padding-top: 10px;
 `;
 
 export const Key = styled.div<{
@@ -81,7 +70,7 @@ export const Key = styled.div<{
   position: relative;
   display: flex;
   justify-content: center;
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(2)" : "")};
+  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(2) contrast(0.95)" : "")};
 
   ${({ $isWhitePianoKey }) => ($isWhitePianoKey ? whitePianoKey : blackPianoKey)}
 
@@ -101,15 +90,13 @@ export const Key = styled.div<{
     `;
   }}
 
-${({ $isRoleSelected, $isWhitePianoKey }) => {
+${({ $isWhitePianoKey }) => {
     const target = $isWhitePianoKey ? css`&::after` : css`&`;
-
-    if ($isRoleSelected)
-      return css`
-        ${target} {
-          border: 1px solid color-mix(in oklab, var(--border) 50%, transparent);
-        }
-      `;
+    return css`
+      ${target} {
+        border: 1px solid var(--background);
+      }
+    `;
   }}
 
   &:first-child::after {

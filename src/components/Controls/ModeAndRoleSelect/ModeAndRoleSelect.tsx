@@ -1,6 +1,7 @@
-import { useControlsStore } from "@/store/useControlsStore";
+import { useMusicStore, useControlsStore } from "@/store";
 import { type RoleId } from "@/data";
-import { ControlLabel, ControlWrapper } from "@/parts";
+import { ControlWrapper } from "../parts";
+import { ControlLabel } from "@/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export function ModeAndRoleSelect() {
@@ -8,6 +9,9 @@ export function ModeAndRoleSelect() {
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
   const currentRoleId = useControlsStore((state) => state.currentRoleId);
   const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);
+  const setShape = useControlsStore((state) => state.setShape);
+  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
+
   const currentValue =
     currentRoleId === "all" || !currentRoleId ? "all" : `${isMajorMode ? "major" : "minor"}-${currentRoleId}`;
   const roles = [
@@ -17,8 +21,11 @@ export function ModeAndRoleSelect() {
   ];
 
   const handleValueChange = (value: string) => {
+    setCurrentShapeVariantLocationData(null);
+
     if (value === "all") {
       setCurrentRoleId("all");
+      setShape(null, null);
       return;
     }
 

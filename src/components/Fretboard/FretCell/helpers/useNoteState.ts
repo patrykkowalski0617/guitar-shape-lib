@@ -1,5 +1,4 @@
-import { useControlsStore } from "@/store/useControlsStore";
-import { useMusicStore } from "@/store/useMusicStore";
+import { useMusicStore, useControlsStore } from "@/store";
 import { getNotes } from "@/utils";
 import { type NoteSharp } from "@/data";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
@@ -15,8 +14,8 @@ interface UseFretCellProp {
 
 export const useNoteState = ({ sharpNoteName, noteId, stringIndex, fretIndex }: UseFretCellProp) => {
   const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeSemitoneOffsetFromC = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
+  const isPianoVisable = useControlsStore((state) => state.isPianoVisable);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
   const lockedShapeVariantLocationData = useMusicStore((state) => state.lockedShapeVariantLocationData);
@@ -34,7 +33,7 @@ export const useNoteState = ({ sharpNoteName, noteId, stringIndex, fretIndex }: 
   const currentCoords: [number, number] = [stringIndex, fretIndex];
 
   return {
-    isActiveNote: activeNoteId === noteId && !currentShapeId,
+    isActiveNote: activeNoteId === noteId && isPianoVisable,
     isShapeRootNote: shapeRootSharpNote === sharpNoteName && stringIndex > 1,
     isShapeNote: isShapeNote(currentCoords, currentShapeNotes),
     isLockedNote: isShapeNote(currentCoords, lockedShapeNotes),

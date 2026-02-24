@@ -1,4 +1,4 @@
-import { useMusicStore } from "@/store/useMusicStore";
+import { useMusicStore } from "@/store";
 import { useEffect, type RefObject } from "react";
 import { useShapeNotes } from "../FretCell/helpers";
 import { getTheLowestFret } from "./getTheLowestFret";

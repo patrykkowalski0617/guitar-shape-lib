@@ -3,12 +3,9 @@ import { FretboardRow } from "./FretboardRow/parts";
 import { Fret, Note } from "./FretCell/parts";
 import { instrumentBRadius, instrumentElBRadius } from "@/parts";
 
-export const FretboardWrapper = styled.div`
-  padding-top: 3px;
-`;
-
 export const Fretboard = styled.div`
   user-select: none;
+  padding-bottom: 25px;
   ${FretboardRow} {
     > :first-child::before {
       content: "";

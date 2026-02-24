@@ -1,9 +1,10 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore, useMusicStore } from "@/store";
 import { shapes, type Shapes, UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
 import { getFilteredShapeOptions } from "./helpers/shapeHelpers";
-import { ControlLabel, ControlWrapper } from "@/parts";
+import { ControlLabel } from "@/parts";
+import { ControlWrapper } from "../parts";
 import { AnimatedWrapper } from "./parts";
 
 export const NONE_SHAPE_VALUE = "none";
@@ -15,7 +16,7 @@ export function ShapeSelect() {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
   const currentShapeSemitoneOffsetFromC = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
   const setShape = useControlsStore((state) => state.setShape);
-
+  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
   const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
 
   const currentKeyNotes = getNotes({ firstNote: currentKeyId }).map(({ sharpNoteName, flatNoteName }) =>
@@ -31,7 +32,7 @@ export function ShapeSelect() {
     return {
       value: `${shapeId}|${offset}`,
       labelRootNote: rootNote,
-      labelShapeNama: ` ${shape.label} ${shape.type}`,
+      labelShapeName: ` ${shape.label} ${shape.type}`,
     };
   });
 
@@ -40,21 +41,22 @@ export function ShapeSelect() {
       ? `${currentShapeId}|${currentShapeSemitoneOffsetFromC}`
       : NONE_SHAPE_VALUE;
 
+  const handleValueChange = (value: string) => {
+    setCurrentShapeVariantLocationData(null);
+
+    if (value === NONE_SHAPE_VALUE) {
+      setShape(null, null);
+      return;
+    }
+    const [id, offsetStr] = value.split("|");
+    const offset = parseInt(offsetStr, 10);
+    setShape(id, offset);
+  };
+
   return (
     <ControlWrapper>
-      <ControlLabel>Arpeggio/Scale</ControlLabel>
-      <Select
-        value={currentShapeValue}
-        onValueChange={(v) => {
-          if (v === NONE_SHAPE_VALUE) {
-            setShape(null, null);
-            return;
-          }
-          const [id, offsetStr] = v.split("|");
-          const offset = parseInt(offsetStr, 10);
-          setShape(id, offset);
-        }}
-      >
+      <ControlLabel>Arp/Scale</ControlLabel>
+      <Select value={currentShapeValue} onValueChange={handleValueChange}>
         <AnimatedWrapper>
           <SelectTrigger className="md:min-w-[200px]">
             <SelectValue placeholder="Select shape..." />
@@ -64,10 +66,10 @@ export function ShapeSelect() {
         <SelectContent className="font-semibold">
           <SelectItem value={NONE_SHAPE_VALUE}>None (Explore All Notes)</SelectItem>
 
-          {filteredOptions.map((opt) => (
-            <SelectItem key={opt.value} value={opt.value}>
-              <span className="opacity-50">{opt.labelRootNote}</span>
-              <span>{opt.labelShapeNama}</span>
+          {filteredOptions.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              <span className="opacity-50">{option.labelRootNote}</span>
+              <span>{option.labelShapeName}</span>
             </SelectItem>
           ))}
         </SelectContent>

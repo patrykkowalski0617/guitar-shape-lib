@@ -1,4 +1,4 @@
-import { COLOR_PRESETS } from "@/data/constants";
+import { COLOR_PRESETS } from "@/components/Settings/colorPresets";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -15,7 +15,7 @@ interface SettingsState {
 const initialState = {
   isFullscreen: false,
   isTutorialOn: true,
-  primaryColor: COLOR_PRESETS[6].hue,
+  primaryColor: COLOR_PRESETS[15].hue,
 };
 
 export const useSettingsStore = create<SettingsState>()(

@@ -1,21 +1,38 @@
-import { useControlsStore } from "@/store/useControlsStore";
-import { ControlWrapper } from "@/parts";
+import { useEffect } from "react";
+import { useControlsStore } from "@/store";
+import { ControlWrapper } from "../parts";
 import { Button } from "@/components/ui/button";
 import { Piano } from "lucide-react";
 
 export default function PianoToggleButton() {
-  const showPiano = useControlsStore((state) => state.showPiano);
-  const setShowPiano = useControlsStore((state) => state.setShowPiano);
+  const isPianoVisable = useControlsStore((state) => state.isPianoVisable);
+  const setIsPianoVisable = useControlsStore((state) => state.setIsPianoVisable);
+
+  useEffect(() => {
+    if (isPianoVisable) {
+      const timer = setTimeout(() => {
+        const target = document.querySelector('[data-piano-scroll-target="true"]');
+        if (target) {
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isPianoVisable]);
 
   const handleToggle = () => {
-    setShowPiano(!showPiano);
+    setIsPianoVisable(!isPianoVisable);
   };
 
   return (
     <ControlWrapper>
-      <Button variant={showPiano ? "active" : "outline"} onClick={handleToggle}>
+      <Button variant={isPianoVisable ? "active" : "outline"} onClick={handleToggle}>
         <span className="flex items-center justify-center">
-          <Piano className={`h-4 w-4 ${showPiano ? "opacity-100" : "opacity-50"}`} />
+          <Piano className={`h-4 w-4 ${isPianoVisable ? "opacity-100" : "opacity-50"}`} />
         </span>
       </Button>
     </ControlWrapper>

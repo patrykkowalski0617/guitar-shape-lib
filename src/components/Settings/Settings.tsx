@@ -13,7 +13,7 @@ import { Settings as Gear, RotateCcw } from "lucide-react";
 import { ExportProgressFile, ImportProgressFile } from "./Progress/ProgressButtons";
 import ColorsPresetsSetting from "./ColorsPresetsSetting/ColorsPresetsSetting";
 import ColorsSetting from "./ColorsSetting/ColorsSetting";
-import { useSettingsStore } from "@/store/useSettingsStore";
+import { useSettingsStore } from "@/store";
 
 const side = "right";
 

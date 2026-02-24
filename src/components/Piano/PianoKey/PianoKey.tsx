@@ -2,8 +2,7 @@ import * as S from "./parts";
 import { NOTES_SHARP, majorScale, UNIFIED_MUSIC_KEYS } from "@/data";
 import { type NoteObject } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
-import { useMusicStore } from "@/store/useMusicStore";
-import { useControlsStore } from "@/store/useControlsStore";
+import { useControlsStore, useMusicStore } from "@/store";
 import { SHAPES_OF_WHITE_PIANO_KEYS } from "../helpers/constants";
 import { useScaleLogic } from "../helpers/useScaleLogic";
 
@@ -31,7 +30,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
     (isRoleActive && currentRoleNoteIds.includes(note.noteId));
 
   const isHighlighted = currentScaleNoteIds.includes(note.noteId);
-  const isActiveNote = note.noteId === activeNoteId && !currentShapeId;
+  const isActiveNote = note.noteId === activeNoteId;
   const isShapeNote = !!isRoleActive && currentShapeNoteIds.includes(note.noteId);
   const isRoleNote = currentRoleNoteIds?.includes(note.noteId);
 
@@ -45,7 +44,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
       $pianoKeyShape={pianoKeyShape}
       $isHighlighted={isHighlighted}
       $isRoleNote={isRoleNote}
-      data-scroll-target={isScrollTarget}
+      data-piano-scroll-target={isScrollTarget}
       onMouseOver={() => {
         setActiveNoteId(note.noteId);
       }}

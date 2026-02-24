@@ -1,4 +1,4 @@
-import { useSettingsStore } from "@/store/useSettingsStore";
+import { useSettingsStore } from "@/store";
 import { Slider } from "@/components/ui/slider";
 import * as S from "./parts";
 import { getHSLColorFromHue } from "@/utils";

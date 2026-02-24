@@ -10,19 +10,18 @@ const Tick = styled.div<{ $isCurrent: boolean; $isLearned: boolean }>`
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: ${({ $isCurrent, $isLearned }) =>
-    $isCurrent
-      ? "var(--primary)"
-      : $isLearned
-        ? "var(--accent)"
-        : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
-  box-shadow: ${({ $isCurrent, $isLearned }) => {
-    if ($isCurrent) return "0 0 8px var(--primary)";
+  &:first-child {
+    display: none;
+  }
+
+  background-color: ${({ $isLearned }) =>
+    $isLearned ? "var(--accent)" : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
+  box-shadow: ${({ $isLearned }) => {
     if ($isLearned) return "0 0 8px var(--accent)";
     return "none";
   }};
   transition: all 0.05s ease-in-out;
-  z-index: ${({ $isCurrent }) => ($isCurrent ? " 10" : "")};
+  z-index: ${({ $isCurrent }) => ($isCurrent ? "10" : "")};
 `;
 
 interface DiscreteSliderProps extends React.ComponentProps<typeof SliderPrimitive.Root> {
@@ -39,7 +38,7 @@ function DiscreteSlider({
   ...props
 }: DiscreteSliderProps) {
   const currentValue = value?.[0] ?? 0;
-  const thumbSize = 20;
+  const thumbSize = 25;
 
   return (
     <SliderPrimitive.Root
@@ -51,7 +50,7 @@ function DiscreteSlider({
       {...props}
     >
       <SliderPrimitive.Track
-        className="relative grow h-0.5 w-full bg-muted/20 rounded-full"
+        className="relative grow h-0.5 w-full bg-muted/50 rounded-full"
         style={{ margin: `0 ${thumbSize / 2}px` }}
       >
         {max > 0 &&
@@ -67,17 +66,16 @@ function DiscreteSlider({
 
       <SliderPrimitive.Thumb
         className={cn(
-          "block rounded-full border-2 bg-background shadow-lg",
+          "block rounded-full border-2 bg-background shadow-lg border-primary",
           "cursor-grab active:cursor-grabbing z-10",
-          "hover:scale-110 transition-transform",
-          "data-[disabled]:scale-100 data-[disabled]:opacity-20",
+          "hover:scale-120 transition-transform",
+          "data-[disabled]:scale-100 data-[disabled]:border-primary/35 data-[disabled]:left-[calc(10px)] data-[disabled]:relative",
           "focus:outline-none focus:ring-0 focus:ring-offset-0",
           "focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-0",
         )}
         style={{
           width: `${thumbSize}px`,
           height: `${thumbSize}px`,
-          borderColor: "var(--primary)",
         }}
       />
     </SliderPrimitive.Root>

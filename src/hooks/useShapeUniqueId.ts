@@ -1,4 +1,4 @@
-import { useMusicStore } from "@/store/useMusicStore";
+import { useMusicStore } from "@/store";
 
 export const useShapeUniqueId = () => {
   const currentLocation = useMusicStore((state) => state.currentShapeVariantLocationData);

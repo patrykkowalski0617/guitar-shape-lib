@@ -1,58 +1,45 @@
 import Fretboard from "@/components/Fretboard/Fretboard";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-import { AppWrapper, CollapsibleSection, ControlContainer, MainContent, Setcion } from "@/parts";
-import { useSettingsStore } from "./store/useSettingsStore";
-import { useControlsStore } from "./store/useControlsStore";
+import { AppWrapper, CollapsibleSection, MainContent, Setcion } from "@/parts";
+import { useControlsStore, useSettingsStore } from "@/store";
 import Piano from "@/components/Piano/Piano";
-import {
-  AddToList,
-  KeySelect,
-  LockShapeButton,
-  RandomizeControls,
-  ShapeSelect,
-  ModeAndRoleSelect,
-} from "@/components/Controls";
-import FullscreenButton from "@/components/FullscreenButton/FullscreenButton";
+import FullscreenButton from "@/components/Settings/FullscreenButton/FullscreenButton";
 import { Toaster } from "@/components/ui/sonner";
 import { getHSLColorFromHue } from "./utils";
-import { ShapeExplorerSlider } from "./components/Controls/ShapeExplorerSlider/ShapeExplorerSlider";
-import PianoToggleButton from "./components/Controls/PianoToggleButton/PianoToggleButton";
+import Player from "./components/Player/Player";
+import Controls from "./components/Controls/Controls";
 
 export default function App() {
   const { primaryColor } = useSettingsStore();
-  const showPiano = useControlsStore((state) => state.showPiano);
-
-  const roleColors = {
-    "--primary": getHSLColorFromHue(primaryColor),
-  } as React.CSSProperties;
+  const isPianoVisable = useControlsStore((state) => state.isPianoVisable);
 
   return (
-    <AppWrapper style={roleColors}>
+    <AppWrapper style={{ "--primary": getHSLColorFromHue(primaryColor) }}>
       <Toaster position="top-center" />
+
       <Header />
 
       <MainContent>
         <Setcion>
           <Fretboard />
-          <ShapeExplorerSlider />
-          <ControlContainer>
-            <KeySelect />
-            <ModeAndRoleSelect />
-            <ShapeSelect />
-            <RandomizeControls />
-            <LockShapeButton />
-            <AddToList />
-            <PianoToggleButton />
-          </ControlContainer>
         </Setcion>
 
-        <CollapsibleSection $isVisible={showPiano}>
+        <Setcion>
+          <Player />
+        </Setcion>
+
+        <Setcion>
+          <Controls />
+        </Setcion>
+
+        <CollapsibleSection $isVisible={isPianoVisable}>
           <Piano />
         </CollapsibleSection>
       </MainContent>
 
       <FullscreenButton />
+
       <Footer />
     </AppWrapper>
   );

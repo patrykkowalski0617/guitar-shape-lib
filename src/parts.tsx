@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { transitionTime } from "./data";
+import { transitionTime } from "@/store";
 
 export const AppWrapper = styled.div`
   display: flex;
@@ -19,7 +19,10 @@ export const MainContent = styled.main`
 `;
 
 export const SectionCommonCss = css`
-  margin: 50px auto 0;
+  margin: 25px auto 0;
+  @media (min-width: 1024px) {
+    margin: 50px auto 0;
+  }
 `;
 
 export const Setcion = styled.div`
@@ -58,7 +61,7 @@ export const TutorialStickyIcons = styled.div`
 `;
 
 export const FooterAndHeaderStyles = css`
-  background-color: color-mix(in oklab, var(--accent) 70%, transparent);
+  background-color: color-mix(in oklab, var(--accent) 50%, transparent);
   max-width: 1500px;
   margin: 0 auto;
   width: 100%;
@@ -69,48 +72,6 @@ export const FooterAndHeaderStyles = css`
   transition:
     max-height ${transitionTime}ms 1000ms ease-in-out,
     opacity ${transitionTime}ms 1000ms ease-in-out;
-`;
-
-export const ControlContainer = styled.div`
-  padding: 5px 27px 0;
-  margin: auto;
-  display: grid;
-  gap: calc(var(--spacing) * 6) calc(var(--spacing) * 8);
-  max-width: 700px;
-  align-items: end;
-  grid-template-columns: repeat(4, 1fr);
-
-  & > *:nth-child(1),
-  & > *:nth-child(2) {
-    grid-column: span 2;
-  }
-
-  & > *:nth-child(3) {
-    grid-column: span 4;
-  }
-
-  & > *:nth-child(n + 4) {
-    grid-column: span 1;
-  }
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(12, 1fr);
-
-    & > *:nth-child(-n + 3) {
-      grid-column: span 4;
-    }
-
-    & > *:nth-child(n + 4) {
-      grid-column: span 3;
-    }
-  }
-
-  @media (min-width: 1440px) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: unset;
-  }
 `;
 
 export const ControlWrapper = styled.div`
@@ -150,7 +111,6 @@ export const CollapsibleSection = styled(Setcion)<{ $isVisible: boolean }>`
     margin 0.4s ease-in-out;
   overflow: hidden;
   will-change: transform, opacity, max-height;
-
   ${({ $isVisible }) =>
     $isVisible
       ? css`
@@ -161,7 +121,7 @@ export const CollapsibleSection = styled(Setcion)<{ $isVisible: boolean }>`
         `
       : css`
           opacity: 0;
-          transform: translateY(20px) scale(0.98);
+          transform: translateY(20px) scale(0.9);
           max-height: 0;
           margin-top: 0;
           pointer-events: none;

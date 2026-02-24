@@ -1,25 +1,27 @@
 import { type JSX, useRef } from "react";
 import * as S from "./parts";
 import { STRINGS_CONFIG } from "./FretboardRow/helpers/constants";
-import FretboardInfoRow from "./FretboardInfoRow/FretboardInfoRow";
 import { useHorizontalScroll } from "@/hooks";
 import FretboardRow, { type StringIndex } from "./FretboardRow/FretboardRow";
 import { InstrumentScrollWrapper, InstrumentWrapper } from "@/parts";
-import { useShapeReset } from "./helpers/useShapeReset";
 import { useFretboardScroll } from "./helpers/useFretboardScroll";
+import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
+import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
+import FretboardControls from "./FretboardControls/FretboardControls";
+import { ShapeExplorerSlider } from "./FretboardControls/ShapeExplorerSlider/ShapeExplorerSlider";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
   useHorizontalScroll(scrollRef);
   useFretboardScroll(scrollRef);
 
-  useShapeReset();
-
   return (
-    <InstrumentScrollWrapper ref={scrollRef}>
-      <InstrumentWrapper>
-        <S.FretboardWrapper>
-          <FretboardInfoRow isNumeric />
+    <>
+      <FretboardControls />
+
+      <InstrumentScrollWrapper ref={scrollRef}>
+        <InstrumentWrapper>
+          <FretboardNumericMarkers />
           <S.Fretboard>
             {STRINGS_CONFIG.map(({ firstNoteInRow, firstNoteOctaveNumber }, index) => {
               return (
@@ -32,9 +34,11 @@ export default function Fretboard(): JSX.Element {
               );
             })}
           </S.Fretboard>
-          <FretboardInfoRow />
-        </S.FretboardWrapper>
-      </InstrumentWrapper>
-    </InstrumentScrollWrapper>
+          <FretboardDotMarkers />
+        </InstrumentWrapper>
+      </InstrumentScrollWrapper>
+
+      <ShapeExplorerSlider />
+    </>
   );
 }

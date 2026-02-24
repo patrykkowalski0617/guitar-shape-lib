@@ -1,4 +1,4 @@
-import { useSettingsStore } from "@/store/useSettingsStore";
+import { useSettingsStore } from "@/store";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ControlLabel } from "@/parts";
 import * as S from "@/components/Settings/parts";

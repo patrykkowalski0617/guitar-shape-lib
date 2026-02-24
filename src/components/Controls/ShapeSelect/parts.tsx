@@ -17,4 +17,5 @@ export const AnimatedWrapper = styled(ControlWrapper)`
   border-radius: calc(var(--radius) - 2px);
   box-shadow: 0 0 0 0px transparent;
   animation: ${pulseHighlight} 3s ease-in-out 2s 3 forwards;
+  min-width: 200px;
 `;

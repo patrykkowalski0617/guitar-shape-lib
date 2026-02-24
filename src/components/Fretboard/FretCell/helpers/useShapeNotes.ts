@@ -1,5 +1,5 @@
 import { shapes } from "@/data";
-import type { ShapeVariantLocationData } from "@/store/useMusicStore";
+import type { ShapeVariantLocationData } from "@/store";
 
 export const isShapeNote = (coords: [number, number], notesInSapeCoordinates: number[][]): boolean => {
   const [stringIndex, fretIndex] = coords;
