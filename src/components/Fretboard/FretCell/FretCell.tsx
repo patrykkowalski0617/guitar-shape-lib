@@ -34,7 +34,7 @@ export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellP
         {isShapeRootNote && <VariantProgressDots stringIndex={stringIndex} fretIndex={fretIndex} />}
         <S.Note
           $isLockedNote={isLockedNote}
-          $isActiveNote={isActiveNote}
+          $isActiveNote={isActiveNote && !isPlaying}
           $isShapeRootNote={isShapeRootNote && !isPlaying}
           $isShapeNote={isShapeNote}
           $isTuneNote={isTuneNote}

@@ -11,17 +11,18 @@ interface Props {
 }
 
 export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  useHorizontalScroll(scrollRef);
-
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
   const bricks = usePlayerStore((state) => state.bricks);
   const activeBrickId = usePlayerStore((state) => state.activeBrickId);
   const removeBrick = usePlayerStore((state) => state.removeBrick);
   const updateBrickWidth = usePlayerStore((state) => state.updateBrickWidth);
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+  useHorizontalScroll(scrollRef);
+
   return (
-    <S.PlayerScrollWrapper ref={scrollRef}>
+    <S.PlayerScrollWrapper ref={scrollRef} $isPlaying={isPlaying}>
       <S.PlayerRow>
         {bricks.map((brick) => (
           <PlayerBrick
@@ -32,9 +33,11 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
             onWidthChange={(newWidth) => updateBrickWidth(brick.id, newWidth)}
           />
         ))}
+
         <S.AddBrickButton onClick={onAdd}>
           <Plus size={16} />
         </S.AddBrickButton>
+
         {activeBrickId !== null && (
           <>
             <S.DeleteButton onClick={() => removeBrick(activeBrickId)}>

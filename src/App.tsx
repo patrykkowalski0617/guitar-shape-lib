@@ -2,7 +2,7 @@ import Fretboard from "@/components/Fretboard/Fretboard";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import { AppWrapper, CollapsibleSection, MainContent, Setcion } from "@/parts";
-import { useControlsStore, useSettingsStore } from "@/store";
+import { useControlsStore, usePlayerStore, useSettingsStore } from "@/store";
 import Piano from "@/components/Piano/Piano";
 import FullscreenButton from "@/components/Settings/FullscreenButton/FullscreenButton";
 import { Toaster } from "@/components/ui/sonner";
@@ -13,6 +13,7 @@ import Controls from "./components/Controls/Controls";
 export default function App() {
   const { primaryColor } = useSettingsStore();
   const isPianoVisable = useControlsStore((state) => state.isPianoVisable);
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   return (
     <AppWrapper style={{ "--primary": getHSLColorFromHue(primaryColor) }}>
@@ -24,18 +25,20 @@ export default function App() {
         <Setcion>
           <Fretboard />
         </Setcion>
-
         <Setcion>
           <Player />
         </Setcion>
+        {!isPlaying && (
+          <>
+            <Setcion>
+              <Controls />
+            </Setcion>
 
-        <Setcion>
-          <Controls />
-        </Setcion>
-
-        <CollapsibleSection $isVisible={isPianoVisable}>
-          <Piano />
-        </CollapsibleSection>
+            <CollapsibleSection $isVisible={isPianoVisable}>
+              <Piano />
+            </CollapsibleSection>
+          </>
+        )}
       </MainContent>
 
       <FullscreenButton />

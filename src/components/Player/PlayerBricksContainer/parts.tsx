@@ -1,15 +1,21 @@
 import styled from "styled-components";
 import { instrumentElBRadius } from "@/parts";
 
-export const PlayerScrollWrapper = styled.div`
+interface WrapperProps {
+  $isPlaying: boolean;
+}
+
+export const PlayerScrollWrapper = styled.div<WrapperProps>`
   overflow-x: auto;
   align-items: center;
+  height: 100%;
+  pointer-events: ${(props) => (props.$isPlaying ? "none" : "auto")};
+
   &::-webkit-scrollbar {
     display: none;
   }
   -ms-overflow-style: none;
   scrollbar-width: none;
-  height: 100%;
 `;
 
 export const PlayerRow = styled.div`
