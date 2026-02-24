@@ -3,30 +3,59 @@ import { Maximize, Minimize } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSettingsStore } from "@/store";
 
+interface ScreenOrientationWithLock extends ScreenOrientation {
+  lock(
+    orientation:
+      | "any"
+      | "natural"
+      | "landscape"
+      | "portrait"
+      | "portrait-primary"
+      | "portrait-secondary"
+      | "landscape-primary"
+      | "landscape-secondary",
+  ): Promise<void>;
+}
+
 export default function FullscreenButton() {
   const isFullscreen = useSettingsStore((state) => state.isFullscreen);
   const setIsFullscreen = useSettingsStore((state) => state.setIsFullscreen);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      const isNowFullscreen = !!document.fullscreenElement;
+      setIsFullscreen(isNowFullscreen);
+
+      if (!isNowFullscreen && "orientation" in screen) {
+        screen.orientation.unlock();
+      }
     };
 
     document.addEventListener("fullscreenchange", handleFullscreenChange);
     return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
-  }, []);
+  }, [setIsFullscreen]);
 
   const toggleFullscreen = async () => {
     try {
       if (!document.fullscreenElement) {
         await document.documentElement.requestFullscreen();
+
+        const isMobile = window.innerWidth <= 768;
+
+        if (isMobile && "orientation" in screen && "lock" in screen.orientation) {
+          await (screen.orientation as ScreenOrientationWithLock).lock("landscape").catch((err: unknown) => {
+            console.warn("Nie udało się zablokować orientacji:", err);
+          });
+        }
       } else {
         if (document.exitFullscreen) {
           await document.exitFullscreen();
         }
       }
-    } catch (err) {
-      console.error(`Fullscreen Error: ${err}`);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(`Fullscreen Error: ${err.message}`);
+      }
     }
   };
 
