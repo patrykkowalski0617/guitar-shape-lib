@@ -5,6 +5,21 @@ interface WrapperProps {
   $isPlaying: boolean;
 }
 
+export const BrickDragWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  cursor: grab;
+  &:active {
+    cursor: grabbing;
+  }
+  &[draggable="true"] {
+    user-select: none;
+    -webkit-user-drag: element;
+  }
+`;
+
 export const PlayerScrollWrapper = styled.div<WrapperProps>`
   overflow-x: auto;
   align-items: center;
