@@ -23,21 +23,56 @@ export class Metronome {
 
   private playClick(time: number) {
     if (!this.audioContext) return;
+
+    const mainGain = this.audioContext.createGain();
+
     const osc = this.audioContext.createOscillator();
-    const envelope = this.audioContext.createGain();
+    const oscGain = this.audioContext.createGain();
 
-    osc.type = "triangle";
-    osc.frequency.setValueAtTime(800, time);
-    osc.frequency.exponentialRampToValueAtTime(40, time + 0.05);
+    osc.type = "sine";
 
-    envelope.gain.setValueAtTime(0.25, time);
-    envelope.gain.exponentialRampToValueAtTime(0.001, time + 0.05);
+    osc.frequency.setValueAtTime(400, time);
+    osc.frequency.exponentialRampToValueAtTime(10, time + 0.03);
 
-    osc.connect(envelope);
-    envelope.connect(this.audioContext.destination);
+    oscGain.gain.setValueAtTime(0, time);
+    oscGain.gain.linearRampToValueAtTime(0.8, time + 0.001);
+    oscGain.gain.exponentialRampToValueAtTime(0.001, time + 0.03);
+
+    const noiseBuffer = this.audioContext.createBuffer(
+      1,
+      this.audioContext.sampleRate * 0.05,
+      this.audioContext.sampleRate,
+    );
+    const output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < noiseBuffer.length; i++) {
+      output[i] = Math.random() * 2 - 1;
+    }
+
+    const noise = this.audioContext.createBufferSource();
+    const noiseGain = this.audioContext.createGain();
+    const noiseFilter = this.audioContext.createBiquadFilter();
+
+    noise.buffer = noiseBuffer;
+
+    noiseFilter.type = "lowpass";
+    noiseFilter.frequency.setValueAtTime(1500, time);
+
+    noiseGain.gain.setValueAtTime(0.3, time);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, time + 0.015);
+
+    osc.connect(oscGain);
+    oscGain.connect(mainGain);
+
+    noise.connect(noiseFilter);
+    noiseFilter.connect(noiseGain);
+    noiseGain.connect(mainGain);
+
+    mainGain.connect(this.audioContext.destination);
 
     osc.start(time);
-    osc.stop(time + 0.05);
+    osc.stop(time + 0.04);
+    noise.start(time);
+    noise.stop(time + 0.04);
   }
 
   private scheduler = () => {
