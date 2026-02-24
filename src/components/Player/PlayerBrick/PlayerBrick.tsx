@@ -1,10 +1,7 @@
-import { useState, useEffect } from "react";
 import { Pencil, Check } from "lucide-react";
-import { usePlayerSnapshot } from "./hooks/usePlayerSnapshot";
 import * as S from "./parts";
-import { useBrickWidthUnit } from "./hooks/useBrickWidthUnit";
-import { useBrickResize } from "./hooks/useBrickResize";
-import { useMusicStore, usePlayerStore, type Brick } from "@/store";
+import { type Brick } from "@/store";
+import { usePlayerBrickLogic } from "./hooks";
 
 interface PlayerBrickProps {
   brick: Brick;
@@ -13,93 +10,25 @@ interface PlayerBrickProps {
   onWidthChange: (newWidth: number) => void;
 }
 
-export default function PlayerBrick({ brick, isEditable, onToggleEdit, onWidthChange }: PlayerBrickProps) {
-  const { id, width } = brick;
-
-  const setLockedShapeVariantLocationData = useMusicStore((state) => state.setLockedShapeVariantLocationData);
-  const currentStep = usePlayerStore((state) => state.currentStep);
-  const bricks = usePlayerStore((state) => state.bricks);
-  const isPlaying = usePlayerStore((state) => state.isPlaying);
-  const isCountingIn = usePlayerStore((state) => state.isCountingIn);
-
-  const { displayData, handleClick, applySnapshotToStore, lockedSnapshot } = usePlayerSnapshot(
-    id,
-    isEditable,
-    onToggleEdit,
-  );
-
-  const [isResizing, setIsResizing] = useState(false);
-  const birckWidthUnit = useBrickWidthUnit();
-
-  const { handleMouseDown, handleTouchStart, handleTouchMove, handleTouchEnd } = useBrickResize({
-    isEditable,
-    width,
-    onWidthChange,
-    birckWidthUnit,
-    isResizing,
-    setIsResizing,
-  });
-
-  const myIndex = bricks.findIndex((b) => b.id === id);
-
-  const activeBrickIndex = bricks.findIndex((b, idx) => {
-    const stepStart = bricks.slice(0, idx).reduce((sum, prev) => sum + prev.width, 0);
-    return currentStep >= stepStart && currentStep < stepStart + b.width;
-  });
-
-  const isMeActive = activeBrickIndex === myIndex && isPlaying && !isCountingIn;
-  const isMeNext = (activeBrickIndex + 1) % bricks.length === myIndex && isPlaying && !isCountingIn;
-
-  const activePart = isMeActive ? currentStep - bricks.slice(0, myIndex).reduce((sum, b) => sum + b.width, 0) + 1 : 0;
-
-  useEffect(() => {
-    if (activePart === 1) {
-      if (lockedSnapshot.rootNote !== null) {
-        applySnapshotToStore(lockedSnapshot);
-      }
-
-      if (width > 1) {
-        setLockedShapeVariantLocationData(null);
-      }
-    }
-  }, [activePart, applySnapshotToStore, lockedSnapshot, width, setLockedShapeVariantLocationData]);
-
-  useEffect(() => {
-    const currentActiveBrick = bricks[activeBrickIndex];
-    if (!currentActiveBrick) return;
-
-    const stepStartOfActive = bricks.slice(0, activeBrickIndex).reduce((sum, b) => sum + b.width, 0);
-    const activePartInCurrentBrick = currentStep - stepStartOfActive + 1;
-
-    if (isMeNext && activePartInCurrentBrick === currentActiveBrick.width) {
-      setLockedShapeVariantLocationData(lockedSnapshot.currentShapeVariantLocationData);
-    }
-  }, [
-    isMeNext,
-    currentStep,
-    activeBrickIndex,
-    bricks,
-    lockedSnapshot.currentShapeVariantLocationData,
-    setLockedShapeVariantLocationData,
-  ]);
-
-  const hasData = displayData.currentShapeVariantLocationData !== null;
+export default function PlayerBrick(props: PlayerBrickProps) {
+  const { brick, isEditable } = props;
+  const { birckWidthUnit, activePart, label, handleClick, resizeHandlers } = usePlayerBrickLogic(props);
 
   return (
     <S.Brick
       $isEditable={isEditable}
       $unit={birckWidthUnit}
-      $widthUnit={width}
+      $widthUnit={brick.width}
       onClick={handleClick}
-      onMouseDown={handleMouseDown}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
+      onMouseDown={resizeHandlers.handleMouseDown}
+      onTouchStart={resizeHandlers.handleTouchStart}
+      onTouchMove={resizeHandlers.handleTouchMove}
+      onTouchEnd={resizeHandlers.handleTouchEnd}
     >
-      <S.Label>{isResizing ? width : hasData ? `${displayData.rootNote} ${displayData.shapeLabel}` : "Empty"}</S.Label>
+      <S.Label>{label}</S.Label>
 
       <S.PartsContainer>
-        {Array.from({ length: width }).map((_, i) => (
+        {Array.from({ length: brick.width }).map((_, i) => (
           <S.Part key={i} $unit={birckWidthUnit} $isActive={i + 1 === activePart} />
         ))}
       </S.PartsContainer>
