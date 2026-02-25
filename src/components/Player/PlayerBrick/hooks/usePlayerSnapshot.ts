@@ -79,9 +79,7 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean, onToggle
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    if (displayData.currentShapeVariantLocationData === null) {
-      setLockedShapeVariantLocationData(currentShapeVariantLocationData);
-    }
+    setLockedShapeVariantLocationData(currentShapeVariantLocationData);
 
     if (!isEditable && lockedSnapshot.rootNote !== null) {
       applySnapshotToStore(lockedSnapshot);
