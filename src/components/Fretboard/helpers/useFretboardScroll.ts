@@ -1,6 +1,6 @@
 import { useMusicStore } from "@/store";
 import { useEffect, type RefObject } from "react";
-import { useShapeNotes } from "../FretCell/helpers";
+import { useShapeNotes } from "../FretCell/hooks";
 import { getTheLowestFret } from "./getTheLowestFret";
 
 export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null>) => {

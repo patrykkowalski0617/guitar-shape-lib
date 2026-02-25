@@ -25,7 +25,7 @@ interface ControlsState {
 const initialState = {
   isMajorMode: true,
   currentKeyId: "C" as MusicKeyId,
-  currentRoleId: "all-one-instacne" as RoleId | null,
+  currentRoleId: "all-one-instance" as RoleId | null,
   currentShapeId: null as string | null,
   currentShapeSemitoneOffsetFromC: null as number | null,
   isPianoVisable: false,
@@ -38,7 +38,7 @@ export const useControlsStore = create<ControlsState>((set) => ({
     set((state) => {
       if (!state.currentRoleId) return { isMajorMode };
 
-      const { shapeId, offset } = getAutoSelectedShape(state.currentRoleId, isMajorMode);
+      const { shapeId, offset } = getAutoSelectedShape(state.currentRoleId, isMajorMode, state.currentKeyId);
 
       return {
         isMajorMode,
@@ -59,7 +59,7 @@ export const useControlsStore = create<ControlsState>((set) => ({
         };
       }
 
-      const { shapeId, offset } = getAutoSelectedShape(id, state.isMajorMode);
+      const { shapeId, offset } = getAutoSelectedShape(id, state.isMajorMode, state.currentKeyId);
 
       return {
         currentRoleId: id,

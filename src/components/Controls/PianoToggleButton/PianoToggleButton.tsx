@@ -3,6 +3,7 @@ import { useControlsStore } from "@/store";
 import { ControlWrapper } from "../parts";
 import { Button } from "@/components/ui/button";
 import { Piano } from "lucide-react";
+import { CollapsibleSectionTransitionTime } from "@/parts";
 
 export default function PianoToggleButton() {
   const isPianoVisable = useControlsStore((state) => state.isPianoVisable);
@@ -18,7 +19,7 @@ export default function PianoToggleButton() {
             block: "center",
           });
         }
-      }, 500);
+      }, CollapsibleSectionTransitionTime - 100);
 
       return () => clearTimeout(timer);
     }

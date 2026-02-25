@@ -3,7 +3,7 @@ import type { NoteObject } from "@/utils";
 import VariantProgressDots from "@/components/Fretboard/VariantProgressDots/VariantProgressDots";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
-import { useFretCell, useNoteState, useFretboardStates } from "./helpers";
+import { useFretCell, useNoteState, useFretboardStates } from "./hooks";
 import { usePlayerStore } from "@/store";
 
 interface FretCellProps {

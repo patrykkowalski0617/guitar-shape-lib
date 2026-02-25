@@ -21,6 +21,10 @@ export function RandomizeControls() {
 
     const { shapeId, offset } = setRandomShape(randomRole, randomIsMajorMode);
 
+    if (shapeId === null || offset === null) {
+      return;
+    }
+
     setRandomShapeVariant(randomKey, offset, shapeId);
   };
 
