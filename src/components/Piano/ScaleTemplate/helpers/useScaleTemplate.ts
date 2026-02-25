@@ -1,7 +1,8 @@
 import { useControlsStore } from "@/store";
-import { UNIFIED_MUSIC_KEYS, type RoleId } from "@/data";
+import { UNIFIED_MUSIC_KEYS, type RoleId, isGlobalRole } from "@/data";
 import { useScaleLogic } from "../../helpers/useScaleLogic";
 import { pianoNotes } from "../../helpers/constants";
+
 const VISIBLE_INDEXES_MAP: Record<"major" | "minor", Partial<Record<RoleId, readonly number[]>>> = {
   major: {
     tonic: [3, 7, 10, 14, 17, 20, 24],
@@ -28,28 +29,18 @@ export const useScaleTemplate = () => {
 
   const modeKey = isMajorMode ? "major" : "minor";
   const modeMap = VISIBLE_INDEXES_MAP[modeKey];
-  const effectiveRoleId =
-    currentRoleId && currentRoleId !== "all-one-instacne" && currentRoleId !== "all-maching-key"
-      ? currentRoleId
-      : "tonic";
 
-  const highlightRole =
-    currentRoleId && currentRoleId !== "all-one-instacne" && currentRoleId !== "all-maching-key"
-      ? (modeMap[effectiveRoleId as RoleId] ?? [])
-      : [];
+  const effectiveRoleId = isGlobalRole(currentRoleId) || !currentRoleId ? "tonic" : currentRoleId;
 
-  const altIndexes =
-    currentRoleId !== "all-one-instacne" && currentRoleId !== "all-maching-key"
-      ? Array.from({ length: 33 }, (_, i) => i).filter((stepIndex) => {
-          const pianoNote = pianoNotes[position + stepIndex];
-          if (!pianoNote) return false;
+  const highlightRole = !isGlobalRole(currentRoleId) && currentRoleId ? (modeMap[effectiveRoleId] ?? []) : [];
 
-          const isShapeNote = currentShapeNoteIds.includes(pianoNote.noteId);
-          const isRoleNote = currentRoleNoteIds.includes(pianoNote.noteId);
-
-          return isShapeNote && !isRoleNote;
-        })
-      : [];
+  const altIndexes = !isGlobalRole(currentRoleId)
+    ? Array.from({ length: 33 }, (_, i) => i).filter((stepIndex) => {
+        const pianoNote = pianoNotes[position + stepIndex];
+        if (!pianoNote) return false;
+        return currentShapeNoteIds.includes(pianoNote.noteId) && !currentRoleNoteIds.includes(pianoNote.noteId);
+      })
+    : [];
 
   return {
     position,

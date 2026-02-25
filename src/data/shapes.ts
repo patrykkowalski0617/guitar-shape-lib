@@ -1,5 +1,5 @@
 import { _1, _m2, _M2, _m3, _M3, _4, _T, _5, _m6, _M6, _m7, _M7, _m9, _M9 } from "./intervals";
-import type { RoleId } from "./roles";
+import type { FunctionalRoleId } from "./roles";
 
 export type ShapeType = "Arpeggio" | "Scale" | "Set";
 
@@ -40,15 +40,9 @@ export interface Shapes {
   [key: string]: Shape;
 }
 
-type ExistingShapeIds = keyof typeof shapes;
+type ModeRoleKey = `${"major" | "minor"}_${FunctionalRoleId}`;
 
-type ModeRoleKey = `${"major" | "minor"}_${RoleId}`;
-
-export const DEFAULT_SHAPES_CONFIG: Record<ModeRoleKey, ExistingShapeIds> = {
-  "major_all-maching-key": "xx",
-  "minor_all-maching-key": "xx",
-  "major_all-one-instacne": "xx",
-  "minor_all-one-instacne": "xx",
+export const DEFAULT_SHAPES_CONFIG: Record<ModeRoleKey, string> = {
   major_tonic: "M7",
   major_subdominant: "M7",
   major_dominant: "dominant",

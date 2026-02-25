@@ -1,5 +1,5 @@
 import * as S from "./parts";
-import { NOTES_SHARP, majorScale, UNIFIED_MUSIC_KEYS } from "@/data";
+import { NOTES_SHARP, majorScale, UNIFIED_MUSIC_KEYS, isGlobalRole } from "@/data";
 import { type NoteObject } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useControlsStore, useMusicStore } from "@/store";
@@ -23,7 +23,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
 
   const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
-  const isRoleActive = currentRoleId && currentRoleId !== "all-one-instacne" && currentRoleId !== "all-maching-key";
+  const isRoleActive = currentRoleId && !isGlobalRole(currentRoleId);
 
   const isScrollTarget =
     (!isRoleActive && currentScaleNoteIds.includes(note.noteId)) ||
@@ -63,4 +63,5 @@ const PianoKey = ({ note }: PianoKeyProps) => {
     </S.Key>
   );
 };
+
 export default PianoKey;

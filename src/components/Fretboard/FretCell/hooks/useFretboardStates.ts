@@ -1,4 +1,5 @@
 import { useControlsStore } from "@/store";
+import { isGlobalRole } from "@/data";
 
 export const useFretboardStates = () => {
   const currentShapeId = useControlsStore((state) => state.currentShapeId);
@@ -6,7 +7,7 @@ export const useFretboardStates = () => {
 
   return {
     isShapeSelected: currentShapeId !== null,
-    isRoleSelected: currentRoleId !== "all-one-instacne" && currentRoleId !== "all-maching-key",
-    shouldMarkTuneNotes: currentRoleId !== "all-one-instacne",
+    isRoleSelected: !isGlobalRole(currentRoleId),
+    shouldMarkTuneNotes: currentRoleId !== "all-one-instance",
   };
 };

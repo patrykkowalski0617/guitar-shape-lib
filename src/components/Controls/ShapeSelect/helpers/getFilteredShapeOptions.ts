@@ -5,9 +5,8 @@ export type ShapeOption = { shapeId: keyof Shapes; offset: number };
 export const getFilteredShapeOptions = (currentRoleId: RoleId | null, isMajorMode: boolean): ShapeOption[] => {
   if (!currentRoleId) return [];
 
-  if (currentRoleId === "all-maching-key") {
+  if (currentRoleId === "all-matching-key") {
     const rolesToCombine: RoleId[] = ["tonic", "subdominant", "dominant"];
-
     const allOptions = rolesToCombine.flatMap((role) => getFilteredShapeOptions(role, isMajorMode));
 
     const seen = new Set<string>();
@@ -19,7 +18,7 @@ export const getFilteredShapeOptions = (currentRoleId: RoleId | null, isMajorMod
     });
   }
 
-  if (currentRoleId === "all-one-instacne") {
+  if (currentRoleId === "all-one-instance") {
     return Object.keys(shapes).map((shapeId) => ({
       shapeId: shapeId as keyof Shapes,
       offset: 0,
@@ -27,7 +26,6 @@ export const getFilteredShapeOptions = (currentRoleId: RoleId | null, isMajorMod
   }
 
   const options: ShapeOption[] = [];
-
   Object.entries(shapes).forEach(([shapeId, shape]) => {
     const roleData =
       shape.semitoneOffsetFromMajorTonicRoot[currentRoleId as keyof typeof shape.semitoneOffsetFromMajorTonicRoot];

@@ -1,11 +1,8 @@
 import { useMusicStore, useControlsStore } from "@/store";
-import { type RoleId, roles } from "@/data";
+import { type RoleId, roles, isGlobalRole } from "@/data";
 import { ControlWrapper } from "../parts";
 import { ControlLabel } from "@/parts";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
-const isGlobalRole = (roleId: RoleId | null): roleId is "all-one-instacne" | "all-maching-key" =>
-  roleId === "all-one-instacne" || roleId === "all-maching-key";
 
 export function ModeAndRoleSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
@@ -15,7 +12,7 @@ export function ModeAndRoleSelect() {
   const setShape = useControlsStore((state) => state.setShape);
   const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
 
-  const effectiveRoleId = currentRoleId ?? "all-one-instacne";
+  const effectiveRoleId = currentRoleId ?? "all-one-instance";
 
   const currentValue = isGlobalRole(effectiveRoleId)
     ? effectiveRoleId
@@ -24,7 +21,7 @@ export function ModeAndRoleSelect() {
   const handleValueChange = (value: string) => {
     setCurrentShapeVariantLocationData(null);
 
-    if (value in roles && isGlobalRole(value as RoleId)) {
+    if (isGlobalRole(value as RoleId)) {
       setCurrentRoleId(value as RoleId);
       setShape(null, null);
       return;
@@ -46,10 +43,11 @@ export function ModeAndRoleSelect() {
           <SelectValue placeholder="Select mode & function" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all-one-instacne">{roles["all-one-instacne"].label}</SelectItem>
-          <SelectItem value="all-maching-key">{roles["all-maching-key"].label}</SelectItem>
+          <SelectItem value="all-one-instance">{roles["all-one-instance"].label}</SelectItem>
+          <SelectItem value="all-matching-key">{roles["all-matching-key"].label}</SelectItem>
 
           <div className="border-t my-1" />
+
           {functionalRoles.map(([id, data]) => (
             <SelectItem key={`major-${id}`} value={`major-${id}`}>
               Major {data.label}
@@ -57,6 +55,7 @@ export function ModeAndRoleSelect() {
           ))}
 
           <div className="border-t my-1" />
+
           {functionalRoles.map(([id, data]) => (
             <SelectItem key={`minor-${id}`} value={`minor-${id}`}>
               Minor {data.label}

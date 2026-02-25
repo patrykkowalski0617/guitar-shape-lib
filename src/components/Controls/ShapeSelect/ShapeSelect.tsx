@@ -66,7 +66,7 @@ export function ShapeSelect() {
 
         <SelectContent className="font-semibold">
           <SelectItem value={NONE_SHAPE_VALUE}>
-            {currentRoleId === "all-one-instacne" ? "All Notes" : "All Notes Matching Key"}
+            {currentRoleId === "all-one-instance" ? "All notes" : "All notes matching selected key"}
           </SelectItem>
 
           {filteredOptions.map((option) => (

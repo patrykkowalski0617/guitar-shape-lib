@@ -102,13 +102,15 @@ export const ControlLabel = styled.span`
 export const instrumentElBRadius = "4px";
 export const instrumentBRadius = "var(--radius-lg)";
 
+export const CollapsibleSectionTransitionTime = 400;
+
 export const CollapsibleSection = styled(Setcion)<{ $isVisible: boolean }>`
   ${SectionCommonCss}
   transition:
-    opacity 0.4s ease-in-out,
-    transform 0.4s ease-in-out,
-    max-height 0.4s ease-in-out,
-    margin 0.4s ease-in-out;
+    opacity ${CollapsibleSectionTransitionTime}ms ease-in-out,
+    transform ${CollapsibleSectionTransitionTime}ms ease-in-out,
+    max-height ${CollapsibleSectionTransitionTime}ms ease-in-out,
+    margin ${CollapsibleSectionTransitionTime}ms ease-in-out;
   overflow: hidden;
   will-change: transform, opacity, max-height;
   ${({ $isVisible }) =>
@@ -116,7 +118,7 @@ export const CollapsibleSection = styled(Setcion)<{ $isVisible: boolean }>`
       ? css`
           opacity: 1;
           transform: translateY(0) scale(1);
-          max-height: 200px;
+          max-height: 180px;
           pointer-events: auto;
         `
       : css`

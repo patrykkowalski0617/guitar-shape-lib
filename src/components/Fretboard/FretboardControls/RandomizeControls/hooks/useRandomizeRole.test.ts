@@ -5,7 +5,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useRandomizeRole } from "./useRandomizeRole";
 import { useControlsStore } from "@/store";
-import { roles, type RoleId } from "@/data";
+import { roles, type RoleId, isGlobalRole } from "@/data";
 
 vi.mock("@/store", () => ({
   useControlsStore: vi.fn(),
@@ -14,7 +14,7 @@ vi.mock("@/store", () => ({
 describe("useRandomizeRole()", () => {
   const setCurrentRoleIdMock = vi.fn();
 
-  const functionalRoles = (Object.keys(roles) as RoleId[]).filter((id) => id !== "all-one-instacne");
+  const functionalRoles = (Object.keys(roles) as RoleId[]).filter((id) => !isGlobalRole(id));
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -29,48 +29,48 @@ describe("useRandomizeRole()", () => {
 
     const { result } = renderHook(() => useRandomizeRole());
 
-    let randomRole;
+    let randomRole: RoleId;
     act(() => {
       randomRole = result.current();
     });
 
     const expectedRole = functionalRoles[0];
 
-    expect(randomRole).toBe(expectedRole);
+    expect(randomRole! as unknown as RoleId).toBe(expectedRole);
     expect(setCurrentRoleIdMock).toHaveBeenCalledWith(expectedRole);
-    expect(randomRole).not.toBe("all-one-instacne");
+    expect(isGlobalRole(randomRole! as unknown as RoleId)).toBe(false);
 
     mathSpy.mockRestore();
   });
 
-  it("should pick the last functional role (excluding 'all') when Math.random is near 1", () => {
+  it("should pick the last functional role (excluding global roles) when Math.random is near 1", () => {
     const mathSpy = vi.spyOn(Math, "random").mockReturnValue(0.999);
 
     const { result } = renderHook(() => useRandomizeRole());
 
-    let randomRole;
+    let randomRole: RoleId;
     act(() => {
       randomRole = result.current();
     });
 
     const expectedRole = functionalRoles[functionalRoles.length - 1];
 
-    expect(randomRole).toBe(expectedRole);
+    expect(randomRole! as unknown as RoleId).toBe(expectedRole);
     expect(setCurrentRoleIdMock).toHaveBeenCalledWith(expectedRole);
-    expect(randomRole).not.toBe("all-one-instacne");
+    expect(isGlobalRole(randomRole! as unknown as RoleId)).toBe(false);
 
     mathSpy.mockRestore();
   });
 
-  it("should never return 'all' role", () => {
+  it("should never return a global role", () => {
     const { result } = renderHook(() => useRandomizeRole());
 
     for (let i = 0; i < 50; i++) {
-      let randomRole;
+      let randomRole: RoleId;
       act(() => {
         randomRole = result.current();
       });
-      expect(randomRole).not.toBe("all-one-instacne");
+      expect(isGlobalRole(randomRole! as unknown as RoleId)).toBe(false);
     }
   });
 });
