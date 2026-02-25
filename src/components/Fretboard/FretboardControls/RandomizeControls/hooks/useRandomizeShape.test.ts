@@ -12,21 +12,26 @@ vi.mock("@/store", () => ({
   useControlsStore: vi.fn(),
 }));
 
-vi.mock("@/components/Controls/ShapeSelect/helpers/shapeHelpers", () => ({
+vi.mock("@/components/Controls/ShapeSelect/helpers/getFilteredShapeOptions", () => ({
   getFilteredShapeOptions: vi.fn(),
 }));
 
 describe("useRandomizeShape()", () => {
   const setShapeMock = vi.fn();
+  const currentKeyIdMock = "C";
 
   beforeEach(() => {
     vi.clearAllMocks();
 
-    (useControlsStore as unknown as ReturnType<typeof vi.fn>).mockImplementation((selector) =>
-      selector({ setShape: setShapeMock }),
-    );
+    (useControlsStore as unknown as ReturnType<typeof vi.fn>).mockImplementation((selector) => {
+      const state = {
+        setShape: setShapeMock,
+        currentKeyId: currentKeyIdMock,
+      };
+      return selector(state);
+    });
 
-    (getFilteredShapeOptions as ReturnType<typeof vi.fn>).mockReturnValue([
+    (getFilteredShapeOptions as unknown as ReturnType<typeof vi.fn>).mockReturnValue([
       { shapeId: "shape-1", offset: 0 },
       { shapeId: "shape-2", offset: 2 },
     ]);
@@ -39,12 +44,13 @@ describe("useRandomizeShape()", () => {
 
     let picked;
     act(() => {
-      picked = result.current("Tonic" as RoleId, true);
+      picked = result.current("tonic" as RoleId, true);
     });
 
     expect(picked).toEqual({ shapeId: "shape-1", offset: 0 });
     expect(setShapeMock).toHaveBeenCalledWith("shape-1", 0);
-    expect(getFilteredShapeOptions).toHaveBeenCalledWith("Tonic", true);
+
+    expect(getFilteredShapeOptions).toHaveBeenCalledWith("tonic", true, "C");
 
     mathSpy.mockRestore();
   });
@@ -56,7 +62,7 @@ describe("useRandomizeShape()", () => {
 
     let picked;
     act(() => {
-      picked = result.current("Dominant" as RoleId, false);
+      picked = result.current("dominant" as RoleId, false);
     });
 
     expect(picked).toEqual({ shapeId: "shape-2", offset: 2 });

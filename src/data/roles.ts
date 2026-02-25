@@ -14,7 +14,7 @@ export const roles: Record<RoleId, RoleData> = {
     label: "All matching current Key",
   },
   "all-one-instance": {
-    label: "One instance of each arp/scale",
+    label: "One instance of each",
   },
   tonic: {
     label: "Tonic",
