@@ -4,7 +4,7 @@ import { type NoteObject } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useControlsStore, useMusicStore } from "@/store";
 import { SHAPES_OF_WHITE_PIANO_KEYS } from "../helpers/constants";
-import { useScaleLogic } from "../helpers/useScaleLogic";
+import { useScaleLogic } from "../hooks";
 
 interface PianoKeyProps {
   note: NoteObject;

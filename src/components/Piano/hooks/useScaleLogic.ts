@@ -8,7 +8,7 @@ import {
   UNIFIED_MUSIC_KEYS,
   isGlobalRole,
 } from "@/data";
-import { matchShapeNotesToRoleNotes } from "./matchShapeNotesToRoleNotes";
+import { matchShapeNotesToRoleNotes } from "../helpers/matchShapeNotesToRoleNotes";
 import { getNotes } from "@/utils";
 import { type Note } from "@/data";
 

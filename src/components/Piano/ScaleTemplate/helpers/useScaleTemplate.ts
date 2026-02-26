@@ -1,7 +1,7 @@
 import { useControlsStore } from "@/store";
 import { UNIFIED_MUSIC_KEYS, type RoleId, isGlobalRole } from "@/data";
-import { useScaleLogic } from "../../helpers/useScaleLogic";
 import { pianoNotes } from "../../helpers/constants";
+import { useScaleLogic } from "../../hooks";
 
 const VISIBLE_INDEXES_MAP: Record<"major" | "minor", Partial<Record<RoleId, readonly number[]>>> = {
   major: {

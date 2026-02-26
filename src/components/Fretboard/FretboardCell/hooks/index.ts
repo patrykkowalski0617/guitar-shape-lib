@@ -1,5 +1,5 @@
 export * from "./useFretboardStates";
-export * from "./useFretCell";
+export * from "./useFretboardCell";
 export * from "./useInTuneSharpNoteNames";
 export * from "./useNoteState";
 export * from "./useShapeNotes";

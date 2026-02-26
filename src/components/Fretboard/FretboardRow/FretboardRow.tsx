@@ -1,6 +1,6 @@
 import * as S from "./parts";
 import { useRef, type JSX } from "react";
-import FretCell from "../FretCell/FretCell";
+import FretboardCell from "../FretboardCell/FretboardCell";
 import { getNotes } from "@/utils";
 import { type Note, type NoteSharp } from "@/data";
 import { numberOfFrets } from "./helpers/constants";
@@ -30,7 +30,7 @@ export default function FretboardRow({
     <S.FretboardRow ref={scrollRef}>
       {rowNotes.map((noteData, fretIndex) => {
         return (
-          <FretCell
+          <FretboardCell
             key={`${stringIndex}-${fretIndex}`}
             noteData={noteData}
             stringIndex={stringIndex}

@@ -5,14 +5,14 @@ import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardR
 import { useShapeNotes, isShapeNote } from "./useShapeNotes";
 import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
 
-interface UseFretCellProp {
+interface UseFretboardCellProp {
   sharpNoteName: NoteSharp;
   noteId: string;
   stringIndex: StringIndex;
   fretIndex: number;
 }
 
-export const useNoteState = ({ sharpNoteName, noteId, stringIndex, fretIndex }: UseFretCellProp) => {
+export const useNoteState = ({ sharpNoteName, noteId, stringIndex, fretIndex }: UseFretboardCellProp) => {
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const shapeSemitoneOffsetFromC = useControlsStore((state) => state.shapeSemitoneOffsetFromC);
   const isPianoVisable = useControlsStore((state) => state.isPianoVisable);
