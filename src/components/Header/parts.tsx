@@ -3,7 +3,9 @@ import styled, { css, keyframes } from "styled-components";
 
 export const HeaderWrapper = styled.header<{ $isHidden: boolean }>`
   ${FooterAndHeaderStyles}
-  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  @media (min-width: 1600px) {
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  }
   max-height: 77px;
   height: 77px;
   ${({ $isHidden }) =>

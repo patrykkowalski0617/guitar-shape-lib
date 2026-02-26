@@ -31,7 +31,7 @@ const commonPlayerElementStyles = css`
   text-align: center;
   font-size: 12px;
   font-weight: 600;
-  cursor: pointer;
+
   transition: background-color 0.2s;
 
   &:hover {
@@ -51,7 +51,6 @@ export const BpmButton = styled.button`
   border-style: solid;
   &:disabled {
     opacity: 0.5;
-    cursor: not-allowed;
   }
 `;
 

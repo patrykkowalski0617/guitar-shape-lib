@@ -4,9 +4,7 @@ import Footer from "@/components/Footer/Footer";
 import { AppWrapper, CollapsibleSection, MainContent, Setcion } from "@/parts";
 import { useControlsStore, usePlayerStore, useSettingsStore } from "@/store";
 import Piano from "@/components/Piano/Piano";
-import FullscreenButton from "@/components/Settings/FullscreenButton/FullscreenButton";
 import { Toaster } from "@/components/ui/sonner";
-import { getHSLColorFromHue } from "./utils";
 import Player from "./components/Player/Player";
 import Controls from "./components/Controls/Controls";
 
@@ -16,7 +14,7 @@ export default function App() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   return (
-    <AppWrapper style={{ "--primary": getHSLColorFromHue(primaryColor) }}>
+    <AppWrapper style={{ "--primary": primaryColor }}>
       <Toaster position="top-center" />
 
       <Header />
@@ -40,9 +38,6 @@ export default function App() {
           </>
         )}
       </MainContent>
-
-      <FullscreenButton />
-
       <Footer />
     </AppWrapper>
   );

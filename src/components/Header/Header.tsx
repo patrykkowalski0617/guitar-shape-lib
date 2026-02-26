@@ -1,5 +1,5 @@
 import * as S from "./parts";
-import { Settings } from "../Settings/Settings";
+// import { Settings } from "../Settings/Settings";
 import { useSettingsStore } from "@/store";
 
 export default function Header() {
@@ -13,9 +13,9 @@ export default function Header() {
           <S.Subtitle>Guitar Shapes Library</S.Subtitle>
         </S.TitleWrapper>
 
-        <S.HeaderSide>
+        {/* <S.HeaderSide>
           <Settings />
-        </S.HeaderSide>
+        </S.HeaderSide> */}
       </S.HeaderContent>
     </S.HeaderWrapper>
   );

@@ -62,7 +62,10 @@ export const TutorialStickyIcons = styled.div`
 
 export const FooterAndHeaderStyles = css`
   background-color: color-mix(in oklab, var(--accent) 50%, transparent);
-  max-width: 1500px;
+  max-width: unset;
+  @media (min-width: 1600px) {
+    max-width: 1500px;
+  }
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -119,13 +122,11 @@ export const CollapsibleSection = styled(Setcion)<{ $isVisible: boolean }>`
           opacity: 1;
           transform: translateY(0) scale(1);
           max-height: 180px;
-          pointer-events: auto;
         `
       : css`
           opacity: 0;
           transform: translateY(20px) scale(0.9);
           max-height: 0;
           margin-top: 0;
-          pointer-events: none;
         `}
 `;

@@ -1,11 +1,9 @@
 import { useSettingsStore } from "@/store";
-import { ControlLabel } from "@/parts";
-import * as S from "@/components/Settings/ColorsPresetsSetting/parts";
+import * as S from "./parts";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { COLOR_PRESETS } from "@/data/colorPresets";
-import { ControlWrapper } from "../parts";
 
-export default function ColorsPresetsSetting() {
+export default function ColorsPresets() {
   const { primaryColor, setPrimaryColor } = useSettingsStore();
 
   const currentPreset = COLOR_PRESETS.find((p) => p.value === primaryColor);
@@ -17,15 +15,13 @@ export default function ColorsPresetsSetting() {
   };
 
   return (
-    <ControlWrapper>
-      <ControlLabel>Primary Color</ControlLabel>
-      <Select value={currentVal} onValueChange={handleValueChange}>
+    <S.Wrapper>
+      <Select variant="outline" value={currentVal} onValueChange={handleValueChange}>
         <SelectTrigger className="w-full">
           <S.PresetItemWrapper>
             <S.ColorPreviewContainer>
-              <S.ColorPreview $color={primaryColor} />
+              <S.ColorPreviewTriger $color={primaryColor} />
             </S.ColorPreviewContainer>
-            <S.Label>{currentPreset ? currentPreset.name : "Custom Color"}</S.Label>
           </S.PresetItemWrapper>
         </SelectTrigger>
 
@@ -45,6 +41,6 @@ export default function ColorsPresetsSetting() {
           })}
         </SelectContent>
       </Select>
-    </ControlWrapper>
+    </S.Wrapper>
   );
 }

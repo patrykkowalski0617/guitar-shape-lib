@@ -1,7 +1,7 @@
 import { instrumentElBRadius } from "@/parts";
 import styled from "styled-components";
 
-export const PlayerElementHeight = "22px";
+export const PlayerElementHeight = "26px";
 
 export const PlayerContainer = styled.div`
   display: flex;
@@ -33,7 +33,7 @@ export const PlayerSection = styled.div`
   @media (min-width: 768px) {
     &:last-child {
       justify-content: flex-end;
-      padding-right: 70px;
+      padding-right: 35px;
     }
   }
   @media (min-width: 1200px) {

@@ -41,7 +41,6 @@ export const Dot = styled.div<{
         ? "var(--accent)"
         : "color-mix(in oklab, var(--muted) 70%, var(--foreground))"};
   border-radius: 50%;
-  cursor: pointer;
   transition:
     transform 0.025s ease-in-out,
     background-color 0.2s ease;
