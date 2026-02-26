@@ -14,6 +14,8 @@ export const BasePlayerButton = styled.button`
   cursor: pointer;
   transition: background-color 0.2s ease;
   flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 700;
 
   &:disabled {
     opacity: 0.5;

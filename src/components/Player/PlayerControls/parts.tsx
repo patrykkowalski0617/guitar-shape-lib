@@ -18,27 +18,47 @@ export const PlayButton = styled(SolidButton)<{ $isPlaying?: boolean; $bpm?: num
     `}
 `;
 
-export const BpmInput = styled.input`
+const commonPlayerElementStyles = css`
   background-color: color-mix(in oklab, var(--background) 70%, var(--accent));
-  &:hover {
-    background-color: color-mix(in oklab, var(--background) 90%, var(--accent));
-  }
   border: 1px solid var(--border);
   border-radius: ${instrumentElBRadius};
   color: var(--foreground);
   height: ${PlayerElementHeight};
   width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   font-size: 12px;
   font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: color-mix(in oklab, var(--background) 90%, var(--accent));
+  }
 
   &:focus {
+    outline: none;
     border-color: var(--accent);
   }
+`;
+
+export const BpmButton = styled.button`
+  ${commonPlayerElementStyles}
+  padding: 0;
+  appearance: none;
+  border-style: solid;
+`;
+
+export const BpmInput = styled.input`
+  ${commonPlayerElementStyles}
+  cursor: text;
 
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
+  -moz-appearance: textfield;
 `;
