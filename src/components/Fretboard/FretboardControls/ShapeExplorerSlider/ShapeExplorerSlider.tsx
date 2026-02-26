@@ -6,41 +6,41 @@ import { DiscreteSlider } from "@/components/ui/DiscreteSlider";
 import * as S from "./parts";
 
 export function ShapeExplorerSlider() {
-  const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const offset = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
+  const shapeId = useControlsStore((state) => state.shapeId);
+  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
+  const shapeSemitoneOffsetFromC = useControlsStore((state) => state.shapeSemitoneOffsetFromC);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   const { learned } = useProgressStore();
-  const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
-  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
+  const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
+  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
 
   const rootNoteName = useMemo(() => {
-    if (offset === null) return null;
-    return getNotes({ firstNote: currentKeyId })[offset % 12].sharpNoteName;
-  }, [currentKeyId, offset]);
+    if (shapeSemitoneOffsetFromC === null) return null;
+    return getNotes({ firstNote: tuneKeyId })[shapeSemitoneOffsetFromC % 12].sharpNoteName;
+  }, [tuneKeyId, shapeSemitoneOffsetFromC]);
 
   const options = useMemo(
-    () => getOrderedShapeLocations(currentShapeId, rootNoteName, learned),
-    [currentShapeId, rootNoteName, learned],
+    () => getOrderedShapeLocations(shapeId, rootNoteName, learned),
+    [shapeId, rootNoteName, learned],
   );
 
   const currentIndex = useMemo(() => {
-    if (!currentShapeVariantLocationData) return 0;
+    if (!shapeVariantLocationData) return 0;
     const foundIdx = options.findIndex(
       (opt) =>
-        opt.fretIndex === currentShapeVariantLocationData.fretIndex &&
-        opt.stringId === currentShapeVariantLocationData.stringId &&
-        opt.variantId === currentShapeVariantLocationData.variantId,
+        opt.fretIndex === shapeVariantLocationData.fretIndex &&
+        opt.stringId === shapeVariantLocationData.stringId &&
+        opt.variantId === shapeVariantLocationData.variantId,
     );
     return foundIdx !== -1 ? foundIdx + 1 : 0;
-  }, [currentShapeVariantLocationData, options]);
+  }, [shapeVariantLocationData, options]);
 
   const learnedIndexes = useMemo(
     () => options.map((opt, i) => (opt.isLearned ? i + 1 : null)).filter((v): v is number => v !== null),
     [options],
   );
-  const disabled = !currentShapeId || options.length === 0;
+  const disabled = !shapeId || options.length === 0;
 
   return (
     <S.ShapeExplorerWrapper $isVisible={!isPlaying}>
@@ -52,7 +52,7 @@ export function ShapeExplorerSlider() {
         learnedIndexes={learnedIndexes}
         onValueChange={(v) => {
           const val = v[0];
-          setCurrentShapeVariantLocationData(val === 0 ? null : options[val - 1]);
+          setShapeVariantLocationData(val === 0 ? null : options[val - 1]);
         }}
         disabled={disabled}
       />

@@ -8,24 +8,22 @@ import { useShapeOptions } from "./hooks/useShapeOptions";
 export const NONE_SHAPE_VALUE = "none";
 
 export function ShapeSelect() {
-  const currentRoleId = useControlsStore((state) => state.currentRoleId);
-  const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const currentShapeSemitoneOffsetFromC = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
+  const roleId = useControlsStore((state) => state.roleId);
+  const shapeId = useControlsStore((state) => state.shapeId);
+  const shapeSemitoneOffsetFromC = useControlsStore((state) => state.shapeSemitoneOffsetFromC);
 
   const setShape = useControlsStore((state) => state.setShape);
-  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
+  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
 
   const options = useShapeOptions();
 
-  const showNoneOption = isGlobalRole(currentRoleId);
+  const showNoneOption = isGlobalRole(roleId);
 
   const currentShapeValue =
-    currentShapeId !== null && currentShapeSemitoneOffsetFromC !== null
-      ? `${currentShapeId}|${currentShapeSemitoneOffsetFromC}`
-      : NONE_SHAPE_VALUE;
+    shapeId !== null && shapeSemitoneOffsetFromC !== null ? `${shapeId}|${shapeSemitoneOffsetFromC}` : NONE_SHAPE_VALUE;
 
   const handleValueChange = (value: string) => {
-    setCurrentShapeVariantLocationData(null);
+    setShapeVariantLocationData(null);
     if (value === NONE_SHAPE_VALUE) {
       setShape(null, null);
       return;
@@ -44,7 +42,7 @@ export function ShapeSelect() {
         <SelectContent className="font-semibold">
           {showNoneOption && (
             <SelectItem value={NONE_SHAPE_VALUE}>
-              {currentRoleId === "all-one-instance" ? "All notes" : "All notes matching key"}
+              {roleId === "all-one-instance" ? "All notes" : "All notes matching key"}
             </SelectItem>
           )}
 

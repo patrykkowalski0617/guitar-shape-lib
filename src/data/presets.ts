@@ -15,8 +15,8 @@ export const presets: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: true,
-          currentRoleId: "tonic",
-          currentShapeVariantLocationData: {
+          roleId: "tonic",
+          shapeVariantLocationData: {
             shapeId: "M7",
             stringId: "strE",
             fretIndex: 8,
@@ -24,8 +24,8 @@ export const presets: Preset[] = [
           },
           rootNote: "C",
           shapeLabel: "M7",
-          currentShapeSemitoneOffsetFromC: 0,
-          currentShapeId: "M7",
+          shapeSemitoneOffsetFromC: 0,
+          shapeId: "M7",
         },
       },
       {
@@ -34,8 +34,8 @@ export const presets: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: true,
-          currentRoleId: "subdominant",
-          currentShapeVariantLocationData: {
+          roleId: "subdominant",
+          shapeVariantLocationData: {
             shapeId: "M7",
             stringId: "strA",
             fretIndex: 8,
@@ -45,8 +45,8 @@ export const presets: Preset[] = [
           },
           rootNote: "F",
           shapeLabel: "M7",
-          currentShapeSemitoneOffsetFromC: 5,
-          currentShapeId: "M7",
+          shapeSemitoneOffsetFromC: 5,
+          shapeId: "M7",
         },
       },
       {
@@ -55,8 +55,8 @@ export const presets: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: true,
-          currentRoleId: "dominant",
-          currentShapeVariantLocationData: {
+          roleId: "dominant",
+          shapeVariantLocationData: {
             shapeId: "dominant",
             stringId: "strA",
             fretIndex: 10,
@@ -66,8 +66,8 @@ export const presets: Preset[] = [
           },
           rootNote: "G",
           shapeLabel: "7",
-          currentShapeSemitoneOffsetFromC: 7,
-          currentShapeId: "dominant",
+          shapeSemitoneOffsetFromC: 7,
+          shapeId: "dominant",
         },
       },
     ],
@@ -81,8 +81,8 @@ export const presets: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: false,
-          currentRoleId: "tonic",
-          currentShapeVariantLocationData: {
+          roleId: "tonic",
+          shapeVariantLocationData: {
             shapeId: "m_add9",
             stringId: "strE",
             fretIndex: 5,
@@ -92,8 +92,8 @@ export const presets: Preset[] = [
           },
           rootNote: "A",
           shapeLabel: "m(add9)",
-          currentShapeSemitoneOffsetFromC: 9,
-          currentShapeId: "m_add9",
+          shapeSemitoneOffsetFromC: 9,
+          shapeId: "m_add9",
         },
       },
       {
@@ -102,8 +102,8 @@ export const presets: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: false,
-          currentRoleId: "dominant",
-          currentShapeVariantLocationData: {
+          roleId: "dominant",
+          shapeVariantLocationData: {
             shapeId: "7b9",
             stringId: "strA",
             fretIndex: 7,
@@ -113,8 +113,8 @@ export const presets: Preset[] = [
           },
           rootNote: "E",
           shapeLabel: "7b9",
-          currentShapeSemitoneOffsetFromC: 4,
-          currentShapeId: "7b9",
+          shapeSemitoneOffsetFromC: 4,
+          shapeId: "7b9",
         },
       },
     ],

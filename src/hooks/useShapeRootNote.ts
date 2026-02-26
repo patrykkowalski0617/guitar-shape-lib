@@ -3,16 +3,16 @@ import { UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
 
 export function useShapeRootNote() {
-  const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const currentShapeSemitoneOffsetFromC = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
+  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
+  const shapeSemitoneOffsetFromC = useControlsStore((state) => state.shapeSemitoneOffsetFromC);
 
-  if (currentShapeSemitoneOffsetFromC === null) return null;
+  if (shapeSemitoneOffsetFromC === null) return null;
 
-  const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
+  const isFlatTune = UNIFIED_MUSIC_KEYS[tuneKeyId].isFlatTune;
 
-  const currentKeyNotes = getNotes({ firstNote: currentKeyId }).map(({ sharpNoteName, flatNoteName }) =>
+  const currentKeyNotes = getNotes({ firstNote: tuneKeyId }).map(({ sharpNoteName, flatNoteName }) =>
     isFlatTune ? flatNoteName : sharpNoteName,
   );
 
-  return currentKeyNotes[currentShapeSemitoneOffsetFromC % 12];
+  return currentKeyNotes[shapeSemitoneOffsetFromC % 12];
 }

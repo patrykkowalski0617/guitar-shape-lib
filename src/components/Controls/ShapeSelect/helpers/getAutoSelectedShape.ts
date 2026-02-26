@@ -1,11 +1,11 @@
 import { type RoleId, isGlobalRole, type FunctionalRoleId, DEFAULT_SHAPES_CONFIG, type MusicKeyId } from "@/data";
 import { getFilteredShapeOptions, type ShapeOption } from "./getFilteredShapeOptions";
 
-export const getAutoSelectedShape = (roleId: RoleId | null, isMajorMode: boolean, currentKeyId: MusicKeyId) => {
-  const options: ShapeOption[] = getFilteredShapeOptions(roleId, isMajorMode, currentKeyId);
+export const getAutoSelectedShape = (roleId: RoleId | null, isMajorMode: boolean, tuneKeyId: MusicKeyId) => {
+  const options: ShapeOption[] = getFilteredShapeOptions(roleId, isMajorMode, tuneKeyId);
 
   if (!roleId || isGlobalRole(roleId)) {
-    return { shapeId: null, offset: null };
+    return { shapeId: null, shapeSemitoneOffsetFromC: null };
   }
 
   const configKey =
@@ -17,6 +17,6 @@ export const getAutoSelectedShape = (roleId: RoleId | null, isMajorMode: boolean
 
   return {
     shapeId: finalSelection ? String(finalSelection.shapeId) : null,
-    offset: finalSelection ? finalSelection.offset : null,
+    shapeSemitoneOffsetFromC: finalSelection ? finalSelection.shapeSemitoneOffsetFromC : null,
   };
 };

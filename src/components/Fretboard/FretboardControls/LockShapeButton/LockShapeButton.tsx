@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 export function LockShapeButton() {
-  const setLockedShapeVariantLocationData = useMusicStore((state) => state.setLockedShapeVariantLocationData);
-  const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
-  const lockedShapeVariantLocationData = useMusicStore((state) => state.lockedShapeVariantLocationData);
+  const setShapeVariantLocationData_ghost = useMusicStore((state) => state.setShapeVariantLocationData_ghost);
+  const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
+  const shapeVariantLocationData_ghost = useMusicStore((state) => state.shapeVariantLocationData_ghost);
 
-  const isLocked = lockedShapeVariantLocationData !== null;
-  const isDisabled = currentShapeVariantLocationData === null && !isLocked;
+  const isLocked = shapeVariantLocationData_ghost !== null;
+  const isDisabled = shapeVariantLocationData === null && !isLocked;
 
   const handleToggle = () => {
     if (isDisabled) {
@@ -19,9 +19,9 @@ export function LockShapeButton() {
     }
 
     if (isLocked) {
-      setLockedShapeVariantLocationData(null);
+      setShapeVariantLocationData_ghost(null);
     } else {
-      setLockedShapeVariantLocationData(currentShapeVariantLocationData);
+      setShapeVariantLocationData_ghost(shapeVariantLocationData);
     }
   };
 

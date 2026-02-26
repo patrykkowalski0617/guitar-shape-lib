@@ -5,26 +5,26 @@ import { getFilteredShapeOptions } from "../helpers/getFilteredShapeOptions";
 
 export const useShapeOptions = () => {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
-  const currentRoleId = useControlsStore((state) => state.currentRoleId);
-  const currentKeyId = useControlsStore((state) => state.currentKeyId);
+  const roleId = useControlsStore((state) => state.roleId);
+  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
 
-  const musicKey = UNIFIED_MUSIC_KEYS[currentKeyId];
+  const musicKey = UNIFIED_MUSIC_KEYS[tuneKeyId];
   if (!musicKey) return [];
 
-  const relativeScale = getNotes({ firstNote: currentKeyId as Note, length: 12 });
+  const relativeScale = getNotes({ firstNote: tuneKeyId as Note, length: 12 });
 
-  const rawOptions = getFilteredShapeOptions(currentRoleId, isMajorMode, currentKeyId);
+  const rawOptions = getFilteredShapeOptions(roleId, isMajorMode, tuneKeyId);
 
-  return rawOptions.map(({ shapeId, offset }) => {
+  return rawOptions.map(({ shapeId, shapeSemitoneOffsetFromC }) => {
     const shape = shapes[shapeId as keyof Shapes];
 
-    const noteIndex = ((offset % 12) + 12) % 12;
+    const noteIndex = ((shapeSemitoneOffsetFromC % 12) + 12) % 12;
     const noteObj = relativeScale[noteIndex];
 
     const rootNote = musicKey.isFlatTune ? noteObj.flatNoteName : noteObj.sharpNoteName;
 
     return {
-      value: `${shapeId}|${offset}`,
+      value: `${shapeId}|${shapeSemitoneOffsetFromC}`,
       labelRootNote: rootNote,
       labelShapeName: `${shape.label} ${shape.type}`,
     };

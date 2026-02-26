@@ -12,13 +12,13 @@ vi.mock("@/store", () => ({
 }));
 
 describe("useRandomizeKey()", () => {
-  const setCurrentKeyMock = vi.fn();
+  const setTuneKeyIdMock = vi.fn();
 
   beforeEach(() => {
     vi.clearAllMocks();
 
     (useControlsStore as unknown as ReturnType<typeof vi.fn>).mockImplementation((selector) =>
-      selector({ setCurrentKey: setCurrentKeyMock }),
+      selector({ setTuneKeyId: setTuneKeyIdMock }),
     );
   });
 
@@ -37,7 +37,7 @@ describe("useRandomizeKey()", () => {
 
     expect(randomKey).toBe(expectedKey);
 
-    expect(setCurrentKeyMock).toHaveBeenCalledWith(expectedKey);
+    expect(setTuneKeyIdMock).toHaveBeenCalledWith(expectedKey);
 
     mathSpy.mockRestore();
   });
@@ -56,7 +56,7 @@ describe("useRandomizeKey()", () => {
     const expectedKey = keyIds[keyIds.length - 1];
 
     expect(randomKey).toBe(expectedKey);
-    expect(setCurrentKeyMock).toHaveBeenCalledWith(expectedKey);
+    expect(setTuneKeyIdMock).toHaveBeenCalledWith(expectedKey);
 
     mathSpy.mockRestore();
   });

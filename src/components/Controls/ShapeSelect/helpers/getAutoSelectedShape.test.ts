@@ -5,32 +5,38 @@ import type { RoleId } from "@/data";
 
 describe("getAutoSelectedShape - Deep Coverage", () => {
   describe("Relativity and Key changes", () => {
-    it("should return correct relative offsets for Major Tonic in C and G", () => {
+    it("should return correct relative shapeSemitoneOffsetFromCs for Major Tonic in C and G", () => {
       const resultC = getAutoSelectedShape("tonic", true, "C");
       const resultG = getAutoSelectedShape("tonic", true, "G");
 
-      expect(resultC.offset).toBe(0);
-      expect(resultG.offset).toBe(0);
+      expect(resultC.shapeSemitoneOffsetFromC).toBe(0);
+      expect(resultG.shapeSemitoneOffsetFromC).toBe(0);
       expect(resultC.shapeId).toBe(resultG.shapeId);
     });
 
-    it("should return offset 9 for Minor Tonic in any key (relative VI degree)", () => {
+    it("should return shapeSemitoneOffsetFromC 9 for Minor Tonic in any key (relative VI degree)", () => {
       const resultC = getAutoSelectedShape("tonic", false, "C");
       const resultF = getAutoSelectedShape("tonic", false, "F");
 
-      expect(resultC.offset).toBe(9);
-      expect(resultF.offset).toBe(9);
+      expect(resultC.shapeSemitoneOffsetFromC).toBe(9);
+      expect(resultF.shapeSemitoneOffsetFromC).toBe(9);
     });
   });
 
   describe("Edge Cases & Safety", () => {
     it("should return nulls when roleId is null or undefined", () => {
-      expect(getAutoSelectedShape(null, true, "C")).toEqual({ shapeId: null, offset: null });
+      expect(getAutoSelectedShape(null, true, "C")).toEqual({ shapeId: null, shapeSemitoneOffsetFromC: null });
     });
 
     it("should return nulls for global roles", () => {
-      expect(getAutoSelectedShape("all-one-instance", true, "C")).toEqual({ shapeId: null, offset: null });
-      expect(getAutoSelectedShape("all-matching-key", true, "C")).toEqual({ shapeId: null, offset: null });
+      expect(getAutoSelectedShape("all-one-instance", true, "C")).toEqual({
+        shapeId: null,
+        shapeSemitoneOffsetFromC: null,
+      });
+      expect(getAutoSelectedShape("all-matching-key", true, "C")).toEqual({
+        shapeId: null,
+        shapeSemitoneOffsetFromC: null,
+      });
     });
 
     it("should handle scenario where DEFAULT_SHAPES_CONFIG shape is missing in options", () => {
@@ -39,7 +45,7 @@ describe("getAutoSelectedShape - Deep Coverage", () => {
 
       const result = getAutoSelectedShape("tonic", true, "C");
 
-      expect(result).toEqual({ shapeId: null, offset: null });
+      expect(result).toEqual({ shapeId: null, shapeSemitoneOffsetFromC: null });
 
       spy.mockRestore();
     });
@@ -50,8 +56,8 @@ describe("getAutoSelectedShape - Deep Coverage", () => {
       const majorTonic = getAutoSelectedShape("tonic", true, "C");
       const minorTonic = getAutoSelectedShape("tonic", false, "C");
 
-      expect(majorTonic.offset).toBe(0);
-      expect(minorTonic.offset).toBe(9);
+      expect(majorTonic.shapeSemitoneOffsetFromC).toBe(0);
+      expect(minorTonic.shapeSemitoneOffsetFromC).toBe(9);
     });
   });
 
@@ -61,7 +67,7 @@ describe("getAutoSelectedShape - Deep Coverage", () => {
     roles.forEach((role) => {
       const result = getAutoSelectedShape(role, true, "C");
       expect(result.shapeId).not.toBeNull();
-      expect(typeof result.offset).toBe("number");
+      expect(typeof result.shapeSemitoneOffsetFromC).toBe("number");
     });
   });
 });

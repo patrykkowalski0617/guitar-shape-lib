@@ -6,7 +6,7 @@ import { toast } from "sonner";
 
 export function AddToList() {
   const { learned, toggleLearned } = useProgressStore();
-  const currentLocation = useMusicStore((state) => state.currentShapeVariantLocationData);
+  const currentLocation = useMusicStore((state) => state.shapeVariantLocationData);
 
   const currentId = currentLocation
     ? `${currentLocation.shapeId}-${currentLocation.stringId}-${currentLocation.variantId}`

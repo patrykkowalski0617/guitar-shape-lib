@@ -14,24 +14,24 @@ interface Props {
 
 export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
   const { learned, toggleLearned } = useProgressStore();
-  const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const { currentShapeVariantLocationData, setCurrentShapeVariantLocationData } = useMusicStore();
+  const shapeId = useControlsStore((state) => state.shapeId);
+  const { shapeVariantLocationData, setShapeVariantLocationData } = useMusicStore();
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   const stringId = STRING_ID_MAP[stringIndex];
-  const currentShape = currentShapeId ? shapes[currentShapeId] : null;
+  const currentShape = shapeId ? shapes[shapeId] : null;
   const allVariants =
     currentShape?.fretboardCoordinatesVariants?.[stringId as keyof typeof currentShape.fretboardCoordinatesVariants];
 
-  if (!allVariants || !currentShapeId) return null;
+  if (!allVariants || !shapeId) return null;
 
   const validVariants = getValidVariants(fretIndex, allVariants as StringVariants);
 
   if (validVariants.length === 0) return null;
 
-  const activeVariantId = currentShapeVariantLocationData?.variantId;
+  const activeVariantId = shapeVariantLocationData?.variantId;
   const isCorrectLocation =
-    currentShapeVariantLocationData?.fretIndex === fretIndex && currentShapeVariantLocationData?.stringId === stringId;
+    shapeVariantLocationData?.fretIndex === fretIndex && shapeVariantLocationData?.stringId === stringId;
 
   const handleToggleLearned = (dotId: string) => {
     const isAdding = !learned.includes(dotId);
@@ -42,13 +42,13 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
   const onValueChange = (newVariantId: VariantId) => {
     if (!newVariantId) {
       if (activeVariantId && isCorrectLocation) {
-        handleToggleLearned(`${currentShapeId}-${stringId}-${activeVariantId}`);
+        handleToggleLearned(`${shapeId}-${stringId}-${activeVariantId}`);
       }
       return;
     }
 
-    setCurrentShapeVariantLocationData({
-      shapeId: currentShapeId,
+    setShapeVariantLocationData({
+      shapeId: shapeId,
       stringId,
       fretIndex,
       variantId: newVariantId,
@@ -67,7 +67,7 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
         }}
       >
         {validVariants.map(([variantId], i) => {
-          const dotId = `${currentShapeId}-${stringId}-${variantId}`;
+          const dotId = `${shapeId}-${stringId}-${variantId}`;
           const isActive = activeVariantId === variantId && isCorrectLocation;
           const isLearned = learned.includes(dotId);
 

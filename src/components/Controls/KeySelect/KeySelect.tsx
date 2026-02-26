@@ -6,10 +6,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ControlWrapper } from "../parts";
 
 export function KeySelect() {
-  const currentKeyId = useControlsStore((state) => state.currentKeyId);
+  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
-  const setCurrentKey = useControlsStore((state) => state.setCurrentKey);
-  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
+  const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
+  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
 
   const keyOptions = Object.entries(UNIFIED_MUSIC_KEYS).map(([id, data]) => ({
     value: id,
@@ -19,8 +19,8 @@ export function KeySelect() {
   }));
 
   const handleValueChange = (value: string) => {
-    setCurrentKey(value as MusicKeyId);
-    setCurrentShapeVariantLocationData(null);
+    setTuneKeyId(value as MusicKeyId);
+    setShapeVariantLocationData(null);
   };
 
   return (
@@ -28,7 +28,7 @@ export function KeySelect() {
       <ControlLabel>Key/Root Note</ControlLabel>
 
       <div className="hidden sm:block md:min-w-[200px]">
-        <SelectPrevNext value={currentKeyId} onValueChange={handleValueChange} options={keyOptions}>
+        <SelectPrevNext value={tuneKeyId} onValueChange={handleValueChange} options={keyOptions}>
           {keyOptions.map((opt) => (
             <SelectItem key={opt.value} value={opt.value}>
               <span className={isMajorMode ? "opacity-100" : "opacity-50"}>{opt.majorName}</span>
@@ -40,7 +40,7 @@ export function KeySelect() {
       </div>
 
       <div className="sm:hidden">
-        <Select value={currentKeyId} onValueChange={handleValueChange}>
+        <Select value={tuneKeyId} onValueChange={handleValueChange}>
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>

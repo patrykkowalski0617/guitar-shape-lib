@@ -15,12 +15,12 @@ import { presets } from "@/data/presets";
 export function PresetsList() {
   const [open, setOpen] = useState(false);
   const setBricks = usePlayerStore((state) => state.setBricks);
-  const setCurrentKey = useControlsStore((state) => state.setCurrentKey);
+  const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
-  const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);
+  const setRoleId = useControlsStore((state) => state.setRoleId);
   const setShape = useControlsStore((state) => state.setShape);
-  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
-  const setLockedShapeVariantLocationData = useMusicStore((state) => state.setLockedShapeVariantLocationData);
+  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
+  const setShapeVariantLocationData_ghost = useMusicStore((state) => state.setShapeVariantLocationData_ghost);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   const handleSelect = (bricks: Brick[]) => {
@@ -30,15 +30,15 @@ export function PresetsList() {
 
     const keyId = bricks[0].snapshot.keyId;
     const isMajorMode = bricks[0].snapshot.isMajorMode;
-    const currentRoleId = bricks[0].snapshot.currentRoleId;
-    const currentShapeSemitoneOffsetFromC = bricks[0].snapshot.currentShapeSemitoneOffsetFromC;
-    const currentShapeId = bricks[0].snapshot.currentShapeId;
-    setCurrentKey(keyId);
+    const roleId = bricks[0].snapshot.roleId;
+    const shapeSemitoneOffsetFromC = bricks[0].snapshot.shapeSemitoneOffsetFromC;
+    const shapeId = bricks[0].snapshot.shapeId;
+    setTuneKeyId(keyId);
     setIsMajorMode(isMajorMode);
-    setCurrentRoleId(currentRoleId);
-    setShape(currentShapeId, currentShapeSemitoneOffsetFromC);
-    setCurrentShapeVariantLocationData(null);
-    setLockedShapeVariantLocationData(null);
+    setRoleId(roleId);
+    setShape(shapeId, shapeSemitoneOffsetFromC);
+    setShapeVariantLocationData(null);
+    setShapeVariantLocationData_ghost(null);
 
     setOpen(false);
   };

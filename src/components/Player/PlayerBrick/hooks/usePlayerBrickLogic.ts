@@ -14,7 +14,7 @@ interface UsePlayerBrickLogicProps {
 export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthChange }: UsePlayerBrickLogicProps) => {
   const { id, width } = brick;
 
-  const setLockedShapeVariantLocationData = useMusicStore((state) => state.setLockedShapeVariantLocationData);
+  const setShapeVariantLocationData_ghost = useMusicStore((state) => state.setShapeVariantLocationData_ghost);
   const currentStep = usePlayerStore((state) => state.currentStep);
   const bricks = usePlayerStore((state) => state.bricks);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -62,7 +62,7 @@ export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthCh
 
     const isLongBrick = width > 1;
     if (isLongBrick) {
-      setLockedShapeVariantLocationData(null);
+      setShapeVariantLocationData_ghost(null);
     }
   };
 
@@ -74,7 +74,7 @@ export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthCh
     const isLastStepOfActiveBrick = currentStep - stepStartOfActive + 1 === currentActiveBrick.width;
 
     if (isLastStepOfActiveBrick) {
-      setLockedShapeVariantLocationData(lockedSnapshot.currentShapeVariantLocationData);
+      setShapeVariantLocationData_ghost(lockedSnapshot.shapeVariantLocationData);
     }
   };
 
@@ -83,7 +83,7 @@ export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthCh
     applySnapshotToStore,
     lockedSnapshot,
     width,
-    setLockedShapeVariantLocationData,
+    setShapeVariantLocationData_ghost,
   ]);
 
   useEffect(syncNextBrickPreview, [
@@ -91,11 +91,11 @@ export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthCh
     currentStep,
     activeBrickIndex,
     bricks,
-    lockedSnapshot.currentShapeVariantLocationData,
-    setLockedShapeVariantLocationData,
+    lockedSnapshot.shapeVariantLocationData,
+    setShapeVariantLocationData_ghost,
   ]);
 
-  const hasData = displayData.currentShapeVariantLocationData !== null;
+  const hasData = displayData.shapeVariantLocationData !== null;
   const label = isResizing ? width : hasData ? `${displayData.rootNote} ${displayData.shapeLabel}` : "Empty";
 
   return {

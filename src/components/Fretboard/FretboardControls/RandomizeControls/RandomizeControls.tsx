@@ -19,13 +19,13 @@ export function RandomizeControls() {
     const randomKey = setRandomKey();
     const randomRole = setRandomRole();
 
-    const { shapeId, offset } = setRandomShape(randomRole, randomIsMajorMode);
+    const { shapeId, shapeSemitoneOffsetFromC } = setRandomShape(randomRole, randomIsMajorMode);
 
-    if (shapeId === null || offset === null) {
+    if (shapeId === null || shapeSemitoneOffsetFromC === null) {
       return;
     }
 
-    setRandomShapeVariant(randomKey, offset, shapeId);
+    setRandomShapeVariant(randomKey, shapeSemitoneOffsetFromC, shapeId);
   };
 
   return (

@@ -4,15 +4,15 @@ import { useShapeNotes } from "../FretCell/hooks";
 import { getTheLowestFret } from "./getTheLowestFret";
 
 export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null>) => {
-  const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
+  const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
 
-  const notes = useShapeNotes(currentShapeVariantLocationData);
+  const notes = useShapeNotes(shapeVariantLocationData);
   const rawLowestFret = getTheLowestFret(notes);
   const theLowestFret = rawLowestFret === -1 ? 0 : rawLowestFret;
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || !currentShapeVariantLocationData) return;
+    if (!container || !shapeVariantLocationData) return;
 
     const timer = setTimeout(() => {
       if (theLowestFret === 0) {
@@ -33,5 +33,5 @@ export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [containerRef, currentShapeVariantLocationData, theLowestFret]);
+  }, [containerRef, shapeVariantLocationData, theLowestFret]);
 };

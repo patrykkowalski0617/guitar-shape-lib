@@ -12,7 +12,7 @@ vi.mock("@/store", () => ({
 }));
 
 describe("useRandomizeRole()", () => {
-  const setCurrentRoleIdMock = vi.fn();
+  const setRoleIdMock = vi.fn();
 
   const functionalRoles = (Object.keys(roles) as RoleId[]).filter((id) => !isGlobalRole(id));
 
@@ -20,7 +20,7 @@ describe("useRandomizeRole()", () => {
     vi.clearAllMocks();
 
     (useControlsStore as unknown as ReturnType<typeof vi.fn>).mockImplementation((selector) =>
-      selector({ setCurrentRoleId: setCurrentRoleIdMock }),
+      selector({ setRoleId: setRoleIdMock }),
     );
   });
 
@@ -37,7 +37,7 @@ describe("useRandomizeRole()", () => {
     const expectedRole = functionalRoles[0];
 
     expect(randomRole! as unknown as RoleId).toBe(expectedRole);
-    expect(setCurrentRoleIdMock).toHaveBeenCalledWith(expectedRole);
+    expect(setRoleIdMock).toHaveBeenCalledWith(expectedRole);
     expect(isGlobalRole(randomRole! as unknown as RoleId)).toBe(false);
 
     mathSpy.mockRestore();
@@ -56,7 +56,7 @@ describe("useRandomizeRole()", () => {
     const expectedRole = functionalRoles[functionalRoles.length - 1];
 
     expect(randomRole! as unknown as RoleId).toBe(expectedRole);
-    expect(setCurrentRoleIdMock).toHaveBeenCalledWith(expectedRole);
+    expect(setRoleIdMock).toHaveBeenCalledWith(expectedRole);
     expect(isGlobalRole(randomRole! as unknown as RoleId)).toBe(false);
 
     mathSpy.mockRestore();

@@ -12,18 +12,18 @@ interface PianoKeyProps {
 
 const PianoKey = ({ note }: PianoKeyProps) => {
   const { activeNoteId, setActiveNoteId } = useMusicStore();
-  const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const currentRoleId = useControlsStore((state) => state.currentRoleId);
+  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
+  const shapeId = useControlsStore((state) => state.shapeId);
+  const roleId = useControlsStore((state) => state.roleId);
 
-  const isFlatTune = UNIFIED_MUSIC_KEYS[currentKeyId].isFlatTune;
+  const isFlatTune = UNIFIED_MUSIC_KEYS[tuneKeyId].isFlatTune;
   const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
   const isWhitePianoKey = majorScale.includes(noteOctaveIndex);
   const pianoKeyShape = SHAPES_OF_WHITE_PIANO_KEYS[noteOctaveIndex];
 
   const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
-  const isRoleActive = currentRoleId && !isGlobalRole(currentRoleId);
+  const isRoleActive = roleId && !isGlobalRole(roleId);
 
   const isScrollTarget =
     (!isRoleActive && currentScaleNoteIds.includes(note.noteId)) ||
@@ -37,7 +37,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
   return (
     <S.Key
       $isRoleSelected={!!isRoleActive}
-      $isShapeSelected={!!currentShapeId}
+      $isShapeSelected={!!shapeId}
       $isShapeNote={isShapeNote}
       $isActiveNote={isActiveNote}
       $isWhitePianoKey={isWhitePianoKey}

@@ -6,11 +6,11 @@ export const isShapeNote = (coords: [number, number], notesInSapeCoordinates: nu
   return notesInSapeCoordinates.some(([shapeS, shapeF]) => shapeS === stringIndex && shapeF === fretIndex);
 };
 
-export const useShapeNotes = (currentShapeVariantLocationData: ShapeVariantLocationData | null) => {
-  const { shapeId, stringId, fretIndex, variantId } = currentShapeVariantLocationData || {};
+export const useShapeNotes = (shapeVariantLocationData: ShapeVariantLocationData | null) => {
+  const { shapeId, stringId, fretIndex, variantId } = shapeVariantLocationData || {};
   const shapeData = shapeId ? shapes[shapeId] : null;
 
-  if (!shapeData || currentShapeVariantLocationData === null) return [];
+  if (!shapeData || shapeVariantLocationData === null) return [];
 
   const { fretboardCoordinatesVariants } = shapeData;
   if (!stringId || fretIndex === undefined || !variantId) return [];

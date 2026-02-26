@@ -7,23 +7,23 @@ import type { RoleId } from "@/data";
 
 export const useRandomizeShape = () => {
   const setShape = useControlsStore((state) => state.setShape);
-  const currentKeyId = useControlsStore((state) => state.currentKeyId);
+  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
 
   const setRandomShape = (randomRole: RoleId, randomIsMajorMode: boolean) => {
-    const shapeOptions: ShapeOption[] = getFilteredShapeOptions(randomRole, randomIsMajorMode, currentKeyId);
+    const shapeOptions: ShapeOption[] = getFilteredShapeOptions(randomRole, randomIsMajorMode, tuneKeyId);
 
     if (shapeOptions.length === 0) {
       console.warn(`[RANDOMIZE] No options found for role: ${randomRole}`);
-      return { shapeId: null, offset: null };
+      return { shapeId: null, shapeSemitoneOffsetFromC: null };
     }
 
     const randomOption = shapeOptions[Math.floor(Math.random() * shapeOptions.length)];
     const shapeId = String(randomOption.shapeId);
-    const offset = randomOption.offset;
+    const shapeSemitoneOffsetFromC = randomOption.shapeSemitoneOffsetFromC;
 
-    setShape(shapeId, offset);
+    setShape(shapeId, shapeSemitoneOffsetFromC);
 
-    return { shapeId, offset };
+    return { shapeId, shapeSemitoneOffsetFromC };
   };
 
   return setRandomShape;
