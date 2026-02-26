@@ -1,19 +1,15 @@
 import { FooterAndHeaderStyles } from "@/parts";
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-export const HeaderWrapper = styled.header<{ $isHidden: boolean }>`
+export const HeaderWrapper = styled.header<{ $isFullscreen: boolean; $isPianoVisable: boolean }>`
   ${FooterAndHeaderStyles}
+
+  height: 77px;
+  max-height: 77px;
+
   @media (min-width: 1600px) {
     border-radius: 0 0 var(--radius-xl) var(--radius-xl);
   }
-  max-height: 77px;
-  height: 77px;
-  ${({ $isHidden }) =>
-    $isHidden &&
-    css`
-      max-height: 0;
-      opacity: 0;
-    `}
 `;
 
 export const HeaderContent = styled.div`

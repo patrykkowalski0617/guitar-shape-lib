@@ -60,12 +60,9 @@ export const TutorialStickyIcons = styled.div`
   z-index: 40;
 `;
 
-export const FooterAndHeaderStyles = css`
+export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisable: boolean }>`
   background-color: color-mix(in oklab, var(--accent) 50%, transparent);
   max-width: unset;
-  @media (min-width: 1600px) {
-    max-width: 1500px;
-  }
   margin: 0 auto;
   width: 100%;
   display: flex;
@@ -73,8 +70,29 @@ export const FooterAndHeaderStyles = css`
   justify-content: center;
   overflow: hidden;
   transition:
-    max-height ${transitionTime}ms 1000ms ease-in-out,
-    opacity ${transitionTime}ms 1000ms ease-in-out;
+    max-height ${transitionTime}ms 500ms ease-in-out,
+    opacity ${transitionTime}ms 500ms ease-in-out;
+
+  @media (min-width: 1600px) {
+    max-width: 1500px;
+  }
+
+  @media (min-width: 768px) {
+    ${({ $isFullscreen }) =>
+      $isFullscreen &&
+      css`
+        max-height: 0;
+        opacity: 0;
+      `}
+  }
+
+  ${({ $isFullscreen, $isPianoVisable }) =>
+    $isFullscreen &&
+    $isPianoVisable &&
+    css`
+      max-height: 0;
+      opacity: 0;
+    `}
 `;
 
 export const ControlWrapper = styled.div`
