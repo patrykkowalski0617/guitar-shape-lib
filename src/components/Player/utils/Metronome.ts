@@ -1,6 +1,7 @@
 interface Window {
   webkitAudioContext?: typeof AudioContext;
 }
+
 export class Metronome {
   private audioContext: AudioContext | null = null;
   private nextTickTime: number = 0;
@@ -8,6 +9,7 @@ export class Metronome {
   private scheduleAheadTime = 0.1;
 
   private bpm: number = 120;
+  private volume: number = 2.5;
   private onTick: () => void;
 
   constructor(onTick: () => void) {
@@ -25,6 +27,7 @@ export class Metronome {
     if (!this.audioContext) return;
 
     const mainGain = this.audioContext.createGain();
+    mainGain.gain.setValueAtTime(this.volume, time);
 
     const osc = this.audioContext.createOscillator();
     const oscGain = this.audioContext.createGain();
@@ -113,6 +116,10 @@ export class Metronome {
 
   public updateBpm(newBpm: number) {
     this.bpm = newBpm;
+  }
+
+  public updateVolume(newVolume: number) {
+    this.volume = newVolume;
   }
 
   public replaceCallback(newCallback: () => void) {
