@@ -20,7 +20,7 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
 
   const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } = usePlayerBricksDrag();
 
-  console.log(bricks);
+  // console.log(bricks);
 
   return (
     <S.PlayerWrapper $isPlaying={isPlaying}>

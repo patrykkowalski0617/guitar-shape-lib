@@ -20,6 +20,7 @@ const Tick = styled.div<{ $isCurrent: boolean; $isLearned: boolean }>`
     if ($isLearned) return "0 0 8px var(--accent)";
     return "none";
   }};
+
   transition: all 0.05s ease-in-out;
   z-index: ${({ $isCurrent }) => ($isCurrent ? "10" : "")};
 `;
@@ -28,7 +29,7 @@ interface DiscreteSliderProps extends React.ComponentProps<typeof SliderPrimitiv
   learnedIndexes?: number[];
 }
 
-function DiscreteSlider({
+function StepSlider({
   className,
   value,
   min = 0,
@@ -82,4 +83,4 @@ function DiscreteSlider({
   );
 }
 
-export { DiscreteSlider };
+export { StepSlider };

@@ -1,9 +1,8 @@
-import { useMemo } from "react";
 import { useControlsStore, useMusicStore, useProgressStore, usePlayerStore } from "@/store";
 import { getNotes } from "@/utils";
 import { getOrderedShapeLocations } from "./helpers/getOrderedShapeLocations";
-import { DiscreteSlider } from "@/components/ui/DiscreteSlider";
 import * as S from "./parts";
+import { StepSlider } from "@/components/ui/StepSlider";
 
 export function ShapeExplorerSlider() {
   const shapeId = useControlsStore((state) => state.shapeId);
@@ -15,36 +14,31 @@ export function ShapeExplorerSlider() {
   const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
   const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
 
-  const rootNoteName = useMemo(() => {
-    if (shapeSemitoneOffsetFromC === null) return null;
-    return getNotes({ firstNote: tuneKeyId })[shapeSemitoneOffsetFromC % 12].sharpNoteName;
-  }, [tuneKeyId, shapeSemitoneOffsetFromC]);
+  const rootNoteName =
+    shapeSemitoneOffsetFromC !== null
+      ? getNotes({ firstNote: tuneKeyId })[shapeSemitoneOffsetFromC % 12].sharpNoteName
+      : null;
 
-  const options = useMemo(
-    () => getOrderedShapeLocations(shapeId, rootNoteName, learned),
-    [shapeId, rootNoteName, learned],
-  );
+  const options = getOrderedShapeLocations(shapeId, rootNoteName, learned);
 
-  const currentIndex = useMemo(() => {
-    if (!shapeVariantLocationData) return 0;
-    const foundIdx = options.findIndex(
-      (opt) =>
-        opt.fretIndex === shapeVariantLocationData.fretIndex &&
-        opt.stringId === shapeVariantLocationData.stringId &&
-        opt.variantId === shapeVariantLocationData.variantId,
-    );
-    return foundIdx !== -1 ? foundIdx + 1 : 0;
-  }, [shapeVariantLocationData, options]);
+  const foundIdx = shapeVariantLocationData
+    ? options.findIndex(
+        (opt) =>
+          opt.fretIndex === shapeVariantLocationData.fretIndex &&
+          opt.stringId === shapeVariantLocationData.stringId &&
+          opt.variantId === shapeVariantLocationData.variantId,
+      )
+    : -1;
 
-  const learnedIndexes = useMemo(
-    () => options.map((opt, i) => (opt.isLearned ? i + 1 : null)).filter((v): v is number => v !== null),
-    [options],
-  );
+  const currentIndex = foundIdx !== -1 ? foundIdx + 1 : 0;
+
+  const learnedIndexes = options.map((opt, i) => (opt.isLearned ? i + 1 : null)).filter((v): v is number => v !== null);
+
   const disabled = !shapeId || options.length === 0;
 
   return (
     <S.ShapeExplorerWrapper $isVisible={!isPlaying}>
-      <DiscreteSlider
+      <StepSlider
         key={disabled ? "disabled" : "enabled"}
         value={disabled ? [0] : [currentIndex]}
         max={options.length}
