@@ -5,6 +5,7 @@ import PlayerBrick from "../PlayerBrick/PlayerBrick";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { usePlayerBricksDrag } from "./hooks/usePlayerBricksDrag";
+import { DashedButton, OutlineButton, SolidButton } from "../ui/parts";
 
 interface Props {
   onCloseEdit: () => void;
@@ -23,6 +24,7 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
 
   const scrollRef = useRef<HTMLDivElement>(null);
   useHorizontalScroll(scrollRef);
+  console.log(bricks);
 
   return (
     <S.PlayerScrollWrapper ref={scrollRef} $isPlaying={isPlaying}>
@@ -51,19 +53,19 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
         })}
 
         {!isPlaying && (
-          <S.AddBrickButton onClick={onAdd}>
+          <DashedButton onClick={onAdd}>
             <Plus size={16} />
-          </S.AddBrickButton>
+          </DashedButton>
         )}
 
         {activeBrickId !== null && (
           <>
-            <S.DeleteButton onClick={() => removeBrick(activeBrickId)}>
+            <OutlineButton $isPrimary onClick={() => removeBrick(activeBrickId)}>
               <Trash2 size={14} />
-            </S.DeleteButton>
-            <S.CheckButton onClick={onCloseEdit}>
+            </OutlineButton>
+            <SolidButton onClick={onCloseEdit}>
               <Check size={16} />
-            </S.CheckButton>
+            </SolidButton>
           </>
         )}
       </S.PlayerRow>

@@ -29,6 +29,7 @@ interface PlayerState {
   nextStep: () => void;
   getTotalSteps: () => number;
   reorderBricks: (startIndex: number, endIndex: number) => void;
+  setBricks: (bricks: Brick[]) => void;
 }
 
 export const usePlayerStore = create<PlayerState>((set, get) => ({
@@ -66,7 +67,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     })),
 
   setActiveBrickId: (id) => set({ activeBrickId: id }),
-  setBpm: (bpm) => set({ bpm: Math.max(20, Math.min(360, bpm)) }),
+  setBpm: (bpm) => set({ bpm: Math.max(30, Math.min(220, bpm)) }),
 
   togglePlay: () => {
     const { isPlaying } = get();
@@ -118,4 +119,5 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
       return { bricks: newBricks };
     });
   },
+  setBricks: (bricks) => set({ bricks }),
 }));

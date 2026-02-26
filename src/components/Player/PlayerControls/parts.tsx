@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import { instrumentElBRadius } from "@/parts";
+import { SolidButton } from "../ui/parts";
 
 const pulse = keyframes`
   0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 80%, transparent); }
@@ -7,23 +8,7 @@ const pulse = keyframes`
   100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 0%, transparent); }
 `;
 
-export const PlayButton = styled.button<{ $isPlaying?: boolean; $bpm?: number }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: ${instrumentElBRadius};
-  height: 100%;
-  width: 30px;
-  color: var(--primary-foreground);
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  flex-shrink: 0;
-  background-color: color-mix(in oklab, var(--accent) 70%, var(--background));
-  &:hover {
-    background-color: color-mix(in oklab, var(--accent) 90%, var(--background));
-  }
-
+export const PlayButton = styled(SolidButton)<{ $isPlaying?: boolean; $bpm?: number }>`
   ${({ $isPlaying, $bpm }) =>
     $isPlaying &&
     $bpm &&
@@ -41,7 +26,7 @@ export const BpmInput = styled.input`
   border-radius: ${instrumentElBRadius};
   color: var(--foreground);
   height: 100%;
-  width: 50px;
+  width: 30px;
   text-align: center;
   font-size: 12px;
   font-weight: 600;

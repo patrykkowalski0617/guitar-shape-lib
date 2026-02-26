@@ -1,11 +1,15 @@
+import { PresetsList } from "@/components/Presets/PresetsList/PresetsList";
 import { BpmInput } from "./BpmInput";
 import { PlayButton } from "./PlayButton";
+import { CleanButton } from "./CleanButton";
 
 export const PlayerControls = ({ onCloseEdit }: { onCloseEdit: () => void }) => {
   return (
     <>
-      <PlayButton onCloseEdit={onCloseEdit} />
+      <CleanButton />
+      <PresetsList />
       <BpmInput />
+      <PlayButton onCloseEdit={onCloseEdit} />
     </>
   );
 };

@@ -14,13 +14,22 @@ export function AddToList() {
 
   const isFavorite = !!(currentId && learned.includes(currentId));
 
+  const MESSAGES = {
+    SELECT_PROMPT: "Please select a scale or arpeggio first.",
+    ADDED: "Added to your collection.",
+    REMOVED: "Removed from your collection.",
+  };
+
   const handleToggle = () => {
-    if (currentId) {
-      toggleLearned(currentId);
-      toast(!isFavorite ? "Added to favorites/learned." : "Removed from favorites/learned.");
-    } else {
-      toast("Select Arpeggio/Scale and its Variant on fretboard first.");
+    if (!currentId) {
+      toast(MESSAGES.SELECT_PROMPT);
+      return;
     }
+
+    toggleLearned(currentId);
+
+    const notification = isFavorite ? MESSAGES.REMOVED : MESSAGES.ADDED;
+    toast(notification);
   };
 
   return (
