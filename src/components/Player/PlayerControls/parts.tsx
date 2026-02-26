@@ -49,6 +49,10 @@ export const BpmButton = styled.button`
   padding: 0;
   appearance: none;
   border-style: solid;
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;
 
 export const BpmInput = styled.input`
