@@ -1,6 +1,8 @@
 import { instrumentElBRadius } from "@/parts";
 import styled from "styled-components";
 
+export const PlayerElementHeight = "22px";
+
 export const PlayerContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,7 +19,6 @@ export const PlayerSection = styled.div`
   background-color: color-mix(in oklab, var(--muted) 30%, transparent);
   border-radius: ${instrumentElBRadius};
   padding: 6px 12px;
-  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;

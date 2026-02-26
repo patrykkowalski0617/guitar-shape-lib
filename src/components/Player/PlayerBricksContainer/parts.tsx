@@ -5,7 +5,6 @@ interface WrapperProps {
 }
 
 export const BrickDragWrapper = styled.div`
-  height: 100%;
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -22,7 +21,6 @@ export const BrickDragWrapper = styled.div`
 export const PlayerScrollWrapper = styled.div<WrapperProps>`
   overflow-x: auto;
   align-items: center;
-  height: 100%;
   pointer-events: ${(props) => (props.$isPlaying ? "none" : "auto")};
 
   &::-webkit-scrollbar {
@@ -36,7 +34,6 @@ export const PlayerRow = styled.div`
   display: flex;
   gap: 8px;
   align-items: center;
-  height: 100%;
   margin-left: auto;
   margin-right: auto;
   flex-shrink: 0;

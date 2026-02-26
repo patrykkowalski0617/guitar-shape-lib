@@ -1,5 +1,6 @@
 import { instrumentElBRadius } from "@/parts";
 import styled, { css, keyframes } from "styled-components";
+import { PlayerElementHeight } from "../parts";
 
 const flash = keyframes`
   0% { background-color: color-mix(in oklab, var(--accent) 20%, var(--background)); }
@@ -39,7 +40,6 @@ export const Part = styled.div<{ $unit: number; $isActive: boolean }>`
 `;
 
 export const BrickOptions = styled.div<{ $isEditable: boolean }>`
-  height: 100%;
   border-radius: ${instrumentElBRadius};
   transition: all 0.1s ease;
   display: none;
@@ -58,7 +58,7 @@ export const Brick = styled.div<{ $isEditable: boolean; $widthUnit: number; $uni
   align-items: center;
   justify-content: center;
   width: ${({ $widthUnit, $unit }) => $widthUnit * $unit}px;
-  height: 100%;
+  height: ${PlayerElementHeight};
   padding: 0 4px;
   border-radius: ${instrumentElBRadius};
   position: relative;

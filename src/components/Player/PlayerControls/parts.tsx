@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import { instrumentElBRadius } from "@/parts";
 import { SolidButton } from "../ui/parts";
+import { PlayerElementHeight } from "../parts";
 
 const pulse = keyframes`
   0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 80%, transparent); }
@@ -25,7 +26,7 @@ export const BpmInput = styled.input`
   border: 1px solid var(--border);
   border-radius: ${instrumentElBRadius};
   color: var(--foreground);
-  height: 100%;
+  height: ${PlayerElementHeight};
   width: 30px;
   text-align: center;
   font-size: 12px;

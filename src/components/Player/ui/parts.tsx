@@ -1,12 +1,13 @@
 import { instrumentElBRadius } from "@/parts";
 import styled from "styled-components";
+import { PlayerElementHeight } from "../parts";
 
 export const BasePlayerButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: ${instrumentElBRadius};
-  height: 100%;
+  height: ${PlayerElementHeight};
   width: 30px;
   color: var(--primary-foreground);
   border: none;
