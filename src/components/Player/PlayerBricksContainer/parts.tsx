@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-interface WrapperProps {
-  $isPlaying: boolean;
-}
-
 export const BrickDragWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -18,24 +14,20 @@ export const BrickDragWrapper = styled.div`
   }
 `;
 
-export const PlayerScrollWrapper = styled.div<WrapperProps>`
-  overflow-x: auto;
-  align-items: center;
+export const PlayerWrapper = styled.div<{
+  $isPlaying: boolean;
+}>`
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
   pointer-events: ${(props) => (props.$isPlaying ? "none" : "auto")};
-
   &::-webkit-scrollbar {
     display: none;
   }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 `;
 
-export const PlayerRow = styled.div`
+export const ControlsWrapper = styled.div`
   display: flex;
   gap: 8px;
-  align-items: center;
-  margin-left: auto;
-  margin-right: auto;
-  flex-shrink: 0;
-  width: max-content;
 `;
