@@ -1,18 +1,24 @@
-import { useMusicStore } from "@/store";
+import { useMusicStore, usePlayerStore } from "@/store";
 import { useEffect, type RefObject } from "react";
 import { useShapeNotes } from "../FretboardCell/hooks";
-import { getTheLowestFret } from "../helpers/getTheLowestFret";
+import { getShapeFretRange } from "../helpers/getShapeFretRange";
 
 export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null>) => {
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
   const shapeVariantLocationData_ghost = useMusicStore((state) => state.shapeVariantLocationData_ghost);
+  const shapeVariantLocationData_regular = useMusicStore((state) => state.shapeVariantLocationData);
 
-  const notes = useShapeNotes(shapeVariantLocationData_ghost);
-  const rawLowestFret = getTheLowestFret(notes);
-  const theLowestFret = rawLowestFret === -1 ? 0 : rawLowestFret;
+  const shapeVariantLocationData = isPlaying ? shapeVariantLocationData_ghost : shapeVariantLocationData_regular;
+
+  const notes = useShapeNotes(shapeVariantLocationData);
+  const { min, max } = getShapeFretRange(notes);
+
+  const theLowestFret = min === -1 ? 0 : min;
+  const theHighestFret = max === -1 ? 0 : max;
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || !shapeVariantLocationData_ghost) return;
+    if (!container || !shapeVariantLocationData) return;
 
     const timer = setTimeout(() => {
       if (theLowestFret === 0) {
@@ -20,18 +26,24 @@ export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null
         return;
       }
 
-      const targetCell = container.querySelector(`[data-fret="${theLowestFret}"]`) as HTMLElement;
+      const lowestCell = container.querySelector(`[data-fret="${theLowestFret}"]`) as HTMLElement;
+      const highestCell = container.querySelector(`[data-fret="${theHighestFret}"]`) as HTMLElement;
 
-      if (targetCell) {
+      if (lowestCell && highestCell) {
         const containerRect = container.getBoundingClientRect();
-        const elementRect = targetCell.getBoundingClientRect();
+        const lowestRect = lowestCell.getBoundingClientRect();
+        const highestRect = highestCell.getBoundingClientRect();
 
-        const targetScrollLeft = container.scrollLeft + (elementRect.left - containerRect.left) - 60;
+        const isLowestVisible = lowestRect.left >= containerRect.left;
+        const isHighestVisible = highestRect.right <= containerRect.right;
 
+        if (isLowestVisible && isHighestVisible) return;
+
+        const targetScrollLeft = container.scrollLeft + (lowestRect.left - containerRect.left) - 60;
         container.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
       }
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [containerRef, shapeVariantLocationData_ghost, theLowestFret]);
+  }, [containerRef, shapeVariantLocationData, theLowestFret, theHighestFret]);
 };
