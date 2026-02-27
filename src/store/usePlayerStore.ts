@@ -74,12 +74,12 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   setBpmMultiplier: (bpmMultiplier) => set({ bpmMultiplier }),
 
   togglePlay: () => {
-    const { isPlaying } = get();
+    const { isPlaying, bpm } = get();
     if (!isPlaying) {
       set({
         isPlaying: true,
         isCountingIn: true,
-        countIn: 4,
+        countIn: bpm <= 100 ? 4 : 8,
         currentStep: 0,
         transitionTime: 0,
       });
