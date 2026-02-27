@@ -72,6 +72,7 @@ export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisab
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  flex-shrink: 0;
   transition:
     max-height ${transitionTime}ms 500ms ease-in-out,
     opacity ${transitionTime}ms 500ms ease-in-out;
