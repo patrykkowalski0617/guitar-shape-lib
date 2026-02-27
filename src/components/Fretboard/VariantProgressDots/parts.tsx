@@ -23,7 +23,7 @@ export const DotsWrapper = styled(ToggleGroupPrimitive.Root)`
 
 export const Dot = styled.div<{
   $isActive: boolean;
-  $isLearned: boolean;
+  $isUserList: boolean;
 }>`
   width: 20px;
   height: 20px;
@@ -34,10 +34,10 @@ export const Dot = styled.div<{
   font-size: 10px;
   font-weight: 900;
   line-height: 1;
-  background-color: ${({ $isActive, $isLearned }) =>
+  background-color: ${({ $isActive, $isUserList }) =>
     $isActive
       ? "var(--primary)"
-      : $isLearned
+      : $isUserList
         ? "var(--accent)"
         : "color-mix(in oklab, var(--muted) 70%, var(--foreground))"};
   border-radius: 50%;

@@ -3,32 +3,27 @@ import { ControlWrapper } from "../parts";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { toast } from "sonner";
+import { USER_LIST_MESSAGES } from "@/data/constants";
 
 export function AddToList() {
-  const { learned, toggleLearned } = useProgressStore();
+  const { userList, toggleUserList } = useProgressStore();
   const currentLocation = useMusicStore((state) => state.shapeVariantLocationData);
 
   const currentId = currentLocation
     ? `${currentLocation.shapeId}-${currentLocation.stringId}-${currentLocation.variantId}`
     : null;
 
-  const isFavorite = !!(currentId && learned.includes(currentId));
-
-  const MESSAGES = {
-    SELECT_PROMPT: "Please select a scale or arpeggio first.",
-    ADDED: "Added to your collection.",
-    REMOVED: "Removed from your collection.",
-  };
+  const isFavorite = !!(currentId && userList.includes(currentId));
 
   const handleToggle = () => {
     if (!currentId) {
-      toast(MESSAGES.SELECT_PROMPT);
+      toast(USER_LIST_MESSAGES.SELECT_PROMPT);
       return;
     }
 
-    toggleLearned(currentId);
+    toggleUserList(currentId);
 
-    const notification = isFavorite ? MESSAGES.REMOVED : MESSAGES.ADDED;
+    const notification = isFavorite ? USER_LIST_MESSAGES.REMOVED : USER_LIST_MESSAGES.ADDED;
     toast(notification);
   };
 

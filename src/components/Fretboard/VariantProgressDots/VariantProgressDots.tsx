@@ -6,6 +6,7 @@ import { useMusicStore, useProgressStore, useControlsStore, usePlayerStore } fro
 import type { StringIndex } from "../FretboardRow/FretboardRow";
 import { STRING_ID_MAP } from "../helpers/constants";
 import { toast } from "sonner";
+import { USER_LIST_MESSAGES } from "@/data/constants";
 
 interface Props {
   stringIndex: StringIndex;
@@ -13,7 +14,7 @@ interface Props {
 }
 
 export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
-  const { learned, toggleLearned } = useProgressStore();
+  const { userList, toggleUserList } = useProgressStore();
   const shapeId = useControlsStore((state) => state.shapeId);
   const { shapeVariantLocationData, setShapeVariantLocationData } = useMusicStore();
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -33,16 +34,16 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
   const isCorrectLocation =
     shapeVariantLocationData?.fretIndex === fretIndex && shapeVariantLocationData?.stringId === stringId;
 
-  const handleToggleLearned = (dotId: string) => {
-    const isAdding = !learned.includes(dotId);
-    toggleLearned(dotId);
-    toast(isAdding ? "Added to 'learned'." : "Removed from 'learned'.", { duration: 3000 });
+  const handleToggleUserList = (dotId: string) => {
+    const isAdding = !userList.includes(dotId);
+    toggleUserList(dotId);
+    toast(isAdding ? USER_LIST_MESSAGES.ADDED : USER_LIST_MESSAGES.REMOVED, { duration: 3000 });
   };
 
   const onValueChange = (newVariantId: VariantId) => {
     if (!newVariantId) {
       if (activeVariantId && isCorrectLocation) {
-        handleToggleLearned(`${shapeId}-${stringId}-${activeVariantId}`);
+        handleToggleUserList(`${shapeId}-${stringId}-${activeVariantId}`);
       }
       return;
     }
@@ -69,11 +70,11 @@ export default function VariantProgressDots({ stringIndex, fretIndex }: Props) {
         {validVariants.map(([variantId], i) => {
           const dotId = `${shapeId}-${stringId}-${variantId}`;
           const isActive = activeVariantId === variantId && isCorrectLocation;
-          const isLearned = learned.includes(dotId);
+          const isUserList = userList.includes(dotId);
 
           return (
             <ToggleGroupPrimitive.Item key={dotId} value={variantId} asChild>
-              <S.Dot as="button" $isActive={isActive} $isLearned={isLearned}>
+              <S.Dot as="button" $isActive={isActive} $isUserList={isUserList}>
                 {i + 1}
               </S.Dot>
             </ToggleGroupPrimitive.Item>

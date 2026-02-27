@@ -10,7 +10,7 @@ export function ShapeExplorerSlider() {
   const shapeSemitoneOffsetFromC = useControlsStore((state) => state.shapeSemitoneOffsetFromC);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
-  const { learned } = useProgressStore();
+  const { userList } = useProgressStore();
   const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
   const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
 
@@ -19,7 +19,7 @@ export function ShapeExplorerSlider() {
       ? getNotes({ firstNote: tuneKeyId })[shapeSemitoneOffsetFromC % 12].sharpNoteName
       : null;
 
-  const options = getOrderedShapeLocations(shapeId, rootNoteName, learned);
+  const options = getOrderedShapeLocations(shapeId, rootNoteName, userList);
 
   const foundIdx = shapeVariantLocationData
     ? options.findIndex(
@@ -32,7 +32,9 @@ export function ShapeExplorerSlider() {
 
   const currentIndex = foundIdx !== -1 ? foundIdx + 1 : 0;
 
-  const learnedIndexes = options.map((opt, i) => (opt.isLearned ? i + 1 : null)).filter((v): v is number => v !== null);
+  const userListIndexes = options
+    .map((opt, i) => (opt.isUserList ? i + 1 : null))
+    .filter((v): v is number => v !== null);
 
   const disabled = !shapeId || options.length === 0;
 
@@ -43,7 +45,7 @@ export function ShapeExplorerSlider() {
         value={disabled ? [0] : [currentIndex]}
         max={options.length}
         step={1}
-        learnedIndexes={learnedIndexes}
+        userListIndexes={userListIndexes}
         onValueChange={(v) => {
           const val = v[0];
           setShapeVariantLocationData(val === 0 ? null : options[val - 1]);
