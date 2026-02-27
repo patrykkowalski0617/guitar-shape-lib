@@ -1,14 +1,16 @@
 import { instrumentElBRadius } from "@/parts";
 import styled from "styled-components";
-import { PlayerElementHeight } from "../parts";
+
+export const playerElementHeight = "30px";
+export const playerElementWidth = "35px";
 
 export const BasePlayerButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: ${instrumentElBRadius};
-  height: ${PlayerElementHeight};
-  width: 30px;
+  height: ${playerElementHeight};
+  width: 35px;
   color: var(--primary-foreground);
   border: none;
   transition: background-color 0.2s ease;
@@ -22,9 +24,9 @@ export const BasePlayerButton = styled.button`
 `;
 
 export const DashedButton = styled(BasePlayerButton)`
-  color: var(--muted-foreground);
-  border: 1px dashed color-mix(in oklab, var(--border) 50%, var(--background));
-  background-color: color-mix(in oklab, var(--muted) 20%, var(--background));
+  color: var(--foreground);
+  border: 1px dashed var(--border);
+  background-color: color-mix(in oklab, var(--muted) 10%, var(--background));
 
   &:hover {
     background-color: color-mix(in oklab, var(--muted) 50%, var(--background));
@@ -43,8 +45,8 @@ export const OutlineButton = styled(BasePlayerButton)<{ $isPrimary?: boolean }>`
 `;
 
 export const SolidButton = styled(BasePlayerButton)`
-  background-color: color-mix(in oklab, var(--accent) 70%, var(--background));
-
+  background-color: color-mix(in oklab, var(--accent) 90%, var(--background));
+  color: var(--foreground);
   &:hover {
     background-color: color-mix(in oklab, var(--accent) 90%, var(--background));
   }

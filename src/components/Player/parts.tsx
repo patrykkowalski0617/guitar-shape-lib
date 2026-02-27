@@ -1,8 +1,6 @@
 import { instrumentElBRadius } from "@/parts";
 import styled from "styled-components";
 
-export const PlayerElementHeight = "26px";
-
 export const PlayerContainer = styled.div`
   display: flex;
   flex-direction: column;

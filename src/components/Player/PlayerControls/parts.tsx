@@ -1,7 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import { instrumentElBRadius } from "@/parts";
-import { SolidButton } from "../ui/parts";
-import { PlayerElementHeight } from "../parts";
+import { playerElementHeight, playerElementWidth, SolidButton } from "../ui/parts";
 
 const pulse = keyframes`
   0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 80%, transparent); }
@@ -10,6 +9,13 @@ const pulse = keyframes`
 `;
 
 export const PlayButton = styled(SolidButton)<{ $isPlaying?: boolean; $bpm?: number }>`
+  font-size: 16px;
+  font-weight: 900;
+  text-shadow:
+    -1px -1px 0 var(--background),
+    1px -1px 0 var(--background),
+    -1px 1px 0 var(--background),
+    1px 1px 0 var(--background);
   ${({ $isPlaying, $bpm }) =>
     $isPlaying &&
     $bpm &&
@@ -18,20 +24,19 @@ export const PlayButton = styled(SolidButton)<{ $isPlaying?: boolean; $bpm?: num
     `}
 `;
 
-const commonPlayerElementStyles = css`
+const commonBpmElementStyles = css`
   background-color: color-mix(in oklab, var(--background) 70%, var(--accent));
   border: 1px solid var(--border);
   border-radius: ${instrumentElBRadius};
   color: var(--foreground);
-  height: ${PlayerElementHeight};
-  width: 30px;
+  height: ${playerElementHeight};
+  width: ${playerElementWidth};
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   font-size: 12px;
   font-weight: 600;
-
   transition: background-color 0.2s;
 
   &:hover {
@@ -45,7 +50,7 @@ const commonPlayerElementStyles = css`
 `;
 
 export const BpmButton = styled.button`
-  ${commonPlayerElementStyles}
+  ${commonBpmElementStyles}
   padding: 0;
   appearance: none;
   border-style: solid;
@@ -55,7 +60,7 @@ export const BpmButton = styled.button`
 `;
 
 export const BpmInput = styled.input`
-  ${commonPlayerElementStyles}
+  ${commonBpmElementStyles}
   cursor: text;
 
   &::-webkit-inner-spin-button,

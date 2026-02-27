@@ -70,7 +70,7 @@ export const Note = styled.div<{
     )
       return "1";
 
-    if ($isActiveNote || $isTuneNote || !$shouldMarkTuneNotes || $isTuneNote) return "0.4";
+    if ($isActiveNote || $isTuneNote || !$shouldMarkTuneNotes || $isTuneNote) return "0.5";
 
     return "0";
   }};

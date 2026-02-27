@@ -36,7 +36,7 @@
 :root {
   --radius: 0.65rem;
 
-  --background: hsl(0, 0%, 2%);
+  --background: hsl(0, 0%, 1%);
   --foreground: hsl(0, 0%, 100%);
 
   --card: hsl(190, 20%, 10%);
@@ -50,7 +50,7 @@
   --secondary: hsl(215 90% 45%);
   --secondary-foreground: hsl(0 0% 100%);
 
-  --muted: hsl(0, 0%, 15%);
+  --muted: hsl(0, 0%, 40%);
   --muted-foreground: hsl(200 25% 55%);
 
   --accent: hsl(190, 85%, 41%);

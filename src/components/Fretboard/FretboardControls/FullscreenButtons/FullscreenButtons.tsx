@@ -1,8 +1,7 @@
 import { Maximize, Minimize, Smartphone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useFullscreen } from "./hooks/useFullscreen";
-
-const iconSize = 14;
+import { iconSize } from "../parts";
 
 export function FullscreenRotateButton() {
   const { isRotated, toggleFullscreen } = useFullscreen();

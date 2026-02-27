@@ -1,5 +1,5 @@
 import { useProgressStore, useMusicStore } from "@/store";
-import { ControlWrapper } from "../parts";
+import { ControlWrapper, iconSize } from "../parts";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { toast } from "sonner";
@@ -34,9 +34,7 @@ export function AddToList() {
         onClick={handleToggle}
         className={!currentId ? "opacity-50" : ""}
       >
-        <span className="flex items-center justify-center">
-          <Heart className={`h-3.5 w-3.5 ${isFavorite ? "fill-current" : "opacity-50"}`} />
-        </span>
+        <Heart size={iconSize} className={`${isFavorite ? "fill-current" : "opacity-50"}`} />
       </Button>
     </ControlWrapper>
   );

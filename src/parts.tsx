@@ -61,7 +61,7 @@ export const TutorialStickyIcons = styled.div`
 `;
 
 export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisable: boolean }>`
-  background-color: color-mix(in oklab, var(--accent) 50%, transparent);
+  background-color: color-mix(in oklab, var(--accent) 65%, transparent);
   max-width: unset;
   margin: 0 auto;
   width: 100%;
