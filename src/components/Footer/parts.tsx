@@ -1,4 +1,4 @@
-import { FooterAndHeaderStyles, SectionCommonCss } from "@/parts";
+import { FooterAndHeaderStyles } from "@/parts";
 import styled from "styled-components";
 
 export const FooterWrapper = styled.footer<{ $isFullscreen: boolean; $isPianoVisable: boolean }>`
@@ -14,6 +14,4 @@ export const FooterWrapper = styled.footer<{ $isFullscreen: boolean; $isPianoVis
   @media (min-width: 1600px) {
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   }
-
-  ${SectionCommonCss}
 `;

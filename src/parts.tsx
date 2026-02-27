@@ -5,8 +5,7 @@ export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 100vh;
-  overflow-x: hidden;
+  height: 100vh;
 `;
 
 export const MainContent = styled.main`
@@ -16,6 +15,10 @@ export const MainContent = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 25px;
+  @media (min-width: 1024px) {
+    padding-bottom: 50px;
+  }
 `;
 
 export const SectionCommonCss = css`
