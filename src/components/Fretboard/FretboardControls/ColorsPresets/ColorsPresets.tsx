@@ -6,9 +6,6 @@ import { COLOR_PRESETS } from "@/data/colorPresets";
 export default function ColorsPresets() {
   const { primaryColor, setPrimaryColor } = useSettingsStore();
 
-  const currentPreset = COLOR_PRESETS.find((p) => p.value === primaryColor);
-  const currentVal = currentPreset ? String(currentPreset.value) : "";
-
   const handleValueChange = (value: string) => {
     if (!value) return;
     setPrimaryColor(value);
@@ -16,7 +13,7 @@ export default function ColorsPresets() {
 
   return (
     <S.Wrapper>
-      <Select variant="outline" value={currentVal} onValueChange={handleValueChange}>
+      <Select variant="outline" value={primaryColor} onValueChange={handleValueChange}>
         <SelectTrigger className="w-full">
           <S.PresetItemWrapper>
             <S.ColorPreviewContainer>

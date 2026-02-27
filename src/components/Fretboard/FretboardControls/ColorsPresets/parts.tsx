@@ -27,7 +27,7 @@ export const ColorPreview = styled.div<{ $color: string }>`
 `;
 
 export const ColorPreviewTriger = styled(ColorPreview)`
-  opacity: 0.4;
+  opacity: 0.5;
   transition: all ${transitionTime}ms ease-in-out;
 `;
 
