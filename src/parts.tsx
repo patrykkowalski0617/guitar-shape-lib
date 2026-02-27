@@ -74,8 +74,8 @@ export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisab
   overflow: hidden;
   flex-shrink: 0;
   transition:
-    max-height ${transitionTime}ms 500ms ease-in-out,
-    opacity ${transitionTime}ms 500ms ease-in-out;
+    max-height ${transitionTime}ms ease-in-out,
+    opacity ${transitionTime}ms ease-in-out;
 
   @media (min-width: 1600px) {
     max-width: 1500px;
