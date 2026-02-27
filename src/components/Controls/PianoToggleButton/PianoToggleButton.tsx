@@ -19,7 +19,7 @@ export default function PianoToggleButton() {
             block: "center",
           });
         }
-      }, CollapsibleSectionTransitionTime - 100);
+      }, CollapsibleSectionTransitionTime + 100);
 
       return () => clearTimeout(timer);
     }
