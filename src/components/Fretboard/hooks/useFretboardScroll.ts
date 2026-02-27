@@ -1,7 +1,7 @@
 import { useMusicStore } from "@/store";
 import { useEffect, type RefObject } from "react";
 import { useShapeNotes } from "../FretboardCell/hooks";
-import { getTheLowestFret } from "./getTheLowestFret";
+import { getTheLowestFret } from "../helpers/getTheLowestFret";
 
 export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null>) => {
   const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
