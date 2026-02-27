@@ -37,7 +37,7 @@ const whitePianoKey = css`
     content: "";
     position: absolute;
     inset: 0;
-    background-color: color-mix(in oklab, var(--accent) 30%, var(--background));
+    background-color: color-mix(in oklab, var(--accent) 40%, var(--background));
     ${commonStyleForKey}
   }
   &:not(:last-child)::after {
