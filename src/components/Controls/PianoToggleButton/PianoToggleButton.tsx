@@ -9,7 +9,8 @@ export default function PianoToggleButton() {
   const setIsPianoVisible = useControlsStore((state) => state.setIsPianoVisible);
 
   const handleToggle = () => {
-    setIsPianoVisible(!isPianoVisible);
+    const nextState = !isPianoVisible;
+    setIsPianoVisible(nextState, nextState);
   };
 
   return (

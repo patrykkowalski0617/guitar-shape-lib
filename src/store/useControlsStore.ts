@@ -17,7 +17,8 @@ interface ControlsState {
   setShape: (shapeId: string | null, shapeSemitoneOffsetFromC: number | null) => void;
 
   isPianoVisible: boolean;
-  setIsPianoVisible: (show: boolean) => void;
+  scrollRequestCount: number;
+  setIsPianoVisible: (show: boolean, shouldScroll?: boolean) => void;
 
   resetControls: () => void;
 }
@@ -29,6 +30,7 @@ const initialState = {
   shapeId: null as string | null,
   shapeSemitoneOffsetFromC: null as number | null,
   isPianoVisible: false,
+  scrollRequestCount: 0,
 };
 
 export const useControlsStore = create<ControlsState>((set) => ({
@@ -74,7 +76,11 @@ export const useControlsStore = create<ControlsState>((set) => ({
       shapeSemitoneOffsetFromC,
     }),
 
-  setIsPianoVisible: (show) => set({ isPianoVisible: show }),
+  setIsPianoVisible: (show, shouldScroll = false) =>
+    set((state) => ({
+      isPianoVisible: show,
+      scrollRequestCount: shouldScroll ? state.scrollRequestCount + 1 : state.scrollRequestCount,
+    })),
 
   resetControls: () => set(initialState),
 }));

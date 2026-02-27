@@ -7,19 +7,16 @@ export const usePianoScroll = (containerRef: RefObject<HTMLDivElement | null>) =
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const roleId = useControlsStore((state) => state.roleId);
   const isPianoVisible = useControlsStore((state) => state.isPianoVisible);
+  const scrollRequestCount = useControlsStore((state) => state.scrollRequestCount);
 
-  const isFirstRender = useRef(true);
-  const prevVisible = useRef(isPianoVisible);
+  const lastProcessedScrollRequest = useRef(scrollRequestCount);
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || !isPianoVisible) {
-      prevVisible.current = isPianoVisible;
-      return;
-    }
+    if (!container || !isPianoVisible) return;
 
-    const isOpening = isPianoVisible && !prevVisible.current;
-    const waitTime = isOpening ? CollapsibleSectionTransitionTime + 100 : 50;
+    const shouldScrollY = scrollRequestCount > lastProcessedScrollRequest.current;
+    const waitTime = shouldScrollY ? CollapsibleSectionTransitionTime + 100 : 50;
 
     const timer = setTimeout(() => {
       const firstHighlighted = container.querySelector('[data-piano-scroll-target="true"]') as HTMLElement;
@@ -30,17 +27,16 @@ export const usePianoScroll = (containerRef: RefObject<HTMLDivElement | null>) =
         container.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
       }
 
-      if (!isFirstRender.current && isOpening) {
+      if (shouldScrollY) {
         container.scrollIntoView({
           behavior: "smooth",
           block: "center",
         });
-      }
 
-      isFirstRender.current = false;
-      prevVisible.current = isPianoVisible;
+        lastProcessedScrollRequest.current = scrollRequestCount;
+      }
     }, waitTime);
 
     return () => clearTimeout(timer);
-  }, [containerRef, isMajorMode, tuneKeyId, roleId, isPianoVisible]);
+  }, [containerRef, isMajorMode, tuneKeyId, roleId, isPianoVisible, scrollRequestCount]);
 };
