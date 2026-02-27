@@ -39,7 +39,7 @@ export function ShapeSelect() {
         <SelectTrigger className="md:min-w-[200px]">
           <SelectValue placeholder="Select shape..." />
         </SelectTrigger>
-        <SelectContent className="font-semibold">
+        <SelectContent>
           {showNoneOption && (
             <SelectItem value={NONE_SHAPE_VALUE}>
               {roleId === "all-one-instance" ? "All notes" : "All notes matching key"}
