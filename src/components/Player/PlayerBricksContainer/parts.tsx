@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { playerElementHeight } from "../ui/parts";
 
 export const BrickDragWrapper = styled.div`
   display: flex;
@@ -21,6 +22,7 @@ export const PlayerWrapper = styled.div<{
   justify-content: center;
   gap: 8px;
   flex-wrap: wrap;
+  min-height: ${playerElementHeight};
   pointer-events: ${(props) => (props.$isPlaying ? "none" : "auto")};
   &::-webkit-scrollbar {
     display: none;

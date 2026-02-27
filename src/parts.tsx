@@ -63,7 +63,7 @@ export const TutorialStickyIcons = styled.div`
   z-index: 40;
 `;
 
-export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisable: boolean }>`
+export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisible: boolean }>`
   background-color: color-mix(in oklab, var(--accent) 65%, transparent);
   max-width: unset;
   margin: 0 auto;
@@ -91,9 +91,9 @@ export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisab
       `}
   }
 
-  ${({ $isFullscreen, $isPianoVisable }) =>
+  ${({ $isFullscreen, $isPianoVisible }) =>
     $isFullscreen &&
-    $isPianoVisable &&
+    $isPianoVisible &&
     css`
       flex-shrink: 1;
       max-height: 0;

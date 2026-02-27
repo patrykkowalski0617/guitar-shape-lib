@@ -15,7 +15,7 @@ interface UseFretboardCellProp {
 export const useNoteState = ({ sharpNoteName, noteId, stringIndex, fretIndex }: UseFretboardCellProp) => {
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const shapeSemitoneOffsetFromC = useControlsStore((state) => state.shapeSemitoneOffsetFromC);
-  const isPianoVisable = useControlsStore((state) => state.isPianoVisable);
+  const isPianoVisible = useControlsStore((state) => state.isPianoVisible);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
   const shapeVariantLocationData_ghost = useMusicStore((state) => state.shapeVariantLocationData_ghost);
@@ -32,7 +32,7 @@ export const useNoteState = ({ sharpNoteName, noteId, stringIndex, fretIndex }: 
   const currentCoords: [number, number] = [stringIndex, fretIndex];
 
   return {
-    isActiveNote: activeNoteId === noteId && isPianoVisable,
+    isActiveNote: activeNoteId === noteId && isPianoVisible,
     isShapeRootNote: shapeRootSharpNote === sharpNoteName && stringIndex > 1,
     isShapeNote: isShapeNote(currentCoords, currentShapeNotes),
     isLockedNote: isShapeNote(currentCoords, lockedShapeNotes),

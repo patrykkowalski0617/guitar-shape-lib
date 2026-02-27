@@ -10,7 +10,7 @@ import Controls from "./components/Controls/Controls";
 
 export default function App() {
   const { primaryColor } = useSettingsStore();
-  const isPianoVisable = useControlsStore((state) => state.isPianoVisable);
+  const isPianoVisible = useControlsStore((state) => state.isPianoVisible);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   return (
@@ -32,7 +32,7 @@ export default function App() {
               <Controls />
             </Setcion>
 
-            <CollapsibleSection $isVisible={isPianoVisable}>
+            <CollapsibleSection $isVisible={isPianoVisible}>
               <Piano />
             </CollapsibleSection>
           </>

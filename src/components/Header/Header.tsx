@@ -4,10 +4,10 @@ import { useControlsStore, useSettingsStore } from "@/store";
 
 export default function Header() {
   const isFullscreen = useSettingsStore((state) => state.isFullscreen);
-  const isPianoVisable = useControlsStore((state) => state.isPianoVisable);
+  const isPianoVisible = useControlsStore((state) => state.isPianoVisible);
 
   return (
-    <S.HeaderWrapper $isFullscreen={isFullscreen} $isPianoVisable={isPianoVisable}>
+    <S.HeaderWrapper $isFullscreen={isFullscreen} $isPianoVisible={isPianoVisible}>
       <S.HeaderContent>
         <S.TitleWrapper>
           <S.Title>Solo over changes</S.Title>

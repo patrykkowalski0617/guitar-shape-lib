@@ -1,7 +1,7 @@
 import { FooterAndHeaderStyles } from "@/parts";
 import styled from "styled-components";
 
-export const FooterWrapper = styled.footer<{ $isFullscreen: boolean; $isPianoVisable: boolean }>`
+export const FooterWrapper = styled.footer<{ $isFullscreen: boolean; $isPianoVisible: boolean }>`
   ${FooterAndHeaderStyles}
 
   height: 50px;

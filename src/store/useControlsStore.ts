@@ -16,8 +16,8 @@ interface ControlsState {
   shapeSemitoneOffsetFromC: number | null;
   setShape: (shapeId: string | null, shapeSemitoneOffsetFromC: number | null) => void;
 
-  isPianoVisable: boolean;
-  setIsPianoVisable: (show: boolean) => void;
+  isPianoVisible: boolean;
+  setIsPianoVisible: (show: boolean) => void;
 
   resetControls: () => void;
 }
@@ -28,7 +28,7 @@ const initialState = {
   roleId: "all-one-instance" as RoleId | null,
   shapeId: null as string | null,
   shapeSemitoneOffsetFromC: null as number | null,
-  isPianoVisable: false,
+  isPianoVisible: false,
 };
 
 export const useControlsStore = create<ControlsState>((set) => ({
@@ -74,7 +74,7 @@ export const useControlsStore = create<ControlsState>((set) => ({
       shapeSemitoneOffsetFromC,
     }),
 
-  setIsPianoVisable: (show) => set({ isPianoVisable: show }),
+  setIsPianoVisible: (show) => set({ isPianoVisible: show }),
 
   resetControls: () => set(initialState),
 }));
