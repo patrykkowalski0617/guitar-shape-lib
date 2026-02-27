@@ -12,7 +12,9 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
     <CommandPrimitive
       data-slot="command"
       className={cn(
-        "bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md",
+        "bg-popover text-popover-foreground",
+        "flex h-full w-full flex-col",
+        "overflow-hidden rounded-md",
         className,
       )}
       {...props}
@@ -39,7 +41,18 @@ function CommandDialog({
         <DialogTitle>{title}</DialogTitle>
         <DialogDescription>{description}</DialogDescription>
       </DialogHeader>
-      <DialogContent className={cn("overflow-hidden p-0", className)} showCloseButton={showCloseButton}>
+      <DialogContent
+        className={cn(
+          "overflow-hidden p-0",
+
+          "sm:max-w-[calc(100vw-16px)] lg:max-w-lg",
+          "top-4 translate-y-0",
+
+          "lg:top-[50%] lg:translate-y-[-50%]",
+          className,
+        )}
+        showCloseButton={showCloseButton}
+      >
         <Command
           className={cn(
             "[&_[cmdk-group-heading]]:text-muted-foreground",
@@ -72,8 +85,9 @@ function CommandInput({ className, ...props }: React.ComponentProps<typeof Comma
         data-slot="command-input"
         className={cn(
           "placeholder:text-muted-foreground",
-          "flex h-10 w-full rounded-md bg-transparent py-3",
-          "text-sm outline-hidden",
+          "flex h-10 w-full rounded-md",
+          "bg-transparent py-3 text-sm",
+          "outline-hidden",
           "disabled:cursor-not-allowed disabled:opacity-50",
           className,
         )}
@@ -87,7 +101,7 @@ function CommandList({ className, ...props }: React.ComponentProps<typeof Comman
   return (
     <CommandPrimitive.List
       data-slot="command-list"
-      className={cn("max-h-[300px] scroll-py-1 overflow-x-hidden overflow-y-auto", className)}
+      className={cn("max-h-[300px] scroll-py-1", "overflow-x-hidden overflow-y-auto", className)}
       {...props}
     />
   );
@@ -152,7 +166,7 @@ function CommandShortcut({ className, ...props }: React.ComponentProps<"span">) 
   return (
     <span
       data-slot="command-shortcut"
-      className={cn("text-muted-foreground ml-auto text-xs tracking-widest", className)}
+      className={cn("text-muted-foreground ml-auto", "text-xs tracking-widest", className)}
       {...props}
     />
   );
