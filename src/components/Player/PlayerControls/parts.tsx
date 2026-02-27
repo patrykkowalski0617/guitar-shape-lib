@@ -25,7 +25,7 @@ export const PlayButton = styled(SolidButton)<{ $isPlaying?: boolean; $bpm?: num
 `;
 
 const commonBpmElementStyles = css`
-  background-color: color-mix(in oklab, var(--background) 70%, var(--accent));
+  background-color: color-mix(in oklab, var(--accent) 10%, var(--background));
   border: 1px solid var(--border);
   border-radius: ${instrumentElBRadius};
   color: var(--foreground);
@@ -37,10 +37,9 @@ const commonBpmElementStyles = css`
   text-align: center;
   font-size: 12px;
   font-weight: 600;
-  transition: background-color 0.2s;
 
   &:hover {
-    background-color: color-mix(in oklab, var(--background) 90%, var(--accent));
+    background-color: color-mix(in oklab, var(--accent) 30%, var(--background));
   }
 
   &:focus {

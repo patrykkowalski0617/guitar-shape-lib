@@ -31,10 +31,10 @@ export function AddToList() {
     <ControlWrapper>
       <Button
         variant={isFavorite ? "active" : "outline"}
-        onClick={handleToggle}
         className={!currentId ? "opacity-50" : ""}
+        onClick={handleToggle}
       >
-        <Heart size={iconSize} className={`${isFavorite ? "fill-current" : "opacity-50"}`} />
+        <Heart size={iconSize} />
       </Button>
     </ControlWrapper>
   );

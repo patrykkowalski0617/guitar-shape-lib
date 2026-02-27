@@ -4,6 +4,7 @@ import { ControlWrapper } from "../parts";
 import { Button } from "@/components/ui/button";
 import { Piano } from "lucide-react";
 import { CollapsibleSectionTransitionTime } from "@/parts";
+import { iconSize } from "@/components/Fretboard/FretboardControls/parts";
 
 export default function PianoToggleButton() {
   const isPianoVisable = useControlsStore((state) => state.isPianoVisable);
@@ -33,7 +34,7 @@ export default function PianoToggleButton() {
     <ControlWrapper>
       <Button variant={isPianoVisable ? "active" : "outline"} onClick={handleToggle}>
         <span className="flex items-center justify-center">
-          <Piano className={`h-4 w-4 ${isPianoVisable ? "opacity-100" : "opacity-50"}`} />
+          <Piano size={iconSize} />
         </span>
       </Button>
     </ControlWrapper>

@@ -7,7 +7,12 @@ export function FullscreenRotateButton() {
   const { isRotated, toggleFullscreen } = useFullscreen();
 
   return (
-    <Button variant="outline" className="md:hidden" onClick={() => toggleFullscreen(true)} title="Fullscreen & Rotate">
+    <Button
+      variant={isRotated ? "active" : "outline"}
+      className="md:hidden"
+      onClick={() => toggleFullscreen(true)}
+      title="Fullscreen & Rotate"
+    >
       <Smartphone size={iconSize} className={isRotated ? "rotate-0" : "rotate-90"} />
     </Button>
   );
@@ -18,7 +23,7 @@ export function FullscreenButton() {
 
   return (
     <Button
-      variant="outline"
+      variant={isFullscreen ? "active" : "outline"}
       onClick={() => toggleFullscreen(false)}
       title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
     >

@@ -1,5 +1,5 @@
 import { useMusicStore } from "@/store";
-import { Lock, LockOpen } from "lucide-react";
+import { LockOpen } from "lucide-react";
 import { ControlWrapper, iconSize } from "../parts";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -32,11 +32,7 @@ export function LockShapeButton() {
         className={isDisabled ? "opacity-50" : ""}
         onClick={handleToggle}
       >
-        {isLocked ? (
-          <Lock size={iconSize} className="fill-current" />
-        ) : (
-          <LockOpen size={iconSize} className="opacity-50" />
-        )}
+        <LockOpen size={iconSize} />
       </Button>
     </ControlWrapper>
   );

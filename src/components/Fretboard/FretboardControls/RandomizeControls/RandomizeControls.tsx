@@ -30,7 +30,7 @@ export function RandomizeControls() {
 
   return (
     <ControlWrapper>
-      <Button variant="outline" onClick={handleRandomize} className="flex items-center gap-2 border-primary/50">
+      <Button variant="outline" onClick={handleRandomize} className="border-primary/50">
         <Dices size={iconSize} />
       </Button>
     </ControlWrapper>

@@ -48,7 +48,7 @@ function SelectTrigger({
       className={cn(
         "flex w-full items-center justify-between gap-2 border bg-muted/50 px-3 text-[15px] font-normal tracking-tight shadow-none transition-none disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap rounded-md relative",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 focus-visible:z-150",
-        "hover:bg-muted/50 hover:text-accent-foreground",
+        "hover:bg-muted/70 hover:text-accent-foreground",
         variant === "outline" ? "border-border/50" : "border-background",
         size === "default" ? "h-9.5 text-sm" : "h-9.5",
         className,
