@@ -14,7 +14,7 @@ export default function ColorsPresets() {
   return (
     <S.Wrapper>
       <Select variant="outline" value={primaryColor} onValueChange={handleValueChange}>
-        <SelectTrigger className="w-full">
+        <SelectTrigger>
           <S.PresetItemWrapper>
             <S.ColorPreviewContainer>
               <S.ColorPreviewTriger $color={primaryColor} />

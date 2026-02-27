@@ -7,7 +7,6 @@ export const PresetItemWrapper = styled.div`
   align-items: center;
   gap: 16px;
   width: 100%;
-  justify-content: center;
 `;
 
 export const ColorPreviewContainer = styled.div`
@@ -33,7 +32,6 @@ export const ColorPreviewTriger = styled(ColorPreview)`
 
 export const Label = styled.span`
   white-space: nowrap;
-  width: 100px;
 `;
 
 export const Wrapper = styled.div`
