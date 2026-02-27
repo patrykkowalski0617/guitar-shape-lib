@@ -74,8 +74,8 @@ export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisab
   overflow: hidden;
   flex-shrink: 0;
   transition:
-    max-height ${transitionTime}ms ease-in-out,
-    opacity ${transitionTime}ms ease-in-out;
+    max-height ${transitionTime}ms 500ms ease-in-out,
+    opacity ${transitionTime}ms 500ms ease-in-out;
 
   @media (min-width: 1600px) {
     max-width: 1500px;
@@ -85,6 +85,7 @@ export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisab
     ${({ $isFullscreen }) =>
       $isFullscreen &&
       css`
+        flex-shrink: 1;
         max-height: 0;
         opacity: 0;
       `}
@@ -94,6 +95,7 @@ export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisab
     $isFullscreen &&
     $isPianoVisable &&
     css`
+      flex-shrink: 1;
       max-height: 0;
       opacity: 0;
     `}
