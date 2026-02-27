@@ -27,7 +27,7 @@ export function KeySelect() {
     <ControlWrapper>
       <ControlLabel>Key/Root Note</ControlLabel>
 
-      <div className="hidden sm:block md:min-w-[200px]">
+      <div className="hidden sm:block md:min-w-[220px]">
         <SelectPrevNext value={tuneKeyId} onValueChange={handleValueChange} options={keyOptions}>
           {keyOptions.map((opt) => (
             <SelectItem key={opt.value} value={opt.value}>
