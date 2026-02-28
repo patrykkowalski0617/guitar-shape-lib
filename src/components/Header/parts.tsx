@@ -41,15 +41,15 @@ const shake = keyframes`
 
 export const TitleWrapper = styled.div`
   color: var(--foreground);
-  transform: rotate(-2deg) translateY(-5px);
+  transform: rotate(-1deg) translateY(-2px);
   margin: 0 40px;
   &:hover {
-    animation: ${shake} 0.15s linear 3;
+    animation: ${shake} 0.15s linear infinite;
   }
 `;
 
 export const Title = styled.h1`
-  font-size: 1.25rem;
+  font-size: 27px;
   font-weight: 800;
   letter-spacing: -0.025em;
   text-transform: uppercase;

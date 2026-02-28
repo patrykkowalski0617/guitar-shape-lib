@@ -10,8 +10,8 @@ export default function Header() {
     <S.HeaderWrapper $isFullscreen={isFullscreen} $isPianoVisible={isPianoVisible}>
       <S.HeaderContent>
         <S.TitleWrapper>
-          <S.Title>Solo over changes</S.Title>
-          <S.Subtitle>Guitar Shapes Library</S.Subtitle>
+          <S.Title>Simple Guitar Shapes</S.Title>
+          {/* <S.Subtitle></S.Subtitle> */}
         </S.TitleWrapper>
 
         {/* <S.HeaderSide>
