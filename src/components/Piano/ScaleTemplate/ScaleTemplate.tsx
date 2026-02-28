@@ -3,13 +3,13 @@ import * as S from "./parts";
 import { useScaleTemplate } from "./helpers/useScaleTemplate";
 
 export default function ScaleTemplate(): JSX.Element {
-  const { position, highlightRole, altIndexes, currentRoleId } = useScaleTemplate();
+  const { position, highlightRole, altIndexes, roleId } = useScaleTemplate();
 
   return (
     <S.TemplateWrapper $position={position}>
       {Array.from({ length: 33 }).map((_, i) => {
         const roleRank = highlightRole.indexOf(i);
-        const isRoleNote = roleRank !== -1 && !!currentRoleId;
+        const isRoleNote = roleRank !== -1 && !!roleId;
         const isAltNote = altIndexes.includes(i);
         const intervalValue = isRoleNote ? String(roleRank * 2 + 1) : "";
 

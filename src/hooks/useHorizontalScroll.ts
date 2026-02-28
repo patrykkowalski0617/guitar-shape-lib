@@ -6,6 +6,12 @@ export const useHorizontalScroll = (ref: RefObject<HTMLDivElement | null>) => {
     if (!el) return;
 
     const onWheel = (e: WheelEvent) => {
+      const hasHorizontalScrollbar = el.scrollWidth > el.clientWidth;
+
+      if (!hasHorizontalScrollbar) {
+        return;
+      }
+
       if (Math.abs(e.deltaX) > 0 || e.shiftKey) return;
 
       e.preventDefault();
@@ -14,6 +20,7 @@ export const useHorizontalScroll = (ref: RefObject<HTMLDivElement | null>) => {
     };
 
     el.addEventListener("wheel", onWheel, { passive: false });
+
     return () => el.removeEventListener("wheel", onWheel);
   }, [ref]);
 };

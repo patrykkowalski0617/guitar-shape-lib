@@ -1,10 +1,9 @@
-import { useRef } from "react";
 import { Plus, Trash2, Check } from "lucide-react";
-import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 import PlayerBrick from "../PlayerBrick/PlayerBrick";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { usePlayerBricksDrag } from "./hooks/usePlayerBricksDrag";
+import { DashedButton, OutlineButton, SolidButton } from "../ui/parts";
 
 interface Props {
   onCloseEdit: () => void;
@@ -21,52 +20,50 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
 
   const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } = usePlayerBricksDrag();
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-  useHorizontalScroll(scrollRef);
+  // console.log(bricks);
 
   return (
-    <S.PlayerScrollWrapper ref={scrollRef} $isPlaying={isPlaying}>
-      <S.PlayerRow>
-        {bricks.map((brick, index) => {
-          const isEditable = activeBrickId === brick.id;
-          const isBeingDragged = draggedIndex === index;
+    <S.PlayerWrapper $isPlaying={isPlaying}>
+      {bricks.map((brick, index) => {
+        const isEditable = activeBrickId === brick.id;
+        const isBeingDragged = draggedIndex === index;
 
-          return (
-            <S.BrickDragWrapper
-              key={brick.id}
-              draggable={!isEditable && !isPlaying}
-              onDragStart={() => handleDragStart(index, isEditable)}
-              onDragOver={(e) => handleDragOver(e, index)}
-              onDragEnd={handleDragEnd}
-            >
-              <PlayerBrick
-                brick={brick}
-                isEditable={isEditable}
-                $isDragging={isBeingDragged}
-                onToggleEdit={() => setActiveBrickId(isEditable ? null : brick.id)}
-                onWidthChange={(newWidth) => updateBrickWidth(brick.id, newWidth)}
-              />
-            </S.BrickDragWrapper>
-          );
-        })}
-
+        return (
+          <S.BrickDragWrapper
+            key={brick.id}
+            draggable={!isEditable && !isPlaying}
+            onDragStart={() => handleDragStart(index, isEditable)}
+            onDragOver={(e) => handleDragOver(e, index)}
+            onDragEnd={handleDragEnd}
+          >
+            <PlayerBrick
+              brick={brick}
+              isEditable={isEditable}
+              $isDragging={isBeingDragged}
+              onToggleEdit={() => setActiveBrickId(isEditable ? null : brick.id)}
+              onWidthChange={(newWidth) => updateBrickWidth(brick.id, newWidth)}
+            />
+          </S.BrickDragWrapper>
+        );
+      })}
+      <S.ControlsWrapper>
         {!isPlaying && (
-          <S.AddBrickButton onClick={onAdd}>
+          <DashedButton onClick={onAdd}>
             <Plus size={16} />
-          </S.AddBrickButton>
+          </DashedButton>
         )}
 
         {activeBrickId !== null && (
           <>
-            <S.DeleteButton onClick={() => removeBrick(activeBrickId)}>
+            <OutlineButton $isPrimary onClick={() => removeBrick(activeBrickId)}>
               <Trash2 size={14} />
-            </S.DeleteButton>
-            <S.CheckButton onClick={onCloseEdit}>
+            </OutlineButton>
+            <SolidButton onClick={onCloseEdit}>
               <Check size={16} />
-            </S.CheckButton>
+            </SolidButton>
           </>
         )}
-      </S.PlayerRow>
-    </S.PlayerScrollWrapper>
+      </S.ControlsWrapper>
+    </S.PlayerWrapper>
   );
 };

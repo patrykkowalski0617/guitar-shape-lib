@@ -1,6 +1,7 @@
 interface Window {
   webkitAudioContext?: typeof AudioContext;
 }
+
 export class Metronome {
   private audioContext: AudioContext | null = null;
   private nextTickTime: number = 0;
@@ -8,6 +9,8 @@ export class Metronome {
   private scheduleAheadTime = 0.1;
 
   private bpm: number = 120;
+  private multiplier: number = 1;
+  private volume: number = 2.5;
   private onTick: () => void;
 
   constructor(onTick: () => void) {
@@ -25,12 +28,12 @@ export class Metronome {
     if (!this.audioContext) return;
 
     const mainGain = this.audioContext.createGain();
+    mainGain.gain.setValueAtTime(this.volume, time);
 
     const osc = this.audioContext.createOscillator();
     const oscGain = this.audioContext.createGain();
 
     osc.type = "sine";
-
     osc.frequency.setValueAtTime(400, time);
     osc.frequency.exponentialRampToValueAtTime(10, time + 0.03);
 
@@ -53,20 +56,16 @@ export class Metronome {
     const noiseFilter = this.audioContext.createBiquadFilter();
 
     noise.buffer = noiseBuffer;
-
     noiseFilter.type = "lowpass";
     noiseFilter.frequency.setValueAtTime(1500, time);
-
     noiseGain.gain.setValueAtTime(0.3, time);
     noiseGain.gain.exponentialRampToValueAtTime(0.001, time + 0.015);
 
     osc.connect(oscGain);
     oscGain.connect(mainGain);
-
     noise.connect(noiseFilter);
     noiseFilter.connect(noiseGain);
     noiseGain.connect(mainGain);
-
     mainGain.connect(this.audioContext.destination);
 
     osc.start(time);
@@ -79,8 +78,13 @@ export class Metronome {
     if (!this.audioContext) return;
 
     while (this.nextTickTime < this.audioContext.currentTime + this.scheduleAheadTime) {
-      this.playClick(this.nextTickTime);
       this.onTick();
+
+      const subInterval = 60.0 / this.bpm / this.multiplier;
+      for (let i = 0; i < this.multiplier; i++) {
+        this.playClick(this.nextTickTime + i * subInterval);
+      }
+
       this.advanceTimer();
     }
   };
@@ -89,7 +93,7 @@ export class Metronome {
     this.nextTickTime += 60.0 / this.bpm;
   };
 
-  public async start(initialBpm: number) {
+  public async start(initialBpm: number, initialMultiplier: number = 1) {
     if (!this.audioContext) {
       this.audioContext = new (window.AudioContext || (window as Window).webkitAudioContext)();
     }
@@ -98,11 +102,15 @@ export class Metronome {
     }
 
     this.bpm = initialBpm;
-    const secondsPerBeat = 60.0 / this.bpm;
+    this.multiplier = initialMultiplier;
 
+    const secondsPerBeat = 60.0 / this.bpm;
     this.nextTickTime = this.audioContext.currentTime + secondsPerBeat;
 
-    this.playClick(this.audioContext.currentTime);
+    const subInterval = secondsPerBeat / this.multiplier;
+    for (let i = 0; i < this.multiplier; i++) {
+      this.playClick(this.audioContext.currentTime + i * subInterval);
+    }
 
     this.worker?.postMessage("start");
   }
@@ -113,6 +121,14 @@ export class Metronome {
 
   public updateBpm(newBpm: number) {
     this.bpm = newBpm;
+  }
+
+  public updateMultiplier(newMultiplier: number) {
+    this.multiplier = newMultiplier;
+  }
+
+  public updateVolume(newVolume: number) {
+    this.volume = newVolume;
   }
 
   public replaceCallback(newCallback: () => void) {

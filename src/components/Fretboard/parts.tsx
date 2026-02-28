@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FretboardRow } from "./FretboardRow/parts";
-import { Fret, Note } from "./FretCell/parts";
+import { Fret, Note } from "./FretboardCell/parts";
 import { instrumentBRadius, instrumentElBRadius } from "@/parts";
 
 export const Fretboard = styled.div`

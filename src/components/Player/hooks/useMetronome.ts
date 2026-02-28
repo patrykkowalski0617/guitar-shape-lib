@@ -1,8 +1,10 @@
 import { useEffect, useRef, useCallback } from "react";
 import { Metronome } from "../utils/Metronome";
+import { usePlayerStore } from "@/store";
 
 export const useMetronome = (bpm: number, onTick: () => void) => {
   const metronomeRef = useRef<Metronome | null>(null);
+  const multiplier = usePlayerStore((state) => state.bpmMultiplier);
 
   useEffect(() => {
     if (!metronomeRef.current) {
@@ -22,15 +24,19 @@ export const useMetronome = (bpm: number, onTick: () => void) => {
     metronomeRef.current?.updateBpm(bpm);
   }, [bpm]);
 
+  useEffect(() => {
+    metronomeRef.current?.updateMultiplier(multiplier);
+  }, [multiplier]);
+
   const toggleMetronome = useCallback(
     (shouldPlay: boolean) => {
       if (shouldPlay) {
-        metronomeRef.current?.start(bpm);
+        metronomeRef.current?.start(bpm, multiplier);
       } else {
         metronomeRef.current?.stop();
       }
     },
-    [bpm],
+    [bpm, multiplier],
   );
 
   return { toggleMetronome };

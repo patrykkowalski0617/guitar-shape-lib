@@ -4,7 +4,7 @@ import { STRINGS_CONFIG } from "./FretboardRow/helpers/constants";
 import { useHorizontalScroll } from "@/hooks";
 import FretboardRow, { type StringIndex } from "./FretboardRow/FretboardRow";
 import { InstrumentScrollWrapper, InstrumentWrapper } from "@/parts";
-import { useFretboardScroll } from "./helpers/useFretboardScroll";
+import { useFretboardScroll } from "./hooks/useFretboardScroll";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
 import FretboardControls from "./FretboardControls/FretboardControls";

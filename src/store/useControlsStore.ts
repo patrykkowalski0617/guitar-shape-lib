@@ -6,29 +6,31 @@ interface ControlsState {
   isMajorMode: boolean;
   setIsMajorMode: (isMajorMode: boolean) => void;
 
-  currentKeyId: MusicKeyId;
-  setCurrentKey: (id: MusicKeyId) => void;
+  tuneKeyId: MusicKeyId;
+  setTuneKeyId: (id: MusicKeyId) => void;
 
-  currentRoleId: RoleId | null;
-  setCurrentRoleId: (id: RoleId | null) => void;
+  roleId: RoleId | null;
+  setRoleId: (id: RoleId | null) => void;
 
-  currentShapeId: string | null;
-  currentShapeSemitoneOffsetFromC: number | null;
-  setShape: (id: string | null, offset: number | null) => void;
+  shapeId: string | null;
+  shapeSemitoneOffsetFromC: number | null;
+  setShape: (shapeId: string | null, shapeSemitoneOffsetFromC: number | null) => void;
 
-  isPianoVisable: boolean;
-  setIsPianoVisable: (show: boolean) => void;
+  isPianoVisible: boolean;
+  scrollRequestCount: number;
+  setIsPianoVisible: (show: boolean, shouldScroll?: boolean) => void;
 
   resetControls: () => void;
 }
 
 const initialState = {
   isMajorMode: true,
-  currentKeyId: "C" as MusicKeyId,
-  currentRoleId: "all-one-instance" as RoleId | null,
-  currentShapeId: null as string | null,
-  currentShapeSemitoneOffsetFromC: null as number | null,
-  isPianoVisable: false,
+  tuneKeyId: "C" as MusicKeyId,
+  roleId: "all-one-instance" as RoleId | null,
+  shapeId: null as string | null,
+  shapeSemitoneOffsetFromC: null as number | null,
+  isPianoVisible: false,
+  scrollRequestCount: 0,
 };
 
 export const useControlsStore = create<ControlsState>((set) => ({
@@ -36,45 +38,49 @@ export const useControlsStore = create<ControlsState>((set) => ({
 
   setIsMajorMode: (isMajorMode) =>
     set((state) => {
-      if (!state.currentRoleId) return { isMajorMode };
+      if (!state.roleId) return { isMajorMode };
 
-      const { shapeId, offset } = getAutoSelectedShape(state.currentRoleId, isMajorMode, state.currentKeyId);
+      const { shapeId, shapeSemitoneOffsetFromC } = getAutoSelectedShape(state.roleId, isMajorMode, state.tuneKeyId);
 
       return {
         isMajorMode,
-        currentShapeId: shapeId,
-        currentShapeSemitoneOffsetFromC: offset,
+        shapeId: shapeId,
+        shapeSemitoneOffsetFromC: shapeSemitoneOffsetFromC,
       };
     }),
 
-  setCurrentKey: (id) => set({ currentKeyId: id }),
+  setTuneKeyId: (id) => set({ tuneKeyId: id }),
 
-  setCurrentRoleId: (id) =>
+  setRoleId: (id) =>
     set((state) => {
       if (!id) {
         return {
-          currentRoleId: null,
-          currentShapeId: null,
-          currentShapeSemitoneOffsetFromC: null,
+          roleId: null,
+          shapeId: null,
+          shapeSemitoneOffsetFromC: null,
         };
       }
 
-      const { shapeId, offset } = getAutoSelectedShape(id, state.isMajorMode, state.currentKeyId);
+      const { shapeId, shapeSemitoneOffsetFromC } = getAutoSelectedShape(id, state.isMajorMode, state.tuneKeyId);
 
       return {
-        currentRoleId: id,
-        currentShapeId: shapeId,
-        currentShapeSemitoneOffsetFromC: offset,
+        roleId: id,
+        shapeId: shapeId,
+        shapeSemitoneOffsetFromC: shapeSemitoneOffsetFromC,
       };
     }),
 
-  setShape: (id, offset) =>
+  setShape: (shapeId, shapeSemitoneOffsetFromC) =>
     set({
-      currentShapeId: id,
-      currentShapeSemitoneOffsetFromC: offset,
+      shapeId,
+      shapeSemitoneOffsetFromC,
     }),
 
-  setIsPianoVisable: (show) => set({ isPianoVisable: show }),
+  setIsPianoVisible: (show, shouldScroll = false) =>
+    set((state) => ({
+      isPianoVisible: show,
+      scrollRequestCount: shouldScroll ? state.scrollRequestCount + 1 : state.scrollRequestCount,
+    })),
 
   resetControls: () => set(initialState),
 }));

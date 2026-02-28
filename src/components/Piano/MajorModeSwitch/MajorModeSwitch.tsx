@@ -6,10 +6,10 @@ import * as S from "./parts";
 export function MajorModeSwitch() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
-  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
+  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
 
   const handleValueChange = (checked: boolean) => {
-    setCurrentShapeVariantLocationData(null);
+    setShapeVariantLocationData(null);
     setIsMajorMode(checked);
   };
 

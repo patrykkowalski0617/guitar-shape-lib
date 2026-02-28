@@ -9,13 +9,13 @@ export interface ShapeLocation {
   fretIndex: number;
   variantId: VariantId;
   id: string;
-  isLearned: boolean;
+  isUserList: boolean;
 }
 
 export const getOrderedShapeLocations = (
   shapeId: string | null,
   rootNoteName: string | null,
-  learnedIds: string[],
+  userListIds: string[],
 ): ShapeLocation[] => {
   if (!shapeId || !rootNoteName) return [];
 
@@ -48,7 +48,7 @@ export const getOrderedShapeLocations = (
               fretIndex: fIdx,
               variantId: variantId,
               id,
-              isLearned: learnedIds.includes(id),
+              isUserList: userListIds.includes(id),
             });
           });
         }

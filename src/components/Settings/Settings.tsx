@@ -11,8 +11,6 @@ import {
 import * as S from "./parts";
 import { Settings as Gear, RotateCcw } from "lucide-react";
 import { ExportProgressFile, ImportProgressFile } from "./Progress/ProgressButtons";
-import ColorsPresetsSetting from "./ColorsPresetsSetting/ColorsPresetsSetting";
-import ColorsSetting from "./ColorsSetting/ColorsSetting";
 import { useSettingsStore } from "@/store";
 
 const side = "right";
@@ -37,12 +35,6 @@ export function Settings() {
             <SheetDescription></SheetDescription>
           </SheetHeader>
           <div className="no-scrollbar overflow-y-auto px-4">
-            <div className="px-6 py-2">
-              <ColorsPresetsSetting />
-            </div>
-            <div className="px-6 py-2">
-              <ColorsSetting />
-            </div>
             <div className="px-6 py-2">
               <ExportProgressFile />
             </div>

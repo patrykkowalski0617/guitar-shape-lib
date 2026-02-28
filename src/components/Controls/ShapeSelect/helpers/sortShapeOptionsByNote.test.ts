@@ -4,45 +4,45 @@ import { type ShapeOption } from "./getFilteredShapeOptions";
 
 describe("sortShapeOptionsByNote", () => {
   const mockOptions: ShapeOption[] = [
-    { shapeId: "M7", offset: 7 },
-    { shapeId: "M7", offset: 0 },
-    { shapeId: "M7", offset: 2 },
-    { shapeId: "m7", offset: 0 },
+    { shapeId: "M7", shapeSemitoneOffsetFromC: 7 },
+    { shapeId: "M7", shapeSemitoneOffsetFromC: 0 },
+    { shapeId: "M7", shapeSemitoneOffsetFromC: 2 },
+    { shapeId: "m7", shapeSemitoneOffsetFromC: 0 },
   ];
 
-  it("should sort starting from offset 0 (Tonic) regardless of key", () => {
+  it("should sort starting from shapeSemitoneOffsetFromC 0 (Tonic) regardless of key", () => {
     const sortedC = sortShapeOptionsByNote(mockOptions, "C");
-    expect(sortedC[0].offset).toBe(0);
-    expect(sortedC[1].offset).toBe(0);
-    expect(sortedC[2].offset).toBe(2);
-    expect(sortedC[3].offset).toBe(7);
+    expect(sortedC[0].shapeSemitoneOffsetFromC).toBe(0);
+    expect(sortedC[1].shapeSemitoneOffsetFromC).toBe(0);
+    expect(sortedC[2].shapeSemitoneOffsetFromC).toBe(2);
+    expect(sortedC[3].shapeSemitoneOffsetFromC).toBe(7);
 
     const sortedDb = sortShapeOptionsByNote(mockOptions, "Db");
 
-    expect(sortedDb[0].offset).toBe(0);
-    expect(sortedDb[1].offset).toBe(0);
-    expect(sortedDb[2].offset).toBe(2);
-    expect(sortedDb[3].offset).toBe(7);
+    expect(sortedDb[0].shapeSemitoneOffsetFromC).toBe(0);
+    expect(sortedDb[1].shapeSemitoneOffsetFromC).toBe(0);
+    expect(sortedDb[2].shapeSemitoneOffsetFromC).toBe(2);
+    expect(sortedDb[3].shapeSemitoneOffsetFromC).toBe(7);
   });
 
   it("should maintain musical interval order", () => {
     const mixedOptions: ShapeOption[] = [
-      { shapeId: "fifth", offset: 7 },
-      { shapeId: "fourth", offset: 5 },
-      { shapeId: "tonic", offset: 0 },
+      { shapeId: "fifth", shapeSemitoneOffsetFromC: 7 },
+      { shapeId: "fourth", shapeSemitoneOffsetFromC: 5 },
+      { shapeId: "tonic", shapeSemitoneOffsetFromC: 0 },
     ];
 
     const sorted = sortShapeOptionsByNote(mixedOptions, "G");
 
-    expect(sorted[0].offset).toBe(0);
-    expect(sorted[1].offset).toBe(5);
-    expect(sorted[2].offset).toBe(7);
+    expect(sorted[0].shapeSemitoneOffsetFromC).toBe(0);
+    expect(sorted[1].shapeSemitoneOffsetFromC).toBe(5);
+    expect(sorted[2].shapeSemitoneOffsetFromC).toBe(7);
   });
 
-  it("should perform stable alphabetical sort for the same offsets", () => {
+  it("should perform stable alphabetical sort for the same shapeSemitoneOffsetFromCs", () => {
     const sameNoteOptions: ShapeOption[] = [
-      { shapeId: "z_shape", offset: 0 },
-      { shapeId: "a_shape", offset: 0 },
+      { shapeId: "z_shape", shapeSemitoneOffsetFromC: 0 },
+      { shapeId: "a_shape", shapeSemitoneOffsetFromC: 0 },
     ];
     const sorted = sortShapeOptionsByNote(sameNoteOptions, "C");
 

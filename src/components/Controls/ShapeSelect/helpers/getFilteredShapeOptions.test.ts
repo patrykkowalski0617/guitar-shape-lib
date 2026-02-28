@@ -6,26 +6,26 @@ import type { RoleId } from "@/data";
 
 describe("getAutoSelectedShape", () => {
   it.each(["all-one-instance", "all-matching-key"])(
-    "should return null for shapeId and offset when currentRoleId is: %s",
-    (currentRoleId) => {
-      const result = getAutoSelectedShape(currentRoleId as RoleId, true, "C");
-      expect(result).toEqual({ shapeId: null, offset: null });
+    "should return null for shapeId and shapeSemitoneOffsetFromC when roleId is: %s",
+    (roleId) => {
+      const result = getAutoSelectedShape(roleId as RoleId, true, "C");
+      expect(result).toEqual({ shapeId: null, shapeSemitoneOffsetFromC: null });
     },
   );
 
-  describe("Relativity across different currentKeyId", () => {
-    it("should return offset 0 for tonic role in any currentKeyId", () => {
+  describe("Relativity across different tuneKeyId", () => {
+    it("should return shapeSemitoneOffsetFromC 0 for tonic role in any tuneKeyId", () => {
       const resultC = getAutoSelectedShape("tonic", true, "C");
       const resultG = getAutoSelectedShape("tonic", true, "G");
 
-      expect(resultC.offset).toBe(0);
-      expect(resultG.offset).toBe(0);
+      expect(resultC.shapeSemitoneOffsetFromC).toBe(0);
+      expect(resultG.shapeSemitoneOffsetFromC).toBe(0);
       expect(resultC.shapeId).toBe(resultG.shapeId);
     });
 
-    it("should return offset 9 for tonic role in minor mode (relative VI degree)", () => {
+    it("should return shapeSemitoneOffsetFromC 9 for tonic role in minor mode (relative VI degree)", () => {
       const resultC = getAutoSelectedShape("tonic", false, "C");
-      expect(resultC.offset).toBe(9);
+      expect(resultC.shapeSemitoneOffsetFromC).toBe(9);
     });
   });
 
@@ -37,14 +37,14 @@ describe("getAutoSelectedShape", () => {
 
       const result = getAutoSelectedShape("tonic", true, "C");
 
-      expect(result).toEqual({ shapeId: null, offset: null });
+      expect(result).toEqual({ shapeId: null, shapeSemitoneOffsetFromC: null });
 
       spy.mockRestore();
     });
 
     it("should return nulls if roleId is null", () => {
       const result = getAutoSelectedShape(null, true, "C");
-      expect(result).toEqual({ shapeId: null, offset: null });
+      expect(result).toEqual({ shapeId: null, shapeSemitoneOffsetFromC: null });
     });
   });
 

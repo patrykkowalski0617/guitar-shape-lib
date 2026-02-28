@@ -5,7 +5,7 @@ import { useRandomizeKey } from "./hooks/useRandomizeKey";
 import { useRandomizeRole } from "./hooks/useRandomizeRole";
 import { useRandomizeShape } from "./hooks/useRandomizeShape";
 import { useRandomizeShapeVariant } from "./hooks/useRandomizeShapeVariant";
-import { ControlWrapper } from "../parts";
+import { ControlWrapper, iconSize } from "../parts";
 
 export function RandomizeControls() {
   const setRandomMode = useRandomizeMode();
@@ -19,19 +19,19 @@ export function RandomizeControls() {
     const randomKey = setRandomKey();
     const randomRole = setRandomRole();
 
-    const { shapeId, offset } = setRandomShape(randomRole, randomIsMajorMode);
+    const { shapeId, shapeSemitoneOffsetFromC } = setRandomShape(randomRole, randomIsMajorMode);
 
-    if (shapeId === null || offset === null) {
+    if (shapeId === null || shapeSemitoneOffsetFromC === null) {
       return;
     }
 
-    setRandomShapeVariant(randomKey, offset, shapeId);
+    setRandomShapeVariant(randomKey, shapeSemitoneOffsetFromC, shapeId);
   };
 
   return (
     <ControlWrapper>
-      <Button variant="outline" onClick={handleRandomize} className="flex items-center gap-2 border-primary/50">
-        <Dices className="h-4 w-4" />
+      <Button variant="outline" onClick={handleRandomize} className="border-primary/50">
+        <Dices size={iconSize} />
       </Button>
     </ControlWrapper>
   );

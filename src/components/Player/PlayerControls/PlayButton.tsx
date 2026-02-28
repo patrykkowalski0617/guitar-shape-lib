@@ -27,11 +27,11 @@ export const PlayButton = ({ onCloseEdit }: { onCloseEdit: () => void }) => {
   return (
     <S.PlayButton $isPlaying={isPlaying} onClick={handleClick} $bpm={bpm}>
       {isCountingIn ? (
-        <span style={{ fontSize: "16px", fontWeight: "bold" }}>{countIn}</span>
+        countIn
       ) : isPlaying ? (
-        <Square size={14} fill="currentColor" />
+        <Square size={18} fill="currentColor" stroke="var(--background)" strokeWidth={1} />
       ) : (
-        <Play size={14} fill="currentColor" />
+        <Play size={18} fill="currentColor" stroke="var(--background)" strokeWidth={1} />
       )}
     </S.PlayButton>
   );

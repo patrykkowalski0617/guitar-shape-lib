@@ -7,29 +7,29 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 export function ModeAndRoleSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
-  const currentRoleId = useControlsStore((state) => state.currentRoleId);
-  const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);
+  const roleId = useControlsStore((state) => state.roleId);
+  const setRoleId = useControlsStore((state) => state.setRoleId);
   const setShape = useControlsStore((state) => state.setShape);
-  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
+  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
 
-  const effectiveRoleId = currentRoleId ?? "all-one-instance";
+  const effectiveRoleId = roleId ?? "all-one-instance";
 
   const currentValue = isGlobalRole(effectiveRoleId)
     ? effectiveRoleId
     : `${isMajorMode ? "major" : "minor"}-${effectiveRoleId}`;
 
   const handleValueChange = (value: string) => {
-    setCurrentShapeVariantLocationData(null);
+    setShapeVariantLocationData(null);
 
     if (isGlobalRole(value as RoleId)) {
-      setCurrentRoleId(value as RoleId);
+      setRoleId(value as RoleId);
       setShape(null, null);
       return;
     }
 
     const [mode, role] = value.split("-") as ["major" | "minor", RoleId];
     setIsMajorMode(mode === "major");
-    setCurrentRoleId(role);
+    setRoleId(role);
   };
 
   const functionalRoles = (Object.entries(roles) as [RoleId, { label: string }][]).filter(([id]) => !isGlobalRole(id));
@@ -39,7 +39,7 @@ export function ModeAndRoleSelect() {
       <ControlLabel>Filter Arp/Scale</ControlLabel>
 
       <Select value={currentValue} onValueChange={handleValueChange}>
-        <SelectTrigger className="md:min-w-[200px]">
+        <SelectTrigger className="md:min-w-[220px]">
           <SelectValue placeholder="Select mode & function" />
         </SelectTrigger>
         <SelectContent>

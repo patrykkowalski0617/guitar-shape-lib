@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import { instrumentElBRadius } from "@/parts";
+import { playerElementHeight, playerElementWidth, SolidButton } from "../ui/parts";
 
 const pulse = keyframes`
   0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 80%, transparent); }
@@ -7,23 +8,14 @@ const pulse = keyframes`
   100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 0%, transparent); }
 `;
 
-export const PlayButton = styled.button<{ $isPlaying?: boolean; $bpm?: number }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: ${instrumentElBRadius};
-  height: 100%;
-  width: 30px;
-  color: var(--primary-foreground);
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  flex-shrink: 0;
-  background-color: color-mix(in oklab, var(--accent) 70%, var(--background));
-  &:hover {
-    background-color: color-mix(in oklab, var(--accent) 90%, var(--background));
-  }
-
+export const PlayButton = styled(SolidButton)<{ $isPlaying?: boolean; $bpm?: number }>`
+  font-size: 16px;
+  font-weight: 900;
+  text-shadow:
+    -1px -1px 0 var(--background),
+    1px -1px 0 var(--background),
+    -1px 1px 0 var(--background),
+    1px 1px 0 var(--background);
   ${({ $isPlaying, $bpm }) =>
     $isPlaying &&
     $bpm &&
@@ -32,27 +24,48 @@ export const PlayButton = styled.button<{ $isPlaying?: boolean; $bpm?: number }>
     `}
 `;
 
-export const BpmInput = styled.input`
-  background-color: color-mix(in oklab, var(--background) 70%, var(--accent));
-  &:hover {
-    background-color: color-mix(in oklab, var(--background) 90%, var(--accent));
-  }
+const commonBpmElementStyles = css`
+  background-color: color-mix(in oklab, var(--accent) 10%, var(--background));
   border: 1px solid var(--border);
   border-radius: ${instrumentElBRadius};
   color: var(--foreground);
-  height: 100%;
-  width: 50px;
+  height: ${playerElementHeight};
+  width: ${playerElementWidth};
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   font-size: 12px;
   font-weight: 600;
 
+  &:hover {
+    background-color: color-mix(in oklab, var(--accent) 30%, var(--background));
+  }
+
   &:focus {
+    outline: none;
     border-color: var(--accent);
   }
+`;
+
+export const BpmButton = styled.button`
+  ${commonBpmElementStyles}
+  padding: 0;
+  appearance: none;
+  border-style: solid;
+  &:disabled {
+    opacity: 0.5;
+  }
+`;
+
+export const BpmInput = styled.input`
+  ${commonBpmElementStyles}
+  cursor: text;
 
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
+  -moz-appearance: textfield;
 `;

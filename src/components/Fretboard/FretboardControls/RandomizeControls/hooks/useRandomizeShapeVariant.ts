@@ -51,7 +51,7 @@ export const getRandomVariantId = (shapeId: string, stringId: FretboardStringId,
 };
 
 export const useRandomizeShapeVariant = () => {
-  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
+  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
 
   const [fretIndex, setFretIndex] = useState<number | null>(null);
   const [stringId, setStringId] = useState<FretboardStringId | null>(null);
@@ -73,13 +73,13 @@ export const useRandomizeShapeVariant = () => {
 
     if (!variantId) return;
 
-    setCurrentShapeVariantLocationData({
+    setShapeVariantLocationData({
       shapeId,
       stringId,
       fretIndex,
       variantId,
     });
-  }, [shapeId, fretIndex, stringId, setCurrentShapeVariantLocationData]);
+  }, [shapeId, fretIndex, stringId, setShapeVariantLocationData]);
 
   return setRandomShapeVariant;
 };

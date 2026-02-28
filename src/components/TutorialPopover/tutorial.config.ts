@@ -29,7 +29,7 @@ Dominant - Phrygian Dominant Scale`,
     title: "Fretboard",
     description: `Once a function is selected, the app highlights all corresponding root notes. Interact with any root note to reveal available shape variants, then select a numbered dot to display it. 
     
-    Clicking the active dot again will toggle it as "learned" to track your progress.`,
+    Clicking the active dot again will toggle it as "userList" to track your progress.`,
     x: 10,
     y: 0,
   },

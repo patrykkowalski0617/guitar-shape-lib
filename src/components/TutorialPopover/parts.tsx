@@ -7,7 +7,6 @@ interface IconWrapperProps {
 
 export const IconWrapper = styled.div<IconWrapperProps>`
   display: inline-flex;
-  cursor: pointer;
   position: absolute;
   left: ${({ $x }) => $x}px;
   top: ${({ $y }) => $y}px;

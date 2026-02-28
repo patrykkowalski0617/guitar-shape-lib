@@ -13,6 +13,7 @@ interface PlayerState {
   bricks: Brick[];
   activeBrickId: number | null;
   bpm: number;
+  bpmMultiplier: number;
   isPlaying: boolean;
   currentStep: number;
   transitionTime: number;
@@ -25,16 +26,19 @@ interface PlayerState {
   updateBrickSnapshot: (id: number, snapshot: Snapshot) => void;
   setActiveBrickId: (id: number | null) => void;
   setBpm: (bpm: number) => void;
+  setBpmMultiplier: (multiplier: number) => void;
   togglePlay: () => void;
   nextStep: () => void;
   getTotalSteps: () => number;
   reorderBricks: (startIndex: number, endIndex: number) => void;
+  setBricks: (bricks: Brick[]) => void;
 }
 
 export const usePlayerStore = create<PlayerState>((set, get) => ({
   bricks: [],
   activeBrickId: null,
   bpm: 70,
+  bpmMultiplier: 1,
   isPlaying: false,
   currentStep: 0,
   transitionTime: transitionTime,
@@ -66,15 +70,16 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     })),
 
   setActiveBrickId: (id) => set({ activeBrickId: id }),
-  setBpm: (bpm) => set({ bpm: Math.max(20, Math.min(360, bpm)) }),
+  setBpm: (bpm) => set({ bpm: Math.max(30, Math.min(220, bpm)) }),
+  setBpmMultiplier: (bpmMultiplier) => set({ bpmMultiplier }),
 
   togglePlay: () => {
-    const { isPlaying } = get();
+    const { isPlaying, bpm } = get();
     if (!isPlaying) {
       set({
         isPlaying: true,
         isCountingIn: true,
-        countIn: 4,
+        countIn: bpm <= 100 ? 4 : 8,
         currentStep: 0,
         transitionTime: 0,
       });
@@ -118,4 +123,5 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
       return { bricks: newBricks };
     });
   },
+  setBricks: (bricks) => set({ bricks }),
 }));

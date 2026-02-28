@@ -11,10 +11,10 @@ export interface RoleData {
 
 export const roles: Record<RoleId, RoleData> = {
   "all-matching-key": {
-    label: "All matching current Key",
+    label: "All - key as context",
   },
   "all-one-instance": {
-    label: "One instance of each",
+    label: "All - key as root note",
   },
   tonic: {
     label: "Tonic",

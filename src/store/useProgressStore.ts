@@ -2,26 +2,24 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 interface ProgressState {
-  learned: string[];
-  toggleLearned: (variantId: string) => void;
-  importData: (data: { learned: string[] }) => void;
+  userList: string[];
+  toggleUserList: (variantId: string) => void;
+  importData: (data: { userList: string[] }) => void;
 }
 
 export const useProgressStore = create<ProgressState>()(
   persist(
     (set) => ({
-      learned: [],
+      userList: [],
 
-      toggleLearned: (id) =>
+      toggleUserList: (id) =>
         set((state) => ({
-          learned: state.learned.includes(id)
-            ? state.learned.filter((i) => i !== id)
-            : [...state.learned, id],
+          userList: state.userList.includes(id) ? state.userList.filter((i) => i !== id) : [...state.userList, id],
         })),
 
       importData: (data) =>
         set({
-          learned: data.learned || [],
+          userList: data.userList || [],
         }),
     }),
     {

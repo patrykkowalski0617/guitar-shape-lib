@@ -1,20 +1,17 @@
-import { FooterAndHeaderStyles, SectionCommonCss } from "@/parts";
-import styled, { css } from "styled-components";
+import { FooterAndHeaderStyles } from "@/parts";
+import styled from "styled-components";
 
-export const FooterWrapper = styled.footer<{ $isHidden: boolean }>`
+export const FooterWrapper = styled.footer<{ $isFullscreen: boolean; $isPianoVisible: boolean }>`
   ${FooterAndHeaderStyles}
+
   height: 50px;
   max-height: 50px;
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   font-weight: 400;
   text-shadow:
     0px 0px 20px var(--background),
     0px 0px 20px var(--background);
-  ${SectionCommonCss}
-  ${({ $isHidden }) =>
-    $isHidden &&
-    css`
-      max-height: 0;
-      opacity: 0;
-    `}
+
+  @media (min-width: 1600px) {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  }
 `;

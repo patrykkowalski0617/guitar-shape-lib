@@ -5,8 +5,7 @@ export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 100vh;
-  overflow-x: hidden;
+  height: 100vh;
 `;
 
 export const MainContent = styled.main`
@@ -16,6 +15,10 @@ export const MainContent = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 25px;
+  @media (min-width: 1024px) {
+    padding-bottom: 50px;
+  }
 `;
 
 export const SectionCommonCss = css`
@@ -60,18 +63,42 @@ export const TutorialStickyIcons = styled.div`
   z-index: 40;
 `;
 
-export const FooterAndHeaderStyles = css`
-  background-color: color-mix(in oklab, var(--accent) 50%, transparent);
-  max-width: 1500px;
+export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisible: boolean }>`
+  background-color: color-mix(in oklab, var(--accent) 65%, transparent);
+  max-width: unset;
   margin: 0 auto;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  flex-shrink: 0;
   transition:
-    max-height ${transitionTime}ms 1000ms ease-in-out,
-    opacity ${transitionTime}ms 1000ms ease-in-out;
+    max-height ${transitionTime}ms 500ms ease-in-out,
+    opacity ${transitionTime}ms 500ms ease-in-out;
+
+  @media (min-width: 1600px) {
+    max-width: 1500px;
+  }
+
+  @media (min-width: 768px) {
+    ${({ $isFullscreen }) =>
+      $isFullscreen &&
+      css`
+        flex-shrink: 1;
+        max-height: 0;
+        opacity: 0;
+      `}
+  }
+
+  ${({ $isFullscreen, $isPianoVisible }) =>
+    $isFullscreen &&
+    $isPianoVisible &&
+    css`
+      flex-shrink: 1;
+      max-height: 0;
+      opacity: 0;
+    `}
 `;
 
 export const ControlWrapper = styled.div`
@@ -119,13 +146,11 @@ export const CollapsibleSection = styled(Setcion)<{ $isVisible: boolean }>`
           opacity: 1;
           transform: translateY(0) scale(1);
           max-height: 180px;
-          pointer-events: auto;
         `
       : css`
           opacity: 0;
           transform: translateY(20px) scale(0.9);
           max-height: 0;
           margin-top: 0;
-          pointer-events: none;
         `}
 `;

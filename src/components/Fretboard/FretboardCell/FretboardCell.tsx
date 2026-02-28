@@ -3,18 +3,18 @@ import type { NoteObject } from "@/utils";
 import VariantProgressDots from "@/components/Fretboard/VariantProgressDots/VariantProgressDots";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
-import { useFretCell, useNoteState, useFretboardStates } from "./hooks";
+import { useFretboardCell, useNoteState, useFretboardStates } from "./hooks";
 import { usePlayerStore } from "@/store";
 
-interface FretCellProps {
+interface FretboardCellProps {
   noteData: NoteObject;
   stringIndex: StringIndex;
   fretIndex: number;
 }
 
-export default function FretCell({ noteData, stringIndex, fretIndex }: FretCellProps) {
+export default function FretboardCell({ noteData, stringIndex, fretIndex }: FretboardCellProps) {
   const transitionTime = usePlayerStore((state) => state.transitionTime);
-  const { states, actions } = useFretCell();
+  const { states, actions } = useFretboardCell();
   const { isShapeSelected, shouldMarkTuneNotes } = useFretboardStates();
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 

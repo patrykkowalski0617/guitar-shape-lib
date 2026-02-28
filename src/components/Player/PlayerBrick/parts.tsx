@@ -1,10 +1,11 @@
 import { instrumentElBRadius } from "@/parts";
 import styled, { css, keyframes } from "styled-components";
+import { playerElementHeight } from "../ui/parts";
 
 const flash = keyframes`
-  0% { background-color: color-mix(in oklab, var(--accent) 20%, var(--background)); }
-  50% { background-color: color-mix(in oklab, var(--accent) 40%, var(--background)); }
-  100% { background-color: color-mix(in oklab, var(--accent) 20%, var(--background)); }
+  0% { background-color: color-mix(in oklab, var(--accent) 45%, var(--background)); }
+  50% { background-color: color-mix(in oklab, var(--accent) 60%, var(--background)); }
+  100% { background-color: color-mix(in oklab, var(--accent) 45%, var(--background)); }
 `;
 
 export const PartsContainer = styled.div`
@@ -34,12 +35,11 @@ export const Part = styled.div<{ $unit: number; $isActive: boolean }>`
   ${({ $isActive }) =>
     $isActive &&
     css`
-      background-color: color-mix(in oklab, var(--accent) 40%, var(--background));
+      background-color: color-mix(in oklab, var(--accent) 70%, var(--background));
     `}
 `;
 
 export const BrickOptions = styled.div<{ $isEditable: boolean }>`
-  height: 100%;
   border-radius: ${instrumentElBRadius};
   transition: all 0.1s ease;
   display: none;
@@ -58,13 +58,13 @@ export const Brick = styled.div<{ $isEditable: boolean; $widthUnit: number; $uni
   align-items: center;
   justify-content: center;
   width: ${({ $widthUnit, $unit }) => $widthUnit * $unit}px;
-  height: 100%;
+  height: ${playerElementHeight};
   padding: 0 4px;
   border-radius: ${instrumentElBRadius};
   position: relative;
   user-select: none;
-  border: 1px solid color-mix(in oklab, var(--border) 50%, var(--background));
-  background-color: color-mix(in oklab, var(--accent) 15%, var(--background));
+  border: 1px solid color-mix(in oklab, var(--border) 90%, var(--background));
+  background-color: color-mix(in oklab, var(--accent) 45%, var(--background));
   color: var(--foreground);
   flex-shrink: 0;
   opacity: ${({ $isDragging }) => ($isDragging ? 0.4 : 1)};

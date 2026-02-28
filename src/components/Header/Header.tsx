@@ -1,21 +1,22 @@
 import * as S from "./parts";
-import { Settings } from "../Settings/Settings";
-import { useSettingsStore } from "@/store";
+// import { Settings } from "../Settings/Settings";
+import { useControlsStore, useSettingsStore } from "@/store";
 
 export default function Header() {
   const isFullscreen = useSettingsStore((state) => state.isFullscreen);
+  const isPianoVisible = useControlsStore((state) => state.isPianoVisible);
 
   return (
-    <S.HeaderWrapper $isHidden={isFullscreen}>
+    <S.HeaderWrapper $isFullscreen={isFullscreen} $isPianoVisible={isPianoVisible}>
       <S.HeaderContent>
         <S.TitleWrapper>
-          <S.Title>Solo over changes</S.Title>
-          <S.Subtitle>Guitar Shapes Library</S.Subtitle>
+          <S.Title>Simple Guitar Shapes</S.Title>
+          {/* <S.Subtitle></S.Subtitle> */}
         </S.TitleWrapper>
 
-        <S.HeaderSide>
+        {/* <S.HeaderSide>
           <Settings />
-        </S.HeaderSide>
+        </S.HeaderSide> */}
       </S.HeaderContent>
     </S.HeaderWrapper>
   );

@@ -3,7 +3,7 @@ import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
 import styled from "styled-components";
 
-const Tick = styled.div<{ $isCurrent: boolean; $isLearned: boolean }>`
+const Tick = styled.div<{ $isCurrent: boolean; $isUserList: boolean }>`
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
@@ -14,27 +14,28 @@ const Tick = styled.div<{ $isCurrent: boolean; $isLearned: boolean }>`
     display: none;
   }
 
-  background-color: ${({ $isLearned }) =>
-    $isLearned ? "var(--accent)" : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
-  box-shadow: ${({ $isLearned }) => {
-    if ($isLearned) return "0 0 8px var(--accent)";
+  background-color: ${({ $isUserList }) =>
+    $isUserList ? "var(--accent)" : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
+  box-shadow: ${({ $isUserList }) => {
+    if ($isUserList) return "0 0 8px var(--accent)";
     return "none";
   }};
+
   transition: all 0.05s ease-in-out;
   z-index: ${({ $isCurrent }) => ($isCurrent ? "10" : "")};
 `;
 
 interface DiscreteSliderProps extends React.ComponentProps<typeof SliderPrimitive.Root> {
-  learnedIndexes?: number[];
+  userListIndexes?: number[];
 }
 
-function DiscreteSlider({
+function StepSlider({
   className,
   value,
   min = 0,
   max = 100,
   style,
-  learnedIndexes = [],
+  userListIndexes = [],
   ...props
 }: DiscreteSliderProps) {
   const currentValue = value?.[0] ?? 0;
@@ -58,7 +59,7 @@ function DiscreteSlider({
             <Tick
               key={i}
               $isCurrent={i === currentValue && currentValue !== 0}
-              $isLearned={learnedIndexes.includes(i)}
+              $isUserList={userListIndexes.includes(i)}
               style={{ left: `${(i / max) * 100}%` }}
             />
           ))}
@@ -82,4 +83,4 @@ function DiscreteSlider({
   );
 }
 
-export { DiscreteSlider };
+export { StepSlider };

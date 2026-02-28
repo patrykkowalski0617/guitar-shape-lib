@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import * as S from "@/components/Settings/Progress/parts";
 
 export const ExportProgressFile = () => {
-  const { learned } = useProgressStore();
+  const { userList } = useProgressStore();
   return (
     <S.ControlWrapper>
-      <Button variant="outline" onClick={() => exportProgress({ learned })}>
+      <Button variant="outline" onClick={() => exportProgress({ userList })}>
         Export progress file
       </Button>
     </S.ControlWrapper>

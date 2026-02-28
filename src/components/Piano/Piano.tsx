@@ -5,7 +5,7 @@ import * as S from "@/components/Piano/parts";
 import PianoKey from "./PianoKey/PianoKey";
 import { pianoNotes, numberOfKeys } from "./helpers/constants";
 import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
-import { usePianoScroll } from "./helpers/usePianoScroll";
+import { usePianoScroll } from "./hooks/usePianoScroll";
 import { MajorModeSwitch } from "./MajorModeSwitch/MajorModeSwitch";
 
 export default function Piano(): JSX.Element {

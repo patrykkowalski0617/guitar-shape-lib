@@ -1,7 +1,7 @@
 import { useControlsStore } from "@/store";
 import { UNIFIED_MUSIC_KEYS, type RoleId, isGlobalRole } from "@/data";
-import { useScaleLogic } from "../../helpers/useScaleLogic";
 import { pianoNotes } from "../../helpers/constants";
+import { useScaleLogic } from "../../hooks";
 
 const VISIBLE_INDEXES_MAP: Record<"major" | "minor", Partial<Record<RoleId, readonly number[]>>> = {
   major: {
@@ -18,23 +18,23 @@ const VISIBLE_INDEXES_MAP: Record<"major" | "minor", Partial<Record<RoleId, read
 
 export const useScaleTemplate = () => {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
-  const currentKeyId = useControlsStore((state) => state.currentKeyId);
-  const currentRoleId = useControlsStore((state) => state.currentRoleId);
+  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
+  const roleId = useControlsStore((state) => state.roleId);
 
   const { currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
-  const roleOffset = currentRoleId === "subdominant" ? 5 : currentRoleId === "dominant" ? 7 : 0;
-  const templateOffset = UNIFIED_MUSIC_KEYS[currentKeyId].offsetFromC + roleOffset;
+  const roleOffset = roleId === "subdominant" ? 5 : roleId === "dominant" ? 7 : 0;
+  const templateOffset = UNIFIED_MUSIC_KEYS[tuneKeyId].offsetFromC + roleOffset;
   const position = 5 + templateOffset;
 
   const modeKey = isMajorMode ? "major" : "minor";
   const modeMap = VISIBLE_INDEXES_MAP[modeKey];
 
-  const effectiveRoleId = isGlobalRole(currentRoleId) || !currentRoleId ? "tonic" : currentRoleId;
+  const effectiveRoleId = isGlobalRole(roleId) || !roleId ? "tonic" : roleId;
 
-  const highlightRole = !isGlobalRole(currentRoleId) && currentRoleId ? (modeMap[effectiveRoleId] ?? []) : [];
+  const highlightRole = !isGlobalRole(roleId) && roleId ? (modeMap[effectiveRoleId] ?? []) : [];
 
-  const altIndexes = !isGlobalRole(currentRoleId)
+  const altIndexes = !isGlobalRole(roleId)
     ? Array.from({ length: 33 }, (_, i) => i).filter((stepIndex) => {
         const pianoNote = pianoNotes[position + stepIndex];
         if (!pianoNote) return false;
@@ -46,6 +46,6 @@ export const useScaleTemplate = () => {
     position,
     highlightRole,
     altIndexes,
-    currentRoleId,
+    roleId,
   };
 };

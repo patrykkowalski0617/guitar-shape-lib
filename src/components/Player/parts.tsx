@@ -6,7 +6,7 @@ export const PlayerContainer = styled.div`
   flex-direction: column;
   gap: calc(var(--spacing) * 2);
   max-width: 1300px;
-  @media (min-width: 768px) {
+  @media (min-width: 1200px) {
     padding: 0 35px;
     flex-direction: row;
     margin: auto;
@@ -17,15 +17,24 @@ export const PlayerSection = styled.div`
   background-color: color-mix(in oklab, var(--muted) 30%, transparent);
   border-radius: ${instrumentElBRadius};
   padding: 6px 12px;
-  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 12px;
   flex-direction: row;
   width: 100%;
+  &:last-child {
+    background-color: transparent;
+    justify-content: center;
+  }
 
   @media (min-width: 768px) {
+    &:last-child {
+      justify-content: flex-end;
+      padding-right: 35px;
+    }
+  }
+  @media (min-width: 1200px) {
     &:first-child {
       flex-grow: 1;
       flex-shrink: 1;
@@ -38,6 +47,9 @@ export const PlayerSection = styled.div`
       flex-grow: 0;
       flex-shrink: 0;
       width: auto;
+      background-color: color-mix(in oklab, var(--muted) 30%, transparent);
+      justify-content: center;
+      padding-right: 12px;
     }
   }
 `;

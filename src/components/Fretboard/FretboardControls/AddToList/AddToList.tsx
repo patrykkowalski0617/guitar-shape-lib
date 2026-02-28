@@ -1,38 +1,40 @@
 import { useProgressStore, useMusicStore } from "@/store";
-import { ControlWrapper } from "../parts";
+import { ControlWrapper, iconSize } from "../parts";
 import { Button } from "@/components/ui/button";
 import { Heart } from "lucide-react";
 import { toast } from "sonner";
+import { USER_LIST_MESSAGES } from "@/data/constants";
 
 export function AddToList() {
-  const { learned, toggleLearned } = useProgressStore();
-  const currentLocation = useMusicStore((state) => state.currentShapeVariantLocationData);
+  const { userList, toggleUserList } = useProgressStore();
+  const currentLocation = useMusicStore((state) => state.shapeVariantLocationData);
 
   const currentId = currentLocation
     ? `${currentLocation.shapeId}-${currentLocation.stringId}-${currentLocation.variantId}`
     : null;
 
-  const isFavorite = !!(currentId && learned.includes(currentId));
+  const isFavorite = !!(currentId && userList.includes(currentId));
 
   const handleToggle = () => {
-    if (currentId) {
-      toggleLearned(currentId);
-      toast(!isFavorite ? "Added to favorites/learned." : "Removed from favorites/learned.");
-    } else {
-      toast("Select Arpeggio/Scale and its Variant on fretboard first.");
+    if (!currentId) {
+      toast(USER_LIST_MESSAGES.SELECT_PROMPT);
+      return;
     }
+
+    toggleUserList(currentId);
+
+    const notification = isFavorite ? USER_LIST_MESSAGES.REMOVED : USER_LIST_MESSAGES.ADDED;
+    toast(notification);
   };
 
   return (
     <ControlWrapper>
       <Button
         variant={isFavorite ? "active" : "outline"}
+        className={!currentId ? "opacity-50" : ""}
         onClick={handleToggle}
-        className={!currentId ? "opacity-50 cursor-not-allowed" : ""}
       >
-        <span className="flex items-center justify-center">
-          <Heart className={`h-3.5 w-3.5 ${isFavorite ? "fill-current" : "opacity-50"}`} />
-        </span>
+        <Heart size={iconSize} />
       </Button>
     </ControlWrapper>
   );

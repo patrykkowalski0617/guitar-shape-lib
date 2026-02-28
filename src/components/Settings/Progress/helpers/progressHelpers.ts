@@ -1,4 +1,4 @@
-export const exportProgress = (state: { learned: string[] }) => {
+export const exportProgress = (state: { userList: string[] }) => {
   const data = JSON.stringify(state, null, 2);
   const blob = new Blob([data], { type: "application/json" });
   const url = URL.createObjectURL(blob);

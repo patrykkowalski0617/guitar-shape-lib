@@ -6,55 +6,55 @@ import { shapes, type MusicKeyId, type RoleId, type Shapes } from "@/data";
 export type Snapshot = {
   keyId: MusicKeyId;
   isMajorMode: boolean;
-  currentRoleId: RoleId | null;
-  currentShapeVariantLocationData: ShapeVariantLocationData | null;
+  roleId: RoleId | null;
+  shapeVariantLocationData: ShapeVariantLocationData | null;
   rootNote: string | null;
   shapeLabel: string | undefined;
-  currentShapeSemitoneOffsetFromC: number | null;
-  currentShapeId: string | null;
+  shapeSemitoneOffsetFromC: number | null;
+  shapeId: string | null;
 };
 
 export function usePlayerSnapshot(brickId: number, isEditable: boolean, onToggleEdit: () => void) {
   const updateBrickSnapshot = usePlayerStore((state) => state.updateBrickSnapshot);
   const brick = usePlayerStore((state) => state.bricks.find((b) => b.id === brickId));
 
-  const currentKeyId = useControlsStore((state) => state.currentKeyId);
+  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
-  const currentRoleId = useControlsStore((state) => state.currentRoleId);
-  const currentShapeId = useControlsStore((state) => state.currentShapeId);
-  const currentShapeSemitoneOffsetFromC = useControlsStore((state) => state.currentShapeSemitoneOffsetFromC);
-  const currentShapeVariantLocationData = useMusicStore((state) => state.currentShapeVariantLocationData);
+  const roleId = useControlsStore((state) => state.roleId);
+  const shapeId = useControlsStore((state) => state.shapeId);
+  const shapeSemitoneOffsetFromC = useControlsStore((state) => state.shapeSemitoneOffsetFromC);
+  const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
   const activeRootNote = useShapeRootNote();
 
-  const setCurrentKey = useControlsStore((state) => state.setCurrentKey);
-  const setCurrentRoleId = useControlsStore((state) => state.setCurrentRoleId);
+  const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
+  const setRoleId = useControlsStore((state) => state.setRoleId);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
   const setShape = useControlsStore((state) => state.setShape);
-  const setCurrentShapeVariantLocationData = useMusicStore((state) => state.setCurrentShapeVariantLocationData);
-  const setLockedShapeVariantLocationData = useMusicStore((state) => state.setLockedShapeVariantLocationData);
+  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
+  const setShapeVariantLocationData_ghost = useMusicStore((state) => state.setShapeVariantLocationData_ghost);
 
-  const activeShape = shapes[currentShapeId as keyof Shapes] || null;
+  const activeShape = shapes[shapeId as keyof Shapes] || null;
 
   const currentLiveState: Snapshot = useMemo(
     () => ({
-      keyId: currentKeyId,
+      keyId: tuneKeyId,
       isMajorMode,
-      currentRoleId,
-      currentShapeVariantLocationData,
+      roleId,
+      shapeVariantLocationData,
       rootNote: activeRootNote,
       shapeLabel: activeShape?.label,
-      currentShapeSemitoneOffsetFromC,
-      currentShapeId,
+      shapeSemitoneOffsetFromC,
+      shapeId,
     }),
     [
-      currentKeyId,
+      tuneKeyId,
       isMajorMode,
-      currentRoleId,
-      currentShapeVariantLocationData,
+      roleId,
+      shapeVariantLocationData,
       activeRootNote,
       activeShape,
-      currentShapeSemitoneOffsetFromC,
-      currentShapeId,
+      shapeSemitoneOffsetFromC,
+      shapeId,
     ],
   );
 
@@ -69,19 +69,17 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean, onToggle
   const lockedSnapshot = brick?.snapshot || currentLiveState;
 
   const applySnapshotToStore = (data: Snapshot) => {
-    setCurrentShapeVariantLocationData(data.currentShapeVariantLocationData);
-    setCurrentKey(data.keyId);
-    setCurrentRoleId(data.currentRoleId);
+    setShapeVariantLocationData(data.shapeVariantLocationData);
+    setTuneKeyId(data.keyId);
+    setRoleId(data.roleId);
     setIsMajorMode(data.isMajorMode);
-    setShape(data.currentShapeId, data.currentShapeSemitoneOffsetFromC);
+    setShape(data.shapeId, data.shapeSemitoneOffsetFromC);
   };
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    if (displayData.currentShapeVariantLocationData === null) {
-      setLockedShapeVariantLocationData(currentShapeVariantLocationData);
-    }
+    setShapeVariantLocationData_ghost(shapeVariantLocationData);
 
     if (!isEditable && lockedSnapshot.rootNote !== null) {
       applySnapshotToStore(lockedSnapshot);
