@@ -72,7 +72,7 @@ describe("useFretboardScroll", () => {
     expect(containerMock.current.scrollTo).not.toHaveBeenCalled();
   });
 
-  it("should scroll to lowest fret if highest fret is out of view", () => {
+  it("should scroll to the highest fret if it is hidden on the right", () => {
     vi.mocked(useShapeNotes).mockReturnValue([
       [0, 5],
       [0, 15],
@@ -93,7 +93,37 @@ describe("useFretboardScroll", () => {
       vi.advanceTimersByTime(150);
     });
 
-    expect(containerMock.current.scrollTo).toHaveBeenCalled();
+    expect(containerMock.current.scrollTo).toHaveBeenCalledWith({
+      left: 260,
+      behavior: "smooth",
+    });
+  });
+
+  it("should scroll to the lowest fret if it is hidden on the left", () => {
+    vi.mocked(useShapeNotes).mockReturnValue([
+      [0, 5],
+      [0, 8],
+    ]);
+
+    containerMock.current.querySelector.mockImplementation((selector: string) => {
+      if (selector === '[data-fret="5"]') {
+        return { getBoundingClientRect: () => ({ left: -200, right: -150 }) as DOMRect };
+      }
+      if (selector === '[data-fret="8"]') {
+        return { getBoundingClientRect: () => ({ left: 100, right: 150 }) as DOMRect };
+      }
+      return null;
+    });
+
+    renderHook(() => useFretboardScroll(containerMock));
+    act(() => {
+      vi.advanceTimersByTime(150);
+    });
+
+    expect(containerMock.current.scrollTo).toHaveBeenCalledWith({
+      left: -260,
+      behavior: "smooth",
+    });
   });
 
   it("should scroll to 0 if theLowestFret is 0", () => {

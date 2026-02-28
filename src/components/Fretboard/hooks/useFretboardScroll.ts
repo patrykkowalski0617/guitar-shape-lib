@@ -39,7 +39,15 @@ export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null
 
         if (isLowestVisible && isHighestVisible) return;
 
-        const targetScrollLeft = container.scrollLeft + (lowestRect.left - containerRect.left) - 60;
+        let targetScrollLeft = container.scrollLeft;
+        const scrollMargin = 60;
+
+        if (!isLowestVisible) {
+          targetScrollLeft = container.scrollLeft + (lowestRect.left - containerRect.left) - scrollMargin;
+        } else if (!isHighestVisible) {
+          targetScrollLeft = container.scrollLeft + (highestRect.right - containerRect.right) + scrollMargin;
+        }
+
         container.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
       }
     }, 100);
