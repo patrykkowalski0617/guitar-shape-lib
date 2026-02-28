@@ -1,17 +1,17 @@
-import { Plus, Trash2, Check } from "lucide-react";
+import { Trash2, Check } from "lucide-react";
 import PlayerBrick from "../PlayerBrick/PlayerBrick";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { usePlayerBricksDrag } from "./hooks/usePlayerBricksDrag";
-import { DashedButton, OutlineButton, SolidButton } from "../ui/parts";
+import { OutlineButton, SolidButton } from "../ui/parts";
 import { RandomeButton } from "./PlayerBricksContainerControls/RandomizeButton/RandomeButton";
+import { AddBrickButton } from "./PlayerBricksContainerControls/AddBrickButton/AddBrickButton";
 
 interface Props {
   onCloseEdit: () => void;
-  onAdd: () => void;
 }
 
-export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
+export const PlayerBricksContainer = ({ onCloseEdit }: Props) => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const bricks = usePlayerStore((state) => state.bricks);
   const activeBrickId = usePlayerStore((state) => state.activeBrickId);
@@ -20,20 +20,21 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
 
   const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } = usePlayerBricksDrag();
-  const isContainerEmpty = bricks.length === 0;
 
-  // console.log(bricks);
+  const isContainerEmpty = bricks.length === 0;
+  const isEditModeActive = activeBrickId !== null;
 
   return (
     <S.PlayerWrapper $isPlaying={isPlaying}>
       {bricks.map((brick, index) => {
         const isEditable = activeBrickId === brick.id;
         const isBeingDragged = draggedIndex === index;
+        const canDrag = !isEditable && !isPlaying;
 
         return (
           <S.BrickDragWrapper
             key={brick.id}
-            draggable={!isEditable && !isPlaying}
+            draggable={canDrag}
             onDragStart={() => handleDragStart(index, isEditable)}
             onDragOver={(e) => handleDragOver(e, index)}
             onDragEnd={handleDragEnd}
@@ -48,14 +49,11 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
           </S.BrickDragWrapper>
         );
       })}
-      <S.ControlsWrapper>
-        {!isPlaying && (
-          <DashedButton onClick={onAdd}>
-            <Plus size={16} />
-          </DashedButton>
-        )}
 
-        {activeBrickId !== null && (
+      <S.ControlsWrapper>
+        <AddBrickButton />
+
+        {isEditModeActive && (
           <>
             <OutlineButton $isPrimary onClick={() => removeBrick(activeBrickId)}>
               <Trash2 size={14} />
@@ -65,6 +63,7 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
             </SolidButton>
           </>
         )}
+
         {isContainerEmpty && <RandomeButton />}
       </S.ControlsWrapper>
     </S.PlayerWrapper>

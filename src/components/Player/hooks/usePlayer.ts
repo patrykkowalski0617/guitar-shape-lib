@@ -1,25 +1,16 @@
 import { useCallback, useEffect } from "react";
 import { useMetronome } from "./useMetronome";
-import { usePlayerStore, useMusicStore, useControlsStore } from "@/store";
-import { useShapeRootNote } from "@/hooks";
-import { shapes, type Shapes } from "@/data";
+import { usePlayerStore, useMusicStore } from "@/store";
+import { useAddBrick } from "../PlayerBricksContainer/PlayerBricksContainerControls/AddBrickButton/hooks/useAddBrick";
 
 export function usePlayer() {
   const setShapeVariantLocationData_ghost = useMusicStore((state) => state.setShapeVariantLocationData_ghost);
   const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
 
-  const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
   const bpm = usePlayerStore((state) => state.bpm);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const isCountingIn = usePlayerStore((state) => state.isCountingIn);
   const bricks = usePlayerStore((state) => state.bricks);
-
-  const tuneKeyId = useControlsStore((s) => s.tuneKeyId);
-  const isMajorMode = useControlsStore((s) => s.isMajorMode);
-  const roleId = useControlsStore((s) => s.roleId);
-  const shapeId = useControlsStore((s) => s.shapeId);
-  const shapeSemitoneOffsetFromC = useControlsStore((s) => s.shapeSemitoneOffsetFromC);
-  const activeRootNote = useShapeRootNote();
 
   const nextStep = usePlayerStore((state) => state.nextStep);
   const handleTick = useCallback(() => {
@@ -27,14 +18,15 @@ export function usePlayer() {
   }, [nextStep]);
 
   const { toggleMetronome } = useMetronome(bpm, handleTick);
+  const { addBrick } = useAddBrick();
 
   useEffect(() => {
-    if (isPlaying && isCountingIn) {
-      const firstBrick = bricks[0];
-      if (firstBrick?.snapshot) {
-        setShapeVariantLocationData(null);
-        setShapeVariantLocationData_ghost(firstBrick.snapshot.shapeVariantLocationData);
-      }
+    const isReadyToSetGhost = isPlaying && isCountingIn;
+    const firstBrick = bricks[0];
+
+    if (isReadyToSetGhost && firstBrick?.snapshot) {
+      setShapeVariantLocationData(null);
+      setShapeVariantLocationData_ghost(firstBrick.snapshot.shapeVariantLocationData);
     }
   }, [isPlaying, isCountingIn, bricks, setShapeVariantLocationData_ghost, setShapeVariantLocationData]);
 
@@ -43,32 +35,18 @@ export function usePlayer() {
     return () => toggleMetronome(false);
   }, [isPlaying, toggleMetronome]);
 
-  const addBrick = () => {
-    const activeShape = shapes[shapeId as keyof Shapes] || null;
-
-    const initialSnapshot = {
-      keyId: tuneKeyId,
-      isMajorMode,
-      roleId,
-      shapeVariantLocationData,
-      rootNote: activeRootNote,
-      shapeLabel: activeShape?.label,
-      shapeSemitoneOffsetFromC,
-      shapeId,
-    };
-
-    usePlayerStore.getState().addBrick(initialSnapshot);
-
-    setShapeVariantLocationData_ghost(shapeVariantLocationData);
-  };
-
   const handleBpmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value);
-    if (!isNaN(value)) usePlayerStore.getState().setBpm(value);
+    const isValidNumber = !isNaN(value);
+
+    if (isValidNumber) {
+      usePlayerStore.getState().setBpm(value);
+    }
   };
 
   const closeEdit = () => {
-    usePlayerStore.getState().setActiveBrickId(null);
+    const playerStore = usePlayerStore.getState();
+    playerStore.setActiveBrickId(null);
     setShapeVariantLocationData_ghost(null);
   };
 
