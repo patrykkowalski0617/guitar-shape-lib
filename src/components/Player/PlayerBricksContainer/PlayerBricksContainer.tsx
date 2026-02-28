@@ -4,6 +4,7 @@ import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { usePlayerBricksDrag } from "./hooks/usePlayerBricksDrag";
 import { DashedButton, OutlineButton, SolidButton } from "../ui/parts";
+import { RandomeButton } from "./PlayerBricksContainerControls/RandomizeButton/RandomeButton";
 
 interface Props {
   onCloseEdit: () => void;
@@ -19,6 +20,7 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
 
   const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } = usePlayerBricksDrag();
+  const isContainerEmpty = bricks.length === 0;
 
   // console.log(bricks);
 
@@ -63,6 +65,7 @@ export const PlayerBricksContainer = ({ onCloseEdit, onAdd }: Props) => {
             </SolidButton>
           </>
         )}
+        {isContainerEmpty && <RandomeButton />}
       </S.ControlsWrapper>
     </S.PlayerWrapper>
   );
