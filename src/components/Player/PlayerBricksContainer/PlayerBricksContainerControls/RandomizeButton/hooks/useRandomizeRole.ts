@@ -12,5 +12,5 @@ export const useRandomizeRole = () => {
     return randomRole;
   };
 
-  return setRandomRole;
+  return { setRandomRole };
 };

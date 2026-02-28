@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Dices } from "lucide-react";
 import { useRandomizeMode } from "./hooks/useRandomizeMode";
 import { useRandomizeKey } from "./hooks/useRandomizeKey";
@@ -6,13 +7,33 @@ import { useRandomizeShape } from "./hooks/useRandomizeShape";
 import { useRandomizeShapeVariant } from "./hooks/useRandomizeShapeVariant";
 import { iconSize } from "@/components/Fretboard/FretboardControls/parts";
 import { OutlineButton } from "@/components/Player/ui/parts";
+import { useAddBrick } from "../AddBrickButton/hooks/useAddBrick";
+import { useMusicStore, usePlayerStore } from "@/store";
 
 export function RandomeButton() {
-  const setRandomMode = useRandomizeMode();
-  const setRandomKey = useRandomizeKey();
-  const setRandomRole = useRandomizeRole();
-  const setRandomShape = useRandomizeShape();
-  const setRandomShapeVariant = useRandomizeShapeVariant();
+  const { setRandomMode } = useRandomizeMode();
+  const { setRandomKey } = useRandomizeKey();
+  const { setRandomRole } = useRandomizeRole();
+  const { setRandomShape } = useRandomizeShape();
+  const { setRandomShapeVariant } = useRandomizeShapeVariant();
+  const { addBrick } = useAddBrick();
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
+
+  const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
+  const isRandomizeActionActive = useRef(false);
+
+  useEffect(() => {
+    const shouldExecuteAddBrick = isRandomizeActionActive.current;
+
+    if (shouldExecuteAddBrick) {
+      addBrick();
+      isRandomizeActionActive.current = false;
+    }
+  }, [shapeVariantLocationData, addBrick]);
+
+  if (isPlaying) {
+    return null;
+  }
 
   const handleRandomize = () => {
     const randomIsMajorMode = setRandomMode();
@@ -21,11 +42,12 @@ export function RandomeButton() {
 
     const { shapeId, shapeSemitoneOffsetFromC } = setRandomShape(randomRole, randomIsMajorMode);
 
-    if (shapeId === null || shapeSemitoneOffsetFromC === null) {
-      return;
-    }
+    const isShapeDataValid = shapeId !== null && shapeSemitoneOffsetFromC !== null;
 
-    setRandomShapeVariant(randomKey, shapeSemitoneOffsetFromC, shapeId);
+    if (isShapeDataValid) {
+      isRandomizeActionActive.current = true;
+      setRandomShapeVariant(randomKey, shapeSemitoneOffsetFromC, shapeId);
+    }
   };
 
   return (

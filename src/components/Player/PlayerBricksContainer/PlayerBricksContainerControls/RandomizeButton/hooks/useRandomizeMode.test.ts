@@ -27,7 +27,7 @@ describe("useRandomizeMode()", () => {
 
     let mode;
     act(() => {
-      mode = result.current();
+      mode = result.current.setRandomMode();
     });
 
     expect(mode).toBe(true);
@@ -43,7 +43,7 @@ describe("useRandomizeMode()", () => {
 
     let mode;
     act(() => {
-      mode = result.current();
+      mode = result.current.setRandomMode();
     });
 
     expect(mode).toBe(false);

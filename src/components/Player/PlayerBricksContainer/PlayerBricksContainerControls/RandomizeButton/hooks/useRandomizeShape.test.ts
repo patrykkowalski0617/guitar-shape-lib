@@ -44,7 +44,7 @@ describe("useRandomizeShape()", () => {
 
     let picked;
     act(() => {
-      picked = result.current("tonic" as RoleId, true);
+      picked = result.current.setRandomShape("tonic" as RoleId, true);
     });
 
     expect(picked).toEqual({ shapeId: "shape-1", shapeSemitoneOffsetFromC: 0 });
@@ -62,7 +62,7 @@ describe("useRandomizeShape()", () => {
 
     let picked;
     act(() => {
-      picked = result.current("dominant" as RoleId, false);
+      picked = result.current.setRandomShape("dominant" as RoleId, false);
     });
 
     expect(picked).toEqual({ shapeId: "shape-2", shapeSemitoneOffsetFromC: 2 });

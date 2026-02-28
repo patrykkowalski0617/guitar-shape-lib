@@ -12,5 +12,5 @@ export const useRandomizeKey = () => {
     return randomKey;
   };
 
-  return setRandomKey;
+  return { setRandomKey };
 };

@@ -26,5 +26,5 @@ export const useRandomizeShape = () => {
     return { shapeId, shapeSemitoneOffsetFromC };
   };
 
-  return setRandomShape;
+  return { setRandomShape };
 };

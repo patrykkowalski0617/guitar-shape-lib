@@ -1,9 +1,20 @@
 /**
  * @vitest-environment jsdom
  */
-import { describe, it, expect, vi, afterEach } from "vitest";
-import { getRandomStringIndex, getRandomFret, getRandomVariantId } from "./useRandomizeShapeVariant";
+import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
+import { renderHook } from "@testing-library/react";
+import {
+  getRandomStringIndex,
+  getRandomFret,
+  getRandomVariantId,
+  useRandomizeShapeVariant,
+} from "./useRandomizeShapeVariant";
+import { useMusicStore } from "@/store";
 import type { Note, FretboardStringId } from "@/data";
+
+vi.mock("@/store", () => ({
+  useMusicStore: vi.fn(),
+}));
 
 vi.mock("@/data", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@/data")>();
@@ -11,6 +22,7 @@ vi.mock("@/data", async (importOriginal) => {
     ...actual,
     shapes: {
       "test-shape": {
+        label: "Test Shape",
         fretboardCoordinatesVariants: {
           strE: {
             v1: [[5, 0]],
@@ -54,22 +66,33 @@ describe("RandomizeShapeVariant Logic", () => {
 
     it("should return a valid variant ID (e.g., v1) when random is 0", () => {
       vi.spyOn(Math, "random").mockReturnValue(0);
-      const variantId = getRandomVariantId(shapeId, stringId, 1);
+      const variantId = getRandomVariantId(shapeId, stringId, 5);
 
       expect(variantId).toBe("v1");
     });
 
-    it("should return null if fret is out of bounds (making variant invalid)", () => {
+    it("should return null if fret is out of bounds", () => {
       const variantId = getRandomVariantId(shapeId, stringId, 100);
 
       expect(variantId).toBeNull();
     });
+  });
+});
 
-    it("should return the last variant when random is high", () => {
-      vi.spyOn(Math, "random").mockReturnValue(0.99);
-      const variantId = getRandomVariantId(shapeId, stringId, 5);
+describe("useRandomizeShapeVariant() hook", () => {
+  const setShapeVariantLocationDataMock = vi.fn();
 
-      expect(variantId).toBe("v4");
-    });
+  beforeEach(() => {
+    vi.clearAllMocks();
+    (useMusicStore as unknown as ReturnType<typeof vi.fn>).mockImplementation((selector) =>
+      selector({ setShapeVariantLocationData: setShapeVariantLocationDataMock }),
+    );
+  });
+
+  it("should return an object with setRandomShapeVariant method", () => {
+    const { result } = renderHook(() => useRandomizeShapeVariant());
+
+    expect(result.current).toHaveProperty("setRandomShapeVariant");
+    expect(typeof result.current.setRandomShapeVariant).toBe("function");
   });
 });

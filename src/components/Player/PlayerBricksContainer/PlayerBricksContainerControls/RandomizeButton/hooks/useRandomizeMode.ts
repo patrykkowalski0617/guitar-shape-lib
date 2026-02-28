@@ -10,5 +10,5 @@ export const useRandomizeMode = () => {
     return randomIsMajorMode;
   };
 
-  return setRandomMode;
+  return { setRandomMode };
 };
