@@ -1,28 +1,22 @@
-import { Trash2, Check } from "lucide-react";
 import PlayerBrick from "../PlayerBrick/PlayerBrick";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { usePlayerBricksDrag } from "./hooks/usePlayerBricksDrag";
-import { OutlineButton, SolidButton } from "../ui/parts";
 import { RandomeButton } from "./PlayerBricksContainerControls/RandomizeButton/RandomeButton";
 import { AddBrickButton } from "./PlayerBricksContainerControls/AddBrickButton/AddBrickButton";
+import { RemoveBrickButton } from "./PlayerBricksContainerControls/DeleteActiveBrick/RemoveBrickButton";
+import { CloseEditButton } from "./PlayerBricksContainerControls/CloseEditButton/CloseEditButton";
 
-interface Props {
-  onCloseEdit: () => void;
-}
-
-export const PlayerBricksContainer = ({ onCloseEdit }: Props) => {
+export const PlayerBricksContainer = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const bricks = usePlayerStore((state) => state.bricks);
   const activeBrickId = usePlayerStore((state) => state.activeBrickId);
-  const removeBrick = usePlayerStore((state) => state.removeBrick);
   const updateBrickWidth = usePlayerStore((state) => state.updateBrickWidth);
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
 
   const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } = usePlayerBricksDrag();
 
   const isContainerEmpty = bricks.length === 0;
-  const isEditModeActive = activeBrickId !== null;
 
   return (
     <S.PlayerWrapper $isPlaying={isPlaying}>
@@ -52,18 +46,8 @@ export const PlayerBricksContainer = ({ onCloseEdit }: Props) => {
 
       <S.ControlsWrapper>
         <AddBrickButton />
-
-        {isEditModeActive && (
-          <>
-            <OutlineButton $isPrimary onClick={() => removeBrick(activeBrickId)}>
-              <Trash2 size={14} />
-            </OutlineButton>
-            <SolidButton onClick={onCloseEdit}>
-              <Check size={16} />
-            </SolidButton>
-          </>
-        )}
-
+        <RemoveBrickButton />
+        <CloseEditButton />
         {isContainerEmpty && <RandomeButton />}
       </S.ControlsWrapper>
     </S.PlayerWrapper>

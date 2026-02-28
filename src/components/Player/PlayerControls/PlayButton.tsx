@@ -3,13 +3,15 @@ import { Play, Square } from "lucide-react";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { useWakeLock } from "@/hooks";
+import { useCloseEdit } from "../PlayerBricksContainer/PlayerBricksContainerControls/CloseEditButton/hooks/useCloseEdit";
 
-export const PlayButton = ({ onCloseEdit }: { onCloseEdit: () => void }) => {
+export const PlayButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const isCountingIn = usePlayerStore((state) => state.isCountingIn);
   const countIn = usePlayerStore((state) => state.countIn);
   const togglePlay = usePlayerStore((state) => state.togglePlay);
   const bpm = usePlayerStore((state) => state.bpm);
+  const { closeEdit } = useCloseEdit();
 
   const { toggleWakeLock, isActive } = useWakeLock();
 
@@ -20,7 +22,7 @@ export const PlayButton = ({ onCloseEdit }: { onCloseEdit: () => void }) => {
   }, [isPlaying, isActive, toggleWakeLock]);
 
   const handleClick = () => {
-    onCloseEdit();
+    closeEdit();
     togglePlay();
   };
 
