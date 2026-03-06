@@ -73,7 +73,7 @@ export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthCh
     const stepStartOfActive = bricks.slice(0, activeBrickIndex).reduce((sum, b) => sum + b.width, 0);
     const isLastStepOfActiveBrick = currentStep - stepStartOfActive + 1 === currentActiveBrick.width;
 
-    if (isLastStepOfActiveBrick) {
+    if (isLastStepOfActiveBrick && bricks.length > 1) {
       setShapeVariantLocationData_ghost(lockedSnapshot.shapeVariantLocationData);
     }
   };
