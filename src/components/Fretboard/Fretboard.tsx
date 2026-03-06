@@ -8,7 +8,7 @@ import { useFretboardScroll } from "./hooks/useFretboardScroll";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
 import FretboardControls from "./FretboardControls/FretboardControls";
-import { ShapeExplorerSlider } from "./FretboardControls/ShapeExplorerSlider/ShapeExplorerSlider";
+import ShapeExplorerSlider from "./ShapeExplorerSlider/ShapeExplorerSlider";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -23,16 +23,18 @@ export default function Fretboard(): JSX.Element {
         <InstrumentWrapper>
           <FretboardNumericMarkers />
           <S.Fretboard>
-            {STRINGS_CONFIG.map(({ firstNoteInRow, firstNoteOctaveNumber }, index) => {
-              return (
-                <FretboardRow
-                  key={index}
-                  stringIndex={index as StringIndex}
-                  firstNoteInRow={firstNoteInRow}
-                  firstNoteOctaveNumber={firstNoteOctaveNumber}
-                />
-              );
-            })}
+            {STRINGS_CONFIG.map(
+              ({ firstNoteInRow, firstNoteOctaveNumber }, index) => {
+                return (
+                  <FretboardRow
+                    key={index}
+                    stringIndex={index as StringIndex}
+                    firstNoteInRow={firstNoteInRow}
+                    firstNoteOctaveNumber={firstNoteOctaveNumber}
+                  />
+                );
+              },
+            )}
           </S.Fretboard>
           <FretboardDotMarkers />
         </InstrumentWrapper>

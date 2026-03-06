@@ -44,7 +44,7 @@
   --popover: hsl(190 20% 10%);
   --popover-foreground: hsl(0 0% 93%);
 
-  --primary: hsl(180, 90%, 45%);
+  --primary: hsl(345, 100%, 50%);
   --primary-foreground: hsl(0, 0%, 80%);
 
   --secondary: hsl(215 90% 45%);
@@ -73,6 +73,7 @@
   :focus:not(:focus-visible) {
     @apply outline-none;
   }
+
   body {
     color-scheme: dark;
     @apply bg-background text-foreground;
