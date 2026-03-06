@@ -29,14 +29,13 @@ describe("useRandomizeKey()", () => {
 
     let randomKey;
     act(() => {
-      randomKey = result.current();
+      randomKey = result.current.setRandomKey();
     });
 
     const keyIds = Object.keys(UNIFIED_MUSIC_KEYS);
     const expectedKey = keyIds[0];
 
     expect(randomKey).toBe(expectedKey);
-
     expect(setTuneKeyIdMock).toHaveBeenCalledWith(expectedKey);
 
     mathSpy.mockRestore();
@@ -49,7 +48,7 @@ describe("useRandomizeKey()", () => {
 
     let randomKey;
     act(() => {
-      randomKey = result.current();
+      randomKey = result.current.setRandomKey();
     });
 
     const keyIds = Object.keys(UNIFIED_MUSIC_KEYS);

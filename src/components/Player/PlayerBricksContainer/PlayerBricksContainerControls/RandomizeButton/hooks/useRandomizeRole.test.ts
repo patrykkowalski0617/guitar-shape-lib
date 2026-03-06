@@ -31,7 +31,7 @@ describe("useRandomizeRole()", () => {
 
     let randomRole: RoleId;
     act(() => {
-      randomRole = result.current();
+      randomRole = result.current.setRandomRole();
     });
 
     const expectedRole = functionalRoles[0];
@@ -50,7 +50,7 @@ describe("useRandomizeRole()", () => {
 
     let randomRole: RoleId;
     act(() => {
-      randomRole = result.current();
+      randomRole = result.current.setRandomRole();
     });
 
     const expectedRole = functionalRoles[functionalRoles.length - 1];
@@ -68,7 +68,7 @@ describe("useRandomizeRole()", () => {
     for (let i = 0; i < 50; i++) {
       let randomRole: RoleId;
       act(() => {
-        randomRole = result.current();
+        randomRole = result.current.setRandomRole();
       });
       expect(isGlobalRole(randomRole! as unknown as RoleId)).toBe(false);
     }

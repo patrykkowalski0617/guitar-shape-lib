@@ -5,15 +5,15 @@ import { PlayerBricksContainer } from "./PlayerBricksContainer/PlayerBricksConta
 import { PlayerControls } from "./PlayerControls/PlayerControls";
 
 export default function Player() {
-  const { closeEdit, addBrick } = usePlayer();
+  usePlayer();
 
   return (
     <S.PlayerContainer>
       <S.PlayerSection>
-        <PlayerBricksContainer onCloseEdit={closeEdit} onAdd={addBrick} />
+        <PlayerBricksContainer />
       </S.PlayerSection>
       <S.PlayerSection>
-        <PlayerControls onCloseEdit={closeEdit} />
+        <PlayerControls />
       </S.PlayerSection>
     </S.PlayerContainer>
   );

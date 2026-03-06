@@ -33,6 +33,7 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 }
+
 :root {
   --radius: 0.65rem;
 
@@ -44,10 +45,10 @@
   --popover: hsl(190 20% 10%);
   --popover-foreground: hsl(0 0% 93%);
 
-  --primary: hsl(180, 90%, 45%);
+  --primary: hsl(345, 100%, 50%);
   --primary-foreground: hsl(0, 0%, 80%);
 
-  --secondary: hsl(215 90% 45%);
+  --secondary: hsl(180, 90%, 45%);
   --secondary-foreground: hsl(0 0% 100%);
 
   --muted: hsl(0, 0%, 40%);
@@ -73,6 +74,7 @@
   :focus:not(:focus-visible) {
     @apply outline-none;
   }
+
   body {
     color-scheme: dark;
     @apply bg-background text-foreground;

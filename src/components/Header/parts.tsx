@@ -44,7 +44,12 @@ export const TitleWrapper = styled.div`
   transform: rotate(-1deg) translateY(-2px);
   margin: 0 40px;
   &:hover {
-    animation: ${shake} 0.15s linear infinite;
+    animation: ${shake} 0.15s linear 3;
+  }
+  @media (min-width: 768px) {
+    &:hover {
+      animation: ${shake} 0.15s linear infinite;
+    }
   }
 `;
 

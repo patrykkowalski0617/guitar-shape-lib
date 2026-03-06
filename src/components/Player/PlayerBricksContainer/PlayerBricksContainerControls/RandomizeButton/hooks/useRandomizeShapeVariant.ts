@@ -81,5 +81,5 @@ export const useRandomizeShapeVariant = () => {
     });
   }, [shapeId, fretIndex, stringId, setShapeVariantLocationData]);
 
-  return setRandomShapeVariant;
+  return { setRandomShapeVariant };
 };

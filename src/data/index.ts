@@ -1,4 +1,3 @@
-export * from "./colorPresets";
 export * from "./intervals";
 export * from "./musicKeys";
 export * from "./musicMode";

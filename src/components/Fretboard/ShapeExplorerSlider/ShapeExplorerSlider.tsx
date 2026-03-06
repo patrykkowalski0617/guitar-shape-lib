@@ -1,22 +1,34 @@
-import { useControlsStore, useMusicStore, useProgressStore, usePlayerStore } from "@/store";
+import {
+  useControlsStore,
+  useMusicStore,
+  useProgressStore,
+  usePlayerStore,
+} from "@/store";
 import { getNotes } from "@/utils";
 import { getOrderedShapeLocations } from "./helpers/getOrderedShapeLocations";
 import * as S from "./parts";
 import { StepSlider } from "@/components/ui/StepSlider";
 
-export function ShapeExplorerSlider() {
+export default function ShapeExplorerSlider() {
   const shapeId = useControlsStore((state) => state.shapeId);
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const shapeSemitoneOffsetFromC = useControlsStore((state) => state.shapeSemitoneOffsetFromC);
+  const shapeSemitoneOffsetFromC = useControlsStore(
+    (state) => state.shapeSemitoneOffsetFromC,
+  );
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   const { userList } = useProgressStore();
-  const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
-  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
+  const shapeVariantLocationData = useMusicStore(
+    (state) => state.shapeVariantLocationData,
+  );
+  const setShapeVariantLocationData = useMusicStore(
+    (state) => state.setShapeVariantLocationData,
+  );
 
   const rootNoteName =
     shapeSemitoneOffsetFromC !== null
-      ? getNotes({ firstNote: tuneKeyId })[shapeSemitoneOffsetFromC % 12].sharpNoteName
+      ? getNotes({ firstNote: tuneKeyId })[shapeSemitoneOffsetFromC % 12]
+          .sharpNoteName
       : null;
 
   const options = getOrderedShapeLocations(shapeId, rootNoteName, userList);

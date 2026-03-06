@@ -4,14 +4,14 @@ import { PlayButton } from "./PlayButton";
 import { CleanButton } from "./CleanButton";
 import { BpmButton } from "./BpmButton";
 
-export const PlayerControls = ({ onCloseEdit }: { onCloseEdit: () => void }) => {
+export const PlayerControls = () => {
   return (
     <>
       <CleanButton />
       <PresetsList />
       <BpmButton />
       <BpmInput />
-      <PlayButton onCloseEdit={onCloseEdit} />
+      <PlayButton />
     </>
   );
 };
