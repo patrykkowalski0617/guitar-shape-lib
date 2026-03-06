@@ -60,8 +60,8 @@ export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthCh
       applySnapshotToStore(lockedSnapshot);
     }
 
-    const isLongBrick = width > 1;
-    if (isLongBrick) {
+    const isNotSingleBlockBrick = width > 1;
+    if (isNotSingleBlockBrick) {
       setShapeVariantLocationData_ghost(null);
     }
   };
