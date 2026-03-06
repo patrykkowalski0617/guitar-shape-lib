@@ -12,6 +12,7 @@ export class Metronome {
   private volume: number = 2.5;
   private onTick: () => void;
   private scheduledNodes: AudioNode[] = [];
+  private isRunning: boolean = false;
 
   constructor(onTick: () => void) {
     this.onTick = onTick;
@@ -23,7 +24,8 @@ export class Metronome {
     };
   }
 
-  private playClick(time: number) {
+  private playClick(time: number, isAccent: boolean = true) {
+    if (!this.audioContext || !this.isRunning) return;
     if (!this.audioContext) return;
 
     const mainGain = this.audioContext.createGain();
@@ -32,10 +34,10 @@ export class Metronome {
     const osc = this.audioContext.createOscillator();
     const oscGain = this.audioContext.createGain();
     osc.type = "sine";
-    osc.frequency.setValueAtTime(400, time);
+    osc.frequency.setValueAtTime(isAccent ? 400 : 220, time);
     osc.frequency.exponentialRampToValueAtTime(10, time + 0.03);
     oscGain.gain.setValueAtTime(0, time);
-    oscGain.gain.linearRampToValueAtTime(0.8, time + 0.001);
+    oscGain.gain.linearRampToValueAtTime(isAccent ? 0.8 : 0.5, time + 0.001);
     oscGain.gain.exponentialRampToValueAtTime(0.001, time + 0.03);
 
     const noiseBuffer = this.audioContext.createBuffer(
@@ -53,8 +55,8 @@ export class Metronome {
     const noiseFilter = this.audioContext.createBiquadFilter();
     noise.buffer = noiseBuffer;
     noiseFilter.type = "lowpass";
-    noiseFilter.frequency.setValueAtTime(1500, time);
-    noiseGain.gain.setValueAtTime(0.3, time);
+    noiseFilter.frequency.setValueAtTime(isAccent ? 1500 : 800, time);
+    noiseGain.gain.setValueAtTime(isAccent ? 0.3 : 0.15, time);
     noiseGain.gain.exponentialRampToValueAtTime(0.001, time + 0.015);
 
     osc.connect(oscGain);
@@ -75,21 +77,25 @@ export class Metronome {
   private stopNode(node: AudioScheduledSourceNode) {
     try {
       node.stop(0);
-    } catch {}
+    } catch (_e) {}
   }
 
   private cancelScheduledNodes() {
     this.scheduledNodes.forEach((node) => this.stopNode(node as AudioScheduledSourceNode));
     this.scheduledNodes = [];
   }
+
   private scheduler = () => {
+    if (!this.audioContext || !this.isRunning) return;
     if (!this.audioContext) return;
-    const lookAhead = this.audioContext.currentTime + this.scheduleAheadTime;
+    const currentTime = this.audioContext.currentTime;
+    const lookAhead = currentTime + this.scheduleAheadTime;
+
     while (this.nextTickTime < lookAhead) {
       this.onTick();
       const subInterval = 60.0 / this.bpm / this.multiplier;
       for (let i = 0; i < this.multiplier; i++) {
-        this.playClick(this.nextTickTime + i * subInterval);
+        this.playClick(this.nextTickTime + i * subInterval, i === 0);
       }
       this.advanceTimer();
     }
@@ -100,6 +106,7 @@ export class Metronome {
   };
 
   public async start(initialBpm: number, initialMultiplier: number = 1) {
+    this.isRunning = true;
     if (!this.audioContext) {
       this.audioContext = new (window.AudioContext || (window as Window).webkitAudioContext)();
     }
@@ -114,13 +121,14 @@ export class Metronome {
 
     const subInterval = secondsPerBeat / this.multiplier;
     for (let i = 0; i < this.multiplier; i++) {
-      this.playClick(this.audioContext.currentTime + i * subInterval);
+      this.playClick(this.audioContext.currentTime + i * subInterval, i === 0);
     }
 
     this.worker?.postMessage("start");
   }
 
   public stop() {
+    this.isRunning = false;
     this.worker?.postMessage("stop");
     this.cancelScheduledNodes();
   }
