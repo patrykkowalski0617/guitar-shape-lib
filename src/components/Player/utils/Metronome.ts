@@ -7,15 +7,14 @@ export class Metronome {
   private nextTickTime: number = 0;
   private worker: Worker | null = null;
   private scheduleAheadTime = 0.1;
-
   private bpm: number = 120;
   private multiplier: number = 1;
   private volume: number = 2.5;
   private onTick: () => void;
+  private scheduledNodes: AudioNode[] = [];
 
   constructor(onTick: () => void) {
     this.onTick = onTick;
-
     this.worker = new Worker(new URL("./metronome.worker.ts", import.meta.url));
     this.worker.onmessage = (e) => {
       if (e.data === "tick") {
@@ -32,11 +31,9 @@ export class Metronome {
 
     const osc = this.audioContext.createOscillator();
     const oscGain = this.audioContext.createGain();
-
     osc.type = "sine";
     osc.frequency.setValueAtTime(400, time);
     osc.frequency.exponentialRampToValueAtTime(10, time + 0.03);
-
     oscGain.gain.setValueAtTime(0, time);
     oscGain.gain.linearRampToValueAtTime(0.8, time + 0.001);
     oscGain.gain.exponentialRampToValueAtTime(0.001, time + 0.03);
@@ -54,7 +51,6 @@ export class Metronome {
     const noise = this.audioContext.createBufferSource();
     const noiseGain = this.audioContext.createGain();
     const noiseFilter = this.audioContext.createBiquadFilter();
-
     noise.buffer = noiseBuffer;
     noiseFilter.type = "lowpass";
     noiseFilter.frequency.setValueAtTime(1500, time);
@@ -72,19 +68,29 @@ export class Metronome {
     osc.stop(time + 0.04);
     noise.start(time);
     noise.stop(time + 0.04);
+
+    this.scheduledNodes.push(osc, noise);
   }
 
+  private stopNode(node: AudioScheduledSourceNode) {
+    try {
+      node.stop(0);
+    } catch {}
+  }
+
+  private cancelScheduledNodes() {
+    this.scheduledNodes.forEach((node) => this.stopNode(node as AudioScheduledSourceNode));
+    this.scheduledNodes = [];
+  }
   private scheduler = () => {
     if (!this.audioContext) return;
-
-    while (this.nextTickTime < this.audioContext.currentTime + this.scheduleAheadTime) {
+    const lookAhead = this.audioContext.currentTime + this.scheduleAheadTime;
+    while (this.nextTickTime < lookAhead) {
       this.onTick();
-
       const subInterval = 60.0 / this.bpm / this.multiplier;
       for (let i = 0; i < this.multiplier; i++) {
         this.playClick(this.nextTickTime + i * subInterval);
       }
-
       this.advanceTimer();
     }
   };
@@ -103,7 +109,6 @@ export class Metronome {
 
     this.bpm = initialBpm;
     this.multiplier = initialMultiplier;
-
     const secondsPerBeat = 60.0 / this.bpm;
     this.nextTickTime = this.audioContext.currentTime + secondsPerBeat;
 
@@ -117,6 +122,7 @@ export class Metronome {
 
   public stop() {
     this.worker?.postMessage("stop");
+    this.cancelScheduledNodes();
   }
 
   public updateBpm(newBpm: number) {
