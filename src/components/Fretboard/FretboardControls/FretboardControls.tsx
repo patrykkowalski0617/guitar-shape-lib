@@ -4,7 +4,7 @@ import { AddToList } from "./AddToList/AddToList";
 import * as S from "./parts";
 // import { RandomizeControls } from "./RandomizeControls/RandomizeControls";
 import ColorsPresets from "./ColorsPresets/ColorsPresets";
-import { FullscreenButton, FullscreenRotateButton } from "./FullscreenButtons/FullscreenButtons";
+import { FullscreenButton } from "./FullscreenButtons/FullscreenButtons";
 
 export default function FretboardControls() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -15,7 +15,6 @@ export default function FretboardControls() {
         <S.ControlContainerSection>
           <ColorsPresets />
           <FullscreenButton />
-          <FullscreenRotateButton />
         </S.ControlContainerSection>
         <S.ControlContainerSection>
           {/* <LockShapeButton /> */}
