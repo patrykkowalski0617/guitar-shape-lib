@@ -33,6 +33,7 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 }
+
 :root {
   --radius: 0.65rem;
 
@@ -47,7 +48,7 @@
   --primary: hsl(345, 100%, 50%);
   --primary-foreground: hsl(0, 0%, 80%);
 
-  --secondary: hsl(215 90% 45%);
+  --secondary: hsl(180, 90%, 45%);
   --secondary-foreground: hsl(0 0% 100%);
 
   --muted: hsl(0, 0%, 40%);
