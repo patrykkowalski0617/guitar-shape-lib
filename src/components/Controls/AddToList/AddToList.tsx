@@ -7,7 +7,9 @@ import { USER_LIST_MESSAGES } from "@/data/constants";
 
 export function AddToList() {
   const { userList, toggleUserList } = useProgressStore();
-  const currentLocation = useMusicStore((state) => state.shapeVariantLocationData);
+  const currentLocation = useMusicStore(
+    (state) => state.shapeVariantLocationData,
+  );
 
   const currentId = currentLocation
     ? `${currentLocation.shapeId}-${currentLocation.stringId}-${currentLocation.variantId}`
@@ -23,7 +25,9 @@ export function AddToList() {
 
     toggleUserList(currentId);
 
-    const notification = isFavorite ? USER_LIST_MESSAGES.REMOVED : USER_LIST_MESSAGES.ADDED;
+    const notification = isFavorite
+      ? USER_LIST_MESSAGES.REMOVED
+      : USER_LIST_MESSAGES.ADDED;
     toast(notification);
   };
 
@@ -34,7 +38,9 @@ export function AddToList() {
         className={!currentId ? "opacity-50" : ""}
         onClick={handleToggle}
       >
-        <Heart size={iconSize} />
+        <span className="flex items-center justify-center">
+          <Heart size={iconSize} />
+        </span>
       </Button>
     </ControlWrapper>
   );

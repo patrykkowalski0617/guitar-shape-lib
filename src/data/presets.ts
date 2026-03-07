@@ -119,4 +119,66 @@ export const presets: Preset[] = [
       },
     ],
   },
+  {
+    name: "Key: C, 8 Em7 | 4 Am7 | 4 B7",
+    bricks: [
+      {
+        id: 1,
+        width: 4,
+        snapshot: {
+          keyId: "C",
+          isMajorMode: true,
+          roleId: "tonic",
+          shapeVariantLocationData: {
+            shapeId: "m7",
+            stringId: "strA",
+            fretIndex: 7,
+            variantId: "v3",
+          },
+          rootNote: "E",
+          shapeLabel: "m7",
+          shapeSemitoneOffsetFromC: 4,
+          shapeId: "m7",
+        },
+      },
+      {
+        id: 2,
+        width: 2,
+        snapshot: {
+          keyId: "C",
+          isMajorMode: false,
+          roleId: "tonic",
+          shapeVariantLocationData: {
+            shapeId: "m7",
+            stringId: "strD",
+            fretIndex: 7,
+            variantId: "v2",
+          },
+          rootNote: "A",
+          shapeLabel: "m7",
+          shapeSemitoneOffsetFromC: 9,
+          shapeId: "m7",
+        },
+      },
+      {
+        id: 3,
+        width: 2,
+        snapshot: {
+          keyId: "B",
+          isMajorMode: false,
+          roleId: "all-one-instance",
+          shapeVariantLocationData: {
+            shapeId: "dominant",
+            stringId: "strE",
+            fretIndex: 7,
+            variantId: "v4",
+          },
+          rootNote: "B",
+          shapeLabel: "7",
+          shapeSemitoneOffsetFromC: 0,
+          shapeId: "dominant",
+        },
+      },
+    ],
+  },
 ];
