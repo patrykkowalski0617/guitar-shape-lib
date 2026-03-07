@@ -36,7 +36,7 @@ function StepSlider({
   className,
   value,
   min = 0,
-  max = 100,
+  max,
   style,
   userListIndexes = [],
   ...props
@@ -44,10 +44,23 @@ function StepSlider({
   const currentValue = value?.[0] ?? 0;
   const thumbSize = 25;
 
+  const effectiveMax = max ?? 0;
+  const totalStepsCount = effectiveMax + 1;
+  const shouldRenderTicks = effectiveMax > 0;
+
+  const stepIndexes = Array.from({ length: totalStepsCount }).map((_, i) => i);
+
+  const isNotInitialPosition = currentValue !== 0;
+
+  const calculateTickPosition = (stepIndex: number) => {
+    const positionInPercentage = (stepIndex / effectiveMax) * 100;
+    return positionInPercentage;
+  };
+
   return (
     <SliderPrimitive.Root
       min={min}
-      max={max}
+      max={effectiveMax}
       value={value}
       style={style}
       className={cn(
@@ -60,15 +73,21 @@ function StepSlider({
         className="relative grow h-0.5 w-full bg-muted/50 rounded-full"
         style={{ margin: `0 ${thumbSize / 2}px` }}
       >
-        {max > 0 &&
-          Array.from({ length: max + 1 }).map((_, i) => (
-            <Tick
-              key={i}
-              $isCurrent={i === currentValue && currentValue !== 0}
-              $isUserList={userListIndexes.includes(i)}
-              style={{ left: `${(i / max) * 100}%` }}
-            />
-          ))}
+        {shouldRenderTicks &&
+          stepIndexes.map((index) => {
+            const isActiveStep = index === currentValue && isNotInitialPosition;
+            const isUserStep = userListIndexes.includes(index);
+            const leftOffset = calculateTickPosition(index);
+
+            return (
+              <Tick
+                key={index}
+                $isCurrent={isActiveStep}
+                $isUserList={isUserStep}
+                style={{ left: `${leftOffset}%` }}
+              />
+            );
+          })}
       </SliderPrimitive.Track>
 
       <SliderPrimitive.Thumb
