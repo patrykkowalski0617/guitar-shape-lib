@@ -1,16 +1,24 @@
 import { useMusicStore, usePlayerStore } from "@/store";
 import { useEffect, type RefObject } from "react";
-import { useShapeNotes } from "../FretboardCell/hooks";
 import { getShapeFretRange } from "../helpers/getShapeFretRange";
+import { useShapeCoordinates } from "../FretboardCell/hooks";
 
-export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null>) => {
+export const useFretboardScroll = (
+  containerRef: RefObject<HTMLDivElement | null>,
+) => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
-  const shapeVariantLocationData_ghost = useMusicStore((state) => state.shapeVariantLocationData_ghost);
-  const shapeVariantLocationData_regular = useMusicStore((state) => state.shapeVariantLocationData);
+  const shapeVariantLocationData_ghost = useMusicStore(
+    (state) => state.shapeVariantLocationData_ghost,
+  );
+  const shapeVariantLocationData_regular = useMusicStore(
+    (state) => state.shapeVariantLocationData,
+  );
 
-  const shapeVariantLocationData = isPlaying ? shapeVariantLocationData_ghost : shapeVariantLocationData_regular;
+  const shapeVariantLocationData = isPlaying
+    ? shapeVariantLocationData_ghost
+    : shapeVariantLocationData_regular;
 
-  const notes = useShapeNotes(shapeVariantLocationData);
+  const notes = useShapeCoordinates(shapeVariantLocationData);
   const { min, max } = getShapeFretRange(notes);
 
   const theLowestFret = min === -1 ? 0 : min;
@@ -26,8 +34,12 @@ export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null
         return;
       }
 
-      const lowestCell = container.querySelector(`[data-fret="${theLowestFret}"]`) as HTMLElement;
-      const highestCell = container.querySelector(`[data-fret="${theHighestFret}"]`) as HTMLElement;
+      const lowestCell = container.querySelector(
+        `[data-fret="${theLowestFret}"]`,
+      ) as HTMLElement;
+      const highestCell = container.querySelector(
+        `[data-fret="${theHighestFret}"]`,
+      ) as HTMLElement;
 
       if (lowestCell && highestCell) {
         const containerRect = container.getBoundingClientRect();
@@ -43,9 +55,15 @@ export const useFretboardScroll = (containerRef: RefObject<HTMLDivElement | null
         const scrollMargin = 60;
 
         if (!isLowestVisible) {
-          targetScrollLeft = container.scrollLeft + (lowestRect.left - containerRect.left) - scrollMargin;
+          targetScrollLeft =
+            container.scrollLeft +
+            (lowestRect.left - containerRect.left) -
+            scrollMargin;
         } else if (!isHighestVisible) {
-          targetScrollLeft = container.scrollLeft + (highestRect.right - containerRect.right) + scrollMargin;
+          targetScrollLeft =
+            container.scrollLeft +
+            (highestRect.right - containerRect.right) +
+            scrollMargin;
         }
 
         container.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
