@@ -1,7 +1,7 @@
 import Fretboard from "@/components/Fretboard/Fretboard";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-import { AppWrapper, CollapsibleSection, MainContent, Setcion } from "@/parts";
+import { AppWrapper, CollapsibleSection, MainContent, Section } from "@/parts";
 import { useControlsStore, usePlayerStore } from "@/store";
 import Piano from "@/components/Piano/Piano";
 import { Toaster } from "@/components/ui/sonner";
@@ -19,17 +19,17 @@ export default function App() {
       <Header />
 
       <MainContent>
-        <Setcion>
+        <Section>
           <Fretboard />
-        </Setcion>
-        <Setcion>
+        </Section>
+        <Section>
           <Player />
-        </Setcion>
+        </Section>
         {!isPlaying && (
           <>
-            <Setcion>
+            <Section>
               <Controls />
-            </Setcion>
+            </Section>
 
             <CollapsibleSection $isVisible={isPianoVisible}>
               <Piano />

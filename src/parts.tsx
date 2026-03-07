@@ -28,7 +28,7 @@ export const SectionCommonCss = css`
   }
 `;
 
-export const Setcion = styled.div`
+export const Section = styled.div`
   max-width: 1300px;
   width: 100%;
   ${SectionCommonCss}
@@ -63,7 +63,10 @@ export const TutorialStickyIcons = styled.div`
   z-index: 40;
 `;
 
-export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisible: boolean }>`
+export const FooterAndHeaderStyles = css<{
+  $isFullscreen: boolean;
+  $isPianoVisible: boolean;
+}>`
   background-color: color-mix(in oklab, var(--accent) 65%, transparent);
   max-width: unset;
   margin: 0 auto;
@@ -131,7 +134,7 @@ export const instrumentBRadius = "var(--radius-lg)";
 
 export const CollapsibleSectionTransitionTime = 400;
 
-export const CollapsibleSection = styled(Setcion)<{ $isVisible: boolean }>`
+export const CollapsibleSection = styled(Section)<{ $isVisible: boolean }>`
   ${SectionCommonCss}
   transition:
     opacity ${CollapsibleSectionTransitionTime}ms ease-in-out,
