@@ -1,6 +1,10 @@
 import styled, { css, keyframes } from "styled-components";
 import { instrumentElBRadius } from "@/parts";
-import { playerElementHeight, playerElementWidth, SolidButton } from "../ui/parts";
+import {
+  playerElementHeight,
+  playerElementWidth,
+  SolidButton,
+} from "../ui/parts";
 
 const pulse = keyframes`
   0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 80%, transparent); }
@@ -8,7 +12,10 @@ const pulse = keyframes`
   100% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--accent) 0%, transparent); }
 `;
 
-export const PlayButton = styled(SolidButton)<{ $isPlaying?: boolean; $bpm?: number }>`
+export const PlayButton = styled(SolidButton)<{
+  $isPlaying?: boolean;
+  $bpm?: number;
+}>`
   font-size: 16px;
   font-weight: 900;
   text-shadow:
@@ -24,7 +31,7 @@ export const PlayButton = styled(SolidButton)<{ $isPlaying?: boolean; $bpm?: num
     `}
 `;
 
-const commonBpmElementStyles = css`
+export const commonBpmElementStyles = css`
   background-color: color-mix(in oklab, var(--accent) 10%, var(--background));
   border: 1px solid var(--border);
   border-radius: ${instrumentElBRadius};
@@ -56,16 +63,4 @@ export const BpmButton = styled.button`
   &:disabled {
     opacity: 0.5;
   }
-`;
-
-export const BpmInput = styled.input`
-  ${commonBpmElementStyles}
-  cursor: text;
-
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  -moz-appearance: textfield;
 `;
