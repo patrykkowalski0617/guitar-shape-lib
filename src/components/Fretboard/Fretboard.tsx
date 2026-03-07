@@ -7,7 +7,6 @@ import { InstrumentScrollWrapper, InstrumentWrapper } from "@/parts";
 import { useFretboardScroll } from "./hooks/useFretboardScroll";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
-import FretboardControls from "./FretboardControls/FretboardControls";
 import ShapeExplorerSlider from "./ShapeExplorerSlider/ShapeExplorerSlider";
 
 export default function Fretboard(): JSX.Element {
@@ -17,8 +16,6 @@ export default function Fretboard(): JSX.Element {
 
   return (
     <>
-      <FretboardControls />
-
       <InstrumentScrollWrapper ref={scrollRef}>
         <InstrumentWrapper>
           <FretboardNumericMarkers />

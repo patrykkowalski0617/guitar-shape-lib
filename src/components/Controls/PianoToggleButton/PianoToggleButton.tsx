@@ -1,12 +1,13 @@
 import { useControlsStore } from "@/store";
-import { ControlWrapper } from "../parts";
+import { ControlWrapper, iconSize } from "../parts";
 import { Button } from "@/components/ui/button";
 import { Piano } from "lucide-react";
-import { iconSize } from "@/components/Fretboard/FretboardControls/parts";
 
 export default function PianoToggleButton() {
   const isPianoVisible = useControlsStore((state) => state.isPianoVisible);
-  const setIsPianoVisible = useControlsStore((state) => state.setIsPianoVisible);
+  const setIsPianoVisible = useControlsStore(
+    (state) => state.setIsPianoVisible,
+  );
 
   const handleToggle = () => {
     const nextState = !isPianoVisible;
@@ -15,7 +16,10 @@ export default function PianoToggleButton() {
 
   return (
     <ControlWrapper>
-      <Button variant={isPianoVisible ? "active" : "outline"} onClick={handleToggle}>
+      <Button
+        variant={isPianoVisible ? "active" : "outline"}
+        onClick={handleToggle}
+      >
         <span className="flex items-center justify-center">
           <Piano size={iconSize} />
         </span>

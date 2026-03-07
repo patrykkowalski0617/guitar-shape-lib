@@ -6,7 +6,7 @@ export const PlayerContainer = styled.div`
   flex-direction: column;
   gap: calc(var(--spacing) * 2);
   max-width: 1300px;
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     padding: 0 35px;
     flex-direction: row;
     margin: auto;
@@ -31,10 +31,9 @@ export const PlayerSection = styled.div`
   @media (min-width: 768px) {
     &:last-child {
       justify-content: flex-end;
-      padding-right: 35px;
     }
   }
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
     &:first-child {
       flex-grow: 1;
       flex-shrink: 1;

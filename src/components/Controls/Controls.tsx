@@ -1,3 +1,5 @@
+import { AddToList } from "./AddToList/AddToList";
+import { FullscreenButton } from "./FullscreenButtons/FullscreenButtons";
 import { KeySelect } from "./KeySelect/KeySelect";
 import { ModeAndRoleSelect } from "./ModeAndRoleSelect/ModeAndRoleSelect";
 import * as S from "./parts";
@@ -11,6 +13,8 @@ export default function Controls() {
       <ModeAndRoleSelect />
       <ShapeSelect />
       <PianoToggleButton />
+      <AddToList />
+      <FullscreenButton />
     </S.ControlContainer>
   );
 }
