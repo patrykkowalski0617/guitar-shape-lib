@@ -15,17 +15,20 @@ const Tick = styled.div<{ $isCurrent: boolean; $isUserList: boolean }>`
   }
 
   background-color: ${({ $isUserList }) =>
-    $isUserList ? "var(--accent)" : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
+    $isUserList
+      ? "var(--accent)"
+      : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
   box-shadow: ${({ $isUserList }) => {
     if ($isUserList) return "0 0 8px var(--accent)";
     return "none";
   }};
 
   transition: all 0.05s ease-in-out;
-  z-index: ${({ $isCurrent }) => ($isCurrent ? "10" : "")};
 `;
 
-interface DiscreteSliderProps extends React.ComponentProps<typeof SliderPrimitive.Root> {
+interface DiscreteSliderProps extends React.ComponentProps<
+  typeof SliderPrimitive.Root
+> {
   userListIndexes?: number[];
 }
 
@@ -47,7 +50,10 @@ function StepSlider({
       max={max}
       value={value}
       style={style}
-      className={cn("relative flex w-full touch-none items-center select-none h-8", className)}
+      className={cn(
+        "relative flex w-full touch-none items-center select-none h-8",
+        className,
+      )}
       {...props}
     >
       <SliderPrimitive.Track
@@ -67,12 +73,13 @@ function StepSlider({
 
       <SliderPrimitive.Thumb
         className={cn(
-          "block rounded-full border-2 bg-background shadow-lg border-primary",
-          "cursor-grab active:cursor-grabbing z-10",
+          "block rounded-full border-2 shadow-lg border-primary",
+          "cursor-grab active:cursor-grabbing",
           "hover:scale-120 transition-transform",
           "data-[disabled]:scale-100 data-[disabled]:border-primary/35 data-[disabled]:left-[calc(10px)] data-[disabled]:relative",
           "focus:outline-none focus:ring-0 focus:ring-offset-0",
           "focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-0",
+          currentValue === 0 ? "bg-background" : "bg-transparent",
         )}
         style={{
           width: `${thumbSize}px`,
