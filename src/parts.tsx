@@ -65,7 +65,6 @@ export const TutorialStickyIcons = styled.div`
 
 export const FooterAndHeaderStyles = css<{
   $isFullscreen: boolean;
-  $isPianoVisible: boolean;
 }>`
   background-color: color-mix(in oklab, var(--accent) 65%, transparent);
   max-width: unset;
@@ -93,15 +92,6 @@ export const FooterAndHeaderStyles = css<{
         opacity: 0;
       `}
   }
-
-  ${({ $isFullscreen, $isPianoVisible }) =>
-    $isFullscreen &&
-    $isPianoVisible &&
-    css`
-      flex-shrink: 1;
-      max-height: 0;
-      opacity: 0;
-    `}
 `;
 
 export const ControlWrapper = styled.div`
@@ -131,29 +121,3 @@ export const ControlLabel = styled.span`
 
 export const instrumentElBRadius = "4px";
 export const instrumentBRadius = "var(--radius-lg)";
-
-export const CollapsibleSectionTransitionTime = 400;
-
-export const CollapsibleSection = styled(Section)<{ $isVisible: boolean }>`
-  ${SectionCommonCss}
-  transition:
-    opacity ${CollapsibleSectionTransitionTime}ms ease-in-out,
-    transform ${CollapsibleSectionTransitionTime}ms ease-in-out,
-    max-height ${CollapsibleSectionTransitionTime}ms ease-in-out,
-    margin ${CollapsibleSectionTransitionTime}ms ease-in-out;
-  overflow: hidden;
-  will-change: transform, opacity, max-height;
-  ${({ $isVisible }) =>
-    $isVisible
-      ? css`
-          opacity: 1;
-          transform: translateY(0) scale(1);
-          max-height: 180px;
-        `
-      : css`
-          opacity: 0;
-          transform: translateY(20px) scale(0.9);
-          max-height: 0;
-          margin-top: 0;
-        `}
-`;

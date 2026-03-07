@@ -23,7 +23,6 @@ export const useNoteState = ({
   const shapeSemitoneOffsetFromC = useControlsStore(
     (state) => state.shapeSemitoneOffsetFromC,
   );
-  const isPianoVisible = useControlsStore((state) => state.isPianoVisible);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const shapeVariantLocationData = useMusicStore(
     (state) => state.shapeVariantLocationData,
@@ -49,7 +48,7 @@ export const useNoteState = ({
   const currentCoords: [number, number] = [stringIndex, fretIndex];
 
   return {
-    isActiveNote: activeNoteId === noteId && isPianoVisible,
+    isActiveNote: activeNoteId === noteId,
     isShapeRootNote: shapeRootSharpNote === sharpNoteName && stringIndex > 1,
     isShapeNote: isShapeNote(currentCoords, currentShapeNotes),
     isLockedNote: isShapeNote(currentCoords, lockedShapeNotes),

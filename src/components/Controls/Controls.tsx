@@ -3,7 +3,6 @@ import { FullscreenButton } from "./FullscreenButtons/FullscreenButtons";
 import { KeySelect } from "./KeySelect/KeySelect";
 import { ModeAndRoleSelect } from "./ModeAndRoleSelect/ModeAndRoleSelect";
 import * as S from "./parts";
-import PianoToggleButton from "./PianoToggleButton/PianoToggleButton";
 import { ShapeSelect } from "./ShapeSelect/ShapeSelect";
 
 export default function Controls() {
@@ -12,7 +11,6 @@ export default function Controls() {
       <KeySelect />
       <ModeAndRoleSelect />
       <ShapeSelect />
-      <PianoToggleButton />
       <AddToList />
       <FullscreenButton />
     </S.ControlContainer>
