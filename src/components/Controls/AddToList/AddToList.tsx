@@ -34,13 +34,11 @@ export function AddToList() {
   return (
     <ControlWrapper>
       <Button
-        variant={isFavorite ? "active" : "outline"}
+        variant={isFavorite ? "active" : "default"}
         className={!currentId ? "opacity-50" : ""}
         onClick={handleToggle}
       >
-        <span className="flex items-center justify-center">
-          <Heart size={iconSize} />
-        </span>
+        <Heart size={iconSize} />
       </Button>
     </ControlWrapper>
   );

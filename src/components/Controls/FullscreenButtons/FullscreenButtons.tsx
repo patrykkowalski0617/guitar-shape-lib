@@ -9,17 +9,15 @@ export function FullscreenButton() {
   return (
     <ControlWrapper>
       <Button
-        variant={isFullscreen ? "active" : "outline"}
+        variant={isFullscreen ? "active" : "default"}
         onClick={() => toggleFullscreen(true)}
         title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
       >
-        <span className="flex items-center justify-center">
-          {isFullscreen ? (
-            <Minimize size={iconSize} />
-          ) : (
-            <Maximize size={iconSize} />
-          )}
-        </span>
+        {isFullscreen ? (
+          <Minimize size={iconSize} />
+        ) : (
+          <Maximize size={iconSize} />
+        )}
       </Button>
     </ControlWrapper>
   );

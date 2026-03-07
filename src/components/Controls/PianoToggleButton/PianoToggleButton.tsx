@@ -17,12 +17,10 @@ export default function PianoToggleButton() {
   return (
     <ControlWrapper>
       <Button
-        variant={isPianoVisible ? "active" : "outline"}
+        variant={isPianoVisible ? "active" : "default"}
         onClick={handleToggle}
       >
-        <span className="flex items-center justify-center">
-          <Piano size={iconSize} />
-        </span>
+        <Piano size={iconSize} />
       </Button>
     </ControlWrapper>
   );
