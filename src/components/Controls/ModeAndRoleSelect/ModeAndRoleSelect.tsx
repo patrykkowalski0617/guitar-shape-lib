@@ -2,7 +2,13 @@ import { useMusicStore, useControlsStore } from "@/store";
 import { type RoleId, roles, isGlobalRole } from "@/data";
 import { ControlWrapper } from "../parts";
 import { ControlLabel } from "@/parts";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export function ModeAndRoleSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
@@ -10,7 +16,9 @@ export function ModeAndRoleSelect() {
   const roleId = useControlsStore((state) => state.roleId);
   const setRoleId = useControlsStore((state) => state.setRoleId);
   const setShape = useControlsStore((state) => state.setShape);
-  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
+  const setShapeVariantLocationData = useMusicStore(
+    (state) => state.setShapeVariantLocationData,
+  );
 
   const effectiveRoleId = roleId ?? "all-one-instance";
 
@@ -24,6 +32,7 @@ export function ModeAndRoleSelect() {
     if (isGlobalRole(value as RoleId)) {
       setRoleId(value as RoleId);
       setShape(null, null);
+      setIsMajorMode(true);
       return;
     }
 
@@ -32,7 +41,9 @@ export function ModeAndRoleSelect() {
     setRoleId(role);
   };
 
-  const functionalRoles = (Object.entries(roles) as [RoleId, { label: string }][]).filter(([id]) => !isGlobalRole(id));
+  const functionalRoles = (
+    Object.entries(roles) as [RoleId, { label: string }][]
+  ).filter(([id]) => !isGlobalRole(id));
 
   return (
     <ControlWrapper>
@@ -43,8 +54,12 @@ export function ModeAndRoleSelect() {
           <SelectValue placeholder="Select mode & function" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all-one-instance">{roles["all-one-instance"].label}</SelectItem>
-          <SelectItem value="all-matching-key">{roles["all-matching-key"].label}</SelectItem>
+          <SelectItem value="all-one-instance">
+            {roles["all-one-instance"].label}
+          </SelectItem>
+          <SelectItem value="all-matching-key">
+            {roles["all-matching-key"].label}
+          </SelectItem>
 
           <div className="border-t my-1" />
 
