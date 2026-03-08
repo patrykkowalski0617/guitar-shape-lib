@@ -3,7 +3,7 @@ import { Play, Square } from "lucide-react";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { useWakeLock } from "@/hooks";
-import { useCloseEdit } from "../PlayerBricksContainer/PlayerBricksContainerControls/CloseEditButton/hooks/useCloseEdit";
+import { useCloseEdit } from "../../PlayerBricksContainer/PlayerBricksContainerControls/CloseEditButton/hooks/useCloseEdit";
 
 export const PlayButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -27,13 +27,28 @@ export const PlayButton = () => {
   };
 
   return (
-    <S.PlayButton $isPlaying={isPlaying} onClick={handleClick} $bpm={bpm}>
+    <S.PlayButton
+      variant={"playerSolid"}
+      $isPlaying={isPlaying}
+      onClick={handleClick}
+      $bpm={bpm}
+    >
       {isCountingIn ? (
         countIn
       ) : isPlaying ? (
-        <Square size={18} fill="currentColor" stroke="var(--background)" strokeWidth={1} />
+        <Square
+          size={18}
+          fill="currentColor"
+          stroke="var(--background)"
+          strokeWidth={1}
+        />
       ) : (
-        <Play size={18} fill="currentColor" stroke="var(--background)" strokeWidth={1} />
+        <Play
+          size={18}
+          fill="currentColor"
+          stroke="var(--background)"
+          strokeWidth={1}
+        />
       )}
     </S.PlayButton>
   );

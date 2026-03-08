@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 
-export const BpmButton = () => {
+export const BpmMultiplierButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const [count, setCount] = useState(1);
   const setBpmMultiplier = usePlayerStore((state) => state.setBpmMultiplier);

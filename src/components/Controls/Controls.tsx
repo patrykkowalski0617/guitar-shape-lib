@@ -1,5 +1,5 @@
 import { AddToList } from "./AddToList/AddToList";
-import { FullscreenButton } from "./FullscreenButtons/FullscreenButtons";
+import { FullscreenButton } from "./FullscreenButton/FullscreenButton";
 import { KeySelect } from "./KeySelect/KeySelect";
 import { ModeAndRoleSelect } from "./ModeAndRoleSelect/ModeAndRoleSelect";
 import * as S from "./parts";

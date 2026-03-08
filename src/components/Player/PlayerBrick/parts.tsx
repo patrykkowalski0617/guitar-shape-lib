@@ -1,6 +1,6 @@
 import { instrumentElBRadius } from "@/parts";
 import styled, { css, keyframes } from "styled-components";
-import { playerElementHeight } from "../ui/parts";
+import { playerElementHeight } from "../utils/constants";
 
 const flash = keyframes`
   0% { background-color: color-mix(in oklab, var(--accent) 45%, var(--background)); }
@@ -35,7 +35,11 @@ export const Part = styled.div<{ $unit: number; $isActive: boolean }>`
   ${({ $isActive }) =>
     $isActive &&
     css`
-      background-color: color-mix(in oklab, var(--accent) 70%, var(--background));
+      background-color: color-mix(
+        in oklab,
+        var(--accent) 70%,
+        var(--background)
+      );
     `}
 `;
 
@@ -53,7 +57,12 @@ export const BrickOptions = styled.div<{ $isEditable: boolean }>`
   z-index: 2;
 `;
 
-export const Brick = styled.div<{ $isEditable: boolean; $widthUnit: number; $unit: number; $isDragging?: boolean }>`
+export const Brick = styled.div<{
+  $isEditable: boolean;
+  $widthUnit: number;
+  $unit: number;
+  $isDragging?: boolean;
+}>`
   display: flex;
   align-items: center;
   justify-content: center;
