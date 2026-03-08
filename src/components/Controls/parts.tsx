@@ -26,9 +26,13 @@ export const ControlWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  flex: 0 0 calc(50% - (var(--spacing) * 2));
+  flex: 0 0 calc(50% - (var(--spacing) * 4));
+  &:nth-child(4),
+  &:nth-child(5) {
+    flex: 0 0 calc(25% - (var(--spacing) * 4));
+  }
   @media (min-width: 768px) {
-    flex: 0 0 calc(33% - (var(--spacing) * 2));
+    flex: 0 0 calc(33% - (var(--spacing) * 4));
   }
   @media (min-width: 1024px) {
     flex: 0 0 auto;
