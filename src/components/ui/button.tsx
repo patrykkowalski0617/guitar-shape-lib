@@ -3,18 +3,38 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-
 import { cn } from "@/lib/utils";
+import { instrumentElBRadius } from "@/parts";
 
 const buttonVariants = cva(
-  "inline-block items-center justify-center gap-2 whitespace-nowrap rounded-md text-[12px] font-semibold transition-none disabled:cursor-not-allowed disabled:opacity-50 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-none h-9.5 px-2.5 flex items-center justify-center",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-none disabled:cursor-not-allowed disabled:opacity-50 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-none text-[12px]",
   {
     variants: {
       variant: {
-        default:
-          "border border-background bg-muted/50 hover:bg-muted/70 text-foreground",
-        active:
-          "border border-muted-foreground/30 bg-accent/80 hover:bg-accent text-accent-foreground",
+        default: cn(
+          "h-9.5 px-2.5 rounded-md border border-background",
+          "bg-muted/50 hover:bg-muted/70 text-foreground",
+        ),
+        active: cn(
+          "h-9.5 px-2.5 rounded-md border border-muted-foreground/30",
+          "bg-accent/80 hover:bg-accent/70 text-accent-foreground",
+        ),
+        playerDashed: cn(
+          "h-[30px] w-[35px] font-bold border border-dashed border-border",
+          "bg-background bg-muted/10 hover:bg-muted/30 text-foreground",
+        ),
+        playerOutline: cn(
+          "h-[30px] w-[35px] font-bold border border-accent-foreground",
+          "bg-background hover:bg-muted/5 text-accent-foreground",
+        ),
+        playerOutlinePrimary: cn(
+          "h-[30px] w-[35px] font-bold border-2 border-primary",
+          "bg-background hover:bg-muted/5 text-primary",
+        ),
+        playerSolid: cn(
+          "h-[30px] w-[35px] font-bold border-none",
+          "bg-background bg-accent/70 hover:bg-accent/90 text-foreground",
+        ),
       },
     },
   },
@@ -31,10 +51,18 @@ function Button({
   variant,
   asChild = false,
   fixedWidthLabel,
+  style,
   children,
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
+
+  const isStackedLayout = !!fixedWidthLabel;
+  const isPlayerVariant = variant?.toString().startsWith("player");
+
+  const finalStyle = isPlayerVariant
+    ? { borderRadius: instrumentElBRadius, ...style }
+    : style;
 
   return (
     <Comp
@@ -42,12 +70,12 @@ function Button({
       data-variant={variant}
       className={cn(
         buttonVariants({ variant, className }),
-
-        fixedWidthLabel && "flex-col",
+        isStackedLayout && "flex-col",
       )}
+      style={finalStyle}
       {...props}
     >
-      {fixedWidthLabel ? (
+      {isStackedLayout ? (
         <>
           <span
             style={{ height: 0, overflow: "hidden", display: "block" }}

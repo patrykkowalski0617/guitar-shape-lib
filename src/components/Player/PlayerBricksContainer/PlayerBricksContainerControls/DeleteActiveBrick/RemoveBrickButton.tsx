@@ -1,6 +1,6 @@
 import { Trash2 } from "lucide-react";
 import { useRemoveActiveBrick } from "./hooks/useRemoveActiveBrick";
-import { OutlineButton } from "@/components/Player/ui/parts";
+import { Button } from "@/components/ui/button";
 
 export const RemoveBrickButton = () => {
   const { isEditModeActive, removeActiveBrick } = useRemoveActiveBrick();
@@ -10,8 +10,8 @@ export const RemoveBrickButton = () => {
   }
 
   return (
-    <OutlineButton $isPrimary onClick={removeActiveBrick}>
+    <Button variant={"playerOutlinePrimary"} onClick={removeActiveBrick}>
       <Trash2 size={14} />
-    </OutlineButton>
+    </Button>
   );
 };

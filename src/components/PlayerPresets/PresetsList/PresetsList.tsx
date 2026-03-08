@@ -8,7 +8,6 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { FolderOpen } from "lucide-react";
-import { OutlineButton } from "@/components/Player/ui/parts";
 import {
   useControlsStore,
   useMusicStore,
@@ -16,6 +15,7 @@ import {
   type Brick,
 } from "@/store";
 import { presets } from "@/data/presets";
+import { Button } from "@/components/ui/button";
 
 export function PresetsList() {
   const [open, setOpen] = useState(false);
@@ -55,9 +55,13 @@ export function PresetsList() {
 
   return (
     <>
-      <OutlineButton onClick={() => setOpen(true)} disabled={isPlaying}>
+      <Button
+        variant={"playerOutline"}
+        onClick={() => setOpen(true)}
+        disabled={isPlaying}
+      >
         <FolderOpen size={14} />
-      </OutlineButton>
+      </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Search for exercises..." />
         <CommandList>
