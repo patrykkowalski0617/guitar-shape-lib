@@ -24,7 +24,7 @@ export const PlayerSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   flex-direction: row;
   width: 100%;
   &:last-child {
@@ -52,7 +52,6 @@ export const PlayerSection = styled.div`
       width: auto;
       background-color: color-mix(in oklab, var(--muted) 30%, transparent);
       justify-content: center;
-      padding-right: 12px;
     }
   }
 `;
