@@ -7,11 +7,13 @@ export const PlayerContainer = styled.div`
   gap: calc(var(--spacing) * 2);
   max-width: 1300px;
   padding-top: calc(var(--spacing) * 4);
+  @media (min-width: 768px) {
+    flex-direction: row;
+    margin: auto;
+  }
   @media (min-width: 1024px) {
     padding-left: 35px;
     padding-right: 35px;
-    flex-direction: row;
-    margin: auto;
   }
 `;
 
@@ -35,7 +37,7 @@ export const PlayerSection = styled.div`
       justify-content: flex-end;
     }
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     &:first-child {
       flex-grow: 1;
       flex-shrink: 1;

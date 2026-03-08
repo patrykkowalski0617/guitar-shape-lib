@@ -46,7 +46,7 @@ export function ShapeSelect() {
 
   return (
     <ControlWrapper>
-      <ControlLabel>Arp/Scale</ControlLabel>
+      <ControlLabel>Shapes</ControlLabel>
       <Select value={currentShapeValue} onValueChange={handleValueChange}>
         <SelectTrigger className="md:min-w-[220px]">
           <SelectValue placeholder="Select shape..." />

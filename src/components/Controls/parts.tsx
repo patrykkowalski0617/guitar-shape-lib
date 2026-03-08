@@ -32,9 +32,6 @@ export const ControlWrapper = styled.div`
     flex: 0 0 calc(25% - (var(--spacing) * 4));
   }
   @media (min-width: 768px) {
-    flex: 0 0 calc(33% - (var(--spacing) * 4));
-  }
-  @media (min-width: 1024px) {
     flex: 0 0 auto;
     width: auto;
     max-width: fit-content;
