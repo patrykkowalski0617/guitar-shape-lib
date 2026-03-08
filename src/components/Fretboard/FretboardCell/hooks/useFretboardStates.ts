@@ -1,5 +1,5 @@
 import { useControlsStore } from "@/store";
-import { isGlobalRole } from "@/data";
+import { isGlobalRole } from "@/utils";
 
 export const useFretboardStates = () => {
   const shapeId = useControlsStore((state) => state.shapeId);

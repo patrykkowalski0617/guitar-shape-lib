@@ -6,7 +6,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useControlsStore, useMusicStore } from "@/store";
-import { isGlobalRole } from "@/data";
+import { isGlobalRole } from "@/utils";
 import { ControlLabel } from "@/parts";
 import { ControlWrapper } from "../parts";
 import { useShapeOptions } from "./hooks/useShapeOptions";

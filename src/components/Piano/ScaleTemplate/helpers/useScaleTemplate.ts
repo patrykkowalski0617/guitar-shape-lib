@@ -1,9 +1,13 @@
 import { useControlsStore } from "@/store";
-import { UNIFIED_MUSIC_KEYS, type RoleId, isGlobalRole } from "@/data";
+import { UNIFIED_MUSIC_KEYS, type RoleId } from "@/data";
 import { pianoNotes } from "../../helpers/constants";
 import { useScaleLogic } from "../../hooks";
+import { isGlobalRole } from "@/utils";
 
-const VISIBLE_INDEXES_MAP: Record<"major" | "minor", Partial<Record<RoleId, readonly number[]>>> = {
+const VISIBLE_INDEXES_MAP: Record<
+  "major" | "minor",
+  Partial<Record<RoleId, readonly number[]>>
+> = {
   major: {
     tonic: [3, 7, 10, 14, 17, 20, 24],
     subdominant: [3, 7, 10, 14, 17, 21, 24],
@@ -23,7 +27,8 @@ export const useScaleTemplate = () => {
 
   const { currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
-  const roleOffset = roleId === "subdominant" ? 5 : roleId === "dominant" ? 7 : 0;
+  const roleOffset =
+    roleId === "subdominant" ? 5 : roleId === "dominant" ? 7 : 0;
   const templateOffset = UNIFIED_MUSIC_KEYS[tuneKeyId].offsetFromC + roleOffset;
   const position = 5 + templateOffset;
 
@@ -32,13 +37,17 @@ export const useScaleTemplate = () => {
 
   const effectiveRoleId = isGlobalRole(roleId) || !roleId ? "tonic" : roleId;
 
-  const highlightRole = !isGlobalRole(roleId) && roleId ? (modeMap[effectiveRoleId] ?? []) : [];
+  const highlightRole =
+    !isGlobalRole(roleId) && roleId ? (modeMap[effectiveRoleId] ?? []) : [];
 
   const altIndexes = !isGlobalRole(roleId)
     ? Array.from({ length: 33 }, (_, i) => i).filter((stepIndex) => {
         const pianoNote = pianoNotes[position + stepIndex];
         if (!pianoNote) return false;
-        return currentShapeNoteIds.includes(pianoNote.noteId) && !currentRoleNoteIds.includes(pianoNote.noteId);
+        return (
+          currentShapeNoteIds.includes(pianoNote.noteId) &&
+          !currentRoleNoteIds.includes(pianoNote.noteId)
+        );
       })
     : [];
 

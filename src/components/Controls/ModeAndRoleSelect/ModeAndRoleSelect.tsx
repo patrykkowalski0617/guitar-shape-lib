@@ -1,5 +1,5 @@
 import { useMusicStore, useControlsStore } from "@/store";
-import { type RoleId, roles, isGlobalRole } from "@/data";
+import { type RoleId, roles } from "@/data";
 import { ControlWrapper } from "../parts";
 import { ControlLabel } from "@/parts";
 import {
@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { isGlobalRole } from "@/utils";
 
 export function ModeAndRoleSelect() {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);

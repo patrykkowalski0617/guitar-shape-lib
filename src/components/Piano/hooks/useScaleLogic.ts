@@ -6,21 +6,22 @@ import {
   majorScale,
   minorScale,
   UNIFIED_MUSIC_KEYS,
-  isGlobalRole,
 } from "@/data";
 import { matchShapeNotesToRoleNotes } from "../helpers/matchShapeNotesToRoleNotes";
-import { getNotes } from "@/utils";
+import { isGlobalRole, getNotes } from "@/utils";
 import { type Note } from "@/data";
 
 export const useScaleLogic = () => {
-  const { isMajorMode, tuneKeyId, roleId, shapeId, shapeSemitoneOffsetFromC } = useControlsStore();
+  const { isMajorMode, tuneKeyId, roleId, shapeId, shapeSemitoneOffsetFromC } =
+    useControlsStore();
 
   const FIRST_OCTAVE_NO_FOR_PRESENTATION = 3;
   const PRESENTATION_SCALE_LENGTH = 36;
 
   const currentMusicKey = UNIFIED_MUSIC_KEYS[tuneKeyId];
   const currentMajorFirstNote: Note = currentMusicKey.majorFirstNote;
-  const currentRelativeMinorFirstNote: Note = currentMusicKey.relativeMinorFirstNote;
+  const currentRelativeMinorFirstNote: Note =
+    currentMusicKey.relativeMinorFirstNote;
   const currentMajorRootOffsetFromC: number = currentMusicKey.offsetFromC;
   const currentScaleTemplate = isMajorMode
     ? majorScale
@@ -36,7 +37,9 @@ export const useScaleLogic = () => {
   });
 
   const relativeMinorOctave =
-    currentMajorRootOffsetFromC >= 3 ? FIRST_OCTAVE_NO_FOR_PRESENTATION : FIRST_OCTAVE_NO_FOR_PRESENTATION - 1;
+    currentMajorRootOffsetFromC >= 3
+      ? FIRST_OCTAVE_NO_FOR_PRESENTATION
+      : FIRST_OCTAVE_NO_FOR_PRESENTATION - 1;
 
   const allNotesFromNearestRelativeMinorRoot = getNotes({
     firstNote: currentRelativeMinorFirstNote,
@@ -45,17 +48,34 @@ export const useScaleLogic = () => {
   });
 
   const getOnlyScaleNotesIds = (scaleTemplate: number[]) => {
-    const allNotes = isMajorMode ? allNotesFromMajorRoot : allNotesFromNearestRelativeMinorRoot;
-    return allNotes.filter((_, index) => scaleTemplate.includes(index % 12)).map(({ noteId }) => noteId);
+    const allNotes = isMajorMode
+      ? allNotesFromMajorRoot
+      : allNotesFromNearestRelativeMinorRoot;
+    return allNotes
+      .filter((_, index) => scaleTemplate.includes(index % 12))
+      .map(({ noteId }) => noteId);
   };
 
   const currentScaleNoteIdsLength =
-    roleId === "tonic" ? 13 : roleId === "subdominant" ? 16 : roleId === "dominant" ? 17 : 7;
+    roleId === "tonic"
+      ? 13
+      : roleId === "subdominant"
+        ? 16
+        : roleId === "dominant"
+          ? 17
+          : 7;
 
-  const currentScaleNoteIds = getOnlyScaleNotesIds(currentScaleTemplate).slice(0, currentScaleNoteIdsLength);
+  const currentScaleNoteIds = getOnlyScaleNotesIds(currentScaleTemplate).slice(
+    0,
+    currentScaleNoteIdsLength,
+  );
 
   const roleIntervalOffeset =
-    roleId === "tonic" || roleId === "all-one-instance" ? 0 : roleId === "subdominant" ? 3 : 4;
+    roleId === "tonic" || roleId === "all-one-instance"
+      ? 0
+      : roleId === "subdominant"
+        ? 3
+        : 4;
 
   const currentRoleNoteIds = !isGlobalRole(roleId)
     ? [...currentScaleNoteIds]
@@ -72,7 +92,10 @@ export const useScaleLogic = () => {
       .filter((_, i) => shapeIntervals.includes(i))
       .map(({ noteId }) => noteId);
 
-    currentShapeNoteIds = matchShapeNotesToRoleNotes(currentRoleNoteIds, shapeSharpNoteId);
+    currentShapeNoteIds = matchShapeNotesToRoleNotes(
+      currentRoleNoteIds,
+      shapeSharpNoteId,
+    );
   }
 
   return { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds };

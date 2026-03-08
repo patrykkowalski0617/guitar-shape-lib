@@ -1,6 +1,6 @@
 import * as S from "./parts";
-import { NOTES_SHARP, majorScale, UNIFIED_MUSIC_KEYS, isGlobalRole } from "@/data";
-import { type NoteObject } from "@/utils";
+import { NOTES_SHARP, majorScale, UNIFIED_MUSIC_KEYS } from "@/data";
+import { type NoteObject, isGlobalRole } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useControlsStore, useMusicStore } from "@/store";
 import { SHAPES_OF_WHITE_PIANO_KEYS } from "../helpers/constants";
@@ -21,7 +21,8 @@ const PianoKey = ({ note }: PianoKeyProps) => {
   const isWhitePianoKey = majorScale.includes(noteOctaveIndex);
   const pianoKeyShape = SHAPES_OF_WHITE_PIANO_KEYS[noteOctaveIndex];
 
-  const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
+  const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } =
+    useScaleLogic();
 
   const isRoleActive = roleId && !isGlobalRole(roleId);
 
@@ -31,7 +32,8 @@ const PianoKey = ({ note }: PianoKeyProps) => {
 
   const isHighlighted = currentScaleNoteIds.includes(note.noteId);
   const isActiveNote = note.noteId === activeNoteId;
-  const isShapeNote = !!isRoleActive && currentShapeNoteIds.includes(note.noteId);
+  const isShapeNote =
+    !!isRoleActive && currentShapeNoteIds.includes(note.noteId);
   const isRoleNote = currentRoleNoteIds?.includes(note.noteId);
 
   return (
