@@ -2,6 +2,7 @@ import * as React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
 import styled from "styled-components";
+import type { ShapeLocation } from "../Fretboard/ShapeExplorerSlider/helpers/getOrderedShapeLocations";
 
 const Tick = styled.div<{ $isCurrent: boolean; $isUserList: boolean }>`
   position: absolute;
@@ -26,29 +27,28 @@ const Tick = styled.div<{ $isCurrent: boolean; $isUserList: boolean }>`
   transition: all 0.05s ease-in-out;
 `;
 
-interface DiscreteSliderProps extends React.ComponentProps<
+interface StepSliderProps extends React.ComponentProps<
   typeof SliderPrimitive.Root
 > {
   userListIndexes?: number[];
+  options: ShapeLocation[];
 }
 
 function StepSlider({
   className,
   value,
   min = 0,
-  max,
+  options,
   style,
   userListIndexes = [],
   ...props
-}: DiscreteSliderProps) {
+}: StepSliderProps) {
   const currentValue = value?.[0] ?? 0;
   const thumbSize = 25;
+  const max = options.length;
 
   const effectiveMax = max ?? 0;
-  const totalStepsCount = effectiveMax + 1;
   const shouldRenderTicks = effectiveMax > 0;
-
-  const stepIndexes = Array.from({ length: totalStepsCount }).map((_, i) => i);
 
   const isNotInitialPosition = currentValue !== 0;
 
@@ -74,7 +74,7 @@ function StepSlider({
         style={{ margin: `0 ${thumbSize / 2}px` }}
       >
         {shouldRenderTicks &&
-          stepIndexes.map((index) => {
+          options.map((option, index) => {
             const isActiveStep = index === currentValue && isNotInitialPosition;
             const isUserStep = userListIndexes.includes(index);
             const leftOffset = calculateTickPosition(index);
@@ -91,13 +91,18 @@ function StepSlider({
       </SliderPrimitive.Track>
 
       <SliderPrimitive.Thumb
+        onDoubleClick={() => {
+          console.log(options[currentValue].id);
+        }}
         className={cn(
           "block rounded-full border-2 shadow-lg border-primary",
           "cursor-grab active:cursor-grabbing",
           "hover:scale-120 transition-transform",
-          "data-[disabled]:scale-100 data-[disabled]:border-primary/35 data-[disabled]:left-[calc(10px)] data-[disabled]:relative",
+          "data-[disabled]:scale-100 data-[disabled]:border-primary/35",
+          "data-[disabled]:left-[calc(10px)] data-[disabled]:relative",
           "focus:outline-none focus:ring-0 focus:ring-offset-0",
-          "focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-0",
+          "focus-visible:ring-2 focus-visible:ring-accent/70",
+          "focus-visible:ring-offset-0",
           currentValue === 0 ? "bg-background" : "bg-transparent",
         )}
         style={{
