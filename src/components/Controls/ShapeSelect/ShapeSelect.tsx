@@ -1,6 +1,12 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useControlsStore, useMusicStore } from "@/store";
-import { isGlobalRole } from "@/data";
+import { isGlobalRole } from "@/utils";
 import { ControlLabel } from "@/parts";
 import { ControlWrapper } from "../parts";
 import { useShapeOptions } from "./hooks/useShapeOptions";
@@ -10,17 +16,23 @@ export const NONE_SHAPE_VALUE = "none";
 export function ShapeSelect() {
   const roleId = useControlsStore((state) => state.roleId);
   const shapeId = useControlsStore((state) => state.shapeId);
-  const shapeSemitoneOffsetFromC = useControlsStore((state) => state.shapeSemitoneOffsetFromC);
+  const shapeSemitoneOffsetFromC = useControlsStore(
+    (state) => state.shapeSemitoneOffsetFromC,
+  );
 
   const setShape = useControlsStore((state) => state.setShape);
-  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
+  const setShapeVariantLocationData = useMusicStore(
+    (state) => state.setShapeVariantLocationData,
+  );
 
   const options = useShapeOptions();
 
   const showNoneOption = isGlobalRole(roleId);
 
   const currentShapeValue =
-    shapeId !== null && shapeSemitoneOffsetFromC !== null ? `${shapeId}|${shapeSemitoneOffsetFromC}` : NONE_SHAPE_VALUE;
+    shapeId !== null && shapeSemitoneOffsetFromC !== null
+      ? `${shapeId}|${shapeSemitoneOffsetFromC}`
+      : NONE_SHAPE_VALUE;
 
   const handleValueChange = (value: string) => {
     setShapeVariantLocationData(null);
@@ -42,7 +54,9 @@ export function ShapeSelect() {
         <SelectContent>
           {showNoneOption && (
             <SelectItem value={NONE_SHAPE_VALUE}>
-              {roleId === "all-one-instance" ? "All notes" : "All notes matching key"}
+              {roleId === "all-one-instance"
+                ? "All notes"
+                : "All notes matching key"}
             </SelectItem>
           )}
 

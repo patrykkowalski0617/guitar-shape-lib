@@ -28,7 +28,7 @@ export const SectionCommonCss = css`
   }
 `;
 
-export const Setcion = styled.div`
+export const Section = styled.div`
   max-width: 1300px;
   width: 100%;
   ${SectionCommonCss}
@@ -53,8 +53,8 @@ export const InstrumentScrollWrapper = styled.div`
   );
   position: relative;
   border-radius: var(--radius-lg);
-  margin-left: -15px; //- compensation for VariantProgressDots
-  margin-right: -15px; //- compensation for VariantProgressDots
+  margin-left: -15px; //- compensation for VariantDots
+  margin-right: -15px; //- compensation for VariantDots
 `;
 
 export const TutorialStickyIcons = styled.div`
@@ -63,7 +63,9 @@ export const TutorialStickyIcons = styled.div`
   z-index: 40;
 `;
 
-export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisible: boolean }>`
+export const FooterAndHeaderStyles = css<{
+  $isFullscreen: boolean;
+}>`
   background-color: color-mix(in oklab, var(--accent) 65%, transparent);
   max-width: unset;
   margin: 0 auto;
@@ -90,15 +92,6 @@ export const FooterAndHeaderStyles = css<{ $isFullscreen: boolean; $isPianoVisib
         opacity: 0;
       `}
   }
-
-  ${({ $isFullscreen, $isPianoVisible }) =>
-    $isFullscreen &&
-    $isPianoVisible &&
-    css`
-      flex-shrink: 1;
-      max-height: 0;
-      opacity: 0;
-    `}
 `;
 
 export const ControlWrapper = styled.div`
@@ -128,29 +121,3 @@ export const ControlLabel = styled.span`
 
 export const instrumentElBRadius = "4px";
 export const instrumentBRadius = "var(--radius-lg)";
-
-export const CollapsibleSectionTransitionTime = 400;
-
-export const CollapsibleSection = styled(Setcion)<{ $isVisible: boolean }>`
-  ${SectionCommonCss}
-  transition:
-    opacity ${CollapsibleSectionTransitionTime}ms ease-in-out,
-    transform ${CollapsibleSectionTransitionTime}ms ease-in-out,
-    max-height ${CollapsibleSectionTransitionTime}ms ease-in-out,
-    margin ${CollapsibleSectionTransitionTime}ms ease-in-out;
-  overflow: hidden;
-  will-change: transform, opacity, max-height;
-  ${({ $isVisible }) =>
-    $isVisible
-      ? css`
-          opacity: 1;
-          transform: translateY(0) scale(1);
-          max-height: 180px;
-        `
-      : css`
-          opacity: 0;
-          transform: translateY(20px) scale(0.9);
-          max-height: 0;
-          margin-top: 0;
-        `}
-`;

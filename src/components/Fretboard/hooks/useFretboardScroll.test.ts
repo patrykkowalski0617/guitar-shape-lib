@@ -24,7 +24,7 @@ describe("useFretboardScroll", () => {
     const mockState = {
       isPlaying: false,
       shapeVariantLocationData: { id: "regular" },
-      shapeVariantLocationData_ghost: { id: "ghost" },
+      shapeVariantLocationData_locked: { id: "ghost" },
     };
 
     vi.mocked(usePlayerStore).mockImplementation((selector: any) =>

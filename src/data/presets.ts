@@ -120,7 +120,7 @@ export const presets: Preset[] = [
     ],
   },
   {
-    name: "Key: C, 8 Em7 | 4 Am7 | 4 B7",
+    name: "Key C: 8 Em7 | 4 Am7 | 4 B7",
     bricks: [
       {
         id: 1,

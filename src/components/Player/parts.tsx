@@ -6,8 +6,10 @@ export const PlayerContainer = styled.div`
   flex-direction: column;
   gap: calc(var(--spacing) * 2);
   max-width: 1300px;
+  padding-top: calc(var(--spacing) * 4);
   @media (min-width: 1024px) {
-    padding: 0 35px;
+    padding-left: 35px;
+    padding-right: 35px;
     flex-direction: row;
     margin: auto;
   }

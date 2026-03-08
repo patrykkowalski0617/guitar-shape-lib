@@ -3,8 +3,8 @@ import { useMetronome } from "./useMetronome";
 import { usePlayerStore, useMusicStore, useControlsStore } from "@/store";
 
 export function usePlayer() {
-  const setShapeVariantLocationData_ghost = useMusicStore(
-    (state) => state.setShapeVariantLocationData_ghost,
+  const setShapeVariantLocationData_locked = useMusicStore(
+    (state) => state.setShapeVariantLocationData_locked,
   );
   const setShapeVariantLocationData = useMusicStore(
     (state) => state.setShapeVariantLocationData,
@@ -30,7 +30,7 @@ export function usePlayer() {
 
     if (isReadyToPrepareFretboard && firstBrick?.snapshot) {
       setShapeVariantLocationData(null);
-      setShapeVariantLocationData_ghost(
+      setShapeVariantLocationData_locked(
         firstBrick.snapshot.shapeVariantLocationData,
       );
       setTuneKeyId(firstBrick.snapshot.keyId);
@@ -39,7 +39,7 @@ export function usePlayer() {
     isPlaying,
     isCountingIn,
     bricks,
-    setShapeVariantLocationData_ghost,
+    setShapeVariantLocationData_locked,
     setShapeVariantLocationData,
     setTuneKeyId,
   ]);

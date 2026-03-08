@@ -14,11 +14,10 @@ interface ControlsState {
 
   shapeId: string | null;
   shapeSemitoneOffsetFromC: number | null;
-  setShape: (shapeId: string | null, shapeSemitoneOffsetFromC: number | null) => void;
-
-  isPianoVisible: boolean;
-  scrollRequestCount: number;
-  setIsPianoVisible: (show: boolean, shouldScroll?: boolean) => void;
+  setShape: (
+    shapeId: string | null,
+    shapeSemitoneOffsetFromC: number | null,
+  ) => void;
 
   resetControls: () => void;
 }
@@ -29,8 +28,6 @@ const initialState = {
   roleId: "all-one-instance" as RoleId | null,
   shapeId: null as string | null,
   shapeSemitoneOffsetFromC: null as number | null,
-  isPianoVisible: false,
-  scrollRequestCount: 0,
 };
 
 export const useControlsStore = create<ControlsState>((set) => ({
@@ -40,7 +37,11 @@ export const useControlsStore = create<ControlsState>((set) => ({
     set((state) => {
       if (!state.roleId) return { isMajorMode };
 
-      const { shapeId, shapeSemitoneOffsetFromC } = getAutoSelectedShape(state.roleId, isMajorMode, state.tuneKeyId);
+      const { shapeId, shapeSemitoneOffsetFromC } = getAutoSelectedShape(
+        state.roleId,
+        isMajorMode,
+        state.tuneKeyId,
+      );
 
       return {
         isMajorMode,
@@ -61,7 +62,11 @@ export const useControlsStore = create<ControlsState>((set) => ({
         };
       }
 
-      const { shapeId, shapeSemitoneOffsetFromC } = getAutoSelectedShape(id, state.isMajorMode, state.tuneKeyId);
+      const { shapeId, shapeSemitoneOffsetFromC } = getAutoSelectedShape(
+        id,
+        state.isMajorMode,
+        state.tuneKeyId,
+      );
 
       return {
         roleId: id,
@@ -75,12 +80,6 @@ export const useControlsStore = create<ControlsState>((set) => ({
       shapeId,
       shapeSemitoneOffsetFromC,
     }),
-
-  setIsPianoVisible: (show, shouldScroll = false) =>
-    set((state) => ({
-      isPianoVisible: show,
-      scrollRequestCount: shouldScroll ? state.scrollRequestCount + 1 : state.scrollRequestCount,
-    })),
 
   resetControls: () => set(initialState),
 }));

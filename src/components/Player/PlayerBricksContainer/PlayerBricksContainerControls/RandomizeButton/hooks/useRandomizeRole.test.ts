@@ -5,7 +5,8 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useRandomizeRole } from "./useRandomizeRole";
 import { useControlsStore } from "@/store";
-import { roles, type RoleId, isGlobalRole } from "@/data";
+import { roles, type RoleId } from "@/data";
+import { isGlobalRole } from "@/utils";
 
 vi.mock("@/store", () => ({
   useControlsStore: vi.fn(),
@@ -14,14 +15,16 @@ vi.mock("@/store", () => ({
 describe("useRandomizeRole()", () => {
   const setRoleIdMock = vi.fn();
 
-  const functionalRoles = (Object.keys(roles) as RoleId[]).filter((id) => !isGlobalRole(id));
+  const functionalRoles = (Object.keys(roles) as RoleId[]).filter(
+    (id) => !isGlobalRole(id),
+  );
 
   beforeEach(() => {
     vi.clearAllMocks();
 
-    (useControlsStore as unknown as ReturnType<typeof vi.fn>).mockImplementation((selector) =>
-      selector({ setRoleId: setRoleIdMock }),
-    );
+    (
+      useControlsStore as unknown as ReturnType<typeof vi.fn>
+    ).mockImplementation((selector) => selector({ setRoleId: setRoleIdMock }));
   });
 
   it("should pick the first functional role and update the store when Math.random is 0", () => {

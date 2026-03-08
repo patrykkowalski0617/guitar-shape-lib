@@ -1,15 +1,14 @@
 import Fretboard from "@/components/Fretboard/Fretboard";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
-import { AppWrapper, CollapsibleSection, MainContent, Setcion } from "@/parts";
-import { useControlsStore, usePlayerStore } from "@/store";
+import { AppWrapper, MainContent, Section } from "@/parts";
+import { usePlayerStore } from "@/store";
 import Piano from "@/components/Piano/Piano";
 import { Toaster } from "@/components/ui/sonner";
 import Player from "./components/Player/Player";
 import Controls from "./components/Controls/Controls";
 
 export default function App() {
-  const isPianoVisible = useControlsStore((state) => state.isPianoVisible);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   return (
@@ -19,21 +18,19 @@ export default function App() {
       <Header />
 
       <MainContent>
-        <Setcion>
+        <Section>
           <Fretboard />
-        </Setcion>
-        <Setcion>
           <Player />
-        </Setcion>
+        </Section>
         {!isPlaying && (
           <>
-            <Setcion>
+            <Section>
               <Controls />
-            </Setcion>
+            </Section>
 
-            <CollapsibleSection $isVisible={isPianoVisible}>
+            <Section>
               <Piano />
-            </CollapsibleSection>
+            </Section>
           </>
         )}
       </MainContent>

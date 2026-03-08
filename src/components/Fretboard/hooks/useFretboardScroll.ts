@@ -7,15 +7,15 @@ export const useFretboardScroll = (
   containerRef: RefObject<HTMLDivElement | null>,
 ) => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
-  const shapeVariantLocationData_ghost = useMusicStore(
-    (state) => state.shapeVariantLocationData_ghost,
+  const shapeVariantLocationData_locked = useMusicStore(
+    (state) => state.shapeVariantLocationData_locked,
   );
   const shapeVariantLocationData_regular = useMusicStore(
     (state) => state.shapeVariantLocationData,
   );
 
   const shapeVariantLocationData = isPlaying
-    ? shapeVariantLocationData_ghost
+    ? shapeVariantLocationData_locked
     : shapeVariantLocationData_regular;
 
   const notes = useShapeCoordinates(shapeVariantLocationData);

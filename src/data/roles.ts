@@ -2,9 +2,6 @@ export type FunctionalRoleId = "tonic" | "subdominant" | "dominant";
 export type GlobalRoleId = "all-one-instance" | "all-matching-key";
 export type RoleId = FunctionalRoleId | GlobalRoleId;
 
-export const isGlobalRole = (roleId: RoleId | null): roleId is GlobalRoleId =>
-  roleId === "all-one-instance" || roleId === "all-matching-key";
-
 export interface RoleData {
   label: string;
 }

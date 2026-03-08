@@ -1,7 +1,7 @@
 import { FooterAndHeaderStyles } from "@/parts";
 import styled, { keyframes } from "styled-components";
 
-export const HeaderWrapper = styled.header<{ $isFullscreen: boolean; $isPianoVisible: boolean }>`
+export const HeaderWrapper = styled.header<{ $isFullscreen: boolean }>`
   ${FooterAndHeaderStyles}
 
   height: 77px;

@@ -9,6 +9,11 @@ export interface Brick {
 
 export const transitionTime = 200;
 
+export const BPM_LIMITS = {
+  MIN: 20,
+  MAX: 220,
+} as const;
+
 interface PlayerState {
   bricks: Brick[];
   activeBrickId: number | null;
@@ -66,11 +71,14 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
 
   updateBrickWidth: (id, newWidth) =>
     set((state) => ({
-      bricks: state.bricks.map((b) => (b.id === id ? { ...b, width: Math.max(1, Math.min(8, newWidth)) } : b)),
+      bricks: state.bricks.map((b) =>
+        b.id === id ? { ...b, width: Math.max(1, Math.min(8, newWidth)) } : b,
+      ),
     })),
 
   setActiveBrickId: (id) => set({ activeBrickId: id }),
-  setBpm: (bpm) => set({ bpm: Math.max(30, Math.min(220, bpm)) }),
+  setBpm: (bpm) =>
+    set({ bpm: Math.max(BPM_LIMITS.MIN, Math.min(BPM_LIMITS.MAX, bpm)) }),
   setBpmMultiplier: (bpmMultiplier) => set({ bpmMultiplier }),
 
   togglePlay: () => {

@@ -1,5 +1,7 @@
 import type { FretboardStringId, VariantId } from "@/data";
 import { create } from "zustand";
+import { usePlayerStore } from "./usePlayerStore";
+import { useControlsStore } from "./useControlsStore";
 
 export interface ShapeVariantLocationData {
   shapeId: string | null;
@@ -13,19 +15,34 @@ interface MusicState {
   setActiveNoteId: (noteId: string | null) => void;
 
   shapeVariantLocationData: ShapeVariantLocationData | null;
-  setShapeVariantLocationData: (target: ShapeVariantLocationData | null) => void;
+  setShapeVariantLocationData: (
+    target: ShapeVariantLocationData | null,
+  ) => void;
 
-  shapeVariantLocationData_ghost: ShapeVariantLocationData | null;
-  setShapeVariantLocationData_ghost: (target: ShapeVariantLocationData | null) => void;
+  shapeVariantLocationData_locked: ShapeVariantLocationData | null;
+  setShapeVariantLocationData_locked: (
+    target: ShapeVariantLocationData | null,
+  ) => void;
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
   activeNoteId: null,
-  setActiveNoteId: (noteId) => set({ activeNoteId: noteId }),
+  setActiveNoteId: (noteId) => {
+    const playerState = usePlayerStore.getState();
+    const controlState = useControlsStore.getState();
+    const dontShowActiveNotes =
+      controlState.shapeId !== null || playerState.isPlaying;
+
+    if (dontShowActiveNotes) return;
+
+    set({ activeNoteId: noteId });
+  },
 
   shapeVariantLocationData: null,
-  setShapeVariantLocationData: (shapeVariantLocationData) => set({ shapeVariantLocationData }),
+  setShapeVariantLocationData: (shapeVariantLocationData) =>
+    set({ shapeVariantLocationData }),
 
-  shapeVariantLocationData_ghost: null,
-  setShapeVariantLocationData_ghost: (shapeVariantLocationData_ghost) => set({ shapeVariantLocationData_ghost }),
+  shapeVariantLocationData_locked: null,
+  setShapeVariantLocationData_locked: (shapeVariantLocationData_locked) =>
+    set({ shapeVariantLocationData_locked }),
 }));

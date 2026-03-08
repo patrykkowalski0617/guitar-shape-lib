@@ -6,7 +6,6 @@ import PianoKey from "./PianoKey/PianoKey";
 import { pianoNotes, numberOfKeys } from "./helpers/constants";
 import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import { usePianoScroll } from "./hooks/usePianoScroll";
-import { MajorModeSwitch } from "./MajorModeSwitch/MajorModeSwitch";
 
 export default function Piano(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -15,7 +14,6 @@ export default function Piano(): JSX.Element {
 
   return (
     <>
-      <MajorModeSwitch />
       <InstrumentScrollWrapper ref={scrollRef}>
         <InstrumentWrapper>
           <ScaleTemplate />

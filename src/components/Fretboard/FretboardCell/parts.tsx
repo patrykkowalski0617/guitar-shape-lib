@@ -1,7 +1,7 @@
 import { instrumentElBRadius } from "@/parts";
 import styled, { css } from "styled-components";
-import { DotsWrapper } from "@/components/Fretboard/VariantProgressDots/parts";
-import { activeDotsStyles } from "@/components/Fretboard/VariantProgressDots/constants";
+import { DotsWrapper } from "@/components/Fretboard/VariantDots/parts";
+import { activeDotsStyles } from "@/components/Fretboard/VariantDots/constants";
 
 export const FretWrapper = styled.div`
   position: relative;
@@ -30,13 +30,10 @@ export const Fret = styled.div<{
 `;
 
 export const Note = styled.div<{
-  $isActiveNote: boolean;
+  $opacity: number;
+  $brightness: number;
+  $cursor: string;
   $isShapeNote: boolean;
-  $isShapeRootNote: boolean;
-  $isTuneNote: boolean;
-  $isShapeSelected: boolean;
-  $shouldMarkTuneNotes: boolean;
-  $isLockedNote: boolean;
   $transitionTime: number;
 }>`
   background-color: color-mix(in oklab, var(--accent) 5%, transparent);
@@ -48,34 +45,17 @@ export const Note = styled.div<{
   align-items: center;
   position: relative;
   z-index: 20;
-  cursor: ${({ $isShapeRootNote }) => ($isShapeRootNote ? "pointer" : "default")};
+  cursor: ${({ $cursor }) => $cursor};
   will-change: box-shadow, opacity;
   transition:
     box-shadow ${({ $transitionTime }) => $transitionTime}ms ease-in-out,
     opacity ${({ $transitionTime }) => $transitionTime}ms ease-in-out;
-  opacity: ${({
-    $isShapeNote,
-    $isShapeRootNote,
-    $isShapeSelected,
-    $isTuneNote,
-    $isActiveNote,
-    $shouldMarkTuneNotes,
-  }) => {
-    if (
-      ($isActiveNote && !$isShapeSelected) ||
-      $isShapeNote ||
-      $isShapeRootNote ||
-      (!$isShapeSelected && $isTuneNote) ||
-      (!$shouldMarkTuneNotes && !$isShapeSelected)
-    )
-      return "1";
 
-    if ($isActiveNote || $isTuneNote || !$shouldMarkTuneNotes || $isTuneNote) return "0.5";
-
-    return "0";
-  }};
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(3)" : "")};
+  opacity: ${({ $opacity }) => $opacity};
+  filter: ${({ $brightness }) =>
+    $brightness > 1 ? `brightness(${$brightness})` : "none"};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
+
   ${({ $isShapeNote }) => {
     if ($isShapeNote) {
       return css`

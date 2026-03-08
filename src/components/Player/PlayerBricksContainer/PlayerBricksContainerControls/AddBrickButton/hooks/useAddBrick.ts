@@ -3,14 +3,20 @@ import { useShapeRootNote } from "@/hooks";
 import { shapes, type Shapes } from "@/data";
 
 export function useAddBrick() {
-  const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
-  const setShapeVariantLocationData_ghost = useMusicStore((state) => state.setShapeVariantLocationData_ghost);
+  const shapeVariantLocationData = useMusicStore(
+    (state) => state.shapeVariantLocationData,
+  );
+  const setShapeVariantLocationData_locked = useMusicStore(
+    (state) => state.setShapeVariantLocationData_locked,
+  );
 
   const tuneKeyId = useControlsStore((s) => s.tuneKeyId);
   const isMajorMode = useControlsStore((s) => s.isMajorMode);
   const roleId = useControlsStore((s) => s.roleId);
   const shapeId = useControlsStore((s) => s.shapeId);
-  const shapeSemitoneOffsetFromC = useControlsStore((s) => s.shapeSemitoneOffsetFromC);
+  const shapeSemitoneOffsetFromC = useControlsStore(
+    (s) => s.shapeSemitoneOffsetFromC,
+  );
   const activeRootNote = useShapeRootNote();
 
   const addBrick = () => {
@@ -30,7 +36,7 @@ export function useAddBrick() {
     const playerStore = usePlayerStore.getState();
     playerStore.addBrick(initialSnapshot);
 
-    setShapeVariantLocationData_ghost(shapeVariantLocationData);
+    setShapeVariantLocationData_locked(shapeVariantLocationData);
   };
 
   return { addBrick };

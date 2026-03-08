@@ -9,7 +9,12 @@ import {
 } from "@/components/ui/command";
 import { FolderOpen } from "lucide-react";
 import { OutlineButton } from "@/components/Player/ui/parts";
-import { useControlsStore, useMusicStore, usePlayerStore, type Brick } from "@/store";
+import {
+  useControlsStore,
+  useMusicStore,
+  usePlayerStore,
+  type Brick,
+} from "@/store";
 import { presets } from "@/data/presets";
 
 export function PresetsList() {
@@ -19,8 +24,12 @@ export function PresetsList() {
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
   const setRoleId = useControlsStore((state) => state.setRoleId);
   const setShape = useControlsStore((state) => state.setShape);
-  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
-  const setShapeVariantLocationData_ghost = useMusicStore((state) => state.setShapeVariantLocationData_ghost);
+  const setShapeVariantLocationData = useMusicStore(
+    (state) => state.setShapeVariantLocationData,
+  );
+  const setShapeVariantLocationData_locked = useMusicStore(
+    (state) => state.setShapeVariantLocationData_locked,
+  );
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   const handleSelect = (bricks: Brick[]) => {
@@ -31,14 +40,15 @@ export function PresetsList() {
     const keyId = bricks[0].snapshot.keyId;
     const isMajorMode = bricks[0].snapshot.isMajorMode;
     const roleId = bricks[0].snapshot.roleId;
-    const shapeSemitoneOffsetFromC = bricks[0].snapshot.shapeSemitoneOffsetFromC;
+    const shapeSemitoneOffsetFromC =
+      bricks[0].snapshot.shapeSemitoneOffsetFromC;
     const shapeId = bricks[0].snapshot.shapeId;
     setTuneKeyId(keyId);
     setIsMajorMode(isMajorMode);
     setRoleId(roleId);
     setShape(shapeId, shapeSemitoneOffsetFromC);
     setShapeVariantLocationData(null);
-    setShapeVariantLocationData_ghost(null);
+    setShapeVariantLocationData_locked(null);
 
     setOpen(false);
   };

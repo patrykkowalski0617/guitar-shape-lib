@@ -7,49 +7,41 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-block items-center justify-center gap-2 whitespace-nowrap rounded-md text-[12px] font-semibold transition-none disabled:cursor-not-allowed disabled:opacity-50 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-none",
+  "inline-block items-center justify-center gap-2 whitespace-nowrap rounded-md text-[12px] font-semibold transition-none disabled:cursor-not-allowed disabled:opacity-50 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-none h-9.5 px-2.5 flex items-center justify-center",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive: "bg-destructive text-white hover:bg-destructive/90",
-        outline: "border border-border/50 bg-muted/50 hover:bg-muted/70 text-foreground",
-        outlineActive: "border border-accent/100 bg-muted/50 hover:bg-muted/70 text-foreground",
-        borderOnly: "border border-accent/100 bg-transparent hover:bg-muted/50 text-foreground",
-        active: "border border-muted-foreground/30 bg-accent/80  hover:bg-accent text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "bg-transparent",
-        link: "text-primary underline-offset-4 hover:underline bg-transparent border-none w-auto",
+        default:
+          "border border-background bg-muted/50 hover:bg-muted/70 text-foreground",
+        active:
+          "border border-muted-foreground/30 bg-accent/80 hover:bg-accent text-accent-foreground",
       },
-      size: {
-        default: "h-10 px-2 py-2 text-sm",
-        sm: "h-9.5 px-2.5",
-        lg: "h-10 px-3 text-sm",
-        icon: "h-8 w-8 p-0 flex-none",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "sm",
     },
   },
 );
 
-interface ButtonProps extends React.ComponentProps<"button">, VariantProps<typeof buttonVariants> {
+interface ButtonProps
+  extends React.ComponentProps<"button">, VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   fixedWidthLabel?: React.ReactNode;
 }
 
-function Button({ className, variant, size, asChild = false, fixedWidthLabel, children, ...props }: ButtonProps) {
+function Button({
+  className,
+  variant,
+  asChild = false,
+  fixedWidthLabel,
+  children,
+  ...props
+}: ButtonProps) {
   const Comp = asChild ? Slot : "button";
 
   return (
     <Comp
       data-slot="button"
       data-variant={variant}
-      data-size={size}
       className={cn(
-        buttonVariants({ variant, size, className }),
+        buttonVariants({ variant, className }),
 
         fixedWidthLabel && "flex-col",
       )}
@@ -57,7 +49,10 @@ function Button({ className, variant, size, asChild = false, fixedWidthLabel, ch
     >
       {fixedWidthLabel ? (
         <>
-          <span style={{ height: 0, overflow: "hidden", display: "block" }} aria-hidden="true">
+          <span
+            style={{ height: 0, overflow: "hidden", display: "block" }}
+            aria-hidden="true"
+          >
             {fixedWidthLabel}
           </span>
           <span>{children}</span>
@@ -69,4 +64,4 @@ function Button({ className, variant, size, asChild = false, fixedWidthLabel, ch
   );
 }
 
-export { Button, buttonVariants };
+export { Button };
