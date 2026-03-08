@@ -20,8 +20,6 @@ export default function App() {
       <MainContent>
         <Section>
           <Fretboard />
-        </Section>
-        <Section>
           <Player />
         </Section>
         {!isPlaying && (
