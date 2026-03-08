@@ -53,8 +53,8 @@ export const InstrumentScrollWrapper = styled.div`
   );
   position: relative;
   border-radius: var(--radius-lg);
-  margin-left: -15px; //- compensation for VariantProgressDots
-  margin-right: -15px; //- compensation for VariantProgressDots
+  margin-left: -15px; //- compensation for VariantDots
+  margin-right: -15px; //- compensation for VariantDots
 `;
 
 export const TutorialStickyIcons = styled.div`

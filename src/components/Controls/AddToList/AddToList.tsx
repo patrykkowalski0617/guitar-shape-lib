@@ -7,12 +7,12 @@ import { USER_LIST_MESSAGES } from "@/data/constants";
 
 export function AddToList() {
   const { userList, toggleUserList } = useProgressStore();
-  const currentLocation = useMusicStore(
+  const shapeVariantLocationData = useMusicStore(
     (state) => state.shapeVariantLocationData,
   );
 
-  const currentId = currentLocation
-    ? `${currentLocation.shapeId}-${currentLocation.stringId}-${currentLocation.variantId}`
+  const currentId = shapeVariantLocationData
+    ? `${shapeVariantLocationData.shapeId}-${shapeVariantLocationData.stringId}-${shapeVariantLocationData.variantId}`
     : null;
 
   const isFavorite = !!(currentId && userList.includes(currentId));

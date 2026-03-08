@@ -1,6 +1,11 @@
 import { useEffect, useMemo } from "react";
 import { useShapeRootNote } from "@/hooks";
-import { useControlsStore, useMusicStore, usePlayerStore, type ShapeVariantLocationData } from "@/store";
+import {
+  useControlsStore,
+  useMusicStore,
+  usePlayerStore,
+  type ShapeVariantLocationData,
+} from "@/store";
 import { shapes, type MusicKeyId, type RoleId, type Shapes } from "@/data";
 
 export type Snapshot = {
@@ -14,24 +19,40 @@ export type Snapshot = {
   shapeId: string | null;
 };
 
-export function usePlayerSnapshot(brickId: number, isEditable: boolean, onToggleEdit: () => void) {
-  const updateBrickSnapshot = usePlayerStore((state) => state.updateBrickSnapshot);
-  const brick = usePlayerStore((state) => state.bricks.find((b) => b.id === brickId));
+export function usePlayerSnapshot(
+  brickId: number,
+  isEditable: boolean,
+  onToggleEdit: () => void,
+) {
+  const updateBrickSnapshot = usePlayerStore(
+    (state) => state.updateBrickSnapshot,
+  );
+  const brick = usePlayerStore((state) =>
+    state.bricks.find((b) => b.id === brickId),
+  );
 
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const roleId = useControlsStore((state) => state.roleId);
   const shapeId = useControlsStore((state) => state.shapeId);
-  const shapeSemitoneOffsetFromC = useControlsStore((state) => state.shapeSemitoneOffsetFromC);
-  const shapeVariantLocationData = useMusicStore((state) => state.shapeVariantLocationData);
+  const shapeSemitoneOffsetFromC = useControlsStore(
+    (state) => state.shapeSemitoneOffsetFromC,
+  );
+  const shapeVariantLocationData = useMusicStore(
+    (state) => state.shapeVariantLocationData,
+  );
   const activeRootNote = useShapeRootNote();
 
   const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
   const setRoleId = useControlsStore((state) => state.setRoleId);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
   const setShape = useControlsStore((state) => state.setShape);
-  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
-  const setShapeVariantLocationData_ghost = useMusicStore((state) => state.setShapeVariantLocationData_ghost);
+  const setShapeVariantLocationData = useMusicStore(
+    (state) => state.setShapeVariantLocationData,
+  );
+  const setShapeVariantLocationData_locked = useMusicStore(
+    (state) => state.setShapeVariantLocationData_locked,
+  );
 
   const activeShape = shapes[shapeId as keyof Shapes] || null;
 
@@ -64,7 +85,9 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean, onToggle
     }
   }, [isEditable, currentLiveState, brickId, updateBrickSnapshot]);
 
-  const displayData = isEditable ? currentLiveState : brick?.snapshot || currentLiveState;
+  const displayData = isEditable
+    ? currentLiveState
+    : brick?.snapshot || currentLiveState;
 
   const lockedSnapshot = brick?.snapshot || currentLiveState;
 
@@ -79,7 +102,7 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean, onToggle
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    setShapeVariantLocationData_ghost(shapeVariantLocationData);
+    setShapeVariantLocationData_locked(shapeVariantLocationData);
 
     if (!isEditable && lockedSnapshot.rootNote !== null) {
       applySnapshotToStore(lockedSnapshot);

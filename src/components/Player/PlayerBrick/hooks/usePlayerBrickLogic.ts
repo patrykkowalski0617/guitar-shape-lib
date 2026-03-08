@@ -11,10 +11,17 @@ interface UsePlayerBrickLogicProps {
   onWidthChange: (newWidth: number) => void;
 }
 
-export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthChange }: UsePlayerBrickLogicProps) => {
+export const usePlayerBrickLogic = ({
+  brick,
+  isEditable,
+  onToggleEdit,
+  onWidthChange,
+}: UsePlayerBrickLogicProps) => {
   const { id, width } = brick;
 
-  const setShapeVariantLocationData_ghost = useMusicStore((state) => state.setShapeVariantLocationData_ghost);
+  const setShapeVariantLocationData_locked = useMusicStore(
+    (state) => state.setShapeVariantLocationData_locked,
+  );
   const currentStep = usePlayerStore((state) => state.currentStep);
   const bricks = usePlayerStore((state) => state.bricks);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -23,11 +30,8 @@ export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthCh
   const [isResizing, setIsResizing] = useState(false);
   const birckWidthUnit = useBrickWidthUnit();
 
-  const { displayData, handleClick, applySnapshotToStore, lockedSnapshot } = usePlayerSnapshot(
-    id,
-    isEditable,
-    onToggleEdit,
-  );
+  const { displayData, handleClick, applySnapshotToStore, lockedSnapshot } =
+    usePlayerSnapshot(id, isEditable, onToggleEdit);
 
   const resizeHandlers = useBrickResize({
     isEditable,
@@ -39,16 +43,21 @@ export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthCh
   });
 
   const myIndex = bricks.findIndex((b) => b.id === id);
-  const stepsBeforeMe = bricks.slice(0, myIndex).reduce((sum, b) => sum + b.width, 0);
+  const stepsBeforeMe = bricks
+    .slice(0, myIndex)
+    .reduce((sum, b) => sum + b.width, 0);
 
   const activeBrickIndex = bricks.findIndex((b, idx) => {
-    const stepStart = bricks.slice(0, idx).reduce((sum, prev) => sum + prev.width, 0);
+    const stepStart = bricks
+      .slice(0, idx)
+      .reduce((sum, prev) => sum + prev.width, 0);
     return currentStep >= stepStart && currentStep < stepStart + b.width;
   });
 
   const isActivePlayback = isPlaying && !isCountingIn;
   const isMeActive = activeBrickIndex === myIndex && isActivePlayback;
-  const isMeNext = (activeBrickIndex + 1) % bricks.length === myIndex && isActivePlayback;
+  const isMeNext =
+    (activeBrickIndex + 1) % bricks.length === myIndex && isActivePlayback;
 
   const activePart = isMeActive ? currentStep - stepsBeforeMe + 1 : 0;
 
@@ -62,7 +71,7 @@ export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthCh
 
     const isNotSingleBlockBrick = width > 1;
     if (isNotSingleBlockBrick) {
-      setShapeVariantLocationData_ghost(null);
+      setShapeVariantLocationData_locked(null);
     }
   };
 
@@ -70,11 +79,16 @@ export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthCh
     const currentActiveBrick = bricks[activeBrickIndex];
     if (!currentActiveBrick || !isMeNext) return;
 
-    const stepStartOfActive = bricks.slice(0, activeBrickIndex).reduce((sum, b) => sum + b.width, 0);
-    const isLastStepOfActiveBrick = currentStep - stepStartOfActive + 1 === currentActiveBrick.width;
+    const stepStartOfActive = bricks
+      .slice(0, activeBrickIndex)
+      .reduce((sum, b) => sum + b.width, 0);
+    const isLastStepOfActiveBrick =
+      currentStep - stepStartOfActive + 1 === currentActiveBrick.width;
 
     if (isLastStepOfActiveBrick && bricks.length > 1) {
-      setShapeVariantLocationData_ghost(lockedSnapshot.shapeVariantLocationData);
+      setShapeVariantLocationData_locked(
+        lockedSnapshot.shapeVariantLocationData,
+      );
     }
   };
 
@@ -83,7 +97,7 @@ export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthCh
     applySnapshotToStore,
     lockedSnapshot,
     width,
-    setShapeVariantLocationData_ghost,
+    setShapeVariantLocationData_locked,
   ]);
 
   useEffect(syncNextBrickPreview, [
@@ -92,11 +106,15 @@ export const usePlayerBrickLogic = ({ brick, isEditable, onToggleEdit, onWidthCh
     activeBrickIndex,
     bricks,
     lockedSnapshot.shapeVariantLocationData,
-    setShapeVariantLocationData_ghost,
+    setShapeVariantLocationData_locked,
   ]);
 
   const hasData = displayData.shapeVariantLocationData !== null;
-  const label = isResizing ? width : hasData ? `${displayData.rootNote} ${displayData.shapeLabel}` : "Empty";
+  const label = isResizing
+    ? width
+    : hasData
+      ? `${displayData.rootNote} ${displayData.shapeLabel}`
+      : "Empty";
 
   return {
     birckWidthUnit,

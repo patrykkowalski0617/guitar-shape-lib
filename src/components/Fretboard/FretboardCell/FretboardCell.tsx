@@ -1,9 +1,9 @@
 import * as S from "./parts";
 import type { NoteObject } from "@/utils";
-import VariantProgressDots from "@/components/Fretboard/VariantProgressDots/VariantProgressDots";
+import VariantDots from "@/components/Fretboard/VariantDots/VariantDots";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
-import { useFretboardCell, useNoteState, useFretboardStates } from "./hooks";
+import { useFretboardCell, useNoteState } from "./hooks";
 import { usePlayerStore } from "@/store";
 
 interface FretboardCellProps {
@@ -12,41 +12,51 @@ interface FretboardCellProps {
   fretIndex: number;
 }
 
-export default function FretboardCell({ noteData, stringIndex, fretIndex }: FretboardCellProps) {
+export default function FretboardCell({
+  noteData,
+  stringIndex,
+  fretIndex,
+}: FretboardCellProps) {
   const transitionTime = usePlayerStore((state) => state.transitionTime);
-  const { states, actions } = useFretboardCell();
-  const { isShapeSelected, shouldMarkTuneNotes } = useFretboardStates();
-  const isPlaying = usePlayerStore((state) => state.isPlaying);
 
-  const { isActiveNote, isShapeRootNote, isShapeNote, isLockedNote, isTuneNote } = useNoteState({
+  const { states, actions } = useFretboardCell();
+
+  const noteState = useNoteState({
     sharpNoteName: noteData.sharpNoteName,
     noteId: noteData.noteId,
     stringIndex,
     fretIndex,
   });
 
+  const handleMouseEnter = () => {
+    actions.setActiveNoteId(noteData.noteId);
+  };
+
+  const handleMouseLeave = () => {
+    actions.setActiveNoteId(null);
+  };
+
   return (
     <S.FretWrapper
-      onMouseEnter={() => actions.setActiveNoteId(noteData.noteId)}
-      onMouseLeave={() => actions.setActiveNoteId(null)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      <S.Fret $isLockedNote={isLockedNote} data-fret={fretIndex}>
-        {isShapeRootNote && <VariantProgressDots stringIndex={stringIndex} fretIndex={fretIndex} />}
+      <S.Fret $isLockedNote={noteState.isLockedNote} data-fret={fretIndex}>
+        {noteState.isShapeRootNote && (
+          <VariantDots stringIndex={stringIndex} fretIndex={fretIndex} />
+        )}
         <S.Note
-          $isLockedNote={isLockedNote}
-          $isActiveNote={isActiveNote && !isPlaying}
-          $isShapeRootNote={isShapeRootNote && !isPlaying}
-          $isShapeNote={isShapeNote}
-          $isTuneNote={isTuneNote}
-          $isShapeSelected={isShapeSelected}
-          $shouldMarkTuneNotes={shouldMarkTuneNotes}
+          $opacity={noteState.opacity}
+          $brightness={noteState.brightness}
+          $cursor={noteState.cursor}
+          $isShapeNote={noteState.isShapeNote}
           $transitionTime={transitionTime}
         >
           <NoteLabel
-            isHighlighted={isShapeNote}
+            isHighlighted={noteState.isShapeNote}
             flatNoteName={noteData.flatNoteName}
             sharpNoteName={noteData.sharpNoteName}
-            isShapeNote={isShapeNote}
+            isShapeNote={noteState.isShapeNote}
             isFlatTune={states.isFlatTune}
             isEnharmonic={noteData.isEnharmonic}
             variant="fretboard"
