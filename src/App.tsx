@@ -7,6 +7,7 @@ import Piano from "@/components/Piano/Piano";
 import { Toaster } from "@/components/ui/sonner";
 import Player from "./components/Player/Player";
 import Controls from "./components/Controls/Controls";
+import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
 
 export default function App() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -34,6 +35,9 @@ export default function App() {
           </>
         )}
       </MainContent>
+
+      <FullscreenButton />
+
       <Footer />
     </AppWrapper>
   );
