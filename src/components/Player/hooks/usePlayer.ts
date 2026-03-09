@@ -34,6 +34,11 @@ export function usePlayer() {
       );
       setTuneKeyId(firstBrick.snapshot.keyId);
     }
+
+    if (bricks.length === 0) {
+      setShapeVariantLocationData(null);
+      setShapeVariantLocationData_locked(null);
+    }
   }, [
     isPlaying,
     isCountingIn,

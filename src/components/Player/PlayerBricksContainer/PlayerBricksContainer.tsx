@@ -14,7 +14,8 @@ export const PlayerBricksContainer = () => {
   const updateBrickWidth = usePlayerStore((state) => state.updateBrickWidth);
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
 
-  const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } = usePlayerBricksDrag();
+  const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } =
+    usePlayerBricksDrag();
 
   const isContainerEmpty = bricks.length === 0;
 
@@ -37,7 +38,9 @@ export const PlayerBricksContainer = () => {
               brick={brick}
               isEditable={isEditable}
               $isDragging={isBeingDragged}
-              onToggleEdit={() => setActiveBrickId(isEditable ? null : brick.id)}
+              onToggleEdit={() =>
+                setActiveBrickId(isEditable ? null : brick.id)
+              }
               onWidthChange={(newWidth) => updateBrickWidth(brick.id, newWidth)}
             />
           </S.BrickDragWrapper>
