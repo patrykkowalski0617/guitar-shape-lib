@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 import { Dices } from "lucide-react";
-import { useRandomizeMode } from "./hooks/useRandomizeMode";
-import { useRandomizeKey } from "./hooks/useRandomizeKey";
-import { useRandomizeRole } from "./hooks/useRandomizeRole";
-import { useRandomizeShape } from "./hooks/useRandomizeShape";
-import { useRandomizeShapeVariant } from "./hooks/useRandomizeShapeVariant";
+import {
+  useRandomizeMode,
+  useRandomizeKey,
+  useRandomizeRole,
+  useRandomizeShape,
+  useRandomizeShapeVariant,
+} from "./hooks";
 import { useAddBrick } from "../AddBrickButton/hooks/useAddBrick";
 import { useMusicStore, usePlayerStore } from "@/store";
 import { Button } from "@/components/ui/button";
