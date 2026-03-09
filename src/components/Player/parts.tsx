@@ -10,10 +10,8 @@ export const PlayerContainer = styled.div`
   @media (min-width: 768px) {
     flex-direction: row;
     margin: auto;
-  }
-  @media (min-width: 1024px) {
-    padding-left: 35px;
-    padding-right: 35px;
+    padding-left: 25px;
+    padding-right: 25px;
   }
 `;
 

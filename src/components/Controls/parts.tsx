@@ -6,7 +6,7 @@ export const ControlContainer = styled.div`
   display: flex;
   width: 100%;
   max-width: 1300px;
-  gap: calc(var(--spacing) * 4);
+  gap: calc(var(--spacing) * 6);
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -26,11 +26,8 @@ export const ControlWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  flex: 0 0 calc(50% - (var(--spacing) * 4));
-  &:nth-child(4),
-  &:nth-child(5) {
-    flex: 0 0 calc(25% - (var(--spacing) * 4));
-  }
+  flex: 0 0 calc(50% - (var(--spacing) * 6));
+
   @media (min-width: 768px) {
     flex: 0 0 auto;
     width: auto;

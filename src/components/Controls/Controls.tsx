@@ -1,4 +1,3 @@
-import { AddToList } from "./AddToList/AddToList";
 import { KeySelect } from "./KeySelect/KeySelect";
 import { ModeAndRoleSelect } from "./ModeAndRoleSelect/ModeAndRoleSelect";
 import * as S from "./parts";
@@ -10,7 +9,6 @@ export default function Controls() {
       <KeySelect />
       <ModeAndRoleSelect />
       <ShapeSelect />
-      <AddToList />
     </S.ControlContainer>
   );
 }

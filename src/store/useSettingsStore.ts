@@ -6,15 +6,12 @@ interface SettingsState {
   setIsFullscreen: (val: boolean) => void;
   isRotated: boolean;
   setIsRotated: (val: boolean) => void;
-  isTutorialOn: boolean;
-  setIsTutorialOn: (val: boolean) => void;
   resetToDefaults: () => void;
 }
 
 const initialState = {
   isFullscreen: false,
   isRotated: false,
-  isTutorialOn: true,
 };
 
 export const useSettingsStore = create<SettingsState>()(
@@ -25,8 +22,6 @@ export const useSettingsStore = create<SettingsState>()(
       setIsFullscreen: (val) => set({ isFullscreen: val }),
 
       setIsRotated: (val) => set({ isRotated: val }),
-
-      setIsTutorialOn: (val) => set({ isTutorialOn: val }),
 
       resetToDefaults: () => set(initialState),
     }),
