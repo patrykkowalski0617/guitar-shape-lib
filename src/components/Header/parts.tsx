@@ -61,15 +61,3 @@ export const Title = styled.h1`
   text-align: center;
   display: inline;
 `;
-
-export const Subtitle = styled.p`
-  text-align: right;
-  font-size: 14px;
-  line-height: 0.5;
-  font-weight: bold;
-`;
-
-export const HeaderSide = styled.div`
-  right: 10px;
-  position: absolute;
-`;

@@ -3,8 +3,8 @@ import type { Variant } from "./NoteLabel";
 import { instrumentElBRadius } from "@/parts";
 import { transitionTime } from "@/store";
 
-export const highlightedColor = "var(--foreground)";
-export const unHighlightedColor = "var(--border)";
+const highlightedColor = "var(--foreground)";
+const unHighlightedColor = "var(--border)";
 
 const BaseLabel = styled.div<{
   $isHighlighted: boolean;
@@ -26,7 +26,8 @@ interface LabelStatusProps {
 }
 
 export const MainLabel = styled(BaseLabel)<LabelStatusProps>`
-  opacity: ${({ $isEnharmonicNote, $isFlatTune }) => (!$isEnharmonicNote || !$isFlatTune ? 1 : 0)};
+  opacity: ${({ $isEnharmonicNote, $isFlatTune }) =>
+    !$isEnharmonicNote || !$isFlatTune ? 1 : 0};
 `;
 
 export const OptionalLabel = styled(BaseLabel)<LabelStatusProps>`
@@ -47,7 +48,9 @@ export const NoteWrapper = styled.div<{
       position: relative;
       z-index: 1;
       will-change: opacity;
-      transition: ${!$isActiveNote ? `opacity ${transitionTime}ms ease-in-out` : "none"};
+      transition: ${!$isActiveNote
+        ? `opacity ${transitionTime}ms ease-in-out`
+        : "none"};
       opacity: ${$isShapeNote || $isActiveNote ? "1" : "0"};
       ${MainLabel}, ${OptionalLabel} {
         border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);

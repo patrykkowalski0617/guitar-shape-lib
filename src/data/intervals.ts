@@ -25,8 +25,6 @@ export const INTERVAL_SEMITONES = {
   _M14: 23,
 } as const;
 
-export type IntervalKey = keyof typeof INTERVAL_SEMITONES;
-
 export const {
   _1,
   _m2,

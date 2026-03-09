@@ -2,7 +2,7 @@ import { useControlsStore, useMusicStore } from "@/store";
 import { isGlobalRole } from "@/utils";
 import { useShapeOptions } from "./useShapeOptions";
 
-export const NONE_SHAPE_VALUE = "none";
+const NONE_SHAPE_VALUE = "none";
 
 export function useShapeSelection() {
   const roleId = useControlsStore((state) => state.roleId);

@@ -1,14 +1,3 @@
-import { type Note } from "@/data";
-
-export interface MusicKeyInfo {
-  readonly offsetFromC: number;
-  readonly isFlatTune: boolean;
-  readonly majorFirstNote: Note;
-  readonly relativeMinorFirstNote: Note;
-  readonly majorName: string;
-  readonly relativeMinorName: string;
-}
-
 export const UNIFIED_MUSIC_KEYS = {
   C: {
     offsetFromC: 0,

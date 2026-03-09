@@ -1,6 +1,6 @@
 import type { Brick } from "@/store";
 
-export interface Preset {
+interface Preset {
   name: string;
   bricks: Brick[];
 }
