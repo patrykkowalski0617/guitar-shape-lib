@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-export const iconSize = 20;
-
 export const ControlContainer = styled.div`
   display: flex;
   width: 100%;

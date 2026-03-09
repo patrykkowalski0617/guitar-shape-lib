@@ -4,6 +4,7 @@ import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { useWakeLock } from "@/hooks";
 import { useCloseEdit } from "../../PlayerBricksContainer/PlayerBricksContainerControls/CloseEditButton/hooks/useCloseEdit";
+import { playerIconSize } from "../../constants";
 
 export const PlayButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -37,14 +38,14 @@ export const PlayButton = () => {
         countIn
       ) : isPlaying ? (
         <Square
-          size={18}
+          size={playerIconSize}
           fill="currentColor"
           stroke="var(--background)"
           strokeWidth={1}
         />
       ) : (
         <Play
-          size={18}
+          size={playerIconSize}
           fill="currentColor"
           stroke="var(--background)"
           strokeWidth={1}
