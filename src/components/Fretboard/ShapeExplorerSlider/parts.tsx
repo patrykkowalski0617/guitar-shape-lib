@@ -35,7 +35,6 @@ const highlightAnimation = keyframes`
   50% { 
     transform: translate(-50%, -50%) scale(1.4);
     box-shadow: 0 0 8px 4px var(--accent);
-    background-color: var(--accent);
   }
   100% { 
     transform: translate(-50%, -50%) scale(1);
@@ -62,7 +61,7 @@ export const Tick = styled.div<{
   box-shadow: ${({ $isUserList }) =>
     $isUserList ? "0 0 8px var(--accent)" : "none"};
 
-  transition: all 0.05s ease-in-out;
+  transition: all 0.6s ease-in-out;
 
   ${({ $isHighlighted }) =>
     $isHighlighted &&
