@@ -2,6 +2,7 @@ import { Plus } from "lucide-react";
 import { usePlayerStore } from "@/store";
 import { useAddBrick } from "./hooks/useAddBrick";
 import { Button } from "@/components/ui/button";
+import { playerIconSize } from "@/components/Player/constants";
 
 export const AddBrickButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -13,7 +14,7 @@ export const AddBrickButton = () => {
 
   return (
     <Button variant={"playerDashed"} onClick={addBrick}>
-      <Plus size={16} />
+      <Plus size={playerIconSize} />
     </Button>
   );
 };

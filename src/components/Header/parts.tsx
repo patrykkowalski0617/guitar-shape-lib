@@ -46,7 +46,7 @@ export const TitleWrapper = styled.div`
   &:hover {
     animation: ${shake} 0.15s linear 3;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     &:hover {
       animation: ${shake} 0.15s linear infinite;
     }
@@ -60,16 +60,4 @@ export const Title = styled.h1`
   text-transform: uppercase;
   text-align: center;
   display: inline;
-`;
-
-export const Subtitle = styled.p`
-  text-align: right;
-  font-size: 14px;
-  line-height: 0.5;
-  font-weight: bold;
-`;
-
-export const HeaderSide = styled.div`
-  right: 10px;
-  position: absolute;
 `;

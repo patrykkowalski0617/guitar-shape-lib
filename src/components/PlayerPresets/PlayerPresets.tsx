@@ -16,8 +16,9 @@ import {
 } from "@/store";
 import { presets } from "@/data/presets";
 import { Button } from "@/components/ui/button";
+import { playerIconSize } from "../Player/constants";
 
-export function PresetsList() {
+export function PlayerPresets() {
   const [open, setOpen] = useState(false);
   const setBricks = usePlayerStore((state) => state.setBricks);
   const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
@@ -60,7 +61,7 @@ export function PresetsList() {
         onClick={() => setOpen(true)}
         disabled={isPlaying}
       >
-        <FolderOpen size={14} />
+        <FolderOpen size={playerIconSize} />
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Search for exercises..." />

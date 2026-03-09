@@ -1,5 +1,5 @@
 import { useEffect, useRef, useCallback } from "react";
-import { Metronome } from "../utils/Metronome";
+import { Metronome } from "../helpers/Metronome";
 import { usePlayerStore } from "@/store";
 
 export const useMetronome = (bpm: number, onTick: () => void) => {

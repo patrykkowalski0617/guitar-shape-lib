@@ -7,10 +7,10 @@ import { useRandomizeShape } from "./hooks/useRandomizeShape";
 import { useRandomizeShapeVariant } from "./hooks/useRandomizeShapeVariant";
 import { useAddBrick } from "../AddBrickButton/hooks/useAddBrick";
 import { useMusicStore, usePlayerStore } from "@/store";
-import { iconSize } from "@/components/Controls/parts";
 import { Button } from "@/components/ui/button";
+import { playerIconSize } from "@/components/Player/constants";
 
-export function RandomeButton() {
+export function RandomizeButton() {
   const { setRandomMode } = useRandomizeMode();
   const { setRandomKey } = useRandomizeKey();
   const { setRandomRole } = useRandomizeRole();
@@ -58,7 +58,7 @@ export function RandomeButton() {
 
   return (
     <Button variant={"playerOutline"} onClick={handleRandomize}>
-      <Dices size={iconSize} />
+      <Dices size={playerIconSize} />
     </Button>
   );
 }

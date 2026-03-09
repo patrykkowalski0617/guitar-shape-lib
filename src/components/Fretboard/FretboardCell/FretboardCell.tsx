@@ -3,8 +3,7 @@ import type { NoteObject } from "@/utils";
 import VariantDots from "@/components/Fretboard/VariantDots/VariantDots";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
-import { useFretboardCell, useNoteState } from "./hooks";
-import { usePlayerStore } from "@/store";
+import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
 
 interface FretboardCellProps {
   noteData: NoteObject;
@@ -17,47 +16,46 @@ export default function FretboardCell({
   stringIndex,
   fretIndex,
 }: FretboardCellProps) {
-  const transitionTime = usePlayerStore((state) => state.transitionTime);
+  const {
+    noteState,
+    isFlatTune,
+    transitionTime,
+    handleMouseEnter,
+    handleMouseLeave,
+  } = useFretboardCellInteraction({ noteData, stringIndex, fretIndex });
 
-  const { states, actions } = useFretboardCell();
-
-  const noteState = useNoteState({
-    sharpNoteName: noteData.sharpNoteName,
-    noteId: noteData.noteId,
-    stringIndex,
-    fretIndex,
-  });
-
-  const handleMouseEnter = () => {
-    actions.setActiveNoteId(noteData.noteId);
-  };
-
-  const handleMouseLeave = () => {
-    actions.setActiveNoteId(null);
-  };
+  const {
+    isLockedNote,
+    isShapeRootNote,
+    isShapeNote,
+    opacity,
+    brightness,
+    cursor,
+  } = noteState;
 
   return (
     <S.FretWrapper
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <S.Fret $isLockedNote={noteState.isLockedNote} data-fret={fretIndex}>
-        {noteState.isShapeRootNote && (
+      <S.Fret $isLockedNote={isLockedNote} data-fret={fretIndex}>
+        {isShapeRootNote && (
           <VariantDots stringIndex={stringIndex} fretIndex={fretIndex} />
         )}
+
         <S.Note
-          $opacity={noteState.opacity}
-          $brightness={noteState.brightness}
-          $cursor={noteState.cursor}
-          $isShapeNote={noteState.isShapeNote}
+          $opacity={opacity}
+          $brightness={brightness}
+          $cursor={cursor}
+          $isShapeNote={isShapeNote}
           $transitionTime={transitionTime}
         >
           <NoteLabel
-            isHighlighted={noteState.isShapeNote}
+            isHighlighted={isShapeNote}
             flatNoteName={noteData.flatNoteName}
             sharpNoteName={noteData.sharpNoteName}
-            isShapeNote={noteState.isShapeNote}
-            isFlatTune={states.isFlatTune}
+            isShapeNote={isShapeNote}
+            isFlatTune={isFlatTune}
             isEnharmonic={noteData.isEnharmonic}
             variant="fretboard"
           />

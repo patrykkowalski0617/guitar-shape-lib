@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { instrumentBRadius, instrumentElBRadius } from "@/parts";
 import { transitionTime } from "@/store";
 
-export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
+type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
 const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   // prettier-ignore
@@ -70,22 +70,34 @@ export const Key = styled.div<{
   position: relative;
   display: flex;
   justify-content: center;
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(2) contrast(0.95)" : "")};
+  filter: ${({ $isActiveNote }) =>
+    $isActiveNote ? "brightness(2) contrast(0.95)" : ""};
 
-  ${({ $isWhitePianoKey }) => ($isWhitePianoKey ? whitePianoKey : blackPianoKey)}
+  ${({ $isWhitePianoKey }) =>
+    $isWhitePianoKey ? whitePianoKey : blackPianoKey}
 
   ${({ $pianoKeyShape }) => $pianoKeyShape && pianoKeyShapes[$pianoKeyShape]}
 
-  ${({ $isShapeNote, $isHighlighted, $isWhitePianoKey, $isRoleNote, $isRoleSelected }) => {
+  ${({
+    $isShapeNote,
+    $isHighlighted,
+    $isWhitePianoKey,
+    $isRoleNote,
+    $isRoleSelected,
+  }) => {
     if (!$isHighlighted && !$isRoleSelected) return null;
     const color = $isShapeNote ? "var(--primary)" : "var(--accent)";
 
-    const shadow = $isWhitePianoKey ? `inset 0 -23px 35px -4px ${color}` : `inset 0 -17px 20px 0px ${color}`;
+    const shadow = $isWhitePianoKey
+      ? `inset 0 -23px 35px -4px ${color}`
+      : `inset 0 -17px 20px 0px ${color}`;
     const target = $isWhitePianoKey ? css`&::after` : css`&`;
 
     return css`
       ${target} {
-        ${$isRoleNote || !$isRoleSelected || $isShapeNote ? `box-shadow: ${shadow};` : ""}
+        ${$isRoleNote || !$isRoleSelected || $isShapeNote
+          ? `box-shadow: ${shadow};`
+          : ""}
       }
     `;
   }}
@@ -100,9 +112,11 @@ ${({ $isWhitePianoKey }) => {
   }}
 
   &:first-child::after {
-    border-radius: ${instrumentBRadius} 0 ${instrumentElBRadius} ${instrumentElBRadius};
+    border-radius: ${instrumentBRadius} 0 ${instrumentElBRadius}
+      ${instrumentElBRadius};
   }
   &:last-child::after {
-    border-radius: 0 ${instrumentBRadius} ${instrumentElBRadius} ${instrumentElBRadius};
+    border-radius: 0 ${instrumentBRadius} ${instrumentElBRadius}
+      ${instrumentElBRadius};
   }
 `;

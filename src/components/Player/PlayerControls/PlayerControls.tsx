@@ -1,4 +1,4 @@
-import { PresetsList } from "@/components/PlayerPresets/PresetsList/PresetsList";
+import { PlayerPresets } from "@/components/PlayerPresets/PlayerPresets";
 import { BpmInput } from "./BpmControls/BpmInput";
 import { PlayButton } from "./PlayButton/PlayButton";
 import { CleanButton } from "./CleanButton/CleanButton";
@@ -8,7 +8,7 @@ export const PlayerControls = () => {
   return (
     <>
       <CleanButton />
-      <PresetsList />
+      <PlayerPresets />
       <BpmMultiplierButton />
       <BpmInput />
       <PlayButton />

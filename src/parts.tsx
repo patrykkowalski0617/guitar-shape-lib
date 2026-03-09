@@ -21,7 +21,7 @@ export const MainContent = styled.main`
   }
 `;
 
-export const SectionCommonCss = css`
+const SectionCommonCss = css`
   margin: 25px auto 0;
   @media (min-width: 1024px) {
     margin: 50px auto 0;
@@ -57,12 +57,6 @@ export const InstrumentScrollWrapper = styled.div`
   margin-right: -15px; //- compensation for VariantDots
 `;
 
-export const TutorialStickyIcons = styled.div`
-  position: sticky;
-  left: 0;
-  z-index: 40;
-`;
-
 export const FooterAndHeaderStyles = css<{
   $isFullscreen: boolean;
 }>`
@@ -91,19 +85,6 @@ export const FooterAndHeaderStyles = css<{
         max-height: 0;
         opacity: 0;
       `}
-  }
-`;
-
-export const ControlWrapper = styled.div`
-  user-select: none;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-
-  @media (min-width: 1440px) {
-    flex: 0 0 auto;
-    width: auto;
-    max-width: fit-content;
   }
 `;
 

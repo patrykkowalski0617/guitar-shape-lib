@@ -1,6 +1,7 @@
 import { usePlayerStore } from "@/store";
 import { BrushCleaning } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { playerIconSize } from "../../constants";
 
 export const CleanButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -16,7 +17,7 @@ export const CleanButton = () => {
         setActiveBrickId(null);
       }}
     >
-      <BrushCleaning size={14} />
+      <BrushCleaning size={playerIconSize} />
     </Button>
   );
 };

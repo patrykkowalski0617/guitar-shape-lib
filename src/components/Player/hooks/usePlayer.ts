@@ -15,7 +15,6 @@ export function usePlayer() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const isCountingIn = usePlayerStore((state) => state.isCountingIn);
   const bricks = usePlayerStore((state) => state.bricks);
-  console.log(bricks);
 
   const nextStep = usePlayerStore((state) => state.nextStep);
   const handleTick = useCallback(() => {
@@ -34,6 +33,11 @@ export function usePlayer() {
         firstBrick.snapshot.shapeVariantLocationData,
       );
       setTuneKeyId(firstBrick.snapshot.keyId);
+    }
+
+    if (bricks.length === 0) {
+      setShapeVariantLocationData(null);
+      setShapeVariantLocationData_locked(null);
     }
   }, [
     isPlaying,

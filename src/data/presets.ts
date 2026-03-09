@@ -1,6 +1,6 @@
 import type { Brick } from "@/store";
 
-export interface Preset {
+interface Preset {
   name: string;
   bricks: Brick[];
 }
@@ -76,7 +76,7 @@ export const presets: Preset[] = [
     name: "Key C: 4 Am(add9) | 4 E7b9",
     bricks: [
       {
-        id: 1,
+        id: 11,
         width: 4,
         snapshot: {
           keyId: "C",
@@ -97,7 +97,7 @@ export const presets: Preset[] = [
         },
       },
       {
-        id: 2,
+        id: 12,
         width: 4,
         snapshot: {
           keyId: "C",
@@ -123,7 +123,7 @@ export const presets: Preset[] = [
     name: "Key C: 8 Em7 | 4 Am7 | 4 B7",
     bricks: [
       {
-        id: 1,
+        id: 21,
         width: 4,
         snapshot: {
           keyId: "C",
@@ -142,7 +142,7 @@ export const presets: Preset[] = [
         },
       },
       {
-        id: 2,
+        id: 22,
         width: 2,
         snapshot: {
           keyId: "C",
@@ -161,7 +161,7 @@ export const presets: Preset[] = [
         },
       },
       {
-        id: 3,
+        id: 23,
         width: 2,
         snapshot: {
           keyId: "B",

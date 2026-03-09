@@ -2,10 +2,10 @@ import PlayerBrick from "../PlayerBrick/PlayerBrick";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { usePlayerBricksDrag } from "./hooks/usePlayerBricksDrag";
-import { RandomeButton } from "./PlayerBricksContainerControls/RandomizeButton/RandomeButton";
-import { AddBrickButton } from "./PlayerBricksContainerControls/AddBrickButton/AddBrickButton";
-import { RemoveBrickButton } from "./PlayerBricksContainerControls/DeleteActiveBrick/RemoveBrickButton";
-import { CloseEditButton } from "./PlayerBricksContainerControls/CloseEditButton/CloseEditButton";
+import { RandomizeButton } from "../PlayerBricksControls/RandomizeButton/RandomizeButton";
+import { AddBrickButton } from "../PlayerBricksControls/AddBrickButton/AddBrickButton";
+import { RemoveBrickButton } from "../PlayerBricksControls/DeleteActiveBrick/RemoveBrickButton";
+import { CloseEditButton } from "../PlayerBricksControls/CloseEditButton/CloseEditButton";
 
 export const PlayerBricksContainer = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -14,7 +14,8 @@ export const PlayerBricksContainer = () => {
   const updateBrickWidth = usePlayerStore((state) => state.updateBrickWidth);
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
 
-  const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } = usePlayerBricksDrag();
+  const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } =
+    usePlayerBricksDrag();
 
   const isContainerEmpty = bricks.length === 0;
 
@@ -37,7 +38,9 @@ export const PlayerBricksContainer = () => {
               brick={brick}
               isEditable={isEditable}
               $isDragging={isBeingDragged}
-              onToggleEdit={() => setActiveBrickId(isEditable ? null : brick.id)}
+              onToggleEdit={() =>
+                setActiveBrickId(isEditable ? null : brick.id)
+              }
               onWidthChange={(newWidth) => updateBrickWidth(brick.id, newWidth)}
             />
           </S.BrickDragWrapper>
@@ -48,7 +51,7 @@ export const PlayerBricksContainer = () => {
         <AddBrickButton />
         <RemoveBrickButton />
         <CloseEditButton />
-        {isContainerEmpty && <RandomeButton />}
+        {isContainerEmpty && <RandomizeButton />}
       </S.ControlsWrapper>
     </S.PlayerWrapper>
   );

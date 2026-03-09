@@ -1,6 +1,5 @@
 export * from "./intervals";
 export * from "./musicKeys";
-export * from "./musicMode";
 export * from "./noteNames";
 export * from "./roles";
 export * from "./scalesSemitoneTemplates";

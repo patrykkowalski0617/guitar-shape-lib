@@ -2,7 +2,7 @@ export type FunctionalRoleId = "tonic" | "subdominant" | "dominant";
 export type GlobalRoleId = "all-one-instance" | "all-matching-key";
 export type RoleId = FunctionalRoleId | GlobalRoleId;
 
-export interface RoleData {
+interface RoleData {
   label: string;
 }
 

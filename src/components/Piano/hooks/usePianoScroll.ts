@@ -15,21 +15,25 @@ export const usePianoScroll = (
     const waitTime = 50;
 
     const timer = setTimeout(() => {
+      const targetSelector = '[data-piano-scroll-target="true"]';
       const firstHighlighted = container.querySelector(
-        '[data-piano-scroll-target="true"]',
+        targetSelector,
       ) as HTMLElement;
+
       if (firstHighlighted) {
         const containerRect = container.getBoundingClientRect();
         const elementRect = firstHighlighted.getBoundingClientRect();
-        const targetScrollLeft =
-          container.scrollLeft + (elementRect.left - containerRect.left) - 35;
-        container.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
-      }
 
-      container.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
+        const scrollOffset = 35;
+        const relativeElementLeft = elementRect.left - containerRect.left;
+        const targetScrollLeft =
+          container.scrollLeft + relativeElementLeft - scrollOffset;
+
+        container.scrollTo({
+          left: targetScrollLeft,
+          behavior: "smooth",
+        });
+      }
     }, waitTime);
 
     return () => clearTimeout(timer);

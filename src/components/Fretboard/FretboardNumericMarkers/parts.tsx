@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
-export const Marker = styled.div<{
-  $singleDot?: boolean;
-  $doubleDot?: boolean;
-}>`
+export const Marker = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

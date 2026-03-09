@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 export const ShapeExplorerWrapper = styled.div<{ $isVisible: boolean }>`
   margin: 8px auto 0;
@@ -25,4 +25,49 @@ export const ShapeExplorerWrapper = styled.div<{ $isVisible: boolean }>`
   @media (min-width: 768px) {
     width: calc(100% - 100px);
   }
+`;
+
+const highlightAnimation = keyframes`
+  0% { 
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 0px transparent;
+  }
+  50% { 
+    transform: translate(-50%, -50%) scale(1.4);
+    box-shadow: 0 0 8px 4px var(--accent);
+    background-color: var(--accent);
+  }
+  100% { 
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 0 0px transparent;
+  }
+`;
+
+export const Tick = styled.div<{
+  $isUserList: boolean;
+  $isHighlighted: boolean;
+}>`
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+
+  background-color: ${({ $isUserList }) =>
+    $isUserList
+      ? "var(--accent)"
+      : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
+
+  box-shadow: ${({ $isUserList }) =>
+    $isUserList ? "0 0 8px var(--accent)" : "none"};
+
+  transition: all 0.05s ease-in-out;
+
+  ${({ $isHighlighted }) =>
+    $isHighlighted &&
+    css`
+      animation: ${highlightAnimation} 0.6s ease-in-out 1;
+      z-index: 10;
+    `}
 `;
