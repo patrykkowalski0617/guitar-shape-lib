@@ -10,7 +10,7 @@ import { useMusicStore, usePlayerStore } from "@/store";
 import { Button } from "@/components/ui/button";
 import { playerIconSize } from "@/components/Player/constants";
 
-export function RandomeButton() {
+export function RandomizeButton() {
   const { setRandomMode } = useRandomizeMode();
   const { setRandomKey } = useRandomizeKey();
   const { setRandomRole } = useRandomizeRole();

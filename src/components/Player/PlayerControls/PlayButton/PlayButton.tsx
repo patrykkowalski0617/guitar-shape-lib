@@ -3,8 +3,8 @@ import { Play, Square } from "lucide-react";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { useWakeLock } from "@/hooks";
-import { useCloseEdit } from "../../PlayerBricksContainer/PlayerBricksContainerControls/CloseEditButton/hooks/useCloseEdit";
 import { playerIconSize } from "../../constants";
+import { useCloseEdit } from "@/components/Player/PlayerBricksControls/CloseEditButton/hooks/useCloseEdit";
 
 export const PlayButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);

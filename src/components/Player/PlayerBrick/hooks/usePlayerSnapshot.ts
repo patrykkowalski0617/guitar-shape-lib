@@ -7,6 +7,7 @@ import {
   type ShapeVariantLocationData,
 } from "@/store";
 import { shapes, type MusicKeyId, type RoleId, type Shapes } from "@/data";
+import { useApplySnapshotToStore } from "./useApplySnapshotToStore";
 
 export type Snapshot = {
   keyId: MusicKeyId;
@@ -42,17 +43,10 @@ export function usePlayerSnapshot(
     (state) => state.shapeVariantLocationData,
   );
   const activeRootNote = useShapeRootNote();
-
-  const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
-  const setRoleId = useControlsStore((state) => state.setRoleId);
-  const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
-  const setShape = useControlsStore((state) => state.setShape);
-  const setShapeVariantLocationData = useMusicStore(
-    (state) => state.setShapeVariantLocationData,
-  );
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
   );
+  const applySnapshotToStore = useApplySnapshotToStore();
 
   const activeShape = shapes[shapeId as keyof Shapes] || null;
 
@@ -90,14 +84,6 @@ export function usePlayerSnapshot(
     : brick?.snapshot || currentLiveState;
 
   const lockedSnapshot = brick?.snapshot || currentLiveState;
-
-  const applySnapshotToStore = (data: Snapshot) => {
-    setShapeVariantLocationData(data.shapeVariantLocationData);
-    setTuneKeyId(data.keyId);
-    setRoleId(data.roleId);
-    setIsMajorMode(data.isMajorMode);
-    setShape(data.shapeId, data.shapeSemitoneOffsetFromC);
-  };
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();

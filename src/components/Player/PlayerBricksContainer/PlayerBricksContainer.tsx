@@ -2,10 +2,10 @@ import PlayerBrick from "../PlayerBrick/PlayerBrick";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { usePlayerBricksDrag } from "./hooks/usePlayerBricksDrag";
-import { RandomeButton } from "./PlayerBricksContainerControls/RandomizeButton/RandomeButton";
-import { AddBrickButton } from "./PlayerBricksContainerControls/AddBrickButton/AddBrickButton";
-import { RemoveBrickButton } from "./PlayerBricksContainerControls/DeleteActiveBrick/RemoveBrickButton";
-import { CloseEditButton } from "./PlayerBricksContainerControls/CloseEditButton/CloseEditButton";
+import { RandomizeButton } from "../PlayerBricksControls/RandomizeButton/RandomizeButton";
+import { AddBrickButton } from "../PlayerBricksControls/AddBrickButton/AddBrickButton";
+import { RemoveBrickButton } from "../PlayerBricksControls/DeleteActiveBrick/RemoveBrickButton";
+import { CloseEditButton } from "../PlayerBricksControls/CloseEditButton/CloseEditButton";
 
 export const PlayerBricksContainer = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -51,7 +51,7 @@ export const PlayerBricksContainer = () => {
         <AddBrickButton />
         <RemoveBrickButton />
         <CloseEditButton />
-        {isContainerEmpty && <RandomeButton />}
+        {isContainerEmpty && <RandomizeButton />}
       </S.ControlsWrapper>
     </S.PlayerWrapper>
   );
