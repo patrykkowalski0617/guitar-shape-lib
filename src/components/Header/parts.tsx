@@ -46,7 +46,7 @@ export const TitleWrapper = styled.div`
   &:hover {
     animation: ${shake} 0.15s linear 3;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 1024px) {
     &:hover {
       animation: ${shake} 0.15s linear infinite;
     }

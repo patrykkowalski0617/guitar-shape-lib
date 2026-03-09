@@ -6,7 +6,7 @@ export const ControlContainer = styled.div`
   display: flex;
   width: 100%;
   max-width: 1300px;
-  gap: calc(var(--spacing) * 6);
+  gap: calc(var(--spacing) * 4);
   flex-direction: row;
   flex-wrap: wrap;
   align-items: flex-end;
@@ -16,7 +16,6 @@ export const ControlContainer = styled.div`
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: flex-end;
-    padding: 0 35px;
     max-width: 1230px;
     margin: auto;
   }
@@ -26,11 +25,20 @@ export const ControlWrapper = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  flex: 0 0 calc(50% - (var(--spacing) * 6));
-
+  flex: 0 0 calc(50% - (var(--spacing) * 2));
+  &:last-child {
+    flex: 0 0 100%;
+  }
   @media (min-width: 768px) {
-    flex: 0 0 auto;
-    width: auto;
-    max-width: fit-content;
+    &:last-child {
+      flex: 0 0 calc(33.33% - (var(--spacing) * 3));
+    }
+    flex: 0 0 calc(33.33% - (var(--spacing) * 3));
+  }
+  @media (min-width: 1024px) {
+    &:last-child {
+      flex: 0 0 230px;
+    }
+    flex: 0 0 230px;
   }
 `;

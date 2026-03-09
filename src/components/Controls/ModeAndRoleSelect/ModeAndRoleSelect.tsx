@@ -51,7 +51,7 @@ export function ModeAndRoleSelect() {
       <ControlLabel>Filter Shapes By Function</ControlLabel>
 
       <Select value={currentValue} onValueChange={handleValueChange}>
-        <SelectTrigger className="md:min-w-[220px]">
+        <SelectTrigger>
           <SelectValue placeholder="Select mode & function" />
         </SelectTrigger>
         <SelectContent>
