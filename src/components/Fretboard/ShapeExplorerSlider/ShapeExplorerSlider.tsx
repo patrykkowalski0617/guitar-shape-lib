@@ -1,6 +1,6 @@
 import { useShapeExplorerLogic } from "./hooks/useShapeExplorerLogic";
 import * as S from "./parts";
-import { StepSlider } from "@/components/ui/StepSlider";
+import { StepSlider } from "./StepSlider";
 
 export default function ShapeExplorerSlider() {
   const {
