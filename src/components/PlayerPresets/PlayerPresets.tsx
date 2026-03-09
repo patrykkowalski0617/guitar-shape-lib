@@ -17,7 +17,7 @@ import {
 import { presets } from "@/data/presets";
 import { Button } from "@/components/ui/button";
 
-export function PresetsList() {
+export function PlayerPresets() {
   const [open, setOpen] = useState(false);
   const setBricks = usePlayerStore((state) => state.setBricks);
   const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);

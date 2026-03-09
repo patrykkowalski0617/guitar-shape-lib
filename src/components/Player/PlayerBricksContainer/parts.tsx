@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { playerElementHeight } from "../utils/constants";
+import { playerElementHeight } from "../constants";
 
 export const BrickDragWrapper = styled.div`
   display: flex;

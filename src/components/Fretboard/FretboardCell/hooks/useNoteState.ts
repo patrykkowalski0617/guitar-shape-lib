@@ -4,7 +4,7 @@ import { type NoteSharp } from "@/data";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
 import { useShapeCoordinates } from "./useShapeCoordinates";
-import { isShapeNote as isShapeNoteFn } from "../utils";
+import { isShapeNote as isShapeNoteFn } from "../helpers";
 import { useFretboardStates } from "./useFretboardStates";
 
 interface UseFretboardCellProp {
