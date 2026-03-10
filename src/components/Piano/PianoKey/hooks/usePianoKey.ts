@@ -80,7 +80,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
       },
     ];
 
-    if (isRoleSelected) {
+    if (isRoleSelected || scaleIndex === -1) {
       setRoleId("all-matching-key");
       setIsMajorMode(true);
       setShapeVariantLocationData(null);

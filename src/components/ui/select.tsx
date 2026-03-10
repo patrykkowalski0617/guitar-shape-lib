@@ -33,9 +33,9 @@ function SelectTrigger({
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       className={cn(
-        "flex h-8 w-full items-center justify-between gap-2 bg-muted/30 px-2 text-sm font-normal tracking-tight shadow-none transition-none disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap rounded-sm relative",
+        "flex h-8 w-full items-center justify-between gap-2 bg-background/90 px-2 text-sm font-normal tracking-tight shadow-none transition-none disabled:cursor-not-allowed disabled:opacity-50 whitespace-nowrap rounded-sm relative",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 focus-visible:z-150",
-        "hover:bg-muted/70 hover:text-accent-foreground",
+        "hover:bg-background/70 hover:text-accent-foreground",
         className,
       )}
       {...props}
@@ -53,6 +53,7 @@ function SelectContent({
   children,
   position = "popper",
   align = "center",
+  sideOffset = 6,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
@@ -60,13 +61,19 @@ function SelectContent({
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(
-          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-150 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-hidden rounded-sm shadow-md",
+          "bg-popover text-popover-foreground relative z-150 max-h-(--radix-select-content-available-height) min-w-[8rem] origin-(--radix-select-content-transform-origin) overflow-hidden rounded-sm shadow-md",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out",
+          "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+          "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+          "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2",
+          "data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
           position === "popper" &&
             "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
           className,
         )}
         position={position}
         align={align}
+        sideOffset={sideOffset}
         {...props}
       >
         <SelectScrollUpButton />
@@ -94,7 +101,8 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "focus:bg-accent/50 focus:text-accent-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm outline-none select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 py-1 pr-7 pl-2 text-sm",
+        "focus:bg-accent/50 focus:text-accent-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm outline-none select-none py-1 pr-7 pl-2 text-sm",
+        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         className,
       )}
       {...props}
