@@ -6,9 +6,8 @@ import { transitionTime } from "@/store";
 const highlightedColor = "var(--foreground)";
 const unHighlightedColor = "var(--border)";
 
-const BaseLabel = styled.div<{
-  $isHighlighted: boolean;
-}>`
+export const Note = styled.div`
+  opacity: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,23 +19,7 @@ const BaseLabel = styled.div<{
   position: absolute;
 `;
 
-interface LabelStatusProps {
-  $isEnharmonicNote: boolean;
-  $isFlatTune: boolean;
-}
-
-export const MainLabel = styled(BaseLabel)<LabelStatusProps>`
-  opacity: ${({ $isEnharmonicNote, $isFlatTune }) =>
-    !$isEnharmonicNote || !$isFlatTune ? 1 : 0};
-`;
-
-export const OptionalLabel = styled(BaseLabel)<LabelStatusProps>`
-  opacity: ${({ $isFlatTune }) => ($isFlatTune ? 1 : 0)};
-`;
-
 export const NoteWrapper = styled.div<{
-  $isFlatTune: boolean;
-  $isEnharmonicNote: boolean;
   $isShapeNote: boolean;
   $isActiveNote: boolean;
   $transitionTime: number;
@@ -52,7 +35,7 @@ export const NoteWrapper = styled.div<{
         ? `opacity ${transitionTime}ms ease-in-out`
         : "none"};
       opacity: ${$isShapeNote || $isActiveNote ? "1" : "0"};
-      ${MainLabel}, ${OptionalLabel} {
+      ${Note} {
         border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
         border-radius: ${instrumentElBRadius};
         background: color-mix(in oklab, var(--background) 90%, transparent);
@@ -75,7 +58,7 @@ export const NoteWrapper = styled.div<{
       will-change: opacity;
       transition: opacity ${$transitionTime}ms ease-in-out;
 
-      ${MainLabel}, ${OptionalLabel} {
+      ${Note} {
         color: ${$isShapeNote ? highlightedColor : unHighlightedColor};
         height: 15px;
         width: 26px;

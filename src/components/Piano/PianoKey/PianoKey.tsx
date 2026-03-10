@@ -11,21 +11,20 @@ const PianoKey = ({ note }: PianoKeyProps) => {
   const { visualState, interactivity } = usePianoKey({ note });
 
   const {
-    isFlatTune,
     isWhitePianoKey,
     pianoKeyShape,
     isHighlighted,
     isActiveNote,
     isShapeNote,
     isRoleNote,
-    isRoleActive,
-    isShapeActive,
+    isRoleSelected,
+    isShapeSelected,
   } = visualState;
 
   return (
     <S.Key
-      $isRoleSelected={isRoleActive}
-      $isShapeSelected={isShapeActive}
+      $isRoleSelected={isRoleSelected}
+      $isShapeSelected={isShapeSelected}
       $isShapeNote={isShapeNote}
       $isActiveNote={isActiveNote}
       $isWhitePianoKey={isWhitePianoKey}
@@ -35,16 +34,13 @@ const PianoKey = ({ note }: PianoKeyProps) => {
       data-piano-scroll-target={interactivity.isScrollTarget}
       onMouseOver={interactivity.handleMouseEnter}
       onMouseLeave={interactivity.handleMouseLeave}
+      onClick={interactivity.handleClick}
     >
       <NoteLabel
-        isFlatTune={isFlatTune}
         isShapeNote={isShapeNote}
-        flatNoteName={note.flatNoteName}
-        sharpNoteName={note.sharpNoteName}
-        isEnharmonic={note.isEnharmonic}
-        isHighlighted={isHighlighted}
         isActiveNote={isActiveNote}
         variant="piano"
+        note={note}
       />
     </S.Key>
   );

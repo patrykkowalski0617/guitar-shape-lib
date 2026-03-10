@@ -7,7 +7,7 @@ import {
   minorScale,
   UNIFIED_MUSIC_KEYS,
 } from "@/data";
-import { matchShapeNotesToRoleNotes } from "../helpers/matchShapeNotesToRoleNotes";
+import { matchShapeNotesToRoleNotes } from "../../helpers/matchShapeNotesToRoleNotes";
 import { isGlobalRole, getNotes } from "@/utils";
 import { type Note } from "@/data";
 
@@ -41,9 +41,14 @@ export const useScaleLogic = () => {
       ? FIRST_OCTAVE_NO_FOR_PRESENTATION
       : FIRST_OCTAVE_NO_FOR_PRESENTATION - 1;
 
+  console.log({ currentMajorRootOffsetFromC, relativeMinorOctave });
+
   const allNotesFromNearestRelativeMinorRoot = getNotes({
     firstNote: currentRelativeMinorFirstNote,
-    firstOctave: relativeMinorOctave,
+    firstOctave:
+      !isMajorMode && roleId === "tonic"
+        ? relativeMinorOctave + 1
+        : relativeMinorOctave,
     length: PRESENTATION_SCALE_LENGTH,
   });
 
@@ -51,6 +56,8 @@ export const useScaleLogic = () => {
     const allNotes = isMajorMode
       ? allNotesFromMajorRoot
       : allNotesFromNearestRelativeMinorRoot;
+    console.log(allNotes);
+
     return allNotes
       .filter((_, index) => scaleTemplate.includes(index % 12))
       .map(({ noteId }) => noteId);

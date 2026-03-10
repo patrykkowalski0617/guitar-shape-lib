@@ -1,2 +1,2 @@
 export * from "./usePianoScroll";
-export * from "./useScaleLogic";
+export * from "../PianoKey/hooks/useScaleLogic";

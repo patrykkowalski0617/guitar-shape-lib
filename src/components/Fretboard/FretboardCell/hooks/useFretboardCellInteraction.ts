@@ -15,7 +15,7 @@ export function useFretboardCellInteraction({
   fretIndex,
 }: UseFretboardCellParams) {
   const transitionTime = usePlayerStore((state) => state.transitionTime);
-  const { states, actions } = useFretboardCell();
+  const { actions } = useFretboardCell();
 
   const noteState = useNoteState({
     sharpNoteName: noteData.sharpNoteName,
@@ -34,7 +34,6 @@ export function useFretboardCellInteraction({
 
   return {
     noteState,
-    isFlatTune: states.isFlatTune,
     transitionTime,
     handleMouseEnter,
     handleMouseLeave,

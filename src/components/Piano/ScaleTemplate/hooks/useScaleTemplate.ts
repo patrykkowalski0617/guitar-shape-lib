@@ -10,15 +10,17 @@ const VISIBLE_INDEXES_MAP: Record<
 > = {
   major: {
     tonic: [3, 7, 10, 14, 17, 20, 24],
-    subdominant: [3, 7, 10, 14, 17, 21, 24],
-    dominant: [3, 7, 10, 13, 17, 20, 24],
+    subdominant: [8, 12, 15, 19, 22, 26, 29],
+    dominant: [10, 14, 17, 20, 24, 27, 31],
   },
   minor: {
-    tonic: [0, 3, 7, 10, 14, 17, 20],
-    subdominant: [0, 3, 7, 10, 14, 17, 21],
-    dominant: [0, 4, 7, 10, 13, 17, 20],
+    tonic: [12, 15, 19, 22, 26, 29, 32],
+    subdominant: [5, 8, 12, 15, 19, 22, 26],
+    dominant: [7, 11, 14, 17, 20, 24, 27],
   },
 } as const;
+
+const DEFAULT_VISIBLE_INDEXES = [3, 5, 7, 8, 10, 12];
 
 export const useScaleTemplate = () => {
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
@@ -27,10 +29,9 @@ export const useScaleTemplate = () => {
 
   const { currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
-  const roleOffset =
-    roleId === "subdominant" ? 5 : roleId === "dominant" ? 7 : 0;
-  const templateOffset = UNIFIED_MUSIC_KEYS[tuneKeyId].offsetFromC + roleOffset;
-  const position = 5 + templateOffset;
+  const templateOffset = UNIFIED_MUSIC_KEYS[tuneKeyId].offsetFromC;
+  const offsetFromFirstKey = 5;
+  const position = offsetFromFirstKey + templateOffset;
 
   const modeKey = isMajorMode ? "major" : "minor";
   const modeMap = VISIBLE_INDEXES_MAP[modeKey];
@@ -38,7 +39,9 @@ export const useScaleTemplate = () => {
   const effectiveRoleId = isGlobalRole(roleId) || !roleId ? "tonic" : roleId;
 
   const highlightRole =
-    !isGlobalRole(roleId) && roleId ? (modeMap[effectiveRoleId] ?? []) : [];
+    !isGlobalRole(roleId) && roleId
+      ? (modeMap[effectiveRoleId] ?? [])
+      : DEFAULT_VISIBLE_INDEXES;
 
   const altIndexes = !isGlobalRole(roleId)
     ? Array.from({ length: 33 }, (_, i) => i).filter((stepIndex) => {

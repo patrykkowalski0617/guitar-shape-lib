@@ -16,13 +16,8 @@ export default function FretboardCell({
   stringIndex,
   fretIndex,
 }: FretboardCellProps) {
-  const {
-    noteState,
-    isFlatTune,
-    transitionTime,
-    handleMouseEnter,
-    handleMouseLeave,
-  } = useFretboardCellInteraction({ noteData, stringIndex, fretIndex });
+  const { noteState, transitionTime, handleMouseEnter, handleMouseLeave } =
+    useFretboardCellInteraction({ noteData, stringIndex, fretIndex });
 
   const {
     isLockedNote,
@@ -51,13 +46,9 @@ export default function FretboardCell({
           $transitionTime={transitionTime}
         >
           <NoteLabel
-            isHighlighted={isShapeNote}
-            flatNoteName={noteData.flatNoteName}
-            sharpNoteName={noteData.sharpNoteName}
             isShapeNote={isShapeNote}
-            isFlatTune={isFlatTune}
-            isEnharmonic={noteData.isEnharmonic}
             variant="fretboard"
+            note={noteData}
           />
         </S.Note>
       </S.Fret>

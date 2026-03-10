@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { KEY_PADDING, KEY_WIDTH_CSS, LEFT_PADDING_FACTOR } from "../helpers/constants";
+import {
+  KEY_PADDING,
+  KEY_WIDTH_CSS,
+  LEFT_PADDING_FACTOR,
+} from "../helpers/constants";
 import { numberOfKeys } from "../helpers/constants";
 import { transitionTime } from "@/store";
 
@@ -27,9 +31,9 @@ export const Marker = styled.div<{
   height: 20px;
   margin-bottom: 5px;
   width: ${`calc(${KEY_WIDTH_CSS(numberOfKeys)})`};
-  overflow: hidden;
   &::before {
-    content: ${({ $roleInterval, $isAltNote }) => ($roleInterval ? `"${$roleInterval}"` : $isAltNote ? '"!"' : '""')};
+    content: ${({ $roleInterval, $isAltNote }) =>
+      $roleInterval ? `"${$roleInterval}"` : $isAltNote ? '"!"' : '""'};
     position: absolute;
     left: 0;
     right: 0;
@@ -37,8 +41,10 @@ export const Marker = styled.div<{
     font-size: 12px;
     font-weight: 600;
     color: var(--border);
-    opacity: ${({ $roleInterval, $isAltNote }) => ($roleInterval || $isAltNote ? "1" : "0")};
-    top: ${({ $roleInterval, $isAltNote }) => ($roleInterval || $isAltNote ? "5px" : "30px")};
+    opacity: ${({ $roleInterval, $isAltNote }) =>
+      $roleInterval || $isAltNote ? "1" : "0"};
+    top: ${({ $roleInterval, $isAltNote }) =>
+      $roleInterval || $isAltNote ? "5px" : "30px"};
     will-change: top, opacity;
     transition: ${`top ${transitionTime}ms ease-in-out,
            opacity ${transitionTime}ms ease-in-out`};

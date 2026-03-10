@@ -53,6 +53,7 @@ const blackPianoKey = css`
   ${commonStyleForKey}
   height: 75px;
   padding-top: 10px;
+  overflow: hidden;
 `;
 
 export const Key = styled.div<{
