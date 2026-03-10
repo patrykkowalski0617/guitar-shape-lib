@@ -9,9 +9,18 @@ export const useRoleChordsNames = () => {
   const notes = getNotes({ firstNote });
   const getEnharmonicNoteName = useEnharmonicNoteName();
 
-  const minorChordsIndexes = [2, 9];
+  const getChordType = (index: number) => {
+    const minorChordsIndexes = [2, 9];
+    const minorDominantIndex = 4;
+
+    return index === minorDominantIndex
+      ? "?m"
+      : minorChordsIndexes.includes(index)
+        ? "m"
+        : "";
+  };
 
   return (index: number) =>
     notes[index] &&
-    `${getEnharmonicNoteName(notes[index])}${minorChordsIndexes.includes(index) ? "m" : ""}`;
+    `${getEnharmonicNoteName(notes[index])}${getChordType(index)}`;
 };

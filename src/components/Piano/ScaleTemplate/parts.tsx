@@ -24,7 +24,7 @@ export const TemplateWrapper = styled.div<TemplateWrapperProps>`
 
 export const Marker = styled.div<{
   $step: number;
-  $roleInterval: string;
+  $label: string;
   $isAltNote: boolean;
 }>`
   position: relative;
@@ -32,19 +32,18 @@ export const Marker = styled.div<{
   margin-bottom: 5px;
   width: ${`calc(${KEY_WIDTH_CSS(numberOfKeys)})`};
   &::before {
-    content: ${({ $roleInterval, $isAltNote }) =>
-      $roleInterval ? `"${$roleInterval}"` : $isAltNote ? '"!"' : '""'};
+    content: ${({ $label, $isAltNote }) =>
+      $label ? `"${$label}"` : $isAltNote ? '"!"' : '""'};
     position: absolute;
-    left: 0;
-    right: 0;
+    width: 40px;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
     font-size: 12px;
     font-weight: 600;
     color: var(--border);
-    opacity: ${({ $roleInterval, $isAltNote }) =>
-      $roleInterval || $isAltNote ? "1" : "0"};
-    top: ${({ $roleInterval, $isAltNote }) =>
-      $roleInterval || $isAltNote ? "5px" : "30px"};
+    opacity: ${({ $label, $isAltNote }) => ($label || $isAltNote ? "1" : "0")};
+    top: ${({ $label, $isAltNote }) => ($label || $isAltNote ? "5px" : "30px")};
     will-change: top, opacity;
     transition: ${`top ${transitionTime}ms ease-in-out,
            opacity ${transitionTime}ms ease-in-out`};

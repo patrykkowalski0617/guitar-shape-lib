@@ -16,17 +16,12 @@ export default function ScaleTemplate(): JSX.Element {
         const roleRank = highlightRole.indexOf(i);
         const isRoleNote = roleRank !== -1 && !!roleId;
         const isAltNote = altIndexes.includes(i);
-        const intervalValue = isRoleNote
+        const label = isRoleNote
           ? String(isGlobalRole ? getRoleChordsName(i - 3) : roleRank * 2 + 1)
           : "";
 
         return (
-          <S.Marker
-            key={i}
-            $step={i}
-            $isAltNote={isAltNote}
-            $roleInterval={intervalValue}
-          />
+          <S.Marker key={i} $step={i} $isAltNote={isAltNote} $label={label} />
         );
       })}
     </S.TemplateWrapper>

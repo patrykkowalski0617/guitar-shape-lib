@@ -14,6 +14,15 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const roleId = useControlsStore((state) => state.roleId);
   const setRoleId = useControlsStore((state) => state.setRoleId);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
+  const shapeVariantLocationData = useMusicStore(
+    (state) => state.shapeVariantLocationData,
+  );
+  const setShapeVariantLocationData = useMusicStore(
+    (state) => state.setShapeVariantLocationData,
+  );
+  const setShapeVariantLocationData_locked = useMusicStore(
+    (state) => state.setShapeVariantLocationData_locked,
+  );
 
   const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } =
     useScaleLogic();
@@ -36,9 +45,6 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const handleMouseEnter = () => setActiveNoteId(note.noteId);
   const handleMouseLeave = () => setActiveNoteId(null);
   const handleClick = () => {
-    console.log({ isShapeNote, isHighlighted, isRoleNote });
-
-    if (!isHighlighted) return;
     setActiveNoteId(null);
     const scaleIndex = currentScaleNoteIds.indexOf(note.noteId);
 
@@ -77,6 +83,8 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
     if (isRoleSelected) {
       setRoleId("all-one-instance");
       setIsMajorMode(true);
+      setShapeVariantLocationData(null);
+      setShapeVariantLocationData_locked(shapeVariantLocationData);
     } else {
       setRoleId(roleAndModeValuesMap[scaleIndex].role);
       setIsMajorMode(roleAndModeValuesMap[scaleIndex].isMajorMode);

@@ -109,12 +109,28 @@ export const usePlayerBrickLogic = ({
     setShapeVariantLocationData_locked,
   ]);
 
+  const modeKey = displayData.isMajorMode ? "major" : "minor";
+
+  const roleMarkersMap = {
+    major: { tonic: "T", subdominant: "S", dominant: "D" },
+    minor: { tonic: "t", subdominant: "s", dominant: "d" },
+  };
+
+  const roleMarker =
+    displayData &&
+    displayData.roleId !== null &&
+    displayData.roleId in roleMarkersMap[modeKey]
+      ? roleMarkersMap[modeKey][
+          displayData.roleId as keyof (typeof roleMarkersMap)[typeof modeKey]
+        ] + ": "
+      : "";
+
   const hasData = displayData.shapeVariantLocationData !== null;
   const label = isResizing
     ? width
     : hasData
-      ? `${displayData.rootNote} ${displayData.shapeLabel}`
-      : "Empty";
+      ? `${roleMarker}${displayData.rootNote} ${displayData.shapeLabel}`
+      : `${roleMarker}Empty`;
 
   return {
     birckWidthUnit,
