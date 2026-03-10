@@ -24,19 +24,9 @@ export const ControlWrapper = styled.div`
   flex-direction: column;
   position: relative;
   flex: 0 0 calc(50% - (var(--spacing) * 2));
-  &:last-child {
-    flex: 0 0 100%;
-  }
+  max-width: calc(50% - (var(--spacing) * 2));
   @media (min-width: 768px) {
-    &:last-child {
-      flex: 0 0 calc(33.33% - (var(--spacing) * 3));
-    }
-    flex: 0 0 calc(33.33% - (var(--spacing) * 3));
-  }
-  @media (min-width: 1024px) {
-    &:last-child {
-      flex: 0 0 230px;
-    }
     flex: 0 0 230px;
+    max-width: unset;
   }
 `;

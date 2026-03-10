@@ -6,7 +6,6 @@ import { usePlayerStore } from "@/store";
 import Piano from "@/components/Piano/Piano";
 import { Toaster } from "@/components/ui/sonner";
 import Player from "./components/Player/Player";
-import Controls from "./components/Controls/Controls";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
 
 export default function App() {
@@ -21,14 +20,13 @@ export default function App() {
       <MainContent>
         <Section>
           <Fretboard />
+        </Section>
+
+        <Section>
           <Player />
         </Section>
         {!isPlaying && (
           <>
-            <Section>
-              <Controls />
-            </Section>
-
             <Section>
               <Piano />
             </Section>

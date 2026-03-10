@@ -28,7 +28,9 @@ export const Marker = styled.div<{
     border-radius: 50%;
     background-color: var(--primary);
     display: none;
-    box-shadow: 0 0 6px 0 var(--primary);
+    box-shadow:
+      0 0 8px 0 var(--primary),
+      0 0 4px 0 var(--primary);
   }
   ${({ $singleDot }) =>
     $singleDot &&

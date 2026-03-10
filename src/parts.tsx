@@ -24,7 +24,7 @@ export const MainContent = styled.main`
 const SectionCommonCss = css`
   margin: 25px auto 0;
   @media (min-width: 1024px) {
-    margin: 50px auto 0;
+    margin: 40px auto 0;
   }
 `;
 

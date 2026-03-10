@@ -25,7 +25,7 @@ interface ControlsState {
 const initialState = {
   isMajorMode: true,
   tuneKeyId: "C" as MusicKeyId,
-  roleId: "all-one-instance" as RoleId | null,
+  roleId: "all-matching-key" as RoleId | null,
   shapeId: null as string | null,
   shapeSemitoneOffsetFromC: null as number | null,
 };

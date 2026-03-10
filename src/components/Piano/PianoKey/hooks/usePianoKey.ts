@@ -81,7 +81,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
     ];
 
     if (isRoleSelected) {
-      setRoleId("all-one-instance");
+      setRoleId("all-matching-key");
       setIsMajorMode(true);
       setShapeVariantLocationData(null);
       setShapeVariantLocationData_locked(shapeVariantLocationData);

@@ -34,11 +34,11 @@ const whitePianoKey = css`
   z-index: 1;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   &::after {
+    ${commonStyleForKey}
     content: "";
     position: absolute;
     inset: 0;
     background-color: color-mix(in oklab, var(--accent) 40%, var(--background));
-    ${commonStyleForKey}
   }
   &:not(:last-child)::after {
     border-right: none;
@@ -48,9 +48,9 @@ const whitePianoKey = css`
 `;
 
 const blackPianoKey = css`
+  ${commonStyleForKey}
   background-color: var(--background);
   z-index: 2;
-  ${commonStyleForKey}
   height: 75px;
   padding-top: 10px;
   overflow: hidden;
@@ -91,7 +91,7 @@ export const Key = styled.div<{
 
     const shadow = $isWhitePianoKey
       ? `inset 0 -23px 35px -4px ${color}`
-      : `inset 0 -17px 20px 0px ${color}`;
+      : `inset 0 -10px 30px 0px color-mix(in oklab, ${color} 80%, var(--background))`;
     const target = $isWhitePianoKey ? css`&::after` : css`&`;
 
     return css`
