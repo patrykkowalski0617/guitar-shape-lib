@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getAutoSelectedShape } from "@/components/Controls/ShapeSelect/helpers";
+import { getAutoSelectedShape } from "@/components/Player/ShapeControls/ShapeSelect/helpers";
 import type { MusicKeyId, RoleId } from "@/data";
 
 interface ControlsState {

@@ -5,16 +5,19 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useRandomizeShape } from "./useRandomizeShape";
 import { useControlsStore } from "@/store";
-import { getFilteredShapeOptions } from "@/components/Controls/ShapeSelect/helpers/getFilteredShapeOptions";
+import { getFilteredShapeOptions } from "@/components/Player/ShapeControls/ShapeSelect/helpers";
 import type { RoleId } from "@/data";
 
 vi.mock("@/store", () => ({
   useControlsStore: vi.fn(),
 }));
 
-vi.mock("@/components/Controls/ShapeSelect/helpers/getFilteredShapeOptions", () => ({
-  getFilteredShapeOptions: vi.fn(),
-}));
+vi.mock(
+  "@/components/Player/ShapeControls/ShapeSelect/helpers/getFilteredShapeOptions",
+  () => ({
+    getFilteredShapeOptions: vi.fn(),
+  }),
+);
 
 describe("useRandomizeShape()", () => {
   const setShapeMock = vi.fn();
@@ -23,7 +26,9 @@ describe("useRandomizeShape()", () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
-    (useControlsStore as unknown as ReturnType<typeof vi.fn>).mockImplementation((selector) => {
+    (
+      useControlsStore as unknown as ReturnType<typeof vi.fn>
+    ).mockImplementation((selector) => {
       const state = {
         setShape: setShapeMock,
         tuneKeyId: tuneKeyIdMock,
@@ -31,7 +36,9 @@ describe("useRandomizeShape()", () => {
       return selector(state);
     });
 
-    (getFilteredShapeOptions as unknown as ReturnType<typeof vi.fn>).mockReturnValue([
+    (
+      getFilteredShapeOptions as unknown as ReturnType<typeof vi.fn>
+    ).mockReturnValue([
       { shapeId: "shape-1", shapeSemitoneOffsetFromC: 0 },
       { shapeId: "shape-2", shapeSemitoneOffsetFromC: 2 },
     ]);

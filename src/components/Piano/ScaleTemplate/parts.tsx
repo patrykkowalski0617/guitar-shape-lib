@@ -33,7 +33,7 @@ export const Marker = styled.div<{
   width: ${`calc(${KEY_WIDTH_CSS(numberOfKeys)})`};
   &::before {
     content: ${({ $label, $isAltNote }) =>
-      $label ? `"${$label}"` : $isAltNote ? '"!"' : '""'};
+      $label ? `"${$label}"` : $isAltNote ? '"★"' : '""'};
     position: absolute;
     width: 40px;
     left: 50%;

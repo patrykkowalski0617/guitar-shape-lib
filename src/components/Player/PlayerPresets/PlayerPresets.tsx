@@ -16,7 +16,7 @@ import {
 } from "@/store";
 import { presets } from "@/data/presets";
 import { Button } from "@/components/ui/button";
-import { playerIconSize } from "../Player/constants";
+import { playerIconSize } from "../constants";
 
 export function PlayerPresets() {
   const [open, setOpen] = useState(false);

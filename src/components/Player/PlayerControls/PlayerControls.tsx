@@ -1,4 +1,4 @@
-import { PlayerPresets } from "@/components/PlayerPresets/PlayerPresets";
+import { PlayerPresets } from "@/components/Player/PlayerPresets/PlayerPresets";
 import { BpmInput } from "./BpmControls/BpmInput";
 import { PlayButton } from "./PlayButton/PlayButton";
 import { CleanButton } from "./CleanButton/CleanButton";
