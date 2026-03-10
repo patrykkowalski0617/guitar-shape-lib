@@ -26,7 +26,7 @@ export function useShapeSelection() {
   const showNoneOption = isGlobalRole(roleId);
 
   const noneOptionLabel =
-    roleId === "all-one-instance" ? "All notes" : "Select shape";
+    roleId === "all-one-instance" ? "All notes" : "All key notes";
 
   const applySelectedShape = (value: string) => {
     const [id, offsetStr] = value.split("|");
