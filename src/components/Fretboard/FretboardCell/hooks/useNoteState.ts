@@ -46,8 +46,7 @@ export const useNoteState = ({
   const lockedShapeNotes = useShapeCoordinates(shapeVariantLocationData_locked);
 
   const isActiveNote = activeNoteId === noteId;
-  const isShapeRootNote =
-    shapeRootSharpNote === sharpNoteName && stringIndex > 1 && !isPlaying;
+  const isShapeRootNote = shapeRootSharpNote === sharpNoteName && !isPlaying;
   const isShapeNote = isShapeNoteFn(currentCoordinates, shapeCoordintes);
   const isLockedNote = isShapeNoteFn(currentCoordinates, lockedShapeNotes);
   const isTuneNote = useInTuneSharpNoteNames().includes(sharpNoteName);
