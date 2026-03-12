@@ -29,13 +29,13 @@ const SectionCommonCss = css`
 `;
 
 export const Section = styled.div`
-  max-width: 1300px;
+  max-width: 1400px;
   width: 100%;
   ${SectionCommonCss}
 `;
 
 export const InstrumentWrapper = styled.div`
-  width: 1300px;
+  width: 1400px;
   margin: auto;
   overflow: hidden;
   padding: 0 35px;

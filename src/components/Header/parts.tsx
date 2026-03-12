@@ -13,7 +13,7 @@ export const HeaderWrapper = styled.header<{ $isFullscreen: boolean }>`
 `;
 
 export const HeaderContent = styled.div`
-  max-width: 1300px;
+  max-width: 1400px;
   position: relative;
   display: flex;
   align-items: center;

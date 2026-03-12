@@ -5,14 +5,14 @@ export const PlayerContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: calc(var(--spacing) * 2);
-  max-width: 1300px;
+  max-width: 1400px;
   flex-wrap: wrap;
   @media (min-width: 768px) {
     flex-direction: row;
     margin: auto;
     padding: 0 20px;
   }
-  @media (min-width: 1300px) {
+  @media (min-width: 1400px) {
     padding: 0 35px;
   }
 `;

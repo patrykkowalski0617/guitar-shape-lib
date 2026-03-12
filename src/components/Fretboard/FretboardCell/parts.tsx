@@ -7,7 +7,7 @@ export const FretWrapper = styled.div`
   position: relative;
   flex: 1 1 0;
   width: 0;
-  height: 28px;
+  height: 30px;
   padding: 1px;
   &:hover ${DotsWrapper} {
     ${activeDotsStyles}
