@@ -32,7 +32,6 @@ export const Fret = styled.div<{
 export const Note = styled.div<{
   $opacity: number;
   $brightness: number;
-  $cursor: string;
   $isShapeNote: boolean;
   $transitionTime: number;
 }>`
@@ -43,14 +42,10 @@ export const Note = styled.div<{
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  z-index: 20;
-  cursor: ${({ $cursor }) => $cursor};
   will-change: box-shadow, opacity;
   transition:
     box-shadow ${({ $transitionTime }) => $transitionTime}ms ease-in-out,
     opacity ${({ $transitionTime }) => $transitionTime}ms ease-in-out;
-
   opacity: ${({ $opacity }) => $opacity};
   filter: ${({ $brightness }) =>
     $brightness > 1 ? `brightness(${$brightness})` : "none"};

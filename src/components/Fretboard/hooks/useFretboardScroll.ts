@@ -52,7 +52,7 @@ export const useFretboardScroll = (
         if (isLowestVisible && isHighestVisible) return;
 
         let targetScrollLeft = container.scrollLeft;
-        const scrollMargin = 60;
+        const scrollMargin = 100;
 
         if (!isLowestVisible) {
           targetScrollLeft =

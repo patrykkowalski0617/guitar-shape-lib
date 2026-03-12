@@ -69,7 +69,6 @@ export const useNoteState = ({
     isLockedNote,
     isTuneNote,
     opacity: getOpacity(),
-    cursor: isShapeRootNote ? "pointer" : "default",
     brightness: isActiveNote ? 3 : 1,
   };
 };

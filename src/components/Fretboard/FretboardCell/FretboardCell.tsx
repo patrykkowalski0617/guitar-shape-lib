@@ -18,7 +18,7 @@ export default function FretboardCell({
   const { noteState, transitionTime, handleMouseEnter, handleMouseLeave } =
     useFretboardCellInteraction({ noteData, stringIndex, fretIndex });
 
-  const { isLockedNote, isShapeNote, opacity, brightness, cursor } = noteState;
+  const { isLockedNote, isShapeNote, opacity, brightness } = noteState;
 
   return (
     <S.FretWrapper
@@ -29,7 +29,6 @@ export default function FretboardCell({
         <S.Note
           $opacity={opacity}
           $brightness={brightness}
-          $cursor={cursor}
           $isShapeNote={isShapeNote}
           $transitionTime={transitionTime}
         >
