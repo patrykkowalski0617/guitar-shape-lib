@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 
 export const ShapeExplorerWrapper = styled.div<{ $isVisible: boolean }>`
+  max-width: 400px;
   margin: 8px auto 0;
   transition:
     opacity 0.1s ease-in-out,
@@ -22,9 +23,6 @@ export const ShapeExplorerWrapper = styled.div<{ $isVisible: boolean }>`
           margin-top: 0;
           overflow-y: hidden;
         `}
-  @media (min-width: 768px) {
-    width: calc(100% - 100px);
-  }
 `;
 
 const highlightAnimation = keyframes`

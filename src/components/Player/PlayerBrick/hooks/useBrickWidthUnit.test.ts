@@ -33,10 +33,10 @@ describe("useBrickWidthUnit", () => {
     vi.clearAllMocks();
   });
 
-  it("should return 30 for desktop viewports", () => {
-    setViewportWidth(1200);
+  it("should return 35 for desktop viewports", () => {
+    setViewportWidth(1400);
     const { result } = renderHook(() => useBrickWidthUnit());
-    expect(result.current).toBe(30);
+    expect(result.current).toBe(35);
   });
 
   it("should return 20 for tablet viewports", () => {
@@ -54,7 +54,7 @@ describe("useBrickWidthUnit", () => {
   it("should update unit value on window resize", () => {
     setViewportWidth(1200);
     const { result } = renderHook(() => useBrickWidthUnit());
-    expect(result.current).toBe(30);
+    expect(result.current).toBe(35);
 
     act(() => {
       setViewportWidth(500);

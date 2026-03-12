@@ -1,6 +1,5 @@
 import * as S from "./parts";
 import type { NoteObject } from "@/utils";
-import VariantDots from "@/components/Fretboard/VariantDots/VariantDots";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
@@ -19,14 +18,7 @@ export default function FretboardCell({
   const { noteState, transitionTime, handleMouseEnter, handleMouseLeave } =
     useFretboardCellInteraction({ noteData, stringIndex, fretIndex });
 
-  const {
-    isLockedNote,
-    isShapeRootNote,
-    isShapeNote,
-    opacity,
-    brightness,
-    cursor,
-  } = noteState;
+  const { isLockedNote, isShapeNote, opacity, brightness, cursor } = noteState;
 
   return (
     <S.FretWrapper
@@ -34,10 +26,6 @@ export default function FretboardCell({
       onMouseLeave={handleMouseLeave}
     >
       <S.Fret $isLockedNote={isLockedNote} data-fret={fretIndex}>
-        {isShapeRootNote && (
-          <VariantDots stringIndex={stringIndex} fretIndex={fretIndex} />
-        )}
-
         <S.Note
           $opacity={opacity}
           $brightness={brightness}
