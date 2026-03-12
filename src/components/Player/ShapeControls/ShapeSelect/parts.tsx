@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ControlWrapper = styled.div`
-  width: 66.66%;
+  width: 55%;
   @media (min-width: 1024px) {
     width: 160px;
   }
