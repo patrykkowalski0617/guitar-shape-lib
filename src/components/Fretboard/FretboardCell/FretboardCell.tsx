@@ -3,7 +3,7 @@ import type { NoteObject } from "@/utils";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
-import { useFretboardStates, useNoteState } from "./hooks";
+import { useNoteState } from "./hooks";
 
 interface FretboardCellProps {
   noteData: NoteObject;
@@ -16,41 +16,27 @@ export default function FretboardCell({
   stringIndex,
   fretIndex,
 }: FretboardCellProps) {
-  const { isRoleSelected } = useFretboardStates();
-  const {
-    transitionTime,
-    handleMouseEnter,
-    handleMouseLeave,
-    handleClick,
-    roleAndModeCellsCoords,
-  } = useFretboardCellInteraction({ noteData, stringIndex, fretIndex });
+  const { transitionTime, handleMouseEnter, handleMouseLeave, handleClick } =
+    useFretboardCellInteraction({ noteData });
 
-  const noteState = useNoteState({
+  const {
+    isLockedNote,
+    isShapeNote,
+    isRoleAndModeNote,
+    isMinor,
+    opacity,
+    brightness,
+  } = useNoteState({
     noteData,
     stringIndex,
     fretIndex,
   });
 
-  const { isLockedNote, isShapeNote, opacity, brightness } = noteState;
-
-  const currentPointIndex = roleAndModeCellsCoords.findIndex(
-    ([targetString, targetFret]) =>
-      targetString === stringIndex && targetFret === fretIndex,
-  );
-
-  const isRoleAndModeNote = currentPointIndex !== -1 && !isRoleSelected;
-
-  const minorPointIndexes = [1, 2, 5];
-  const isMinor =
-    isRoleAndModeNote && minorPointIndexes.includes(currentPointIndex);
-
   return (
     <S.FretWrapper
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={() => {
-        handleClick(stringIndex, fretIndex);
-      }}
+      onClick={() => handleClick(stringIndex, fretIndex)}
     >
       <S.Fret $isLockedNote={isLockedNote} data-fret={fretIndex}>
         <S.Note

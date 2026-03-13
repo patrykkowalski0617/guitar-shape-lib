@@ -5,14 +5,9 @@ import { isGlobalRole } from "@/utils";
 export const useRoleAndModeSetter = () => {
   const setRoleId = useControlsStore((state) => state.setRoleId);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
-  const shapeVariantLocationData = useMusicStore(
-    (state) => state.shapeVariantLocationData,
-  );
+
   const setShapeVariantLocationData = useMusicStore(
     (state) => state.setShapeVariantLocationData,
-  );
-  const setShapeVariantLocationData_locked = useMusicStore(
-    (state) => state.setShapeVariantLocationData_locked,
   );
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
 
@@ -58,7 +53,6 @@ export const useRoleAndModeSetter = () => {
       setRoleId("all-matching-key");
       setIsMajorMode(true);
       setShapeVariantLocationData(null);
-      setShapeVariantLocationData_locked(shapeVariantLocationData);
     } else {
       setRoleId(roleAndModeValuesMap[roleAndModeValuesMapIndex].role);
       setIsMajorMode(
