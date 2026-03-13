@@ -1,6 +1,5 @@
 import { useMusicStore, useControlsStore, usePlayerStore } from "@/store";
-import { getNotes } from "@/utils";
-import { type NoteSharp } from "@/data";
+import { getNotes, type NoteObject } from "@/utils";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
 import { useShapeCoordinates } from "./useShapeCoordinates";
@@ -8,15 +7,13 @@ import { isShapeNote as isShapeNoteFn } from "../helpers";
 import { useFretboardStates } from "./useFretboardStates";
 
 interface UseFretboardCellProp {
-  sharpNoteName: NoteSharp;
-  noteId: string;
+  noteData: NoteObject;
   stringIndex: StringIndex;
   fretIndex: number;
 }
 
 export const useNoteState = ({
-  sharpNoteName,
-  noteId,
+  noteData,
   stringIndex,
   fretIndex,
 }: UseFretboardCellProp) => {
@@ -45,11 +42,12 @@ export const useNoteState = ({
       : null;
   const lockedShapeNotes = useShapeCoordinates(shapeVariantLocationData_locked);
 
-  const isActiveNote = activeNoteId === noteId;
-  const isShapeRootNote = shapeRootSharpNote === sharpNoteName && !isPlaying;
+  const isActiveNote = activeNoteId === noteData.noteId;
+  const isShapeRootNote =
+    shapeRootSharpNote === noteData.sharpNoteName && !isPlaying;
   const isShapeNote = isShapeNoteFn(currentCoordinates, shapeCoordintes);
   const isLockedNote = isShapeNoteFn(currentCoordinates, lockedShapeNotes);
-  const isTuneNote = useInTuneSharpNoteNames().includes(sharpNoteName);
+  const isTuneNote = useInTuneSharpNoteNames().includes(noteData.sharpNoteName);
 
   const isVisibleInGeneralMode =
     !isShapeSelected && (isActiveNote || isTuneNote || !shouldMarkTuneNotes);

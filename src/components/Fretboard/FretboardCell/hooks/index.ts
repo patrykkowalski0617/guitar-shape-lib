@@ -1,4 +1,3 @@
-export * from "./useFretboardCell";
 export * from "./useFretboardCellInteraction";
 export * from "./useFretboardStates";
 export * from "./useInTuneSharpNoteNames";

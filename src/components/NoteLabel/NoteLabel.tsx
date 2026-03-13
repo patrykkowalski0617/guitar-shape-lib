@@ -11,6 +11,7 @@ interface NoteLabelProps {
   isActiveNote?: boolean;
   variant: Variant;
   note: NoteObject;
+  isMinor?: boolean;
 }
 
 export default function NoteLabel({
@@ -18,6 +19,7 @@ export default function NoteLabel({
   isActiveNote = false,
   variant,
   note,
+  isMinor = false,
 }: NoteLabelProps): JSX.Element {
   const transitionTime = usePlayerStore((state) => state.transitionTime);
   const getEnharmonicNoteName = useEnharmonicNoteName();
@@ -28,7 +30,10 @@ export default function NoteLabel({
       $isActiveNote={isActiveNote}
       $transitionTime={transitionTime}
     >
-      <S.Note>{getEnharmonicNoteName(note)}</S.Note>
+      <S.Note>
+        {getEnharmonicNoteName(note)}
+        {isMinor ? "m" : ""}
+      </S.Note>
     </S.NoteWrapper>
   );
 }

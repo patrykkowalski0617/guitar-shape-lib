@@ -1,28 +1,20 @@
-import { NOTES_SHARP, majorScale, type RoleId } from "@/data";
+import { NOTES_SHARP, majorScale } from "@/data";
 import { type NoteObject, isGlobalRole } from "@/utils";
 import { useControlsStore, useMusicStore } from "@/store";
 import { useScaleLogic } from "../../hooks";
 import { SHAPES_OF_WHITE_PIANO_KEYS } from "../../helpers/constants";
+import { useRoleAndModeSetter } from "@/hooks";
 
 interface UsePianoKeyParams {
   note: NoteObject;
 }
 
 export function usePianoKey({ note }: UsePianoKeyParams) {
-  const { activeNoteId, setActiveNoteId } = useMusicStore();
+  const activeNoteId = useMusicStore((state) => state.activeNoteId);
+  const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const shapeId = useControlsStore((state) => state.shapeId);
   const roleId = useControlsStore((state) => state.roleId);
-  const setRoleId = useControlsStore((state) => state.setRoleId);
-  const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
-  const shapeVariantLocationData = useMusicStore(
-    (state) => state.shapeVariantLocationData,
-  );
-  const setShapeVariantLocationData = useMusicStore(
-    (state) => state.setShapeVariantLocationData,
-  );
-  const setShapeVariantLocationData_locked = useMusicStore(
-    (state) => state.setShapeVariantLocationData_locked,
-  );
+  const setRoleAndMode = useRoleAndModeSetter();
 
   const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } =
     useScaleLogic();
@@ -45,50 +37,8 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const handleMouseEnter = () => setActiveNoteId(note.noteId);
   const handleMouseLeave = () => setActiveNoteId(null);
   const handleClick = () => {
-    setActiveNoteId(null);
     const scaleIndex = currentScaleNoteIds.indexOf(note.noteId);
-
-    interface RoleAndModeValue {
-      role: RoleId;
-      isMajorMode: boolean;
-    }
-
-    const roleAndModeValuesMap: RoleAndModeValue[] = [
-      {
-        role: "tonic",
-        isMajorMode: true,
-      },
-      {
-        role: "subdominant",
-        isMajorMode: false,
-      },
-      {
-        role: "dominant",
-        isMajorMode: false,
-      },
-      {
-        role: "subdominant",
-        isMajorMode: true,
-      },
-      {
-        role: "dominant",
-        isMajorMode: true,
-      },
-      {
-        role: "tonic",
-        isMajorMode: false,
-      },
-    ];
-
-    if (isRoleSelected || scaleIndex === -1) {
-      setRoleId("all-matching-key");
-      setIsMajorMode(true);
-      setShapeVariantLocationData(null);
-      setShapeVariantLocationData_locked(shapeVariantLocationData);
-    } else {
-      setRoleId(roleAndModeValuesMap[scaleIndex].role);
-      setIsMajorMode(roleAndModeValuesMap[scaleIndex].isMajorMode);
-    }
+    setRoleAndMode(scaleIndex);
   };
 
   return {
