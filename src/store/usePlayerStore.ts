@@ -7,7 +7,7 @@ export interface Brick {
   snapshot: Snapshot | null;
 }
 
-export const transitionTime = 200;
+export const transitionTime = 100;
 
 export const BPM_LIMITS = {
   MIN: 20,
