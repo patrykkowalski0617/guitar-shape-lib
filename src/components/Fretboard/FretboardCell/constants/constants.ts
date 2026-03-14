@@ -7,4 +7,4 @@ export const ROLE_AND_MODE_BASE_POINTS = [
   [4, 12],
 ];
 
-export const MINOR_POINT_INDEXES = [1, 2, 5];
+export const MINOR_POINT_INDEXES = [1, 5];

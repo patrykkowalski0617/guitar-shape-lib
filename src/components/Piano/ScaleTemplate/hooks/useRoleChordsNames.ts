@@ -11,13 +11,8 @@ export const useRoleChordsNames = () => {
 
   const getChordType = (index: number) => {
     const minorChordsIndexes = [2, 9];
-    const minorDominantIndex = 4;
 
-    return index === minorDominantIndex
-      ? "?m"
-      : minorChordsIndexes.includes(index)
-        ? "m"
-        : "";
+    return minorChordsIndexes.includes(index) ? "m" : "";
   };
 
   return (index: number) =>
