@@ -30,15 +30,38 @@ export const PlayerSection = styled.div`
   &:last-child {
     justify-content: center;
   }
-
+  &:first-child {
+    order: 2;
+  }
+  &:nth-child(2) {
+    order: 1;
+  }
+  &:last-child {
+    order: 3;
+  }
   @media (min-width: 768px) {
     &:first-child {
       width: 100%;
     }
     &:nth-child(2),
     &:last-child {
-      flex: 1 1 0;
       justify-content: center;
+    }
+    &:last-child {
+      flex: 1 1 0;
+    }
+    &:nth-child(2) {
+      flex: 2 1 0;
+    }
+
+    &:first-child {
+      order: 3;
+    }
+    &:nth-child(2) {
+      order: 1;
+    }
+    &:last-child {
+      order: 2;
     }
   }
   @media (min-width: 1024px) {
@@ -46,6 +69,11 @@ export const PlayerSection = styled.div`
     &:nth-child(2),
     &:last-child {
       flex: 0 0 0;
+    }
+    &:first-child,
+    &:nth-child(2),
+    &:last-child {
+      order: unset;
     }
   }
 `;
