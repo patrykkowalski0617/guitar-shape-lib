@@ -59,7 +59,7 @@ export const useFretboardScroll = (
         return;
       }
 
-      if (!shapeVariantLocationData || theLowestFret === 0) return;
+      if (!shapeVariantLocationData) return;
 
       const lowestCell = container.querySelector(
         `[data-fret="${theLowestFret}"]`,
