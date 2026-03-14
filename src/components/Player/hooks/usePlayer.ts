@@ -3,6 +3,9 @@ import { useMetronome } from "./useMetronome";
 import { usePlayerStore, useMusicStore, useControlsStore } from "@/store";
 
 export function usePlayer() {
+  const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
+  const setRoleId = useControlsStore((state) => state.setRoleId);
+  const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
   );
@@ -28,13 +31,14 @@ export function usePlayer() {
   useEffect(() => {
     if (!isPlaying) {
       hasPreparedCountInRef.current = false;
-      return;
     }
 
     if (bricks.length === 0) {
       setShapeVariantLocationData(null);
       setShapeVariantLocationData_locked(null);
-      return;
+      setActiveBrickId(null);
+      setRoleId("all-matching-key");
+      setIsMajorMode(true);
     }
 
     if (!isCountingIn) return;

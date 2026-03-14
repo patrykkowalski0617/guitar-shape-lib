@@ -1,7 +1,5 @@
 import { instrumentElBRadius } from "@/parts";
 import styled, { css } from "styled-components";
-import { DotsWrapper } from "@/components/Fretboard/VariantDots/parts";
-import { activeDotsStyles } from "@/components/Fretboard/VariantDots/constants";
 
 export const FretWrapper = styled.div`
   position: relative;
@@ -9,9 +7,6 @@ export const FretWrapper = styled.div`
   width: 0;
   height: 30px;
   padding: 1px;
-  &:hover ${DotsWrapper} {
-    ${activeDotsStyles}
-  }
 `;
 
 export const Fret = styled.div<{

@@ -1,25 +1,20 @@
-import { useControlsStore, usePlayerStore } from "@/store";
+import { usePlayerStore } from "@/store";
 import { BrushCleaning } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { playerIconSize } from "../../constants";
+import { useCleanBricks } from "../../hooks";
 
 export const CleanButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
-  const setBricks = usePlayerStore((state) => state.setBricks);
-  const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
-  const setRoleId = useControlsStore((state) => state.setRoleId);
-  const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
+  const cleanBricks = useCleanBricks();
+
+  const handleClick = cleanBricks;
 
   return (
     <Button
       variant={"playerOutlinePrimary"}
       disabled={isPlaying}
-      onClick={() => {
-        setBricks([]);
-        setActiveBrickId(null);
-        setRoleId("all-matching-key");
-        setIsMajorMode(true);
-      }}
+      onClick={handleClick}
     >
       <BrushCleaning size={playerIconSize} />
     </Button>
