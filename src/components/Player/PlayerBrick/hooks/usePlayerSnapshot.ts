@@ -74,10 +74,16 @@ export function usePlayerSnapshot(
   );
 
   useEffect(() => {
-    if (isEditable) {
-      updateBrickSnapshot(brickId, currentLiveState);
-    }
-  }, [isEditable, currentLiveState, brickId, updateBrickSnapshot]);
+    if (!isEditable) return;
+    if (!brick) return;
+
+    const currentSnapshot = brick.snapshot;
+    const isSameSnapshot =
+      JSON.stringify(currentSnapshot) === JSON.stringify(currentLiveState);
+    if (isSameSnapshot) return;
+
+    updateBrickSnapshot(brickId, currentLiveState);
+  }, [isEditable, currentLiveState, brickId, updateBrickSnapshot, brick]);
 
   const displayData = isEditable
     ? currentLiveState

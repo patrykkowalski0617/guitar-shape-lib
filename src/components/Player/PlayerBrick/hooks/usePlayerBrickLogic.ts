@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useMusicStore, usePlayerStore, type Brick } from "@/store";
 import { usePlayerSnapshot } from "./usePlayerSnapshot";
 import { useBrickWidthUnit } from "./useBrickWidthUnit";
@@ -61,9 +61,17 @@ export const usePlayerBrickLogic = ({
 
   const activePart = isMeActive ? currentStep - stepsBeforeMe + 1 : 0;
 
+  const didSyncStartRef = useRef(false);
+
   const syncSnapshotOnBrickStart = () => {
     const isFirstStepOfBrick = activePart === 1;
-    if (!isFirstStepOfBrick) return;
+    if (!isFirstStepOfBrick) {
+      didSyncStartRef.current = false;
+      return;
+    }
+
+    if (didSyncStartRef.current) return;
+    didSyncStartRef.current = true;
 
     if (lockedSnapshot.rootNote !== null) {
       applySnapshotToStore(lockedSnapshot);

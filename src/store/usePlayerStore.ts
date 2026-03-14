@@ -60,7 +60,15 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
 
   updateBrickSnapshot: (id, snapshot) =>
     set((state) => ({
-      bricks: state.bricks.map((b) => (b.id === id ? { ...b, snapshot } : b)),
+      bricks: state.bricks.map((b) => {
+        if (b.id !== id) return b;
+        const hasSameSnapshot =
+          JSON.stringify(b.snapshot) === JSON.stringify(snapshot);
+        if (hasSameSnapshot) {
+          return b;
+        }
+        return { ...b, snapshot };
+      }),
     })),
 
   removeBrick: (id) =>

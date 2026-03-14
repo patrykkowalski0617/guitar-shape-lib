@@ -40,9 +40,13 @@ export const useMusicStore = create<MusicState>((set) => ({
 
   shapeVariantLocationData: null,
   setShapeVariantLocationData: (shapeVariantLocationData) =>
-    set({ shapeVariantLocationData }),
+    set((state) => ({ ...state, shapeVariantLocationData })),
 
   shapeVariantLocationData_locked: null,
   setShapeVariantLocationData_locked: (shapeVariantLocationData_locked) =>
-    set({ shapeVariantLocationData_locked }),
+    set((state) => ({
+      ...state,
+      shapeVariantLocationData_locked,
+      _lockedUpdate: Date.now(),
+    })),
 }));

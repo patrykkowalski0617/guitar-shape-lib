@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useMetronome } from "./useMetronome";
 import { usePlayerStore, useMusicStore, useControlsStore } from "@/store";
 
@@ -23,22 +23,33 @@ export function usePlayer() {
 
   const { toggleMetronome } = useMetronome(bpm, handleTick);
 
-  useEffect(() => {
-    const isReadyToPrepareFretboard = isPlaying && isCountingIn;
-    const firstBrick = bricks[0];
+  const hasPreparedCountInRef = useRef(false);
 
-    if (isReadyToPrepareFretboard && firstBrick?.snapshot) {
-      setShapeVariantLocationData(null);
-      setShapeVariantLocationData_locked(
-        firstBrick.snapshot.shapeVariantLocationData,
-      );
-      setTuneKeyId(firstBrick.snapshot.keyId);
+  useEffect(() => {
+    if (!isPlaying) {
+      hasPreparedCountInRef.current = false;
+      return;
     }
 
     if (bricks.length === 0) {
       setShapeVariantLocationData(null);
       setShapeVariantLocationData_locked(null);
+      return;
     }
+
+    if (!isCountingIn) return;
+
+    if (hasPreparedCountInRef.current) return;
+
+    const firstBrick = bricks[0];
+    if (!firstBrick?.snapshot) return;
+
+    setShapeVariantLocationData(null);
+    setShapeVariantLocationData_locked(
+      firstBrick.snapshot.shapeVariantLocationData,
+    );
+    setTuneKeyId(firstBrick.snapshot.keyId);
+    hasPreparedCountInRef.current = true;
   }, [
     isPlaying,
     isCountingIn,
