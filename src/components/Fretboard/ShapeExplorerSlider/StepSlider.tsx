@@ -33,12 +33,18 @@ export function StepSlider({
   const bindGesture = useStepSliderGesture({ onDoubleTap: handleToggleAction });
   const thumbSize = 25;
 
+  const hasNoOptions = options.length === 0;
+  const sliderMax = hasNoOptions ? 1 : effectiveMax;
+  const sliderValue = hasNoOptions ? [0] : value;
+  const isSliderDisabled = props.disabled || hasNoOptions;
+
   return (
     <SliderPrimitive.Root
       min={min}
-      max={effectiveMax}
-      value={value}
+      max={sliderMax}
+      value={sliderValue}
       style={style}
+      disabled={isSliderDisabled}
       className={cn(
         "relative flex w-full touch-none items-center select-none h-8",
         className,
@@ -51,7 +57,7 @@ export function StepSlider({
       >
         <StepSliderTicks
           options={options}
-          effectiveMax={effectiveMax}
+          effectiveMax={sliderMax}
           userListIndexes={userListIndexes}
           highlightedId={highlightedId}
           onHighlightEnd={clearHighlight}
@@ -66,7 +72,9 @@ export function StepSlider({
           "data-[disabled]:scale-100 data-[disabled]:border-primary/35",
           "focus:outline-none focus:ring-0 focus-visible:ring-2",
           "focus-visible:ring-accent/70",
-          currentValue === 0 ? "bg-background" : "bg-transparent",
+          currentValue === 0 || hasNoOptions
+            ? "bg-background"
+            : "bg-transparent",
         )}
         style={{ width: thumbSize, height: thumbSize }}
       />
