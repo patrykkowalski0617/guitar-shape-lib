@@ -1,28 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 
-export const ShapeExplorerWrapper = styled.div<{ $isVisible: boolean }>`
-  max-width: 400px;
-  margin: 8px auto 0;
-  transition:
-    opacity 0.1s ease-in-out,
-    transform 0.1s ease-in-out,
-    max-height 0.1s ease-in-out,
-    margin 0.1s ease-in-out;
-  will-change: transform, opacity, max-height;
-  ${({ $isVisible }) =>
-    $isVisible
-      ? css`
-          opacity: 1;
-          transform: translateY(0) scale(1);
-          max-height: 35px;
-        `
-      : css`
-          opacity: 0;
-          transform: translateY(20px) scale(0.9);
-          max-height: 0;
-          margin-top: 0;
-          overflow-y: hidden;
-        `}
+export const ShapeExplorerWrapper = styled.div`
+  width: 350px;
 `;
 
 const highlightAnimation = keyframes`
@@ -32,7 +11,7 @@ const highlightAnimation = keyframes`
   }
   50% { 
     transform: translate(-50%, -50%) scale(1.4);
-    box-shadow: 0 0 8px 4px var(--accent);
+    box-shadow: 0 0 8px 4px var(--secondary);
   }
   100% { 
     transform: translate(-50%, -50%) scale(1);
@@ -53,11 +32,11 @@ export const Tick = styled.div<{
 
   background-color: ${({ $isUserList }) =>
     $isUserList
-      ? "var(--accent)"
+      ? "var(--secondary)"
       : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
 
   box-shadow: ${({ $isUserList }) =>
-    $isUserList ? "0 0 8px var(--accent)" : "none"};
+    $isUserList ? "0 0 8px var(--secondary)" : "none"};
 
   transition: all 0.6s ease-in-out;
 

@@ -18,7 +18,7 @@ export const Fret = styled.div<{
     if (!$isLockedNote) return null;
 
     return css`
-      outline: 2px solid var(--primary-foreground);
+      outline: 2px solid var(--secondary-foreground);
       padding: 2px;
     `;
   }}
@@ -28,7 +28,6 @@ export const Note = styled.div<{
   $opacity: number;
   $brightness: number;
   $isShapeNote: boolean;
-  $transitionTime: number;
   $isRoleAndModeNote: boolean;
 }>`
   background-color: color-mix(in oklab, var(--accent) 5%, transparent);
@@ -39,9 +38,6 @@ export const Note = styled.div<{
   justify-content: center;
   align-items: center;
   will-change: box-shadow, opacity;
-  transition:
-    box-shadow ${({ $transitionTime }) => $transitionTime}ms ease-in-out,
-    opacity ${({ $transitionTime }) => $transitionTime}ms ease-in-out;
   opacity: ${({ $opacity }) => $opacity};
   filter: ${({ $brightness }) =>
     $brightness > 1 ? `brightness(${$brightness})` : "none"};
@@ -51,8 +47,8 @@ export const Note = styled.div<{
   ${({ $isShapeNote, $isRoleAndModeNote }) => {
     if ($isShapeNote) {
       return css`
-        border-color: var(--primary);
-        box-shadow: inset 0 0px 8px 0px var(--primary);
+        border-color: var(--secondary);
+        box-shadow: inset 0 0px 8px 0px var(--accent);
       `;
     } else if ($isRoleAndModeNote) {
       return css`

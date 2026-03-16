@@ -21,7 +21,9 @@ export const useShapeOptions = () => {
     const noteIndex = ((shapeSemitoneOffsetFromC % 12) + 12) % 12;
     const noteObj = relativeScale[noteIndex];
 
-    const rootNote = musicKey.isFlatTune ? noteObj.flatNoteName : noteObj.sharpNoteName;
+    const rootNote = musicKey.isFlatTune
+      ? noteObj.flatNoteName
+      : noteObj.sharpNoteName;
 
     return {
       value: `${shapeId}|${shapeSemitoneOffsetFromC}`,

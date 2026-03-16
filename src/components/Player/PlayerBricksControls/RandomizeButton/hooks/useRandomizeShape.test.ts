@@ -5,19 +5,16 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useRandomizeShape } from "./useRandomizeShape";
 import { useControlsStore } from "@/store";
-import { getFilteredShapeOptions } from "@/components/Player/ShapeControls/ShapeSelect/helpers";
 import type { RoleId } from "@/data";
+import { getFilteredShapeOptions } from "@/components/Fretboard/ShapeControls/ShapeSelect/helpers";
 
 vi.mock("@/store", () => ({
   useControlsStore: vi.fn(),
 }));
 
-vi.mock(
-  "@/components/Player/ShapeControls/ShapeSelect/helpers/getFilteredShapeOptions",
-  () => ({
-    getFilteredShapeOptions: vi.fn(),
-  }),
-);
+vi.mock("@/components/Fretboard/ShapeControls/ShapeSelect/helpers", () => ({
+  getFilteredShapeOptions: vi.fn(),
+}));
 
 describe("useRandomizeShape()", () => {
   const setShapeMock = vi.fn();

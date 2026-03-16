@@ -5,7 +5,7 @@ import {
   LEFT_PADDING_FACTOR,
 } from "../helpers/constants";
 import { numberOfKeys } from "../helpers/constants";
-import { transitionTime } from "@/store";
+import { transitionTime } from "@/data/constants";
 
 interface TemplateWrapperProps {
   $position: number;

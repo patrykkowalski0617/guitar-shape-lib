@@ -16,7 +16,7 @@ export default function FretboardCell({
   stringIndex,
   fretIndex,
 }: FretboardCellProps) {
-  const { transitionTime, handleMouseEnter, handleMouseLeave, handleClick } =
+  const { handleMouseEnter, handleMouseLeave, handleClick } =
     useFretboardCellInteraction({ noteData });
 
   const {
@@ -43,7 +43,6 @@ export default function FretboardCell({
           $opacity={opacity}
           $brightness={brightness}
           $isShapeNote={isShapeNote}
-          $transitionTime={transitionTime}
           $isRoleAndModeNote={isRoleAndModeNote}
         >
           <NoteLabel

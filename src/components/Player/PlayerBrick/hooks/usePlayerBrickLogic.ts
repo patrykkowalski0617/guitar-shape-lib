@@ -3,6 +3,7 @@ import { useMusicStore, usePlayerStore, type Brick } from "@/store";
 import { usePlayerSnapshot } from "./usePlayerSnapshot";
 import { useBrickWidthUnit } from "./useBrickWidthUnit";
 import { useBrickResize } from "./useBrickResize";
+import { useRoleMarkers } from "@/hooks/useRoleMarkers";
 
 interface UsePlayerBrickLogicProps {
   brick: Brick;
@@ -118,11 +119,9 @@ export const usePlayerBrickLogic = ({
   ]);
 
   const modeKey = displayData.isMajorMode ? "major" : "minor";
+  const keyId = displayData.keyId;
 
-  const roleMarkersMap = {
-    major: { tonic: "T", subdominant: "S", dominant: "D" },
-    minor: { tonic: "t", subdominant: "s", dominant: "d" },
-  };
+  const roleMarkersMap = useRoleMarkers(keyId);
 
   const roleMarker =
     displayData &&
@@ -130,15 +129,16 @@ export const usePlayerBrickLogic = ({
     displayData.roleId in roleMarkersMap[modeKey]
       ? roleMarkersMap[modeKey][
           displayData.roleId as keyof (typeof roleMarkersMap)[typeof modeKey]
-        ] + ": "
+        ].chordName + " | "
       : "";
 
-  const hasData = displayData.shapeVariantLocationData !== null;
+  const hasData = displayData.rootNote !== null;
+
   const label = isResizing
     ? width
     : hasData
       ? `${roleMarker}${displayData.rootNote} ${displayData.shapeLabel}`
-      : `${roleMarker}Empty`;
+      : `Empty`;
 
   return {
     birckWidthUnit,

@@ -7,13 +7,14 @@ export const PlayerContainer = styled.div`
   gap: calc(var(--spacing) * 2);
   max-width: 1400px;
   flex-wrap: wrap;
-  @media (min-width: 768px) {
+  justify-content: center;
+
+  @media (min-width: 1024px) {
     flex-direction: row;
     margin: auto;
-    padding: 0 20px;
   }
   @media (min-width: 1400px) {
-    padding: 0 35px;
+    width: 100%;
   }
 `;
 
@@ -27,53 +28,10 @@ export const PlayerSection = styled.div`
   gap: 8px;
   flex-direction: row;
   width: 100%;
+  flex: 1 1 0;
+
   &:last-child {
     justify-content: center;
-  }
-  &:first-child {
-    order: 2;
-  }
-  &:nth-child(2) {
-    order: 1;
-  }
-  &:last-child {
-    order: 3;
-  }
-  @media (min-width: 768px) {
-    &:first-child {
-      width: 100%;
-    }
-    &:nth-child(2),
-    &:last-child {
-      justify-content: center;
-    }
-    &:last-child {
-      flex: 1 1 0;
-    }
-    &:nth-child(2) {
-      flex: 2 1 0;
-    }
-
-    &:first-child {
-      order: 3;
-    }
-    &:nth-child(2) {
-      order: 1;
-    }
-    &:last-child {
-      order: 2;
-    }
-  }
-  @media (min-width: 1024px) {
-    flex: 1 1 0;
-    &:nth-child(2),
-    &:last-child {
-      flex: 0 0 0;
-    }
-    &:first-child,
-    &:nth-child(2),
-    &:last-child {
-      order: unset;
-    }
+    flex: 0 0 0;
   }
 `;

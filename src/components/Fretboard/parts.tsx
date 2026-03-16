@@ -47,3 +47,35 @@ export const Fretboard = styled.div`
     }
   }
 `;
+
+export const ControlWrapper = styled.div`
+  display: flex;
+  gap: calc(var(--spacing) * 4);
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  > :first-child {
+    flex: 1 1 0;
+  }
+  > :nth-child(2) {
+    flex: 1 1 0;
+  }
+  > :last-child {
+    flex: 1 1 100%;
+  }
+  @media (min-width: 768px) {
+    > :first-child {
+      flex: unset;
+      width: 160px;
+    }
+    > :nth-child(2) {
+      flex: unset;
+      width: 200px;
+    }
+    > :last-child {
+      flex: 2 1 0;
+      max-width: 450px;
+    }
+  }
+`;

@@ -8,12 +8,11 @@ export default function ShapeExplorerSlider() {
     sliderValue,
     userListIndexes,
     isDisabled,
-    isVisible,
     handleValueChange,
   } = useShapeExplorerLogic();
 
   return (
-    <S.ShapeExplorerWrapper $isVisible={isVisible}>
+    <S.ShapeExplorerWrapper>
       <StepSlider
         key={isDisabled ? "disabled" : "enabled"}
         value={sliderValue}

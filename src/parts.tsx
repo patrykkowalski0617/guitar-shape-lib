@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { transitionTime } from "@/store";
+import { transitionTime } from "./data/constants";
 
 export const AppWrapper = styled.div`
   display: flex;
@@ -23,6 +23,7 @@ export const MainContent = styled.main`
 
 const SectionCommonCss = css`
   margin: 25px auto 0;
+  padding: 0 15px;
   @media (min-width: 1024px) {
     margin: 40px auto 0;
   }
@@ -35,26 +36,25 @@ export const Section = styled.div`
 `;
 
 export const InstrumentWrapper = styled.div`
-  width: 1400px;
+  width: 1370px;
   margin: auto;
   overflow: hidden;
-  padding: 0 35px;
 `;
 
 export const InstrumentScrollWrapper = styled.div`
   overflow-x: auto;
   scrollbar-width: none;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    var(--background) 45px,
-    var(--background) calc(100% - 45px),
-    transparent
-  );
   position: relative;
   border-radius: var(--radius-lg);
-  margin-left: -15px; //- compensation for VariantDots
-  margin-right: -15px; //- compensation for VariantDots
+  @media (max-width: 1400px) {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      var(--background) 5px,
+      var(--background) calc(100% - 5px),
+      transparent
+    );
+  }
 `;
 
 export const FooterAndHeaderStyles = css<{

@@ -1,4 +1,4 @@
-import { useMusicStore, usePlayerStore } from "@/store";
+import { useMusicStore } from "@/store";
 import type { NoteObject } from "@/utils";
 import { useRoleAndModeSetter } from "@/hooks";
 import { useRoleAndModeCoords } from "./useRoleAndModeCoords";
@@ -11,7 +11,6 @@ export function useFretboardCellInteraction({
   noteData,
 }: UseFretboardCellInteractionProps) {
   const roleAndModeCellsCoords = useRoleAndModeCoords();
-  const transitionTime = usePlayerStore((state) => state.transitionTime);
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const setRoleAndMode = useRoleAndModeSetter();
 
@@ -27,7 +26,6 @@ export function useFretboardCellInteraction({
   };
 
   return {
-    transitionTime,
     handleMouseEnter,
     handleMouseLeave,
     handleClick,

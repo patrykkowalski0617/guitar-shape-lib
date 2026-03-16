@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import type { Variant } from "./NoteLabel";
 import { instrumentElBRadius } from "@/parts";
-import { transitionTime } from "@/store";
+import { transitionTime } from "@/data/constants";
 
 const highlightedColor = "var(--foreground)";
 const unHighlightedColor = "var(--border)";
@@ -22,7 +22,6 @@ export const Note = styled.div`
 export const NoteWrapper = styled.div<{
   $isShapeNote: boolean;
   $isActiveNote: boolean;
-  $transitionTime: number;
   $variant: Variant;
 }>`
   ${({ $variant, $isShapeNote, $isActiveNote }) =>
@@ -48,15 +47,13 @@ export const NoteWrapper = styled.div<{
       }
     `}
 
-  ${({ $variant, $isShapeNote, $transitionTime }) =>
+  ${({ $variant, $isShapeNote }) =>
     $variant === "fretboard" &&
     css`
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: row;
-      will-change: opacity;
-      transition: opacity ${$transitionTime}ms ease-in-out;
 
       ${Note} {
         color: ${$isShapeNote ? highlightedColor : unHighlightedColor};

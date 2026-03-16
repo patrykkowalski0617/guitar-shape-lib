@@ -51,7 +51,7 @@ export function SelectPrevNext({
     "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 focus-visible:z-150";
 
   const buttonStyles = cn(
-    "h-8 w-8 px-0 flex items-center justify-center bg-background/90 text-foreground shadow-none transition-none rounded-sm hover:bg-background/70 hover:text-accent-foreground shrink-0 relative",
+    "h-8 w-8 px-0 flex items-center justify-center bg-muted/50 text-foreground shadow-none transition-none rounded-sm hover:bg-muted/70 hover:text-accent-foreground shrink-0 relative",
     sharedFocusStyles,
   );
 
@@ -70,7 +70,7 @@ export function SelectPrevNext({
       <Select value={value} onValueChange={onValueChange} {...props}>
         <SelectTrigger
           className={cn(
-            "flex-1 rounded-none border-x-0 bg-background/90 px-2 shadow-none",
+            "flex-1 rounded-none border-x-0 bg-muted/50 px-2 shadow-none",
             "data-placeholder:text-muted-foreground",
             sharedFocusStyles,
             triggerClassName,

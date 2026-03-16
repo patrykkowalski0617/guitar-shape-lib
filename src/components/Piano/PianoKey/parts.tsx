@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { instrumentBRadius, instrumentElBRadius } from "@/parts";
-import { transitionTime } from "@/store";
+import { transitionTime } from "@/data/constants";
 
 type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
@@ -87,7 +87,7 @@ export const Key = styled.div<{
     $isRoleSelected,
   }) => {
     if (!$isHighlighted && !$isRoleSelected) return null;
-    const color = $isShapeNote ? "var(--primary)" : "var(--accent)";
+    const color = $isShapeNote ? "var(--secondary)" : "var(--accent)";
 
     const shadow = $isWhitePianoKey
       ? `inset 0 -23px 35px -4px ${color}`

@@ -1,9 +1,10 @@
 import { useControlsStore } from "@/store";
+
+import type { RoleId } from "@/data";
 import {
   getFilteredShapeOptions,
   type ShapeOption,
-} from "@/components/Player/ShapeControls/ShapeSelect/helpers";
-import type { RoleId } from "@/data";
+} from "@/components/Fretboard/ShapeControls/ShapeSelect/helpers";
 
 export const useRandomizeShape = () => {
   const setShape = useControlsStore((state) => state.setShape);

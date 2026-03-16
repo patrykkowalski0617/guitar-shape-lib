@@ -7,8 +7,6 @@ export interface Brick {
   snapshot: Snapshot | null;
 }
 
-export const transitionTime = 100;
-
 export const BPM_LIMITS = {
   MIN: 20,
   MAX: 220,
@@ -21,11 +19,10 @@ interface PlayerState {
   bpmMultiplier: number;
   isPlaying: boolean;
   currentStep: number;
-  transitionTime: number;
   countIn: number;
   isCountingIn: boolean;
 
-  addBrick: (snapshot: Snapshot) => void;
+  addBrick: () => void;
   removeBrick: (id: number) => void;
   updateBrickWidth: (id: number, newWidth: number) => void;
   updateBrickSnapshot: (id: number, snapshot: Snapshot) => void;
@@ -46,14 +43,13 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   bpmMultiplier: 1,
   isPlaying: false,
   currentStep: 0,
-  transitionTime: transitionTime,
   countIn: 0,
   isCountingIn: false,
 
-  addBrick: (snapshot) => {
+  addBrick: () => {
     const newId = Date.now();
     set((state) => ({
-      bricks: [...state.bricks, { id: newId, width: 4, snapshot }],
+      bricks: [...state.bricks, { id: newId, width: 4, snapshot: null }],
       activeBrickId: newId,
     }));
   },
@@ -97,7 +93,6 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
         isCountingIn: true,
         countIn: bpm <= 100 ? 4 : 8,
         currentStep: 0,
-        transitionTime: 0,
       });
     } else {
       set({
@@ -105,7 +100,6 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
         isCountingIn: false,
         countIn: 0,
         currentStep: 0,
-        transitionTime: transitionTime,
       });
     }
   },
