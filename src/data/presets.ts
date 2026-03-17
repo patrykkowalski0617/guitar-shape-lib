@@ -183,7 +183,6 @@ export const presets: Preset[] = [
   },
   {
     name: "Key E: E, C#m, A, B",
-
     bricks: [
       {
         id: 1773576851002,
@@ -267,6 +266,95 @@ export const presets: Preset[] = [
           shapeLabel: "7",
           shapeSemitoneOffsetFromC: 7,
           shapeId: "dominant",
+        },
+      },
+    ],
+  },
+  {
+    name: "Key A: T, S, D, DPh",
+    bricks: [
+      {
+        id: 1773749075588,
+        width: 4,
+        snapshot: {
+          keyId: "C",
+          isMajorMode: true,
+          roleId: "tonic",
+          shapeVariantLocationData: {
+            shapeId: "M7",
+            stringId: "strE",
+            fretIndex: 8,
+            variantId: "v1",
+            // id: "M7-strE-v1",
+            // isUserList: false,
+          },
+          rootNote: "C",
+          shapeLabel: "M7",
+          shapeSemitoneOffsetFromC: 0,
+          shapeId: "M7",
+        },
+      },
+      {
+        id: 1773749079734,
+        width: 4,
+        snapshot: {
+          keyId: "C",
+          isMajorMode: true,
+          roleId: "subdominant",
+          shapeVariantLocationData: {
+            shapeId: "M7",
+            stringId: "strA",
+            fretIndex: 8,
+            variantId: "v1",
+            // id: "M7-strA-v1",
+            // isUserList: false,
+          },
+          rootNote: "F",
+          shapeLabel: "M7",
+          shapeSemitoneOffsetFromC: 5,
+          shapeId: "M7",
+        },
+      },
+      {
+        id: 1773749097228,
+        width: 4,
+        snapshot: {
+          keyId: "C",
+          isMajorMode: true,
+          roleId: "dominant",
+          shapeVariantLocationData: {
+            shapeId: "dominant",
+            stringId: "strD",
+            fretIndex: 5,
+            variantId: "v4",
+            // id: "dominant-strD-v4",
+            // isUserList: false,
+          },
+          rootNote: "G",
+          shapeLabel: "7",
+          shapeSemitoneOffsetFromC: 7,
+          shapeId: "dominant",
+        },
+      },
+      {
+        id: 1773749154562,
+        width: 4,
+        snapshot: {
+          keyId: "C",
+          isMajorMode: false,
+          roleId: "dominant",
+          shapeVariantLocationData: {
+            shapeId: "7b9",
+            stringId: "strA",
+            fretIndex: 7,
+            variantId: "v1",
+            // id: "7b9-strA-v1",
+            // isUserList: false,
+          },
+          rootNote: "E",
+          shapeLabel: "7b9",
+          shapeSemitoneOffsetFromC: 4,
+          shapeId: "7b9",
         },
       },
     ],

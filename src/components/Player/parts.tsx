@@ -8,7 +8,6 @@ export const PlayerContainer = styled.div`
   max-width: 1400px;
   flex-wrap: wrap;
   justify-content: center;
-
   @media (min-width: 1024px) {
     flex-direction: row;
     margin: auto;
@@ -29,7 +28,6 @@ export const PlayerSection = styled.div`
   flex-direction: row;
   width: 100%;
   flex: 1 1 0;
-
   &:last-child {
     justify-content: center;
     flex: 0 0 0;

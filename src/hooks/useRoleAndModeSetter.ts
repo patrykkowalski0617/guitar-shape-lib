@@ -1,6 +1,5 @@
-import type { RoleId } from "@/data";
+import { roleAndModeValuesMap } from "@/data";
 import { useControlsStore, useMusicStore } from "@/store";
-import { isGlobalRole } from "@/utils";
 
 export const useRoleAndModeSetter = () => {
   const setRoleId = useControlsStore((state) => state.setRoleId);
@@ -11,45 +10,9 @@ export const useRoleAndModeSetter = () => {
   );
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
 
-  const roleId = useControlsStore((state) => state.roleId);
-
-  const isRoleSelected = !!(roleId && !isGlobalRole(roleId));
-
-  interface RoleAndModeValue {
-    role: RoleId;
-    isMajorMode: boolean;
-  }
-
-  const roleAndModeValuesMap: RoleAndModeValue[] = [
-    {
-      role: "tonic",
-      isMajorMode: true,
-    },
-    {
-      role: "subdominant",
-      isMajorMode: false,
-    },
-    {
-      role: "dominant",
-      isMajorMode: false,
-    },
-    {
-      role: "subdominant",
-      isMajorMode: true,
-    },
-    {
-      role: "dominant",
-      isMajorMode: true,
-    },
-    {
-      role: "tonic",
-      isMajorMode: false,
-    },
-  ];
-
   const setRoleAndMode = (roleAndModeValuesMapIndex: number) => {
     setActiveNoteId(null);
-    if (isRoleSelected || roleAndModeValuesMapIndex === -1) {
+    if (roleAndModeValuesMapIndex === -1) {
       setRoleId("all-matching-key");
       setIsMajorMode(true);
       setShapeVariantLocationData(null);

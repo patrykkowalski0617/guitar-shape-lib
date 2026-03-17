@@ -1,14 +1,14 @@
 import { type JSX } from "react";
 import * as S from "./parts";
 import { useScaleTemplate } from "./hooks/useScaleTemplate";
-import { useRoleChordsNames } from "./hooks/useRoleChordsNames";
 import { isGlobalRole as isGlobalRoleFn } from "@/utils";
+import { useRoleChordsNames } from "@/hooks";
 
 export default function ScaleTemplate(): JSX.Element {
   const { position, highlightRole, altIndexes, roleId } = useScaleTemplate();
   const isGlobalRole = isGlobalRoleFn(roleId);
 
-  const getRoleChordsName = useRoleChordsNames();
+  const getRoleChordName = useRoleChordsNames();
 
   return (
     <S.TemplateWrapper $position={position}>
@@ -17,7 +17,7 @@ export default function ScaleTemplate(): JSX.Element {
         const isRoleNote = roleRank !== -1 && !!roleId;
         const isAltNote = altIndexes.includes(i);
         const label = isRoleNote
-          ? String(isGlobalRole ? getRoleChordsName(i - 3) : roleRank * 2 + 1)
+          ? String(isGlobalRole ? getRoleChordName(i - 3) : roleRank * 2 + 1)
           : "";
 
         return (

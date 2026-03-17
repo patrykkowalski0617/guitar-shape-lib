@@ -55,12 +55,7 @@ export const ControlWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  > :first-child {
-    flex: 1 1 0;
-  }
-  > :nth-child(2) {
-    flex: 1 1 0;
-  }
+  flex: 1 1 0;
   > :last-child {
     flex: 1 1 100%;
   }
@@ -70,6 +65,10 @@ export const ControlWrapper = styled.div`
       width: 160px;
     }
     > :nth-child(2) {
+      flex: unset;
+      width: 110px;
+    }
+    > :nth-child(3) {
       flex: unset;
       width: 200px;
     }

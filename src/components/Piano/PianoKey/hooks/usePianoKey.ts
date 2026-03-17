@@ -37,7 +37,11 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const handleMouseEnter = () => setActiveNoteId(note.noteId);
   const handleMouseLeave = () => setActiveNoteId(null);
   const handleClick = () => {
-    const scaleIndex = currentScaleNoteIds.indexOf(note.noteId);
+    const scaleIndex =
+      roleId === "all-matching-key"
+        ? currentScaleNoteIds.indexOf(note.noteId)
+        : -1;
+
     setRoleAndMode(scaleIndex);
   };
 

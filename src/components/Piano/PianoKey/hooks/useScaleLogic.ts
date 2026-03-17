@@ -79,11 +79,7 @@ export const useScaleLogic = () => {
   );
 
   const roleIntervalOffset =
-    roleId === "tonic" || roleId === "all-one-instance"
-      ? 0
-      : roleId === "subdominant"
-        ? 3
-        : 4;
+    roleId === "tonic" ? 0 : roleId === "subdominant" ? 3 : 4;
 
   const currentRoleNoteIds = !isGlobalRole(roleId)
     ? [...currentScaleNoteIds]

@@ -8,6 +8,6 @@ export const useFretboardStates = () => {
   return {
     isShapeSelected: shapeId !== null,
     isRoleSelected: !isGlobalRole(roleId),
-    shouldMarkTuneNotes: roleId !== "all-one-instance",
+    shouldMarkTuneNotes: true,
   };
 };
