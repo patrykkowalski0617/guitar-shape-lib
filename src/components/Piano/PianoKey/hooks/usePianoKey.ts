@@ -3,7 +3,7 @@ import { type NoteObject, isGlobalRole } from "@/utils";
 import { useControlsStore, useMusicStore } from "@/store";
 import { useScaleLogic } from "../../hooks";
 import { SHAPES_OF_WHITE_PIANO_KEYS } from "../../helpers/constants";
-import { useRoleAndModeSetter } from "@/hooks";
+import { useBaseChordSetter } from "@/hooks";
 
 interface UsePianoKeyParams {
   note: NoteObject;
@@ -14,7 +14,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const shapeId = useControlsStore((state) => state.shapeId);
   const roleId = useControlsStore((state) => state.roleId);
-  const setRoleAndMode = useRoleAndModeSetter();
+  const setBaseChord = useBaseChordSetter();
 
   const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } =
     useScaleLogic();
@@ -42,7 +42,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
         ? currentScaleNoteIds.indexOf(note.noteId)
         : -1;
 
-    setRoleAndMode(scaleIndex);
+    setBaseChord(scaleIndex);
   };
 
   return {

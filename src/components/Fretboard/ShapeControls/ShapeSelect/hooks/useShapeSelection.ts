@@ -1,11 +1,7 @@
 import { useControlsStore, useMusicStore } from "@/store";
-import { isGlobalRole } from "@/utils";
 import { useShapeOptions } from "./useShapeOptions";
 
-const NONE_SHAPE_VALUE = "none";
-
 export function useShapeSelection() {
-  const roleId = useControlsStore((state) => state.roleId);
   const shapeId = useControlsStore((state) => state.shapeId);
   const shapeSemitoneOffsetFromC = useControlsStore(
     (state) => state.shapeSemitoneOffsetFromC,
@@ -19,39 +15,22 @@ export function useShapeSelection() {
   const options = useShapeOptions();
 
   const isShapeActive = shapeId !== null && shapeSemitoneOffsetFromC !== null;
-  const currentShapeValue = isShapeActive
-    ? `${shapeId}|${shapeSemitoneOffsetFromC}`
-    : NONE_SHAPE_VALUE;
+  const activeShapeValue = `${shapeId}|${shapeSemitoneOffsetFromC}`;
 
-  const showNoneOption = isGlobalRole(roleId);
-
-  const noneOptionLabel = "Solo shape";
-
-  const applySelectedShape = (value: string) => {
-    const [id, offsetStr] = value.split("|");
-    const offset = parseInt(offsetStr, 10);
-    setShape(id, offset);
-  };
+  const currentShapeValue = isShapeActive ? activeShapeValue : undefined;
 
   const handleValueChange = (value: string) => {
     setShapeVariantLocationData(null);
 
-    if (value === NONE_SHAPE_VALUE) {
-      setShape(null, null);
-      return;
-    }
+    const [id, offsetStr] = value.split("|");
+    const offset = parseInt(offsetStr, 10);
 
-    applySelectedShape(value);
+    setShape(id, offset);
   };
 
   return {
     currentShapeValue,
     handleValueChange,
     options,
-    noneOption: {
-      shouldShow: showNoneOption,
-      label: noneOptionLabel,
-      value: NONE_SHAPE_VALUE,
-    },
   };
 }

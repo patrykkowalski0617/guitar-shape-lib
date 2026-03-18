@@ -6,31 +6,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useShapeSelection } from "./hooks/useShapeSelection";
-import { ControlWrapper } from "./parts";
 
 export function ShapeSelect() {
-  const { currentShapeValue, handleValueChange, options, noneOption } =
-    useShapeSelection();
+  const { currentShapeValue, handleValueChange, options } = useShapeSelection();
 
   return (
-    <ControlWrapper>
-      <Select value={currentShapeValue} onValueChange={handleValueChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select shape..." />
-        </SelectTrigger>
-        <SelectContent>
-          {noneOption.shouldShow && (
-            <SelectItem value={noneOption.value}>{noneOption.label}</SelectItem>
-          )}
-
-          {options.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              <span className="opacity-50 mr-2">{option.labelRootNote}</span>
-              <span>{option.labelShapeName}</span>
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </ControlWrapper>
+    <Select value={currentShapeValue} onValueChange={handleValueChange}>
+      <SelectTrigger>
+        <SelectValue placeholder="Select shape..." />
+      </SelectTrigger>
+      <SelectContent>
+        {options.map((option) => (
+          <SelectItem key={option.value} value={option.value}>
+            <span className="opacity-50 mr-2">{option.labelRootNote}</span>
+            <span>{option.labelShapeName}</span>
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }

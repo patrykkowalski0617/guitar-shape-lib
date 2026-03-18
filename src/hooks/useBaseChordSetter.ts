@@ -1,7 +1,7 @@
-import { roleAndModeValuesMap } from "@/data";
+import { BASE_CHORDS_MAP } from "@/data";
 import { useControlsStore, useMusicStore } from "@/store";
 
-export const useRoleAndModeSetter = () => {
+export const useBaseChordSetter = () => {
   const setRoleId = useControlsStore((state) => state.setRoleId);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
 
@@ -10,19 +10,17 @@ export const useRoleAndModeSetter = () => {
   );
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
 
-  const setRoleAndMode = (roleAndModeValuesMapIndex: number) => {
+  const setBaseChord = (BASE_CHORDS_MAP_INDEX: number) => {
     setActiveNoteId(null);
-    if (roleAndModeValuesMapIndex === -1) {
+    if (BASE_CHORDS_MAP_INDEX === -1) {
       setRoleId("all-matching-key");
       setIsMajorMode(true);
       setShapeVariantLocationData(null);
     } else {
-      setRoleId(roleAndModeValuesMap[roleAndModeValuesMapIndex].role);
-      setIsMajorMode(
-        roleAndModeValuesMap[roleAndModeValuesMapIndex].isMajorMode,
-      );
+      setRoleId(BASE_CHORDS_MAP[BASE_CHORDS_MAP_INDEX].role);
+      setIsMajorMode(BASE_CHORDS_MAP[BASE_CHORDS_MAP_INDEX].isMajorMode);
     }
   };
 
-  return setRoleAndMode;
+  return setBaseChord;
 };

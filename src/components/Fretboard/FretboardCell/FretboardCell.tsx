@@ -22,10 +22,10 @@ export default function FretboardCell({
   const {
     isLockedNote,
     isShapeNote,
-    isRoleAndModeNote,
-    isMinor,
+    isBaseChordNote,
     opacity,
     brightness,
+    noteLabel,
   } = useNoteState({
     noteData,
     stringIndex,
@@ -43,13 +43,12 @@ export default function FretboardCell({
           $opacity={opacity}
           $brightness={brightness}
           $isShapeNote={isShapeNote}
-          $isRoleAndModeNote={isRoleAndModeNote}
+          $isBaseChordNote={isBaseChordNote}
         >
           <NoteLabel
             isShapeNote={isShapeNote}
             variant="fretboard"
-            note={noteData}
-            isMinor={isMinor}
+            noteLabel={noteLabel}
           />
         </S.Note>
       </S.Fret>

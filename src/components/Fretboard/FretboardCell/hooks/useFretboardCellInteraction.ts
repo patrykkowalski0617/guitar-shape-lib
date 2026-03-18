@@ -1,7 +1,7 @@
 import { useMusicStore } from "@/store";
 import type { NoteObject } from "@/utils";
-import { useRoleAndModeSetter } from "@/hooks";
-import { useRoleAndModeCoords } from "./useRoleAndModeCoords";
+import { useBaseChordSetter } from "@/hooks";
+import { useBaseChordCoords } from "./useBaseChordCoords";
 
 interface UseFretboardCellInteractionProps {
   noteData: NoteObject;
@@ -10,19 +10,19 @@ interface UseFretboardCellInteractionProps {
 export function useFretboardCellInteraction({
   noteData,
 }: UseFretboardCellInteractionProps) {
-  const roleAndModeCellsCoords = useRoleAndModeCoords();
+  const baseChordCellsCoords = useBaseChordCoords();
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
-  const setRoleAndMode = useRoleAndModeSetter();
+  const setBaseChord = useBaseChordSetter();
 
   const handleMouseEnter = () => setActiveNoteId(noteData.noteId);
   const handleMouseLeave = () => setActiveNoteId(null);
 
   const handleClick = (stringIndex: number, fretIndex: number) => {
-    const foundPointIndex = roleAndModeCellsCoords.findIndex(
-      ([targetString, targetFret]) =>
+    const foundPointIndex = baseChordCellsCoords.findIndex(
+      ([targetString, targetFret]: number[]) =>
         targetString === stringIndex && targetFret === fretIndex,
     );
-    setRoleAndMode(foundPointIndex);
+    setBaseChord(foundPointIndex);
   };
 
   return {

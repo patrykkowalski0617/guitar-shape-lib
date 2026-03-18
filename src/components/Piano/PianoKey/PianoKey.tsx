@@ -2,6 +2,7 @@ import * as S from "./parts";
 import { type NoteObject } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { usePianoKey } from "./hooks/usePianoKey";
+import { useEnharmonicNoteName } from "@/hooks";
 
 interface PianoKeyProps {
   note: NoteObject;
@@ -9,6 +10,7 @@ interface PianoKeyProps {
 
 const PianoKey = ({ note }: PianoKeyProps) => {
   const { visualState, interactivity } = usePianoKey({ note });
+  const getEnharmonicNoteName = useEnharmonicNoteName();
 
   const {
     isWhitePianoKey,
@@ -40,7 +42,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
         isShapeNote={isShapeNote}
         isActiveNote={isActiveNote}
         variant="piano"
-        note={note}
+        noteLabel={getEnharmonicNoteName(note)}
       />
     </S.Key>
   );

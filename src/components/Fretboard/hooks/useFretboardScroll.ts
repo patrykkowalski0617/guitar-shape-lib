@@ -12,7 +12,7 @@ export const useFretboardScroll = (
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const isGlobalRole = isGlobalRoleFn(roleId);
   const tuneKeyOffsetFromC = UNIFIED_MUSIC_KEYS[tuneKeyId].offsetFromC;
-  const baseFretIndexOfRoleAndModeNote = 10;
+  const baseFretIndexOfBaseChordNote = 10;
 
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const shapeVariantLocationData_locked = useMusicStore(
@@ -32,7 +32,7 @@ export const useFretboardScroll = (
   const theLowestFret = min === -1 ? 0 : min;
   const theHighestFret = max === -1 ? 0 : max;
 
-  const targetGlobalFret = baseFretIndexOfRoleAndModeNote + tuneKeyOffsetFromC;
+  const targetGlobalFret = baseFretIndexOfBaseChordNote + tuneKeyOffsetFromC;
 
   useEffect(() => {
     const container = containerRef.current;

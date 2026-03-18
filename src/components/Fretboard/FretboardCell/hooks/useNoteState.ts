@@ -5,10 +5,14 @@ import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
 import { useShapeCoordinates } from "./useShapeCoordinates";
 import { isShapeNote as isShapeNoteFn } from "../helpers";
 import { useFretboardStates } from "./useFretboardStates";
-import { MINOR_POINT_INDEXES } from "../constants/constants";
-import { useRoleAndModeCoords } from "./useRoleAndModeCoords";
+import { useBaseChordCoords } from "./useBaseChordCoords";
 import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
-import { useShapeRootSharpNote } from "@/hooks";
+import {
+  useEnharmonicNoteName,
+  useBaseChordsNames,
+  useShapeRootSharpNote,
+} from "@/hooks";
+import { BASE_CHORDS_MAP } from "@/data";
 
 interface UseNoteStateProps {
   noteData: NoteObject;
@@ -21,7 +25,7 @@ export const useNoteState = ({
   stringIndex,
   fretIndex,
 }: UseNoteStateProps) => {
-  const roleAndModeCellsCoords = useRoleAndModeCoords();
+  const baseChordCellsCoords = useBaseChordCoords();
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const shapeVariantLocationData = useMusicStore(
@@ -31,6 +35,7 @@ export const useNoteState = ({
     (state) => state.shapeVariantLocationData_locked,
   );
   const roleId = useControlsStore((state) => state.roleId);
+  const getEnharmonicNoteName = useEnharmonicNoteName();
 
   const { isRoleSelected, isShapeSelected, shouldMarkTuneNotes } =
     useFretboardStates();
@@ -45,14 +50,19 @@ export const useNoteState = ({
     shapeVariantLocationData_locked,
   );
 
-  const currentPointIndex = roleAndModeCellsCoords.findIndex(
-    ([targetString, targetFret]) =>
+  const currentPointIndex = baseChordCellsCoords.findIndex(
+    ([targetString, targetFret]: number[]) =>
       targetString === stringIndex && targetFret === fretIndex,
   );
 
-  const isRoleAndModeNote = currentPointIndex !== -1 && !isRoleSelected;
-  const isMinor =
-    isRoleAndModeNote && MINOR_POINT_INDEXES.includes(currentPointIndex);
+  const isBaseChordNote = currentPointIndex !== -1 && !isRoleSelected;
+  const indexToSemitonMap = [0, 2, 4, 5, 7, 9];
+  const getBaseChordName = useBaseChordsNames();
+
+  // if (BASE_CHORDS_MAP[currentPointIndex]) {
+  //   console.log("fretboard", BASE_CHORDS_MAP[currentPointIndex]);
+  // }
+
   const shapeRootSharpNote = useShapeRootSharpNote();
   const isActiveNote = activeNoteId === noteData.noteId;
   const isShapeRootNote =
@@ -82,8 +92,12 @@ export const useNoteState = ({
     isActiveNote,
     isShapeNote,
     isLockedNote: isEffectiveLockedNote,
-    isRoleAndModeNote,
-    isMinor,
+    isBaseChordNote,
+    noteLabel: isBaseChordNote
+      ? getBaseChordName({
+          semitoneOffsetFromC: indexToSemitonMap[currentPointIndex],
+        })
+      : getEnharmonicNoteName(noteData),
     opacity: getOpacity(),
     brightness: isActiveNote ? 3 : 1,
   };

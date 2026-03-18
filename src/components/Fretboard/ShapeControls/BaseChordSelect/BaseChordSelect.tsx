@@ -1,4 +1,3 @@
-import { roleAndModeValuesMap } from "@/data";
 import { useBaseChordSelect } from "./hooks/useBaseChordSelect";
 import {
   Select,
@@ -7,40 +6,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRoleChordsNames } from "@/hooks";
-
-const Separator = () => <div className="border-t my-1" />;
+import { useBaseChordOptions } from "./hooks/useBaseChordOptions";
 
 export function BaseChordSelect() {
   const { currentValue, handleValueChange, globalRoles } = useBaseChordSelect();
-  const getRoleChordName = useRoleChordsNames();
+  const baseChordOptions = useBaseChordOptions();
 
   return (
-    <div>
-      <Select value={currentValue} onValueChange={handleValueChange}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select mode & function" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all-matching-key">
-            {globalRoles.matchingKey.label}
-          </SelectItem>
+    <Select value={currentValue} onValueChange={handleValueChange}>
+      <SelectTrigger>
+        <SelectValue placeholder="Select mode & function" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem value="all-matching-key">
+          {globalRoles.matchingKey.label}
+        </SelectItem>
 
-          <Separator />
-
-          {roleAndModeValuesMap.map((item, index) => {
-            const itemValue = String(index);
-            const itemKey = `${item.isMajorMode ? "major" : "minor"} ${item.role}`;
-            const chordName = getRoleChordName(item.semitoneOffsetFromC);
-
-            return (
-              <SelectItem key={itemKey} value={itemValue}>
-                {chordName}
-              </SelectItem>
-            );
-          })}
-        </SelectContent>
-      </Select>
-    </div>
+        {baseChordOptions.map((item) => {
+          return (
+            <SelectItem key={item.key} value={item.value}>
+              {item.chordName}
+            </SelectItem>
+          );
+        })}
+      </SelectContent>
+    </Select>
   );
 }

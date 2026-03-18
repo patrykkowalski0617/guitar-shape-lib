@@ -14,7 +14,6 @@ import {
   _m9,
   _M9,
 } from "./intervals";
-import type { FunctionalRoleId } from "./roles";
 
 export type ShapeType = "Arpeggio" | "Scale" | "Set";
 
@@ -46,6 +45,7 @@ export interface Shape {
     tonic?: SemitoneOffsetFromMajorTonicRoot;
     subdominant?: SemitoneOffsetFromMajorTonicRoot;
     dominant?: SemitoneOffsetFromMajorTonicRoot;
+    mediant?: SemitoneOffsetFromMajorTonicRoot;
   };
   fretboardCoordinatesVariants: FretboardCoordinates;
 }
@@ -54,15 +54,14 @@ export interface Shapes {
   [key: string]: Shape;
 }
 
-type ModeRoleKey = `${"major" | "minor"}_${FunctionalRoleId}`;
-
-export const DEFAULT_SHAPES_CONFIG: Record<ModeRoleKey, string> = {
+export const DEFAULT_SHAPES_CONFIG = {
   major_tonic: "M7",
   major_subdominant: "M7",
   major_dominant: "dominant",
   minor_tonic: "m7",
   minor_subdominant: "m7",
   minor_dominant: "dominant",
+  minor_mediant: "m7",
 };
 
 export const shapes: Shapes = {
@@ -200,6 +199,7 @@ export const shapes: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       tonic: { bothModes: [_M6], majorMode: [_M3] },
       subdominant: { bothModes: [_M2], majorMode: [_M6] },
+      mediant: { minorMode: [_M3] },
     },
     fretboardCoordinatesVariants: {
       strE: {
@@ -499,6 +499,7 @@ export const shapes: Shapes = {
       },
       subdominant: { minorMode: [_M2] },
       dominant: { majorMode: [_5, _M3] },
+      mediant: { minorMode: [_M3] },
     },
     fretboardCoordinatesVariants: {
       strE: {
