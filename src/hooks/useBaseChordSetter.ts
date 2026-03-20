@@ -10,7 +10,9 @@ export const useBaseChordSetter = () => {
   );
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
 
-  const setBaseChord = (BASE_CHORDS_MAP_INDEX: number) => {
+  const setBaseChordId = (BASE_CHORDS_MAP_INDEX: number) => {
+    console.log(BASE_CHORDS_MAP_INDEX);
+
     setActiveNoteId(null);
     if (BASE_CHORDS_MAP_INDEX === -1) {
       setRoleId("all-matching-key");
@@ -22,5 +24,5 @@ export const useBaseChordSetter = () => {
     }
   };
 
-  return setBaseChord;
+  return setBaseChordId;
 };

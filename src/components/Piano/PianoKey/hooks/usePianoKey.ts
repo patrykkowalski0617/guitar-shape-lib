@@ -14,7 +14,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const shapeId = useControlsStore((state) => state.shapeId);
   const roleId = useControlsStore((state) => state.roleId);
-  const setBaseChord = useBaseChordSetter();
+  const setBaseChordId = useBaseChordSetter();
 
   const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } =
     useScaleLogic();
@@ -42,7 +42,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
         ? currentScaleNoteIds.indexOf(note.noteId)
         : -1;
 
-    setBaseChord(scaleIndex);
+    setBaseChordId(scaleIndex);
   };
 
   return {

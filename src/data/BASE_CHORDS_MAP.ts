@@ -1,7 +1,15 @@
 import type { RoleId } from "./roles";
 
+export type BaseChorId =
+  | "Tonic"
+  | "subdomi"
+  | "mediant"
+  | "DomiPh"
+  | "Subdomi"
+  | "Domi"
+  | "tonic";
 export interface BaseChordValue {
-  id: string;
+  id: BaseChorId;
   role: RoleId;
   isMajorMode: boolean;
   semitoneOffsetFromC: number;
@@ -9,43 +17,43 @@ export interface BaseChordValue {
 
 export const BASE_CHORDS_MAP: BaseChordValue[] = [
   {
-    id: "0",
+    id: "Tonic",
     role: "tonic",
     isMajorMode: true,
     semitoneOffsetFromC: 0,
   },
   {
-    id: "1",
+    id: "subdomi",
     role: "subdominant",
     isMajorMode: false,
     semitoneOffsetFromC: 2,
   },
   {
-    id: "2",
+    id: "DomiPh",
     role: "dominant",
     isMajorMode: true,
     semitoneOffsetFromC: 4,
   },
   {
-    id: "3",
+    id: "mediant",
     role: "mediant",
     isMajorMode: false,
     semitoneOffsetFromC: 4,
   },
   {
-    id: "4",
+    id: "Subdomi",
     role: "subdominant",
     isMajorMode: true,
     semitoneOffsetFromC: 5,
   },
   {
-    id: "5",
+    id: "Domi",
     role: "dominant",
     isMajorMode: true,
     semitoneOffsetFromC: 7,
   },
   {
-    id: "6",
+    id: "tonic",
     role: "tonic",
     isMajorMode: false,
     semitoneOffsetFromC: 9,

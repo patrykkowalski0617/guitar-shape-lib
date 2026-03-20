@@ -14,7 +14,7 @@ export const useBaseChordsNames = () => {
     const bothModesChordsIndexes = [4];
 
     return bothModesChordsIndexes.includes(semitoneOffsetFromC)
-      ? "?m"
+      ? "/m"
       : minorChordsIndexes.includes(semitoneOffsetFromC)
         ? "m"
         : "";

@@ -12,7 +12,7 @@ export function useFretboardCellInteraction({
 }: UseFretboardCellInteractionProps) {
   const baseChordCellsCoords = useBaseChordCoords();
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
-  const setBaseChord = useBaseChordSetter();
+  const setBaseChordId = useBaseChordSetter();
 
   const handleMouseEnter = () => setActiveNoteId(noteData.noteId);
   const handleMouseLeave = () => setActiveNoteId(null);
@@ -22,7 +22,7 @@ export function useFretboardCellInteraction({
       ([targetString, targetFret]: number[]) =>
         targetString === stringIndex && targetFret === fretIndex,
     );
-    setBaseChord(foundPointIndex);
+    setBaseChordId(foundPointIndex);
   };
 
   return {

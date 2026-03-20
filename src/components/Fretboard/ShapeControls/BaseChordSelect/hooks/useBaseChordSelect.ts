@@ -1,33 +1,28 @@
-import { useMusicStore } from "@/store";
-import { type RoleId, roles } from "@/data";
+import { useControlsStore, useMusicStore } from "@/store";
+import { type BaseChorId, type RoleId, roles } from "@/data";
 import { isGlobalRole } from "@/utils";
-import { useBaseChordSetter } from "@/hooks";
-import { useState } from "react";
 
 export function useBaseChordSelect() {
   const setShapeVariantLocationData = useMusicStore(
     (state) => state.setShapeVariantLocationData,
   );
-  const setBaseChord = useBaseChordSetter();
-  const [baseChordIndex, setBaseChordIndex] = useState<
-    string | "all-matching-key"
-  >("all-matching-key");
+  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
+  const baseChordId = useControlsStore((state) => state.baseChordId);
 
   const handleValueChange = (value: string) => {
     setShapeVariantLocationData(null);
-    setBaseChordIndex(value);
 
     const isGlobal = isGlobalRole(value as RoleId);
 
     if (isGlobal) {
-      setBaseChord(-1);
+      setBaseChordId(null);
     }
 
-    setBaseChord(Number(value));
+    setBaseChordId(value as BaseChorId);
   };
 
   return {
-    currentValue: baseChordIndex,
+    currentValue: baseChordId,
     handleValueChange,
     globalRoles: {
       matchingKey: roles["all-matching-key"],

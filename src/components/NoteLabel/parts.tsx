@@ -58,7 +58,7 @@ export const NoteWrapper = styled.div<{
       ${Note} {
         color: ${$isShapeNote ? highlightedColor : unHighlightedColor};
         height: 15px;
-        width: 26px;
+        width: 30px;
         border-radius: 4px;
       }
     `}

@@ -1,4 +1,10 @@
-import { shapes, type Shapes, type RoleId, type MusicKeyId } from "@/data";
+import {
+  shapes,
+  type Shapes,
+  type RoleId,
+  type MusicKeyId,
+  type BaseChorId,
+} from "@/data";
 import { sortShapeOptionsByNote } from "./sortShapeOptionsByNote";
 
 export type ShapeOption = {
@@ -10,13 +16,14 @@ export const getFilteredShapeOptions = (
   roleId: RoleId | null,
   isMajorMode: boolean,
   tuneKeyId: MusicKeyId,
+  baseChordId: BaseChorId,
 ): ShapeOption[] => {
   if (!roleId) return [];
 
   if (roleId === "all-matching-key") {
     const rolesToCombine: RoleId[] = ["tonic", "subdominant", "dominant"];
     const allOptions = rolesToCombine.flatMap((role) =>
-      getFilteredShapeOptions(role, isMajorMode, tuneKeyId),
+      getFilteredShapeOptions(role, isMajorMode, tuneKeyId, baseChordId),
     );
 
     const seen = new Set<string>();
@@ -32,16 +39,11 @@ export const getFilteredShapeOptions = (
 
   const options: ShapeOption[] = [];
   Object.entries(shapes).forEach(([shapeId, shape]) => {
-    const roleData =
-      shape.semitoneOffsetFromMajorTonicRoot[
-        roleId as keyof typeof shape.semitoneOffsetFromMajorTonicRoot
-      ];
-    if (!roleData) return;
+    if (!shape.semitoneOffsetFromMajorTonicRoot) return;
 
-    const offsets = [
-      ...(roleData.bothModes || []),
-      ...(isMajorMode ? roleData.majorMode || [] : roleData.minorMode || []),
-    ];
+    const offsets = shape.semitoneOffsetFromMajorTonicRoot[baseChordId];
+
+    if (offsets === undefined) return;
 
     offsets.forEach((shapeSemitoneOffsetFromC) =>
       options.push({

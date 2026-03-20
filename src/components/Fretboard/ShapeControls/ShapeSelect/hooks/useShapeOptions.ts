@@ -4,6 +4,7 @@ import { getNotes } from "@/utils";
 import { getFilteredShapeOptions } from "../helpers/getFilteredShapeOptions";
 
 export const useShapeOptions = () => {
+  const baseChordId = useControlsStore((state) => state.baseChordId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const roleId = useControlsStore((state) => state.roleId);
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
@@ -13,7 +14,12 @@ export const useShapeOptions = () => {
 
   const relativeScale = getNotes({ firstNote: tuneKeyId as Note, length: 12 });
 
-  const rawOptions = getFilteredShapeOptions(roleId, isMajorMode, tuneKeyId);
+  const rawOptions = getFilteredShapeOptions(
+    roleId,
+    isMajorMode,
+    tuneKeyId,
+    baseChordId,
+  );
 
   return rawOptions.map(({ shapeId, shapeSemitoneOffsetFromC }) => {
     const shape = shapes[shapeId as keyof Shapes];

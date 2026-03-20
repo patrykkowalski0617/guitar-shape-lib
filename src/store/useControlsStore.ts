@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { MusicKeyId, RoleId } from "@/data";
+import type { BaseChorId, MusicKeyId, RoleId } from "@/data";
 import { getAutoSelectedShape } from "@/components/Fretboard/ShapeControls/ShapeSelect/helpers";
 
 interface ControlsState {
@@ -11,6 +11,9 @@ interface ControlsState {
 
   roleId: RoleId | null;
   setRoleId: (id: RoleId | null) => void;
+
+  baseChordId: BaseChorId | null;
+  setBaseChordId: (id: BaseChorId | null) => void;
 
   shapeId: string | null;
   shapeSemitoneOffsetFromC: number | null;
@@ -25,6 +28,7 @@ interface ControlsState {
 const initialState = {
   isMajorMode: true,
   tuneKeyId: "C" as MusicKeyId,
+  baseChordId: null,
   roleId: "all-matching-key" as RoleId | null,
   shapeId: null as string | null,
   shapeSemitoneOffsetFromC: null as number | null,
@@ -51,6 +55,8 @@ export const useControlsStore = create<ControlsState>((set) => ({
     }),
 
   setTuneKeyId: (id) => set({ tuneKeyId: id }),
+
+  setBaseChordId: (id) => set({ baseChordId: id }),
 
   setRoleId: (id) =>
     set((state) => {
