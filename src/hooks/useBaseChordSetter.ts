@@ -2,7 +2,7 @@ import { BASE_CHORDS_MAP } from "@/data";
 import { useControlsStore, useMusicStore } from "@/store";
 
 export const useBaseChordSetter = () => {
-  const setRoleId = useControlsStore((state) => state.setRoleId);
+  // const setRoleId = useControlsStore((state) => state.setRoleId);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
 
   const setShapeVariantLocationData = useMusicStore(
@@ -15,11 +15,11 @@ export const useBaseChordSetter = () => {
 
     setActiveNoteId(null);
     if (BASE_CHORDS_MAP_INDEX === -1) {
-      setRoleId("all-matching-key");
+      // setRoleId("all-matching-key");
       setIsMajorMode(true);
       setShapeVariantLocationData(null);
     } else {
-      setRoleId(BASE_CHORDS_MAP[BASE_CHORDS_MAP_INDEX].role);
+      // setRoleId(BASE_CHORDS_MAP[BASE_CHORDS_MAP_INDEX].role);
       setIsMajorMode(BASE_CHORDS_MAP[BASE_CHORDS_MAP_INDEX].isMajorMode);
     }
   };

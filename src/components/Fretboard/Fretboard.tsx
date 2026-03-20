@@ -12,6 +12,7 @@ import { KeySelect } from "./ShapeControls/KeySelect/KeySelect";
 import { ShapeSelect } from "./ShapeControls/ShapeSelect/ShapeSelect";
 import { usePlayerStore } from "@/store";
 import { BaseChordSelect } from "./ShapeControls/BaseChordSelect/BaseChordSelect";
+import TuneSlider from "./TuneSlider/TuneSlider";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -44,6 +45,7 @@ export default function Fretboard(): JSX.Element {
       {!isPlaying && (
         <S.ControlWrapper>
           <KeySelect />
+          <TuneSlider />
           <BaseChordSelect />
           <ShapeSelect />
           <ShapeExplorerSlider />

@@ -12,7 +12,6 @@ import {
   useBaseChordsNames,
   useShapeRootSharpNote,
 } from "@/hooks";
-import { BASE_CHORDS_MAP } from "@/data";
 
 interface UseNoteStateProps {
   noteData: NoteObject;

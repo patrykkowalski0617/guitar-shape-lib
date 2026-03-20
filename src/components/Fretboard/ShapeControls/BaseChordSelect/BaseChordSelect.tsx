@@ -13,7 +13,7 @@ export function BaseChordSelect() {
   const baseChordOptions = useBaseChordOptions();
 
   return (
-    <Select value={currentValue} onValueChange={handleValueChange}>
+    <Select value={currentValue as string} onValueChange={handleValueChange}>
       <SelectTrigger>
         <SelectValue placeholder="Select mode & function" />
       </SelectTrigger>

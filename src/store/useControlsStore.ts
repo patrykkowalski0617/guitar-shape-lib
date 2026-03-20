@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type { BaseChorId, MusicKeyId, RoleId } from "@/data";
-import { getAutoSelectedShape } from "@/components/Fretboard/ShapeControls/ShapeSelect/helpers";
+// import { getAutoSelectedShape } from "@/components/Fretboard/ShapeControls/ShapeSelect/helpers";
 
 interface ControlsState {
   isMajorMode: boolean;
@@ -10,7 +10,7 @@ interface ControlsState {
   setTuneKeyId: (id: MusicKeyId) => void;
 
   roleId: RoleId | null;
-  setRoleId: (id: RoleId | null) => void;
+  // setRoleId: (id: RoleId | null) => void;
 
   baseChordId: BaseChorId | null;
   setBaseChordId: (id: BaseChorId | null) => void;
@@ -41,16 +41,16 @@ export const useControlsStore = create<ControlsState>((set) => ({
     set((state) => {
       if (!state.roleId) return { isMajorMode };
 
-      const { shapeId, shapeSemitoneOffsetFromC } = getAutoSelectedShape(
-        state.roleId,
-        isMajorMode,
-        state.tuneKeyId,
-      );
+      // const { shapeId, shapeSemitoneOffsetFromC } = getAutoSelectedShape(
+      //   state.roleId,
+      //   isMajorMode,
+      //   state.tuneKeyId,
+      // );
 
       return {
         isMajorMode,
-        shapeId: shapeId,
-        shapeSemitoneOffsetFromC: shapeSemitoneOffsetFromC,
+        // shapeId: shapeId,
+        // shapeSemitoneOffsetFromC: shapeSemitoneOffsetFromC,
       };
     }),
 
@@ -58,28 +58,28 @@ export const useControlsStore = create<ControlsState>((set) => ({
 
   setBaseChordId: (id) => set({ baseChordId: id }),
 
-  setRoleId: (id) =>
-    set((state) => {
-      if (!id) {
-        return {
-          roleId: null,
-          shapeId: null,
-          shapeSemitoneOffsetFromC: null,
-        };
-      }
+  // setRoleId: (id) =>
+  //   set((state) => {
+  //     if (!id) {
+  //       return {
+  //         roleId: null,
+  //         shapeId: null,
+  //         shapeSemitoneOffsetFromC: null,
+  //       };
+  //     }
 
-      const { shapeId, shapeSemitoneOffsetFromC } = getAutoSelectedShape(
-        id,
-        state.isMajorMode,
-        state.tuneKeyId,
-      );
+  //     const { shapeId, shapeSemitoneOffsetFromC } = getAutoSelectedShape(
+  //       id,
+  //       state.isMajorMode,
+  //       state.tuneKeyId,
+  //     );
 
-      return {
-        roleId: id,
-        shapeId: shapeId,
-        shapeSemitoneOffsetFromC: shapeSemitoneOffsetFromC,
-      };
-    }),
+  //     return {
+  //       roleId: id,
+  //       shapeId: shapeId,
+  //       shapeSemitoneOffsetFromC: shapeSemitoneOffsetFromC,
+  //     };
+  //   }),
 
   setShape: (shapeId, shapeSemitoneOffsetFromC) =>
     set({

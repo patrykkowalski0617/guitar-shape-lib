@@ -1,4 +1,4 @@
-import { UNIFIED_MUSIC_KEYS, type RoleId } from "@/data";
+import { UNIFIED_MUSIC_KEYS } from "@/data";
 import { useEnharmonicNoteName } from "@/hooks";
 import { useControlsStore } from "@/store";
 import { getNotes } from "@/utils";
@@ -22,10 +22,8 @@ export const useBaseChordsNames = () => {
 
   const getBaseChordName = ({
     semitoneOffsetFromC,
-    role,
   }: {
     semitoneOffsetFromC: number;
-    role?: RoleId;
   }) => {
     const noteAtOffset = notes[semitoneOffsetFromC];
     const chordName = getEnharmonicNoteName(noteAtOffset);

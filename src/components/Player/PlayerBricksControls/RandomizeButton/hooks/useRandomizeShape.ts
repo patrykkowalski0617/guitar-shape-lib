@@ -1,6 +1,4 @@
 import { useControlsStore } from "@/store";
-
-import type { RoleId } from "@/data";
 import {
   getFilteredShapeOptions,
   type ShapeOption,
@@ -8,17 +6,11 @@ import {
 
 export const useRandomizeShape = () => {
   const setShape = useControlsStore((state) => state.setShape);
-  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
 
-  const setRandomShape = (randomRole: RoleId, randomIsMajorMode: boolean) => {
-    const shapeOptions: ShapeOption[] = getFilteredShapeOptions(
-      randomRole,
-      randomIsMajorMode,
-      tuneKeyId,
-    );
+  const setRandomShape = () => {
+    const shapeOptions: ShapeOption[] = getFilteredShapeOptions("tonic");
 
     if (shapeOptions.length === 0) {
-      console.warn(`[RANDOMIZE] No options found for role: ${randomRole}`);
       return { shapeId: null, shapeSemitoneOffsetFromC: null };
     }
 

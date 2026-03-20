@@ -5,7 +5,7 @@ export function useKeySelection() {
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
-  const setRoleId = useControlsStore((state) => state.setRoleId);
+  // const setRoleId = useControlsStore((state) => state.setRoleId);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
   const setShapeVariantLocationData = useMusicStore(
     (state) => state.setShapeVariantLocationData,
@@ -25,7 +25,7 @@ export function useKeySelection() {
     const newKeyId = value as MusicKeyId;
     setTuneKeyId(newKeyId);
     setShapeVariantLocationData(null);
-    setRoleId("all-matching-key");
+    // setRoleId("all-matching-key");
     setIsMajorMode(true);
   };
 

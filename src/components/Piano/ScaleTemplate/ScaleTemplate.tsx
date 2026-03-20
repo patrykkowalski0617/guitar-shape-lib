@@ -3,13 +3,12 @@ import * as S from "./parts";
 import { useScaleTemplate } from "./hooks/useScaleTemplate";
 import { isGlobalRole as isGlobalRoleFn } from "@/utils";
 import { useBaseChordsNames } from "@/hooks";
-import { BASE_CHORDS_MAP } from "@/data";
 
 export default function ScaleTemplate(): JSX.Element {
   const { position, highlightRole, altIndexes, roleId } = useScaleTemplate();
-  const isGlobalRole = isGlobalRoleFn(roleId);
-
   const getBaseChordName = useBaseChordsNames();
+
+  const isGlobalRole = isGlobalRoleFn(roleId);
 
   return (
     <S.TemplateWrapper $position={position}>

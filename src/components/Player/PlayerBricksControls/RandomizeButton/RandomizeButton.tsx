@@ -1,9 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Dices } from "lucide-react";
 import {
-  useRandomizeMode,
   useRandomizeKey,
-  useRandomizeRole,
   useRandomizeShape,
   useRandomizeShapeVariant,
 } from "./hooks";
@@ -13,9 +11,7 @@ import { Button } from "@/components/ui/button";
 import { playerIconSize } from "@/components/Player/constants";
 
 export function RandomizeButton() {
-  const { setRandomMode } = useRandomizeMode();
   const { setRandomKey } = useRandomizeKey();
-  const { setRandomRole } = useRandomizeRole();
   const { setRandomShape } = useRandomizeShape();
   const { setRandomShapeVariant } = useRandomizeShapeVariant();
   const { addBrick } = useAddBrick();
@@ -40,14 +36,9 @@ export function RandomizeButton() {
   }
 
   const handleRandomize = () => {
-    const randomIsMajorMode = setRandomMode();
     const randomKey = setRandomKey();
-    const randomRole = setRandomRole();
 
-    const { shapeId, shapeSemitoneOffsetFromC } = setRandomShape(
-      randomRole,
-      randomIsMajorMode,
-    );
+    const { shapeId, shapeSemitoneOffsetFromC } = setRandomShape();
 
     const isShapeDataValid =
       shapeId !== null && shapeSemitoneOffsetFromC !== null;

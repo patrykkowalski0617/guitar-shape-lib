@@ -5,8 +5,6 @@ import { getFilteredShapeOptions } from "../helpers/getFilteredShapeOptions";
 
 export const useShapeOptions = () => {
   const baseChordId = useControlsStore((state) => state.baseChordId);
-  const isMajorMode = useControlsStore((state) => state.isMajorMode);
-  const roleId = useControlsStore((state) => state.roleId);
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
 
   const musicKey = UNIFIED_MUSIC_KEYS[tuneKeyId];
@@ -14,12 +12,7 @@ export const useShapeOptions = () => {
 
   const relativeScale = getNotes({ firstNote: tuneKeyId as Note, length: 12 });
 
-  const rawOptions = getFilteredShapeOptions(
-    roleId,
-    isMajorMode,
-    tuneKeyId,
-    baseChordId,
-  );
+  const rawOptions = getFilteredShapeOptions(baseChordId);
 
   return rawOptions.map(({ shapeId, shapeSemitoneOffsetFromC }) => {
     const shape = shapes[shapeId as keyof Shapes];

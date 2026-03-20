@@ -24,7 +24,7 @@ export function PlayerPresets() {
   const setBricks = usePlayerStore((state) => state.setBricks);
   const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
-  const setRoleId = useControlsStore((state) => state.setRoleId);
+  // const setRoleId = useControlsStore((state) => state.setRoleId);
   const setShapeVariantLocationData = useMusicStore(
     (state) => state.setShapeVariantLocationData,
   );
@@ -43,7 +43,7 @@ export function PlayerPresets() {
     const isMajorMode = bricks[0].snapshot.isMajorMode;
     setTuneKeyId(keyId);
     setIsMajorMode(isMajorMode);
-    setRoleId("all-matching-key");
+    // setRoleId("all-matching-key");
     setShapeVariantLocationData(null);
     setShapeVariantLocationData_locked(null);
 

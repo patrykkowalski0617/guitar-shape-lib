@@ -1,4 +1,8 @@
-import { usePlayerStore, useMusicStore, useControlsStore } from "@/store";
+import {
+  usePlayerStore,
+  useMusicStore,
+  // useControlsStore
+} from "@/store";
 
 export function useCloseEdit() {
   const activeBrickId = usePlayerStore((state) => state.activeBrickId);
@@ -9,7 +13,7 @@ export function useCloseEdit() {
   const setShapeVariantLocationData = useMusicStore(
     (state) => state.setShapeVariantLocationData,
   );
-  const setRoleId = useControlsStore((state) => state.setRoleId);
+  // const setRoleId = useControlsStore((state) => state.setRoleId);
 
   const isEditModeActive = activeBrickId !== null;
 
@@ -17,7 +21,7 @@ export function useCloseEdit() {
     setActiveBrickId(null);
     setShapeVariantLocationData_locked(null);
     setShapeVariantLocationData(null);
-    setRoleId("all-matching-key");
+    // setRoleId("all-matching-key");
   };
 
   return {
