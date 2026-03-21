@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { BaseChorId, MusicKeyId, RoleId } from "@/data";
+import type { BaseChordId, MusicKeyId, RoleId } from "@/data";
 // import { getAutoSelectedShape } from "@/components/Fretboard/ShapeControls/ShapeSelect/helpers";
 
 interface ControlsState {
@@ -12,8 +12,8 @@ interface ControlsState {
   roleId: RoleId | null;
   // setRoleId: (id: RoleId | null) => void;
 
-  baseChordId: BaseChorId | null;
-  setBaseChordId: (id: BaseChorId | null) => void;
+  baseChordId: BaseChordId | null;
+  setBaseChordId: (id: BaseChordId | null) => void;
 
   shapeId: string | null;
   shapeSemitoneOffsetFromC: number | null;

@@ -1,4 +1,3 @@
-export * from "./useBaseChordSetter";
 export * from "./useBaseChordsNames";
 export * from "./useEnharmonicNoteName";
 export * from "./useHorizontalScroll";

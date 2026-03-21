@@ -5,13 +5,8 @@ import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
 import { useShapeCoordinates } from "./useShapeCoordinates";
 import { isShapeNote as isShapeNoteFn } from "../helpers";
 import { useFretboardStates } from "./useFretboardStates";
-import { useBaseChordCoords } from "./useBaseChordCoords";
 import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
-import {
-  useEnharmonicNoteName,
-  useBaseChordsNames,
-  useShapeRootSharpNote,
-} from "@/hooks";
+import { useEnharmonicNoteName, useShapeRootSharpNote } from "@/hooks";
 
 interface UseNoteStateProps {
   noteData: NoteObject;
@@ -24,7 +19,6 @@ export const useNoteState = ({
   stringIndex,
   fretIndex,
 }: UseNoteStateProps) => {
-  const baseChordCellsCoords = useBaseChordCoords();
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const shapeVariantLocationData = useMusicStore(
@@ -35,8 +29,7 @@ export const useNoteState = ({
   );
   const getEnharmonicNoteName = useEnharmonicNoteName();
 
-  const { isRoleSelected, isShapeSelected, shouldMarkTuneNotes } =
-    useFretboardStates();
+  const { isShapeSelected, shouldMarkTuneNotes } = useFretboardStates();
   const allShapesCoordinates = useShapeAllCoordinates();
   const shapeCoordinates = useShapeCoordinates(shapeVariantLocationData);
 
@@ -47,15 +40,6 @@ export const useNoteState = ({
   const lockedShapeCoordinates = useShapeCoordinates(
     shapeVariantLocationData_locked,
   );
-
-  const currentPointIndex = baseChordCellsCoords.findIndex(
-    ([targetString, targetFret]: number[]) =>
-      targetString === stringIndex && targetFret === fretIndex,
-  );
-
-  const isBaseChordNote = currentPointIndex !== -1 && !isRoleSelected;
-  const indexToSemitonMap = [0, 2, 4, 5, 7, 9];
-  const getBaseChordName = useBaseChordsNames();
 
   const shapeRootSharpNote = useShapeRootSharpNote();
   const isActiveNote = activeNoteId === noteData.noteId;
@@ -85,12 +69,7 @@ export const useNoteState = ({
     isActiveNote,
     isShapeNote,
     isLockedNote,
-    isBaseChordNote,
-    noteLabel: isBaseChordNote
-      ? getBaseChordName({
-          semitoneOffsetFromC: indexToSemitonMap[currentPointIndex],
-        })
-      : getEnharmonicNoteName(noteData),
+    noteLabel: getEnharmonicNoteName(noteData),
     opacity: getOpacity(),
     brightness: isActiveNote ? 3 : 1,
   };

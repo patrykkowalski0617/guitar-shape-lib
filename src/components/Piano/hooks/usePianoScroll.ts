@@ -4,9 +4,8 @@ import { useEffect, type RefObject } from "react";
 export const usePianoScroll = (
   containerRef: RefObject<HTMLDivElement | null>,
 ) => {
-  const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const roleId = useControlsStore((state) => state.roleId);
+  const baseChordId = useControlsStore((state) => state.baseChordId);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -37,5 +36,5 @@ export const usePianoScroll = (
     }, waitTime);
 
     return () => clearTimeout(timer);
-  }, [containerRef, isMajorMode, tuneKeyId, roleId]);
+  }, [containerRef, tuneKeyId, baseChordId]);
 };

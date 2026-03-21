@@ -1,4 +1,4 @@
-import type { BaseChorId } from "./BASE_CHORDS_MAP";
+import type { BaseChordId } from "./BASE_CHORDS_MAP";
 import {
   _1,
   _m2,
@@ -42,7 +42,7 @@ export interface Shape {
   label: string;
   type: ShapeType;
   intervals: number[];
-  semitoneOffsetFromMajorTonicRoot: Partial<Record<BaseChorId, number[]>>;
+  semitoneOffsetFromMajorTonicRoot: Partial<Record<BaseChordId, number[]>>;
   fretboardCoordinatesVariants: FretboardCoordinates;
 }
 

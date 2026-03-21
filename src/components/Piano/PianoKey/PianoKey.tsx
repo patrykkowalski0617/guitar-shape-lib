@@ -36,7 +36,6 @@ const PianoKey = ({ note }: PianoKeyProps) => {
       data-piano-scroll-target={interactivity.isScrollTarget}
       onMouseOver={interactivity.handleMouseEnter}
       onMouseLeave={interactivity.handleMouseLeave}
-      onClick={interactivity.handleClick}
     >
       <NoteLabel
         isShapeNote={isShapeNote}

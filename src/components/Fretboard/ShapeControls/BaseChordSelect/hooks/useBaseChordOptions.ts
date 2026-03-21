@@ -8,12 +8,12 @@ export const useBaseChordOptions = () => {
   const firstNote = UNIFIED_MUSIC_KEYS[tuneKeyId].majorName;
   const notes = getNotes({ firstNote });
   const getEnharmonicNoteName = useEnharmonicNoteName();
-  const options = BASE_CHORDS_MAP.map((item) => {
-    const value = item.id;
-    const key = item.id;
+  const options = Object.entries(BASE_CHORDS_MAP).map(([id, data]) => {
+    const value = id;
+    const key = id;
 
-    const noteAtOffset = notes[item.semitoneOffsetFromC];
-    const isMajorMode = item.isMajorMode;
+    const noteAtOffset = notes[data.semitoneOffsetFromC];
+    const isMajorMode = data.isMajorMode;
     const noteName = getEnharmonicNoteName(noteAtOffset);
 
     const chordName = `${noteName}${isMajorMode ? "" : "m"}`;

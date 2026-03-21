@@ -1,4 +1,4 @@
-import { shapes, type Shapes, type BaseChorId } from "@/data";
+import { shapes, type Shapes, type BaseChordId } from "@/data";
 
 export type ShapeOption = {
   shapeId: keyof Shapes;
@@ -6,7 +6,7 @@ export type ShapeOption = {
 };
 
 export const getFilteredShapeOptions = (
-  baseChordId: BaseChorId | null,
+  baseChordId: BaseChordId | null,
 ): ShapeOption[] => {
   if (!baseChordId) return [];
 

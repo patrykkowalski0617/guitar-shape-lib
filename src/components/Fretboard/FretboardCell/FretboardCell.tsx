@@ -16,34 +16,27 @@ export default function FretboardCell({
   stringIndex,
   fretIndex,
 }: FretboardCellProps) {
-  const { handleMouseEnter, handleMouseLeave, handleClick } =
-    useFretboardCellInteraction({ noteData });
-
-  const {
-    isLockedNote,
-    isShapeNote,
-    isBaseChordNote,
-    opacity,
-    brightness,
-    noteLabel,
-  } = useNoteState({
+  const { handleMouseEnter, handleMouseLeave } = useFretboardCellInteraction({
     noteData,
-    stringIndex,
-    fretIndex,
   });
+
+  const { isLockedNote, isShapeNote, opacity, brightness, noteLabel } =
+    useNoteState({
+      noteData,
+      stringIndex,
+      fretIndex,
+    });
 
   return (
     <S.FretWrapper
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={() => handleClick(stringIndex, fretIndex)}
     >
       <S.Fret $isLockedNote={isLockedNote} data-fret={fretIndex}>
         <S.Note
           $opacity={opacity}
           $brightness={brightness}
           $isShapeNote={isShapeNote}
-          $isBaseChordNote={isBaseChordNote}
         >
           <NoteLabel
             isShapeNote={isShapeNote}

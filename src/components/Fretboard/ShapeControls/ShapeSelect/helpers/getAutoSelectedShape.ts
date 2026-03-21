@@ -1,10 +1,10 @@
-import { type BaseChorId } from "@/data";
+import { type BaseChordId } from "@/data";
 import {
   getFilteredShapeOptions,
   type ShapeOption,
 } from "./getFilteredShapeOptions";
 
-export const getAutoSelectedShape = (baseChordId: BaseChorId) => {
+export const getAutoSelectedShape = (baseChordId: BaseChordId) => {
   const options: ShapeOption[] = getFilteredShapeOptions(baseChordId);
 
   // if (!roleId || isGlobalRole(roleId)) {

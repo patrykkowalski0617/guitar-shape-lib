@@ -7,12 +7,13 @@ import {
   minorScale,
   UNIFIED_MUSIC_KEYS,
   type Note,
+  BASE_CHORDS_MAP,
 } from "@/data";
 import { matchShapeNotesToRoleNotes } from "../../helpers/matchShapeNotesToRoleNotes";
-import { isGlobalRole, getNotes } from "@/utils";
+import { getNotes } from "@/utils";
 
 export const useScaleLogic = () => {
-  const { isMajorMode, tuneKeyId, roleId, shapeId, shapeSemitoneOffsetFromC } =
+  const { baseChordId, tuneKeyId, shapeId, shapeSemitoneOffsetFromC } =
     useControlsStore();
 
   const FIRST_OCTAVE_NO_FOR_PRESENTATION = 3;
@@ -24,9 +25,13 @@ export const useScaleLogic = () => {
     currentMusicKey.relativeMinorFirstNote;
   const currentMajorRootOffsetFromC: number = currentMusicKey.offsetFromC;
 
+  const isMajorMode = baseChordId
+    ? BASE_CHORDS_MAP[baseChordId].isMajorMode
+    : true;
+
   const currentScaleTemplate = isMajorMode
     ? majorScale
-    : !isMajorMode && roleId !== "dominant"
+    : !isMajorMode && baseChordId !== "Domi"
       ? minorScale
       : harmonicMinorScale;
 
@@ -43,7 +48,7 @@ export const useScaleLogic = () => {
       ? FIRST_OCTAVE_NO_FOR_PRESENTATION
       : FIRST_OCTAVE_NO_FOR_PRESENTATION - 1;
 
-  const isMinorTonicMode = !isMajorMode && roleId === "tonic";
+  const isMinorTonicMode = baseChordId === "tonic";
   const minorStartingOctave = isMinorTonicMode
     ? relativeMinorOctaveBase + 1
     : relativeMinorOctaveBase;
@@ -65,11 +70,11 @@ export const useScaleLogic = () => {
   };
 
   const currentScaleNoteIdsLength =
-    roleId === "tonic"
+    baseChordId === "tonic" || baseChordId === "Tonic"
       ? 13
-      : roleId === "subdominant"
+      : baseChordId === "subdomi" || baseChordId === "Subdomi"
         ? 16
-        : roleId === "dominant"
+        : baseChordId === "Domi"
           ? 17
           : 7;
 
@@ -79,9 +84,13 @@ export const useScaleLogic = () => {
   );
 
   const roleIntervalOffset =
-    roleId === "tonic" ? 0 : roleId === "subdominant" ? 3 : 4;
+    baseChordId === "tonic" || baseChordId === "Tonic"
+      ? 0
+      : baseChordId === "subdomi" || baseChordId === "Subdomi"
+        ? 3
+        : 4;
 
-  const currentRoleNoteIds = !isGlobalRole(roleId)
+  const currentRoleNoteIds = baseChordId
     ? [...currentScaleNoteIds]
         .splice(roleIntervalOffset)
         .filter((_, i) => (i + 1) % 2)

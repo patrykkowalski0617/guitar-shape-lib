@@ -1,31 +1,23 @@
 import { useControlsStore } from "@/store";
-import { UNIFIED_MUSIC_KEYS, type RoleId } from "@/data";
+import { UNIFIED_MUSIC_KEYS } from "@/data";
 import { pianoNotes } from "../../helpers/constants";
 import { useScaleLogic } from "../../hooks";
-import { isGlobalRole } from "@/utils";
 
-const VISIBLE_INDEXES_MAP: Record<
-  "major" | "minor",
-  Partial<Record<RoleId, readonly number[]>>
-> = {
-  major: {
-    tonic: [3, 7, 10, 14, 17, 20, 24],
-    subdominant: [8, 12, 15, 19, 22, 26, 29],
-    dominant: [10, 14, 17, 20, 24, 27, 31],
-  },
-  minor: {
-    tonic: [12, 15, 19, 22, 26, 29, 32],
-    subdominant: [5, 8, 12, 15, 19, 22, 26],
-    dominant: [7, 11, 14, 17, 20, 24, 27],
-  },
-} as const;
+const VISIBLE_INDEXES_MAP = {
+  Tonic: [3, 7, 10, 14, 17, 20, 24],
+  Subdomi: [8, 12, 15, 19, 22, 26, 29],
+  Domi: [10, 14, 17, 20, 24, 27, 31],
+  mediant: [],
+  tonic: [12, 15, 19, 22, 26, 29, 32],
+  subdomi: [5, 8, 12, 15, 19, 22, 26],
+  DomiPh: [7, 11, 14, 17, 20, 24, 27],
+};
 
 const DEFAULT_VISIBLE_INDEXES = [3, 5, 7, 8, 10, 12];
 
 export const useScaleTemplate = () => {
-  const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const roleId = useControlsStore((state) => state.roleId);
+  const baseChordId = useControlsStore((state) => state.baseChordId);
 
   const { currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
@@ -33,17 +25,11 @@ export const useScaleTemplate = () => {
   const offsetFromFirstKey = 5;
   const position = offsetFromFirstKey + templateOffset;
 
-  const modeKey = isMajorMode ? "major" : "minor";
-  const modeMap = VISIBLE_INDEXES_MAP[modeKey];
+  const modeMap = baseChordId && VISIBLE_INDEXES_MAP?.[baseChordId];
 
-  const effectiveRoleId = isGlobalRole(roleId) || !roleId ? "tonic" : roleId;
+  const highlightRole = baseChordId ? (modeMap ?? []) : DEFAULT_VISIBLE_INDEXES;
 
-  const highlightRole =
-    !isGlobalRole(roleId) && roleId
-      ? (modeMap[effectiveRoleId] ?? [])
-      : DEFAULT_VISIBLE_INDEXES;
-
-  const altIndexes = !isGlobalRole(roleId)
+  const altIndexes = !baseChordId
     ? Array.from({ length: 33 }, (_, i) => i).filter((stepIndex) => {
         const pianoNote = pianoNotes[position + stepIndex];
         if (!pianoNote) return false;
@@ -58,6 +44,6 @@ export const useScaleTemplate = () => {
     position,
     highlightRole,
     altIndexes,
-    roleId,
+    baseChordId,
   };
 };

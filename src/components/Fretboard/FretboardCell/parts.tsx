@@ -28,7 +28,6 @@ export const Note = styled.div<{
   $opacity: number;
   $brightness: number;
   $isShapeNote: boolean;
-  $isBaseChordNote: boolean;
 }>`
   background-color: color-mix(in oklab, var(--accent) 5%, transparent);
   border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
@@ -41,17 +40,12 @@ export const Note = styled.div<{
   opacity: ${({ $opacity }) => $opacity};
   filter: ${({ $brightness }) =>
     $brightness > 1 ? `brightness(${$brightness})` : "none"};
-  border-width: ${({ $isShapeNote, $isBaseChordNote }) =>
-    $isShapeNote || $isBaseChordNote ? "3px" : "1px"};
+  border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
 
-  ${({ $isShapeNote, $isBaseChordNote }) => {
+  ${({ $isShapeNote }) => {
     if ($isShapeNote) {
       return css`
         border-color: var(--secondary);
-        box-shadow: inset 0 0px 8px 0px var(--accent);
-      `;
-    } else if ($isBaseChordNote) {
-      return css`
         box-shadow: inset 0 0px 8px 0px var(--accent);
       `;
     }

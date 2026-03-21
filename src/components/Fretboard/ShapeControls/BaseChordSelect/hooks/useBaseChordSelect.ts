@@ -1,5 +1,5 @@
 import { useControlsStore, useMusicStore } from "@/store";
-import { type BaseChorId, type RoleId, roles } from "@/data";
+import { type BaseChordId, type RoleId, roles } from "@/data";
 import { isGlobalRole } from "@/utils";
 
 export function useBaseChordSelect() {
@@ -18,7 +18,7 @@ export function useBaseChordSelect() {
       setBaseChordId(null);
     }
 
-    setBaseChordId(value as BaseChorId);
+    setBaseChordId(value as BaseChordId);
   };
 
   return {

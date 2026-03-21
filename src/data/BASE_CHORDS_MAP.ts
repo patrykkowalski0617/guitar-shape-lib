@@ -1,61 +1,47 @@
 import type { RoleId } from "./roles";
 
-export type BaseChorId =
-  | "Tonic"
-  | "subdomi"
-  | "mediant"
-  | "DomiPh"
-  | "Subdomi"
-  | "Domi"
-  | "tonic";
+export type BaseChordId = keyof typeof BASE_CHORDS_MAP;
+
 export interface BaseChordValue {
-  id: BaseChorId;
   role: RoleId;
   isMajorMode: boolean;
   semitoneOffsetFromC: number;
 }
 
-export const BASE_CHORDS_MAP: BaseChordValue[] = [
-  {
-    id: "Tonic",
+export const BASE_CHORDS_MAP = {
+  Tonic: {
     role: "tonic",
     isMajorMode: true,
     semitoneOffsetFromC: 0,
   },
-  {
-    id: "subdomi",
+  subdomi: {
     role: "subdominant",
     isMajorMode: false,
     semitoneOffsetFromC: 2,
   },
-  {
-    id: "DomiPh",
+  DomiPh: {
     role: "dominant",
     isMajorMode: true,
     semitoneOffsetFromC: 4,
   },
-  {
-    id: "mediant",
+  mediant: {
     role: "mediant",
     isMajorMode: false,
     semitoneOffsetFromC: 4,
   },
-  {
-    id: "Subdomi",
+  Subdomi: {
     role: "subdominant",
     isMajorMode: true,
     semitoneOffsetFromC: 5,
   },
-  {
-    id: "Domi",
+  Domi: {
     role: "dominant",
     isMajorMode: true,
     semitoneOffsetFromC: 7,
   },
-  {
-    id: "tonic",
+  tonic: {
     role: "tonic",
     isMajorMode: false,
     semitoneOffsetFromC: 9,
   },
-];
+} as const satisfies Record<string, BaseChordValue>;
