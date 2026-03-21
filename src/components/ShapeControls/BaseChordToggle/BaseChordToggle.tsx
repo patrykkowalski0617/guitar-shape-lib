@@ -2,7 +2,7 @@ import { useBaseChordOptions } from "./hooks/useBaseChordOptions";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { useBaseChordToggle } from "./hooks/useBaseChordToggle";
 
-export function BaseChordToggle() {
+export default function BaseChordToggle() {
   const { currentValue, handleValueChange } = useBaseChordToggle();
   const baseChordOptions = useBaseChordOptions();
 

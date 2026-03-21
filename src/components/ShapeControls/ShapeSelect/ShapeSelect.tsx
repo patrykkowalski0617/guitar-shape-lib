@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/select";
 import { useShapeSelection } from "./hooks/useShapeSelection";
 
-export function ShapeSelect() {
+export default function ShapeSelect() {
   const { currentShapeValue, handleValueChange, options } = useShapeSelection();
 
   return (

@@ -7,6 +7,7 @@ import Piano from "@/components/Piano/Piano";
 import { Toaster } from "@/components/ui/sonner";
 import Player from "./components/Player/Player";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
+import ShapeControls from "./components/ShapeControls/ShapeControls";
 
 export default function App() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -20,7 +21,11 @@ export default function App() {
         <Section>
           <Fretboard />
         </Section>
-
+        {!isPlaying && (
+          <Section>
+            <ShapeControls />
+          </Section>
+        )}
         <Section>
           <Player />
         </Section>

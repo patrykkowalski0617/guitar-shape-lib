@@ -8,16 +8,11 @@ import { useFretboardScroll } from "./hooks";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
 import ShapeExplorerSlider from "./ShapeExplorerSlider/ShapeExplorerSlider";
-import { ShapeSelect } from "./ShapeControls/ShapeSelect/ShapeSelect";
-import { usePlayerStore } from "@/store";
-import { BaseChordToggle } from "./ShapeControls/BaseChordToggle/BaseChordToggle";
-import TuneSlider from "./TuneSlider/TuneSlider";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
   useHorizontalScroll(scrollRef);
   useFretboardScroll(scrollRef);
-  const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   return (
     <>
@@ -42,13 +37,6 @@ export default function Fretboard(): JSX.Element {
           <FretboardDotMarkers />
         </InstrumentWrapper>
       </InstrumentScrollWrapper>
-      {!isPlaying && (
-        <S.ControlWrapper>
-          <TuneSlider />
-          <BaseChordToggle />
-          <ShapeSelect />
-        </S.ControlWrapper>
-      )}
     </>
   );
 }

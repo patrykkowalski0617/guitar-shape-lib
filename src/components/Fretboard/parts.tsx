@@ -47,13 +47,3 @@ export const Fretboard = styled.div`
     }
   }
 `;
-
-export const ControlWrapper = styled.div`
-  display: flex;
-  gap: calc(var(--spacing) * 4);
-  margin-top: 20px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  flex: 1 1 0;
-`;
