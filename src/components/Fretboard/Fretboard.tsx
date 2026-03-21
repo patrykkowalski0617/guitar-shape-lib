@@ -8,10 +8,9 @@ import { useFretboardScroll } from "./hooks";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
 import ShapeExplorerSlider from "./ShapeExplorerSlider/ShapeExplorerSlider";
-import { KeySelect } from "./ShapeControls/KeySelect/KeySelect";
 import { ShapeSelect } from "./ShapeControls/ShapeSelect/ShapeSelect";
 import { usePlayerStore } from "@/store";
-import { BaseChordSelect } from "./ShapeControls/BaseChordSelect/BaseChordSelect";
+import { BaseChordToggle } from "./ShapeControls/BaseChordToggle/BaseChordToggle";
 import TuneSlider from "./TuneSlider/TuneSlider";
 
 export default function Fretboard(): JSX.Element {
@@ -45,9 +44,8 @@ export default function Fretboard(): JSX.Element {
       </InstrumentScrollWrapper>
       {!isPlaying && (
         <S.ControlWrapper>
-          <KeySelect />
           <TuneSlider />
-          <BaseChordSelect />
+          <BaseChordToggle />
           <ShapeSelect />
         </S.ControlWrapper>
       )}

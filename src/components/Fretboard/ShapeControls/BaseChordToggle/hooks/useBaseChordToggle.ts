@@ -1,31 +1,22 @@
 import { useControlsStore, useMusicStore } from "@/store";
-import { type BaseChordId, type RoleId, roles } from "@/data";
-import { isGlobalRole } from "@/utils";
+import { type BaseChordId } from "@/data";
 
-export function useBaseChordSelect() {
+export function useBaseChordToggle() {
   const setShapeVariantLocationData = useMusicStore(
     (state) => state.setShapeVariantLocationData,
   );
   const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
   const baseChordId = useControlsStore((state) => state.baseChordId);
 
-  const handleValueChange = (value: string) => {
+  const handleValueChange = (value: string | null) => {
     setShapeVariantLocationData(null);
 
-    const isGlobal = isGlobalRole(value as RoleId);
-
-    if (isGlobal) {
-      setBaseChordId(null);
-    }
-
-    setBaseChordId(value as BaseChordId);
+    const newBaseChordId = value ? (value as BaseChordId) : null;
+    setBaseChordId(newBaseChordId);
   };
 
   return {
     currentValue: baseChordId,
     handleValueChange,
-    globalRoles: {
-      matchingKey: roles["all-matching-key"],
-    },
   };
 }

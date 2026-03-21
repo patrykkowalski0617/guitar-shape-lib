@@ -56,25 +56,4 @@ export const ControlWrapper = styled.div`
   align-items: center;
   flex-wrap: wrap;
   flex: 1 1 0;
-  > :last-child {
-    flex: 1 1 100%;
-  }
-  @media (min-width: 768px) {
-    > :first-child {
-      flex: unset;
-      width: 160px;
-    }
-    > :nth-child(2) {
-      flex: unset;
-      width: 110px;
-    }
-    > :nth-child(3) {
-      flex: unset;
-      width: 200px;
-    }
-    > :last-child {
-      flex: 2 1 0;
-      max-width: 450px;
-    }
-  }
 `;
