@@ -20,6 +20,7 @@ export function StepSlider({
   ...props
 }: StepSliderProps) {
   const { effectiveMax } = useStepSliderLogic({ value, options });
+  console.log(options);
 
   const thumbSize = 25;
 

@@ -1,10 +1,7 @@
-// import { useControlsStore } from "@/store";
 import { roles, type RoleId } from "@/data";
 import { isGlobalRole } from "@/utils";
 
 export const useRandomizeRole = () => {
-  // const setRoleId = useControlsStore((state) => state.setRoleId);
-
   const setRandomRole = () => {
     const functionalRoles = (Object.keys(roles) as RoleId[]).filter(
       (id) => !isGlobalRole(id),
@@ -12,7 +9,7 @@ export const useRandomizeRole = () => {
 
     const randomRole =
       functionalRoles[Math.floor(Math.random() * functionalRoles.length)];
-    // setRoleId(randomRole);
+
     return randomRole;
   };
 

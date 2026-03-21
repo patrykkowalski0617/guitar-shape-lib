@@ -2,7 +2,7 @@ import { useControlsStore } from "@/store";
 import {
   getFilteredShapeOptions,
   type ShapeOption,
-} from "@/components/Fretboard/ShapeControls/ShapeSelect/helpers";
+} from "@/components/ShapeControls/ShapeSelect/helpers";
 
 export const useRandomizeShape = () => {
   const setShape = useControlsStore((state) => state.setShape);
