@@ -29,7 +29,7 @@ export const useScaleTemplate = () => {
 
   const highlightRole = baseChordId ? (modeMap ?? []) : DEFAULT_VISIBLE_INDEXES;
 
-  const altIndexes = !baseChordId
+  const altIndexes = baseChordId
     ? Array.from({ length: 33 }, (_, i) => i).filter((stepIndex) => {
         const pianoNote = pianoNotes[position + stepIndex];
         if (!pianoNote) return false;
