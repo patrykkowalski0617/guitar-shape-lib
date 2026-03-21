@@ -41,7 +41,8 @@ export function StepSlider({
       style={style}
       disabled={isSliderDisabled}
       className={cn(
-        "relative flex w-full touch-none items-center select-none h-full opacity-0",
+        "relative flex w-full touch-none items-center",
+        "select-none h-full opacity-0",
         className,
       )}
       {...props}

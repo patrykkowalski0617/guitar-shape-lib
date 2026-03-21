@@ -1,5 +1,5 @@
-import { useMusicStore, useControlsStore, usePlayerStore } from "@/store";
-import { isGlobalRole, type NoteObject } from "@/utils";
+import { useMusicStore, usePlayerStore } from "@/store";
+import { type NoteObject } from "@/utils";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
 import { useShapeCoordinates } from "./useShapeCoordinates";
@@ -33,7 +33,6 @@ export const useNoteState = ({
   const shapeVariantLocationData_locked = useMusicStore(
     (state) => state.shapeVariantLocationData_locked,
   );
-  const roleId = useControlsStore((state) => state.roleId);
   const getEnharmonicNoteName = useEnharmonicNoteName();
 
   const { isRoleSelected, isShapeSelected, shouldMarkTuneNotes } =
@@ -58,10 +57,6 @@ export const useNoteState = ({
   const indexToSemitonMap = [0, 2, 4, 5, 7, 9];
   const getBaseChordName = useBaseChordsNames();
 
-  // if (BASE_CHORDS_MAP[currentPointIndex]) {
-  //   console.log("fretboard", BASE_CHORDS_MAP[currentPointIndex]);
-  // }
-
   const shapeRootSharpNote = useShapeRootSharpNote();
   const isActiveNote = activeNoteId === noteData.noteId;
   const isShapeRootNote =
@@ -73,8 +68,7 @@ export const useNoteState = ({
     currentCoordinates,
     lockedShapeCoordinates,
   );
-  const isEffectiveLockedNote =
-    (isLockedNote && !isGlobalRole(roleId)) || (isLockedNote && isPlaying);
+
   const isTuneNote = useInTuneSharpNoteNames().includes(noteData.sharpNoteName);
 
   const getOpacity = () => {
@@ -90,7 +84,7 @@ export const useNoteState = ({
   return {
     isActiveNote,
     isShapeNote,
-    isLockedNote: isEffectiveLockedNote,
+    isLockedNote,
     isBaseChordNote,
     noteLabel: isBaseChordNote
       ? getBaseChordName({
