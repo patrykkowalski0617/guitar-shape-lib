@@ -38,6 +38,7 @@ export default function Fretboard(): JSX.Element {
                 );
               },
             )}
+            <ShapeExplorerSlider />
           </S.Fretboard>
           <FretboardDotMarkers />
         </InstrumentWrapper>
@@ -48,7 +49,6 @@ export default function Fretboard(): JSX.Element {
           <TuneSlider />
           <BaseChordSelect />
           <ShapeSelect />
-          <ShapeExplorerSlider />
         </S.ControlWrapper>
       )}
     </>

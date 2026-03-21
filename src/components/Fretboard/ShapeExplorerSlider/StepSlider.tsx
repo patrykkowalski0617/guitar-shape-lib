@@ -22,13 +22,8 @@ export function StepSlider({
   userListIndexes = [],
   ...props
 }: StepSliderProps) {
-  const {
-    currentValue,
-    effectiveMax,
-    highlightedId,
-    handleToggleAction,
-    clearHighlight,
-  } = useStepSliderLogic({ value, options });
+  const { effectiveMax, highlightedId, handleToggleAction, clearHighlight } =
+    useStepSliderLogic({ value, options });
 
   const bindGesture = useStepSliderGesture({ onDoubleTap: handleToggleAction });
   const thumbSize = 25;
@@ -46,13 +41,13 @@ export function StepSlider({
       style={style}
       disabled={isSliderDisabled}
       className={cn(
-        "relative flex w-full touch-none items-center select-none h-8",
+        "relative flex w-full touch-none items-center select-none h-full opacity-0",
         className,
       )}
       {...props}
     >
       <SliderPrimitive.Track
-        className="relative grow h-0.5 w-full bg-muted/50 rounded-full"
+        className="relative grow h-full w-full bg-muted/50 flex"
         style={{ margin: `0 ${thumbSize / 2}px` }}
       >
         <StepSliderTicks
@@ -68,13 +63,10 @@ export function StepSlider({
         {...bindGesture()}
         className={cn(
           "block rounded-full border-2 shadow-lg border-primary",
-          "cursor-grab active:cursor-grabbing hover:scale-120 transition-transform",
+          "hover:scale-120 transition-transform",
           "data-[disabled]:scale-100 data-[disabled]:border-primary/35",
           "focus:outline-none focus:ring-0 focus-visible:ring-2",
-          "focus-visible:ring-accent/70",
-          currentValue === 0 || hasNoOptions
-            ? "bg-background"
-            : "bg-transparent",
+          "focus-visible:ring-accent/70 bg-background",
         )}
         style={{ width: thumbSize, height: thumbSize }}
       />

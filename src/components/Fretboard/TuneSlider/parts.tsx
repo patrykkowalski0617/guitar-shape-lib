@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-export const ShapeExplorerWrapper = styled.div`
-  width: 100%;
-`;
-
 export const Tick = styled.div`
   position: absolute;
   top: 50%;

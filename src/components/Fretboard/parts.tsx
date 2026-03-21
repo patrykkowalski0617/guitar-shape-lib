@@ -5,7 +5,7 @@ import { instrumentBRadius, instrumentElBRadius } from "@/parts";
 
 export const Fretboard = styled.div`
   user-select: none;
-  padding-bottom: 25px;
+  position: relative;
   ${FretboardRow} {
     > :first-child::before {
       content: "";

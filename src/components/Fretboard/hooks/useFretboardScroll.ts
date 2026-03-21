@@ -1,19 +1,11 @@
-import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
+import { useMusicStore, usePlayerStore } from "@/store";
 import { useEffect, type RefObject } from "react";
 import { getShapeFretRange } from "../helpers/getShapeFretRange";
 import { useShapeCoordinates } from "../FretboardCell/hooks";
-import { isGlobalRole as isGlobalRoleFn } from "@/utils";
-import { UNIFIED_MUSIC_KEYS } from "@/data";
 
 export const useFretboardScroll = (
   containerRef: RefObject<HTMLDivElement | null>,
 ) => {
-  const roleId = useControlsStore((state) => state.roleId);
-  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const isGlobalRole = isGlobalRoleFn(roleId);
-  const tuneKeyOffsetFromC = UNIFIED_MUSIC_KEYS[tuneKeyId].offsetFromC;
-  const baseFretIndexOfBaseChordNote = 10;
-
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const shapeVariantLocationData_locked = useMusicStore(
     (state) => state.shapeVariantLocationData_locked,
@@ -32,34 +24,15 @@ export const useFretboardScroll = (
   const theLowestFret = min === -1 ? 0 : min;
   const theHighestFret = max === -1 ? 0 : max;
 
-  const targetGlobalFret = baseFretIndexOfBaseChordNote + tuneKeyOffsetFromC;
-
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container || !shapeVariantLocationData) return;
 
     const timer = setTimeout(() => {
-      if (isGlobalRole) {
-        const targetCell = container.querySelector(
-          `[data-fret="${targetGlobalFret}"]`,
-        ) as HTMLElement;
-
-        if (targetCell) {
-          const containerRect = container.getBoundingClientRect();
-          const targetRect = targetCell.getBoundingClientRect();
-          const centerOffset = (containerRect.width - targetRect.width) / 2;
-
-          const targetScrollLeft =
-            container.scrollLeft +
-            (targetRect.left - containerRect.left) -
-            centerOffset;
-
-          container.scrollTo({ left: targetScrollLeft, behavior: "smooth" });
-        }
+      if (theLowestFret === 0) {
+        container.scrollTo({ left: 0, behavior: "smooth" });
         return;
       }
-
-      if (!shapeVariantLocationData) return;
 
       const lowestCell = container.querySelector(
         `[data-fret="${theLowestFret}"]`,
@@ -79,7 +52,7 @@ export const useFretboardScroll = (
         if (isLowestVisible && isHighestVisible) return;
 
         let targetScrollLeft = container.scrollLeft;
-        const scrollMargin = 100;
+        const scrollMargin = 60;
 
         if (!isLowestVisible) {
           targetScrollLeft =
@@ -98,12 +71,5 @@ export const useFretboardScroll = (
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [
-    containerRef,
-    shapeVariantLocationData,
-    theLowestFret,
-    theHighestFret,
-    isGlobalRole,
-    targetGlobalFret,
-  ]);
+  }, [containerRef, shapeVariantLocationData, theLowestFret, theHighestFret]);
 };
