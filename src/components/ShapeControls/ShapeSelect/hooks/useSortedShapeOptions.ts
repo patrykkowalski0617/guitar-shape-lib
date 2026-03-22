@@ -8,7 +8,7 @@ export const useSortedShapeOptions = () => {
   const baseChordId = useControlsStore((state) => state.baseChordId);
   const options = useShapeOptions();
 
-  if (!baseChordId) return;
+  if (!baseChordId || !options) return;
 
   const baseChordSemitoneOffset =
     BASE_CHORDS_MAP[baseChordId].semitoneOffsetFromMajorScaleRoot;
@@ -25,8 +25,9 @@ export const useSortedShapeOptions = () => {
     isFlatTune ? note.flatNoteName : note.sharpNoteName,
   );
 
-  const sortedOptions = options;
-  console.log({ options, sortReferenceNotes });
+  const sortedOptions = sortReferenceNotes.flatMap((referenceNote) =>
+    options.filter((option) => option.labelRootNote === referenceNote),
+  );
 
   return sortedOptions;
 };
