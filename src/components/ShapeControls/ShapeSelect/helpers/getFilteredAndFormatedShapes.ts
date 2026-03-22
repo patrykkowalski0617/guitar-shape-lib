@@ -5,12 +5,12 @@ export type ShapeOption = {
   shapeSemitoneOffsetFromC: number;
 };
 
-export const getFilteredShapeOptions = (
+export const getFilteredAndFormatedShapes = (
   baseChordId: BaseChordId | null,
 ): ShapeOption[] => {
   if (!baseChordId) return [];
 
-  const options: ShapeOption[] = [];
+  const filteredAndFormatedShapes: ShapeOption[] = [];
   Object.entries(shapes).forEach(([shapeId, shape]) => {
     if (!shape.semitoneOffsetFromMajorTonicRoot) return;
 
@@ -19,12 +19,12 @@ export const getFilteredShapeOptions = (
     if (offsets === undefined) return;
 
     offsets.forEach((shapeSemitoneOffsetFromC) =>
-      options.push({
+      filteredAndFormatedShapes.push({
         shapeId: shapeId as keyof Shapes,
         shapeSemitoneOffsetFromC,
       }),
     );
   });
 
-  return options;
+  return filteredAndFormatedShapes;
 };

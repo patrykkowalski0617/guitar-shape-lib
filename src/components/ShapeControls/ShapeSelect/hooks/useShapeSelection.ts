@@ -1,5 +1,4 @@
 import { useControlsStore, useMusicStore } from "@/store";
-import { useShapeOptions } from "./useShapeOptions";
 
 export function useShapeSelection() {
   const shapeId = useControlsStore((state) => state.shapeId);
@@ -11,8 +10,6 @@ export function useShapeSelection() {
   const setShapeVariantLocationData = useMusicStore(
     (state) => state.setShapeVariantLocationData,
   );
-
-  const options = useShapeOptions();
 
   const isShapeActive = shapeId !== null && shapeSemitoneOffsetFromC !== null;
   const activeShapeValue = `${shapeId}|${shapeSemitoneOffsetFromC}`;
@@ -31,6 +28,5 @@ export function useShapeSelection() {
   return {
     currentShapeValue,
     handleValueChange,
-    options,
   };
 }

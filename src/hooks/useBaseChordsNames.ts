@@ -9,25 +9,25 @@ export const useBaseChordsNames = () => {
   const notes = getNotes({ firstNote });
   const getEnharmonicNoteName = useEnharmonicNoteName();
 
-  const getChordMode = (semitoneOffsetFromC: number) => {
+  const getChordMode = (semitoneOffsetFromMajorScaleRoot: number) => {
     const minorChordsIndexes = [2, 9];
     const bothModesChordsIndexes = [4];
 
-    return bothModesChordsIndexes.includes(semitoneOffsetFromC)
+    return bothModesChordsIndexes.includes(semitoneOffsetFromMajorScaleRoot)
       ? "/m"
-      : minorChordsIndexes.includes(semitoneOffsetFromC)
+      : minorChordsIndexes.includes(semitoneOffsetFromMajorScaleRoot)
         ? "m"
         : "";
   };
 
   const getBaseChordName = ({
-    semitoneOffsetFromC,
+    semitoneOffsetFromMajorScaleRoot,
   }: {
-    semitoneOffsetFromC: number;
+    semitoneOffsetFromMajorScaleRoot: number;
   }) => {
-    const noteAtOffset = notes[semitoneOffsetFromC];
+    const noteAtOffset = notes[semitoneOffsetFromMajorScaleRoot];
     const chordName = getEnharmonicNoteName(noteAtOffset);
-    const chordMode = getChordMode(semitoneOffsetFromC);
+    const chordMode = getChordMode(semitoneOffsetFromMajorScaleRoot);
 
     const isNoteAvailable = !!noteAtOffset;
     const fullChordName = `${chordName}${chordMode}`;

@@ -19,7 +19,7 @@ export default function ScaleTemplate(): JSX.Element {
           ? String(
               baseChordId
                 ? roleRank * 2 + 1
-                : getBaseChordName({ semitoneOffsetFromC: i - 3 }),
+                : getBaseChordName({ semitoneOffsetFromMajorScaleRoot: i - 3 }),
             )
           : "";
 

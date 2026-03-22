@@ -1,15 +1,14 @@
 import { useControlsStore } from "@/store";
 import {
-  getFilteredShapeOptions,
+  getFilteredAndFormatedShapes,
   type ShapeOption,
 } from "@/components/ShapeControls/ShapeSelect/helpers";
 
 export const useRandomizeShape = () => {
   const setShape = useControlsStore((state) => state.setShape);
+  const shapeOptions: ShapeOption[] = getFilteredAndFormatedShapes("tonic");
 
   const setRandomShape = () => {
-    const shapeOptions: ShapeOption[] = getFilteredShapeOptions("tonic");
-
     if (shapeOptions.length === 0) {
       return { shapeId: null, shapeSemitoneOffsetFromC: null };
     }

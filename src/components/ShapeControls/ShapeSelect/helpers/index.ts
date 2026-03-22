@@ -1,2 +1,1 @@
-export * from "./getAutoSelectedShape";
-export * from "./getFilteredShapeOptions";
+export * from "./getFilteredAndFormatedShapes";

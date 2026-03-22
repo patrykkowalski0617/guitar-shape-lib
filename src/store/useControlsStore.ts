@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import type { BaseChordId, TuneKeyId, RoleId } from "@/data";
-// import { getAutoSelectedShape } from "@/components/Fretboard/ShapeControls/ShapeSelect/helpers";
 
 interface ControlsState {
   isMajorMode: boolean;
@@ -10,7 +9,6 @@ interface ControlsState {
   setTuneKeyId: (id: TuneKeyId) => void;
 
   roleId: RoleId | null;
-  // setRoleId: (id: RoleId | null) => void;
 
   baseChordId: BaseChordId | null;
   setBaseChordId: (id: BaseChordId | null) => void;
@@ -41,45 +39,14 @@ export const useControlsStore = create<ControlsState>((set) => ({
     set((state) => {
       if (!state.roleId) return { isMajorMode };
 
-      // const { shapeId, shapeSemitoneOffsetFromC } = getAutoSelectedShape(
-      //   state.roleId,
-      //   isMajorMode,
-      //   state.tuneKeyId,
-      // );
-
       return {
         isMajorMode,
-        // shapeId: shapeId,
-        // shapeSemitoneOffsetFromC: shapeSemitoneOffsetFromC,
       };
     }),
 
   setTuneKeyId: (id) => set({ tuneKeyId: id }),
 
   setBaseChordId: (id) => set({ baseChordId: id }),
-
-  // setRoleId: (id) =>
-  //   set((state) => {
-  //     if (!id) {
-  //       return {
-  //         roleId: null,
-  //         shapeId: null,
-  //         shapeSemitoneOffsetFromC: null,
-  //       };
-  //     }
-
-  //     const { shapeId, shapeSemitoneOffsetFromC } = getAutoSelectedShape(
-  //       id,
-  //       state.isMajorMode,
-  //       state.tuneKeyId,
-  //     );
-
-  //     return {
-  //       roleId: id,
-  //       shapeId: shapeId,
-  //       shapeSemitoneOffsetFromC: shapeSemitoneOffsetFromC,
-  //     };
-  //   }),
 
   setShape: (shapeId, shapeSemitoneOffsetFromC) =>
     set({

@@ -6,9 +6,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useShapeSelection } from "./hooks/useShapeSelection";
+import { useSortedShapeOptions } from "./hooks/useSortedShapeOptions";
 
 export default function ShapeSelect() {
-  const { currentShapeValue, handleValueChange, options } = useShapeSelection();
+  const { currentShapeValue, handleValueChange } = useShapeSelection();
+  const options = useSortedShapeOptions();
+  if (!options) return null;
 
   return (
     <Select value={currentShapeValue} onValueChange={handleValueChange}>

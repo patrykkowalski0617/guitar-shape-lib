@@ -16,7 +16,7 @@ export const useBaseChordOptions = () => {
 
     const chords = Object.entries(BASE_CHORDS_MAP).map(
       ([chordId, chordData]) => {
-        const noteAtOffset = notes[chordData.semitoneOffsetFromC];
+        const noteAtOffset = notes[chordData.semitoneOffsetFromMajorScaleRoot];
         const isMajorMode = chordData.isMajorMode;
         const noteName = getEnharmonicNoteName(noteAtOffset);
         const chordName = `${noteName}${isMajorMode ? "" : "m"}`;
