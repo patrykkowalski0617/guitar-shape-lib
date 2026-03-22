@@ -1,7 +1,10 @@
-import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/data";
+import { UNIFIED_MUSIC_KEYS, type TuneKeyId } from "@/data";
 import { type ShapeOption } from "./getFilteredShapeOptions";
 
-export const sortShapeOptionsByNote = (options: ShapeOption[], tuneKeyId: MusicKeyId): ShapeOption[] => {
+export const sortShapeOptionsByNote = (
+  options: ShapeOption[],
+  tuneKeyId: TuneKeyId,
+): ShapeOption[] => {
   const musicKey = UNIFIED_MUSIC_KEYS[tuneKeyId];
   if (!musicKey) return options;
 

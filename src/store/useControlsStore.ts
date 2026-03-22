@@ -1,13 +1,13 @@
 import { create } from "zustand";
-import type { BaseChordId, MusicKeyId, RoleId } from "@/data";
+import type { BaseChordId, TuneKeyId, RoleId } from "@/data";
 // import { getAutoSelectedShape } from "@/components/Fretboard/ShapeControls/ShapeSelect/helpers";
 
 interface ControlsState {
   isMajorMode: boolean;
   setIsMajorMode: (isMajorMode: boolean) => void;
 
-  tuneKeyId: MusicKeyId;
-  setTuneKeyId: (id: MusicKeyId) => void;
+  tuneKeyId: TuneKeyId;
+  setTuneKeyId: (id: TuneKeyId) => void;
 
   roleId: RoleId | null;
   // setRoleId: (id: RoleId | null) => void;
@@ -27,7 +27,7 @@ interface ControlsState {
 
 const initialState = {
   isMajorMode: true,
-  tuneKeyId: "C" as MusicKeyId,
+  tuneKeyId: "C" as TuneKeyId,
   baseChordId: null,
   roleId: "all-matching-key" as RoleId | null,
   shapeId: null as string | null,

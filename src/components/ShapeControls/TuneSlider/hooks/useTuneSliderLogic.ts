@@ -1,15 +1,14 @@
-import { UNIFIED_MUSIC_KEYS, type MusicKeyId } from "@/data";
+import { UNIFIED_MUSIC_KEYS, type TuneKeyId } from "@/data";
 import { useControlsStore } from "@/store";
 
 export const useTuneSliderLogic = () => {
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
-  const isMajorMode = useControlsStore((state) => state.isMajorMode);
 
   const keyEntries = Object.entries(UNIFIED_MUSIC_KEYS);
 
   const options = keyEntries.map(([, data]) => {
-    const label = isMajorMode ? data.majorName : data.relativeMinorName;
+    const label = `${data.majorName}/${data.relativeMinorName}`;
     return label;
   });
 
@@ -23,7 +22,7 @@ export const useTuneSliderLogic = () => {
 
     if (selectedEntry) {
       const [newKeyId] = selectedEntry;
-      setTuneKeyId(newKeyId as MusicKeyId);
+      setTuneKeyId(newKeyId as TuneKeyId);
     }
   };
 

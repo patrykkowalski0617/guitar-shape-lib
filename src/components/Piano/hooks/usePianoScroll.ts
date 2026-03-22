@@ -23,7 +23,7 @@ export const usePianoScroll = (
         const containerRect = container.getBoundingClientRect();
         const elementRect = firstHighlighted.getBoundingClientRect();
 
-        const scrollOffset = 35;
+        const scrollOffset = 15;
         const relativeElementLeft = elementRect.left - containerRect.left;
         const targetScrollLeft =
           container.scrollLeft + relativeElementLeft - scrollOffset;

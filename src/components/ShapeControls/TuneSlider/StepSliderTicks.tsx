@@ -1,4 +1,4 @@
-import { Tick } from "./parts";
+import * as S from "./parts";
 
 interface StepSliderTicksProps {
   options: string[];
@@ -18,11 +18,13 @@ export function StepSliderTicks({
   return (
     <>
       {options.map((option, index) => {
+        const position = calculateTickPosition(index);
+
         return (
-          <Tick
-            key={option + index}
-            style={{ left: `${calculateTickPosition(index)}%` }}
-          />
+          <S.Tick
+            key={`${option}-${index}`}
+            style={{ left: `${position}%` }}
+          ></S.Tick>
         );
       })}
     </>

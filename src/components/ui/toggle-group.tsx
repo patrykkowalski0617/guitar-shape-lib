@@ -25,7 +25,8 @@ function ToggleGroup({
       data-spacing={spacing}
       style={{ "--gap": spacing } as React.CSSProperties}
       className={cn(
-        "group/toggle-group flex w-full max-w-[400px] items-center gap-[--spacing(var(--gap))] rounded-sm",
+        "group/toggle-group flex w-full max-w-[400px]",
+        "items-center gap-[--spacing(var(--gap))] rounded-sm",
         className,
       )}
       {...props}
@@ -53,8 +54,9 @@ function ToggleGroupItem({
       data-spacing={context.spacing}
       className={cn(
         toggleVariants(),
-        "h-8 flex-1 px-3 flex items-center justify-center relative",
-        "bg-muted/50 text-foreground shadow-none transition-none border-r border-background/20 last:border-r-0",
+        "h-8 flex-1 px-1 flex items-center justify-center relative",
+        "bg-muted/50 text-foreground shadow-none transition-none",
+        "border-r border-background/20 last:border-r-0",
         "hover:bg-muted/70 hover:text-accent-foreground",
         "data-[state=on]:bg-accent/50 data-[state=on]:text-accent-foreground",
         sharedFocusStyles,

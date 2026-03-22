@@ -97,4 +97,4 @@ export const UNIFIED_MUSIC_KEYS = {
   },
 } as const;
 
-export type MusicKeyId = keyof typeof UNIFIED_MUSIC_KEYS;
+export type TuneKeyId = keyof typeof UNIFIED_MUSIC_KEYS;

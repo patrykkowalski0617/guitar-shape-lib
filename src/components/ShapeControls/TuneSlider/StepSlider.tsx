@@ -20,10 +20,8 @@ export function StepSlider({
   ...props
 }: StepSliderProps) {
   const { effectiveMax } = useStepSliderLogic({ value, options });
-  console.log(options);
 
   const thumbSize = 25;
-
   const hasNoOptions = options.length === 0;
   const sliderMax = hasNoOptions ? 1 : effectiveMax;
   const sliderValue = hasNoOptions ? [0] : value;
@@ -51,8 +49,8 @@ export function StepSlider({
 
       <SliderPrimitive.Thumb
         className={cn(
-          "block rounded-full border-2 shadow-lg border-primary",
-          "cursor-grab active:cursor-grabbing hover:scale-120 transition-transform",
+          "block rounded-full border-2 shadow-lg border-primary bg-background",
+          "cursor-grab active:cursor-grabbing hover:scale-110 transition-transform",
           "data-[disabled]:scale-100 data-[disabled]:border-primary/35",
           "focus:outline-none focus:ring-0 focus-visible:ring-2",
           "focus-visible:ring-accent/70",

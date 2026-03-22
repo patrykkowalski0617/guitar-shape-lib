@@ -9,4 +9,5 @@ export const Tick = styled.div`
   border-radius: 50%;
   background-color: color-mix(in oklab, var(--muted) 80%, var(--foreground));
   transition: all 0.6s ease-in-out;
+  z-index: 1;
 `;

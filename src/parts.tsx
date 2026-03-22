@@ -9,21 +9,16 @@ export const AppWrapper = styled.div`
 `;
 
 export const MainContent = styled.main`
-  padding: 0 10px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 25px;
-  @media (min-width: 1024px) {
-    padding-bottom: 50px;
-  }
 `;
 
 const SectionCommonCss = css`
   margin: 25px auto 0;
-  padding: 0 15px;
+  padding: 0 calc(var(--spacing) * 2);
   @media (min-width: 1024px) {
     margin: 40px auto 0;
   }

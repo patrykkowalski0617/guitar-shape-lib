@@ -33,7 +33,7 @@ export const Fretboard = styled.div`
           ${instrumentElBRadius} ${instrumentElBRadius};
       }
     }
-    &:last-child {
+    &:nth-child(6) {
       & > :first-child,
       & > :first-child ${Note}, & > :first-child ${Fret} {
         border-radius: ${instrumentElBRadius} ${instrumentElBRadius}

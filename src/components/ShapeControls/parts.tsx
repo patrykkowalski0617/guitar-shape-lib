@@ -2,9 +2,14 @@ import styled from "styled-components";
 
 export const ControlWrapper = styled.div`
   display: flex;
-  gap: calc(var(--spacing) * 4);
+  gap: calc(var(--spacing) * 2);
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  flex: 1 1 0;
+
+  @media (min-width: 768px) {
+    & > * {
+      flex: 1 1 calc(50% - (var(--spacing)));
+    }
+  }
 `;

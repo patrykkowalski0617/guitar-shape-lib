@@ -12,12 +12,12 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: cn(
-          "h-9.5 px-2.5 rounded-md border border-background",
+          "h-8 px-2.5 rounded-md",
           "bg-muted/50 hover:bg-muted/70 text-foreground",
         ),
         active: cn(
-          "h-9.5 px-2.5 rounded-md border border-muted-foreground/30",
-          "bg-accent/80 hover:bg-accent/70 text-accent-foreground",
+          "h-8 px-2.5 rounded-md border border-muted-foreground/30",
+          "bg-accent/60 hover:bg-accent/70 text-accent-foreground",
         ),
         playerDashed: cn(
           "h-[30px] w-[35px] font-bold border border-dashed border-border",
