@@ -11,20 +11,30 @@ import { useSortedShapeOptions } from "./hooks/useSortedShapeOptions";
 export default function ShapeSelect() {
   const { currentShapeValue, handleValueChange } = useShapeSelection();
   const options = useSortedShapeOptions();
-  if (!options) return null;
+
+  const disabled = !options;
 
   return (
-    <Select value={currentShapeValue} onValueChange={handleValueChange}>
+    <Select
+      disabled={disabled}
+      value={currentShapeValue}
+      onValueChange={handleValueChange}
+    >
       <SelectTrigger>
-        <SelectValue placeholder="Select shape..." />
+        <SelectValue
+          placeholder={
+            disabled ? "Select base chord first..." : "Select shape..."
+          }
+        />
       </SelectTrigger>
       <SelectContent>
-        {options.map((option) => (
-          <SelectItem key={option.value} value={option.value}>
-            <span className="opacity-50 mr-2">{option.labelRootNote}</span>
-            <span>{option.labelShapeName}</span>
-          </SelectItem>
-        ))}
+        {options &&
+          options.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
+              <span className="opacity-50 mr-2">{option.labelRootNote}</span>
+              <span>{option.labelShapeName}</span>
+            </SelectItem>
+          ))}
       </SelectContent>
     </Select>
   );
