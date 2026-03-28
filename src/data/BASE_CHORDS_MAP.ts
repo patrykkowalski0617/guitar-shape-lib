@@ -1,10 +1,12 @@
 import type { RoleId } from "./roles";
+import type { SemitoneTemplateKey } from "./scalesSemitoneTemplates";
 
 export type BaseChordId = keyof typeof BASE_CHORDS_MAP;
 
 export interface BaseChordValue {
   role: RoleId;
-  baseScale: string;
+  baseScaleName: string;
+  baseScaleId: SemitoneTemplateKey;
   isMajorMode: boolean;
   semitoneOffsetFromMajorScaleRoot: number;
 }
@@ -12,43 +14,50 @@ export interface BaseChordValue {
 export const BASE_CHORDS_MAP = {
   Tonic: {
     role: "tonic",
-    baseScale: "Ionian",
+    baseScaleName: "Ionian",
+    baseScaleId: "ionianScale",
     isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 0,
   },
   subdomi: {
     role: "subdominant",
-    baseScale: "Dorian",
+    baseScaleName: "Dorian",
+    baseScaleId: "dorianScale",
     isMajorMode: false,
     semitoneOffsetFromMajorScaleRoot: 2,
   },
   DomiPh: {
     role: "dominant",
-    baseScale: "Phrygian Dominant",
+    baseScaleName: "Phrygian Dominant",
+    baseScaleId: "phrygianDominantScale",
     isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 4,
   },
   mediant: {
     role: "mediant",
-    baseScale: "Phrygian",
+    baseScaleName: "Phrygian",
+    baseScaleId: "phrygianScale",
     isMajorMode: false,
     semitoneOffsetFromMajorScaleRoot: 4,
   },
   Subdomi: {
     role: "subdominant",
-    baseScale: "Lydian",
+    baseScaleName: "Lydian",
+    baseScaleId: "lydianScale",
     isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 5,
   },
   Domi: {
     role: "dominant",
-    baseScale: "Mixolydian",
+    baseScaleName: "Mixolydian",
+    baseScaleId: "mixolydianScale",
     isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 7,
   },
   tonic: {
     role: "tonic",
-    baseScale: "Aeolian",
+    baseScaleName: "Aeolian",
+    baseScaleId: "aeolianScale",
     isMajorMode: false,
     semitoneOffsetFromMajorScaleRoot: 9,
   },

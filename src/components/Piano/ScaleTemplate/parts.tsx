@@ -27,9 +27,9 @@ export const Marker = styled.div<{
   $label: string;
   $isAltNote: boolean;
 }>`
+  border: 1px solid;
   position: relative;
   height: 20px;
-  margin-bottom: 5px;
   width: ${`calc(${KEY_WIDTH_CSS(numberOfKeys)})`};
   &::before {
     content: ${({ $label, $isAltNote }) =>
@@ -43,7 +43,7 @@ export const Marker = styled.div<{
     font-weight: 600;
     color: var(--border);
     opacity: ${({ $label, $isAltNote }) => ($label || $isAltNote ? "1" : "0")};
-    top: ${({ $label, $isAltNote }) => ($label || $isAltNote ? "5px" : "30px")};
+    top: ${({ $label, $isAltNote }) => ($label || $isAltNote ? "0px" : "30px")};
     will-change: top, opacity;
     transition: ${`top ${transitionTime}ms ease-in-out,
            opacity ${transitionTime}ms ease-in-out`};

@@ -34,7 +34,7 @@ describe("useBrickWidthUnit", () => {
   });
 
   it("should return 35 for desktop viewports", () => {
-    setViewportWidth(1400);
+    setViewportWidth(1390);
     const { result } = renderHook(() => useBrickWidthUnit());
     expect(result.current).toBe(35);
   });

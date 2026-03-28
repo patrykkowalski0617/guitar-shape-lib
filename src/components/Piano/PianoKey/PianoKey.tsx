@@ -19,16 +19,15 @@ const PianoKey = ({ note }: PianoKeyProps) => {
     isActiveNote,
     isShapeNote,
     isRoleNote,
-    isRoleSelected,
     isShapeSelected,
   } = visualState;
 
   return (
     <S.Key
-      $isRoleSelected={isRoleSelected}
       $isShapeSelected={isShapeSelected}
       $isShapeNote={isShapeNote}
       $isActiveNote={isActiveNote}
+      $isTuneKeyNote={true}
       $isWhitePianoKey={isWhitePianoKey}
       $pianoKeyShape={pianoKeyShape}
       $isHighlighted={isHighlighted}
@@ -37,6 +36,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
       onMouseOver={interactivity.handleMouseEnter}
       onMouseLeave={interactivity.handleMouseLeave}
     >
+      {isWhitePianoKey && <S.WhiteKeyFulfill></S.WhiteKeyFulfill>}
       <NoteLabel
         isShapeNote={isShapeNote}
         isActiveNote={isActiveNote}

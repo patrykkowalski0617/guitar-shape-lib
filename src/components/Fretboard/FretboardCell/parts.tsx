@@ -1,4 +1,4 @@
-import { instrumentElBRadius } from "@/parts";
+import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts";
 import styled, { css } from "styled-components";
 
 export const FretWrapper = styled.div`
@@ -30,7 +30,7 @@ export const Note = styled.div<{
   $isShapeNote: boolean;
 }>`
   background-color: color-mix(in oklab, var(--accent) 5%, transparent);
-  border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+  border: 1px solid color-mix(in oklab, var(--border) 55%, transparent);
   border-radius: ${instrumentElBRadius};
   height: 100%;
   display: flex;

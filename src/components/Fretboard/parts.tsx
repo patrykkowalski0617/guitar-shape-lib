@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import { FretboardRow } from "./FretboardRow/parts";
 import { Fret, Note } from "./FretboardCell/parts";
-import { instrumentBRadius, instrumentElBRadius } from "@/parts";
+import {
+  instrumentBRadius,
+  instrumentElBRadius,
+} from "../Piano/PianoKey/parts";
 
 export const Fretboard = styled.div`
   user-select: none;
   position: relative;
+  width: 1390px;
   ${FretboardRow} {
     > :first-child::before {
       content: "";

@@ -4,7 +4,7 @@ import { InstrumentScrollWrapper, InstrumentWrapper } from "@/parts";
 import * as S from "@/components/Piano/parts";
 import PianoKey from "./PianoKey/PianoKey";
 import { pianoNotes, numberOfKeys } from "./helpers/constants";
-import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
+// import ScaleTemplate from "./ScaleTemplate/ScaleTemplate";
 import { usePianoScroll } from "./hooks/usePianoScroll";
 
 export default function Piano(): JSX.Element {
@@ -16,7 +16,7 @@ export default function Piano(): JSX.Element {
     <>
       <InstrumentScrollWrapper ref={scrollRef}>
         <InstrumentWrapper>
-          <ScaleTemplate />
+          {/* <ScaleTemplate /> */}
           <S.Piano $numberOfKeys={numberOfKeys}>
             {pianoNotes.map((note) => (
               <PianoKey key={note.noteId} note={note} />

@@ -55,7 +55,7 @@ export class Metronome {
     const noiseFilter = this.audioContext.createBiquadFilter();
     noise.buffer = noiseBuffer;
     noiseFilter.type = "lowpass";
-    noiseFilter.frequency.setValueAtTime(isAccent ? 1500 : 800, time);
+    noiseFilter.frequency.setValueAtTime(isAccent ? 1390 : 800, time);
     noiseGain.gain.setValueAtTime(isAccent ? 0.3 : 0.15, time);
     noiseGain.gain.exponentialRampToValueAtTime(0.001, time + 0.015);
 
@@ -81,7 +81,9 @@ export class Metronome {
   }
 
   private cancelScheduledNodes() {
-    this.scheduledNodes.forEach((node) => this.stopNode(node as AudioScheduledSourceNode));
+    this.scheduledNodes.forEach((node) =>
+      this.stopNode(node as AudioScheduledSourceNode),
+    );
     this.scheduledNodes = [];
   }
 
@@ -108,7 +110,9 @@ export class Metronome {
   public async start(initialBpm: number, initialMultiplier: number = 1) {
     this.isRunning = true;
     if (!this.audioContext) {
-      this.audioContext = new (window.AudioContext || (window as Window).webkitAudioContext)();
+      this.audioContext = new (
+        window.AudioContext || (window as Window).webkitAudioContext
+      )();
     }
     if (this.audioContext.state === "suspended") {
       await this.audioContext.resume();

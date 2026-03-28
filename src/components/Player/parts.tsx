@@ -1,18 +1,18 @@
-import { instrumentElBRadius } from "@/parts";
 import styled from "styled-components";
+import { instrumentElBRadius } from "../Piano/PianoKey/parts";
 
 export const PlayerContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: calc(var(--spacing) * 2);
-  max-width: 1400px;
+  max-width: 1390px;
   flex-wrap: wrap;
   justify-content: center;
   @media (min-width: 1024px) {
     flex-direction: row;
     margin: auto;
   }
-  @media (min-width: 1400px) {
+  @media (min-width: 1390px) {
     width: 100%;
   }
 `;

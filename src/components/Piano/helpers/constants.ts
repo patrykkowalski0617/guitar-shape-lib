@@ -2,7 +2,7 @@ import { getNotes } from "@/utils";
 import { type Note } from "@/data";
 import type { KeyShape } from "../parts";
 
-export const KEY_PADDING = 0.75; //- for proper css calc
+export const KEY_PADDING = 0.6; //- for proper css calc
 export const numberOfKeys = 49;
 
 const firstNote: Note = "E";

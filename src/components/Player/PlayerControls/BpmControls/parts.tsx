@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import { instrumentElBRadius } from "@/parts";
 import { playerElementHeight, playerElementWidth } from "../../constants";
 import { Button } from "@/components/ui/button";
+import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts";
 
 const commonBpmElementStyles = css`
   background-color: color-mix(in oklab, var(--accent) 10%, var(--background));

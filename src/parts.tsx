@@ -18,20 +18,18 @@ export const MainContent = styled.main`
 
 const SectionCommonCss = css`
   margin: 25px auto 0;
-  padding: 0 calc(var(--spacing) * 2);
   @media (min-width: 1024px) {
     margin: 40px auto 0;
   }
 `;
 
 export const Section = styled.div`
-  max-width: 1400px;
+  max-width: 1390px;
   width: 100%;
   ${SectionCommonCss}
 `;
 
 export const InstrumentWrapper = styled.div`
-  width: 1370px;
   margin: auto;
   overflow: hidden;
 `;
@@ -41,7 +39,7 @@ export const InstrumentScrollWrapper = styled.div`
   scrollbar-width: none;
   position: relative;
   border-radius: var(--radius-lg);
-  @media (max-width: 1400px) {
+  @media (max-width: 1390px) {
     mask-image: linear-gradient(
       to right,
       transparent,
@@ -69,7 +67,7 @@ export const FooterAndHeaderStyles = css<{
     opacity ${transitionTime}ms 500ms ease-in-out;
 
   @media (min-width: 1600px) {
-    max-width: 1500px;
+    max-width: 1390px;
   }
 
   @media (min-width: 768px) {
@@ -94,6 +92,3 @@ export const ControlLabel = styled.span`
   line-height: 1;
   display: inline-block;
 `;
-
-export const instrumentElBRadius = "4px";
-export const instrumentBRadius = "var(--radius-lg)";
