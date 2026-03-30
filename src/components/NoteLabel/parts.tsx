@@ -35,15 +35,12 @@ export const NoteWrapper = styled.div<{
         : "none"};
       opacity: ${$isShapeNote || $isActiveNote ? "1" : "0"};
       ${Note} {
-        /* border: 1px solid color-mix(in oklab, var(--border) 90%, transparent); */
         border-radius: ${instrumentElBRadius};
         background: color-mix(in oklab, var(--background) 90%, transparent);
         width: 18px;
         height: 30px;
         line-height: 22px;
-        /* color: ${highlightedColor}; */
         color: ${unHighlightedColor};
-
         top: 10px;
         transform: translateX(-50%);
       }

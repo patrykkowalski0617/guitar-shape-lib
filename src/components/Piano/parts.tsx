@@ -9,8 +9,5 @@ interface PianoProps {
 export const Piano = styled.div<PianoProps>`
   user-select: none;
   display: flex;
-  padding-bottom: 4px;
-  padding-left: 18px;
-  padding-right: 0px;
-  width: fit-content;
+  padding: 4px 0 2px 0;
 `;

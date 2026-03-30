@@ -9,7 +9,7 @@ import {
 export const Fretboard = styled.div`
   user-select: none;
   position: relative;
-  width: 1390px;
+  width: 100%;
   ${FretboardRow} {
     > :first-child::before {
       content: "";

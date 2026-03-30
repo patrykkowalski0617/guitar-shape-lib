@@ -24,7 +24,7 @@ const SectionCommonCss = css`
 `;
 
 export const Section = styled.div`
-  max-width: 1390px;
+  max-width: 1400px;
   width: 100%;
   ${SectionCommonCss}
 `;
@@ -32,6 +32,7 @@ export const Section = styled.div`
 export const InstrumentWrapper = styled.div`
   margin: auto;
   overflow: hidden;
+  width: 1400px;
 `;
 
 export const InstrumentScrollWrapper = styled.div`
@@ -39,7 +40,7 @@ export const InstrumentScrollWrapper = styled.div`
   scrollbar-width: none;
   position: relative;
   border-radius: var(--radius-lg);
-  @media (max-width: 1390px) {
+  @media (max-width: 1400px) {
     mask-image: linear-gradient(
       to right,
       transparent,
@@ -67,7 +68,7 @@ export const FooterAndHeaderStyles = css<{
     opacity ${transitionTime}ms 500ms ease-in-out;
 
   @media (min-width: 1600px) {
-    max-width: 1390px;
+    max-width: 1400px;
   }
 
   @media (min-width: 768px) {

@@ -21,6 +21,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
     isRoleNote,
     isShapeSelected,
   } = visualState;
+  console.log(pianoKeyShape);
 
   return (
     <S.Key
@@ -36,7 +37,6 @@ const PianoKey = ({ note }: PianoKeyProps) => {
       onMouseOver={interactivity.handleMouseEnter}
       onMouseLeave={interactivity.handleMouseLeave}
     >
-      {isWhitePianoKey && <S.WhiteKeyFulfill></S.WhiteKeyFulfill>}
       <NoteLabel
         isShapeNote={isShapeNote}
         isActiveNote={isActiveNote}
