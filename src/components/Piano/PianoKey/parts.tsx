@@ -1,6 +1,4 @@
 import styled, { css } from "styled-components";
-import { transitionTime } from "@/data/constants";
-import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { Note, NoteWrapper } from "@/components/NoteLabel/parts";
 
 export const instrumentElBRadius = "4px";
@@ -27,6 +25,10 @@ const commonStyleForKeyBase = css`
 
 const blackKeysOffset = blackKeyW / 5;
 
+export const WhiteKeyJustifyContainer = styled.div`
+  position: relative;
+`;
+
 const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   C: css`
     justify-content: flex-start;
@@ -39,7 +41,7 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
       border-right-color: var(--background);
       border-radius: 0px 0px 0px 6px;
     }
-    ${NoteWrapper} {
+    ${WhiteKeyJustifyContainer} {
       width: calc(100% - (${blackKeyW}px / 2 + 2px + ${blackKeysOffset}px));
     }
     ${Note} {
@@ -59,7 +61,7 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
       border-right-color: var(--background);
       border-radius: 0px 0px 0 6px;
     }
-    ${NoteWrapper} {
+    ${WhiteKeyJustifyContainer} {
       width: calc(100% - (${blackKeyW}px / 2 + 2px - ${blackKeysOffset}px));
     }
     ${Note} {
@@ -77,7 +79,7 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
       border-left-color: var(--background);
       border-radius: 0px 0px 6px 0;
     }
-    ${NoteWrapper} {
+    ${WhiteKeyJustifyContainer} {
       width: calc(100% - (${blackKeyW}px / 2 + 2px + ${blackKeysOffset}px));
     }
     ${Note} {
@@ -95,7 +97,7 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
       border-right-color: var(--background);
       border-radius: 0px 0px 0px 6px;
     }
-    ${NoteWrapper} {
+    ${WhiteKeyJustifyContainer} {
       width: calc(100% - (${blackKeyW}px / 2 + 1px + ${blackKeysOffset}px));
     }
     ${Note} {
@@ -116,7 +118,7 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
       border-right-color: var(--background);
       border-radius: 0px 0px 0 6px;
     }
-    ${NoteWrapper} {
+    ${WhiteKeyJustifyContainer} {
       width: calc(
         100% - (${blackKeyW}px / 2 + 2px - ${blackKeysOffset}px) -
           (${blackKeyW}px / 2 + 2px)
@@ -141,7 +143,7 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
       border-right-color: var(--background);
       border-radius: 0px 0px 0 6px;
     }
-    ${NoteWrapper} {
+    ${WhiteKeyJustifyContainer} {
       width: calc(
         100% - (${blackKeyW}px / 2 + 2px - ${blackKeysOffset}px) -
           (${blackKeyW}px / 2 + 2px)
@@ -163,7 +165,7 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
       border-left-color: var(--background);
       border-radius: 0px 0px 6px 0;
     }
-    ${NoteWrapper} {
+    ${WhiteKeyJustifyContainer} {
       width: calc(100% - (${blackKeyW}px / 2 + 1px + ${blackKeysOffset}px));
     }
     ${Note} {

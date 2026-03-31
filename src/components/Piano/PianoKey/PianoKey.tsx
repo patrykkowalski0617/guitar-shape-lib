@@ -21,7 +21,15 @@ const PianoKey = ({ note }: PianoKeyProps) => {
     isRoleNote,
     isShapeSelected,
   } = visualState;
-  console.log(pianoKeyShape);
+
+  const label = (
+    <NoteLabel
+      isShapeNote={isShapeNote}
+      isActiveNote={isActiveNote}
+      variant="piano"
+      noteLabel={getEnharmonicNoteName(note)}
+    />
+  );
 
   return (
     <S.Key
@@ -37,12 +45,11 @@ const PianoKey = ({ note }: PianoKeyProps) => {
       onMouseOver={interactivity.handleMouseEnter}
       onMouseLeave={interactivity.handleMouseLeave}
     >
-      <NoteLabel
-        isShapeNote={isShapeNote}
-        isActiveNote={isActiveNote}
-        variant="piano"
-        noteLabel={getEnharmonicNoteName(note)}
-      />
+      {isWhitePianoKey ? (
+        <S.WhiteKeyJustifyContainer>{label}</S.WhiteKeyJustifyContainer>
+      ) : (
+        label
+      )}
     </S.Key>
   );
 };
