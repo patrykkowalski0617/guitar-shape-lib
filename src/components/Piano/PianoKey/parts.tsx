@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Note, NoteWrapper } from "@/components/NoteLabel/parts";
+import { Note } from "@/components/NoteLabel/parts";
 
 export const instrumentElBRadius = "4px";
 export const instrumentBRadius = "var(--radius-lg)";
@@ -12,9 +12,11 @@ const commonStyleForKey = css`
   background-color: color-mix(in oklab, var(--accent) 5%, transparent);
 `;
 
-const keyBorderWidth = "1px";
+const keyBorderWidth = 1;
 const blackKeyH = 85;
 const blackKeyW = 25;
+const keysGap = 2;
+const blackKeysOffset = blackKeyW / 4;
 const borderColor = `color-mix(in oklab, var(--border) 60%, var(--background))`;
 
 const commonStyleForKeyBase = css`
@@ -23,13 +25,11 @@ const commonStyleForKeyBase = css`
   justify-content: center;
 `;
 
-const blackKeysOffset = blackKeyW / 5;
-
 export const WhiteKeyJustifyContainer = styled.div`
   position: relative;
 `;
 
-const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
+const whiteKeyStyles: Record<KeyShape, ReturnType<typeof css>> = {
   C: css`
     justify-content: flex-start;
     &::after {
@@ -37,12 +37,16 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
     }
     &::before {
       right: -1px;
-      width: calc(${blackKeyW}px / 2 + 2px + ${blackKeysOffset}px);
-      border-right-color: var(--background);
+      width: calc(
+        ${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px
+      );
+      border-right: none;
       border-radius: 0px 0px 0px 6px;
     }
     ${WhiteKeyJustifyContainer} {
-      width: calc(100% - (${blackKeyW}px / 2 + 2px + ${blackKeysOffset}px));
+      width: calc(
+        100% - (${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px)
+      );
     }
     ${Note} {
       left: 50%;
@@ -50,19 +54,25 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   `,
   D: css`
     &::after {
-      left: calc(${keyBorderWidth} * -1);
-      width: calc(${blackKeyW}px / 2 + 2px - ${blackKeysOffset}px);
-      border-left-color: var(--background);
+      left: calc(${keyBorderWidth} * -1px);
+      width: calc(
+        ${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px
+      );
+      border-left: none;
       border-radius: 0px 0px 6px 0;
     }
     &::before {
-      right: calc(${keyBorderWidth} * -1);
-      width: calc(${blackKeyW}px / 2 + 2px - ${blackKeysOffset}px);
-      border-right-color: var(--background);
+      right: calc(${keyBorderWidth} * -1px);
+      width: calc(
+        ${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px
+      );
+      border-right: none;
       border-radius: 0px 0px 0 6px;
     }
     ${WhiteKeyJustifyContainer} {
-      width: calc(100% - (${blackKeyW}px / 2 + 2px - ${blackKeysOffset}px));
+      width: calc(
+        100% - (${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px)
+      );
     }
     ${Note} {
       left: 50%;
@@ -75,12 +85,16 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
     }
     &::before {
       left: -1px;
-      width: calc(${blackKeyW}px / 2 + 2px + ${blackKeysOffset}px);
-      border-left-color: var(--background);
+      width: calc(
+        ${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px
+      );
+      border-left: none;
       border-radius: 0px 0px 6px 0;
     }
     ${WhiteKeyJustifyContainer} {
-      width: calc(100% - (${blackKeyW}px / 2 + 2px + ${blackKeysOffset}px));
+      width: calc(
+        100% - (${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px)
+      );
     }
     ${Note} {
       left: 50%;
@@ -93,8 +107,10 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
     }
     &::before {
       right: -1px;
-      width: calc(${blackKeyW}px / 2 + 2px + ${blackKeysOffset}px);
-      border-right-color: var(--background);
+      width: calc(
+        ${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px
+      );
+      border-right: none;
       border-radius: 0px 0px 0px 6px;
     }
     ${WhiteKeyJustifyContainer} {
@@ -107,23 +123,28 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   G: css`
     justify-content: flex-start;
     &::after {
-      left: calc(${keyBorderWidth} * -1);
-      width: calc(${blackKeyW}px / 2 + 2px - ${blackKeysOffset}px);
-      border-left-color: var(--background);
+      left: calc(${keyBorderWidth} * -1px);
+      width: calc(
+        ${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px
+      );
+      border-left: none;
       border-radius: 0px 0px 6px 0;
     }
     &::before {
-      right: calc(${keyBorderWidth} * -1);
-      width: calc(${blackKeyW}px / 2 + 2px);
-      border-right-color: var(--background);
+      right: calc(${keyBorderWidth} * -1px);
+      width: calc(${blackKeyW}px / 2 + ${keysGap}px + 1px);
+      border-right: none;
       border-radius: 0px 0px 0 6px;
     }
     ${WhiteKeyJustifyContainer} {
       width: calc(
-        100% - (${blackKeyW}px / 2 + 2px - ${blackKeysOffset}px) -
-          (${blackKeyW}px / 2 + 2px)
+        100% -
+          (${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px) -
+          (${blackKeyW}px / 2 + ${keysGap}px + 1px)
       );
-      left: calc(${blackKeyW}px / 2 + 2px - ${blackKeysOffset}px);
+      left: calc(
+        ${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px
+      );
     }
     ${Note} {
       left: 50%;
@@ -132,23 +153,26 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   A: css`
     justify-content: flex-start;
     &::after {
-      left: calc(${keyBorderWidth} * -1);
-      width: calc(${blackKeyW}px / 2 + 2px);
-      border-left-color: var(--background);
+      left: calc(${keyBorderWidth} * -1px);
+      width: calc(${blackKeyW}px / 2 + ${keysGap}px + 1px);
+      border-left: none;
       border-radius: 0px 0px 6px 0;
     }
     &::before {
-      right: calc(${keyBorderWidth} * -1);
-      width: calc(${blackKeyW}px / 2 + 2px - ${blackKeysOffset}px);
-      border-right-color: var(--background);
+      right: calc(${keyBorderWidth} * -1px);
+      width: calc(
+        ${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px
+      );
+      border-right: none;
       border-radius: 0px 0px 0 6px;
     }
     ${WhiteKeyJustifyContainer} {
       width: calc(
-        100% - (${blackKeyW}px / 2 + 2px - ${blackKeysOffset}px) -
-          (${blackKeyW}px / 2 + 2px)
+        100% -
+          (${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px) -
+          (${blackKeyW}px / 2 + ${keysGap}px + 1px)
       );
-      left: calc(${blackKeyW}px / 2 + 2px);
+      left: calc(${blackKeyW}px / 2 + ${keysGap}px + 1px);
     }
     ${Note} {
       left: 50%;
@@ -161,8 +185,10 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
     }
     &::before {
       left: -1px;
-      width: calc(${blackKeyW}px / 2 + 2px + ${blackKeysOffset}px);
-      border-left-color: var(--background);
+      width: calc(
+        ${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px
+      );
+      border-left: none;
       border-radius: 0px 0px 6px 0;
     }
     ${WhiteKeyJustifyContainer} {
@@ -174,7 +200,7 @@ const pianoKeyShapes: Record<KeyShape, ReturnType<typeof css>> = {
   `,
 };
 
-const blackKeyStyles: Record<KeyShape, ReturnType<typeof css>> = {
+const blackKeysStyles: Record<KeyShape, ReturnType<typeof css>> = {
   "C#": css`
     transform: translateX(-${blackKeysOffset}px);
   `,
@@ -189,31 +215,32 @@ const blackKeyStyles: Record<KeyShape, ReturnType<typeof css>> = {
   `,
 };
 
-const whitePianoKey = css`
+const whiteKeyCommon = css`
   ${commonStyleForKeyBase};
   ${commonStyleForKey}
   position: relative;
-  border: ${borderColor} ${keyBorderWidth} solid;
-  margin: 0 1px;
+  border-width: ${keyBorderWidth}px;
+  border-style: solid;
+  margin: 0 ${keysGap}px;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   height: 140px;
   &::after,
   &::before {
     content: "";
     display: block;
-    height: calc(${blackKeyH}px + 2px);
+    height: calc(${blackKeyH}px + ${keysGap}px + 2px);
     border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
     position: absolute;
-    border-top-color: var(--background) !important;
     background-color: var(--background);
-    border: 1px solid ${borderColor};
-    top: calc(${keyBorderWidth} * -1);
+    border-width: ${keyBorderWidth}px;
+    border-style: solid;
+    border-top: calc(${keyBorderWidth}px + 3px) solid var(--background); // +3px for better rednering of sides borders
     z-index: 1;
     top: -1px;
   }
 `;
 
-const blackPianoKey = css`
+const blackKeyCommon = css`
   ${commonStyleForKey}
   ${commonStyleForKeyBase};
   background-color: var(--background);
@@ -231,7 +258,8 @@ const blackPianoKey = css`
     position: absolute;
     top: 0px;
     z-index: 9;
-    border: ${borderColor} ${keyBorderWidth} solid !important;
+    border-width: ${keyBorderWidth}px;
+    border-style: solid;
     border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   }
 `;
@@ -245,26 +273,59 @@ export const Key = styled.div<{
   $isTuneKeyNote: boolean;
   $isShapeNote: boolean;
   $isRoleNote: boolean;
+  $isTuneNote: boolean;
 }>`
   position: relative;
-  filter: ${({ $isActiveNote }) => ($isActiveNote ? "brightness(3)" : "")};
+
+  ${({ $isActiveNote }) => {
+    if ($isActiveNote) {
+      return css`
+        filter: brightness(2);
+      `;
+    }
+    return null;
+  }};
+
+  ${({ $isTuneNote }) => {
+    if ($isTuneNote) {
+      return css`
+        border-color: var(--secondary);
+        box-shadow: inset 0 0px 2px 0px
+          color-mix(in oklab, var(--secondary) 80%, var(--background));
+        &::after,
+        &::before {
+          border-color: var(--secondary);
+          box-shadow: inset 0 0px 2px 0px
+            color-mix(in oklab, var(--secondary) 80%, var(--background));
+        }
+      `;
+    }
+    return css`
+      border-color: ${borderColor};
+      &::after,
+      &::before {
+        border-color: ${borderColor};
+      }
+    `;
+  }};
+
   ${({ $isTuneKeyNote }) => {
     return $isTuneKeyNote
       ? css`
           &::after,
           &::before {
-            /* border: ${borderColor} ${keyBorderWidth} solid; */
+            /* border: ${borderColor} ${keyBorderWidth}px solid; */
           }
         `
       : "";
   }};
 
   ${({ $isWhitePianoKey }) =>
-    $isWhitePianoKey ? whitePianoKey : blackPianoKey}
+    $isWhitePianoKey ? whiteKeyCommon : blackKeyCommon}
 
-  ${({ $pianoKeyShape }) => pianoKeyShapes[$pianoKeyShape]}
+  ${({ $pianoKeyShape }) => whiteKeyStyles[$pianoKeyShape]}
 
-  ${({ $pianoKeyShape }) => blackKeyStyles[$pianoKeyShape]}
+  ${({ $pianoKeyShape }) => blackKeysStyles[$pianoKeyShape]}
 
 
   ${({ $isShapeNote, $isHighlighted, $isWhitePianoKey, $isRoleNote }) => {

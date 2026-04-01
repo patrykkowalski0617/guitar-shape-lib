@@ -18,8 +18,8 @@ export default function Piano(): JSX.Element {
         <InstrumentWrapper>
           {/* <ScaleTemplate /> */}
           <S.Piano $numberOfKeys={numberOfKeys}>
-            {pianoNotes.map((note) => (
-              <PianoKey key={note.noteId} note={note} />
+            {pianoNotes.map((note, index) => (
+              <PianoKey key={note.noteId} note={note} pianoKeyindex={index} />
             ))}
           </S.Piano>
         </InstrumentWrapper>

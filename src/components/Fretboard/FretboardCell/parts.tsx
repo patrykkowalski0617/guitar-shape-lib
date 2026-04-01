@@ -6,7 +6,7 @@ export const FretWrapper = styled.div`
   flex: 1 1 0;
   width: 0;
   height: 30px;
-  padding: 1px;
+  padding: 2px;
 `;
 
 export const Fret = styled.div<{
