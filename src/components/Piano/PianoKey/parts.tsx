@@ -114,7 +114,9 @@ const whiteKeyStyles: Record<KeyShape, ReturnType<typeof css>> = {
       border-radius: 0px 0px 0px 6px;
     }
     ${WhiteKeyJustifyContainer} {
-      width: calc(100% - (${blackKeyW}px / 2 + 1px + ${blackKeysOffset}px));
+      width: calc(
+        100% - (${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px)
+      );
     }
     ${Note} {
       left: 50%;
@@ -192,7 +194,9 @@ const whiteKeyStyles: Record<KeyShape, ReturnType<typeof css>> = {
       border-radius: 0px 0px 6px 0;
     }
     ${WhiteKeyJustifyContainer} {
-      width: calc(100% - (${blackKeyW}px / 2 + 1px + ${blackKeysOffset}px));
+      width: calc(
+        100% - (${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px)
+      );
     }
     ${Note} {
       left: 50%;
