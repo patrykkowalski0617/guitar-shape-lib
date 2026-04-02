@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import type { Variant } from "./NoteLabel";
 import { transitionTime } from "@/data/constants";
-import { instrumentElBRadius } from "../Piano/PianoKey/parts";
+import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
 
 const highlightedColor = "var(--foreground)";
 const unHighlightedColor = "var(--border)";

@@ -1,4 +1,4 @@
-import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts";
+import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
 import styled, { css } from "styled-components";
 
 export const FretWrapper = styled.div`

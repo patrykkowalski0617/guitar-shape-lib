@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { instrumentElBRadius } from "../Piano/PianoKey/parts";
+import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
 
 export const PlayerContainer = styled.div`
   display: flex;

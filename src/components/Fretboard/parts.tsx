@@ -4,7 +4,7 @@ import { Fret, Note } from "./FretboardCell/parts";
 import {
   instrumentBRadius,
   instrumentElBRadius,
-} from "../Piano/PianoKey/parts";
+} from "../Piano/PianoKey/parts/constants";
 
 export const Fretboard = styled.div`
   user-select: none;

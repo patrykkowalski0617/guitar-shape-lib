@@ -1,9 +1,10 @@
-import * as S from "./parts";
+import * as S from "./parts/parts";
 import { type NoteObject } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { usePianoKey } from "./hooks/usePianoKey";
 import { useEnharmonicNoteName } from "@/hooks";
 import { usePianoKeyTuneKeyState } from "./hooks/usePianoKeyTuneKeyState";
+import { WhiteKeyJustifyContainer } from "./parts/whiteKeys";
 
 interface PianoKeyProps {
   note: NoteObject;
@@ -44,13 +45,13 @@ const PianoKey = ({ note, pianoKeyindex }: PianoKeyProps) => {
       $isHighlighted={isHighlighted}
       $isRoleNote={isRoleNote}
       //
-      $isTuneNote={isTuneNote}
+      $isHighlight={isTuneNote}
       data-piano-scroll-target={interactivity.isScrollTarget}
       onMouseOver={interactivity.handleMouseEnter}
       onMouseLeave={interactivity.handleMouseLeave}
     >
       {isWhitePianoKey ? (
-        <S.WhiteKeyJustifyContainer>{label}</S.WhiteKeyJustifyContainer>
+        <WhiteKeyJustifyContainer>{label}</WhiteKeyJustifyContainer>
       ) : (
         label
       )}
