@@ -39,7 +39,6 @@ const PianoKey = ({ note, pianoKeyindex }: PianoKeyProps) => {
       $isShapeSelected={isShapeSelected}
       $isShapeNote={isShapeNote}
       $isActiveNote={isActiveNote}
-      $isTuneKeyNote={true}
       $isWhitePianoKey={isWhitePianoKey}
       $pianoKeyShape={pianoKeyShape}
       $isHighlighted={isHighlighted}

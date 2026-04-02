@@ -6,23 +6,30 @@ export const instrumentBRadius = "var(--radius-lg)";
 
 type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
 
-const commonStyleForKey = css`
-  border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
-  background-color: color-mix(in oklab, var(--accent) 5%, var(--background));
-  background-color: color-mix(in oklab, var(--accent) 5%, transparent);
-`;
-
 const keyBorderWidth = 1;
 const blackKeyH = 85;
-const blackKeyW = 25;
+const blackKeyW = 23;
 const keysGap = 2;
-const blackKeysOffset = blackKeyW / 4;
+const tripleBlackKeysOffset = blackKeyW / 4 + 2;
+const doubleBlackKeysOffset = tripleBlackKeysOffset - 3;
 const borderColor = `color-mix(in oklab, var(--border) 60%, var(--background))`;
+
+const baseCutCalc = `${blackKeyW}px / 2 + ${keysGap}px + 1px`;
+const wideCutWidth = css`calc(${baseCutCalc} + ${doubleBlackKeysOffset}px)`;
+const widerCutWidth = css`calc(${baseCutCalc} + ${tripleBlackKeysOffset}px)`;
+const narrowCutWidth = css`calc(${baseCutCalc} - ${doubleBlackKeysOffset}px)`;
+const narrowerCutWidth = css`calc(${baseCutCalc} - ${tripleBlackKeysOffset}px)`;
+const simpleCutWidth = css`calc(${baseCutCalc})`;
 
 const commonStyleForKeyBase = css`
   flex: 1 1 0;
   display: flex;
   justify-content: center;
+`;
+
+const commonStyleForKeyBackground = css`
+  border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
+  background-color: color-mix(in oklab, var(--accent) 5%, transparent);
 `;
 
 export const WhiteKeyJustifyContainer = styled.div`
@@ -37,64 +44,12 @@ const whiteKeyStyles: Record<KeyShape, ReturnType<typeof css>> = {
     }
     &::before {
       right: -1px;
-      width: calc(
-        ${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px
-      );
-      border-right: none;
-      border-radius: 0px 0px 0px 6px;
+      width: ${wideCutWidth};
+      border-right: calc(${keyBorderWidth}px) solid var(--background);
+      border-radius: 0 0 0 6px;
     }
     ${WhiteKeyJustifyContainer} {
-      width: calc(
-        100% - (${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px)
-      );
-    }
-    ${Note} {
-      left: 50%;
-    }
-  `,
-  D: css`
-    &::after {
-      left: calc(${keyBorderWidth} * -1px);
-      width: calc(
-        ${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px
-      );
-      border-left: none;
-      border-radius: 0px 0px 6px 0;
-    }
-    &::before {
-      right: calc(${keyBorderWidth} * -1px);
-      width: calc(
-        ${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px
-      );
-      border-right: none;
-      border-radius: 0px 0px 0 6px;
-    }
-    ${WhiteKeyJustifyContainer} {
-      width: calc(
-        100% - (${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px)
-      );
-    }
-    ${Note} {
-      left: 50%;
-    }
-  `,
-  E: css`
-    justify-content: flex-end;
-    &::after {
-      display: none;
-    }
-    &::before {
-      left: -1px;
-      width: calc(
-        ${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px
-      );
-      border-left: none;
-      border-radius: 0px 0px 6px 0;
-    }
-    ${WhiteKeyJustifyContainer} {
-      width: calc(
-        100% - (${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px)
-      );
+      width: calc(100% - ${wideCutWidth});
     }
     ${Note} {
       left: 50%;
@@ -107,74 +62,30 @@ const whiteKeyStyles: Record<KeyShape, ReturnType<typeof css>> = {
     }
     &::before {
       right: -1px;
-      width: calc(
-        ${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px
-      );
-      border-right: none;
-      border-radius: 0px 0px 0px 6px;
+      width: ${widerCutWidth};
+      border-right: calc(${keyBorderWidth}px) solid var(--background);
+      border-radius: 0 0 0 6px;
     }
     ${WhiteKeyJustifyContainer} {
-      width: calc(
-        100% - (${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px)
-      );
+      width: calc(100% - ${widerCutWidth});
     }
     ${Note} {
       left: 50%;
     }
   `,
-  G: css`
-    justify-content: flex-start;
+  E: css`
+    justify-content: flex-end;
     &::after {
-      left: calc(${keyBorderWidth} * -1px);
-      width: calc(
-        ${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px
-      );
-      border-left: none;
-      border-radius: 0px 0px 6px 0;
+      display: none;
     }
     &::before {
-      right: calc(${keyBorderWidth} * -1px);
-      width: calc(${blackKeyW}px / 2 + ${keysGap}px + 1px);
-      border-right: none;
-      border-radius: 0px 0px 0 6px;
+      left: -1px;
+      width: ${wideCutWidth};
+      border-left: calc(${keyBorderWidth}px) solid var(--background);
+      border-radius: 0 0 6px 0;
     }
     ${WhiteKeyJustifyContainer} {
-      width: calc(
-        100% -
-          (${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px) -
-          (${blackKeyW}px / 2 + ${keysGap}px + 1px)
-      );
-      left: calc(
-        ${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px
-      );
-    }
-    ${Note} {
-      left: 50%;
-    }
-  `,
-  A: css`
-    justify-content: flex-start;
-    &::after {
-      left: calc(${keyBorderWidth} * -1px);
-      width: calc(${blackKeyW}px / 2 + ${keysGap}px + 1px);
-      border-left: none;
-      border-radius: 0px 0px 6px 0;
-    }
-    &::before {
-      right: calc(${keyBorderWidth} * -1px);
-      width: calc(
-        ${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px
-      );
-      border-right: none;
-      border-radius: 0px 0px 0 6px;
-    }
-    ${WhiteKeyJustifyContainer} {
-      width: calc(
-        100% -
-          (${blackKeyW}px / 2 + ${keysGap}px + 1px - ${blackKeysOffset}px) -
-          (${blackKeyW}px / 2 + ${keysGap}px + 1px)
-      );
-      left: calc(${blackKeyW}px / 2 + ${keysGap}px + 1px);
+      width: calc(100% - ${wideCutWidth});
     }
     ${Note} {
       left: 50%;
@@ -187,16 +98,76 @@ const whiteKeyStyles: Record<KeyShape, ReturnType<typeof css>> = {
     }
     &::before {
       left: -1px;
-      width: calc(
-        ${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px
-      );
-      border-left: none;
-      border-radius: 0px 0px 6px 0;
+      width: ${widerCutWidth};
+      border-left: calc(${keyBorderWidth}px) solid var(--background);
+      border-radius: 0 0 6px 0;
     }
     ${WhiteKeyJustifyContainer} {
-      width: calc(
-        100% - (${blackKeyW}px / 2 + ${keysGap}px + 1px + ${blackKeysOffset}px)
-      );
+      width: calc(100% - ${widerCutWidth});
+    }
+    ${Note} {
+      left: 50%;
+    }
+  `,
+  D: css`
+    &::after {
+      left: calc(${keyBorderWidth} * -1px);
+      width: ${narrowCutWidth};
+      border-left: calc(${keyBorderWidth}px) solid var(--background);
+      border-radius: 0 0 6px 0;
+    }
+    &::before {
+      right: calc(${keyBorderWidth} * -1px);
+      width: ${narrowCutWidth};
+      border-right: calc(${keyBorderWidth}px) solid var(--background);
+      border-radius: 0 0 0 6px;
+    }
+    ${WhiteKeyJustifyContainer} {
+      width: calc(100% - ${narrowCutWidth} - ${narrowCutWidth});
+    }
+    ${Note} {
+      left: 50%;
+    }
+  `,
+  G: css`
+    justify-content: flex-start;
+    &::after {
+      left: calc(${keyBorderWidth} * -1px);
+      width: ${narrowerCutWidth};
+      border-left: calc(${keyBorderWidth}px) solid var(--background);
+      border-radius: 0 0 6px 0;
+    }
+    &::before {
+      right: calc(${keyBorderWidth} * -1px);
+      width: ${simpleCutWidth};
+      border-right: calc(${keyBorderWidth}px) solid var(--background);
+      border-radius: 0 0 0 6px;
+    }
+    ${WhiteKeyJustifyContainer} {
+      width: calc(100% - ${narrowerCutWidth} - ${simpleCutWidth});
+      left: ${narrowerCutWidth};
+    }
+    ${Note} {
+      left: 50%;
+    }
+  `,
+  A: css`
+    justify-content: flex-start;
+    &::after {
+      left: calc(${keyBorderWidth} * -1px);
+      width: ${simpleCutWidth};
+      border-left: calc(${keyBorderWidth}px) solid var(--background);
+      border-radius: 0 0 6px 0;
+    }
+    &::before {
+      right: calc(${keyBorderWidth} * -1px);
+      width: ${narrowerCutWidth};
+      border-right: calc(${keyBorderWidth}px) solid var(--background);
+      border-radius: 0 0 0 6px;
+    }
+    ${WhiteKeyJustifyContainer} {
+      width: calc(100% - ${simpleCutWidth} - ${narrowerCutWidth});
+      left: ${simpleCutWidth};
     }
     ${Note} {
       left: 50%;
@@ -204,24 +175,33 @@ const whiteKeyStyles: Record<KeyShape, ReturnType<typeof css>> = {
   `,
 };
 
-const blackKeysStyles: Record<KeyShape, ReturnType<typeof css>> = {
+const blackKeysStyles: Record<string, ReturnType<typeof css>> = {
   "C#": css`
-    transform: translateX(-${blackKeysOffset}px);
+    transform: translateX(-${doubleBlackKeysOffset}px);
   `,
   "D#": css`
-    transform: translateX(${blackKeysOffset}px);
+    transform: translateX(${doubleBlackKeysOffset}px);
   `,
   "F#": css`
-    transform: translateX(-${blackKeysOffset}px);
+    transform: translateX(-${tripleBlackKeysOffset}px);
   `,
   "A#": css`
-    transform: translateX(${blackKeysOffset}px);
+    transform: translateX(${tripleBlackKeysOffset}px);
   `,
 };
 
+const pseudoElKeyBase = css`
+  content: "";
+  display: block;
+  border-width: ${keyBorderWidth}px;
+  border-style: solid;
+  border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
+  position: absolute;
+`;
+
 const whiteKeyCommon = css`
-  ${commonStyleForKeyBase};
-  ${commonStyleForKey}
+  ${commonStyleForKeyBase}
+  ${commonStyleForKeyBackground}
   position: relative;
   border-width: ${keyBorderWidth}px;
   border-style: solid;
@@ -230,41 +210,29 @@ const whiteKeyCommon = css`
   height: 140px;
   &::after,
   &::before {
-    content: "";
-    display: block;
+    ${pseudoElKeyBase}
     height: calc(${blackKeyH}px + ${keysGap}px + 2px);
-    border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
-    position: absolute;
     background-color: var(--background);
-    border-width: ${keyBorderWidth}px;
-    border-style: solid;
-    border-top: calc(${keyBorderWidth}px + 3px) solid var(--background); // +3px for better rednering of sides borders
+    border-top: calc(${keyBorderWidth}px + 3px) solid var(--background);
     z-index: 1;
     top: -1px;
   }
 `;
 
 const blackKeyCommon = css`
-  ${commonStyleForKey}
-  ${commonStyleForKeyBase};
+  ${commonStyleForKeyBackground}
+  ${commonStyleForKeyBase}
   background-color: var(--background);
   height: calc(${blackKeyH}px - 1px);
   z-index: 10;
-  flex-basis: 0;
-  flex-grow: 0;
-  flex-shrink: 0;
+  flex: 0 0 0;
   &::before {
-    content: "";
-    display: block;
+    ${pseudoElKeyBase}
     width: ${blackKeyW}px;
     height: 100%;
     background-color: var(--background);
-    position: absolute;
     top: 0px;
     z-index: 9;
-    border-width: ${keyBorderWidth}px;
-    border-style: solid;
-    border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   }
 `;
 
@@ -274,89 +242,143 @@ export const Key = styled.div<{
   $pianoKeyShape?: KeyShape;
   $isHighlighted?: boolean;
   $isActiveNote: boolean;
-  $isTuneKeyNote: boolean;
   $isShapeNote: boolean;
   $isRoleNote: boolean;
   $isTuneNote: boolean;
 }>`
   position: relative;
 
-  ${({ $isActiveNote }) => {
-    if ($isActiveNote) {
-      return css`
-        filter: brightness(2);
-      `;
-    }
-    return null;
-  }};
+  ${({ $isActiveNote }) =>
+    $isActiveNote &&
+    css`
+      filter: brightness(2);
+    `}
 
-  ${({ $isTuneNote }) => {
-    if ($isTuneNote) {
-      return css`
-        border-color: var(--secondary);
-        box-shadow: inset 0 0px 2px 0px
-          color-mix(in oklab, var(--secondary) 80%, var(--background));
-        &::after,
-        &::before {
-          border-color: var(--secondary);
-          box-shadow: inset 0 0px 2px 0px
-            color-mix(in oklab, var(--secondary) 80%, var(--background));
-        }
-      `;
-    }
-    return css`
-      border-color: ${borderColor};
-      &::after,
+  ${({ $isTuneNote, $pianoKeyShape }) => {
+    const boxShadowColor =
+      "color-mix(in oklab, var(--secondary) 80%, var(--background))";
+    const defaultShadow = `inset 0 0 2px 0 ${boxShadowColor}`;
+
+    const blackKeyShadow = css`
       &::before {
+        box-shadow: ${defaultShadow};
+      }
+    `;
+
+    const keySpecificStyles: Record<string, ReturnType<typeof css>> = {
+      C: css`
+        box-shadow: ${defaultShadow};
+        &::before {
+          box-shadow: -2px 2px 2px -2px ${boxShadowColor};
+        }
+      `,
+      D: css`
+        box-shadow: ${defaultShadow};
+        &::before {
+          box-shadow: -2px 2px 2px -2px ${boxShadowColor};
+        }
+        &::after {
+          box-shadow: 2px 2px 2px -2px ${boxShadowColor};
+        }
+      `,
+      E: css`
+        box-shadow: ${defaultShadow};
+        &::before {
+          box-shadow: 2px 2px 2px -2px ${boxShadowColor};
+        }
+      `,
+      F: css`
+        box-shadow: ${defaultShadow};
+        &::before {
+          box-shadow: -2px 2px 2px -2px ${boxShadowColor};
+        }
+      `,
+      G: css`
+        box-shadow: ${defaultShadow};
+        &::before {
+          box-shadow: -2px 2px 2px -2px ${boxShadowColor};
+        }
+        &::after {
+          box-shadow: 2px 2px 2px -2px ${boxShadowColor};
+        }
+      `,
+      A: css`
+        box-shadow: ${defaultShadow};
+        &::before {
+          box-shadow: -2px 2px 2px -2px ${boxShadowColor};
+        }
+        &::after {
+          box-shadow: 2px 2px 2px -2px ${boxShadowColor};
+        }
+      `,
+      B: css`
+        box-shadow: ${defaultShadow};
+        &::before {
+          box-shadow: 2px 2px 2px -2px ${boxShadowColor};
+        }
+      `,
+      "C#": blackKeyShadow,
+      "D#": blackKeyShadow,
+      "F#": blackKeyShadow,
+      "G#": blackKeyShadow,
+      "A#": blackKeyShadow,
+    };
+
+    const activeShapeStyle = $pianoKeyShape
+      ? keySpecificStyles[$pianoKeyShape]
+      : css``;
+
+    const activeStyle = css`
+      border-color: var(--secondary);
+      ${activeShapeStyle}
+      &::before,
+      &::after {
+        border-color: var(--secondary);
+      }
+    `;
+
+    const standardStyle = css`
+      border-color: ${borderColor};
+      &::before,
+      &::after {
         border-color: ${borderColor};
       }
     `;
-  }};
 
-  ${({ $isTuneKeyNote }) => {
-    return $isTuneKeyNote
-      ? css`
-          &::after,
-          &::before {
-            /* border: ${borderColor} ${keyBorderWidth}px solid; */
-          }
-        `
-      : "";
-  }};
+    return $isTuneNote ? activeStyle : standardStyle;
+  }}
 
   ${({ $isWhitePianoKey }) =>
     $isWhitePianoKey ? whiteKeyCommon : blackKeyCommon}
-
-  ${({ $pianoKeyShape }) => whiteKeyStyles[$pianoKeyShape]}
-
-  ${({ $pianoKeyShape }) => blackKeysStyles[$pianoKeyShape]}
-
+  ${({ $pianoKeyShape }) => $pianoKeyShape && whiteKeyStyles[$pianoKeyShape]}
+  ${({ $pianoKeyShape }) =>
+    $pianoKeyShape && blackKeysStyles[$pianoKeyShape as string]}
 
   ${({ $isShapeNote, $isHighlighted, $isWhitePianoKey, $isRoleNote }) => {
     if (!$isHighlighted) return null;
-    const color = $isShapeNote ? borderColor : "var(--accent)";
 
-    const shadow = $isWhitePianoKey
-      ? `inset 0 -23px 35px -4px ${color}`
-      : `inset 0 -10px 30px 0px color-mix(in oklab, ${color} 80%, var(--background))`;
-    const target = $isWhitePianoKey ? css`` : css`&`;
+    const highlightColor = $isShapeNote ? borderColor : "var(--accent)";
+    const whiteShadow = `inset 0 -23px 35px -4px ${highlightColor}`;
+    const blackShadow = `inset 0 -10px 30px 0px color-mix(in oklab, ${highlightColor} 80%, var(--background))`;
+    const shadowEffect = $isWhitePianoKey ? whiteShadow : blackShadow;
 
-    return css`
-      ${target} {
-        ${$isRoleNote || $isShapeNote ? `box-shadow: ${shadow};` : ""}
-      }
-    `;
+    const shouldShowShadow = $isRoleNote || $isShapeNote;
+    return shouldShowShadow
+      ? css`
+          box-shadow: ${shadowEffect};
+        `
+      : null;
   }}
 
-   &:first-child {
+  &:first-child {
     border-radius: ${instrumentBRadius} 0 ${instrumentElBRadius}
       ${instrumentElBRadius};
-
     &::before,
     &::after {
       display: none;
     }
   }
+
   &:last-child {
     border-radius: 0 ${instrumentBRadius} ${instrumentElBRadius}
       ${instrumentElBRadius};
