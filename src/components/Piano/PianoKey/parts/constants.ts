@@ -10,7 +10,6 @@ export const keysGap = 2;
 export const tripleBlackKeysOffset = blackKeyW / 4 + 2;
 export const doubleBlackKeysOffset = tripleBlackKeysOffset - 3;
 
-export const borderColor = `color-mix(in oklab, var(--border) 60%, var(--background))`;
 export const baseCutCalc = `${blackKeyW}px / 2 + ${keysGap}px + 1px`;
 export const wideCutWidth = css`calc(${baseCutCalc} + ${doubleBlackKeysOffset}px)`;
 export const widerCutWidth = css`calc(${baseCutCalc} + ${tripleBlackKeysOffset}px)`;
@@ -23,7 +22,7 @@ export const commonStyleForKeyBase = css`
   display: flex;
   justify-content: center;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
-  background-color: color-mix(in oklab, var(--accent) 5%, transparent);
+  background-color: color-mix(in oklab, var(--accent) 35%, transparent);
 `;
 
 export const pseudoElKeyBase = css`

@@ -4,6 +4,7 @@ import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardR
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
 import { useNoteState } from "./hooks";
+import { useMusicStore } from "@/store";
 
 interface FretboardCellProps {
   noteData: NoteObject;
@@ -27,19 +28,25 @@ export default function FretboardCell({
       fretIndex,
     });
 
+  const setActiveNotes = useMusicStore((state) => state.setActiveNotes);
+  const activeNotes = useMusicStore((state) => state.activeNotes);
+
   return (
     <S.FretWrapper
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={() => {
+        setActiveNotes(noteData.noteId);
+      }}
     >
       <S.Fret $isLockedNote={isLockedNote} data-fret={fretIndex}>
         <S.Note
           $opacity={opacity}
           $brightness={brightness}
-          $isShapeNote={isShapeNote}
+          $isShapeNote={activeNotes.includes(noteData.noteId) || isShapeNote}
         >
           <NoteLabel
-            isShapeNote={isShapeNote}
+            isShapeNote={activeNotes.includes(noteData.noteId) || isShapeNote}
             variant="fretboard"
             noteLabel={noteLabel}
           />

@@ -172,7 +172,7 @@ export const whiteKeyCommon = css`
     ${pseudoElKeyBase}
     height: calc(${blackKeyH}px + ${keysGap}px + 2px);
     background-color: var(--background);
-    border-top: calc(${keyBorderWidth}px + 3px) solid var(--background);
+    border-top: calc(${keyBorderWidth}px + 1px) solid var(--background);
     z-index: 1;
     top: -1px;
   }

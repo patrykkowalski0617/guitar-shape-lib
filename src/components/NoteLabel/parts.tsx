@@ -14,9 +14,10 @@ export const Note = styled.div`
   font-size: 12px;
   font-weight: bold;
   will-change: opacity;
-  background: color-mix(in oklab, var(--background) 70%, transparent);
+  background: color-mix(in oklab, var(--background) 80%, transparent);
   box-shadow: 0 0 8px var(--background);
   position: absolute;
+  z-index: 20;
 `;
 
 export const NoteWrapper = styled.div<{

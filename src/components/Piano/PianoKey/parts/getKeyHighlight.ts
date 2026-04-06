@@ -15,25 +15,32 @@ export const getKeyHighlight = ({
   pianoKeyShape,
   highlightColor,
 }: KeyHighlightProps) => {
-  const shadowSize = 25;
+  const whiteKeyShadowSize = 35;
+  const blackKeyShadowSize = 20;
   const boxShadowColor = `color-mix(in oklab, ${highlightColor} 80%, var(--background))`;
-  const regularBorderColor = `color-mix(in oklab, var(--border) 60%, var(--background))`;
-  const defaultShadow = `inset 0 0 ${shadowSize}px 0 ${boxShadowColor}`;
+  const regularBorderColor = `color-mix(in oklab, var(--border) 70%, var(--background))`;
+  const whiteKeyShadow = `inset 0 0 ${whiteKeyShadowSize}px 0 ${boxShadowColor}`;
+  const blackKeyShadow = `inset 0 0 ${blackKeyShadowSize}px 0 ${boxShadowColor}`;
 
-  const blackKeyShadow = css`
+  const blackKeyHighlightStyle = css`
     &::before {
-      box-shadow: ${defaultShadow};
+      box-shadow: ${blackKeyShadow};
+      background: radial-gradient(
+        circle,
+        rgba(63, 94, 251, 0.5) 0%,
+        rgba(252, 70, 107, 0.5) 100%
+      );
     }
   `;
 
   const leftEdgeShadow = css`
-    box-shadow: -${shadowSize}px ${shadowSize}px
-      ${shadowSize}px -${shadowSize}px ${boxShadowColor};
+    box-shadow: -${whiteKeyShadowSize}px ${whiteKeyShadowSize}px
+      ${whiteKeyShadowSize}px -${whiteKeyShadowSize}px ${boxShadowColor};
   `;
 
   const rightEdgeShadow = css`
-    box-shadow: ${shadowSize}px ${shadowSize}px ${shadowSize}px -${shadowSize}px
-      ${boxShadowColor};
+    box-shadow: ${whiteKeyShadowSize}px ${whiteKeyShadowSize}px
+      ${whiteKeyShadowSize}px -${whiteKeyShadowSize}px ${boxShadowColor};
   `;
 
   const keySpecificStyles: Record<
@@ -41,13 +48,13 @@ export const getKeyHighlight = ({
     ReturnType<typeof css>
   > = {
     C: css`
-      box-shadow: ${defaultShadow};
+      box-shadow: ${whiteKeyShadow};
       &::before {
         ${leftEdgeShadow}
       }
     `,
     D: css`
-      box-shadow: ${defaultShadow};
+      box-shadow: ${whiteKeyShadow};
       &::before {
         ${leftEdgeShadow}
       }
@@ -56,19 +63,19 @@ export const getKeyHighlight = ({
       }
     `,
     E: css`
-      box-shadow: ${defaultShadow};
+      box-shadow: ${whiteKeyShadow};
       &::before {
         ${rightEdgeShadow}
       }
     `,
     F: css`
-      box-shadow: ${defaultShadow};
+      box-shadow: ${whiteKeyShadow};
       &::before {
         ${leftEdgeShadow}
       }
     `,
     G: css`
-      box-shadow: ${defaultShadow};
+      box-shadow: ${whiteKeyShadow};
       &::before {
         ${leftEdgeShadow}
       }
@@ -77,7 +84,7 @@ export const getKeyHighlight = ({
       }
     `,
     A: css`
-      box-shadow: ${defaultShadow};
+      box-shadow: ${whiteKeyShadow};
       &::before {
         ${leftEdgeShadow}
       }
@@ -86,24 +93,29 @@ export const getKeyHighlight = ({
       }
     `,
     B: css`
-      box-shadow: ${defaultShadow};
+      box-shadow: ${whiteKeyShadow};
       &::before {
         ${rightEdgeShadow}
       }
     `,
-    "C#": blackKeyShadow,
-    "D#": blackKeyShadow,
-    "F#": blackKeyShadow,
-    "G#": blackKeyShadow,
-    "A#": blackKeyShadow,
+    "C#": blackKeyHighlightStyle,
+    "D#": blackKeyHighlightStyle,
+    "F#": blackKeyHighlightStyle,
+    "G#": blackKeyHighlightStyle,
+    "A#": blackKeyHighlightStyle,
   };
 
   const activeShapeStyle = pianoKeyShape
     ? keySpecificStyles[pianoKeyShape]
-    : css``;
+    : "";
 
   const activeStyle = css`
     border-color: ${highlightColor};
+    background: radial-gradient(
+      circle,
+      rgba(63, 94, 251, 0.5) 0%,
+      rgba(252, 70, 107, 0.5) 100%
+    );
     ${activeShapeStyle}
     &::before,
     &::after {

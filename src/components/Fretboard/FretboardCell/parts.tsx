@@ -29,7 +29,7 @@ export const Note = styled.div<{
   $brightness: number;
   $isShapeNote: boolean;
 }>`
-  background-color: color-mix(in oklab, var(--accent) 5%, transparent);
+  background-color: color-mix(in oklab, var(--accent) 10%, transparent);
   border: 1px solid color-mix(in oklab, var(--border) 55%, transparent);
   border-radius: ${instrumentElBRadius};
   height: 100%;
@@ -41,10 +41,26 @@ export const Note = styled.div<{
   filter: ${({ $brightness }) =>
     $brightness > 1 ? `brightness(${$brightness})` : "none"};
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
-
+  overflow: hidden;
+  position: relative;
+  &::before,
+  &::after {
+    content: "";
+    height: 2px;
+    width: 65px;
+    background: color-mix(in oklab, var(--foreground) 40%, transparent);
+    position: absolute;
+  }
+  &::before {
+    transform: rotate(20deg);
+  }
+  &::after {
+    transform: rotate(-20deg);
+  }
   ${({ $isShapeNote }) => {
     if ($isShapeNote) {
       return css`
+        background-color: color-mix(in oklab, var(--accent) 50%, transparent);
         border-color: var(--secondary);
         box-shadow: inset 0 0px 8px 0px var(--accent);
       `;

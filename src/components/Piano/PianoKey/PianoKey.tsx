@@ -5,6 +5,7 @@ import { usePianoKey } from "./hooks/usePianoKey";
 import { useEnharmonicNoteName } from "@/hooks";
 import { usePianoKeyTuneKeyState } from "./hooks/usePianoKeyTuneKeyState";
 import { WhiteKeyJustifyContainer } from "./parts/whiteKeys";
+import { useMusicStore } from "@/store/useMusicStore";
 
 interface PianoKeyProps {
   note: NoteObject;
@@ -15,6 +16,8 @@ const PianoKey = ({ note, pianoKeyindex }: PianoKeyProps) => {
   const { visualState, interactivity } = usePianoKey({ note });
   const getEnharmonicNoteName = useEnharmonicNoteName();
   const { isTuneNote } = usePianoKeyTuneKeyState(pianoKeyindex);
+  const setActiveNotes = useMusicStore((state) => state.setActiveNotes);
+  const activeNotes = useMusicStore((state) => state.activeNotes);
 
   const {
     isWhitePianoKey,
@@ -45,10 +48,13 @@ const PianoKey = ({ note, pianoKeyindex }: PianoKeyProps) => {
       $isHighlighted={isHighlighted}
       $isRoleNote={isRoleNote}
       //
-      $isHighlight={isTuneNote}
+      $isHighlight={activeNotes.includes(note.noteId)}
       data-piano-scroll-target={interactivity.isScrollTarget}
       onMouseOver={interactivity.handleMouseEnter}
       onMouseLeave={interactivity.handleMouseLeave}
+      onClick={() => {
+        setActiveNotes(note.noteId);
+      }}
     >
       {isWhitePianoKey ? (
         <WhiteKeyJustifyContainer>{label}</WhiteKeyJustifyContainer>

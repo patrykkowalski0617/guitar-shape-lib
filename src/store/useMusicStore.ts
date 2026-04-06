@@ -23,6 +23,9 @@ interface MusicState {
   setShapeVariantLocationData_locked: (
     target: ShapeVariantLocationData | null,
   ) => void;
+
+  activeNotes: string[];
+  setActiveNotes: (activeNote: string) => void;
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
@@ -49,4 +52,19 @@ export const useMusicStore = create<MusicState>((set) => ({
       shapeVariantLocationData_locked,
       _lockedUpdate: Date.now(),
     })),
+
+  activeNotes: [],
+  setActiveNotes: (activeNote) =>
+    set((state) => {
+      const isNoteAlreadyActive = state.activeNotes.includes(activeNote);
+
+      const nextActiveNotes = isNoteAlreadyActive
+        ? state.activeNotes.filter((note) => note !== activeNote)
+        : [...state.activeNotes, activeNote];
+
+      return {
+        ...state,
+        activeNotes: nextActiveNotes,
+      };
+    }),
 }));

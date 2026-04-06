@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 export const ShapeExplorerWrapper = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: -30px;
   left: 0;
   right: 0;
-  height: 50%;
+  height: 30px;
+  z-index: 30;
 `;
 
 export const Tick = styled.div<{
