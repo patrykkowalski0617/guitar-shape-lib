@@ -28,6 +28,7 @@ export const Note = styled.div<{
   $opacity: number;
   $brightness: number;
   $isShapeNote: boolean;
+  $isBaseChordShapeNote: boolean;
 }>`
   background-color: color-mix(in oklab, var(--accent) 10%, transparent);
   border: 1px solid color-mix(in oklab, var(--border) 55%, transparent);
@@ -43,20 +44,40 @@ export const Note = styled.div<{
   border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
   overflow: hidden;
   position: relative;
-  &::before,
-  &::after {
-    content: "";
-    height: 2px;
-    width: 65px;
-    background: color-mix(in oklab, var(--foreground) 40%, transparent);
-    position: absolute;
-  }
-  &::before {
-    transform: rotate(20deg);
-  }
-  &::after {
-    transform: rotate(-20deg);
-  }
+  ${({ $isBaseChordShapeNote }) => {
+    if (!$isBaseChordShapeNote) return null;
+    const markupColor = `color-mix(in oklab, var(--foreground) 100%, transparent)`;
+    const deg = 30;
+    const space = 4;
+    const size = 1;
+    const layers = 3;
+
+    return css`
+      &::before,
+      &::after {
+        content: "";
+        height: ${size}px;
+        width: 65px;
+        background: ${markupColor};
+        position: absolute;
+        z-index: 30;
+        box-shadow: ${Array.from({ length: layers })
+          .map(
+            (_, i) => `
+            0px ${space * i}px 0px ${markupColor},
+            0px -${space * i}px 0px ${markupColor}`,
+          )
+          .join(", ")};
+      }
+      &::before {
+        transform: rotate(${deg}deg);
+      }
+      &::after {
+        transform: rotate(-${deg}deg);
+      }
+    `;
+  }}
+
   ${({ $isShapeNote }) => {
     if ($isShapeNote) {
       return css`

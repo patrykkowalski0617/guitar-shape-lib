@@ -8,6 +8,7 @@ import {
   keysGap,
   narrowCutWidth,
   narrowerCutWidth,
+  pianoBgColor,
   pseudoElKeyBase,
   simpleCutWidth,
   wideCutWidth,
@@ -162,8 +163,8 @@ export const whiteKeyCommon = css`
   &::before {
     ${pseudoElKeyBase}
     height: calc(${blackKeyH}px + ${keysGap}px + 2px);
-    background-color: var(--background);
-    border-top: calc(${keyBorderWidth}px + 1px) solid var(--background);
+    background-color: ${pianoBgColor};
+    border-top: calc(${keyBorderWidth}px + 1px) solid ${pianoBgColor};
     z-index: 1;
     top: -1px;
   }

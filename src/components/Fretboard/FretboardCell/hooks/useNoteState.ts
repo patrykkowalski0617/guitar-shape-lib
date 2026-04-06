@@ -62,7 +62,7 @@ export const useNoteState = ({
     const isSemiVisible = isActiveNote || isTuneNote || !shouldMarkTuneNotes;
 
     if (isVisibleInSelectionMode || isVisibleInGeneralMode) return 1;
-    if (isSemiVisible) return 0.5;
+    if (isSemiVisible) return 0.7;
     return 0;
   };
   return {

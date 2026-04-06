@@ -5,6 +5,7 @@ import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
 import { useNoteState } from "./hooks";
 import { useMusicStore } from "@/store";
+import { useBaseChordShapeCoordinates } from "./hooks/useBaseChordShapeCoordinates";
 
 interface FretboardCellProps {
   noteData: NoteObject;
@@ -21,12 +22,15 @@ export default function FretboardCell({
     noteData,
   });
 
+  const baseChordShapeCoordinates = useBaseChordShapeCoordinates()?.flat();
+
   const { isLockedNote, isShapeNote, opacity, brightness, noteLabel } =
     useNoteState({
       noteData,
       stringIndex,
       fretIndex,
     });
+  console.log(baseChordShapeCoordinates, stringIndex, fretIndex);
 
   const setActiveNotes = useMusicStore((state) => state.setActiveNotes);
   const activeNotes = useMusicStore((state) => state.activeNotes);
@@ -44,6 +48,11 @@ export default function FretboardCell({
           $opacity={opacity}
           $brightness={brightness}
           $isShapeNote={activeNotes.includes(noteData.noteId) || isShapeNote}
+          $isBaseChordShapeNote={
+            !!baseChordShapeCoordinates?.some(
+              (coord) => coord[0] === stringIndex && coord[1] === fretIndex,
+            )
+          }
         >
           <NoteLabel
             isShapeNote={activeNotes.includes(noteData.noteId) || isShapeNote}
