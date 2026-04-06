@@ -2,9 +2,9 @@ import * as React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
 import { StepSliderTicks } from "./StepSliderTicks";
-import { useStepSliderGesture } from "./hooks/useStepSliderGesture";
-import { useStepSliderLogic } from "./hooks/useStepSliderLogic";
-import type { ShapeLocation } from "./helpers/getOrderedShapeLocations";
+import { useStepSliderGesture } from "../hooks/useStepSliderGesture";
+import { useStepSliderLogic } from "../hooks/useStepSliderLogic";
+import type { ShapeLocation } from "../helpers/getOrderedShapeLocations";
 
 interface StepSliderProps extends React.ComponentProps<
   typeof SliderPrimitive.Root
@@ -22,8 +22,13 @@ export function StepSlider({
   userListIndexes = [],
   ...props
 }: StepSliderProps) {
-  const { effectiveMax, highlightedId, handleToggleAction, clearHighlight } =
-    useStepSliderLogic({ value, options });
+  const {
+    currentValue,
+    effectiveMax,
+    highlightedId,
+    handleToggleAction,
+    clearHighlight,
+  } = useStepSliderLogic({ value, options });
 
   const bindGesture = useStepSliderGesture({ onDoubleTap: handleToggleAction });
   const thumbSize = 25;
@@ -41,14 +46,13 @@ export function StepSlider({
       style={style}
       disabled={isSliderDisabled}
       className={cn(
-        "relative flex w-full touch-none items-center",
-        "select-none h-full opacity-0",
+        "relative flex w-full touch-none items-center select-none h-8",
         className,
       )}
       {...props}
     >
       <SliderPrimitive.Track
-        className="relative grow h-full w-full bg-muted/50 flex"
+        className="relative grow h-0.5 w-full bg-muted/50 rounded-full"
         style={{ margin: `0 ${thumbSize / 2}px` }}
       >
         <StepSliderTicks
@@ -64,10 +68,13 @@ export function StepSlider({
         {...bindGesture()}
         className={cn(
           "block rounded-full border-2 shadow-lg border-primary",
-          "hover:scale-120 transition-transform",
+          "cursor-grab active:cursor-grabbing hover:scale-120 transition-transform",
           "data-[disabled]:scale-100 data-[disabled]:border-primary/35",
           "focus:outline-none focus:ring-0 focus-visible:ring-2",
-          "focus-visible:ring-accent/70 bg-background",
+          "focus-visible:ring-accent/70",
+          currentValue === 0 || hasNoOptions
+            ? "bg-background"
+            : "bg-transparent",
         )}
         style={{ width: thumbSize, height: thumbSize }}
       />

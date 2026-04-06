@@ -1,4 +1,4 @@
-import { useShapeExplorerLogic } from "./hooks/useShapeExplorerLogic";
+import { useShapeExplorerLogic } from "../hooks/useShapeExplorerLogic";
 import * as S from "./parts";
 import { StepSlider } from "./StepSlider";
 
