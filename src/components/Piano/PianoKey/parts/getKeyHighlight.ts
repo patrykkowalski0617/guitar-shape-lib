@@ -10,14 +10,35 @@ export interface KeyHighlightProps {
   highlightColor: string;
 }
 
+const getRandomOffset = (range: number) =>
+  Math.floor(Math.random() * (range * 2 + 1)) - range;
+
+const applyColorOffset = (r: number, g: number, b: number) => {
+  const offset = 30;
+  return `rgba(${r + getRandomOffset(offset)}, ${g + getRandomOffset(offset)}, ${b + getRandomOffset(offset)}, 0.5)`;
+};
+
+export const generateRandomRadialGradient = () => {
+  const color1 = applyColorOffset(63, 94, 251);
+  const color2 = applyColorOffset(252, 70, 107);
+
+  const posX = getRandomOffset(30);
+  const posY = getRandomOffset(30);
+
+  return css`
+    background: radial-gradient(circle, ${color1} 0%, ${color2} 100%);
+    background-position: ${posX}px ${posY}px;
+  `;
+};
+
 export const getKeyHighlight = ({
   isHighlight,
   pianoKeyShape,
   highlightColor,
 }: KeyHighlightProps) => {
-  const whiteKeyShadowSize = 35;
+  const whiteKeyShadowSize = 30;
   const blackKeyShadowSize = 20;
-  const boxShadowColor = `color-mix(in oklab, ${highlightColor} 80%, var(--background))`;
+  const boxShadowColor = `color-mix(in oklab, ${highlightColor} 100%, var(--background))`;
   const regularBorderColor = `color-mix(in oklab, var(--border) 70%, var(--background))`;
   const whiteKeyShadow = `inset 0 0 ${whiteKeyShadowSize}px 0 ${boxShadowColor}`;
   const blackKeyShadow = `inset 0 0 ${blackKeyShadowSize}px 0 ${boxShadowColor}`;
@@ -25,22 +46,12 @@ export const getKeyHighlight = ({
   const blackKeyHighlightStyle = css`
     &::before {
       box-shadow: ${blackKeyShadow};
-      background: radial-gradient(
-        circle,
-        rgba(63, 94, 251, 0.5) 0%,
-        rgba(252, 70, 107, 0.5) 100%
-      );
+      ${generateRandomRadialGradient()}
     }
   `;
 
-  const leftEdgeShadow = css`
-    box-shadow: -${whiteKeyShadowSize}px ${whiteKeyShadowSize}px
-      ${whiteKeyShadowSize}px -${whiteKeyShadowSize}px ${boxShadowColor};
-  `;
-
-  const rightEdgeShadow = css`
-    box-shadow: ${whiteKeyShadowSize}px ${whiteKeyShadowSize}px
-      ${whiteKeyShadowSize}px -${whiteKeyShadowSize}px ${boxShadowColor};
+  const whiteKeyPseudoElShadow = css`
+    box-shadow: 0px 0px ${whiteKeyShadowSize / 2}px 0px ${boxShadowColor};
   `;
 
   const keySpecificStyles: Record<
@@ -50,52 +61,52 @@ export const getKeyHighlight = ({
     C: css`
       box-shadow: ${whiteKeyShadow};
       &::before {
-        ${leftEdgeShadow}
+        ${whiteKeyPseudoElShadow}
       }
     `,
     D: css`
       box-shadow: ${whiteKeyShadow};
       &::before {
-        ${leftEdgeShadow}
+        ${whiteKeyPseudoElShadow}
       }
       &::after {
-        ${rightEdgeShadow}
+        ${whiteKeyPseudoElShadow}
       }
     `,
     E: css`
       box-shadow: ${whiteKeyShadow};
       &::before {
-        ${rightEdgeShadow}
+        ${whiteKeyPseudoElShadow}
       }
     `,
     F: css`
       box-shadow: ${whiteKeyShadow};
       &::before {
-        ${leftEdgeShadow}
+        ${whiteKeyPseudoElShadow}
       }
     `,
     G: css`
       box-shadow: ${whiteKeyShadow};
       &::before {
-        ${leftEdgeShadow}
+        ${whiteKeyPseudoElShadow}
       }
       &::after {
-        ${rightEdgeShadow}
+        ${whiteKeyPseudoElShadow}
       }
     `,
     A: css`
       box-shadow: ${whiteKeyShadow};
       &::before {
-        ${leftEdgeShadow}
+        ${whiteKeyPseudoElShadow}
       }
       &::after {
-        ${rightEdgeShadow}
+        ${whiteKeyPseudoElShadow}
       }
     `,
     B: css`
       box-shadow: ${whiteKeyShadow};
       &::before {
-        ${rightEdgeShadow}
+        ${whiteKeyPseudoElShadow}
       }
     `,
     "C#": blackKeyHighlightStyle,

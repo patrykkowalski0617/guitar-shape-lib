@@ -10,4 +10,5 @@ export const Piano = styled.div<PianoProps>`
   user-select: none;
   display: flex;
   padding: 4px 0 2px 0;
+  gap: 0;
 `;

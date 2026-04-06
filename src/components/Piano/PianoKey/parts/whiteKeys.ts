@@ -29,7 +29,6 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
     &::before {
       right: -1px;
       width: ${wideCutWidth};
-      border-right: calc(${keyBorderWidth}px) solid var(--background);
       border-radius: 0 0 0 6px;
     }
     ${WhiteKeyJustifyContainer} {
@@ -47,7 +46,6 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
     &::before {
       right: -1px;
       width: ${widerCutWidth};
-      border-right: calc(${keyBorderWidth}px) solid var(--background);
       border-radius: 0 0 0 6px;
     }
     ${WhiteKeyJustifyContainer} {
@@ -65,7 +63,6 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
     &::before {
       left: -1px;
       width: ${wideCutWidth};
-      border-left: calc(${keyBorderWidth}px) solid var(--background);
       border-radius: 0 0 6px 0;
     }
     ${WhiteKeyJustifyContainer} {
@@ -83,7 +80,6 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
     &::before {
       left: -1px;
       width: ${widerCutWidth};
-      border-left: calc(${keyBorderWidth}px) solid var(--background);
       border-radius: 0 0 6px 0;
     }
     ${WhiteKeyJustifyContainer} {
@@ -97,13 +93,11 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
     &::after {
       left: calc(${keyBorderWidth} * -1px);
       width: ${narrowCutWidth};
-      border-left: calc(${keyBorderWidth}px) solid var(--background);
       border-radius: 0 0 6px 0;
     }
     &::before {
       right: calc(${keyBorderWidth} * -1px);
       width: ${narrowCutWidth};
-      border-right: calc(${keyBorderWidth}px) solid var(--background);
       border-radius: 0 0 0 6px;
     }
     ${WhiteKeyJustifyContainer} {
@@ -118,13 +112,11 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
     &::after {
       left: calc(${keyBorderWidth} * -1px);
       width: ${narrowerCutWidth};
-      border-left: calc(${keyBorderWidth}px) solid var(--background);
       border-radius: 0 0 6px 0;
     }
     &::before {
       right: calc(${keyBorderWidth} * -1px);
       width: ${simpleCutWidth};
-      border-right: calc(${keyBorderWidth}px) solid var(--background);
       border-radius: 0 0 0 6px;
     }
     ${WhiteKeyJustifyContainer} {
@@ -140,13 +132,11 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
     &::after {
       left: calc(${keyBorderWidth} * -1px);
       width: ${simpleCutWidth};
-      border-left: calc(${keyBorderWidth}px) solid var(--background);
       border-radius: 0 0 6px 0;
     }
     &::before {
       right: calc(${keyBorderWidth} * -1px);
       width: ${narrowerCutWidth};
-      border-right: calc(${keyBorderWidth}px) solid var(--background);
       border-radius: 0 0 0 6px;
     }
     ${WhiteKeyJustifyContainer} {
@@ -162,11 +152,12 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
 export const whiteKeyCommon = css`
   ${commonStyleForKeyBase}
   position: relative;
-  border-width: ${keyBorderWidth}px;
-  border-style: solid;
+  outline: 1px solid color-mix(in oklab, var(--border) 70%, var(--background));
+  outline-offset: -1px;
   margin: 0 ${keysGap}px;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   height: 140px;
+  overflow: hidden;
   &::after,
   &::before {
     ${pseudoElKeyBase}

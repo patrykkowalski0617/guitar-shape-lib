@@ -13,11 +13,10 @@ export const Note = styled.div`
   justify-content: center;
   font-size: 12px;
   font-weight: bold;
-  will-change: opacity;
-  background: color-mix(in oklab, var(--background) 80%, transparent);
   box-shadow: 0 0 8px var(--background);
   position: absolute;
-  z-index: 20;
+  z-index: 40;
+  background: color-mix(in oklab, var(--background) 95%, transparent);
 `;
 
 export const NoteWrapper = styled.div<{
@@ -29,15 +28,10 @@ export const NoteWrapper = styled.div<{
     $variant === "piano" &&
     css`
       position: relative;
-      z-index: 20;
-      will-change: opacity;
-      transition: ${!$isActiveNote
-        ? `opacity ${transitionTime}ms ease-in-out`
-        : "none"};
+      z-index: 40;
       opacity: ${$isShapeNote || $isActiveNote ? "1" : "0"};
       ${Note} {
         border-radius: ${instrumentElBRadius};
-        background: color-mix(in oklab, var(--background) 90%, transparent);
         width: 18px;
         height: 30px;
         line-height: 22px;
@@ -54,7 +48,6 @@ export const NoteWrapper = styled.div<{
       align-items: center;
       justify-content: center;
       flex-direction: row;
-
       ${Note} {
         color: ${$isShapeNote ? highlightedColor : unHighlightedColor};
         height: 15px;

@@ -40,5 +40,6 @@ export const blackKeyCommon = css`
     background-color: var(--background);
     top: 0px;
     z-index: 9;
+    border-color: color-mix(in oklab, var(--border) 50%, var(--background));
   }
 `;
