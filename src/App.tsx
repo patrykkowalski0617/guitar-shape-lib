@@ -26,7 +26,7 @@ export default function App() {
             <ShapeControls />
           </Section>
         )}
-        <Section>
+        {/* <Section>
           <Player />
         </Section>
         {!isPlaying && (
@@ -35,7 +35,7 @@ export default function App() {
               <Piano />
             </Section>
           </>
-        )}
+        )} */}
       </MainContent>
       <Sign />
     </AppWrapper>

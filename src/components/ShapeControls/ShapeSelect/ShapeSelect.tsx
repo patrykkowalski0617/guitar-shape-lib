@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/select";
 import { useShapeSelection } from "./hooks/useShapeSelection";
 import { useSortedShapeOptions } from "./hooks/useSortedShapeOptions";
+import { useCurrentBaseChordName } from "@/hooks";
 
 export default function ShapeSelect() {
   const {
@@ -18,6 +19,7 @@ export default function ShapeSelect() {
 
   const options = useSortedShapeOptions();
   const disabled = !options;
+  const selectedChordLabel = useCurrentBaseChordName();
 
   return (
     <Select
@@ -31,6 +33,9 @@ export default function ShapeSelect() {
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
+        <div className="text-center py-1 text-xs text-muted-foreground">
+          Choose a shape to practice over the {selectedChordLabel} chord
+        </div>
         {options &&
           options.map((option) => (
             <SelectItem key={option.value} value={option.value}>

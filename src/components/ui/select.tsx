@@ -33,8 +33,11 @@ function SelectTrigger({
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       className={cn(
-        "flex h-8 w-full items-center justify-between gap-2 bg-muted/50 px-2 text-sm font-normal tracking-tight shadow-none transition-none disabled:opacity-0 whitespace-nowrap rounded-sm relative",
-        "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 focus-visible:z-150",
+        "flex h-8 w-full items-center justify-between gap-2 bg-muted/50",
+        "px-2 text-sm font-normal tracking-tight shadow-none transition-none",
+        "disabled:opacity-0 whitespace-nowrap rounded-sm relative",
+        "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        "focus-visible:ring-offset-0 focus-visible:z-150",
         "hover:bg-muted/70 hover:text-accent-foreground",
         className,
       )}
@@ -49,7 +52,9 @@ function SelectTrigger({
 function SelectContent({
   className,
   children,
-  position = "item-aligned",
+  position = "popper", // Zmieniamy domyślnie na popper
+  sideOffset = -32, // Ustawiamy -32px (zakładając h-8 triggera), aby góry się pokryły
+  align = "start", // Wyrównujemy do lewej krawędzi triggera
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
@@ -60,18 +65,22 @@ function SelectContent({
           "bg-popover text-popover-foreground relative z-150 min-w-[8rem] overflow-hidden rounded-sm shadow-md",
           "data-[state=open]:animate-in data-[state=closed]:animate-out",
           "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-          "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",
+          "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+          // Style specyficzne dla poppera (animacje wejścia)
+          "data-[side=bottom]:translate-y-0 data-[side=top]:-translate-y-0",
           className,
         )}
         position={position}
+        sideOffset={sideOffset}
+        align={align}
         {...props}
       >
         <SelectScrollUpButton />
         <SelectPrimitive.Viewport
           className={cn(
             "p-0.5",
-
-            "h-[var(--radix-select-content-available-height)] w-full min-w-[var(--radix-select-trigger-width)]",
+            // Ważne: usuwamy h-[var(...available-height)], bo popper sam dba o wysokość
+            "w-full min-w-[var(--radix-select-trigger-width)]",
           )}
         >
           {children}
