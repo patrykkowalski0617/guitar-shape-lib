@@ -13,20 +13,16 @@ export interface KeyHighlightProps {
 const getRandomOffset = (range: number) =>
   Math.floor(Math.random() * (range * 2 + 1)) - range;
 
-const applyColorOffset = (r: number, g: number, b: number) => {
-  const offset = 30;
-  return `rgba(${r + getRandomOffset(offset)}, ${g + getRandomOffset(offset)}, ${b + getRandomOffset(offset)}, 0.5)`;
-};
-
 export const generateRandomRadialGradient = () => {
-  const color1 = applyColorOffset(63, 94, 251);
-  const color2 = applyColorOffset(252, 70, 107);
-
-  const posX = getRandomOffset(30);
-  const posY = getRandomOffset(30);
+  const posX = getRandomOffset(5);
+  const posY = getRandomOffset(10);
 
   return css`
-    background: radial-gradient(circle, ${color1} 0%, ${color2} 100%);
+    background: radial-gradient(
+      circle,
+      rgba(63, 94, 251, 0.5) 0%,
+      rgba(252, 70, 107, 0.5) 100%
+    );
     background-position: ${posX}px ${posY}px;
   `;
 };
@@ -36,8 +32,8 @@ export const getKeyHighlight = ({
   pianoKeyShape,
   highlightColor,
 }: KeyHighlightProps) => {
-  const whiteKeyShadowSize = 30;
-  const blackKeyShadowSize = 20;
+  const whiteKeyShadowSize = 35;
+  const blackKeyShadowSize = 25;
   const boxShadowColor = `color-mix(in oklab, ${highlightColor} 100%, var(--background))`;
   const regularBorderColor = `color-mix(in oklab, var(--border) 70%, var(--background))`;
   const whiteKeyShadow = `inset 0 0 ${whiteKeyShadowSize}px 0 ${boxShadowColor}`;

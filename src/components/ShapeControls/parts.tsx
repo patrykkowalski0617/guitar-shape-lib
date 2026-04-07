@@ -6,10 +6,7 @@ export const ControlWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-
-  @media (min-width: 768px) {
-    & > * {
-      flex: 1 1 calc(50% - (var(--spacing)));
-    }
-  }
+  flex-direction: column;
+  max-width: 500px;
+  margin: auto;
 `;

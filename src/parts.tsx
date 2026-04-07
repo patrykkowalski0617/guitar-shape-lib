@@ -14,6 +14,7 @@ export const MainContent = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 15px;
 `;
 
 const SectionCommonCss = css`

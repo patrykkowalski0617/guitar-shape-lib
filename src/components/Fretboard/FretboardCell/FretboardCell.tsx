@@ -30,7 +30,6 @@ export default function FretboardCell({
       stringIndex,
       fretIndex,
     });
-  console.log(baseChordShapeCoordinates, stringIndex, fretIndex);
 
   const setActiveNotes = useMusicStore((state) => state.setActiveNotes);
   const activeNotes = useMusicStore((state) => state.activeNotes);

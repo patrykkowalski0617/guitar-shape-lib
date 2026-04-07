@@ -10,18 +10,16 @@ export const useShapeCoordinates = (
 
   if (!shapeData || shapeVariantLocationData === null) return [];
 
-  const { fretboardCoordinatesVariants } = shapeData;
+  const { shapeVariants } = shapeData;
   if (!stringId || fretIndex === undefined || !variantId) return [];
 
   const variantCoordinates =
-    fretboardCoordinatesVariants?.[
-      stringId as keyof typeof fretboardCoordinatesVariants
-    ]?.[
-      variantId as keyof (typeof fretboardCoordinatesVariants)[keyof typeof fretboardCoordinatesVariants]
+    shapeVariants?.[stringId as keyof typeof shapeVariants]?.[
+      variantId as keyof (typeof shapeVariants)[keyof typeof shapeVariants]
     ];
 
   const shapeCoordinates =
-    variantCoordinates?.map(([s, f]) => [s, f + fretIndex]) || [];
+    variantCoordinates.coordinates?.map(([s, f]) => [s, f + fretIndex]) || [];
 
   return shapeCoordinates;
 };

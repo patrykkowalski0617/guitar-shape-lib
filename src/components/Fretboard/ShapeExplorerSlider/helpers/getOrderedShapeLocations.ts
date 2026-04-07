@@ -43,8 +43,8 @@ export const getOrderedShapeLocations = (
 
       if (noteAtFret.sharpNoteName === rootNoteName) {
         const variants =
-          shapeData.fretboardCoordinatesVariants?.[
-            stringId as keyof typeof shapeData.fretboardCoordinatesVariants
+          shapeData.shapeVariants?.[
+            stringId as keyof typeof shapeData.shapeVariants
           ];
 
         if (variants) {

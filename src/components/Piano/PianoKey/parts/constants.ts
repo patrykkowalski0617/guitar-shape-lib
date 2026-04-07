@@ -9,7 +9,7 @@ export const blackKeyW = 23;
 export const keysGap = 2;
 export const tripleBlackKeysOffset = blackKeyW / 4 + 2;
 export const doubleBlackKeysOffset = tripleBlackKeysOffset - 3;
-export const pianoBgColor = `color-mix(in oklab, var(--muted) 20%, var(--background))`;
+export const pianoBgColor = `color-mix(in oklab, var(--muted) 15%, var(--background))`;
 
 export const baseCutCalc = `${blackKeyW}px / 2 + ${keysGap}px + 1px`;
 export const wideCutWidth = css`calc(${baseCutCalc} + ${doubleBlackKeysOffset}px)`;

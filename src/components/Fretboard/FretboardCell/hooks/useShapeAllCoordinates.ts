@@ -9,7 +9,7 @@ export const useShapeAllCoordinates = () => {
   const isMissingRequiredData = !shapeId || !rootsCoordinates.length;
   if (isMissingRequiredData) return [];
 
-  const currentShapeVariants = shapes[shapeId].fretboardCoordinatesVariants;
+  const currentShapeVariants = shapes[shapeId].shapeVariants;
 
   type ShapeStringKey = keyof typeof currentShapeVariants;
 
@@ -19,25 +19,26 @@ export const useShapeAllCoordinates = () => {
     5: "strE",
   };
 
-  const rawCalculatedCoordinates = rootsCoordinates.flatMap(
-    ([rootStringIndex, rootFretIndex]) => {
-      const stringName = stringIndexToNameMap[rootStringIndex];
-      const stringVariants = currentShapeVariants[stringName];
+  const rawCalculatedCoordinates = rootsCoordinates.flatMap((x) => {
+    const [rootStringIndex, rootFretIndex] = x;
+    const stringName = stringIndexToNameMap[rootStringIndex];
+    const stringVariants = currentShapeVariants[stringName];
 
-      if (!stringVariants) return [];
+    if (!stringVariants) return [];
 
-      const allVariantsCoordinates = Object.values(stringVariants).flat();
+    const allVariantsCoordinates = Object.values(stringVariants).flatMap(
+      (variant) => variant.coordinates,
+    );
 
-      const calculatedPoints = allVariantsCoordinates.map(
-        ([targetStringIndex, fretOffset]) => {
-          const absoluteFretIndex = fretOffset + rootFretIndex;
-          return [targetStringIndex, absoluteFretIndex];
-        },
-      );
+    const calculatedPoints = allVariantsCoordinates.map(
+      ([targetStringIndex, fretOffset]) => {
+        const absoluteFretIndex = fretOffset + rootFretIndex;
+        return [targetStringIndex, absoluteFretIndex];
+      },
+    );
 
-      return calculatedPoints;
-    },
-  );
+    return calculatedPoints;
+  });
 
   const uniqueCoordinates = Array.from(
     new Map(
