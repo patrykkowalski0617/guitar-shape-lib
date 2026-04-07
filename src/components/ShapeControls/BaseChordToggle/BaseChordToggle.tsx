@@ -6,6 +6,7 @@ import { useBaseChordToggle } from "./hooks/useBaseChordToggle";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { TuneKeyId } from "@/data";
+import { useShapeSelection } from "../ShapeSelect/hooks/useShapeSelection";
 
 export default function BaseChordToggle() {
   const {
@@ -14,6 +15,7 @@ export default function BaseChordToggle() {
     handleKeyOnlyChange,
     currentTuneKeyId,
   } = useBaseChordToggle();
+  const { setIsShapeSelectOpen } = useShapeSelection();
 
   const optionsPerKey = useBaseChordOptions();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -34,6 +36,12 @@ export default function BaseChordToggle() {
   const handleBaseChordSelect = (combinedValue: string) => {
     handleValueChange(combinedValue);
     setIsExpanded(false);
+    setIsShapeSelectOpen(true);
+  };
+
+  const handleBaseChordSelectOnClosedList = (combinedValue: string) => {
+    handleValueChange(combinedValue);
+    setIsShapeSelectOpen(true);
   };
 
   return (
@@ -66,6 +74,21 @@ export default function BaseChordToggle() {
                       !isCurrentKey && "opacity-40 hover:opacity-100",
                     )}
                   >
+                    <Button
+                      variant={isCurrentKey ? "active" : "default"}
+                      onClick={() =>
+                        isCurrentKey
+                          ? setIsExpanded(false)
+                          : handleSelectKey(group.tuneKeyId)
+                      }
+                      className={cn(
+                        "h-8 !rounded-none min-w-[70px] border-l border-b border-background/20",
+                        isLastRow && "border-b-0",
+                      )}
+                    >
+                      {group.label}
+                    </Button>
+                    <div style={{ width: "4px" }}></div>
                     <ToggleGroup
                       type="single"
                       value={currentValue}
@@ -85,44 +108,36 @@ export default function BaseChordToggle() {
                         </ToggleGroupItem>
                       ))}
                     </ToggleGroup>
-
-                    <Button
-                      variant={isCurrentKey ? "active" : "default"}
-                      onClick={() =>
-                        isCurrentKey
-                          ? setIsExpanded(false)
-                          : handleSelectKey(group.tuneKeyId)
-                      }
-                      className={cn(
-                        "h-8 !rounded-none min-w-[70px] border-l border-b border-background/20",
-                        isLastRow && "border-b-0",
-                      )}
-                    >
-                      {group.label}
-                    </Button>
                   </div>
                 );
               })}
             </motion.div>
           </>
         ) : (
-          /* STAN ZAMKNIĘTY */
           <div className="absolute inset-0 flex flex-row w-full items-center z-10">
+            <Button
+              variant="active"
+              onClick={() => setIsExpanded(true)}
+              className="rounded-r-none rounded-l-sm min-w-[70px]"
+            >
+              {activeGroup.label}
+            </Button>
+            <div style={{ width: "4px" }}></div>
             <ToggleGroup
               type="single"
               value={currentValue}
-              onValueChange={handleValueChange}
+              onValueChange={handleBaseChordSelectOnClosedList}
               className="max-w-none flex-1"
             >
               {activeGroup.chords.map((item, idx) => {
-                const isFirstInRow = idx === 0;
+                const isFirstInRow = idx === activeGroup.chords.length - 1;
                 return (
                   <ToggleGroupItem
                     key={item.combinedId}
                     value={item.combinedId}
                     className={cn(
                       "!rounded-none border-y border-background/20",
-                      isFirstInRow && "border-l !rounded-l-sm",
+                      isFirstInRow && "border-r !rounded-r-sm",
                     )}
                   >
                     {item.chordName}
@@ -130,14 +145,6 @@ export default function BaseChordToggle() {
                 );
               })}
             </ToggleGroup>
-
-            <Button
-              variant="active"
-              onClick={() => setIsExpanded(true)}
-              className="rounded-l-none rounded-r-sm min-w-[70px]"
-            >
-              {activeGroup.label}
-            </Button>
           </div>
         )}
       </AnimatePresence>

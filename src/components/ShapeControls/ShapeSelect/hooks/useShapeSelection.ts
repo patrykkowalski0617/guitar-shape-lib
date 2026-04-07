@@ -6,6 +6,13 @@ export function useShapeSelection() {
     (state) => state.shapeSemitoneOffsetFromC,
   );
 
+  const isShapeSelectOpen = useControlsStore(
+    (state) => state.isShapeSelectOpen,
+  );
+  const setIsShapeSelectOpen = useControlsStore(
+    (state) => state.setIsShapeSelectOpen,
+  );
+
   const setShape = useControlsStore((state) => state.setShape);
   const setShapeVariantLocationData = useMusicStore(
     (state) => state.setShapeVariantLocationData,
@@ -28,5 +35,7 @@ export function useShapeSelection() {
   return {
     currentShapeValue,
     handleValueChange,
+    isShapeSelectOpen,
+    setIsShapeSelectOpen,
   };
 }

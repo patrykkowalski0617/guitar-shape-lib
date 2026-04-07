@@ -7,14 +7,14 @@ export function useBaseChordToggle() {
   );
   const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
   const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
+  const setShape = useControlsStore((state) => state.setShape);
   const baseChordId = useControlsStore((state) => state.baseChordId);
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
 
   const handleValueChange = (combinedValue: string | null) => {
     setShapeVariantLocationData(null);
-
+    setShape(null, null);
     if (!combinedValue) {
-      setBaseChordId(null);
       return;
     }
 

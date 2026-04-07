@@ -21,6 +21,9 @@ interface ControlsState {
   ) => void;
 
   resetControls: () => void;
+
+  isShapeSelectOpen: boolean;
+  setIsShapeSelectOpen: (open: boolean) => void;
 }
 
 const initialState = {
@@ -55,4 +58,7 @@ export const useControlsStore = create<ControlsState>((set) => ({
     }),
 
   resetControls: () => set(initialState),
+
+  isShapeSelectOpen: false,
+  setIsShapeSelectOpen: (open) => set({ isShapeSelectOpen: open }),
 }));

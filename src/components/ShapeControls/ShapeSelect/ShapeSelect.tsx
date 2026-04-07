@@ -9,23 +9,26 @@ import { useShapeSelection } from "./hooks/useShapeSelection";
 import { useSortedShapeOptions } from "./hooks/useSortedShapeOptions";
 
 export default function ShapeSelect() {
-  const { currentShapeValue, handleValueChange } = useShapeSelection();
-  const options = useSortedShapeOptions();
+  const {
+    currentShapeValue,
+    handleValueChange,
+    isShapeSelectOpen,
+    setIsShapeSelectOpen,
+  } = useShapeSelection();
 
+  const options = useSortedShapeOptions();
   const disabled = !options;
 
   return (
     <Select
       disabled={disabled}
-      value={currentShapeValue}
+      value={currentShapeValue ?? ""}
       onValueChange={handleValueChange}
+      open={isShapeSelectOpen}
+      onOpenChange={setIsShapeSelectOpen}
     >
       <SelectTrigger>
-        <SelectValue
-          placeholder={
-            disabled ? "Select base chord first..." : "Select shape..."
-          }
-        />
+        <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {options &&

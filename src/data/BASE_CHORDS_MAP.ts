@@ -26,18 +26,18 @@ export const BASE_CHORDS_MAP = {
     isMajorMode: false,
     semitoneOffsetFromMajorScaleRoot: 2,
   },
-  DomiPh: {
-    role: "dominant",
-    baseScaleName: "Phrygian Dominant",
-    baseScaleId: "phrygianDominantScale",
-    isMajorMode: true,
-    semitoneOffsetFromMajorScaleRoot: 4,
-  },
   mediant: {
     role: "mediant",
     baseScaleName: "Phrygian",
     baseScaleId: "phrygianScale",
     isMajorMode: false,
+    semitoneOffsetFromMajorScaleRoot: 4,
+  },
+  DomiPh: {
+    role: "dominant",
+    baseScaleName: "Phrygian Dominant",
+    baseScaleId: "phrygianDominantScale",
+    isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 4,
   },
   Subdomi: {
