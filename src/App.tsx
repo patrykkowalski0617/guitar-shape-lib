@@ -24,7 +24,7 @@ export default function App() {
         <Section>
           <Fretboard />
         </Section>
-        <Section>
+        {/* <Section>
           <Player />
         </Section>
         {!isPlaying && (
@@ -33,7 +33,7 @@ export default function App() {
               <Piano />
             </Section>
           </>
-        )}
+        )} */}
       </MainContent>
       <Sign />
     </AppWrapper>

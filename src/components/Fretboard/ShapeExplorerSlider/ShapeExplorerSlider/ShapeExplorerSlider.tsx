@@ -17,7 +17,7 @@ export default function ShapeExplorerSlider() {
 
   return (
     <div style={{ position: "relative" }}>
-      <div style={{ position: "absolute", left: 300 }}>
+      <div style={{ position: "absolute", left: 300, top: 50 }}>
         {stringId} {variantId}
       </div>
       <S.ShapeExplorerWrapper>

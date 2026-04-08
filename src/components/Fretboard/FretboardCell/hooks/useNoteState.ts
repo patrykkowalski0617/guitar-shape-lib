@@ -7,6 +7,7 @@ import { isShapeNote as isShapeNoteFn } from "../helpers";
 import { useFretboardStates } from "./useFretboardStates";
 import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
 import { useEnharmonicNoteName, useShapeRootSharpNote } from "@/hooks";
+import { useBaseChordCoordinates } from "./useBaseChordCoordinates";
 
 interface UseNoteStateProps {
   noteData: NoteObject;
@@ -36,7 +37,7 @@ export const useNoteState = ({
   const shapeCoordinates = useShapeCoordinates(shapeVariantLocationData);
 
   const currentCoordinates: [number, number] = [stringIndex, fretIndex];
-  const shapeCoordintes = shapeVariantLocationData
+  const finalShapeCoordinates = shapeVariantLocationData
     ? shapeCoordinates
     : allShapesCoordinates;
   const lockedShapeCoordinates = useShapeCoordinates(
@@ -48,7 +49,7 @@ export const useNoteState = ({
   const isShapeRootNote =
     shapeRootSharpNote === noteData.sharpNoteName && !isPlaying;
 
-  const isShapeNote = isShapeNoteFn(currentCoordinates, shapeCoordintes);
+  const isShapeNote = isShapeNoteFn(currentCoordinates, finalShapeCoordinates);
 
   const isLockedNote = isShapeNoteFn(
     currentCoordinates,
@@ -76,6 +77,8 @@ export const useNoteState = ({
   };
 
   const isHighlighted = isShapeNote || isActiveNote || isActiveLockedNotes;
+
+  useBaseChordCoordinates(shapeCoordinates);
 
   return {
     isHighlighted,

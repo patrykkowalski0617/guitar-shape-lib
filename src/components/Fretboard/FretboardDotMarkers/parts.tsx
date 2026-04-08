@@ -23,8 +23,8 @@ export const Marker = styled.div<{
     position: absolute;
     top: 12px;
     transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     border: 1px solid var(--background);
     border-radius: 50%;
     background-color: var(--primary);
