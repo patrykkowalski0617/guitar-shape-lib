@@ -1,10 +1,10 @@
 import * as React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
-import { StepSliderTicks } from "../StepSliderTicks";
 import { useStepSliderGesture } from "../hooks/useStepSliderGesture";
 import { useStepSliderLogic } from "../hooks/useStepSliderLogic";
 import type { ShapeLocation } from "../helpers/getOrderedShapeLocations";
+import { StepSliderTicks } from "./StepSliderTicks";
 
 interface StepSliderProps extends React.ComponentProps<
   typeof SliderPrimitive.Root

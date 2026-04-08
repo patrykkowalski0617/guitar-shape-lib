@@ -30,7 +30,7 @@ export default function ShapeSelect() {
       onOpenChange={setIsShapeSelectOpen}
     >
       <SelectTrigger>
-        <SelectValue />
+        <SelectValue /> over {selectedChordLabel}
       </SelectTrigger>
       <SelectContent>
         <div className="text-center py-1 text-xs text-muted-foreground">

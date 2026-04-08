@@ -5,7 +5,7 @@ import type { BlackKeyTypes } from "./blackKeys";
 export type HighlightType = "secondary" | "accent";
 
 export interface KeyHighlightProps {
-  isHighlight: boolean;
+  isHighlighted: boolean;
   pianoKeyShape: WhiteKeyTypes | BlackKeyTypes | undefined;
   highlightColor: string;
 }
@@ -28,7 +28,7 @@ export const generateRandomRadialGradient = () => {
 };
 
 export const getKeyHighlight = ({
-  isHighlight,
+  isHighlighted,
   pianoKeyShape,
   highlightColor,
 }: KeyHighlightProps) => {
@@ -138,5 +138,5 @@ export const getKeyHighlight = ({
     }
   `;
 
-  return isHighlight ? activeStyle : standardStyle;
+  return isHighlighted ? activeStyle : standardStyle;
 };

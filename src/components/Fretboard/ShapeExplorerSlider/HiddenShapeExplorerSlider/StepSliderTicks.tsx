@@ -1,5 +1,5 @@
-import type { ShapeLocation } from "./helpers/getOrderedShapeLocations";
-import { Tick } from "./HiddenShapeExplorerSlider/parts";
+import type { ShapeLocation } from "../helpers/getOrderedShapeLocations";
+import { Tick } from "./parts";
 
 interface StepSliderTicksProps {
   options: ShapeLocation[];

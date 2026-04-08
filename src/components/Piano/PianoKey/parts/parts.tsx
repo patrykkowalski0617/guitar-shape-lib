@@ -17,22 +17,19 @@ export const Key = styled.div<{
   $isWhitePianoKey: boolean;
   $pianoKeyShape?: WhiteKeyTypes | BlackKeyTypes;
   $isHighlighted?: boolean;
-  $isActiveNote: boolean;
-  $isShapeNote: boolean;
   $isRoleNote: boolean;
-  $isHighlight: boolean;
 }>`
   position: relative;
 
-  ${({ $isActiveNote }) =>
-    $isActiveNote &&
+  ${({ $isHighlighted }) =>
+    $isHighlighted &&
     css`
       filter: brightness(2);
     `}
 
-  ${({ $isHighlight, $pianoKeyShape }) =>
+  ${({ $isHighlighted, $pianoKeyShape }) =>
     getKeyHighlight({
-      isHighlight: $isHighlight,
+      isHighlighted: $isHighlighted,
       pianoKeyShape: $pianoKeyShape,
       highlightColor: "var(--secondary)",
     })}

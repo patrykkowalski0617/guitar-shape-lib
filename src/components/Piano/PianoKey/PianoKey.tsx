@@ -16,23 +16,22 @@ const PianoKey = ({ note, pianoKeyindex }: PianoKeyProps) => {
   const { visualState, interactivity } = usePianoKey({ note });
   const getEnharmonicNoteName = useEnharmonicNoteName();
   const { isTuneNote } = usePianoKeyTuneKeyState(pianoKeyindex);
-  const setActiveNotes = useMusicStore((state) => state.setActiveNotes);
-  const activeNotes = useMusicStore((state) => state.activeNotes);
+  const setActiveLockedNotes = useMusicStore(
+    (state) => state.setActiveLockedNotes,
+  );
+  const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
 
   const {
     isWhitePianoKey,
     pianoKeyShape,
     isHighlighted,
-    isActiveNote,
-    isShapeNote,
     isRoleNote,
     isShapeSelected,
   } = visualState;
 
   const label = (
     <NoteLabel
-      isShapeNote={isShapeNote}
-      isActiveNote={isActiveNote}
+      isHighlighted={isHighlighted || activeLockedNotes.includes(note.noteId)}
       variant="piano"
       noteLabel={getEnharmonicNoteName(note)}
     />
@@ -41,19 +40,16 @@ const PianoKey = ({ note, pianoKeyindex }: PianoKeyProps) => {
   return (
     <S.Key
       $isShapeSelected={isShapeSelected}
-      $isShapeNote={isShapeNote}
-      $isActiveNote={isActiveNote}
       $isWhitePianoKey={isWhitePianoKey}
       $pianoKeyShape={pianoKeyShape}
-      $isHighlighted={isHighlighted}
+      $isHighlighted={isHighlighted || activeLockedNotes.includes(note.noteId)}
       $isRoleNote={isRoleNote}
       //
-      $isHighlight={activeNotes.includes(note.noteId)}
       data-piano-scroll-target={interactivity.isScrollTarget}
       onMouseOver={interactivity.handleMouseEnter}
       onMouseLeave={interactivity.handleMouseLeave}
       onClick={() => {
-        setActiveNotes(note.noteId);
+        setActiveLockedNotes(note.noteId);
       }}
     >
       {isWhitePianoKey ? (

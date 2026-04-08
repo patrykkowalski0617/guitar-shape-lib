@@ -27,6 +27,8 @@ export const useNoteState = ({
   const shapeVariantLocationData_locked = useMusicStore(
     (state) => state.shapeVariantLocationData_locked,
   );
+  const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
+
   const getEnharmonicNoteName = useEnharmonicNoteName();
 
   const { isShapeSelected, shouldMarkTuneNotes } = useFretboardStates();
@@ -55,22 +57,30 @@ export const useNoteState = ({
 
   const isTuneNote = useInTuneSharpNoteNames().includes(noteData.sharpNoteName);
 
+  const isActiveLockedNotes = activeLockedNotes.includes(noteData.noteId);
+
   const getOpacity = () => {
     const isVisibleInGeneralMode =
       !isShapeSelected && (isActiveNote || isTuneNote || !shouldMarkTuneNotes);
     const isVisibleInSelectionMode = isShapeNote || isShapeRootNote;
     const isSemiVisible = isActiveNote || isTuneNote || !shouldMarkTuneNotes;
 
-    if (isVisibleInSelectionMode || isVisibleInGeneralMode) return 1;
+    if (
+      isVisibleInSelectionMode ||
+      isVisibleInGeneralMode ||
+      isActiveLockedNotes
+    )
+      return 1;
     if (isSemiVisible) return 0.7;
     return 0;
   };
+
+  const isHighlighted = isShapeNote || isActiveNote || isActiveLockedNotes;
+
   return {
-    isActiveNote,
-    isShapeNote,
+    isHighlighted,
     isLockedNote,
     noteLabel: getEnharmonicNoteName(noteData),
     opacity: getOpacity(),
-    brightness: isActiveNote ? 3 : 1,
   };
 };

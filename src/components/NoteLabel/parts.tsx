@@ -20,16 +20,15 @@ export const Note = styled.div`
 `;
 
 export const NoteWrapper = styled.div<{
-  $isShapeNote: boolean;
-  $isActiveNote: boolean;
+  $isHighlighted: boolean;
   $variant: Variant;
 }>`
-  ${({ $variant, $isShapeNote, $isActiveNote }) =>
+  ${({ $variant, $isHighlighted }) =>
     $variant === "piano" &&
     css`
       position: relative;
       z-index: 40;
-      opacity: ${$isShapeNote || $isActiveNote ? "1" : "0"};
+      opacity: ${$isHighlighted ? "1" : "0"};
       ${Note} {
         border-radius: ${instrumentElBRadius};
         width: 18px;
@@ -41,7 +40,7 @@ export const NoteWrapper = styled.div<{
       }
     `}
 
-  ${({ $variant, $isShapeNote }) =>
+  ${({ $variant, $isHighlighted }) =>
     $variant === "fretboard" &&
     css`
       display: flex;
@@ -49,7 +48,7 @@ export const NoteWrapper = styled.div<{
       justify-content: center;
       flex-direction: row;
       ${Note} {
-        color: ${$isShapeNote ? highlightedColor : unHighlightedColor};
+        color: ${$isHighlighted ? highlightedColor : unHighlightedColor};
         height: 15px;
         width: 30px;
         border-radius: 4px;

@@ -9,6 +9,8 @@ export default function ShapeExplorerSlider() {
     userListIndexes,
     isDisabled,
     handleValueChange,
+    handleMouseDown,
+    handleMouseUp,
   } = useShapeExplorerLogic();
 
   return (
@@ -21,6 +23,8 @@ export default function ShapeExplorerSlider() {
         userListIndexes={userListIndexes}
         onValueChange={handleValueChange}
         disabled={isDisabled}
+        onPointerDown={handleMouseDown}
+        onPointerUp={handleMouseUp}
       />
     </S.ShapeExplorerWrapper>
   );

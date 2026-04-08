@@ -4,7 +4,7 @@ import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardR
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
 import { useNoteState } from "./hooks";
-import { useMusicStore } from "@/store";
+import { useControlsStore, useMusicStore } from "@/store";
 import { useBaseChordShapeCoordinates } from "./hooks/useBaseChordShapeCoordinates";
 
 interface FretboardCellProps {
@@ -22,39 +22,46 @@ export default function FretboardCell({
     noteData,
   });
 
-  const baseChordShapeCoordinates = useBaseChordShapeCoordinates()?.flat();
+  const { baseChordShapeCoordinates, CAGEDassigments } =
+    useBaseChordShapeCoordinates();
 
-  const { isLockedNote, isShapeNote, opacity, brightness, noteLabel } =
-    useNoteState({
-      noteData,
-      stringIndex,
-      fretIndex,
-    });
+  const { isLockedNote, isHighlighted, opacity, noteLabel } = useNoteState({
+    noteData,
+    stringIndex,
+    fretIndex,
+  });
 
-  const setActiveNotes = useMusicStore((state) => state.setActiveNotes);
-  const activeNotes = useMusicStore((state) => state.activeNotes);
+  const setActiveLockedNotes = useMusicStore(
+    (state) => state.setActiveLockedNotes,
+  );
+  const isShapeSliderHold = useControlsStore(
+    (state) => state.isShapeSliderHold,
+  );
+
+  const animationTrigger = CAGEDassigments;
 
   return (
     <S.FretWrapper
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={() => {
-        setActiveNotes(noteData.noteId);
+        setActiveLockedNotes(noteData.noteId);
       }}
     >
       <S.Fret $isLockedNote={isLockedNote} data-fret={fretIndex}>
         <S.Note
           $opacity={opacity}
-          $brightness={brightness}
-          $isShapeNote={activeNotes.includes(noteData.noteId) || isShapeNote}
+          $isHighlighted={isHighlighted}
           $isBaseChordShapeNote={
             !!baseChordShapeCoordinates?.some(
               (coord) => coord[0] === stringIndex && coord[1] === fretIndex,
             )
           }
+          key={animationTrigger}
+          $animateBaseChordDown={isShapeSliderHold}
         >
           <NoteLabel
-            isShapeNote={activeNotes.includes(noteData.noteId) || isShapeNote}
+            isHighlighted={isHighlighted}
             variant="fretboard"
             noteLabel={noteLabel}
           />

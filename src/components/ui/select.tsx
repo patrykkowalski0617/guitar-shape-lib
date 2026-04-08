@@ -33,17 +33,16 @@ function SelectTrigger({
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
       className={cn(
-        "flex h-8 w-full items-center justify-between gap-2 bg-muted/50",
+        "flex h-8 w-full items-center justify-between gap-2 bg-background",
         "px-2 text-sm font-normal tracking-tight shadow-none transition-none",
         "disabled:opacity-0 whitespace-nowrap rounded-sm relative",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         "focus-visible:ring-offset-0 focus-visible:z-150",
-        "hover:bg-muted/70 hover:text-accent-foreground",
         className,
       )}
       {...props}
     >
-      <span className="truncate w-full text-left">{children}</span>
+      <span className="truncate w-full text-center">{children}</span>
       <SelectPrimitive.Icon asChild></SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -141,7 +140,7 @@ function SelectSeparator({
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
-      className={cn("bg-muted-foreground/20 -mx-1 h-px my-0.5", className)}
+      className={cn("bg-background -mx-1 h-px my-0.5", className)}
       {...props}
     />
   );

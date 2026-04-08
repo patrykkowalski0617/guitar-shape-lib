@@ -24,6 +24,9 @@ interface ControlsState {
 
   isShapeSelectOpen: boolean;
   setIsShapeSelectOpen: (open: boolean) => void;
+
+  isShapeSliderHold: boolean;
+  setIsShapeSliderHold: (hold: boolean) => void;
 }
 
 const initialState = {
@@ -33,6 +36,8 @@ const initialState = {
   roleId: "all-matching-key" as RoleId | null,
   shapeId: null as string | null,
   shapeSemitoneOffsetFromC: null as number | null,
+  isShapeSelectOpen: false,
+  isShapeSliderHold: false,
 };
 
 export const useControlsStore = create<ControlsState>((set) => ({
@@ -57,8 +62,9 @@ export const useControlsStore = create<ControlsState>((set) => ({
       shapeSemitoneOffsetFromC,
     }),
 
-  resetControls: () => set(initialState),
-
-  isShapeSelectOpen: false,
   setIsShapeSelectOpen: (open) => set({ isShapeSelectOpen: open }),
+
+  setIsShapeSliderHold: (hold) => set({ isShapeSliderHold: hold }),
+
+  resetControls: () => set(initialState),
 }));

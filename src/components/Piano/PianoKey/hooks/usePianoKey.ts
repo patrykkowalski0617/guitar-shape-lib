@@ -23,13 +23,12 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const pianoKeyShape = SHAPES_OF_WHITE_PIANO_KEYS[noteOctaveIndex];
 
   const isRoleSelected = !!baseChordId;
-  const isHighlighted = currentScaleNoteIds.includes(note.noteId);
   const isActiveNote = note.noteId === activeNoteId;
   const isShapeNote =
     isRoleSelected && currentShapeNoteIds.includes(note.noteId);
   const isRoleNote = currentRoleNoteIds?.includes(note.noteId);
 
-  const isScaleScrollTarget = !isRoleSelected && isHighlighted;
+  const isScaleScrollTarget = !isRoleSelected;
   const isRoleScrollTarget = isRoleSelected && isRoleNote;
   const isScrollTarget = isScaleScrollTarget || isRoleScrollTarget;
 
@@ -40,9 +39,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
     visualState: {
       isWhitePianoKey,
       pianoKeyShape,
-      isHighlighted,
-      isActiveNote,
-      isShapeNote,
+      isHighlighted: isActiveNote || isShapeNote,
       isRoleNote,
       isShapeSelected: !!shapeId,
     },
