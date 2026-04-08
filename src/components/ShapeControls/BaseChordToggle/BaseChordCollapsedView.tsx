@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
+import { Separator } from "./Separator";
 
 interface Props {
   activeGroup: any;
@@ -24,7 +25,7 @@ export function BaseChordCollapsedView({
       >
         {activeGroup.label}
       </Button>
-      <div className="w-1" />
+      <Separator />
       <ToggleGroup
         type="single"
         value={currentValue}

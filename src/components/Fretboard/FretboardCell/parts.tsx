@@ -3,7 +3,7 @@ import styled, { css, keyframes } from "styled-components";
 
 const regularBgColor = `color-mix(in oklab, var(--accent) 10%, transparent)`;
 
-const baseChordEntryAnimation = keyframes`
+const baseChordExitAnimation = keyframes`
   from{
     height: 14px;
   }
@@ -12,9 +12,9 @@ const baseChordEntryAnimation = keyframes`
   }
 `;
 
-const baseChordEntryAnimation2 = keyframes`
+const baseChordEntryAnimation = keyframes`
   from{
-    transform: scale(1.2);
+    transform: scale(1.3);
   }
   to{
     transform: scale(1);
@@ -72,7 +72,7 @@ export const Note = styled.div<{
     const layers = 2;
 
     return css`
-      animation: ${baseChordEntryAnimation2} 0.2s ease-in-out forwards;
+      animation: ${baseChordEntryAnimation} 0.45s ease-out forwards;
       &::before,
       &::after {
         content: "";
@@ -102,7 +102,7 @@ export const Note = styled.div<{
     return css`
       &::before,
       &::after {
-        animation: ${baseChordEntryAnimation} 0.2s ease-out forwards;
+        animation: ${baseChordExitAnimation} 0.2s ease-out forwards;
       }
     `;
   }}
