@@ -7,8 +7,6 @@ const iconSize = 18;
 export function FullscreenButton() {
   const { isFullscreen, toggleFullscreen } = useFullscreen();
 
-  if (isFullscreen) return null;
-
   return (
     <S.FullscreenButton
       variant={"default"}

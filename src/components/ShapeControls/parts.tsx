@@ -10,3 +10,8 @@ export const ControlWrapper = styled.div`
   max-width: 500px;
   margin: auto;
 `;
+
+export const BottomRow = styled.div`
+  display: flex;
+  width: 100%;
+`;

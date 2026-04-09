@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
-import { Separator } from "./Separator";
+import { Separator } from "../Separator";
 
 interface Props {
   activeGroup: any;

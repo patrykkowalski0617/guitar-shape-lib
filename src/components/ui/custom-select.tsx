@@ -77,6 +77,8 @@ function SelectTrigger({
     context?.setOpen(!context.open);
   };
 
+  const hasNoValue = !context?.value || context.value === "";
+
   return (
     <button
       type="button"
@@ -86,9 +88,10 @@ function SelectTrigger({
       className={cn(
         "flex h-8 w-full items-center justify-between gap-2 bg-background",
         "px-2 text-sm font-normal tracking-tight shadow-none transition-none",
-        "disabled:opacity-0 whitespace-nowrap rounded-sm relative",
+        "whitespace-nowrap rounded-sm relative",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
         "cursor-default",
+        hasNoValue && "opacity-0",
         className,
       )}
       {...props}

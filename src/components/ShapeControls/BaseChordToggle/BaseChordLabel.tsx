@@ -1,4 +1,4 @@
-import { Separator } from "./Separator";
+import { Separator } from "../Separator";
 
 export function BaseChordLabel() {
   return (

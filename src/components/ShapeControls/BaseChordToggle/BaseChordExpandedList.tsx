@@ -32,6 +32,7 @@ export function BaseChordExpandedList({
   const ROW_HEIGHT = 32;
   const LABEL_HEIGHT = 23;
   const MARGIN = 10;
+  const MIN_VISIBLE_HEIGHT = ROW_HEIGHT * 4 + LABEL_HEIGHT;
 
   useLayoutEffect(() => {
     const parent = containerRef.current?.parentElement;
@@ -47,43 +48,59 @@ export function BaseChordExpandedList({
     const spaceBelow = viewportHeight - rect.bottom - MARGIN;
 
     const isCollidingTop = listAbove > spaceAbove;
-    const isCollidingBottom = listBelow > spaceBelow;
 
     let finalStyle: React.CSSProperties = {};
     let targetScroll = 0;
 
     if (isCollidingTop) {
-      // Kotwiczymy dół listy do triggera
+      const calculatedMax = spaceAbove + rect.height + listBelow;
+      const finalMaxHeight = Math.max(calculatedMax, MIN_VISIBLE_HEIGHT);
+
       const bottomOffset = listBelow;
-      // MaxHeight to odległość od góry ekranu do dołu listy (trigger + to co pod nim)
-      const maxHeight = spaceAbove + rect.height + listBelow;
+      const willOverflowTop =
+        rect.bottom + bottomOffset - finalMaxHeight < MARGIN;
 
-      finalStyle = {
-        bottom: `-${bottomOffset}px`,
-        maxHeight: `${maxHeight}px`,
-      };
-
-      // Przewijamy o tyle, o ile góra listy "wyszłaby" poza margines
-      targetScroll = listAbove - spaceAbove;
+      if (willOverflowTop) {
+        finalStyle = {
+          top: `${MARGIN - rect.top}px`,
+          maxHeight: `${viewportHeight - MARGIN * 2}px`,
+        };
+        targetScroll = listAbove - (rect.top - MARGIN);
+      } else {
+        finalStyle = {
+          bottom: `-${bottomOffset}px`,
+          maxHeight: `${finalMaxHeight}px`,
+        };
+        targetScroll = listAbove - spaceAbove;
+      }
     } else {
-      const bottomOffset = listBelow;
-      // Jeśli dół koliduje, ograniczamy wysokość, ale zostajemy przy pozycjonowaniu top
-      const maxHeight = isCollidingBottom
-        ? spaceBelow + rect.height + listAbove
-        : listAbove + rect.height + listBelow;
+      const calculatedMax =
+        listBelow > spaceBelow
+          ? spaceBelow + rect.height + listAbove
+          : listAbove + rect.height + listBelow;
 
-      finalStyle = {
-        top: `-${listAbove}px`,
-        maxHeight: `${maxHeight}px`,
-      };
+      const finalMaxHeight = Math.max(calculatedMax, MIN_VISIBLE_HEIGHT);
 
-      targetScroll = 0;
+      const willOverflowBottom =
+        rect.top - listAbove + finalMaxHeight > viewportHeight - MARGIN;
+
+      if (willOverflowBottom) {
+        finalStyle = {
+          bottom: `${MARGIN - (viewportHeight - rect.bottom)}px`,
+          maxHeight: `${viewportHeight - MARGIN * 2}px`,
+        };
+        targetScroll = listAbove - (rect.top - MARGIN);
+      } else {
+        finalStyle = {
+          top: `-${listAbove}px`,
+          maxHeight: `${finalMaxHeight}px`,
+        };
+        targetScroll = 0;
+      }
     }
 
     setComputedStyle({ ...finalStyle, opacity: 1 });
 
-    // Używamy requestAnimationFrame, aby upewnić się, że style maxHeight zostały zaaplikowane
-    // i kontener ma już poprawne scrollHeight/clientHeight przed ustawieniem scrollTop
     requestAnimationFrame(() => {
       if (scrollRef.current) {
         scrollRef.current.scrollTop = targetScroll;
@@ -108,6 +125,9 @@ export function BaseChordExpandedList({
         <div
           ref={scrollRef}
           className="overflow-y-auto flex-1 min-h-0 scrollbar-hide bg-background"
+          style={{
+            scrollbarWidth: "none",
+          }}
         >
           <div className="flex flex-col">
             {optionsPerKey.map((group, index) => (
