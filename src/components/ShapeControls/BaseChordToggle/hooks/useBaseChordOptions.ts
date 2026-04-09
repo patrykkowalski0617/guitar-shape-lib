@@ -1,10 +1,7 @@
 import { BASE_CHORDS_MAP, UNIFIED_MUSIC_KEYS, type TuneKeyId } from "@/data";
-import { useEnharmonicNoteName } from "@/hooks";
 import { getNotes } from "@/utils";
 
 export const useBaseChordOptions = () => {
-  const getEnharmonicNoteName = useEnharmonicNoteName();
-
   const keyEntries = Object.entries(UNIFIED_MUSIC_KEYS) as [
     TuneKeyId,
     (typeof UNIFIED_MUSIC_KEYS)[TuneKeyId],
@@ -13,12 +10,15 @@ export const useBaseChordOptions = () => {
   const optionsPerKey = keyEntries.map(([tuneKeyId, keyData]) => {
     const firstNote = keyData.majorName;
     const notes = getNotes({ firstNote });
-
+    const isFlatTune = UNIFIED_MUSIC_KEYS[tuneKeyId].isFlatTune;
     const chords = Object.entries(BASE_CHORDS_MAP).map(
       ([chordId, chordData]) => {
         const noteAtOffset = notes[chordData.semitoneOffsetFromMajorScaleRoot];
         const isMajorMode = chordData.isMajorMode;
-        const noteName = getEnharmonicNoteName(noteAtOffset);
+
+        const noteName = isFlatTune
+          ? noteAtOffset.flatNoteName
+          : noteAtOffset.sharpNoteName;
         const chordName = `${noteName}${isMajorMode ? "" : "m"}`;
 
         return {

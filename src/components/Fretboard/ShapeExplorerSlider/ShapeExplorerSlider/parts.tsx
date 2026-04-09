@@ -2,7 +2,7 @@ import styled, { css, keyframes } from "styled-components";
 
 export const ShapeExplorerWrapper = styled.div`
   margin: 20px auto 0;
-  max-width: 400px;
+  max-width: 500px;
 `;
 
 const highlightAnimation = keyframes`
