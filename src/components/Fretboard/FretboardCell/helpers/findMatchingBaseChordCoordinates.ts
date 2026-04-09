@@ -13,30 +13,38 @@ export const findMatchingBaseChordCoordinates = ({
   baseChordCoordinates,
   shapeCoordinates,
 }: MatcherParams): Shape | null => {
-  if (!baseChordCoordinates.length) return null;
-  console.log(baseChordCoordinates);
+  if (baseChordCoordinates.length === 0) return null;
 
-  const targetPoints = new Set(
+  const targetPointKeys = new Set(
     shapeCoordinates.map(([stringIdx, fretIdx]) => `${stringIdx}-${fretIdx}`),
   );
 
   let bestMatch: Shape | null = null;
+  let highestAccuracy = -1;
   let maxCommonPoints = -1;
 
   baseChordCoordinates.forEach((candidate) => {
-    const commonPointsCount = candidate.coordinates.reduce(
-      (acc, [sIdx, fIdx]) => {
-        const pointKey = `${sIdx}-${fIdx}`;
-        const isPointCommon = targetPoints.has(pointKey);
+    const totalCandidatePoints = candidate.coordinates.length;
+    if (totalCandidatePoints === 0) return;
 
-        return isPointCommon ? acc + 1 : acc;
+    const commonPointsCount = candidate.coordinates.reduce(
+      (acc, [stringIdx, fretIdx]) => {
+        const pointKey = `${stringIdx}-${fretIdx}`;
+        return targetPointKeys.has(pointKey) ? acc + 1 : acc;
       },
       0,
     );
 
-    const isBetterMatch = commonPointsCount > maxCommonPoints;
+    const currentAccuracy = commonPointsCount / totalCandidatePoints;
 
-    if (isBetterMatch) {
+    const isClearlyBetter = currentAccuracy > highestAccuracy;
+
+    const isEquallyAccurateButMorePoints =
+      currentAccuracy === highestAccuracy &&
+      commonPointsCount > maxCommonPoints;
+
+    if (isClearlyBetter || isEquallyAccurateButMorePoints) {
+      highestAccuracy = currentAccuracy;
       maxCommonPoints = commonPointsCount;
       bestMatch = candidate;
     }
