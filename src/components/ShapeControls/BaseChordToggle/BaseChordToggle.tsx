@@ -38,19 +38,16 @@ export default function BaseChordToggle() {
     combinedValue: string,
     shouldCloseExpanded = true,
   ) => {
-    const isClickingActiveChord = combinedValue === currentValue;
-    const isClickingDifferentChord = !isClickingActiveChord;
+    const effectiveValue = combinedValue === "" ? currentValue : combinedValue;
+    const isClickingActiveChord = effectiveValue === currentValue;
 
-    handleValueChange(combinedValue);
+    if (isClickingActiveChord) {
+      const nextState = !isShapeSelectOpen;
 
-    const shouldOpenShapeSelect =
-      isClickingDifferentChord && !isShapeSelectOpen;
-    const shouldCloseShapeSelect = isClickingActiveChord && isShapeSelectOpen;
-
-    if (shouldOpenShapeSelect) {
+      setIsShapeSelectOpen(nextState);
+    } else {
+      handleValueChange(effectiveValue);
       setIsShapeSelectOpen(true);
-    } else if (shouldCloseShapeSelect) {
-      setIsShapeSelectOpen(false);
     }
 
     if (shouldCloseExpanded) {
