@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./CustomSelect";
+} from "@/components/ui/custom-select";
 import { useShapeSelection } from "./hooks/useShapeSelection";
 import { useSortedShapeOptions } from "./hooks/useSortedShapeOptions";
 import { useCurrentBaseChordName } from "@/hooks";
@@ -31,8 +31,7 @@ export default function ShapeSelect() {
       onOpenChange={setIsShapeSelectOpen}
     >
       <SelectTrigger disabled={isSelectDisabled}>
-        <SelectValue options={options} placeholder="" /> over{" "}
-        {selectedChordLabel}
+        <SelectValue options={options} /> over {selectedChordLabel}
       </SelectTrigger>
       <SelectContent>
         <div className="text-center py-1 text-xs text-muted-foreground">

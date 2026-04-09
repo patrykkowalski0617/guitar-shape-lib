@@ -13,7 +13,9 @@ export function useBaseChordToggle() {
 
   const handleValueChange = (combinedValue: string | null) => {
     setShapeVariantLocationData(null);
-    setShape(null, null);
+    if (combinedValue !== "") {
+      setShape(null, null);
+    }
     if (!combinedValue) {
       return;
     }

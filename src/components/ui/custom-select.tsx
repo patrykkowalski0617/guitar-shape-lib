@@ -44,9 +44,9 @@ function Select({
       const isInsideSelect = containerRef.current?.contains(target);
       const isInsideChordToggle = target.closest('[data-chord-area="true"]');
 
-      const shouldClose = !isInsideSelect && !isInsideChordToggle;
+      const shouldKeepOpen = isInsideSelect || isInsideChordToggle;
 
-      if (open && shouldClose) {
+      if (open && !shouldKeepOpen) {
         setOpen(false);
       }
     };
@@ -72,7 +72,7 @@ function SelectTrigger({
 }: React.ComponentProps<"button">) {
   const context = React.useContext(SelectContext);
 
-  const handleTriggerClick = () => {
+  const handleToggle = () => {
     if (disabled) return;
     context?.setOpen(!context.open);
   };
@@ -82,7 +82,7 @@ function SelectTrigger({
       type="button"
       data-slot="select-trigger"
       disabled={disabled}
-      onClick={handleTriggerClick}
+      onClick={handleToggle}
       className={cn(
         "flex h-8 w-full items-center justify-between gap-2 bg-background",
         "px-2 text-sm font-normal tracking-tight shadow-none transition-none",
@@ -108,6 +108,7 @@ function SelectContent({
 
   return (
     <div
+      key="static-select-content"
       data-slot="select-content"
       className={cn(
         "absolute top-0 left-0 z-150 min-w-[8rem] w-full overflow-hidden rounded-sm shadow-md bg-popover text-popover-foreground",
@@ -130,7 +131,7 @@ function SelectItem({
   const context = React.useContext(SelectContext);
   const isSelected = context?.value === value;
 
-  const handleItemSelect = () => {
+  const handleItemClick = () => {
     context?.onValueChange?.(value);
     context?.setOpen(false);
   };
@@ -138,7 +139,7 @@ function SelectItem({
   return (
     <div
       data-slot="select-item"
-      onClick={handleItemSelect}
+      onClick={handleItemClick}
       className={cn(
         "hover:bg-accent/50 hover:text-accent-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm outline-none select-none py-1 pr-7 pl-2 text-sm",
         isSelected && "bg-accent/30",

@@ -11,7 +11,7 @@ import type { TuneKeyId } from "@/data";
 export default function BaseChordToggle() {
   const [isExpanded, setIsExpanded] = useState(false);
   const optionsPerKey = useBaseChordOptions();
-  const { setIsShapeSelectOpen } = useShapeSelection();
+  const { isShapeSelectOpen, setIsShapeSelectOpen } = useShapeSelection();
   const {
     currentValue,
     handleValueChange,
@@ -29,14 +29,30 @@ export default function BaseChordToggle() {
     setIsExpanded(false);
   };
 
-  const handleBaseChordSelect = (combinedValue: string, shouldClose = true) => {
+  const handleBaseChordSelect = (
+    combinedValue: string,
+    shouldCloseExpanded = true,
+  ) => {
+    const isClickingActiveChord = combinedValue === currentValue;
+
     handleValueChange(combinedValue);
-    setIsShapeSelectOpen(true);
-    if (shouldClose) setIsExpanded(false);
+
+    const shouldOpen = !isShapeSelectOpen && !isClickingActiveChord;
+    const shouldToggleClose = isShapeSelectOpen && isClickingActiveChord;
+
+    if (shouldOpen) {
+      setIsShapeSelectOpen(true);
+    } else if (shouldToggleClose) {
+      setIsShapeSelectOpen(false);
+    }
+    // W przypadku zmiany akordu przy już otwartym menu, nic nie robimy ze stanem open,
+    // co zapobiega miganiu SelectContent.
+
+    if (shouldCloseExpanded) setIsExpanded(false);
   };
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full" data-chord-area="true">
       <BaseChordLabel />
       <div className="relative w-full h-8">
         <AnimatePresence>
