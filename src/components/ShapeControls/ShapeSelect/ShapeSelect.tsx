@@ -31,7 +31,8 @@ export default function ShapeSelect() {
       onOpenChange={setIsShapeSelectOpen}
     >
       <SelectTrigger disabled={isSelectDisabled}>
-        <SelectValue options={options} /> over {selectedChordLabel}
+        <SelectValue options={options} />{" "}
+        <span className="opacity-50">over {selectedChordLabel}</span>
       </SelectTrigger>
       <SelectContent>
         <div className="text-center py-1 text-xs text-muted-foreground">

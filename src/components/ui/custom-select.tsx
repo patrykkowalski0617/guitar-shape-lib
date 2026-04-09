@@ -174,7 +174,7 @@ function SelectValue({
 
   return (
     <>
-      <span className="opacity-50 mr-2">{activeOption.labelRootNote}</span>
+      <span className="opacity-50">{activeOption.labelRootNote}</span>{" "}
       <span>{activeOption.labelShapeName}</span>
     </>
   );

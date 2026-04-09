@@ -26,7 +26,6 @@ export const CleanButton = () => {
     shapeId ||
     baseChordId
   );
-  console.log(isVisible);
 
   const handleClick = () => {
     setShapeVariantLocationData(null);
@@ -37,7 +36,10 @@ export const CleanButton = () => {
 
   return (
     <P.Wrapper $isVisible={isVisible}>
-      <Button className="min-w-[70px] rounded-sm" onClick={handleClick}>
+      <Button
+        className="min-w-[70px] rounded-sm bg-background h-8"
+        onClick={handleClick}
+      >
         <BrushCleaning size={18} color="var(--primary)" />
       </Button>
     </P.Wrapper>

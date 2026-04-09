@@ -7,6 +7,7 @@ import Player from "./components/Player/Player";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
 import ShapeControls from "./components/ShapeControls/ShapeControls";
 import Sign from "./components/Sign/Sign";
+import ShapeExplorerSlider from "./components/Fretboard/ShapeExplorerSlider/ShapeExplorerSlider/ShapeExplorerSlider";
 
 export default function App() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -16,23 +17,21 @@ export default function App() {
       <FullscreenButton />
 
       <MainContent>
-        {!isPlaying && (
-          <Section>
-            <ShapeControls />
-          </Section>
-        )}
+        <Section>{!isPlaying && <ShapeControls />}</Section>
         <Section>
           <Fretboard />
         </Section>
+        <Section>
+          <ShapeExplorerSlider />
+        </Section>
+
         {/* <Section>
           <Player />
         </Section>
         {!isPlaying && (
-          <>
-            <Section>
-              <Piano />
-            </Section>
-          </>
+          <Section>
+            <Piano />
+          </Section>
         )} */}
       </MainContent>
       <Sign />

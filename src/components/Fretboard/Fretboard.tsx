@@ -9,7 +9,6 @@ import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericM
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
 import HiddenShapeExplorerSlider from "./ShapeExplorerSlider/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
 import { useControlsStore } from "@/store";
-import ShapeExplorerSlider from "./ShapeExplorerSlider/ShapeExplorerSlider/ShapeExplorerSlider";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -39,7 +38,6 @@ export default function Fretboard(): JSX.Element {
           <FretboardDotMarkers />
         </InstrumentWrapper>
       </InstrumentScrollWrapper>
-      <ShapeExplorerSlider />
     </>
   );
 }

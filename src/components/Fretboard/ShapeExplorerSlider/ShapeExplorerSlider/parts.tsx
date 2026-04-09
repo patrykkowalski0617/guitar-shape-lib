@@ -1,7 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 
 export const ShapeExplorerWrapper = styled.div`
-  margin: 20px auto 0;
+  margin: 0 auto;
   max-width: 430px;
 `;
 
