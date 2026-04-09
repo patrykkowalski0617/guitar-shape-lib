@@ -1,9 +1,17 @@
-import { numberOfFrets, STRINGS_CONFIG } from "@/components/Fretboard/FretboardRow/helpers/constants";
+import {
+  numberOfFrets,
+  STRINGS_CONFIG,
+} from "@/components/Fretboard/FretboardRow/helpers/constants";
 import { STRING_ID_MAP } from "@/components/Fretboard/helpers/constants";
 import { useMusicStore } from "@/store";
-import { shapes, type FretboardStringId, type Note, type VariantId } from "@/data";
+import {
+  shapes,
+  type FretboardStringId,
+  type Note,
+  type VariantId,
+} from "@/data";
 import { useEffect, useState } from "react";
-import { getNotes, getValidVariants, type VariantsRecord } from "@/utils";
+import { getNotes, getValidVariants } from "@/utils";
 
 export const getRandomStringIndex = () => {
   const validIndexes = [2, 3, 4, 5];
@@ -11,8 +19,15 @@ export const getRandomStringIndex = () => {
   return validIndexes[randomIndex];
 };
 
-export const getRandomFret = (randomKey: Note, offset: number, stringIndex: number, shapeId: string) => {
-  const notesSharp = getNotes({ firstNote: randomKey }).map((n) => n.sharpNoteName);
+export const getRandomFret = (
+  randomKey: Note,
+  offset: number,
+  stringIndex: number,
+  shapeId: string,
+) => {
+  const notesSharp = getNotes({ firstNote: randomKey }).map(
+    (n) => n.sharpNoteName,
+  );
   const shapeRootSharpNote = offset !== null ? notesSharp[offset % 12] : null;
   const stringConfig = STRINGS_CONFIG[stringIndex];
   const stringId = STRING_ID_MAP[stringIndex] as FretboardStringId;
@@ -23,26 +38,32 @@ export const getRandomFret = (randomKey: Note, offset: number, stringIndex: numb
   });
 
   const allPotentialFrets = rowNotes
-    .map((note, index) => (note.sharpNoteName === shapeRootSharpNote ? index : null))
+    .map((note, index) =>
+      note.sharpNoteName === shapeRootSharpNote ? index : null,
+    )
     .filter((index): index is number => index !== null);
 
   const validFrets = allPotentialFrets.filter((fIdx) => {
-    const variants = shapes[shapeId].fretboardCoordinatesVariants?.[stringId];
+    const variants = shapes[shapeId].shapeVariants?.[stringId];
 
     if (!variants) return false;
-    return getValidVariants(fIdx, variants as VariantsRecord).length > 0;
+    return getValidVariants(fIdx, variants).length > 0;
   });
 
   const finalFrets = validFrets.length > 0 ? validFrets : allPotentialFrets;
   return finalFrets[Math.floor(Math.random() * finalFrets.length)];
 };
 
-export const getRandomVariantId = (shapeId: string, stringId: FretboardStringId, fretIndex: number) => {
-  const allVariants = shapes[shapeId].fretboardCoordinatesVariants?.[stringId];
+export const getRandomVariantId = (
+  shapeId: string,
+  stringId: FretboardStringId,
+  fretIndex: number,
+) => {
+  const allVariants = shapes[shapeId].shapeVariants?.[stringId];
 
   if (!allVariants) return null;
 
-  const availableVariants = getValidVariants(fretIndex, allVariants as VariantsRecord);
+  const availableVariants = getValidVariants(fretIndex, allVariants);
 
   if (availableVariants.length === 0) return null;
 
@@ -51,15 +72,26 @@ export const getRandomVariantId = (shapeId: string, stringId: FretboardStringId,
 };
 
 export const useRandomizeShapeVariant = () => {
-  const setShapeVariantLocationData = useMusicStore((state) => state.setShapeVariantLocationData);
+  const setShapeVariantLocationData = useMusicStore(
+    (state) => state.setShapeVariantLocationData,
+  );
 
   const [fretIndex, setFretIndex] = useState<number | null>(null);
   const [stringId, setStringId] = useState<FretboardStringId | null>(null);
   const [shapeId, setShapeId] = useState<string | null>(null);
 
-  const setRandomShapeVariant = (randomKey: Note, offset: number, incomingShapeId: string) => {
+  const setRandomShapeVariant = (
+    randomKey: Note,
+    offset: number,
+    incomingShapeId: string,
+  ) => {
     const stringIndex = getRandomStringIndex();
-    const randomFret = getRandomFret(randomKey, offset, stringIndex, incomingShapeId);
+    const randomFret = getRandomFret(
+      randomKey,
+      offset,
+      stringIndex,
+      incomingShapeId,
+    );
 
     setStringId(STRING_ID_MAP[stringIndex]);
     setFretIndex(randomFret);
@@ -69,7 +101,11 @@ export const useRandomizeShapeVariant = () => {
   useEffect(() => {
     if (fretIndex === null || stringId === null || !shapeId) return;
 
-    const variantId = getRandomVariantId(shapeId, stringId as FretboardStringId, fretIndex);
+    const variantId = getRandomVariantId(
+      shapeId,
+      stringId as FretboardStringId,
+      fretIndex,
+    );
 
     if (!variantId) return;
 

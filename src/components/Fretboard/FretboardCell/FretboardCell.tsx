@@ -1,9 +1,10 @@
 import * as S from "./parts";
 import type { NoteObject } from "@/utils";
-import VariantDots from "@/components/Fretboard/VariantDots/VariantDots";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
+import { useNoteState } from "./hooks";
+import { useControlsStore, useMusicStore } from "@/store";
 
 interface FretboardCellProps {
   noteData: NoteObject;
@@ -16,48 +17,55 @@ export default function FretboardCell({
   stringIndex,
   fretIndex,
 }: FretboardCellProps) {
-  const {
-    noteState,
-    isFlatTune,
-    transitionTime,
-    handleMouseEnter,
-    handleMouseLeave,
-  } = useFretboardCellInteraction({ noteData, stringIndex, fretIndex });
+  const { handleMouseEnter, handleMouseLeave } = useFretboardCellInteraction({
+    noteData,
+  });
 
   const {
     isLockedNote,
-    isShapeRootNote,
-    isShapeNote,
+    isHighlighted,
     opacity,
-    brightness,
-    cursor,
-  } = noteState;
+    noteLabel,
+    matchingBaseChordCoordinates,
+  } = useNoteState({
+    noteData,
+    stringIndex,
+    fretIndex,
+  });
+
+  const setActiveLockedNotes = useMusicStore(
+    (state) => state.setActiveLockedNotes,
+  );
+  const isShapeSliderHold = useControlsStore(
+    (state) => state.isShapeSliderHold,
+  );
+
+  const animationTrigger = matchingBaseChordCoordinates?.CAGEDassigment;
 
   return (
     <S.FretWrapper
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={() => {
+        setActiveLockedNotes(noteData.noteId);
+      }}
     >
       <S.Fret $isLockedNote={isLockedNote} data-fret={fretIndex}>
-        {isShapeRootNote && (
-          <VariantDots stringIndex={stringIndex} fretIndex={fretIndex} />
-        )}
-
         <S.Note
           $opacity={opacity}
-          $brightness={brightness}
-          $cursor={cursor}
-          $isShapeNote={isShapeNote}
-          $transitionTime={transitionTime}
+          $isHighlighted={isHighlighted}
+          $isBaseChordShapeNote={
+            !!matchingBaseChordCoordinates?.coordinates.some(
+              (coord) => coord[0] === stringIndex && coord[1] === fretIndex,
+            )
+          }
+          key={animationTrigger}
+          $animateBaseChordDown={isShapeSliderHold}
         >
           <NoteLabel
-            isHighlighted={isShapeNote}
-            flatNoteName={noteData.flatNoteName}
-            sharpNoteName={noteData.sharpNoteName}
-            isShapeNote={isShapeNote}
-            isFlatTune={isFlatTune}
-            isEnharmonic={noteData.isEnharmonic}
+            isHighlighted={isHighlighted}
             variant="fretboard"
+            noteLabel={noteLabel}
           />
         </S.Note>
       </S.Fret>

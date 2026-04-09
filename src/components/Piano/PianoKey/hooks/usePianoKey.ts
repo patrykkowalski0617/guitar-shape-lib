@@ -1,5 +1,5 @@
-import { NOTES_SHARP, majorScale, UNIFIED_MUSIC_KEYS } from "@/data";
-import { type NoteObject, isGlobalRole } from "@/utils";
+import { NOTES_SHARP, semitoneTemplates } from "@/data";
+import { type NoteObject } from "@/utils";
 import { useControlsStore, useMusicStore } from "@/store";
 import { useScaleLogic } from "../../hooks";
 import { SHAPES_OF_WHITE_PIANO_KEYS } from "../../helpers/constants";
@@ -9,27 +9,27 @@ interface UsePianoKeyParams {
 }
 
 export function usePianoKey({ note }: UsePianoKeyParams) {
-  const { activeNoteId, setActiveNoteId } = useMusicStore();
-  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
+  const activeNoteId = useMusicStore((state) => state.activeNoteId);
+  const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const shapeId = useControlsStore((state) => state.shapeId);
-  const roleId = useControlsStore((state) => state.roleId);
+  const baseChordId = useControlsStore((state) => state.baseChordId);
 
-  const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } =
-    useScaleLogic();
+  const { currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
-  const isFlatTune = UNIFIED_MUSIC_KEYS[tuneKeyId].isFlatTune;
   const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
-  const isWhitePianoKey = majorScale.includes(noteOctaveIndex);
+  const isWhitePianoKey =
+    semitoneTemplates.ionianScale.includes(noteOctaveIndex);
   const pianoKeyShape = SHAPES_OF_WHITE_PIANO_KEYS[noteOctaveIndex];
 
-  const isRoleActive = !!(roleId && !isGlobalRole(roleId));
-  const isHighlighted = currentScaleNoteIds.includes(note.noteId);
+  const isRoleSelected = !!baseChordId;
   const isActiveNote = note.noteId === activeNoteId;
-  const isShapeNote = isRoleActive && currentShapeNoteIds.includes(note.noteId);
-  const isRoleNote = currentRoleNoteIds?.includes(note.noteId);
+  const isShapeNote =
+    isRoleSelected && (currentShapeNoteIds as string[]).includes(note.noteId);
 
-  const isScaleScrollTarget = !isRoleActive && isHighlighted;
-  const isRoleScrollTarget = isRoleActive && isRoleNote;
+  const isRoleNote = (currentRoleNoteIds as string[])?.includes(note.noteId);
+
+  const isScaleScrollTarget = !isRoleSelected;
+  const isRoleScrollTarget = isRoleSelected && isRoleNote;
   const isScrollTarget = isScaleScrollTarget || isRoleScrollTarget;
 
   const handleMouseEnter = () => setActiveNoteId(note.noteId);
@@ -37,15 +37,11 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
 
   return {
     visualState: {
-      isFlatTune,
       isWhitePianoKey,
       pianoKeyShape,
-      isHighlighted,
-      isActiveNote,
-      isShapeNote,
+      isHighlighted: isActiveNote || isShapeNote,
       isRoleNote,
-      isRoleActive,
-      isShapeActive: !!shapeId,
+      isShapeSelected: !!shapeId,
     },
     interactivity: {
       isScrollTarget,

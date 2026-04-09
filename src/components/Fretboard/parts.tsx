@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import { FretboardRow } from "./FretboardRow/parts";
 import { Fret, Note } from "./FretboardCell/parts";
-import { instrumentBRadius, instrumentElBRadius } from "@/parts";
+import {
+  instrumentBRadius,
+  instrumentElBRadius,
+} from "../Piano/PianoKey/parts/constants";
 
 export const Fretboard = styled.div`
   user-select: none;
-  padding-bottom: 25px;
+  position: relative;
+  width: 100%;
   ${FretboardRow} {
     > :first-child::before {
       content: "";
@@ -13,7 +17,9 @@ export const Fretboard = styled.div`
       width: 1px;
       border-radius: 5px;
       background-color: var(--primary);
-      box-shadow: 0 0 8px 0 var(--primary);
+      box-shadow:
+        0 0 6px 0 var(--primary),
+        0 0 8px 0 var(--primary);
       top: -2px;
       bottom: -2px;
       right: -9px;
@@ -22,21 +28,25 @@ export const Fretboard = styled.div`
     &:first-child {
       & > :first-child,
       & > :first-child ${Note}, & > :first-child ${Fret} {
-        border-radius: ${instrumentBRadius} ${instrumentElBRadius} ${instrumentElBRadius} ${instrumentElBRadius};
+        border-radius: ${instrumentBRadius} ${instrumentElBRadius}
+          ${instrumentElBRadius} ${instrumentElBRadius};
       }
       & > :last-child,
       & > :last-child ${Note}, & > :last-child ${Fret} {
-        border-radius: ${instrumentElBRadius} ${instrumentBRadius} ${instrumentElBRadius} ${instrumentElBRadius};
+        border-radius: ${instrumentElBRadius} ${instrumentBRadius}
+          ${instrumentElBRadius} ${instrumentElBRadius};
       }
     }
-    &:last-child {
+    &:nth-child(6) {
       & > :first-child,
       & > :first-child ${Note}, & > :first-child ${Fret} {
-        border-radius: ${instrumentElBRadius} ${instrumentElBRadius} ${instrumentElBRadius} ${instrumentBRadius};
+        border-radius: ${instrumentElBRadius} ${instrumentElBRadius}
+          ${instrumentElBRadius} ${instrumentBRadius};
       }
       & > :last-child,
       & > :last-child ${Note}, & > :last-child ${Fret} {
-        border-radius: ${instrumentElBRadius} ${instrumentElBRadius} ${instrumentBRadius} ${instrumentElBRadius};
+        border-radius: ${instrumentElBRadius} ${instrumentElBRadius}
+          ${instrumentBRadius} ${instrumentElBRadius};
       }
     }
   }

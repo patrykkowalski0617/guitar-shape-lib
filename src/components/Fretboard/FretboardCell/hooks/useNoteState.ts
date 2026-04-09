@@ -1,76 +1,96 @@
-import { useMusicStore, useControlsStore, usePlayerStore } from "@/store";
-import { getNotes } from "@/utils";
-import { type NoteSharp } from "@/data";
+import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
+import { type NoteObject } from "@/utils";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
 import { useShapeCoordinates } from "./useShapeCoordinates";
 import { isShapeNote as isShapeNoteFn } from "../helpers";
-import { useFretboardStates } from "./useFretboardStates";
+import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
+import { useEnharmonicNoteName, useShapeRootSharpNote } from "@/hooks";
+import { useBaseChordCoordinates } from "./useBaseChordCoordinates";
+import { findMatchingBaseChordCoordinates } from "../helpers/findMatchingBaseChordCoordinates";
 
-interface UseFretboardCellProp {
-  sharpNoteName: NoteSharp;
-  noteId: string;
+interface UseNoteStateProps {
+  noteData: NoteObject;
   stringIndex: StringIndex;
   fretIndex: number;
 }
 
 export const useNoteState = ({
-  sharpNoteName,
-  noteId,
+  noteData,
   stringIndex,
   fretIndex,
-}: UseFretboardCellProp) => {
-  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const shapeSemitoneOffsetFromC = useControlsStore(
-    (state) => state.shapeSemitoneOffsetFromC,
-  );
+}: UseNoteStateProps) => {
+  const shapeId = useControlsStore((state) => state.shapeId);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
-  const { isShapeSelected, shouldMarkTuneNotes } = useFretboardStates();
   const shapeVariantLocationData = useMusicStore(
     (state) => state.shapeVariantLocationData,
   );
   const shapeVariantLocationData_locked = useMusicStore(
     (state) => state.shapeVariantLocationData_locked,
   );
+  const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
 
-  const shapeCoordintes = useShapeCoordinates(shapeVariantLocationData);
+  const getEnharmonicNoteName = useEnharmonicNoteName();
+
+  const allShapesCoordinates = useShapeAllCoordinates();
+  const shapeCoordinates = useShapeCoordinates(shapeVariantLocationData);
+
   const currentCoordinates: [number, number] = [stringIndex, fretIndex];
-  const NOTES_SHARP = getNotes({ firstNote: tuneKeyId }).map(
-    (n) => n.sharpNoteName,
+
+  const finalShapeCoordinates = shapeVariantLocationData
+    ? shapeCoordinates
+    : allShapesCoordinates;
+  const lockedShapeCoordinates = useShapeCoordinates(
+    shapeVariantLocationData_locked,
   );
-  const shapeRootSharpNote =
-    shapeSemitoneOffsetFromC !== null
-      ? NOTES_SHARP[shapeSemitoneOffsetFromC % 12]
-      : null;
-  const lockedShapeNotes = useShapeCoordinates(shapeVariantLocationData_locked);
 
-  const isActiveNote = activeNoteId === noteId;
+  const shapeRootSharpNote = useShapeRootSharpNote();
+  const isActiveNote = activeNoteId === noteData.noteId;
   const isShapeRootNote =
-    shapeRootSharpNote === sharpNoteName && stringIndex > 1 && !isPlaying;
-  const isShapeNote = isShapeNoteFn(currentCoordinates, shapeCoordintes);
-  const isLockedNote = isShapeNoteFn(currentCoordinates, lockedShapeNotes);
-  const isTuneNote = useInTuneSharpNoteNames().includes(sharpNoteName);
+    shapeRootSharpNote === noteData.sharpNoteName && !isPlaying;
 
-  const isVisibleInGeneralMode =
-    !isShapeSelected && (isActiveNote || isTuneNote || !shouldMarkTuneNotes);
-  const isVisibleInSelectionMode = isShapeNote || isShapeRootNote;
-  const isSemiVisible = isActiveNote || isTuneNote || !shouldMarkTuneNotes;
+  const isShapeNote = isShapeNoteFn(currentCoordinates, finalShapeCoordinates);
+
+  const isLockedNote = isShapeNoteFn(
+    currentCoordinates,
+    lockedShapeCoordinates,
+  );
+
+  const isTuneNote = useInTuneSharpNoteNames().includes(noteData.sharpNoteName);
+
+  const isActiveLockedNotes = activeLockedNotes.includes(noteData.noteId);
 
   const getOpacity = () => {
-    if (isVisibleInSelectionMode || isVisibleInGeneralMode) return 1;
-    if (isSemiVisible) return 0.5;
+    const isSemiVisible = isActiveNote || isTuneNote;
+    const isVisibleInGeneralMode = !shapeId && isSemiVisible;
+    const isVisibleInSelectionMode = isShapeNote || isShapeRootNote;
+
+    if (
+      isVisibleInSelectionMode ||
+      isVisibleInGeneralMode ||
+      isActiveLockedNotes
+    )
+      return 1;
+    if (isSemiVisible) return 0.7;
     return 0;
   };
 
+  const isHighlighted = isShapeNote || isActiveNote || isActiveLockedNotes;
+
+  const { baseChordCoordinates } = useBaseChordCoordinates();
+  const matchingBaseChordCoordinates =
+    shapeVariantLocationData &&
+    findMatchingBaseChordCoordinates({
+      baseChordCoordinates,
+      shapeCoordinates,
+    });
+
   return {
-    isActiveNote,
-    isShapeRootNote,
-    isShapeNote,
+    isHighlighted,
     isLockedNote,
-    isTuneNote,
+    noteLabel: getEnharmonicNoteName(noteData),
     opacity: getOpacity(),
-    cursor: isShapeRootNote ? "pointer" : "default",
-    brightness: isActiveNote ? 3 : 1,
+    matchingBaseChordCoordinates,
   };
 };

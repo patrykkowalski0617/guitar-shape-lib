@@ -1,3 +1,4 @@
+import type { BaseChordId } from "./BASE_CHORDS_MAP";
 import {
   _1,
   _m2,
@@ -14,7 +15,6 @@ import {
   _m9,
   _M9,
 } from "./intervals";
-import type { FunctionalRoleId } from "./roles";
 
 export type ShapeType = "Arpeggio" | "Scale" | "Set";
 
@@ -28,7 +28,12 @@ export type FretboardCoordinate = [number, number];
 
 export type VariantId = `v${number}`;
 
-export type StringVariants = Record<VariantId, FretboardCoordinate[]>;
+export type StringVariants = Record<
+  VariantId,
+  {
+    coordinates: FretboardCoordinate[];
+  }
+>;
 
 export type FretboardStringId = keyof FretboardCoordinates;
 
@@ -36,35 +41,19 @@ export interface FretboardCoordinates {
   strE: StringVariants;
   strA: StringVariants;
   strD: StringVariants;
-  strG: StringVariants;
 }
 
 export interface Shape {
   label: string;
   type: ShapeType;
   intervals: number[];
-  semitoneOffsetFromMajorTonicRoot: {
-    tonic?: SemitoneOffsetFromMajorTonicRoot;
-    subdominant?: SemitoneOffsetFromMajorTonicRoot;
-    dominant?: SemitoneOffsetFromMajorTonicRoot;
-  };
-  fretboardCoordinatesVariants: FretboardCoordinates;
+  semitoneOffsetFromMajorTonicRoot: Partial<Record<BaseChordId, number[]>>;
+  shapeVariants: FretboardCoordinates;
 }
 
 export interface Shapes {
   [key: string]: Shape;
 }
-
-type ModeRoleKey = `${"major" | "minor"}_${FunctionalRoleId}`;
-
-export const DEFAULT_SHAPES_CONFIG: Record<ModeRoleKey, string> = {
-  major_tonic: "M7",
-  major_subdominant: "M7",
-  major_dominant: "dominant",
-  minor_tonic: "m7",
-  minor_subdominant: "m7",
-  minor_dominant: "dominant",
-};
 
 export const shapes: Shapes = {
   M7: {
@@ -72,45 +61,53 @@ export const shapes: Shapes = {
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _M7],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: { bothModes: [_1] },
-      subdominant: { bothModes: [_4] },
+      Tonic: [_1],
+      subdomi: [_4],
+      Subdomi: [_4],
+      tonic: [_1],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -1],[3, -3],[3, 1],[2, -3],[1, -3],[1, 0],[0, -1],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[4, -1],[3, -3],[3, 1],[2, -3],[2, 1],[1, 0],[0, -1],[0, 0]],
-        // prettier-ignore
-        v3: [[5, 0],[4, -1],[4, 2],[3, 1],[3, 2],[2, 1],[1, 0],[0, -1],[0, 0]],
-        // prettier-ignore
-        v4: [[5, 0],[5, 4],[4, 2],[3, 1],[3, 2],[2, 1],[2, 4],[1, 4],[0, 0],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 0],[4, -1],[3, -3],[3, 1],[2, -3],[1, -3],[1, 0],[0, -1],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 0],[4, -1],[3, -3],[3, 1],[2, -3],[2, 1],[1, 0],[0, -1],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 0],[4, -1],[4, 2],[3, 1],[3, 2],[2, 1],[1, 0],[0, -1],[0, 0]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 4],[4, 2],[3, 1],[3, 2],[2, 1],[1, 4],[0, 0],[0, 4]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 4],[4, 2],[3, 1],[3, 2],[2, 1],[2, 4],[1, 4],[0, 0],[0, 4]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -1],[2, -3],[1, -3],[1, -2],[0, -3],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[3, -1],[3, 2],[2, 1],[2, 2],[1, 2],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 4],[3, 2],[2, 1],[2, 2],[1, 2],[0, 0],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, -1],[4, 0],[3, -1],[2, -3],[1, -3],[1, -2],[0, -3],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[4, -1],[4, 0],[3, -1],[3, 2],[2, 1],[2, 2],[1, 2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 4],[4, 0],[4, 4],[3, 2],[2, 1],[2, 2],[1, 2],[0, 0],[0, 4]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -1],[1, -2],[0, -3],[0, -2]],
-        // prettier-ignore
-        v2: [[3, 0],[2, -1],[1, -2],[1, 2],[0, -2],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[2, -1],[2, 2],[1, 2],[0, -2],[0, 2]],
-        // prettier-ignore
-        v4: [[3, 0],[3, 4],[2, 2],[1, 2],[1, 3],[0, 2]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, 0],[0, -2],[0, 2]],
-        // prettier-ignore
-        v2: [[2, 0],[1, 0],[1, 3],[0, 2],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 4],[1, 3],[0, 2],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 2],[4, 0],[4, 4],[3, 0],[3, 4],[2, 2],[1, 2],[1, 3],[0, 2]],
+        },
       },
     },
   },
@@ -119,43 +116,49 @@ export const shapes: Shapes = {
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _M9],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: { bothModes: [_1] },
-      subdominant: { bothModes: [_4] },
+      Tonic: [_1],
+      tonic: [_1],
+      Subdomi: [_4],
+      subdomi: [_4],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -3],[4, -1],[3, -3],[2, -3],[2, -1],[1, -3],[1, 0],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 2],[4, -1],[4, 2],[3, 2],[2, -1],[2, 1],[1, 0],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 2],[3, 4],[2, 1],[1, 0],[0, 0],[0, 2],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[4, -3],[4, -1],[3, -3],[2, -3],[2, -1],[1, -3],[1, 0],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, -1],[4, 2],[3, 2],[2, -1],[2, 1],[1, 0],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 2],[3, 4],[2, 1],[1, 0],[0, 0],[0, 2],[0, 4]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -3],[3, -1],[2, -3],[1, -2],[1, 0],[0, -3],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 2],[3, -1],[3, 2],[2, 2],[1, 0],[1, 2],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 2],[4, 4],[3, 2],[2, 2],[2, 4],[1, 2],[0, 0]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, 0],[3, -3],[3, -1],[2, -3],[1, -2],[1, 0],[0, -3],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[4, 0],[4, 2],[3, -1],[3, 2],[2, 2],[1, 0],[1, 2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[4, 0],[4, 2],[4, 4],[3, 2],[2, 2],[2, 4],[1, 2],[0, 0]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -3],[2, -1],[1, -2],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 2],[2, -1],[2, 2],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 2],[2, -1],[2, 2],[1, 3],[0, 0],[0, 2]],
-        // prettier-ignore
-        v4: [[3, 0],[3, 2],[3, 4],[2, 2],[1, 3],[0, 0],[0, 2]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -2],[1, 0],[0, -2]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 2],[1, 0],[1, 3],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 2],[2, 4],[1, 3],[0, 3],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, 0],[3, 0],[3, 2],[2, -1],[2, 2],[1, 3],[0, 0],[0, 2]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, 0],[3, 0],[3, 2],[3, 4],[2, 2],[1, 3],[0, 0],[0, 2]],
+        },
       },
     },
   },
@@ -164,41 +167,45 @@ export const shapes: Shapes = {
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _M7, _M9],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: { bothModes: [_1] },
-      subdominant: { bothModes: [_4] },
+      Tonic: [_1],
+      tonic: [_1],
+      Subdomi: [_4],
+      subdomi: [_4],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -3],[4, -1],[3, -3],[3, 1],[2, -3],[2, -1],[1, -3],[1, 0],[0, -1],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 2],[4, -1],[4, 2],[3, 1],[3, 2],[2, -1],[2, 1],[1, 0],[0, -1],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 1],[3, 2],[3, 4],[2, 1],[2, 4],[1, 4],[0, 0],[0, 2],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 0],[4, -3],[4, -1],[3, -3],[3, 1],[2, -3],[2, -1],[1, -3],[1, 0],[0, -1],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 0],[5, 2],[4, -1],[4, 2],[3, 1],[3, 2],[2, -1],[2, 1],[1, 0],[0, -1],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 1],[3, 2],[3, 4],[2, 1],[2, 4],[1, 4],[0, 0],[0, 2],[0, 4]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -3],[3, -1],[2, -3],[1, -3],[1, -2],[1, 0],[0, -3],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 2],[3, -1],[3, 2],[2, 1],[2, 2],[1, 0],[1, 2],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 2],[4, 4],[3, 2],[2, 1],[2, 2],[1, 0],[1, 2],[0, 0],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, -1],[4, 0],[3, -3],[3, -1],[2, -3],[1, -3],[1, -2],[1, 0],[0, -3],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[4, -1],[4, 0],[4, 2],[3, -1],[3, 2],[2, 1],[2, 2],[1, 0],[1, 2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 4],[4, 0],[4, 2],[4, 4],[3, 2],[2, 1],[2, 2],[1, 0],[1, 2],[0, 0],[0, 4]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -3],[2, -1],[1, -2],[0, -3],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 2],[2, -1],[2, 2],[1, 2],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 2],[3, 4],[2, 2],[1, 2],[1, 3],[0, 0],[0, 2]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -2],[1, 0],[0, -2],[0, 2]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 2],[1, 0],[1, 3],[0, 2],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 2],[2, 4],[1, 3],[0, 2],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, 0],[4, 4],[3, 0],[3, 2],[3, 4],[2, 2],[1, 2],[1, 3],[0, 0],[0, 2]],
+        },
       },
     },
   },
@@ -207,38 +214,42 @@ export const shapes: Shapes = {
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _M6],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: { majorMode: [_1] },
+      Tonic: [_1],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -1],[3, -3],[3, -1],[2, -3],[1, -3],[1, 0],[0, -3],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[4, -1],[4, 2],[3, -1],[3, 2],[2, 1],[1, 0],[1, 2],[0, 0]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 4],[4, 2],[4, 4],[3, 2],[2, 1],[2, 4],[1, 2],[0, 0],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 0],[4, -1],[3, -3],[3, -1],[2, -3],[1, -3],[1, 0],[0, -3],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 0],[4, -1],[4, 2],[3, -1],[3, 2],[2, 1],[1, 0],[1, 2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 4],[4, 2],[4, 4],[3, 2],[2, 1],[2, 4],[1, 2],[0, 0],[0, 4]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -1],[2, -3],[2, -1],[1, -2],[0, -3],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[3, -1],[3, 2],[2, -1],[2, 2],[1, 2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 4],[3, 2],[3, 4],[2, 2],[1, 2],[0, 0],[0, 2]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, -3],[4, 0],[3, -1],[2, -3],[2, -1],[1, -2],[0, -3],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, 0],[3, -1],[3, 2],[2, -1],[2, 2],[1, 2],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, 0],[4, 4],[3, 2],[3, 4],[2, 2],[1, 2],[0, 0],[0, 2]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -1],[1, -2],[1, 0],[0, -2]],
-        // prettier-ignore
-        v2: [[3, 0],[2, -1],[2, 2],[1, 0],[0, -2],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 4],[2, 2],[1, 0],[1, 3],[0, 2]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[2, 0],[1, 0],[1, 3],[0, 0],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 2],[4, 0],[4, 2],[3, 0],[3, 4],[2, 2],[1, 0],[1, 3],[0, 2]],
+        },
       },
     },
   },
@@ -247,39 +258,46 @@ export const shapes: Shapes = {
     type: "Arpeggio",
     intervals: [_1, _m3, _5, _m7],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: { bothModes: [_M6], majorMode: [_M3] },
-      subdominant: { bothModes: [_M2], majorMode: [_M6] },
+      Tonic: [_M3, _M6],
+      tonic: [_M6],
+      Subdomi: [_M6, _M2],
+      subdomi: [_M2],
+      mediant: [_M3],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -2],[3, -3],[3, 0],[2, -3],[2, 0],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[4, -2],[4, 2],[3, 0],[3, 2],[2, 0],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 3],[4, 2],[3, 0],[3, 2],[2, 0],[1, 0],[1, 3],[0, 0],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -2],[3, -3],[3, 0],[2, -3],[2, 0],[1, 0],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -2],[4, 2],[3, 0],[3, 2],[2, 0],[1, 0],[0, -2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 2],[3, 0],[3, 2],[2, 0],[1, 0],[1, 3],[0, 0],[0, 3]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -2],[2, -3],[2, 0],[1, -2],[0, -4],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[3, -2],[3, 2],[2, 0],[2, 2],[1, 1],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 3],[3, 2],[2, 0],[2, 2],[1, 1],[0, 0],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, 0],[4, -2],[4, 0],[3, -2],[2, -3],[2, 0],[1, -2],[0, -4],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[4, -2],[4, 0],[3, -2],[3, 2],[2, 0],[2, 2],[1, 1],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 0],[4, 3],[3, 2],[2, 0],[2, 2],[1, 1],[0, 0],[0, 3]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -2],[1, -2],[1, 1],[0, -2],[0, 1]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 3],[2, 2],[1, 1],[1, 3],[0, 1]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -1],[0, -2],[0, 1]],
-        // prettier-ignore
-        v2: [[2, 0],[1, -1],[1, 3],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 3],[1, 3],[0, 1],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 1],[4, 0],[4, 3],[3, 0],[3, 3],[2, 2],[1, 1],[1, 3],[0, 1]],
+        },
       },
     },
   },
@@ -288,43 +306,44 @@ export const shapes: Shapes = {
     type: "Arpeggio",
     intervals: [_1, _m3, _5, _M9],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: {
-        minorMode: [_M6],
-      },
-      subdominant: { minorMode: [_M2], majorMode: [_M6] },
+      tonic: [_M6],
+      subdomi: [_M2],
+      Subdomi: [_M6],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -3],[4, -2],[3, -3],[2, -3],[2, -1],[2, 0],[1, 0],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 2],[4, -2],[4, 2],[3, 2],[2, -1],[2, 0],[1, 0],[0, 0],[0,2]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 2],[5, 3],[4, 2],[3, 2],[3, 4],[2, 0],[1, 0],[0, 0],[0, 2],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[4, -3],[4, -2],[3, -3],[2, -3],[2, -1],[2, 0],[1, 0],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, -2],[4, 2],[3, 2],[2, -1],[2, 0],[1, 0],[0, 0],[0,2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 2],[3, 2],[3, 4],[2, 0],[1, 0],[0, 0],[0, 2],[0, 3]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -3],[3, -2],[2, -3],[1, -2],[1, 0],[0, -4],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 2],[3, -2],[3, 2],[2, 2],[1, 0],[1, 1],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 2],[4, 3],[3, 2],[2, 2],[1, 0],[1, 1],[0, 0]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, 0],[4, 0],[3, -3],[3, -2],[2, -3],[1, -2],[1, 0],[0, -4],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[4, 0],[4, 2],[3, -2],[3, 2],[2, 2],[1, 0],[1, 1],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[4, 0],[4, 2],[4, 3],[3, 2],[2, 2],[1, 0],[1, 1],[0, 0]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -3],[2, -2],[1, -2],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 2],[2, -2],[1, -2],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 2],[3, 3],[2, 2],[1, 3],[0, 0],[0, 1]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -2],[1, -1],[0, -2]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 2],[1, -1],[1, 3],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 2],[2, 3],[1, 3],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 1],[4, 0],[3, 0],[3, 2],[3, 3],[2, 2],[1, 3],[0, 0],[0, 1]],
+        },
       },
     },
   },
@@ -333,43 +352,44 @@ export const shapes: Shapes = {
     type: "Arpeggio",
     intervals: [_1, _m3, _5, _m7, _M9],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: {
-        minorMode: [_M6],
-      },
-      subdominant: { minorMode: [_M2], majorMode: [_M6] },
+      tonic: [_M6],
+      subdomi: [_M2],
+      Subdomi: [_M6],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -3],[4, -2],[3, -3],[3, 0],[2, -3],[2, -1],[2, 0],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 2],[4, -2],[4, 2],[3, 0],[3, 2],[2, -1],[2, 0],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 2],[5, 3],[4, 2],[3, 0],[3, 2],[3, 4],[2, 0],[1, 0],[1, 3],[0, 0],[0, 2],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -3],[4, -2],[3, -3],[3, 0],[2, -3],[2, -1],[2, 0],[1, 0],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 2],[3, 0],[3, 2],[2, -1],[2, 0],[1, 0],[0, -2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 2],[3, 0],[3, 2],[3, 4],[2, 0],[1, 0],[1, 3],[0, 0],[0, 2],[0, 3]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -3],[3, -2],[2, -3],[2, 0],[1, -2],[1, 0],[0, -4],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 2],[3, -2],[3, 2],[2, 0],[1, -2],[1, 0],[1, 1],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 2],[4, 3],[3, 2],[2, 0],[2, 2],[1, 0],[1, 1],[0, 0],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, 0],[4, -2],[4, 0],[3, -3],[3, -2],[2, -3],[2, 0],[1, -2],[1, 0],[0, -4],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[4, -2],[4, 0],[4, 2],[3, -2],[3, 2],[2, 0],[1, -2],[1, 0],[1, 1],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 0],[4, 2],[4, 3],[3, 2],[2, 0],[2, 2],[1, 0],[1, 1],[0, 0],[0, 3]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -3],[2, -2],[1, -2],[0, -4],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 2],[2, -2],[2, 2],[1, 1],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 2],[3, 3],[2, 2],[1, 1],[1, 3],[0, 0],[0, 1]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -2],[1, -1],[0, -2],[0, 1]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 2],[1, -1],[1, 3],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 2],[2, 3],[1, 3],[0, 1],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 1],[4, 0],[4, 3],[3, 0],[3, 2],[3, 3],[2, 2],[1, 1],[1, 3],[0, 0],[0, 1]],
+        },
       },
     },
   },
@@ -378,50 +398,59 @@ export const shapes: Shapes = {
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _m7],
     semitoneOffsetFromMajorTonicRoot: {
-      dominant: { majorMode: [_5, _m2], minorMode: [_M3] },
+      Domi: [_5, _m2],
+      DomiPh: [_M3],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -1],[3, -3],[3, 0],[2, -3],[1, -3],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[4, -1],[3, -3],[3, 0],[2, -3],[2, 1],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v3: [[5, 0],[4, -1],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v4: [[5, 0],[4, -1],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[1, 3],[0, 0],[0, 4]],
-        // prettier-ignore
-        v5: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[1, 3],[0, 0],[0, 4]],
-        // prettier-ignore
-        v6: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[2, 4],[1, 3],[0, 0],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -1],[3, -3],[3, 0],[2, -3],[1, -3],[1, 0],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -1],[3, -3],[3, 0],[2, -3],[2, 1],[1, 0],[0, -2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -1],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[0, -2],[0, 0]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -1],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[1, 3],[0, 0],[0, 4]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[1, 3],[0, 0],[0, 4]],
+        },
+        v6: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[2, 4],[1, 3],[0, 0],[0, 4]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -1],[2, -3],[2, 0],[1, -2],[0, -3],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[3, -1],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 4],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, -2],[4, 0],[3, -1],[2, -3],[2, 0],[1, -2],[0, -3],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[4, -2],[4, 0],[3, -1],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0],[0, 3]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 0],[4, 4],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0],[0, 3]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -1],[1, -2],[0, -4],[0, -2]],
-        // prettier-ignore
-        v2: [[3, 0],[2, -1],[1, -2],[1, 1],[0, -2],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[2, -1],[2, 2],[1, 1],[0, -2],[0, 2]],
-        // prettier-ignore
-        v4: [[3, 0],[2, -1],[2, 2],[1, 1],[1, 3],[0, 2]],
-        // prettier-ignore
-        v5: [[3, 0],[3, 4],[2, 2],[1, 1],[1, 3],[0, 2]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, 0],[0, -2],[0, 1]],
-        // prettier-ignore
-        v2: [[2, 0],[1, 0],[1, 3],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 4],[1, 3],[0, 1],[0, 3]],
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 2],[4, 0],[4, 3],[3, 0],[2, -1],[2, 2],[1, 1],[1, 3],[0, 2]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 2],[4, 0],[4, 3],[3, 0],[3, 4],[2, 2],[1, 1],[1, 3],[0, 2]],
+        },
       },
     },
   },
@@ -430,46 +459,55 @@ export const shapes: Shapes = {
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _m7, _m9],
     semitoneOffsetFromMajorTonicRoot: {
-      dominant: { minorMode: [_M3], majorMode: [_5] },
+      Domi: [_5, _m2],
+      DomiPh: [_M3],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[5, 1],[4, -1],[3, -3],[3, 0],[2, -3],[2, -2],[1, -3],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 1],[4, -1],[4, 2],[3, 0],[3, 2],[2, -2],[2, 1],[1, 0],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 1],[5, 4],[4, 2],[3, 0],[3, 2],[3, 3],[2, 1],[1, 0],[1, 3],[0, 0],[0, 1],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -4],[4, -1],[3, -3],[3, 0],[2, -3],[2, -2],[1, -3],[1, 0],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 1],[4, -1],[3, -3],[3, 0],[2, -3],[2, -2],[1, -3],[1, 0],[0, -2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 1],[4, -1],[4, 2],[3, 0],[3, 2],[2, -2],[2, 1],[1, 0],[0, -2],[0, 0],[0, 1]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 1],[5, 4],[4, 2],[3, 0],[3, 2],[3, 3],[2, 1],[1, 0],[1, 3],[0, 0],[0, 1],[0, 4]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -4],[3, -1],[2, -3],[2, 0],[1, -2],[1, -1],[0, -3],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 1],[3, -1],[2, -3],[2, 0],[1, -2],[1, -1],[0, -3],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 1],[3, -1],[3, 2],[2, 0],[2, 2],[1, -1],[1, 2],[0, 0]],
-        // prettier-ignore
-        v4: [[4, 0],[4, 1],[4, 4],[3, 2],[2, 0],[2, 2],[2, 3],[1, 2],[0, 0],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, -2],[4, 0],[3, -4],[3, -1],[2, -3],[2, 0],[1, -2],[1, -1],[0, -3],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, -2],[4, 0],[4, 1],[3, -1],[2, -3],[2, 0],[1, -2],[1, -1],[0, -3],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[4, -2],[4, 0],[4, 1],[3, -1],[3, 2],[2, 0],[2, 2],[1, -1],[1, 2],[0, 0]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 0],[4, 1],[4, 4],[3, 2],[2, 0],[2, 2],[2, 3],[1, 2],[0, 0],[0, 3]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -4],[2, -1],[1, -2],[0, -4],[0, -2]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 1],[2, -1],[1, -2],[1, 1],[0, -2],[0, -1],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 1],[2, -1],[2, 2],[1, 1],[1, 3],[0, -1],[0, 2]],
-        // prettier-ignore
-        v4: [[3, 0],[3, 1],[3, 4],[2, 2],[1, 1],[1, 3],[1, 4],[0, 2]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -3],[1, 0],[0, -2],[0, 1]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 1],[1, 0],[0, -2],[0, 1]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 1],[1, 0],[1, 3],[0, 1],[0, 3]],
-        // prettier-ignore
-        v4: [[2, 0],[2, 1],[2, 4],[1, 3],[0, 1],[0, 3],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 2],[4, 0],[4, 3],[3, 0],[3, 1],[2, -1],[2, 2],[1, 1],[1, 3],[0, -1],[0, 2]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 2],[4, 0],[4, 3],[3, 0],[3, 1],[3, 4],[2, 2],[1, 1],[1, 3],[1, 4],[0, 2]],
+        },
       },
     },
   },
@@ -478,47 +516,55 @@ export const shapes: Shapes = {
     type: "Arpeggio",
     intervals: [_1, _m3, _T, _m7],
     semitoneOffsetFromMajorTonicRoot: {
-      dominant: { majorMode: [_M7] },
-      subdominant: { minorMode: [_M7] },
+      Domi: [_M7],
+      subdomi: [_M7],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -2],[3, -4],[3, 0],[2, -3],[1, -4],[1, -1],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[4, -2],[4, 1],[3, 0],[2, -3],[2, 0],[1, -1],[0, -2],[0, 0]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 3],[4, 1],[3, 0],[3, 2],[2, 0],[2, 3],[1, 3],[0, 0],[0, 3]],
-        // prettier-ignore
-        v4: [[5, 0],[5, 3],[4, 1],[4, 5],[3, 2],[3, 5],[2, 3],[1, 3],[1, 5],[0, 3],[0, 6]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -2],[3, -4],[3, 0],[2, -3],[1, -4],[1, -1],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -2],[4, 1],[3, 0],[2, -3],[2, 0],[1, -1],[0, -2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 1],[3, 0],[3, 2],[2, 0],[2, 3],[1, 3],[0, 0],[0, 3]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 1],[4, 5],[3, 2],[3, 5],[2, 3],[1, 3],[1, 5],[0, 3],[0, 6]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -2],[2, -4],[2, 0],[1, -2],[0, -4],[0, -1]],
-        // prettier-ignore
-        v2: [[4, 0],[3, -2],[3, 1],[2, 0],[1, -2],[1, 1],[0, -1],[0, 3]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 3],[3, 1],[2, 0],[2, 2],[1, 1],[0, -1],[0, 3]],
-        // prettier-ignore
-        v4: [[4, 0],[4, 3],[3, 1],[2, 0],[2, 2],[1, 1],[1, 4],[0, 3]],
-        // prettier-ignore
-        v5: [[4, 0],[4, 3],[3, 1],[3, 5],[2, 2],[2, 5],[1, 4],[0, 3],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, -1],[4, -2],[4, 0],[3, -2],[2, -4],[2, 0],[1, -2],[0, -4],[0, -1]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -1],[4, -2],[4, 0],[3, -2],[3, 1],[2, 0],[1, -2],[1, 1],[0, -1],[0, 3]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 3],[4, 0],[4, 3],[3, 1],[2, 0],[2, 2],[1, 1],[0, -1],[0, 3]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 3],[4, 0],[4, 3],[3, 1],[2, 0],[2, 2],[1, 1],[1, 4],[0, 3]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 3],[4, 0],[4, 3],[3, 1],[3, 5],[2, 2],[2, 5],[1, 4],[0, 3],[0, 5]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -2],[1, -3],[1, 1],[0, -2],[0, 1]],
-        // prettier-ignore
-        v2: [[3, 0],[2, -2],[2, 1],[1, 1],[0, -2],[0, 1]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 3],[2, 1],[1, 1],[1, 3],[0, 1],[0, 4]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -1],[0, -3],[0, 1]],
-        // prettier-ignore
-        v2: [[2, 0],[1, -1],[1, 2],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 3],[1, 2],[0, 1],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 1],[4, -1],[3, -2],[3, 0],[2, -2],[1, -3],[1, 1],[0, -2],[0, 1]],
+        },
       },
     },
   },
@@ -527,56 +573,71 @@ export const shapes: Shapes = {
     type: "Arpeggio",
     intervals: [_1, _m3, _T, _M6],
     semitoneOffsetFromMajorTonicRoot: {
-      dominant: { bothModes: [_M7] },
+      Domi: [_M7],
+      DomiPh: [_M7],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -2],[3, -4],[3, -1],[2, -3],[1, -4],[1, -1],[0, -3]],
-        // prettier-ignore
-        v2: [[5, 0],[4, -2],[4, 1],[3, -1],[2, -3],[2, 0],[1, -1],[0, -3],[0, 0]],
-        // prettier-ignore
-        v3: [[5, 0],[4, -2],[4, 1],[3, -1],[3, 2],[2, 0],[1, -1],[1, 2],[0, 0],[0, 3]],
-        // prettier-ignore
-        v4: [[5, 0],[5, 3],[4, 1],[3, -1],[3, 2],[2, 0],[1, -1],[1, 2],[0, 0],[0, 3]],
-        // prettier-ignore
-        v5: [[5, 0],[5, 3],[4, 1],[3, -1],[3, 2],[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
-        // prettier-ignore
-        v6: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
-        // prettier-ignore
-        v7: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[3, 5],[2, 3],[2, 6],[1, 5],[0, 3],[0, 6]],
-        // prettier-ignore
-        v8: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[3, 5],[2, 3],[2, 6],[1, 5],[1, 8],[0, 6],[0, 9]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, -2],[3, -4],[3, -1],[2, -3],[1, -4],[1, -1],[0, -3]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, -2],[4, 1],[3, -1],[2, -3],[2, 0],[1, -1],[0, -3],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, -2],[4, 1],[3, -1],[3, 2],[2, 0],[1, -1],[1, 2],[0, 0],[0, 3]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 1],[3, -1],[3, 2],[2, 0],[1, -1],[1, 2],[0, 0],[0, 3]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 1],[3, -1],[3, 2],[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
+        },
+        v6: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
+        },
+        v7: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[3, 5],[2, 3],[2, 6],[1, 5],[0, 3],[0, 6]],
+        },
+        v8: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[3, 5],[2, 3],[2, 6],[1, 5],[1, 8],[0, 6],[0, 9]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -2],[2, -4],[2, -1],[1, -2],[0, -4],[0, -1]],
-        // prettier-ignore
-        v2: [[4, 0],[3, -2],[3, 1],[2, -1],[1, -2],[1, 1],[0, -1]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 3],[3, 1],[3, 4],[2, 2],[1, 1],[1, 4],[0, 2]],
-        // prettier-ignore
-        v4: [[4, 0],[4, 3],[3, 1],[3, 4],[2, 2],[2, 5],[1, 4],[1, 7],[0, 5],[0, 8]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, -1],[4, -3],[4, 0],[3, -2],[2, -4],[2, -1],[1, -2],[0, -4],[0, -1]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, -1],[4, -3],[4, 0],[3, -2],[3, 1],[2, -1],[1, -2],[1, 1],[0, -1]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 2],[4, 0],[3, -2],[3, 1],[2, -1],[1, -2],[1, 1],[0, -1]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 2],[4, 0],[4, 3],[3, 1],[3, 4],[2, 2],[1, 1],[1, 4],[0, 2]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 2],[4, 0],[4, 3],[3, 1],[3, 4],[2, 2],[2, 5],[1, 4],[1, 7],[0, 5],[0, 8]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -2],[1, -3],[1, 0],[0, -2]],
-        // prettier-ignore
-        v2: [[3, 0],[2, -2],[2, 1],[1, 0],[0, -2],[0, 1]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 3],[2, 1],[2, 4],[1, 3],[0, 1],[0, 4]],
-        // prettier-ignore
-        v4: [[3, 0],[3, 3],[2, 1],[2, 4],[1, 3],[1, 6],[0, 4],[0, 7]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -1],[0, -3],[0, 0]],
-        // prettier-ignore
-        v2: [[2, 0],[1, -1],[1, 2],[0, 0]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
-        // prettier-ignore
-        v4: [[2, 0],[2, 3],[1, 2],[1, 5],[0, 3],[0, 6]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 1],[5, 4],[4, 2],[3, 0],[3, 3],[2, 1],[2, 4],[1, 3],[1, 6],[0, 4],[0, 7]],
+        },
       },
     },
   },
@@ -585,48 +646,62 @@ export const shapes: Shapes = {
     type: "Scale",
     intervals: [_1, _m2, _m3, _M3, _T, _m6, _m7],
     semitoneOffsetFromMajorTonicRoot: {
-      dominant: { majorMode: [_5] },
+      Domi: [_5],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -4],[4, -2],[4, -1],[3, -4],[3, -2],[3, 0],[2, -3],[2, -2],[2, 0],[1, -3],[1, -1],[0, -4],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[4, -4],[4, -2],[4, -1],[3, -4],[3, -2],[3, 0],[2, -3],[2, -2],[2, 0],[1, -3],[1, -1],[1, 1],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 1],[4, -2],[4, -1],[4, 1],[3, -2],[3, 0],[3, 2],[2, -2],[2, 0],[2, 1],[1, -1],[1, 1],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v4: [[5, 0],[5, 1],[5, 3],[4, -1],[4, 1],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 1],[2, 3],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
-        // prettier-ignore
-        v5: [[5, 0],[5, 1],[5, 3],[4, -1],[4, 1],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 1],[2, 3],[1, 1],[1, 3],[1, 4],[0, 1],[0, 3],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -4],[4, -2],[4, -1],[3, -4],[3, -2],[3, 0],[2, -3],[2, -2],[2, 0],[1, -3],[1, -1],[0, -4],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -4],[4, -2],[4, -1],[3, -4],[3, -2],[3, 0],[2, -3],[2, -2],[2, 0],[1, -3],[1, -1],[1, 1],[0, -2],[0, 0],[0, 1]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 1],[4, -2],[4, -1],[4, 1],[3, -2],[3, 0],[3, 2],[2, -2],[2, 0],[2, 1],[1, -1],[1, 1],[0, -2],[0, 0],[0, 1]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 1],[5, 3],[4, -1],[4, 1],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 1],[2, 3],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 1],[5, 3],[4, -1],[4, 1],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 1],[2, 3],[1, 1],[1, 3],[1, 4],[0, 1],[0, 3],[0, 4]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -4],[3, -2],[3, -1],[2, -4],[2, -2],[1, -4],[1, -2],[1, -1],[0, -4],[0, -3],[0, -1]],
-        // prettier-ignore
-        v2: [[4, 0],[3, -4],[3, -2],[3, -1],[2, -4],[2, -2],[2, 0],[1, -2],[1, -1],[1, 1],[0, -3],[0, -1],[0, 1]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 1],[3, -2],[3, -1],[3, 1],[2, -2],[2, 0],[2, 2],[1, -1],[1, 1],[1, 2],[0, -1],[0, 1],[0, 3]],
-        // prettier-ignore
-        v4: [[4, 0],[4, 1],[4, 3],[3, -1],[3, 1],[3, 3],[2, 0],[2, 2],[2, 3],[1, 1],[1, 2],[1, 4],[0, 1],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, -3],[5, -1],[4, -4],[4, -2],[4, 0],[3, -4],[3, -2],[3, -1],[2, -4],[2, -2],[1, -4],[1, -2],[1, -1],[0, -4],[0, -3],[0, -1]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, -3],[5, -1],[4, -4],[4, -2],[4, 0],[3, -4],[3, -2],[3, -1],[2, -4],[2, -2],[2, 0],[1, -2],[1, -1],[1, 1],[0, -3],[0, -1],[0, 1]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, -1],[5, 1],[4, -2],[4, 0],[4, 1],[3, -2],[3, -1],[3, 1],[2, -2],[2, 0],[2, 2],[1, -1],[1, 1],[1, 2],[0, -1],[0, 1],[0, 3]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 1],[5, 3],[4, 0],[4, 1],[4, 3],[3, -1],[3, 1],[3, 3],[2, 0],[2, 2],[2, 3],[1, 1],[1, 2],[1, 4],[0, 1],[0, 3]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -4],[2, -2],[2, -1],[1, -3],[1, -1],[0, -4],[0, -2],[0, -1]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 1],[2, -2],[2, -1],[2, 1],[1, -1],[1, 1],[0, -2],[0, -1],[0, 1]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 1],[3, 3],[2, -1],[2, 1],[1, -1],[1, 1],[1, 3],[0, -1],[0, 1],[0, 2]],
-        // prettier-ignore
-        v4: [[3, 0],[3, 1],[3, 3],[2, -1],[2, 1],[2, 3],[1, 1],[1, 3],[1, 4],[0, 1],[0, 2],[0, 4]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -3],[1, -1],[1, 0],[0, -3],[0, -1],[0, 1]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 1],[1, -1],[1, 0],[1, 2],[0, -1],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 1],[2, 3],[1, 0],[1, 2],[1, 4],[0, 1],[0, 3],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 1],[5, 2],[4, -1],[4, 1],[4, 3],[3, 0],[3, 1],[3, 3],[2, -1],[2, 1],[1, -1],[1, 1],[1, 3],[0, -1],[0, 1],[0, 2]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 1],[5, 2],[4, -1],[4, 1],[4, 3],[3, 0],[3, 1],[3, 3],[2, -1],[2, 1],[2, 3],[1, 1],[1, 3],[1, 4],[0, 1],[0, 2],[0, 4]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 1],[5, 2],[5, 4],[4, 1],[4, 3],[3, 0],[3, 1],[3, 3],[2, -1],[2, 1],[2, 3],[1, 1],[1, 3],[1, 4],[0, 1],[0, 2],[0, 4]],
+        },
       },
     },
   },
@@ -635,44 +710,46 @@ export const shapes: Shapes = {
     type: "Scale",
     intervals: [_1, _m3, _4, _5, _m7],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: {
-        bothModes: [_M6],
-      },
-      subdominant: { minorMode: [_M2] },
-      dominant: { majorMode: [_5, _M3] },
+      Tonic: [_M6],
+      tonic: [_M6],
+      subdomi: [_M2],
+      Domi: [_5, _M3],
+      mediant: [_M3],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -2],[4, 0],[3, -3],[3, 0],[2, -3],[2, 0],[1, -2],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[4, -2],[4, 0],[4, 2],[3, 0],[3, 2],[2, 0],[2, 2],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 3],[4, 0],[4, 2],[3, 0],[3, 2],[2, 0],[2, 2],[1, 0],[1, 3],[0, 0],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -2],[4, 0],[3, -3],[3, 0],[2, -3],[2, 0],[1, -2],[1, 0],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -2],[4, 0],[4, 2],[3, 0],[3, 2],[2, 0],[2, 2],[1, 0],[0, -2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 0],[4, 2],[3, 0],[3, 2],[2, 0],[2, 2],[1, 0],[1, 3],[0, 0],[0, 3]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -2],[3, 0],[2, -3],[2, 0],[1, -2],[1, 1],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[3, -2],[3, 0],[3, 2],[2, 0],[2, 2],[1, 1],[0, -2],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 3],[3, 0],[3, 2],[2, 0],[2, 2],[1, 1],[1, 3],[0, 0],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -2],[4, 0],[3, -2],[3, 0],[2, -3],[2, 0],[1, -2],[1, 1],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[4, -2],[4, 0],[3, -2],[3, 0],[3, 2],[2, 0],[2, 2],[1, 1],[0, -2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 3],[4, 0],[4, 3],[3, 0],[3, 2],[2, 0],[2, 2],[1, 1],[1, 3],[0, 0],[0, 3]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -2],[1, -4],[1, -2],[0, -4],[0, -2]],
-        // prettier-ignore
-        v2: [[3, 0],[2, -2],[2, 0],[1, -2],[1, 1],[0, -2],[0, 1]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 3],[2, 0],[2, 2],[1, 1],[1, 3],[0, 1],[0, 3]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -1],[1, 1],[0, -2],[0, 1]],
-        // prettier-ignore
-        v2: [[2, 0],[1, -1],[1, 1],[1, 3],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 3],[1, 1],[1, 3],[0, 1],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 1],[5, 3],[4, 0],[4, 3],[3, 0],[3, 3],[2, 0],[2, 2],[1, 1],[1, 3],[0, 1],[0, 3]],
+        },
       },
     },
   },
@@ -681,40 +758,46 @@ export const shapes: Shapes = {
     type: "Scale",
     intervals: [_1, _M2, _M3, _5, _M6],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: { bothModes: [_1] },
-      subdominant: { bothModes: [_4] },
-      dominant: { majorMode: [_5] },
+      Tonic: [_1],
+      tonic: [_1],
+      Subdomi: [_4],
+      subdomi: [_4],
+      Domi: [_5],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -3],[4, -1],[3, -3],[3, -1],[2, -3],[2, -1],[1, -3],[1, 0],[0, -3],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 2],[4, -1],[4, 2],[3, -1],[3, 2],[2, -1],[2, 1],[1, 0],[1, 2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 2],[5, 4],[4, 2],[4, 4],[3, 2],[3, 4],[2, 1],[2, 4],[1, 2],[0, 0],[0, 2],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, -3],[4, -1],[3, -3],[3, -1],[2, -3],[2, -1],[1, -3],[1, 0],[0, -3],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, -1],[4, 2],[3, -1],[3, 2],[2, -1],[2, 1],[1, 0],[1, 2],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 2],[4, 4],[3, 2],[3, 4],[2, 1],[2, 4],[1, 2],[0, 0],[0, 2],[0, 4]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -3],[3, -1],[2, -3],[2, -1],[1, -2],[1, 0],[0, -3],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 2],[3, -1],[3, 2],[2, -1],[2, 2],[1, 0],[1, 2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 2],[4, 4],[3, 2],[3, 4],[2, 2],[2, 4],[1, 2],[0, 0],[0, 2]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, -3],[4, 0],[3, -3],[3, -1],[2, -3],[2, -1],[1, -2],[1, 0],[0, -3],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, 0],[4, 2],[3, -1],[3, 2],[2, -1],[2, 2],[1, 0],[1, 2],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, 0],[4, 2],[4, 4],[3, 2],[3, 4],[2, 2],[2, 4],[1, 2],[0, 0],[0, 2]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -3],[2, -1],[1, -2],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 2],[2, -1],[2, 2],[1, 0],[1, 3],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 2],[3, 4],[2, 2],[1, 0],[1, 3],[0, 0],[0, 2]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -2],[1, 0],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 2],[1, 0],[1, 3],[0, 0],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, 0],[4, 2],[3, 0],[3, 2],[2, -1],[2, 2],[1, 0],[1, 3],[0, 0],[0, 2]],
+        },
       },
     },
   },
@@ -723,39 +806,45 @@ export const shapes: Shapes = {
     type: "Set",
     intervals: [_1, _M2, _M3, _5, _M6, _M7],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: { bothModes: [_1] },
-      subdominant: { bothModes: [_4] },
+      Tonic: [_1],
+      tonic: [_1],
+      Subdomi: [_4],
+      subdomi: [_4],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -3],[4, -1],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[1, -3],[1, 0],[0, -3],[0, -1],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 2],[4, -1],[4, 2],[3, -1],[3, 1],[3, 2],[2, -1],[2, 1],[1, 0],[1, 2],[0, -1],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 2],[5, 4],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 4],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, -1],[5, 0],[4, -3],[4, -1],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[1, -3],[1, 0],[0, -3],[0, -1],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 0],[5, 2],[4, -1],[4, 2],[3, -1],[3, 1],[3, 2],[2, -1],[2, 1],[1, 0],[1, 2],[0, -1],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 4],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -3],[3, -1],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 2],[3, -1],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 2],[4, 4],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[0, 0],[0, 2],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[0, 0],[0, 2],[0, 4]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -3],[2, -1],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 2],[2, -1],[2, 2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 2],[3, 4],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -2],[1, 0],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 2],[1, 0],[1, 3],[0, 0],[0, 2],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2]],
+        },
       },
     },
   },
@@ -764,48 +853,58 @@ export const shapes: Shapes = {
     type: "Scale",
     intervals: [_1, _M2, _M3, _4, _5, _M6, _M7],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: { majorMode: [_1] },
+      Tonic: [_1],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -1],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 1],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, -1],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 2],[1, 0],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
-        // prettier-ignore
-        v4: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, -1],[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -1],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 1],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, -1],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 2],[1, 0],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 5]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -3],[3, -1],[3, 0],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2],[0, 4]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 4]],
-        // prettier-ignore
-        v4: [[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[0, 0],[0, 2],[0, 4]],
-        // prettier-ignore
-        v5: [[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 4],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, -2],[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[3, 0],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2],[0, 4]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 4]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[0, 0],[0, 2],[0, 4]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 4],[0, 5]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
-        // prettier-ignore
-        v4: [[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 2],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
+        },
       },
     },
   },
@@ -814,52 +913,62 @@ export const shapes: Shapes = {
     type: "Scale",
     intervals: [_1, _M2, _m3, _4, _5, _m6, _m7],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: { minorMode: [_M6] },
+      tonic: [_M6],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -1],[1, -4],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -1],[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v4: [[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 2],[0, 3]],
-        // prettier-ignore
-        v5: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 2],[0, 3]],
-        // prettier-ignore
-        v6: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[2, 5],[1, 3],[1, 5],[1, 7],[0, 3],[0, 5],[0, 7]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, -2],[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -1],[1, -4],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, -2],[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -1],[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 2]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 2],[0, 3]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 2],[0, 3]],
+        },
+        v6: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 2],[0, 3]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -2],[1, -4],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -2],[2, 0],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -2],[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v4: [[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -2],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
-        // prettier-ignore
-        v5: [[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, -2],[5, 0],[4, -4],[4, -2],[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -2],[1, -4],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, -2],[5, 0],[4, -4],[4, -2],[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -2],[2, 0],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 1],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -2],[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 1]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 1],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -2],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 1],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -3],[2, -2],[1, -4],[1, -2],[1, -1],[0, -4],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[3, 0],[2, -3],[2, -2],[2, 0],[1, -2],[1, -1],[1, 1],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 2],[2, -2],[2, 0],[1, -2],[1, -1],[1, 1],[0, -2],[1, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v4: [[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[2, 3],[1, 1],[1, 3],[1, 5],[0, 1],[0, 3],[0, 5]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -2],[1, -1],[1, 1],[0, -2],[0, -1],[0, 1]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 2],[1, -1],[1, 1],[1, 3],[0, -1],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 2],[2, 3],[1, 1],[1, 3],[1, 4],[0, 1],[0, 3],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 1],[5, 3],[4, 0],[4, 1],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[2, 3],[1, 1],[1, 3],[1, 5],[0, 1],[0, 3],[0, 5]],
+        },
       },
     },
   },
@@ -868,51 +977,64 @@ export const shapes: Shapes = {
     type: "Scale",
     intervals: [_1, _M2, _m3, _4, _5, _M6, _m7],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: { minorMode: [_M6] },
-      subdominant: { bothModes: [_M2] },
+      tonic: [_M6],
+      Subdomi: [_M2],
+      subdomi: [_M2],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -1],[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v4: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
-        // prettier-ignore
-        v5: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, -2],[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -1],[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -1],[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v4: [[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 2],[0, 3]],
-        // prettier-ignore
-        v5: [[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, -2],[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -1],[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 2]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 2],[0, 3]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -3],[2, -2],[2, 0],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[3, 0],[2, -3],[2, -2],[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
-        // prettier-ignore
-        v4: [[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 1],[0, 3],[0, 5]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -2],[1, -1],[1, 1],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 2],[1, -1],[2, 3],[1, 3],[0, 0],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 2],[2, 3],[1, 1],[1, 3],[1, 5],[0, 1],[0, 3],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 1],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 1],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 1],[0, 3],[0, 5]],
+        },
       },
     },
   },
@@ -921,51 +1043,56 @@ export const shapes: Shapes = {
     type: "Scale",
     intervals: [_1, _M2, _M3, _T, _5, _M6, _M7],
     semitoneOffsetFromMajorTonicRoot: {
-      tonic: { majorMode: [_1] },
-      subdominant: { bothModes: [_4] },
+      Tonic: [_1],
+      Subdomi: [_4],
+      subdomi: [_4],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -3],[4, -1],[4, 1],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[1, -3],[1, -1],[1, 0],[0, -3],[0, -1],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 2],[4, -1],[4, 1],[4, 2],[3, -1],[3, 1],[3, 2],[2, -1],[2, 1],[1, -1],[1, 0],[1, 2],[0, -1],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 2],[5, 4],[4, 1],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 3],[1, 0],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
-        // prettier-ignore
-        v4: [[5, 0],[5, 2],[5, 4],[4, 1],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 3],[2, 4],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
-        // prettier-ignore
-        v5: [[5, 0],[5, 2],[5, 4],[4, 1],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 3],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 6]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, -1],[5, 0],[4, -3],[4, -1],[4, 1],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[1, -3],[1, -1],[1, 0],[0, -3],[0, -1],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 0],[5, 2],[4, -1],[4, 1],[4, 2],[3, -1],[3, 1],[3, 2],[2, -1],[2, 1],[1, -1],[1, 0],[1, 2],[0, -1],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 1],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 3],[1, 0],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 1],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 3],[2, 4],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 1],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 3],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 6]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -1],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[2, 1],[1, -2],[1, 0],[0, -3],[0, -1],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 2],[3, -1],[3, 1],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, -1],[0, 0],[0, 2]],
-        // prettier-ignore
-        v4: [[4, 0],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, -1],[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -1],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, -1],[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[2, 1],[1, -2],[1, 0],[0, -3],[0, -1],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -1],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 1],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, -1],[0, 0],[0, 2]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 5]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2]],
-        // prettier-ignore
-        v4: [[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 4],[0, 5]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[2, 0],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
-        // prettier-ignore
-        v4: [[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 4],[0, 5]],
+        },
       },
     },
   },
@@ -974,58 +1101,71 @@ export const shapes: Shapes = {
     type: "Scale",
     intervals: [_1, _M2, _M3, _4, _5, _M6, _m7],
     semitoneOffsetFromMajorTonicRoot: {
-      dominant: { majorMode: [_5], minorMode: [_M3] },
+      Domi: [_5],
+      DomiPh: [_M3],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[3, 0],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v4: [[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 4]],
-        // prettier-ignore
-        v5: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 4]],
-        // prettier-ignore
-        v6: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 4],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, -2],[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[3, 0],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 4]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 4]],
+        },
+        v6: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 4],[0, 5]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -3],[3, -1],[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-        // prettier-ignore
-        v4: [[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
-        // prettier-ignore
-        v5: [[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
-        // prettier-ignore
-        v6: [[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
-        // prettier-ignore
-        v7: [[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, -2],[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -1],[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
+        },
+        v6: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
+        },
+        v7: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -3],[2, -1],[1, -4],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-        // prettier-ignore
-        v3: [[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0]],
-        // prettier-ignore
-        v4: [[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 2],[0, 3]],
-        // prettier-ignore
-        v5: [[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 1],[0, 3],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
+        },
       },
     },
   },
@@ -1034,48 +1174,50 @@ export const shapes: Shapes = {
     type: "Scale",
     intervals: [_1, _m2, _M3, _4, _5, _m6, _m7],
     semitoneOffsetFromMajorTonicRoot: {
-      dominant: {
-        minorMode: [_M3],
-      },
+      DomiPh: [_M3],
     },
-    fretboardCoordinatesVariants: {
+    shapeVariants: {
       strE: {
-        // prettier-ignore
-        v1: [[5, 0],[4, -4],[4, -1],[4, 0],[3, -3],[3, -2],[2, -3],[2, -2],[1, -3],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[5, 0],[5, 1],[4, -1],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -2],[2, 1],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v3: [[5, 0],[5, 1],[5, 4],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 1],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 4]],
-        // prettier-ignore
-        v4: [[5, 0],[5, 1],[5, 4],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 1],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 1],[0, 4],[0, 5]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, -2],[5, 0],[4, -4],[4, -1],[4, 0],[3, -3],[3, -2],[2, -3],[2, -2],[1, -3],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 1],[4, -1],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -2],[2, 1],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 1]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 1],[5, 4],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 1],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 4]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 1],[5, 4],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 1],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 1],[0, 4],[0, 5]],
+        },
       },
       strA: {
-        // prettier-ignore
-        v1: [[4, 0],[3, -4],[3, -1],[3, 0],[2, -3],[2, -2],[1, -4],[1, -2],[1, -1],[0, -3],[0, -2],[0, 0]],
-        // prettier-ignore
-        v2: [[4, 0],[4, 1],[3, -1],[3, 0],[2, -3],[2, -2],[2, 0],[1, -2],[1, -1],[0, -3],[0, -2],[0, 0]],
-        // prettier-ignore
-        v3: [[4, 0],[4, 1],[3, -1],[3, 0],[3, 2],[2, -2],[2, 0],[2, 2],[1, -1],[1, 2],[0, -2],[0, 0],[0, 1]],
-        // prettier-ignore
-        v4: [[4, 0],[4, 1],[4, 4],[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[2, 3],[1, 2],[1, 3],[0, 0],[0, 1],[0, 3]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -3],[5, -2],[5, 0],[4, -4],[4, -2],[4, 0],[3, -4],[3, -1],[3, 0],[2, -3],[2, -2],[1, -4],[1, -2],[1, -1],[0, -3],[0, -2],[0, 0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 1],[4, -2],[4, 0],[4, 1],[3, -1],[3, 0],[2, -3],[2, -2],[2, 0],[1, -2],[1, -1],[0, -3],[0, -2],[0, 0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[5, -2],[5, 0],[5, 1],[4, -2],[4, 0],[4, 1],[3, -1],[3, 0],[3, 2],[2, -2],[2, 0],[2, 2],[1, -1],[1, 2],[0, -2],[0, 0],[0, 1]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[5, 0],[5, 1],[5, 3],[4, 0],[4, 1],[4, 4],[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[2, 3],[1, 2],[1, 3],[0, 0],[0, 1],[0, 3]],
+        },
       },
       strD: {
-        // prettier-ignore
-        v1: [[3, 0],[2, -4],[2, -1],[1, -4],[1, -2],[1, -1],[0, -4],[0, -2],[0, -1]],
-        // prettier-ignore
-        v2: [[3, 0],[3, 1],[2, -1],[2, 0],[1, -2],[1, -1],[1, 1],[0, -2],[0, -1],[0, 2]],
-        // prettier-ignore
-        v3: [[3, 0],[3, 1],[2, -1],[2, 0],[2, 2],[1, -1],[1, 1],[1, 3],[0, -1],[0, 2],[0, 3]],
-        // prettier-ignore
-        v4: [[3, 0],[3, 1],[3, 4],[2, 0],[2, 2],[2, 3],[1, 1],[1, 3],[1, 4],[0, 2],[0, 3],[0, 5]],
-      },
-      strG: {
-        // prettier-ignore
-        v1: [[2, 0],[2, 1],[1, 0],[1, 1],[0, -2],[0, -1],[0, 1]],
-        // prettier-ignore
-        v2: [[2, 0],[2, 1],[1, 0],[1, 1],[1, 3],[0, -1],[0, 1],[0, 3]],
-        // prettier-ignore
-        v3: [[2, 0],[2, 1],[2, 4],[1, 1],[1, 3],[1, 4],[0, 1],[0, 3],[0, 4]],
+        v1: {
+          // prettier-ignore
+          coordinates: [[5, -4],[5, -1],[5, 0],[4, -3],[4, -2],[3, 0],[3, 1],[3, 4],[2, 0],[2, 2],[2, 3],[1, 1],[1, 3],[1, 4],[0, 2],[0, 3],[0, 5]],
+        },
       },
     },
   },

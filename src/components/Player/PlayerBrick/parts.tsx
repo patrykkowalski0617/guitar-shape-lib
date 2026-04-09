@@ -1,6 +1,6 @@
-import { instrumentElBRadius } from "@/parts";
 import styled, { css, keyframes } from "styled-components";
 import { playerElementHeight } from "../constants";
+import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
 
 const flash = keyframes`
   0% { background-color: color-mix(in oklab, var(--accent) 45%, var(--background)); }

@@ -1,19 +1,17 @@
 import { useEffect, useRef } from "react";
 import { Dices } from "lucide-react";
-import { useRandomizeMode } from "./hooks/useRandomizeMode";
-import { useRandomizeKey } from "./hooks/useRandomizeKey";
-import { useRandomizeRole } from "./hooks/useRandomizeRole";
-import { useRandomizeShape } from "./hooks/useRandomizeShape";
-import { useRandomizeShapeVariant } from "./hooks/useRandomizeShapeVariant";
+import {
+  useRandomizeKey,
+  useRandomizeShape,
+  useRandomizeShapeVariant,
+} from "./hooks";
 import { useAddBrick } from "../AddBrickButton/hooks/useAddBrick";
 import { useMusicStore, usePlayerStore } from "@/store";
 import { Button } from "@/components/ui/button";
 import { playerIconSize } from "@/components/Player/constants";
 
 export function RandomizeButton() {
-  const { setRandomMode } = useRandomizeMode();
   const { setRandomKey } = useRandomizeKey();
-  const { setRandomRole } = useRandomizeRole();
   const { setRandomShape } = useRandomizeShape();
   const { setRandomShapeVariant } = useRandomizeShapeVariant();
   const { addBrick } = useAddBrick();
@@ -38,14 +36,9 @@ export function RandomizeButton() {
   }
 
   const handleRandomize = () => {
-    const randomIsMajorMode = setRandomMode();
     const randomKey = setRandomKey();
-    const randomRole = setRandomRole();
 
-    const { shapeId, shapeSemitoneOffsetFromC } = setRandomShape(
-      randomRole,
-      randomIsMajorMode,
-    );
+    const { shapeId, shapeSemitoneOffsetFromC } = setRandomShape();
 
     const isShapeDataValid =
       shapeId !== null && shapeSemitoneOffsetFromC !== null;

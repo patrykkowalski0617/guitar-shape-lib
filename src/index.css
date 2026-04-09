@@ -2,7 +2,7 @@
 @import "tw-animate-css";
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
+  --radius-sm: calc(var(--radius) - 6px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
@@ -48,7 +48,7 @@
   --primary: hsl(345, 100%, 50%);
   --primary-foreground: hsl(0, 0%, 80%);
 
-  --secondary: hsl(180, 90%, 45%);
+  --secondary: hsl(163, 100%, 50%);
   --secondary-foreground: hsl(0 0% 100%);
 
   --muted: hsl(0, 0%, 40%);
@@ -91,11 +91,11 @@ body {
   -ms-overflow-style: none;
   overscroll-behavior: none;
   overflow-y: auto;
+  overflow-x: hidden;
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  position: fixed;
 }
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {

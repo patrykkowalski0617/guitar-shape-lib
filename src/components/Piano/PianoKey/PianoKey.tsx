@@ -1,7 +1,10 @@
-import * as S from "./parts";
+import * as S from "./parts/parts";
 import { type NoteObject } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { usePianoKey } from "./hooks/usePianoKey";
+import { useEnharmonicNoteName } from "@/hooks";
+import { WhiteKeyJustifyContainer } from "./parts/whiteKeys";
+import { useMusicStore } from "@/store/useMusicStore";
 
 interface PianoKeyProps {
   note: NoteObject;
@@ -9,43 +12,48 @@ interface PianoKeyProps {
 
 const PianoKey = ({ note }: PianoKeyProps) => {
   const { visualState, interactivity } = usePianoKey({ note });
+  const getEnharmonicNoteName = useEnharmonicNoteName();
+  const setActiveLockedNotes = useMusicStore(
+    (state) => state.setActiveLockedNotes,
+  );
+  const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
 
   const {
-    isFlatTune,
     isWhitePianoKey,
     pianoKeyShape,
     isHighlighted,
-    isActiveNote,
-    isShapeNote,
     isRoleNote,
-    isRoleActive,
-    isShapeActive,
+    isShapeSelected,
   } = visualState;
+
+  const label = (
+    <NoteLabel
+      isHighlighted={isHighlighted || activeLockedNotes.includes(note.noteId)}
+      variant="piano"
+      noteLabel={getEnharmonicNoteName(note)}
+    />
+  );
 
   return (
     <S.Key
-      $isRoleSelected={isRoleActive}
-      $isShapeSelected={isShapeActive}
-      $isShapeNote={isShapeNote}
-      $isActiveNote={isActiveNote}
+      $isShapeSelected={isShapeSelected}
       $isWhitePianoKey={isWhitePianoKey}
       $pianoKeyShape={pianoKeyShape}
-      $isHighlighted={isHighlighted}
+      $isHighlighted={isHighlighted || activeLockedNotes.includes(note.noteId)}
       $isRoleNote={isRoleNote}
+      //
       data-piano-scroll-target={interactivity.isScrollTarget}
       onMouseOver={interactivity.handleMouseEnter}
       onMouseLeave={interactivity.handleMouseLeave}
+      onClick={() => {
+        setActiveLockedNotes(note.noteId);
+      }}
     >
-      <NoteLabel
-        isFlatTune={isFlatTune}
-        isShapeNote={isShapeNote}
-        flatNoteName={note.flatNoteName}
-        sharpNoteName={note.sharpNoteName}
-        isEnharmonic={note.isEnharmonic}
-        isHighlighted={isHighlighted}
-        isActiveNote={isActiveNote}
-        variant="piano"
-      />
+      {isWhitePianoKey ? (
+        <WhiteKeyJustifyContainer>{label}</WhiteKeyJustifyContainer>
+      ) : (
+        label
+      )}
     </S.Key>
   );
 };

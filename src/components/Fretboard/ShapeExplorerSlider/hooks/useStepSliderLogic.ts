@@ -54,7 +54,6 @@ export function useStepSliderLogic({
   const clearHighlight = () => setHighlightedId(null);
 
   return {
-    currentValue,
     effectiveMax,
     highlightedId,
     handleToggleAction,

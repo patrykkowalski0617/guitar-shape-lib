@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { transitionTime } from "@/store";
+import { transitionTime } from "./data/constants";
 
 export const AppWrapper = styled.div`
   display: flex;
@@ -9,52 +9,47 @@ export const AppWrapper = styled.div`
 `;
 
 export const MainContent = styled.main`
-  padding: 0 10px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-bottom: 25px;
-  @media (min-width: 1024px) {
-    padding-bottom: 50px;
-  }
+  padding: 15px;
 `;
 
 const SectionCommonCss = css`
-  margin: 25px auto 0;
+  margin-bottom: 10px;
   @media (min-width: 1024px) {
-    margin: 50px auto 0;
+    margin-bottom: 30px;
   }
 `;
 
 export const Section = styled.div`
-  max-width: 1300px;
+  max-width: 1400px;
   width: 100%;
   ${SectionCommonCss}
 `;
 
 export const InstrumentWrapper = styled.div`
-  width: 1300px;
   margin: auto;
   overflow: hidden;
-  padding: 0 35px;
+  width: 1400px;
 `;
 
 export const InstrumentScrollWrapper = styled.div`
   overflow-x: auto;
   scrollbar-width: none;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    var(--background) 45px,
-    var(--background) calc(100% - 45px),
-    transparent
-  );
   position: relative;
   border-radius: var(--radius-lg);
-  margin-left: -15px; //- compensation for VariantDots
-  margin-right: -15px; //- compensation for VariantDots
+  @media (max-width: 1400px) {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      var(--background) 5px,
+      var(--background) calc(100% - 5px),
+      transparent
+    );
+  }
 `;
 
 export const FooterAndHeaderStyles = css<{
@@ -74,7 +69,7 @@ export const FooterAndHeaderStyles = css<{
     opacity ${transitionTime}ms 500ms ease-in-out;
 
   @media (min-width: 1600px) {
-    max-width: 1500px;
+    max-width: 1400px;
   }
 
   @media (min-width: 768px) {
@@ -99,6 +94,3 @@ export const ControlLabel = styled.span`
   line-height: 1;
   display: inline-block;
 `;
-
-export const instrumentElBRadius = "4px";
-export const instrumentBRadius = "var(--radius-lg)";

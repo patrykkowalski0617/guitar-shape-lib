@@ -1,57 +1,35 @@
-import { instrumentElBRadius } from "@/parts";
 import styled from "styled-components";
+import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
 
 export const PlayerContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: calc(var(--spacing) * 2);
-  max-width: 1300px;
-  padding-top: calc(var(--spacing) * 4);
-  @media (min-width: 768px) {
+  max-width: 1400px;
+  flex-wrap: wrap;
+  justify-content: center;
+  @media (min-width: 1024px) {
     flex-direction: row;
     margin: auto;
   }
-  @media (min-width: 1024px) {
-    padding-left: 25px;
-    padding-right: 25px;
+  @media (min-width: 1400px) {
+    width: 100%;
   }
 `;
 
 export const PlayerSection = styled.div`
   background-color: color-mix(in oklab, var(--muted) 30%, transparent);
   border-radius: ${instrumentElBRadius};
-  padding: 6px 12px;
+  padding: 6px 8px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
   flex-direction: row;
   width: 100%;
+  flex: 1 1 0;
   &:last-child {
-    background-color: transparent;
     justify-content: center;
-  }
-
-  @media (min-width: 768px) {
-    &:last-child {
-      justify-content: flex-end;
-    }
-  }
-  @media (min-width: 768px) {
-    &:first-child {
-      flex-grow: 1;
-      flex-shrink: 1;
-      width: auto;
-      min-width: 0;
-      overflow: hidden;
-    }
-
-    &:last-child {
-      flex-grow: 0;
-      flex-shrink: 0;
-      width: auto;
-      background-color: color-mix(in oklab, var(--muted) 30%, transparent);
-      justify-content: center;
-    }
+    flex: 0 0 0;
   }
 `;

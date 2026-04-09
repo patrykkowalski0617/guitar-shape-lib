@@ -10,6 +10,7 @@ export const Marker = styled.div<{
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 25px;
   font-size: 12px;
   font-weight: 800;
   color: var(--border);
@@ -20,15 +21,17 @@ export const Marker = styled.div<{
   &::after {
     content: "";
     position: absolute;
-    top: -12px;
+    top: 12px;
     transform: translateY(-50%);
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     border: 1px solid var(--background);
     border-radius: 50%;
     background-color: var(--primary);
     display: none;
-    box-shadow: 0 0 6px 0 var(--primary);
+    box-shadow:
+      0 0 8px 0 var(--primary),
+      0 0 4px 0 var(--primary);
   }
   ${({ $singleDot }) =>
     $singleDot &&

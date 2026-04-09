@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useMusicStore, usePlayerStore, type Brick } from "@/store";
 import { usePlayerSnapshot } from "./usePlayerSnapshot";
 import { useBrickWidthUnit } from "./useBrickWidthUnit";
 import { useBrickResize } from "./useBrickResize";
+import { useRoleMarkers } from "@/hooks/useRoleMarkers";
 
 interface UsePlayerBrickLogicProps {
   brick: Brick;
@@ -61,9 +62,17 @@ export const usePlayerBrickLogic = ({
 
   const activePart = isMeActive ? currentStep - stepsBeforeMe + 1 : 0;
 
+  const didSyncStartRef = useRef(false);
+
   const syncSnapshotOnBrickStart = () => {
     const isFirstStepOfBrick = activePart === 1;
-    if (!isFirstStepOfBrick) return;
+    if (!isFirstStepOfBrick) {
+      didSyncStartRef.current = false;
+      return;
+    }
+
+    if (didSyncStartRef.current) return;
+    didSyncStartRef.current = true;
 
     if (lockedSnapshot.rootNote !== null) {
       applySnapshotToStore(lockedSnapshot);
@@ -109,12 +118,27 @@ export const usePlayerBrickLogic = ({
     setShapeVariantLocationData_locked,
   ]);
 
-  const hasData = displayData.shapeVariantLocationData !== null;
+  const modeKey = displayData.isMajorMode ? "major" : "minor";
+  const keyId = displayData.keyId;
+
+  const roleMarkersMap = useRoleMarkers(keyId);
+
+  const roleMarker =
+    displayData &&
+    displayData.roleId !== null &&
+    displayData.roleId in roleMarkersMap[modeKey]
+      ? roleMarkersMap[modeKey][
+          displayData.roleId as keyof (typeof roleMarkersMap)[typeof modeKey]
+        ].chordName + " | "
+      : "";
+
+  const hasData = displayData.rootNote !== null;
+
   const label = isResizing
     ? width
     : hasData
-      ? `${displayData.rootNote} ${displayData.shapeLabel}`
-      : "Empty";
+      ? `${roleMarker}${displayData.rootNote} ${displayData.shapeLabel}`
+      : `Empty`;
 
   return {
     birckWidthUnit,

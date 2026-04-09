@@ -6,11 +6,11 @@ import {
   usePlayerStore,
   type ShapeVariantLocationData,
 } from "@/store";
-import { shapes, type MusicKeyId, type RoleId, type Shapes } from "@/data";
+import { shapes, type TuneKeyId, type RoleId, type Shapes } from "@/data";
 import { useApplySnapshotToStore } from "./useApplySnapshotToStore";
 
 export type Snapshot = {
-  keyId: MusicKeyId;
+  keyId: TuneKeyId;
   isMajorMode: boolean;
   roleId: RoleId | null;
   shapeVariantLocationData: ShapeVariantLocationData | null;
@@ -74,10 +74,16 @@ export function usePlayerSnapshot(
   );
 
   useEffect(() => {
-    if (isEditable) {
-      updateBrickSnapshot(brickId, currentLiveState);
-    }
-  }, [isEditable, currentLiveState, brickId, updateBrickSnapshot]);
+    if (!isEditable) return;
+    if (!brick) return;
+
+    const currentSnapshot = brick.snapshot;
+    const isSameSnapshot =
+      JSON.stringify(currentSnapshot) === JSON.stringify(currentLiveState);
+    if (isSameSnapshot) return;
+
+    updateBrickSnapshot(brickId, currentLiveState);
+  }, [isEditable, currentLiveState, brickId, updateBrickSnapshot, brick]);
 
   const displayData = isEditable
     ? currentLiveState

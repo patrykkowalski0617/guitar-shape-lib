@@ -8,6 +8,9 @@ import { getNotes } from "@/utils";
 import { getOrderedShapeLocations } from "../helpers/getOrderedShapeLocations";
 
 export const useShapeExplorerLogic = () => {
+  const setIsShapeSliderHold = useControlsStore(
+    (state) => state.setIsShapeSliderHold,
+  );
   const shapeId = useControlsStore((state) => state.shapeId);
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const shapeSemitoneOffsetFromC = useControlsStore(
@@ -57,6 +60,13 @@ export const useShapeExplorerLogic = () => {
     setShapeVariantLocationData(newLocationData);
   };
 
+  const handleMouseDown = () => {
+    setIsShapeSliderHold(true);
+  };
+  const handleMouseUp = () => {
+    setIsShapeSliderHold(false);
+  };
+
   return {
     options,
     sliderValue,
@@ -64,5 +74,7 @@ export const useShapeExplorerLogic = () => {
     isDisabled,
     isVisible,
     handleValueChange,
+    handleMouseDown,
+    handleMouseUp,
   };
 };

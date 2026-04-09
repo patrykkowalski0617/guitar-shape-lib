@@ -1,8 +1,11 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useMetronome } from "./useMetronome";
 import { usePlayerStore, useMusicStore, useControlsStore } from "@/store";
 
 export function usePlayer() {
+  const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
+  // const setRoleId = useControlsStore((state) => state.setRoleId);
+  const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
   );
@@ -15,6 +18,7 @@ export function usePlayer() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const isCountingIn = usePlayerStore((state) => state.isCountingIn);
   const bricks = usePlayerStore((state) => state.bricks);
+  console.log(bricks);
 
   const nextStep = usePlayerStore((state) => state.nextStep);
   const handleTick = useCallback(() => {
@@ -23,22 +27,34 @@ export function usePlayer() {
 
   const { toggleMetronome } = useMetronome(bpm, handleTick);
 
-  useEffect(() => {
-    const isReadyToPrepareFretboard = isPlaying && isCountingIn;
-    const firstBrick = bricks[0];
+  const hasPreparedCountInRef = useRef(false);
 
-    if (isReadyToPrepareFretboard && firstBrick?.snapshot) {
-      setShapeVariantLocationData(null);
-      setShapeVariantLocationData_locked(
-        firstBrick.snapshot.shapeVariantLocationData,
-      );
-      setTuneKeyId(firstBrick.snapshot.keyId);
+  useEffect(() => {
+    if (!isPlaying) {
+      hasPreparedCountInRef.current = false;
     }
 
     if (bricks.length === 0) {
       setShapeVariantLocationData(null);
       setShapeVariantLocationData_locked(null);
+      setActiveBrickId(null);
+      // setRoleId("all-matching-key");
+      setIsMajorMode(true);
     }
+
+    if (!isCountingIn) return;
+
+    if (hasPreparedCountInRef.current) return;
+
+    const firstBrick = bricks[0];
+    if (!firstBrick?.snapshot) return;
+
+    setShapeVariantLocationData(null);
+    setShapeVariantLocationData_locked(
+      firstBrick.snapshot.shapeVariantLocationData,
+    );
+    setTuneKeyId(firstBrick.snapshot.keyId);
+    hasPreparedCountInRef.current = true;
   }, [
     isPlaying,
     isCountingIn,
@@ -46,6 +62,9 @@ export function usePlayer() {
     setShapeVariantLocationData_locked,
     setShapeVariantLocationData,
     setTuneKeyId,
+    setActiveBrickId,
+    // setRoleId,
+    setIsMajorMode,
   ]);
 
   useEffect(() => {

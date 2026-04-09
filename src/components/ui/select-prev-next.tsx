@@ -47,33 +47,32 @@ export function SelectPrevNext({
     shiftSelection(1);
   };
 
-  const itemStyles =
-    "h-full border-y-0 border-l-0 border-r border-background shadow-none transition-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:z-20 rounded-none bg-transparent hover:bg-muted/50";
+  const sharedFocusStyles =
+    "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 focus-visible:z-150";
+
+  const buttonStyles = cn(
+    "h-8 w-8 px-0 flex items-center justify-center bg-muted/50 text-foreground shadow-none transition-none rounded-sm hover:bg-muted/70 hover:text-accent-foreground shrink-0 relative",
+    sharedFocusStyles,
+  );
 
   return (
-    <div
-      className={cn(
-        "flex items-center h-9.5 w-full",
-        "bg-muted/50 border border-background rounded-md",
-        className,
-      )}
-    >
+    <div className={cn("flex items-center gap-0", className)}>
       <Button
         onClick={handlePrev}
         className={cn(
-          itemStyles,
-          "w-8 px-0 flex items-center justify-center grow max-w-10 rounded-l-md",
+          buttonStyles,
+          "rounded-r-none border-r border-background/20",
         )}
       >
-        <ChevronLeftIcon className="size-3.5 opacity-50" />
+        <ChevronLeftIcon className="size-3 opacity-50" />
       </Button>
 
       <Select value={value} onValueChange={onValueChange} {...props}>
         <SelectTrigger
           className={cn(
-            itemStyles,
-            "flex-1 border-l-0",
+            "flex-1 rounded-none border-x-0 bg-muted/50 px-2 shadow-none",
             "data-placeholder:text-muted-foreground",
+            sharedFocusStyles,
             triggerClassName,
           )}
         >
@@ -85,11 +84,11 @@ export function SelectPrevNext({
       <Button
         onClick={handleNext}
         className={cn(
-          itemStyles,
-          "w-8 px-0 flex items-center justify-center border-r-0  grow max-w-10 rounded-r-md",
+          buttonStyles,
+          "rounded-l-none border-l border-background/20",
         )}
       >
-        <ChevronRightIcon className="size-3.5 opacity-50" />
+        <ChevronRightIcon className="size-3 opacity-50" />
       </Button>
     </div>
   );

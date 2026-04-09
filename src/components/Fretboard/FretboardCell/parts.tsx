@@ -1,17 +1,32 @@
-import { instrumentElBRadius } from "@/parts";
-import styled, { css } from "styled-components";
-import { DotsWrapper } from "@/components/Fretboard/VariantDots/parts";
-import { activeDotsStyles } from "@/components/Fretboard/VariantDots/constants";
+import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
+import styled, { css, keyframes } from "styled-components";
+
+const regularBgColor = `color-mix(in oklab, var(--accent) 10%, transparent)`;
+
+const baseChordExitAnimation = keyframes`
+  from{
+    height: 14px;
+  }
+  to{
+    height: 1px;
+  }
+`;
+
+const baseChordEntryAnimation = keyframes`
+  from{
+    transform: scale(1.3);
+  }
+  to{
+    transform: scale(1);
+  }
+`;
 
 export const FretWrapper = styled.div`
   position: relative;
   flex: 1 1 0;
   width: 0;
-  height: 28px;
-  padding: 1px;
-  &:hover ${DotsWrapper} {
-    ${activeDotsStyles}
-  }
+  height: 32px;
+  padding: 2px;
 `;
 
 export const Fret = styled.div<{
@@ -23,7 +38,7 @@ export const Fret = styled.div<{
     if (!$isLockedNote) return null;
 
     return css`
-      outline: 2px solid var(--primary-foreground);
+      outline: 2px solid var(--secondary-foreground);
       padding: 2px;
     `;
   }}
@@ -31,36 +46,74 @@ export const Fret = styled.div<{
 
 export const Note = styled.div<{
   $opacity: number;
-  $brightness: number;
-  $cursor: string;
-  $isShapeNote: boolean;
-  $transitionTime: number;
+  $isBaseChordShapeNote: boolean;
+  $isHighlighted: boolean;
+  $animateBaseChordDown: boolean;
 }>`
-  background-color: color-mix(in oklab, var(--accent) 5%, transparent);
-  border: 1px solid color-mix(in oklab, var(--border) 85%, transparent);
+  background-color: ${regularBgColor};
+  border-width: 1px;
+  border-style: solid;
+  border-color: color-mix(in oklab, var(--border) 55%, transparent);
   border-radius: ${instrumentElBRadius};
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  z-index: 20;
-  cursor: ${({ $cursor }) => $cursor};
   will-change: box-shadow, opacity;
-  transition:
-    box-shadow ${({ $transitionTime }) => $transitionTime}ms ease-in-out,
-    opacity ${({ $transitionTime }) => $transitionTime}ms ease-in-out;
-
   opacity: ${({ $opacity }) => $opacity};
-  filter: ${({ $brightness }) =>
-    $brightness > 1 ? `brightness(${$brightness})` : "none"};
-  border-width: ${({ $isShapeNote }) => ($isShapeNote ? "3px" : "1px")};
+  overflow: hidden;
+  position: relative;
+  ${({ $isBaseChordShapeNote }) => {
+    if (!$isBaseChordShapeNote) return null;
+    const markupColor = `color-mix(in oklab, var(--foreground) 100%, transparent)`;
+    const deg = 25;
+    const space = 6;
+    const size = 14;
+    const layers = 2;
 
-  ${({ $isShapeNote }) => {
-    if ($isShapeNote) {
+    return css`
+      animation: ${baseChordEntryAnimation} 0.45s ease-out forwards;
+      &::before,
+      &::after {
+        content: "";
+        height: ${size}px;
+        width: 65px;
+        background: ${markupColor};
+        position: absolute;
+        z-index: 30;
+        box-shadow: ${Array.from({ length: layers })
+          .map(
+            (_, i) => `
+            0px ${space * i}px 0px ${markupColor},
+            0px -${space * i}px 0px ${markupColor}`,
+          )
+          .join(", ")};
+      }
+      &::before {
+        transform: rotate(${deg}deg);
+      }
+      &::after {
+        transform: rotate(-${deg}deg);
+      }
+    `;
+  }}
+  ${({ $animateBaseChordDown }) => {
+    if ($animateBaseChordDown) return null;
+    return css`
+      &::before,
+      &::after {
+        animation: ${baseChordExitAnimation} 0.2s ease-out forwards;
+      }
+    `;
+  }}
+  
+  ${({ $isHighlighted }) => {
+    if ($isHighlighted) {
       return css`
-        border-color: var(--primary);
-        box-shadow: inset 0 0px 8px 0px var(--primary);
+        background-color: color-mix(in oklab, var(--accent) 50%, transparent);
+        border-color: var(--secondary);
+        box-shadow: inset 0 0px 8px 0px var(--accent);
+        border-width: 3px;
       `;
     }
   }}

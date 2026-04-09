@@ -1,84 +1,55 @@
 import styled, { css } from "styled-components";
 import type { Variant } from "./NoteLabel";
-import { instrumentElBRadius } from "@/parts";
-import { transitionTime } from "@/store";
+import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
 
 const highlightedColor = "var(--foreground)";
 const unHighlightedColor = "var(--border)";
 
-const BaseLabel = styled.div<{
-  $isHighlighted: boolean;
-}>`
+export const Note = styled.div`
+  opacity: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
   font-weight: bold;
-  will-change: opacity;
-  background: color-mix(in oklab, var(--background) 70%, transparent);
   box-shadow: 0 0 8px var(--background);
   position: absolute;
-`;
-
-interface LabelStatusProps {
-  $isEnharmonicNote: boolean;
-  $isFlatTune: boolean;
-}
-
-export const MainLabel = styled(BaseLabel)<LabelStatusProps>`
-  opacity: ${({ $isEnharmonicNote, $isFlatTune }) =>
-    !$isEnharmonicNote || !$isFlatTune ? 1 : 0};
-`;
-
-export const OptionalLabel = styled(BaseLabel)<LabelStatusProps>`
-  opacity: ${({ $isFlatTune }) => ($isFlatTune ? 1 : 0)};
+  z-index: 40;
+  background: color-mix(in oklab, var(--background) 95%, transparent);
 `;
 
 export const NoteWrapper = styled.div<{
-  $isFlatTune: boolean;
-  $isEnharmonicNote: boolean;
-  $isShapeNote: boolean;
-  $isActiveNote: boolean;
-  $transitionTime: number;
+  $isHighlighted: boolean;
   $variant: Variant;
 }>`
-  ${({ $variant, $isShapeNote, $isActiveNote }) =>
+  ${({ $variant, $isHighlighted }) =>
     $variant === "piano" &&
     css`
       position: relative;
-      z-index: 1;
-      will-change: opacity;
-      transition: ${!$isActiveNote
-        ? `opacity ${transitionTime}ms ease-in-out`
-        : "none"};
-      opacity: ${$isShapeNote || $isActiveNote ? "1" : "0"};
-      ${MainLabel}, ${OptionalLabel} {
-        border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
+      z-index: 40;
+      opacity: ${$isHighlighted ? "1" : "0"};
+      ${Note} {
         border-radius: ${instrumentElBRadius};
-        background: color-mix(in oklab, var(--background) 90%, transparent);
-        width: 22px;
-        height: 22px;
+        width: 18px;
+        height: 30px;
         line-height: 22px;
-        color: ${highlightedColor};
+        color: ${unHighlightedColor};
         top: 10px;
         transform: translateX(-50%);
       }
     `}
 
-  ${({ $variant, $isShapeNote, $transitionTime }) =>
+  ${({ $variant, $isHighlighted }) =>
     $variant === "fretboard" &&
     css`
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: row;
-      will-change: opacity;
-      transition: opacity ${$transitionTime}ms ease-in-out;
-
-      ${MainLabel}, ${OptionalLabel} {
-        color: ${$isShapeNote ? highlightedColor : unHighlightedColor};
+      ${Note} {
+        color: ${$isHighlighted ? highlightedColor : unHighlightedColor};
         height: 15px;
-        width: 26px;
+        width: 30px;
         border-radius: 4px;
       }
     `}

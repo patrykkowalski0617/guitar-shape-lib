@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { KEY_PADDING, KEY_WIDTH_CSS, LEFT_PADDING_FACTOR, RIGHT_PADDING_FACTOR } from "./helpers/constants";
+import { pianoBgColor } from "./PianoKey/parts/constants";
+import type { BlackKeyTypes } from "./PianoKey/parts/blackKeys";
 
-export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
+export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B" | BlackKeyTypes;
 
 interface PianoProps {
   $numberOfKeys: number;
@@ -10,8 +11,13 @@ interface PianoProps {
 export const Piano = styled.div<PianoProps>`
   user-select: none;
   display: flex;
-  padding-left: ${({ $numberOfKeys }) =>
-    `calc(${KEY_WIDTH_CSS($numberOfKeys)} * ${KEY_PADDING} * ${LEFT_PADDING_FACTOR})`};
-  padding-right: ${({ $numberOfKeys }) =>
-    `calc(${KEY_WIDTH_CSS($numberOfKeys)} * ${KEY_PADDING} * ${RIGHT_PADDING_FACTOR})`};
+  padding: 10px 2px 2px;
+  gap: 0;
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 10px;
+    background-color: ${pianoBgColor};
+  }
 `;

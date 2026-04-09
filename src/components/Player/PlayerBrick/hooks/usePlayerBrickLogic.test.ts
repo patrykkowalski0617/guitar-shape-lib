@@ -22,7 +22,7 @@ vi.mock("./usePlayerSnapshot", () => ({
 }));
 
 vi.mock("./useBrickWidthUnit", () => ({
-  useBrickWidthUnit: vi.fn(() => 20),
+  useBrickWidthUnit: vi.fn(() => 25),
 }));
 
 vi.mock("./useBrickResize", () => ({

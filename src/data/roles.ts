@@ -1,5 +1,5 @@
-export type FunctionalRoleId = "tonic" | "subdominant" | "dominant";
-export type GlobalRoleId = "all-one-instance" | "all-matching-key";
+export type FunctionalRoleId = "tonic" | "subdominant" | "dominant" | "mediant";
+export type GlobalRoleId = "all-matching-key";
 export type RoleId = FunctionalRoleId | GlobalRoleId;
 
 interface RoleData {
@@ -8,10 +8,7 @@ interface RoleData {
 
 export const roles: Record<RoleId, RoleData> = {
   "all-matching-key": {
-    label: "All - key as context",
-  },
-  "all-one-instance": {
-    label: "All - key as root note",
+    label: "Base chord",
   },
   tonic: {
     label: "Tonic",
@@ -21,5 +18,8 @@ export const roles: Record<RoleId, RoleData> = {
   },
   dominant: {
     label: "Dominant",
+  },
+  mediant: {
+    label: "Mediant",
   },
 };
