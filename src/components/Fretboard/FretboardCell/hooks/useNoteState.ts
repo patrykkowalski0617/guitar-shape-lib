@@ -7,6 +7,7 @@ import { isShapeNote as isShapeNoteFn } from "../helpers";
 import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
 import { useEnharmonicNoteName, useShapeRootSharpNote } from "@/hooks";
 import { useBaseChordCoordinates } from "./useBaseChordCoordinates";
+import { findMatchingBaseChordCoordinates } from "../helpers/findMatchingBaseChordCoordinates";
 
 interface UseNoteStateProps {
   noteData: NoteObject;
@@ -77,12 +78,19 @@ export const useNoteState = ({
 
   const isHighlighted = isShapeNote || isActiveNote || isActiveLockedNotes;
 
-  useBaseChordCoordinates(shapeCoordinates);
+  const { baseChordCoordinates } = useBaseChordCoordinates();
+  const matchingBaseChordCoordinates =
+    shapeVariantLocationData &&
+    findMatchingBaseChordCoordinates({
+      baseChordCoordinates,
+      shapeCoordinates,
+    });
 
   return {
     isHighlighted,
     isLockedNote,
     noteLabel: getEnharmonicNoteName(noteData),
     opacity: getOpacity(),
+    matchingBaseChordCoordinates,
   };
 };

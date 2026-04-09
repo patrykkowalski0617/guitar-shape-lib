@@ -5,7 +5,6 @@ import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
 import { useNoteState } from "./hooks";
 import { useControlsStore, useMusicStore } from "@/store";
-import { useBaseChordShapeCoordinates } from "./hooks/useBaseChordShapeCoordinates";
 
 interface FretboardCellProps {
   noteData: NoteObject;
@@ -22,10 +21,13 @@ export default function FretboardCell({
     noteData,
   });
 
-  const { baseChordShapeCoordinates, CAGEDassigments } =
-    useBaseChordShapeCoordinates();
-
-  const { isLockedNote, isHighlighted, opacity, noteLabel } = useNoteState({
+  const {
+    isLockedNote,
+    isHighlighted,
+    opacity,
+    noteLabel,
+    matchingBaseChordCoordinates,
+  } = useNoteState({
     noteData,
     stringIndex,
     fretIndex,
@@ -38,7 +40,7 @@ export default function FretboardCell({
     (state) => state.isShapeSliderHold,
   );
 
-  const animationTrigger = CAGEDassigments;
+  const animationTrigger = matchingBaseChordCoordinates?.CAGEDassigment;
 
   return (
     <S.FretWrapper
@@ -53,7 +55,7 @@ export default function FretboardCell({
           $opacity={opacity}
           $isHighlighted={isHighlighted}
           $isBaseChordShapeNote={
-            !!baseChordShapeCoordinates?.some(
+            !!matchingBaseChordCoordinates?.coordinates.some(
               (coord) => coord[0] === stringIndex && coord[1] === fretIndex,
             )
           }

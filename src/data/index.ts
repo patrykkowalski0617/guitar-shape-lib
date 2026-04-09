@@ -1,4 +1,5 @@
 export * from "./BASE_CHORDS_MAP";
+export * from "./baseChordsShapes";
 export * from "./constants";
 export * from "./intervals";
 export * from "./noteNames";

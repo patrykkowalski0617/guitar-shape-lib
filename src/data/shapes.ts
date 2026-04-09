@@ -28,13 +28,10 @@ export type FretboardCoordinate = [number, number];
 
 export type VariantId = `v${number}`;
 
-export type CAGEDassigments = "C" | "A" | "G" | "E" | "D" | "";
-
 export type StringVariants = Record<
   VariantId,
   {
     coordinates: FretboardCoordinate[];
-    CAGEDassigments: { major: CAGEDassigments; minor: CAGEDassigments };
   }
 >;
 
@@ -74,51 +71,42 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 0],[4, -1],[3, -3],[3, 1],[2, -3],[1, -3],[1, 0],[0, -1],[0, 0]],
-          CAGEDassigments: { major: "G", minor: "E" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 0],[4, -1],[3, -3],[3, 1],[2, -3],[2, 1],[1, 0],[0, -1],[0, 0]],
-          CAGEDassigments: { major: "G", minor: "E" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 0],[4, -1],[4, 2],[3, 1],[3, 2],[2, 1],[1, 0],[0, -1],[0, 0]],
-          CAGEDassigments: { major: "E", minor: "D" },
         },
         v4: {
           // prettier-ignore
-          coordinates: [[5, 0],[5, 4],[4, 2],[3, 1],[3, 2],[2, 1],[1, 0],[1, 4],[0, 0],[0, 4]],
-          CAGEDassigments: { major: "E", minor: "C" },
+          coordinates: [[5, 0],[5, 4],[4, 2],[3, 1],[3, 2],[2, 1],[, 0],[1, 4],[0, 0],[0, 4]],
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 4],[4, 2],[3, 1],[3, 2],[2, 1],[2, 4],[1, 4],[0, 0],[0, 4]],
-          CAGEDassigments: { major: "E", minor: "C" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, 0],[4, -1],[4, 0],[3, -1],[2, -3],[1, -3],[1, -2],[0, -3],[0, 0]],
-          CAGEDassigments: { major: "C", minor: "A" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[4, -1],[4, 0],[3, -1],[3, 2],[2, 1],[2, 2],[1, 2],[0, 0]],
-          CAGEDassigments: { major: "A", minor: "G" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 4],[4, 0],[4, 4],[3, 2],[2, 1],[2, 2],[1, 2],[0, 0],[0, 4]],
-          CAGEDassigments: { major: "A", minor: "E" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 2],[4, 0],[4, 4],[3, 0],[3, 4],[2, 2],[1, 2],[1, 3],[0, 2]],
-          CAGEDassigments: { major: "D", minor: "A" },
         },
       },
     },
@@ -138,46 +126,38 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[4, -3],[4, -1],[3, -3],[2, -3],[2, -1],[1, -3],[1, 0],[0, 0]],
-          CAGEDassigments: { major: "G", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, -1],[4, 2],[3, 2],[2, -1],[2, 1],[1, 0],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "E", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 2],[3, 4],[2, 1],[1, 0],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "E", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, 0],[4, 0],[3, -3],[3, -1],[2, -3],[1, -2],[1, 0],[0, -3],[0, 0]],
-          CAGEDassigments: { major: "C", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[4, 0],[4, 2],[3, -1],[3, 2],[2, 2],[1, 0],[1, 2],[0, 0]],
-          CAGEDassigments: { major: "A", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[4, 0],[4, 2],[4, 4],[3, 2],[2, 2],[2, 4],[1, 2],[0, 0]],
-          CAGEDassigments: { major: "A", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, 0],[3, 0],[3, 2],[2, -1],[2, 2],[1, 3],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "D", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, 0],[3, 0],[3, 2],[3, 4],[2, 2],[1, 3],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "D", minor: "" },
         },
       },
     },
@@ -197,41 +177,34 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 0],[4, -3],[4, -1],[3, -3],[3, 1],[2, -3],[2, -1],[1, -3],[1, 0],[0, -1],[0, 0]],
-          CAGEDassigments: { major: "G", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 0],[5, 2],[4, -1],[4, 2],[3, 1],[3, 2],[2, -1],[2, 1],[1, 0],[0, -1],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "E", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 2],[3, 1],[3, 2],[3, 4],[2, 1],[2, 4],[1, 4],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "E", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, 0],[4, -1],[4, 0],[3, -3],[3, -1],[2, -3],[1, -3],[1, -2],[1, 0],[0, -3],[0, 0]],
-          CAGEDassigments: { major: "C", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[4, -1],[4, 0],[4, 2],[3, -1],[3, 2],[2, 1],[2, 2],[1, 0],[1, 2],[0, 0]],
-          CAGEDassigments: { major: "A", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 4],[4, 0],[4, 2],[4, 4],[3, 2],[2, 1],[2, 2],[1, 0],[1, 2],[0, 0],[0, 4]],
-          CAGEDassigments: { major: "A", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, 0],[4, 4],[3, 0],[3, 2],[3, 4],[2, 2],[1, 2],[1, 3],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "D", minor: "" },
         },
       },
     },
@@ -248,41 +221,34 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 0],[4, -1],[3, -3],[3, -1],[2, -3],[1, -3],[1, 0],[0, -3],[0, 0]],
-          CAGEDassigments: { major: "G", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 0],[4, -1],[4, 2],[3, -1],[3, 2],[2, 1],[1, 0],[1, 2],[0, 0]],
-          CAGEDassigments: { major: "E", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 4],[4, 2],[4, 4],[3, 2],[2, 1],[2, 4],[1, 2],[0, 0],[0, 4]],
-          CAGEDassigments: { major: "E", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, 0],[4, -3],[4, 0],[3, -1],[2, -3],[2, -1],[1, -2],[0, -3],[0, 0]],
-          CAGEDassigments: { major: "C", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, 0],[3, -1],[3, 2],[2, -1],[2, 2],[1, 2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "A", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, 0],[4, 4],[3, 2],[3, 4],[2, 2],[1, 2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "A", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 2],[4, 0],[4, 2],[3, 0],[3, 4],[2, 2],[1, 0],[1, 3],[0, 2]],
-          CAGEDassigments: { major: "D", minor: "" },
         },
       },
     },
@@ -303,41 +269,34 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -2],[3, -3],[3, 0],[2, -3],[2, 0],[1, 0],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "D", minor: "G" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -2],[4, 2],[3, 0],[3, 2],[2, 0],[1, 0],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "D", minor: "E" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 2],[3, 0],[3, 2],[2, 0],[1, 0],[1, 3],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "C", minor: "E" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -4],[5, 0],[4, -2],[4, 0],[3, -2],[2, -3],[2, 0],[1, -2],[0, -4],[0, 0]],
-          CAGEDassigments: { major: "A", minor: "C" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[4, -2],[4, 0],[3, -2],[3, 2],[2, 0],[2, 2],[1, 1],[0, 0]],
-          CAGEDassigments: { major: "G", minor: "A" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 0],[4, 3],[3, 2],[2, 0],[2, 2],[1, 1],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "E", minor: "A" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 1],[4, 0],[4, 3],[3, 0],[3, 3],[2, 2],[1, 1],[1, 3],[0, 1]],
-          CAGEDassigments: { major: "A", minor: "D" },
         },
       },
     },
@@ -356,41 +315,34 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[4, -3],[4, -2],[3, -3],[2, -3],[2, -1],[2, 0],[1, 0],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, -2],[4, 2],[3, 2],[2, -1],[2, 0],[1, 0],[0, 0],[0,2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 2],[3, 2],[3, 4],[2, 0],[1, 0],[0, 0],[0, 2],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -4],[5, 0],[4, 0],[3, -3],[3, -2],[2, -3],[1, -2],[1, 0],[0, -4],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[4, 0],[4, 2],[3, -2],[3, 2],[2, 2],[1, 0],[1, 1],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[4, 0],[4, 2],[4, 3],[3, 2],[2, 2],[1, 0],[1, 1],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 1],[4, 0],[3, 0],[3, 2],[3, 3],[2, 2],[1, 3],[0, 0],[0, 1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -409,41 +361,34 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -3],[4, -2],[3, -3],[3, 0],[2, -3],[2, -1],[2, 0],[1, 0],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 2],[3, 0],[3, 2],[2, -1],[2, 0],[1, 0],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 2],[3, 0],[3, 2],[3, 4],[2, 0],[1, 0],[1, 3],[0, 0],[0, 2],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -4],[5, 0],[4, -2],[4, 0],[3, -3],[3, -2],[2, -3],[2, 0],[1, -2],[1, 0],[0, -4],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[4, -2],[4, 0],[4, 2],[3, -2],[3, 2],[2, 0],[1, -2],[1, 0],[1, 1],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 0],[4, 2],[4, 3],[3, 2],[2, 0],[2, 2],[1, 0],[1, 1],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 1],[4, 0],[4, 3],[3, 0],[3, 2],[3, 3],[2, 2],[1, 1],[1, 3],[0, 0],[0, 1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -461,61 +406,50 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -1],[3, -3],[3, 0],[2, -3],[1, -3],[1, 0],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -1],[3, -3],[3, 0],[2, -3],[2, 1],[1, 0],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -1],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -1],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[1, 3],[0, 0],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[1, 0],[1, 3],[0, 0],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v6: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 4],[4, 2],[3, 0],[3, 2],[2, 1],[2, 4],[1, 3],[0, 0],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, 0],[4, -2],[4, 0],[3, -1],[2, -3],[2, 0],[1, -2],[0, -3],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[4, -2],[4, 0],[3, -1],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 0],[4, 4],[3, 2],[2, 0],[2, 2],[1, 2],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v4: {
           // prettier-ignore
           coordinates: [[5, 2],[4, 0],[4, 3],[3, 0],[2, -1],[2, 2],[1, 1],[1, 3],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 2],[4, 0],[4, 3],[3, 0],[3, 4],[2, 2],[1, 1],[1, 3],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -533,56 +467,46 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -4],[4, -1],[3, -3],[3, 0],[2, -3],[2, -2],[1, -3],[1, 0],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 1],[4, -1],[3, -3],[3, 0],[2, -3],[2, -2],[1, -3],[1, 0],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 1],[4, -1],[4, 2],[3, 0],[3, 2],[2, -2],[2, 1],[1, 0],[0, -2],[0, 0],[0, 1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 1],[5, 4],[4, 2],[3, 0],[3, 2],[3, 3],[2, 1],[1, 0],[1, 3],[0, 0],[0, 1],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, 0],[4, -2],[4, 0],[3, -4],[3, -1],[2, -3],[2, 0],[1, -2],[1, -1],[0, -3],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -3],[5, 0],[4, -2],[4, 0],[4, 1],[3, -1],[2, -3],[2, 0],[1, -2],[1, -1],[0, -3],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[4, -2],[4, 0],[4, 1],[3, -1],[3, 2],[2, 0],[2, 2],[1, -1],[1, 2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 0],[4, 1],[4, 4],[3, 2],[2, 0],[2, 2],[2, 3],[1, 2],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 2],[4, 0],[4, 3],[3, 0],[3, 1],[2, -1],[2, 2],[1, 1],[1, 3],[0, -1],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 2],[4, 0],[4, 3],[3, 0],[3, 1],[3, 4],[2, 2],[1, 1],[1, 3],[1, 4],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -600,56 +524,46 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -2],[3, -4],[3, 0],[2, -3],[1, -4],[1, -1],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -2],[4, 1],[3, 0],[2, -3],[2, 0],[1, -1],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 1],[3, 0],[3, 2],[2, 0],[2, 3],[1, 3],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 1],[4, 5],[3, 2],[3, 5],[2, 3],[1, 3],[1, 5],[0, 3],[0, 6]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -4],[5, -1],[4, -2],[4, 0],[3, -2],[2, -4],[2, 0],[1, -2],[0, -4],[0, -1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -1],[4, -2],[4, 0],[3, -2],[3, 1],[2, 0],[1, -2],[1, 1],[0, -1],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 3],[4, 0],[4, 3],[3, 1],[2, 0],[2, 2],[1, 1],[0, -1],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 3],[4, 0],[4, 3],[3, 1],[2, 0],[2, 2],[1, 1],[1, 4],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 3],[4, 0],[4, 3],[3, 1],[3, 5],[2, 2],[2, 5],[1, 4],[0, 3],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 1],[4, -1],[3, -2],[3, 0],[2, -2],[1, -3],[1, 1],[0, -2],[0, 1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -667,86 +581,70 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[4, -2],[3, -4],[3, -1],[2, -3],[1, -4],[1, -1],[0, -3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[4, -2],[4, 1],[3, -1],[2, -3],[2, 0],[1, -1],[0, -3],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[4, -2],[4, 1],[3, -1],[3, 2],[2, 0],[1, -1],[1, 2],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 1],[3, -1],[3, 2],[2, 0],[1, -1],[1, 2],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 1],[3, -1],[3, 2],[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v6: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[2, 0],[2, 3],[1, 2],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v7: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[3, 5],[2, 3],[2, 6],[1, 5],[0, 3],[0, 6]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v8: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 1],[4, 4],[3, 2],[3, 5],[2, 3],[2, 6],[1, 5],[1, 8],[0, 6],[0, 9]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[4, 0],[3, -2],[2, -4],[2, -1],[1, -2],[0, -4],[0, -1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[4, 0],[3, -2],[3, 1],[2, -1],[1, -2],[1, 1],[0, -1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[4, 0],[4, 3],[3, 1],[3, 4],[2, 2],[1, 1],[1, 4],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[4, 0],[4, 3],[3, 1],[3, 4],[2, 2],[2, 5],[1, 4],[1, 7],[0, 5],[0, 8]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[3, 0],[2, -2],[1, -3],[1, 0],[0, -2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[3, 0],[2, -2],[2, 1],[1, 0],[0, -2],[0, 1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[3, 0],[3, 3],[2, 1],[2, 4],[1, 3],[0, 1],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[3, 0],[3, 3],[2, 1],[2, 4],[1, 3],[1, 6],[0, 4],[0, 7]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -763,66 +661,54 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -4],[4, -2],[4, -1],[3, -4],[3, -2],[3, 0],[2, -3],[2, -2],[2, 0],[1, -3],[1, -1],[0, -4],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -4],[4, -2],[4, -1],[3, -4],[3, -2],[3, 0],[2, -3],[2, -2],[2, 0],[1, -3],[1, -1],[1, 1],[0, -2],[0, 0],[0, 1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 1],[4, -2],[4, -1],[4, 1],[3, -2],[3, 0],[3, 2],[2, -2],[2, 0],[2, 1],[1, -1],[1, 1],[0, -2],[0, 0],[0, 1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 1],[5, 3],[4, -1],[4, 1],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 1],[2, 3],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 1],[5, 3],[4, -1],[4, 1],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 1],[2, 3],[1, 1],[1, 3],[1, 4],[0, 1],[0, 3],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -4],[5, -3],[5, -1],[4, -4],[4, -2],[4, 0],[3, -4],[3, -2],[3, -1],[2, -4],[2, -2],[1, -4],[1, -2],[1, -1],[0, -4],[0, -3],[0, -1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -4],[5, -3],[5, -1],[4, -4],[4, -2],[4, 0],[3, -4],[3, -2],[3, -1],[2, -4],[2, -2],[2, 0],[1, -2],[1, -1],[1, 1],[0, -3],[0, -1],[0, 1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -3],[5, -1],[5, 1],[4, -2],[4, 0],[4, 1],[3, -2],[3, -1],[3, 1],[2, -2],[2, 0],[2, 2],[1, -1],[1, 1],[1, 2],[0, -1],[0, 1],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 1],[5, 3],[4, 0],[4, 1],[4, 3],[3, -1],[3, 1],[3, 3],[2, 0],[2, 2],[2, 3],[1, 1],[1, 2],[1, 4],[0, 1],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 1],[5, 2],[4, -1],[4, 1],[4, 3],[3, 0],[3, 1],[3, 3],[2, -1],[2, 1],[1, -1],[1, 1],[1, 3],[0, -1],[0, 1],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 1],[5, 2],[4, -1],[4, 1],[4, 3],[3, 0],[3, 1],[3, 3],[2, -1],[2, 1],[2, 3],[1, 1],[1, 3],[1, 4],[0, 1],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 1],[5, 2],[5, 4],[4, 1],[4, 3],[3, 0],[3, 1],[3, 3],[2, -1],[2, 1],[2, 3],[1, 1],[1, 3],[1, 4],[0, 1],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -843,41 +729,34 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -2],[4, 0],[3, -3],[3, 0],[2, -3],[2, 0],[1, -2],[1, 0],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -2],[4, 0],[4, 2],[3, 0],[3, 2],[2, 0],[2, 2],[1, 0],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 0],[4, 2],[3, 0],[3, 2],[2, 0],[2, 2],[1, 0],[1, 3],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -2],[4, 0],[3, -2],[3, 0],[2, -3],[2, 0],[1, -2],[1, 1],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[4, -2],[4, 0],[3, -2],[3, 0],[3, 2],[2, 0],[2, 2],[1, 1],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 3],[4, 0],[4, 3],[3, 0],[3, 2],[2, 0],[2, 2],[1, 1],[1, 3],[0, 0],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 1],[5, 3],[4, 0],[4, 3],[3, 0],[3, 3],[2, 0],[2, 2],[1, 1],[1, 3],[0, 1],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -898,41 +777,34 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, 0],[4, -3],[4, -1],[3, -3],[3, -1],[2, -3],[2, -1],[1, -3],[1, 0],[0, -3],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, -1],[4, 2],[3, -1],[3, 2],[2, -1],[2, 1],[1, 0],[1, 2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 2],[4, 4],[3, 2],[3, 4],[2, 1],[2, 4],[1, 2],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, 0],[4, -3],[4, 0],[3, -3],[3, -1],[2, -3],[2, -1],[1, -2],[1, 0],[0, -3],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, 0],[4, 2],[3, -1],[3, 2],[2, -1],[2, 2],[1, 0],[1, 2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, 0],[4, 2],[4, 4],[3, 2],[3, 4],[2, 2],[2, 4],[1, 2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, 0],[4, 2],[3, 0],[3, 2],[2, -1],[2, 2],[1, 0],[1, 3],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -952,41 +824,34 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, -1],[5, 0],[4, -3],[4, -1],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[1, -3],[1, 0],[0, -3],[0, -1],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 0],[5, 2],[4, -1],[4, 2],[3, -1],[3, 1],[3, 2],[2, -1],[2, 1],[1, 0],[1, 2],[0, -1],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 4],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -1003,61 +868,50 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, -1],[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -1],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 1],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, -1],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 2],[1, 0],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, -2],[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[3, 0],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 4],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -1074,66 +928,54 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -4],[5, -2],[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -1],[1, -4],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -4],[5, -2],[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -1],[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 2],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 2],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v6: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 2],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -4],[5, -2],[5, 0],[4, -4],[4, -2],[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -2],[1, -4],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -4],[5, -2],[5, 0],[4, -4],[4, -2],[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -2],[2, 0],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 1],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -2],[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 1],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -2],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 1],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 1],[5, 3],[4, 0],[4, 1],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[2, 3],[1, 1],[1, 3],[1, 5],[0, 1],[0, 3],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -1152,66 +994,54 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, -2],[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -1],[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -4],[5, -2],[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -2],[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -1],[2, 0],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 2],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 1],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 1],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 1],[0, 3],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -1230,56 +1060,46 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, -1],[5, 0],[4, -3],[4, -1],[4, 1],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[1, -3],[1, -1],[1, 0],[0, -3],[0, -1],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 0],[5, 2],[4, -1],[4, 1],[4, 2],[3, -1],[3, 1],[3, 2],[2, -1],[2, 1],[1, -1],[1, 0],[1, 2],[0, -1],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 1],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 3],[1, 0],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 1],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 3],[2, 4],[1, 2],[1, 4],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 1],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 3],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 6]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, -1],[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -1],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -3],[5, -1],[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[3, 1],[2, -3],[2, -1],[2, 1],[1, -2],[1, 0],[0, -3],[0, -1],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -1],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 1],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, -1],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 1],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 4],[1, 5],[0, 2],[0, 4],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 4],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -1297,76 +1117,62 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, -2],[5, 0],[4, -3],[4, -1],[4, 0],[3, -3],[3, -1],[3, 0],[2, -3],[2, -1],[1, -3],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -1],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 1],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v6: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 4],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 1],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 4],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, -2],[5, 0],[4, -3],[4, -2],[4, 0],[3, -3],[3, -1],[3, 0],[2, -3],[2, -1],[2, 0],[1, -2],[1, 0],[0, -3],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[1, -2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 2],[0, -2],[0, 0],[0, 2]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 2],[4, -2],[4, 0],[4, 2],[3, -1],[3, 0],[3, 2],[2, -1],[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v5: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[1, 0],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v6: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[0, 0],[0, 2],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v7: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 4],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 2],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 2],[5, 3],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 4],[2, 0],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 2],[0, 3],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },
@@ -1383,51 +1189,42 @@ export const shapes: Shapes = {
         v1: {
           // prettier-ignore
           coordinates: [[5, -4],[5, -2],[5, 0],[4, -4],[4, -1],[4, 0],[3, -3],[3, -2],[2, -3],[2, -2],[1, -3],[1, -2],[1, 0],[0, -4],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 1],[4, -1],[4, 0],[4, 2],[3, -2],[3, 0],[3, 2],[2, -2],[2, 1],[1, -2],[1, 0],[1, 1],[0, -2],[0, 0],[0, 1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 1],[5, 4],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 1],[2, 2],[1, 0],[1, 1],[1, 3],[0, 0],[0, 1],[0, 4]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 1],[5, 4],[4, 0],[4, 2],[4, 3],[3, 0],[3, 2],[3, 3],[2, 1],[2, 2],[2, 4],[1, 1],[1, 3],[1, 5],[0, 1],[0, 4],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strA: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -3],[5, -2],[5, 0],[4, -4],[4, -2],[4, 0],[3, -4],[3, -1],[3, 0],[2, -3],[2, -2],[1, -4],[1, -2],[1, -1],[0, -3],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v2: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 1],[4, -2],[4, 0],[4, 1],[3, -1],[3, 0],[2, -3],[2, -2],[2, 0],[1, -2],[1, -1],[0, -3],[0, -2],[0, 0]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v3: {
           // prettier-ignore
           coordinates: [[5, -2],[5, 0],[5, 1],[4, -2],[4, 0],[4, 1],[3, -1],[3, 0],[3, 2],[2, -2],[2, 0],[2, 2],[1, -1],[1, 2],[0, -2],[0, 0],[0, 1]],
-          CAGEDassigments: { major: "", minor: "" },
         },
         v4: {
           // prettier-ignore
           coordinates: [[5, 0],[5, 1],[5, 3],[4, 0],[4, 1],[4, 4],[3, 0],[3, 2],[3, 3],[2, 0],[2, 2],[2, 3],[1, 2],[1, 3],[0, 0],[0, 1],[0, 3]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
       strD: {
         v1: {
           // prettier-ignore
           coordinates: [[5, -4],[5, -1],[5, 0],[4, -3],[4, -2],[3, 0],[3, 1],[3, 4],[2, 0],[2, 2],[2, 3],[1, 1],[1, 3],[1, 4],[0, 2],[0, 3],[0, 5]],
-          CAGEDassigments: { major: "", minor: "" },
         },
       },
     },

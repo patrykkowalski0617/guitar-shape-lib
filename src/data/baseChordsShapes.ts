@@ -1,6 +1,7 @@
 export const baseChordsShapes = {
-  major: {
-    C: {
+  major: [
+    {
+      CAGEDassigment: "C",
       baseFretIndex: 3,
       coordinates: [
         [4, 0],
@@ -10,7 +11,8 @@ export const baseChordsShapes = {
         [0, -3],
       ],
     },
-    A: {
+    {
+      CAGEDassigment: "A",
       baseFretIndex: 3,
       coordinates: [
         [4, 0],
@@ -20,7 +22,8 @@ export const baseChordsShapes = {
         [0, 0],
       ],
     },
-    G: {
+    {
+      CAGEDassigment: "G",
       baseFretIndex: 8,
       coordinates: [
         [5, 0],
@@ -31,7 +34,8 @@ export const baseChordsShapes = {
         [0, 0],
       ],
     },
-    E: {
+    {
+      CAGEDassigment: "E",
       baseFretIndex: 8,
       coordinates: [
         [5, 0],
@@ -42,7 +46,8 @@ export const baseChordsShapes = {
         [0, 0],
       ],
     },
-    D: {
+    {
+      CAGEDassigment: "D",
       baseFretIndex: 10,
       coordinates: [
         [3, 0],
@@ -51,9 +56,10 @@ export const baseChordsShapes = {
         [0, 2],
       ],
     },
-  },
-  minor: {
-    C: {
+  ],
+  minor: [
+    {
+      CAGEDassigment: "C",
       baseFretIndex: 3,
       coordinates: [
         [4, 0],
@@ -63,7 +69,8 @@ export const baseChordsShapes = {
         [0, -4],
       ],
     },
-    A: {
+    {
+      CAGEDassigment: "A",
       baseFretIndex: 3,
       coordinates: [
         [4, 0],
@@ -73,7 +80,8 @@ export const baseChordsShapes = {
         [0, 0],
       ],
     },
-    G: {
+    {
+      CAGEDassigment: "G",
       baseFretIndex: 8,
       coordinates: [
         [5, 0],
@@ -84,7 +92,8 @@ export const baseChordsShapes = {
         [0, 0],
       ],
     },
-    E: {
+    {
+      CAGEDassigment: "E",
       baseFretIndex: 8,
       coordinates: [
         [5, 0],
@@ -95,7 +104,8 @@ export const baseChordsShapes = {
         [0, 0],
       ],
     },
-    D: {
+    {
+      CAGEDassigment: "D",
       baseFretIndex: 10,
       coordinates: [
         [3, 0],
@@ -104,5 +114,5 @@ export const baseChordsShapes = {
         [0, 1],
       ],
     },
-  },
+  ],
 };

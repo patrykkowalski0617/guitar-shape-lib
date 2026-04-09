@@ -21,12 +21,6 @@ export const Key = styled.div<{
 }>`
   position: relative;
 
-  ${({ $isHighlighted }) =>
-    $isHighlighted &&
-    css`
-      filter: brightness(2);
-    `}
-
   ${({ $isHighlighted, $pianoKeyShape }) =>
     getKeyHighlight({
       isHighlighted: $isHighlighted,
