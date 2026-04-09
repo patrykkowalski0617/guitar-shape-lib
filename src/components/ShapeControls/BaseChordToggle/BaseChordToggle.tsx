@@ -24,6 +24,11 @@ export default function BaseChordToggle() {
   );
   const activeGroup = optionsPerKey[activeIndex] || optionsPerKey[0];
 
+  const handleExpandList = () => {
+    setIsShapeSelectOpen(false);
+    setIsExpanded(true);
+  };
+
   const handleSelectKey = (tuneKeyId: TuneKeyId) => {
     handleKeyOnlyChange(tuneKeyId);
     setIsExpanded(false);
@@ -34,21 +39,23 @@ export default function BaseChordToggle() {
     shouldCloseExpanded = true,
   ) => {
     const isClickingActiveChord = combinedValue === currentValue;
+    const isClickingDifferentChord = !isClickingActiveChord;
 
     handleValueChange(combinedValue);
 
-    const shouldOpen = !isShapeSelectOpen && !isClickingActiveChord;
-    const shouldToggleClose = isShapeSelectOpen && isClickingActiveChord;
+    const shouldOpenShapeSelect =
+      isClickingDifferentChord && !isShapeSelectOpen;
+    const shouldCloseShapeSelect = isClickingActiveChord && isShapeSelectOpen;
 
-    if (shouldOpen) {
+    if (shouldOpenShapeSelect) {
       setIsShapeSelectOpen(true);
-    } else if (shouldToggleClose) {
+    } else if (shouldCloseShapeSelect) {
       setIsShapeSelectOpen(false);
     }
-    // W przypadku zmiany akordu przy już otwartym menu, nic nie robimy ze stanem open,
-    // co zapobiega miganiu SelectContent.
 
-    if (shouldCloseExpanded) setIsExpanded(false);
+    if (shouldCloseExpanded) {
+      setIsExpanded(false);
+    }
   };
 
   return (
@@ -70,7 +77,7 @@ export default function BaseChordToggle() {
             <BaseChordCollapsedView
               activeGroup={activeGroup}
               currentValue={currentValue}
-              onExpand={() => setIsExpanded(true)}
+              onExpand={handleExpandList}
               onSelectChord={(val) => handleBaseChordSelect(val, false)}
             />
           )}
