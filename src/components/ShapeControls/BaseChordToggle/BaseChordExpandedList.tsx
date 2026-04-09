@@ -24,106 +24,105 @@ export function BaseChordExpandedList({
   onSelectChord,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [debug, setDebug] = useState<{
-    screenTop: number;
-    screenBottom: number;
-    listAbove: number;
-    listBelow: number;
-  } | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [computedStyle, setComputedStyle] = useState<React.CSSProperties>({
+    opacity: 0,
+  });
 
   const ROW_HEIGHT = 32;
   const LABEL_HEIGHT = 23;
-  const topOffset = activeIndex * ROW_HEIGHT;
+  const MARGIN = 10;
 
   useLayoutEffect(() => {
     const parent = containerRef.current?.parentElement;
+    if (!parent) return;
 
-    if (parent) {
-      const rect = parent.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
+    const rect = parent.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
 
-      // Matematyczne wyliczenie wysokości zawartości listy
-      // listAbove: wszystko co jest nad triggerem (Label + wiersze przed aktywnym)
-      const listAbove = topOffset + LABEL_HEIGHT;
+    const listAbove = activeIndex * ROW_HEIGHT + LABEL_HEIGHT;
+    const listBelow = (optionsPerKey.length - 1 - activeIndex) * ROW_HEIGHT;
 
-      // listBelow: wszystko co jest pod triggerem (wiersze po aktywnym)
-      // Odejmujemy 1 od długości tablicy, bo activeIndex jest 0-indexed
-      const rowsBelow = optionsPerKey.length - 1 - activeIndex;
-      const listBelow = rowsBelow * ROW_HEIGHT;
+    const spaceAbove = rect.top - MARGIN;
+    const spaceBelow = viewportHeight - rect.bottom - MARGIN;
 
-      setDebug({
-        screenTop: rect.top,
-        screenBottom: viewportHeight - rect.bottom,
-        listAbove,
-        listBelow,
-      });
+    const isCollidingTop = listAbove > spaceAbove;
+    const isCollidingBottom = listBelow > spaceBelow;
 
-      console.log("Collision Debug:", {
-        screenTop: rect.top,
-        screenBottom: viewportHeight - rect.bottom,
-        listAbove,
-        listBelow,
-        activeIndex,
-        totalRows: optionsPerKey.length,
-      });
+    let finalStyle: React.CSSProperties = {};
+    let targetScroll = 0;
+
+    if (isCollidingTop) {
+      // Kotwiczymy dół listy do triggera
+      const bottomOffset = listBelow;
+      // MaxHeight to odległość od góry ekranu do dołu listy (trigger + to co pod nim)
+      const maxHeight = spaceAbove + rect.height + listBelow;
+
+      finalStyle = {
+        bottom: `-${bottomOffset}px`,
+        maxHeight: `${maxHeight}px`,
+      };
+
+      // Przewijamy o tyle, o ile góra listy "wyszłaby" poza margines
+      targetScroll = listAbove - spaceAbove;
+    } else {
+      const bottomOffset = listBelow;
+      // Jeśli dół koliduje, ograniczamy wysokość, ale zostajemy przy pozycjonowaniu top
+      const maxHeight = isCollidingBottom
+        ? spaceBelow + rect.height + listAbove
+        : listAbove + rect.height + listBelow;
+
+      finalStyle = {
+        top: `-${listAbove}px`,
+        maxHeight: `${maxHeight}px`,
+      };
+
+      targetScroll = 0;
     }
+
+    setComputedStyle({ ...finalStyle, opacity: 1 });
+
+    // Używamy requestAnimationFrame, aby upewnić się, że style maxHeight zostały zaaplikowane
+    // i kontener ma już poprawne scrollHeight/clientHeight przed ustawieniem scrollTop
+    requestAnimationFrame(() => {
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = targetScroll;
+      }
+    });
   }, [activeIndex, optionsPerKey.length]);
 
   return (
     <>
-      {debug && (
-        <div className="fixed inset-0 pointer-events-none z-[200]">
-          <div
-            className="fixed top-0 left-0 w-8 bg-red-500/30 border-b border-red-500 flex flex-col items-center justify-end pb-1 text-[9px] text-red-700 font-bold"
-            style={{ height: `${debug.screenTop}px` }}
-          >
-            <span className="rotate-90 whitespace-nowrap mb-12">
-              SCREEN TOP: {Math.round(debug.screenTop)}px
-            </span>
-            <span className="bg-white/80 px-1">
-              LIST ABOVE: {debug.listAbove}px
-            </span>
-          </div>
-
-          <div
-            className="fixed bottom-0 left-0 w-8 bg-blue-500/30 border-t border-blue-500 flex flex-col items-center justify-start pt-1 text-[9px] text-blue-700 font-bold"
-            style={{ height: `${debug.screenBottom}px` }}
-          >
-            <span className="bg-white/80 px-1">
-              LIST BELOW: {debug.listBelow}px
-            </span>
-            <span className="rotate-90 whitespace-nowrap mt-12">
-              SCREEN BTM: {Math.round(debug.screenBottom)}px
-            </span>
-          </div>
-        </div>
-      )}
-
       <div className="fixed inset-0 z-[40]" onClick={onClose} />
       <motion.div
         ref={containerRef}
         initial={{ opacity: 0, scale: 0.98 }}
-        animate={{ opacity: 1, scale: 1 }}
+        animate={{ opacity: computedStyle.opacity as number, scale: 1 }}
         exit={{ opacity: 0, scale: 0.98 }}
         transition={{ duration: 0.1, ease: "easeOut" }}
-        style={{ top: `-${topOffset + LABEL_HEIGHT}px` }}
-        className="absolute left-0 w-full z-[50] bg-background shadow-2xl rounded-sm border border-background/20 overflow-hidden"
+        style={computedStyle}
+        className="absolute left-0 w-full z-[50] bg-background shadow-2xl rounded-sm border border-background/20 flex flex-col overflow-hidden"
       >
         <BaseChordLabel />
 
-        <div className="rounded-sm overflow-hidden">
-          {optionsPerKey.map((group, index) => (
-            <BaseChordSingleRow
-              key={group.tuneKeyId}
-              group={group}
-              isCurrentKey={currentTuneKeyId === group.tuneKeyId}
-              currentValue={currentValue}
-              isLastRow={index === optionsPerKey.length - 1}
-              onSelectKey={() => onSelectKey(group.tuneKeyId)}
-              onSelectChord={onSelectChord}
-              onClose={onClose}
-            />
-          ))}
+        <div
+          ref={scrollRef}
+          className="overflow-y-auto flex-1 min-h-0 scrollbar-hide bg-background"
+        >
+          <div className="flex flex-col">
+            {optionsPerKey.map((group, index) => (
+              <BaseChordSingleRow
+                key={group.tuneKeyId}
+                group={group}
+                isCurrentKey={currentTuneKeyId === group.tuneKeyId}
+                currentValue={currentValue}
+                isLastRow={index === optionsPerKey.length - 1}
+                onSelectKey={() => onSelectKey(group.tuneKeyId)}
+                onSelectChord={onSelectChord}
+                onClose={onClose}
+              />
+            ))}
+          </div>
         </div>
       </motion.div>
     </>
