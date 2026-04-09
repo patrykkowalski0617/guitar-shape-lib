@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
 import ShapeControls from "./components/ShapeControls/ShapeControls";
 import Sign from "./components/Sign/Sign";
-import ShapeExplorerSlider from "./components/Fretboard/ShapeExplorerSlider/ShapeExplorerSlider/ShapeExplorerSlider";
+import ShapeExplorerSlider from "./components/ShapeExplorerSlider/ShapeExplorerSlider/ShapeExplorerSlider";
 
 export default function App() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
