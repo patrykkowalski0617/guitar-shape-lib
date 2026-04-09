@@ -28,7 +28,7 @@ export const generateRandomRadialGradient = () => {
 };
 
 export const getKeyHighlight = ({
-  isHighlighted,
+  isHighlighted = false,
   pianoKeyShape,
   highlightColor,
 }: KeyHighlightProps) => {

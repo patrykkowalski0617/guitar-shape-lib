@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { pianoBgColor } from "./PianoKey/parts/constants";
+import type { BlackKeyTypes } from "./PianoKey/parts/blackKeys";
 
-export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B";
+export type KeyShape = "C" | "D" | "E" | "F" | "G" | "A" | "B" | BlackKeyTypes;
 
 interface PianoProps {
   $numberOfKeys: number;

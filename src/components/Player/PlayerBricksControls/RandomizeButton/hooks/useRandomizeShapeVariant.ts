@@ -11,7 +11,7 @@ import {
   type VariantId,
 } from "@/data";
 import { useEffect, useState } from "react";
-import { getNotes, getValidVariants, type VariantsRecord } from "@/utils";
+import { getNotes, getValidVariants } from "@/utils";
 
 export const getRandomStringIndex = () => {
   const validIndexes = [2, 3, 4, 5];
@@ -47,7 +47,7 @@ export const getRandomFret = (
     const variants = shapes[shapeId].shapeVariants?.[stringId];
 
     if (!variants) return false;
-    return getValidVariants(fIdx, variants as VariantsRecord).length > 0;
+    return getValidVariants(fIdx, variants).length > 0;
   });
 
   const finalFrets = validFrets.length > 0 ? validFrets : allPotentialFrets;
@@ -63,10 +63,7 @@ export const getRandomVariantId = (
 
   if (!allVariants) return null;
 
-  const availableVariants = getValidVariants(
-    fretIndex,
-    allVariants as VariantsRecord,
-  );
+  const availableVariants = getValidVariants(fretIndex, allVariants);
 
   if (availableVariants.length === 0) return null;
 

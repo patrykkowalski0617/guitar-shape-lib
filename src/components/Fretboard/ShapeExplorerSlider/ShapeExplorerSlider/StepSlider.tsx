@@ -22,13 +22,8 @@ export function StepSlider({
   userListIndexes = [],
   ...props
 }: StepSliderProps) {
-  const {
-    currentValue,
-    effectiveMax,
-    highlightedId,
-    handleToggleAction,
-    clearHighlight,
-  } = useStepSliderLogic({ value, options });
+  const { effectiveMax, highlightedId, handleToggleAction, clearHighlight } =
+    useStepSliderLogic({ value, options });
 
   const bindGesture = useStepSliderGesture({ onDoubleTap: handleToggleAction });
   const thumbSize = 25;
@@ -72,9 +67,6 @@ export function StepSlider({
           "data-[disabled]:border-primary/35",
           "focus:outline-none focus:ring-0 focus-visible:ring-2",
           "focus-visible:ring-accent/70",
-          currentValue === 0 || hasNoOptions
-            ? "bg-background"
-            : "bg-transparent",
         )}
         style={{ width: thumbSize, height: thumbSize }}
       />

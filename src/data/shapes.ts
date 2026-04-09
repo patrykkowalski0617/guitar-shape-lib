@@ -82,7 +82,7 @@ export const shapes: Shapes = {
         },
         v4: {
           // prettier-ignore
-          coordinates: [[5, 0],[5, 4],[4, 2],[3, 1],[3, 2],[2, 1],[, 0],[1, 4],[0, 0],[0, 4]],
+          coordinates: [[5, 0],[5, 4],[4, 2],[3, 1],[3, 2],[2, 1],[1, 4],[0, 0],[0, 4]],
         },
         v5: {
           // prettier-ignore

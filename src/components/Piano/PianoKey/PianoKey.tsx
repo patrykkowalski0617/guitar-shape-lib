@@ -3,19 +3,16 @@ import { type NoteObject } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { usePianoKey } from "./hooks/usePianoKey";
 import { useEnharmonicNoteName } from "@/hooks";
-import { usePianoKeyTuneKeyState } from "./hooks/usePianoKeyTuneKeyState";
 import { WhiteKeyJustifyContainer } from "./parts/whiteKeys";
 import { useMusicStore } from "@/store/useMusicStore";
 
 interface PianoKeyProps {
   note: NoteObject;
-  pianoKeyindex: number;
 }
 
-const PianoKey = ({ note, pianoKeyindex }: PianoKeyProps) => {
+const PianoKey = ({ note }: PianoKeyProps) => {
   const { visualState, interactivity } = usePianoKey({ note });
   const getEnharmonicNoteName = useEnharmonicNoteName();
-  const { isTuneNote } = usePianoKeyTuneKeyState(pianoKeyindex);
   const setActiveLockedNotes = useMusicStore(
     (state) => state.setActiveLockedNotes,
   );

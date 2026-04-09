@@ -14,8 +14,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const shapeId = useControlsStore((state) => state.shapeId);
   const baseChordId = useControlsStore((state) => state.baseChordId);
 
-  const { currentScaleNoteIds, currentRoleNoteIds, currentShapeNoteIds } =
-    useScaleLogic();
+  const { currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
 
   const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
   const isWhitePianoKey =
@@ -25,8 +24,9 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const isRoleSelected = !!baseChordId;
   const isActiveNote = note.noteId === activeNoteId;
   const isShapeNote =
-    isRoleSelected && currentShapeNoteIds.includes(note.noteId);
-  const isRoleNote = currentRoleNoteIds?.includes(note.noteId);
+    isRoleSelected && (currentShapeNoteIds as string[]).includes(note.noteId);
+
+  const isRoleNote = (currentRoleNoteIds as string[])?.includes(note.noteId);
 
   const isScaleScrollTarget = !isRoleSelected;
   const isRoleScrollTarget = isRoleSelected && isRoleNote;

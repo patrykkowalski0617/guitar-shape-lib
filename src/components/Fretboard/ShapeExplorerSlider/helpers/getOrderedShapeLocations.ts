@@ -4,7 +4,7 @@ import {
   type Note,
   type VariantId,
 } from "@/data";
-import { getValidVariants, type VariantsRecord, getNotes } from "@/utils";
+import { getValidVariants, getNotes } from "@/utils";
 import {
   numberOfFrets,
   STRINGS_CONFIG,
@@ -48,10 +48,7 @@ export const getOrderedShapeLocations = (
           ];
 
         if (variants) {
-          const validEntries = getValidVariants(
-            fIdx,
-            variants as VariantsRecord,
-          );
+          const validEntries = getValidVariants(fIdx, variants);
 
           validEntries.forEach(([variantId]) => {
             const id = `${shapeId}-${stringId}-${variantId}`;

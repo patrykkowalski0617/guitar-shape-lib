@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { getKeyHighlight } from "./getKeyHighlight";
 import { instrumentBRadius, instrumentElBRadius } from "./constants";
 import {
@@ -16,7 +16,7 @@ export const Key = styled.div<{
   $isShapeSelected: boolean;
   $isWhitePianoKey: boolean;
   $pianoKeyShape?: WhiteKeyTypes | BlackKeyTypes;
-  $isHighlighted?: boolean;
+  $isHighlighted: boolean;
   $isRoleNote: boolean;
 }>`
   position: relative;
