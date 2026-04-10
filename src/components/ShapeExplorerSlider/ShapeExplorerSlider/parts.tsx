@@ -1,10 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
 
-export const ShapeExplorerWrapper = styled.div`
-  margin: 0 auto;
-  max-width: 430px;
-`;
-
 const highlightAnimation = keyframes`
   0% { 
     transform: translate(-50%, -50%) scale(1);
@@ -30,12 +25,11 @@ export const Tick = styled.div<{
   width: 6px;
   height: 6px;
   border-radius: 50%;
-
   background-color: ${({ $isUserList }) =>
     $isUserList
       ? "var(--secondary)"
       : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
-
+  opacity: 0;
   box-shadow: ${({ $isUserList }) =>
     $isUserList ? "0 0 8px var(--secondary)" : "none"};
 
@@ -47,4 +41,20 @@ export const Tick = styled.div<{
       animation: ${highlightAnimation} 0.6s ease-in-out 1;
       z-index: 10;
     `}
+`;
+
+export const ShapeExplorerWrapper = styled.div<{ $isDisabled: boolean }>`
+  margin: 0 auto;
+  max-width: 0px;
+  transform: translateX(calc(25px / -2));
+  transition: 0.3s;
+  ${({ $isDisabled }) => {
+    if ($isDisabled) return;
+    return css`
+      max-width: 430px;
+      ${Tick} {
+        opacity: 1;
+      }
+    `;
+  }}
 `;

@@ -62,7 +62,7 @@ export function StepSlider({
         className={cn(
           "block rounded-full border-2 shadow-lg border-primary",
           "cursor-grab active:cursor-grabbing hover:scale-120 transition-transform",
-          "data-[disabled]:border-primary/35",
+          "data-[disabled]:border-primary/35 data-[disabled]:scale-100 data-[disabled]:cursor-default",
           "focus:outline-none focus:ring-0 focus-visible:ring-2",
           "focus-visible:ring-accent/70",
         )}

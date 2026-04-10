@@ -14,7 +14,7 @@ export default function ShapeExplorerSlider() {
   } = useShapeExplorerLogic();
 
   return (
-    <S.ShapeExplorerWrapper>
+    <S.ShapeExplorerWrapper $isDisabled={isDisabled}>
       <StepSlider
         value={sliderValue}
         options={options}
