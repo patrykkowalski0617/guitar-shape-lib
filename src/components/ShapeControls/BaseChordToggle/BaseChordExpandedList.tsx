@@ -131,8 +131,8 @@ export function BaseChordExpandedList({
         animate={{ opacity: computedStyle.opacity as number, scale: 1 }}
         exit={{ opacity: 0, scale: 0.98 }}
         transition={{ duration: 0.1, ease: "easeOut" }}
-        style={computedStyle}
-        className="absolute left-0 w-full z-[50] bg-background shadow-2xl rounded-sm border border-background/20 flex flex-col overflow-hidden"
+        style={{ ...computedStyle, boxShadow: "0 0 30px -20px #6c6c6cb7" }}
+        className="absolute left-0 w-full z-[50] bg-background rounded-sm border border-background/20 flex flex-col overflow-hidden"
       >
         <BaseChordLabel />
 
