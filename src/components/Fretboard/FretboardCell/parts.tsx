@@ -13,10 +13,13 @@ const baseChordExitAnimation = keyframes`
 `;
 
 const baseChordEntryAnimation = keyframes`
-  from{
+  0%{
+    transform: scale(1);
+  }
+  50%{
     transform: scale(1.3);
   }
-  to{
+  100%{
     transform: scale(1);
   }
 `;
@@ -72,7 +75,7 @@ export const Note = styled.div<{
     const layers = 2;
 
     return css`
-      animation: ${baseChordEntryAnimation} 0.45s ease-out forwards;
+      animation: ${baseChordEntryAnimation} 0.4s ease-out forwards;
       &::before,
       &::after {
         content: "";
