@@ -2,7 +2,6 @@ import * as React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
 import { StepSliderTicks } from "./StepSliderTicks";
-import { useStepSliderGesture } from "../hooks/useStepSliderGesture";
 import { useStepSliderLogic } from "../hooks/useStepSliderLogic";
 import type { ShapeLocation } from "../helpers/getOrderedShapeLocations";
 
@@ -25,7 +24,6 @@ export function StepSlider({
   const { effectiveMax, highlightedId, handleToggleAction, clearHighlight } =
     useStepSliderLogic({ value, options });
 
-  const bindGesture = useStepSliderGesture({ onDoubleTap: handleToggleAction });
   const thumbSize = 25;
 
   const hasNoOptions = options.length === 0;
@@ -60,7 +58,7 @@ export function StepSlider({
       </SliderPrimitive.Track>
 
       <SliderPrimitive.Thumb
-        {...bindGesture()}
+        onDoubleClick={handleToggleAction}
         className={cn(
           "block rounded-full border-2 shadow-lg border-primary",
           "cursor-grab active:cursor-grabbing hover:scale-120 transition-transform",

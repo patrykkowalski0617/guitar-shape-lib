@@ -17,14 +17,15 @@ export const CleanButton = () => {
   const shapeId = useControlsStore((state) => state.shapeId);
   const setShape = useControlsStore((state) => state.setShape);
 
-  const baseChordId = useControlsStore((state) => state.baseChordId);
   const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
+  const setToggleBaseChordId = useControlsStore(
+    (state) => state.setToggleBaseChordId,
+  );
 
   const isVisible = !!(
     activeLockedNotes.length ||
     shapeVariantLocationData ||
-    shapeId ||
-    baseChordId
+    shapeId
   );
 
   const handleClick = () => {
@@ -32,6 +33,7 @@ export const CleanButton = () => {
     resetActiveLockedNotes();
     setShape(null, null);
     setBaseChordId(null);
+    setToggleBaseChordId(null);
   };
 
   return (

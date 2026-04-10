@@ -13,6 +13,9 @@ interface ControlsState {
   baseChordId: BaseChordId | null;
   setBaseChordId: (id: BaseChordId | null) => void;
 
+  setToggleBaseChordId: (id: BaseChordId | null) => void;
+  toggleBaseChordId: BaseChordId | null;
+
   shapeId: string | null;
   shapeSemitoneOffsetFromC: number | null;
   setShape: (
@@ -33,6 +36,7 @@ const initialState = {
   isMajorMode: true,
   tuneKeyId: "C" as TuneKeyId,
   baseChordId: null,
+  toggleBaseChordId: null,
   roleId: "all-matching-key" as RoleId | null,
   shapeId: null as string | null,
   shapeSemitoneOffsetFromC: null as number | null,
@@ -55,6 +59,7 @@ export const useControlsStore = create<ControlsState>((set) => ({
   setTuneKeyId: (id) => set({ tuneKeyId: id }),
 
   setBaseChordId: (id) => set({ baseChordId: id }),
+  setToggleBaseChordId: (id) => set({ toggleBaseChordId: id }),
 
   setShape: (shapeId, shapeSemitoneOffsetFromC) =>
     set({

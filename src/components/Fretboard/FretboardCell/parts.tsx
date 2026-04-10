@@ -5,7 +5,7 @@ const regularBgColor = `color-mix(in oklab, var(--accent) 10%, transparent)`;
 
 const baseChordExitAnimation = keyframes`
   from{
-    height: 14px;
+    height: 10px;
   }
   to{
     height: 1px;
@@ -13,10 +13,13 @@ const baseChordExitAnimation = keyframes`
 `;
 
 const baseChordEntryAnimation = keyframes`
-  from{
+  0%{
+    transform: scale(1);
+  }
+  50%{
     transform: scale(1.3);
   }
-  to{
+  100%{
     transform: scale(1);
   }
 `;
@@ -25,7 +28,10 @@ export const FretWrapper = styled.div`
   position: relative;
   flex: 1 1 0;
   width: 0;
-  height: 32px;
+  height: 28px;
+  @media (min-width: 1024px) {
+    height: 32px;
+  }
   padding: 2px;
 `;
 
@@ -65,14 +71,14 @@ export const Note = styled.div<{
   position: relative;
   ${({ $isBaseChordShapeNote }) => {
     if (!$isBaseChordShapeNote) return null;
-    const markupColor = `color-mix(in oklab, var(--foreground) 100%, transparent)`;
+    const markupColor = `color-mix(in oklab, var(--primary) 100%, transparent)`;
     const deg = 25;
     const space = 6;
     const size = 14;
-    const layers = 2;
+    const layers = 3;
 
     return css`
-      animation: ${baseChordEntryAnimation} 0.45s ease-out forwards;
+      animation: ${baseChordEntryAnimation} 0.3s linear forwards;
       &::before,
       &::after {
         content: "";
@@ -113,7 +119,9 @@ export const Note = styled.div<{
         background-color: color-mix(in oklab, var(--accent) 50%, transparent);
         border-color: var(--secondary);
         box-shadow: inset 0 0px 8px 0px var(--accent);
-        border-width: 3px;
+        @media (min-width: 1024px) {
+          border-width: 3px;
+        }
       `;
     }
   }}

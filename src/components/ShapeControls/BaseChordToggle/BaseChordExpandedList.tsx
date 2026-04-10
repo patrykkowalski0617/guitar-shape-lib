@@ -99,6 +99,20 @@ export function BaseChordExpandedList({
       }
     }
 
+    if (spaceAbove < LABEL_HEIGHT) {
+      const diff = LABEL_HEIGHT - spaceAbove;
+
+      targetScroll = targetScroll - diff;
+
+      if (finalStyle.bottom) {
+        const currentBottom = parseFloat(finalStyle.bottom as string);
+        const currentMaxHeight = parseFloat(finalStyle.maxHeight as string);
+
+        finalStyle.bottom = `${currentBottom - diff}px`;
+        finalStyle.maxHeight = `${currentMaxHeight + diff}px`;
+      }
+    }
+
     setComputedStyle({ ...finalStyle, opacity: 1 });
 
     requestAnimationFrame(() => {
