@@ -32,6 +32,7 @@ export function BaseChordExpandedList({
   const ROW_HEIGHT = 32;
   const LABEL_HEIGHT = 23;
   const MARGIN = 10;
+  const VIEWPORT_MARGIN = 20;
   const MIN_VISIBLE_HEIGHT = ROW_HEIGHT * 4 + LABEL_HEIGHT;
 
   useLayoutEffect(() => {
@@ -40,6 +41,7 @@ export function BaseChordExpandedList({
 
     const rect = parent.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
+    const ABSOLUTE_MAX_HEIGHT = viewportHeight - VIEWPORT_MARGIN * 2;
 
     const listAbove = activeIndex * ROW_HEIGHT + LABEL_HEIGHT;
     const listBelow = (optionsPerKey.length - 1 - activeIndex) * ROW_HEIGHT;
@@ -55,7 +57,6 @@ export function BaseChordExpandedList({
     if (isCollidingTop) {
       const calculatedMax = spaceAbove + rect.height + listBelow;
       const finalMaxHeight = Math.max(calculatedMax, MIN_VISIBLE_HEIGHT);
-
       const bottomOffset = listBelow;
       const willOverflowTop =
         rect.bottom + bottomOffset - finalMaxHeight < MARGIN;
@@ -80,7 +81,6 @@ export function BaseChordExpandedList({
           : listAbove + rect.height + listBelow;
 
       const finalMaxHeight = Math.max(calculatedMax, MIN_VISIBLE_HEIGHT);
-
       const willOverflowBottom =
         rect.top - listAbove + finalMaxHeight > viewportHeight - MARGIN;
 
@@ -101,17 +101,29 @@ export function BaseChordExpandedList({
 
     if (spaceAbove < LABEL_HEIGHT) {
       const diff = LABEL_HEIGHT - spaceAbove;
-
       targetScroll = targetScroll - diff;
 
       if (finalStyle.bottom) {
-        const currentBottom = parseFloat(finalStyle.bottom as string);
-        const currentMaxHeight = parseFloat(finalStyle.maxHeight as string);
-
-        finalStyle.bottom = `${currentBottom - diff}px`;
-        finalStyle.maxHeight = `${currentMaxHeight + diff}px`;
+        const cBottom = parseFloat(finalStyle.bottom as string);
+        const cMaxH = parseFloat(finalStyle.maxHeight as string);
+        finalStyle.bottom = `${cBottom - diff}px`;
+        finalStyle.maxHeight = `${cMaxH + diff}px`;
       }
     }
+
+    const currentMaxHeight = parseFloat(finalStyle.maxHeight as string);
+
+    if (currentMaxHeight > ABSOLUTE_MAX_HEIGHT) {
+      const heightDiff = currentMaxHeight - ABSOLUTE_MAX_HEIGHT;
+      finalStyle.maxHeight = `${ABSOLUTE_MAX_HEIGHT}px`;
+
+      if (finalStyle.bottom) {
+        const cBottom = parseFloat(finalStyle.bottom as string);
+        finalStyle.bottom = `${cBottom + heightDiff}px`;
+      }
+    }
+
+    console.log("Final Computed Style:", JSON.stringify(finalStyle, null, 2));
 
     setComputedStyle({ ...finalStyle, opacity: 1 });
 
@@ -131,17 +143,15 @@ export function BaseChordExpandedList({
         animate={{ opacity: computedStyle.opacity as number, scale: 1 }}
         exit={{ opacity: 0, scale: 0.98 }}
         transition={{ duration: 0.1, ease: "easeOut" }}
-        style={computedStyle}
-        className="absolute left-0 w-full z-[50] bg-background shadow-2xl rounded-sm border border-background/20 flex flex-col overflow-hidden"
+        style={{ ...computedStyle, boxShadow: "0 0 30px -20px #6c6c6cb7" }}
+        className="absolute left-0 w-full z-[50] bg-background rounded-sm border border-background/20 flex flex-col overflow-hidden"
       >
         <BaseChordLabel />
 
         <div
           ref={scrollRef}
           className="overflow-y-auto flex-1 min-h-0 scrollbar-hide bg-background"
-          style={{
-            scrollbarWidth: "none",
-          }}
+          style={{ scrollbarWidth: "none" }}
         >
           <div className="flex flex-col">
             {optionsPerKey.map((group, index) => (

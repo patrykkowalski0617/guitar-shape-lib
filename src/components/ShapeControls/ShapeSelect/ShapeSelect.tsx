@@ -62,7 +62,7 @@ export default function ShapeSelect() {
         <SelectValue options={options} />{" "}
         <span className="opacity-50">over {selectedChordLabel}</span>
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent style={{ boxShadow: "0 0 30px -20px #6c6c6cb7" }}>
         <div className="text-center py-1 text-xs text-muted-foreground">
           Choose a shape to practice over the {selectedChordLabel} chord
         </div>
