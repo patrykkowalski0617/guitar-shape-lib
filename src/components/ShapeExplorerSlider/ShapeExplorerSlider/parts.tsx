@@ -66,11 +66,12 @@ export const Tick = styled.div<{
 export const ShapeExplorerWrapper = styled.div<{ $isDisabled: boolean }>`
   margin: 0 auto;
   max-width: 0px;
-  transform: translateX(calc(25px / -2));
   transition: 0.5s;
+  transform: translateX(calc(25px / -2));
   ${({ $isDisabled }) => {
     if ($isDisabled) return;
     return css`
+      transform: none;
       max-width: 430px;
     `;
   }}
