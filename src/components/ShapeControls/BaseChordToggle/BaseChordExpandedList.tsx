@@ -123,8 +123,6 @@ export function BaseChordExpandedList({
       }
     }
 
-    console.log("Final Computed Style:", JSON.stringify(finalStyle, null, 2));
-
     setComputedStyle({ ...finalStyle, opacity: 1 });
 
     requestAnimationFrame(() => {
