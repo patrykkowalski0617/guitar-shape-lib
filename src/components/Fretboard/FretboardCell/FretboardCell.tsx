@@ -56,7 +56,8 @@ export default function FretboardCell({
           $opacity={opacity}
           $isHighlighted={isHighlighted}
           $isBaseChordShapeNote={isBaseChordNote({
-            matchingBaseChordCoordinates,
+            matchingBaseChordCoordinates:
+              matchingBaseChordCoordinates ?? undefined,
             stringIndex,
             fretIndex,
           })}

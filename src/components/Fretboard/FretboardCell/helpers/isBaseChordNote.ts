@@ -1,9 +1,11 @@
+export type Shape = { coordinates: [number, number][] };
+
 export const isBaseChordNote = ({
   matchingBaseChordCoordinates,
   stringIndex,
   fretIndex,
 }: {
-  matchingBaseChordCoordinates?: { coordinates: [number, number][] };
+  matchingBaseChordCoordinates?: Shape;
   stringIndex: number;
   fretIndex: number;
 }) => {

@@ -34,8 +34,12 @@ export const useMusicStore = create<MusicState>((set) => ({
   setActiveNoteId: (noteId) => {
     const playerState = usePlayerStore.getState();
     const controlState = useControlsStore.getState();
-    const dontShowActiveNotes =
+
+    const isSmallScreen = window.innerWidth < 1024;
+    const isPlayingOrHasShape =
       controlState.shapeId !== null || playerState.isPlaying;
+
+    const dontShowActiveNotes = isPlayingOrHasShape || isSmallScreen;
 
     if (dontShowActiveNotes) return;
 
