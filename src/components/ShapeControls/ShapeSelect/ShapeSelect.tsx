@@ -39,6 +39,9 @@ export default function ShapeSelect() {
       valueOnOpenRef.current = currentShapeValue ?? null;
     } else {
       const hasChanged = valueOnOpenRef.current !== currentShapeValue;
+      if (!currentShapeValue) {
+        setToggleBaseChordId(null);
+      }
 
       if (!hasChanged) {
         setToggleBaseChordId(baseChordId);
