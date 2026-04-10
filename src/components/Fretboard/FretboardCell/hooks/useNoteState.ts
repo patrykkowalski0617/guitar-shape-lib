@@ -8,6 +8,7 @@ import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
 import { useEnharmonicNoteName, useShapeRootSharpNote } from "@/hooks";
 import { useBaseChordCoordinates } from "./useBaseChordCoordinates";
 import { findMatchingBaseChordCoordinates } from "../helpers/findMatchingBaseChordCoordinates";
+import { isBaseChordNote as isBaseChordNoteFn } from "../helpers/isBaseChordNote";
 
 interface UseNoteStateProps {
   noteData: NoteObject;
@@ -61,21 +62,6 @@ export const useNoteState = ({
 
   const isActiveLockedNotes = activeLockedNotes.includes(noteData.noteId);
 
-  const getOpacity = () => {
-    const isSemiVisible = isActiveNote || isTuneNote;
-    const isVisibleInGeneralMode = !shapeId && isSemiVisible;
-    const isVisibleInSelectionMode = isShapeNote || isShapeRootNote;
-
-    if (
-      isVisibleInSelectionMode ||
-      isVisibleInGeneralMode ||
-      isActiveLockedNotes
-    )
-      return 1;
-    if (isSemiVisible) return 0.7;
-    return 0;
-  };
-
   const isHighlighted = isShapeNote || isActiveNote || isActiveLockedNotes;
 
   const { baseChordCoordinates } = useBaseChordCoordinates();
@@ -85,6 +71,27 @@ export const useNoteState = ({
       baseChordCoordinates,
       shapeCoordinates,
     });
+  const isBaseChordNote = isBaseChordNoteFn({
+    matchingBaseChordCoordinates,
+    stringIndex,
+    fretIndex,
+  });
+
+  const getOpacity = () => {
+    const isSemiVisible = isActiveNote || isTuneNote;
+    const isVisibleInGeneralMode = !shapeId && isSemiVisible;
+    const isVisibleInSelectionMode = isShapeNote || isShapeRootNote;
+
+    if (
+      isVisibleInSelectionMode ||
+      isVisibleInGeneralMode ||
+      isActiveLockedNotes ||
+      isBaseChordNote
+    )
+      return 1;
+    if (isSemiVisible) return 0.7;
+    return 0;
+  };
 
   return {
     isHighlighted,
