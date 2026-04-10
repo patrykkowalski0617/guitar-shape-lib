@@ -22,8 +22,8 @@ export default function App() {
         <Section>
           <ShapeExplorerSlider />
         </Section>
+        <Sign />
       </MainContent>
-      <Sign />
     </AppWrapper>
   );
 }
