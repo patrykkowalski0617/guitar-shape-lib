@@ -15,9 +15,20 @@ const highlightAnimation = keyframes`
   }
 `;
 
+const tickOpacity = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
 export const Tick = styled.div<{
   $isUserList: boolean;
   $isHighlighted: boolean;
+  $isOpacityAnimationLocked: boolean;
+  $opacityAnimationDuration: number;
 }>`
   position: absolute;
   top: 50%;
@@ -29,32 +40,38 @@ export const Tick = styled.div<{
     $isUserList
       ? "var(--secondary)"
       : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
-  opacity: 0;
+
   box-shadow: ${({ $isUserList }) =>
     $isUserList ? "0 0 8px var(--secondary)" : "none"};
-
-  transition: all 0.6s ease-in-out;
-
-  ${({ $isHighlighted }) =>
-    $isHighlighted &&
-    css`
-      animation: ${highlightAnimation} 0.6s ease-in-out 1;
-      z-index: 10;
-    `}
+  ${({
+    $isHighlighted,
+    $isOpacityAnimationLocked,
+    $opacityAnimationDuration,
+  }) => {
+    if ($isHighlighted) {
+      return css`
+        animation: ${highlightAnimation} 0.6s ease-in-out forwards;
+        z-index: 10;
+      `;
+    } else if (!$isOpacityAnimationLocked) {
+      return css`
+        opacity: 0;
+        animation: ${tickOpacity} ${$opacityAnimationDuration}ms
+          ${$opacityAnimationDuration}ms forwards;
+      `;
+    }
+  }}
 `;
 
 export const ShapeExplorerWrapper = styled.div<{ $isDisabled: boolean }>`
   margin: 0 auto;
   max-width: 0px;
   transform: translateX(calc(25px / -2));
-  transition: 0.3s;
+  transition: 0.5s;
   ${({ $isDisabled }) => {
     if ($isDisabled) return;
     return css`
       max-width: 430px;
-      ${Tick} {
-        opacity: 1;
-      }
     `;
   }}
 `;

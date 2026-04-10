@@ -54,6 +54,7 @@ export function StepSlider({
           userListIndexes={userListIndexes}
           highlightedId={highlightedId}
           onHighlightEnd={clearHighlight}
+          isSliderDisabled={isSliderDisabled}
         />
       </SliderPrimitive.Track>
 
