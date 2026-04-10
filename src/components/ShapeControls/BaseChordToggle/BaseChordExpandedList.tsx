@@ -99,6 +99,10 @@ export function BaseChordExpandedList({
       }
     }
 
+    if (spaceAbove < LABEL_HEIGHT) {
+      targetScroll = targetScroll + spaceAbove - LABEL_HEIGHT;
+    }
+
     setComputedStyle({ ...finalStyle, opacity: 1 });
 
     requestAnimationFrame(() => {
