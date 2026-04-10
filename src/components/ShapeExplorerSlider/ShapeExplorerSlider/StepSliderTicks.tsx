@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import type { ShapeLocation } from "../helpers/getOrderedShapeLocations";
 import { Tick } from "./parts";
 
@@ -7,6 +8,7 @@ interface StepSliderTicksProps {
   userListIndexes: number[];
   highlightedId: string | number | null;
   onHighlightEnd: () => void;
+  isSliderDisabled: boolean;
 }
 
 export function StepSliderTicks({
@@ -15,7 +17,26 @@ export function StepSliderTicks({
   userListIndexes,
   highlightedId,
   onHighlightEnd,
+  isSliderDisabled,
 }: StepSliderTicksProps) {
+  const [isOpacityAnimationLocked, setIsOpacityLocked] = useState(false);
+
+  const opacityAnimationDuration = 500;
+
+  if (isSliderDisabled && isOpacityAnimationLocked) {
+    setIsOpacityLocked(false);
+  }
+
+  useEffect(() => {
+    if (isSliderDisabled) return;
+
+    const timer = setTimeout(() => {
+      setIsOpacityLocked(true);
+    }, opacityAnimationDuration);
+
+    return () => clearTimeout(timer);
+  }, [isSliderDisabled, isOpacityAnimationLocked]);
+
   const calculateTickPosition = (stepNumber: number) =>
     (stepNumber / effectiveMax) * 100;
 
@@ -32,6 +53,8 @@ export function StepSliderTicks({
             key={option.id + index}
             $isUserList={isUserStep}
             $isHighlighted={isHighlighted}
+            $isOpacityAnimationLocked={isOpacityAnimationLocked}
+            $opacityAnimationDuration={opacityAnimationDuration}
             onAnimationEnd={isHighlighted ? onHighlightEnd : undefined}
             style={{ left: `${calculateTickPosition(stepNumber)}%` }}
           />

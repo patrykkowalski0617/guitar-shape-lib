@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 
 export const FullscreenButton = styled(Button)`
   position: fixed;
-  top: 5px;
-  right: 5px;
+  top: 10px;
+  right: 10px;
   z-index: 900;
 `;
