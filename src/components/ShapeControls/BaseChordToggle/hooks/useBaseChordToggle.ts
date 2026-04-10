@@ -1,28 +1,24 @@
-import { useControlsStore, useMusicStore } from "@/store";
+import { useControlsStore } from "@/store";
 import { type BaseChordId, type TuneKeyId } from "@/data";
 
 export function useBaseChordToggle() {
-  const setShapeVariantLocationData = useMusicStore(
-    (state) => state.setShapeVariantLocationData,
+  const setToggleBaseChordId = useControlsStore(
+    (state) => state.setToggleBaseChordId,
   );
-  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
   const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
-  const setShape = useControlsStore((state) => state.setShape);
-  const baseChordId = useControlsStore((state) => state.baseChordId);
+  const toggleBaseChordId = useControlsStore(
+    (state) => state.toggleBaseChordId,
+  );
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
 
   const handleValueChange = (combinedValue: string | null) => {
-    setShapeVariantLocationData(null);
-    if (combinedValue !== "") {
-      setShape(null, null);
-    }
     if (!combinedValue) {
       return;
     }
 
     const [newTuneKeyId, newBaseChordId] = combinedValue.split(":");
 
-    setBaseChordId(newBaseChordId as BaseChordId);
+    setToggleBaseChordId(newBaseChordId as BaseChordId);
     setTuneKeyId(newTuneKeyId as TuneKeyId);
   };
 
@@ -30,7 +26,9 @@ export function useBaseChordToggle() {
     setTuneKeyId(keyId);
   };
 
-  const currentCombinedValue = baseChordId ? `${tuneKeyId}:${baseChordId}` : "";
+  const currentCombinedValue = toggleBaseChordId
+    ? `${tuneKeyId}:${toggleBaseChordId}`
+    : "";
 
   return {
     currentValue: currentCombinedValue,

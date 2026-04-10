@@ -51,9 +51,9 @@ function SelectTrigger({
 function SelectContent({
   className,
   children,
-  position = "popper", // Zmieniamy domyślnie na popper
-  sideOffset = -32, // Ustawiamy -32px (zakładając h-8 triggera), aby góry się pokryły
-  align = "start", // Wyrównujemy do lewej krawędzi triggera
+  position = "popper",
+  sideOffset = -32,
+  align = "start",
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
@@ -65,7 +65,7 @@ function SelectContent({
           "data-[state=open]:animate-in data-[state=closed]:animate-out",
           "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
           "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-          // Style specyficzne dla poppera (animacje wejścia)
+
           "data-[side=bottom]:translate-y-0 data-[side=top]:-translate-y-0",
           className,
         )}
@@ -78,7 +78,7 @@ function SelectContent({
         <SelectPrimitive.Viewport
           className={cn(
             "p-0.5",
-            // Ważne: usuwamy h-[var(...available-height)], bo popper sam dba o wysokość
+
             "w-full min-w-[var(--radix-select-trigger-width)]",
           )}
         >
