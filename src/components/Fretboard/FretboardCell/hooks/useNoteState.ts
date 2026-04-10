@@ -9,6 +9,7 @@ import { useEnharmonicNoteName, useShapeRootSharpNote } from "@/hooks";
 import { useBaseChordCoordinates } from "./useBaseChordCoordinates";
 import { findMatchingBaseChordCoordinates } from "../helpers/findMatchingBaseChordCoordinates";
 import { isBaseChordNote as isBaseChordNoteFn } from "../helpers/isBaseChordNote";
+import type { Opacity } from "../parts";
 
 interface UseNoteStateProps {
   noteData: NoteObject;
@@ -71,11 +72,16 @@ export const useNoteState = ({
       baseChordCoordinates,
       shapeCoordinates,
     });
-  const isBaseChordNote = isBaseChordNoteFn({
-    matchingBaseChordCoordinates,
-    stringIndex,
-    fretIndex,
-  });
+
+  let isBaseChordNote: boolean;
+
+  if (matchingBaseChordCoordinates) {
+    isBaseChordNote = isBaseChordNoteFn({
+      matchingBaseChordCoordinates,
+      stringIndex,
+      fretIndex,
+    });
+  }
 
   const getOpacity = () => {
     const isSemiVisible = isActiveNote || isTuneNote;
@@ -88,16 +94,16 @@ export const useNoteState = ({
       isActiveLockedNotes ||
       isBaseChordNote
     )
-      return 1;
-    if (isSemiVisible) return 0.7;
-    return 0;
+      return "max";
+    if (isSemiVisible) return "medium";
+    return "min";
   };
 
   return {
     isHighlighted,
     isLockedNote,
     noteLabel: getEnharmonicNoteName(noteData),
-    opacity: getOpacity(),
+    opacity: getOpacity() as Opacity,
     matchingBaseChordCoordinates,
   };
 };

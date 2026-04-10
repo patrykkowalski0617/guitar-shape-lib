@@ -50,8 +50,10 @@ export const Fret = styled.div<{
   }}
 `;
 
+export type Opacity = "max" | "min";
+
 export const Note = styled.div<{
-  $opacity: number;
+  $opacity: Opacity;
   $isBaseChordShapeNote: boolean;
   $isHighlighted: boolean;
   $animateBaseChordDown: boolean;
@@ -65,8 +67,8 @@ export const Note = styled.div<{
   display: flex;
   justify-content: center;
   align-items: center;
-  will-change: box-shadow, opacity;
-  opacity: ${({ $opacity }) => $opacity};
+  opacity: ${({ $opacity }) =>
+    $opacity === "max" ? 1 : $opacity === "min" ? "0" : "0.7"};
   overflow: hidden;
   position: relative;
   ${({ $isBaseChordShapeNote }) => {
@@ -111,8 +113,8 @@ export const Note = styled.div<{
         animation: ${baseChordExitAnimation} 0.2s ease-out forwards;
       }
     `;
-  }}
-  
+  }} 
+    
   ${({ $isHighlighted }) => {
     if ($isHighlighted) {
       return css`
