@@ -22,7 +22,9 @@ export default function App() {
         <Section>
           <ShapeExplorerSlider />
         </Section>
-        <Sign />
+        <Section>
+          <Sign />
+        </Section>
       </MainContent>
     </AppWrapper>
   );
