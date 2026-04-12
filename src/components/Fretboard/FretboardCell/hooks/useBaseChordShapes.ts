@@ -2,7 +2,7 @@ import { BASE_CHORDS_MAP, UNIFIED_MUSIC_KEYS } from "@/data";
 import { baseChordsShapes } from "@/data/baseChordsShapes";
 import { useControlsStore } from "@/store";
 
-export const useBaseChordCoordinates = () => {
+export const useBaseChordShapes = () => {
   const baseChordId = useControlsStore((state) => state.baseChordId);
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const tuneKeyOffset = UNIFIED_MUSIC_KEYS[tuneKeyId].offsetFromC;

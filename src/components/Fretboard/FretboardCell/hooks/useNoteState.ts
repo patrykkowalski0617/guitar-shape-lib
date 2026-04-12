@@ -6,10 +6,14 @@ import { useShapeCoordinates } from "./useShapeCoordinates";
 import { isShapeNote as isShapeNoteFn } from "../helpers";
 import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
 import { useEnharmonicNoteName, useShapeRootSharpNote } from "@/hooks";
-import { useBaseChordCoordinates } from "./useBaseChordCoordinates";
-import { findMatchingBaseChordCoordinates } from "../helpers/findMatchingBaseChordCoordinates";
+import { useBaseChordShapes } from "./useBaseChordShapes";
+import {
+  findMatchingBaseChordCoordinates,
+  type MatcherParams,
+} from "../helpers/findMatchingBaseChordCoordinates";
 import { isBaseChordNote as isBaseChordNoteFn } from "../helpers/isBaseChordNote";
 import type { Opacity } from "../parts";
+import type { FretboardCoordinate } from "@/data";
 
 interface UseNoteStateProps {
   noteData: NoteObject;
@@ -38,21 +42,24 @@ export const useNoteState = ({
   const allShapesCoordinates = useShapeAllCoordinates();
   const shapeCoordinates = useShapeCoordinates(shapeVariantLocationData);
 
-  const currentCoordinates: [number, number] = [stringIndex, fretIndex];
+  const currentCoordinates: FretboardCoordinate = [stringIndex, fretIndex];
 
   const finalShapeCoordinates = shapeVariantLocationData
     ? shapeCoordinates
     : allShapesCoordinates;
   const lockedShapeCoordinates = useShapeCoordinates(
     shapeVariantLocationData_locked,
-  );
+  ) as FretboardCoordinate[];
 
   const shapeRootSharpNote = useShapeRootSharpNote();
   const isActiveNote = activeNoteId === noteData.noteId;
   const isShapeRootNote =
     shapeRootSharpNote === noteData.sharpNoteName && !isPlaying;
 
-  const isShapeNote = isShapeNoteFn(currentCoordinates, finalShapeCoordinates);
+  const isShapeNote = isShapeNoteFn(
+    currentCoordinates,
+    finalShapeCoordinates as FretboardCoordinate[],
+  );
 
   const isLockedNote = isShapeNoteFn(
     currentCoordinates,
@@ -65,13 +72,13 @@ export const useNoteState = ({
 
   const isHighlighted = isShapeNote || isActiveNote || isActiveLockedNotes;
 
-  const { baseChordCoordinates } = useBaseChordCoordinates();
+  const { baseChordCoordinates } = useBaseChordShapes();
   const matchingBaseChordCoordinates =
     shapeVariantLocationData &&
     findMatchingBaseChordCoordinates({
       baseChordCoordinates,
       shapeCoordinates,
-    });
+    } as MatcherParams);
 
   let isBaseChordNote: boolean;
 

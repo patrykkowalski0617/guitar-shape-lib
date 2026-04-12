@@ -1,25 +1,19 @@
-import type { CAGEDassigment, FretboardCoordinate } from "@/data";
+import type { BaseChordShape, FretboardCoordinate } from "@/data";
 
-export interface Shape {
-  CAGEDassigment: CAGEDassigment;
-  baseFretIndex: number;
-  coordinates: FretboardCoordinate[];
-}
-
-interface MatcherParams {
-  baseChordCoordinates: Shape[];
+export interface MatcherParams {
+  baseChordCoordinates: BaseChordShape[];
   shapeCoordinates: FretboardCoordinate[];
 }
 
 export const findMatchingBaseChordCoordinates = ({
   baseChordCoordinates,
   shapeCoordinates,
-}: MatcherParams): Shape | null => {
+}: MatcherParams): BaseChordShape | null => {
   const targetPointKeys = new Set(
     shapeCoordinates.map(([stringIdx, fretIdx]) => `${stringIdx}-${fretIdx}`),
   );
 
-  let bestMatch: Shape | null = null;
+  let bestMatch: BaseChordShape | null = null;
   let highestAccuracy = -1;
   let maxCommonPoints = -1;
 
