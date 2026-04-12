@@ -6,4 +6,5 @@ export * from "./noteNames";
 export * from "./roles";
 export * from "./scalesSemitoneTemplates";
 export * from "./shapes";
+export * from "./types";
 export * from "./UNIFIED_MUSIC_KEYS";

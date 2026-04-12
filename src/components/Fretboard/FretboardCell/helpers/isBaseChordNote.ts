@@ -1,4 +1,6 @@
-export type Shape = { coordinates: [number, number][] };
+import type { FretboardCoordinate } from "@/data";
+
+export type Shape = { coordinates: FretboardCoordinate[] };
 
 export const isBaseChordNote = ({
   matchingBaseChordCoordinates,

@@ -6,6 +6,8 @@ import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton
 import ShapeControls from "./components/ShapeControls/ShapeControls";
 import Sign from "./components/Sign/Sign";
 import ShapeExplorerSlider from "./components/ShapeExplorerSlider/ShapeExplorerSlider/ShapeExplorerSlider";
+import Piano from "./components/Piano/Piano";
+import Player from "./components/Player/Player";
 
 export default function App() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -22,6 +24,15 @@ export default function App() {
         <Section>
           <ShapeExplorerSlider />
         </Section>
+
+        {/* <Section>
+          <Player />
+        </Section>
+
+        <Section>
+          <Piano />
+        </Section> */}
+
         <Section>
           <Sign />
         </Section>

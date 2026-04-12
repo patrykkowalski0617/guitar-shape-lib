@@ -1,20 +1,20 @@
-interface Shape {
-  CAGEDassigment: string;
+import type { CAGEDassigment, FretboardCoordinate } from "@/data";
+
+export interface Shape {
+  CAGEDassigment: CAGEDassigment;
   baseFretIndex: number;
-  coordinates: [number, number][];
+  coordinates: FretboardCoordinate[];
 }
 
 interface MatcherParams {
   baseChordCoordinates: Shape[];
-  shapeCoordinates: number[][];
+  shapeCoordinates: FretboardCoordinate[];
 }
 
 export const findMatchingBaseChordCoordinates = ({
   baseChordCoordinates,
   shapeCoordinates,
 }: MatcherParams): Shape | null => {
-  if (baseChordCoordinates.length === 0) return null;
-
   const targetPointKeys = new Set(
     shapeCoordinates.map(([stringIdx, fretIdx]) => `${stringIdx}-${fretIdx}`),
   );

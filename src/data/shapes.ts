@@ -15,6 +15,7 @@ import {
   _m9,
   _M9,
 } from "./intervals";
+import type { FretboardCoordinate } from "./types";
 
 export type ShapeType = "Arpeggio" | "Scale" | "Set";
 
@@ -23,8 +24,6 @@ export interface SemitoneOffsetFromMajorTonicRoot {
   minorMode?: number[];
   bothModes?: number[];
 }
-
-export type FretboardCoordinate = [number, number];
 
 export type VariantId = `v${number}`;
 
@@ -35,9 +34,9 @@ export type StringVariants = Record<
   }
 >;
 
-export type FretboardStringId = keyof FretboardCoordinates;
+export type FretboardStringId = keyof ShapeVariants;
 
-export interface FretboardCoordinates {
+export interface ShapeVariants {
   strE: StringVariants;
   strA: StringVariants;
   strD: StringVariants;
@@ -48,7 +47,7 @@ export interface Shape {
   type: ShapeType;
   intervals: number[];
   semitoneOffsetFromMajorTonicRoot: Partial<Record<BaseChordId, number[]>>;
-  shapeVariants: FretboardCoordinates;
+  shapeVariants: ShapeVariants;
 }
 
 export interface Shapes {
