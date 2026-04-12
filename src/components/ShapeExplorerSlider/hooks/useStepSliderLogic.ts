@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useProgressStore, useMusicStore } from "@/store";
 import { toast } from "sonner";
-import { USER_LIST_MESSAGES } from "@/data/constants";
+import { USER_LIST_MESSAGES } from "@/data";
 import type { ShapeLocation } from "../helpers/getOrderedShapeLocations";
 
 interface UseStepSliderLogicProps {

@@ -1,4 +1,4 @@
-import { shapes, type Shapes, type BaseChordId } from "@/data";
+import { SHAPES, type Shapes, type BaseChordId } from "@/data";
 
 export type ShapeOption = {
   shapeId: keyof Shapes;
@@ -11,7 +11,7 @@ export const getFilteredAndFormatedShapes = (
   if (!baseChordId) return [];
 
   const filteredAndFormatedShapes: ShapeOption[] = [];
-  Object.entries(shapes).forEach(([shapeId, shape]) => {
+  Object.entries(SHAPES).forEach(([shapeId, shape]) => {
     if (!shape.semitoneOffsetFromMajorTonicRoot) return;
 
     const offsets = shape.semitoneOffsetFromMajorTonicRoot[baseChordId];

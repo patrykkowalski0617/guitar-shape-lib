@@ -8,12 +8,12 @@ export interface BaseChordShape {
   coordinates: FretboardCoordinate[];
 }
 
-export interface BaseChordsShapes {
+export interface CAGEDChordShape {
   major: BaseChordShape[];
   minor: BaseChordShape[];
 }
 
-export const baseChordsShapes: BaseChordsShapes = {
+export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
   major: [
     {
       CAGEDassigment: "C",

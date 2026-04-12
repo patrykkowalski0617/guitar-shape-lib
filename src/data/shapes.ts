@@ -1,4 +1,4 @@
-import type { BaseChordId } from "./BASE_CHORDS_MAP";
+import type { BaseChordId } from "./BASE_CHORDS";
 import {
   _1,
   _m2,
@@ -14,7 +14,7 @@ import {
   _M7,
   _m9,
   _M9,
-} from "./intervals";
+} from "./INTERVAL_SEMITONES";
 import type { FretboardCoordinate } from "./types";
 
 export type ShapeType = "Arpeggio" | "Scale" | "Set";
@@ -54,7 +54,7 @@ export interface Shapes {
   [key: string]: Shape;
 }
 
-export const shapes: Shapes = {
+export const SHAPES: Shapes = {
   M7: {
     label: "M7",
     type: "Arpeggio",

@@ -1,4 +1,4 @@
-import { shapes, type FretboardCoordinate } from "@/data";
+import { SHAPES, type FretboardCoordinate } from "@/data";
 import type { ShapeVariantLocationData } from "@/store";
 
 export const useShapeCoordinates = (
@@ -6,7 +6,7 @@ export const useShapeCoordinates = (
 ): FretboardCoordinate[] => {
   const { shapeId, stringId, fretIndex, variantId } =
     shapeVariantLocationData || {};
-  const shapeData = shapeId ? shapes[shapeId] : null;
+  const shapeData = shapeId ? SHAPES[shapeId] : null;
 
   if (!shapeData || shapeVariantLocationData === null) return [];
 

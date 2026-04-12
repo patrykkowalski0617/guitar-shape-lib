@@ -1,7 +1,15 @@
-import type { RoleId } from "./roles";
-import type { SemitoneTemplateKey } from "./scalesSemitoneTemplates";
+import type { SemitoneTemplateKey } from "./SCALE_SEMITONE_TEMPLATES";
 
-export type BaseChordId = keyof typeof BASE_CHORDS_MAP;
+export type BaseChordId = keyof typeof BASE_CHORDS;
+
+export type RoleId =
+  | "tonic"
+  | "subdominant"
+  | "mediant"
+  | "dominant"
+  | "subdominant"
+  | "dominant"
+  | "tonic";
 
 export interface BaseChordValue {
   role: RoleId;
@@ -11,7 +19,7 @@ export interface BaseChordValue {
   semitoneOffsetFromMajorScaleRoot: number;
 }
 
-export const BASE_CHORDS_MAP = {
+export const BASE_CHORDS = {
   Tonic: {
     role: "tonic",
     baseScaleName: "Ionian",

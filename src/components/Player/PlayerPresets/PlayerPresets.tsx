@@ -14,7 +14,7 @@ import {
   usePlayerStore,
   type Brick,
 } from "@/store";
-import { presets } from "@/data/presets";
+import { PRESETS } from "@/data";
 import { Button } from "@/components/ui/button";
 import { playerIconSize } from "../constants";
 import { useCloseEdit } from "../PlayerBricksControls/CloseEditButton/hooks/useCloseEdit";
@@ -68,8 +68,8 @@ export function PlayerPresets() {
         <CommandInput placeholder="Search for exercises..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Built-in presets">
-            {presets.map(({ name, bricks }) => (
+          <CommandGroup heading="Built-in PRESETS">
+            {PRESETS.map(({ name, bricks }) => (
               <CommandItem key={name} onSelect={() => handleSelect(bricks)}>
                 {name}
               </CommandItem>

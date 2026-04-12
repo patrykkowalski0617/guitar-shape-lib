@@ -1,5 +1,5 @@
 import { useControlsStore } from "@/store";
-import { shapes, type Shapes, UNIFIED_MUSIC_KEYS, type Note } from "@/data";
+import { SHAPES, type Shapes, UNIFIED_MUSIC_KEYS, type Note } from "@/data";
 import { getNotes } from "@/utils";
 import { getFilteredAndFormatedShapes } from "../helpers/getFilteredAndFormatedShapes";
 
@@ -18,7 +18,7 @@ export const useShapeOptions = () => {
 
   const options = filteredAndFormatedShapes.map(
     ({ shapeId, shapeSemitoneOffsetFromC }) => {
-      const shape = shapes[shapeId as keyof Shapes];
+      const shape = SHAPES[shapeId as keyof Shapes];
 
       const noteIndex = ((shapeSemitoneOffsetFromC % 12) + 12) % 12;
       const noteObj = relativeScale[noteIndex];

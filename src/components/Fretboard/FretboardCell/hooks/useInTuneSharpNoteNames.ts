@@ -1,5 +1,5 @@
 import { useControlsStore } from "@/store";
-import { semitoneTemplates, UNIFIED_MUSIC_KEYS } from "@/data";
+import { SCALE_SEMITONE_TEMPLATES, UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
 
 export const useInTuneSharpNoteNames = () => {
@@ -9,7 +9,7 @@ export const useInTuneSharpNoteNames = () => {
     ({ sharpNoteName }) => sharpNoteName,
   );
   const majorScaleSharpNoteNames = allSharpNoteNames.filter((_, i) =>
-    semitoneTemplates.ionianScale.includes(i),
+    SCALE_SEMITONE_TEMPLATES.ionianScale.includes(i),
   );
 
   return majorScaleSharpNoteNames;

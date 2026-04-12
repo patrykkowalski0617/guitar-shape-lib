@@ -6,7 +6,7 @@ import {
   usePlayerStore,
   type ShapeVariantLocationData,
 } from "@/store";
-import { shapes, type TuneKeyId, type RoleId, type Shapes } from "@/data";
+import { SHAPES, type TuneKeyId, type Shapes, type RoleId } from "@/data";
 import { useApplySnapshotToStore } from "./useApplySnapshotToStore";
 
 export type Snapshot = {
@@ -48,7 +48,7 @@ export function usePlayerSnapshot(
   );
   const applySnapshotToStore = useApplySnapshotToStore();
 
-  const activeShape = shapes[shapeId as keyof Shapes] || null;
+  const activeShape = SHAPES[shapeId as keyof Shapes] || null;
 
   const currentLiveState: Snapshot = useMemo(
     () => ({
