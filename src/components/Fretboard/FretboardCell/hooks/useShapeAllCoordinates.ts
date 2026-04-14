@@ -1,4 +1,4 @@
-import { shapes } from "@/data";
+import { SHAPES } from "@/data";
 import { useControlsStore } from "@/store";
 import { useShapeRootCoordinates } from "./useShapeRootCoordinates";
 
@@ -9,7 +9,7 @@ export const useShapeAllCoordinates = () => {
   const isMissingRequiredData = !shapeId || !rootsCoordinates.length;
   if (isMissingRequiredData) return [];
 
-  const currentShapeVariants = shapes[shapeId].shapeVariants;
+  const currentShapeVariants = SHAPES[shapeId].shapeVariants;
 
   type ShapeStringKey = keyof typeof currentShapeVariants;
 

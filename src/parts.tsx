@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { transitionTime } from "./data/constants";
 
 export const AppWrapper = styled.div`
   display: flex;
@@ -49,37 +48,6 @@ export const InstrumentScrollWrapper = styled.div`
       var(--background) calc(100% - 5px),
       transparent
     );
-  }
-`;
-
-export const FooterAndHeaderStyles = css<{
-  $isFullscreen: boolean;
-}>`
-  background-color: color-mix(in oklab, var(--accent) 65%, transparent);
-  max-width: unset;
-  margin: 0 auto;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  flex-shrink: 0;
-  transition:
-    max-height ${transitionTime}ms 500ms ease-in-out,
-    opacity ${transitionTime}ms 500ms ease-in-out;
-
-  @media (min-width: 1600px) {
-    max-width: 1400px;
-  }
-
-  @media (min-width: 768px) {
-    ${({ $isFullscreen }) =>
-      $isFullscreen &&
-      css`
-        flex-shrink: 1;
-        max-height: 0;
-        opacity: 0;
-      `}
   }
 `;
 

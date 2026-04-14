@@ -1,4 +1,4 @@
-import type { BaseChordId } from "./BASE_CHORDS_MAP";
+import type { BaseChordId } from "./BASE_CHORDS";
 import {
   _1,
   _m2,
@@ -14,7 +14,8 @@ import {
   _M7,
   _m9,
   _M9,
-} from "./intervals";
+} from "./INTERVAL_SEMITONES";
+import type { FretboardCoordinate } from "./types";
 
 export type ShapeType = "Arpeggio" | "Scale" | "Set";
 
@@ -23,8 +24,6 @@ export interface SemitoneOffsetFromMajorTonicRoot {
   minorMode?: number[];
   bothModes?: number[];
 }
-
-export type FretboardCoordinate = [number, number];
 
 export type VariantId = `v${number}`;
 
@@ -35,9 +34,9 @@ export type StringVariants = Record<
   }
 >;
 
-export type FretboardStringId = keyof FretboardCoordinates;
+export type FretboardStringId = keyof ShapeVariants;
 
-export interface FretboardCoordinates {
+export interface ShapeVariants {
   strE: StringVariants;
   strA: StringVariants;
   strD: StringVariants;
@@ -48,14 +47,14 @@ export interface Shape {
   type: ShapeType;
   intervals: number[];
   semitoneOffsetFromMajorTonicRoot: Partial<Record<BaseChordId, number[]>>;
-  shapeVariants: FretboardCoordinates;
+  shapeVariants: ShapeVariants;
 }
 
 export interface Shapes {
   [key: string]: Shape;
 }
 
-export const shapes: Shapes = {
+export const SHAPES: Shapes = {
   M7: {
     label: "M7",
     type: "Arpeggio",
@@ -1216,7 +1215,7 @@ export const shapes: Shapes = {
       strD: {
         v1: {
           // prettier-ignore
-          coordinates: [[5, -4],[5, -1],[5, 0],[4, -3],[4, -2],[3, 0],[3, 1],[3, 4],[2, 0],[2, 2],[2, 3],[1, 1],[1, 3],[1, 4],[0, 2],[0, 3],[0, 5]],
+          coordinates: [[5, -1],[5, 1],[5, 3],[4, 0],[4, 1],[4, 3],[3, 0],[3, 1],[3, 4],[2, 0],[2, 2],[2, 3],[1, 1],[1, 3],[1, 4],[0, 2],[0, 3],[0, 5]],
         },
       },
     },

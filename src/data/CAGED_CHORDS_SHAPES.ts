@@ -1,4 +1,19 @@
-export const baseChordsShapes = {
+import type { FretboardCoordinate } from "@/data";
+
+export type CAGEDassigment = "C" | "A" | "G" | "E" | "D";
+
+export interface BaseChordShape {
+  CAGEDassigment: CAGEDassigment;
+  baseFretIndex: number;
+  coordinates: FretboardCoordinate[];
+}
+
+export interface CAGEDChordShape {
+  major: BaseChordShape[];
+  minor: BaseChordShape[];
+}
+
+export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
   major: [
     {
       CAGEDassigment: "C",

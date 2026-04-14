@@ -1,12 +1,12 @@
-import { shapes } from "@/data";
+import { SHAPES, type FretboardCoordinate } from "@/data";
 import type { ShapeVariantLocationData } from "@/store";
 
 export const useShapeCoordinates = (
   shapeVariantLocationData: ShapeVariantLocationData | null,
-) => {
+): FretboardCoordinate[] => {
   const { shapeId, stringId, fretIndex, variantId } =
     shapeVariantLocationData || {};
-  const shapeData = shapeId ? shapes[shapeId] : null;
+  const shapeData = shapeId ? SHAPES[shapeId] : null;
 
   if (!shapeData || shapeVariantLocationData === null) return [];
 
@@ -19,7 +19,9 @@ export const useShapeCoordinates = (
     ];
 
   const shapeCoordinates =
-    variantCoordinates.coordinates?.map(([s, f]) => [s, f + fretIndex]) || [];
+    variantCoordinates.coordinates?.map(
+      ([s, f]) => [s, f + fretIndex] as FretboardCoordinate,
+    ) || [];
 
   return shapeCoordinates;
 };

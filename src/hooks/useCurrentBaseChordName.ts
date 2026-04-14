@@ -1,4 +1,4 @@
-import { BASE_CHORDS_MAP, UNIFIED_MUSIC_KEYS } from "@/data";
+import { BASE_CHORDS, UNIFIED_MUSIC_KEYS } from "@/data";
 import { useControlsStore } from "@/store";
 import { getNotes } from "@/utils";
 import { useEnharmonicNoteName } from "./useEnharmonicNoteName";
@@ -8,7 +8,7 @@ export const useCurrentBaseChordName = () => {
   const baseChordId = useControlsStore((state) => state.baseChordId);
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const currentBaseChordData =
-    BASE_CHORDS_MAP[baseChordId as keyof typeof BASE_CHORDS_MAP];
+    BASE_CHORDS[baseChordId as keyof typeof BASE_CHORDS];
 
   if (!currentBaseChordData) return "";
 

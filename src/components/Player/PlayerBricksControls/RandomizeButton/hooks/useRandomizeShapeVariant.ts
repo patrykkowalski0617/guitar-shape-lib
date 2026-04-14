@@ -5,7 +5,7 @@ import {
 import { STRING_ID_MAP } from "@/components/Fretboard/helpers/constants";
 import { useMusicStore } from "@/store";
 import {
-  shapes,
+  SHAPES,
   type FretboardStringId,
   type Note,
   type VariantId,
@@ -44,7 +44,7 @@ export const getRandomFret = (
     .filter((index): index is number => index !== null);
 
   const validFrets = allPotentialFrets.filter((fIdx) => {
-    const variants = shapes[shapeId].shapeVariants?.[stringId];
+    const variants = SHAPES[shapeId].shapeVariants?.[stringId];
 
     if (!variants) return false;
     return getValidVariants(fIdx, variants).length > 0;
@@ -59,7 +59,7 @@ export const getRandomVariantId = (
   stringId: FretboardStringId,
   fretIndex: number,
 ) => {
-  const allVariants = shapes[shapeId].shapeVariants?.[stringId];
+  const allVariants = SHAPES[shapeId].shapeVariants?.[stringId];
 
   if (!allVariants) return null;
 

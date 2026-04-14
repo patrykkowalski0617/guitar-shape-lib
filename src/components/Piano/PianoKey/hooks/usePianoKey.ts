@@ -1,4 +1,4 @@
-import { NOTES_SHARP, semitoneTemplates } from "@/data";
+import { NOTES_SHARP, SCALE_SEMITONE_TEMPLATES } from "@/data";
 import { type NoteObject } from "@/utils";
 import { useControlsStore, useMusicStore } from "@/store";
 import { useScaleLogic } from "../../hooks";
@@ -18,7 +18,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
 
   const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
   const isWhitePianoKey =
-    semitoneTemplates.ionianScale.includes(noteOctaveIndex);
+    SCALE_SEMITONE_TEMPLATES.ionianScale.includes(noteOctaveIndex);
   const pianoKeyShape = SHAPES_OF_WHITE_PIANO_KEYS[noteOctaveIndex];
 
   const isRoleSelected = !!baseChordId;

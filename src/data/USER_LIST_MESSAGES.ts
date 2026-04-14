@@ -3,5 +3,3 @@ export const USER_LIST_MESSAGES = {
   ADDED: "Added to your collection.",
   REMOVED: "Removed from your collection.",
 };
-
-export const transitionTime = 250;

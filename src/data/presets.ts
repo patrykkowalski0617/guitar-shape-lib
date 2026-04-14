@@ -5,7 +5,7 @@ interface Preset {
   bricks: Brick[];
 }
 
-export const presets: Preset[] = [
+export const PRESETS: Preset[] = [
   {
     name: "Key C: 8 CM7 | 4 FM7 | 4 G7",
     bricks: [

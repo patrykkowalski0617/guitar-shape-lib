@@ -1,5 +1,5 @@
 import {
-  shapes,
+  SHAPES,
   type FretboardStringId,
   type Note,
   type VariantId,
@@ -28,7 +28,7 @@ export const getOrderedShapeLocations = (
   if (!shapeId || !rootNoteName) return [];
 
   const locations: ShapeLocation[] = [];
-  const shapeData = shapes[shapeId as keyof typeof shapes];
+  const shapeData = SHAPES[shapeId as keyof typeof SHAPES];
   const stringIndices = [5, 4, 3, 2, 1, 0];
 
   for (let fIdx = 0; fIdx < numberOfFrets; fIdx++) {

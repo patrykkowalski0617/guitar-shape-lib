@@ -1,10 +1,14 @@
-export const isShapeNote = (
-  coords: [number, number],
-  notesInSapeCoordinates: number[][],
-): boolean => {
-  const [stringIndex, fretIndex] = coords;
+import type { FretboardCoordinate } from "@/data";
 
-  return notesInSapeCoordinates.some(
-    ([shapeS, shapeF]) => shapeS === stringIndex && shapeF === fretIndex,
+export const isShapeNote = (
+  currentCoordinates: FretboardCoordinate,
+  shapeCoordinates: FretboardCoordinate[],
+): boolean => {
+  const [currentStringIndex, currentFretIndex] = currentCoordinates;
+
+  return shapeCoordinates.some(
+    ([shapeStringIndex, shapeFretIndex]) =>
+      shapeStringIndex === currentStringIndex &&
+      shapeFretIndex === currentFretIndex,
   );
 };

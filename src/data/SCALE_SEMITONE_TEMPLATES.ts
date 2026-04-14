@@ -1,4 +1,15 @@
-import { _1, _4, _5, _M2, _m3, _M3, _m6, _M6, _m7, _M7 } from "./intervals";
+import {
+  _1,
+  _4,
+  _5,
+  _M2,
+  _m3,
+  _M3,
+  _m6,
+  _M6,
+  _m7,
+  _M7,
+} from "./INTERVAL_SEMITONES";
 
 type SemitoneScale = number[];
 
@@ -14,7 +25,7 @@ export const harmonicMinorScale: SemitoneScale = [
   _M7,
 ];
 
-export const semitoneTemplates: Record<string, SemitoneScale> = {
+export const SCALE_SEMITONE_TEMPLATES: Record<string, SemitoneScale> = {
   ionianScale: [_1, _M2, _M3, _4, _5, _M6, _M7],
   dorianScale: [_1, _M2, _M3, _4, _5, _M6, _M7],
   phrygianScale: [_1, _M2, _M3, _4, _5, _M6, _M7],
@@ -24,4 +35,4 @@ export const semitoneTemplates: Record<string, SemitoneScale> = {
   aeolianScale: [_1, _M2, _M3, _4, _5, _M6, _M7],
 } as const;
 
-export type SemitoneTemplateKey = keyof typeof semitoneTemplates;
+export type SemitoneTemplateKey = keyof typeof SCALE_SEMITONE_TEMPLATES;
