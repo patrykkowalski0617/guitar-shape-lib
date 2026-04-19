@@ -5,7 +5,6 @@ import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
 import { useNoteState } from "./hooks";
 import { useControlsStore, useMusicStore } from "@/store";
-import { isBaseChordNote } from "./helpers/isBaseChordNote";
 
 interface FretboardCellProps {
   noteData: NoteObject;
@@ -25,6 +24,7 @@ export default function FretboardCell({
   const {
     isLockedNote,
     isHighlighted,
+    isBaseChordNote,
     opacity,
     noteLabel,
     matchingBaseChordCoordinates,
@@ -55,12 +55,7 @@ export default function FretboardCell({
         <S.Note
           $opacity={opacity}
           $isHighlighted={isHighlighted}
-          $isBaseChordShapeNote={isBaseChordNote({
-            matchingBaseChordCoordinates:
-              matchingBaseChordCoordinates ?? undefined,
-            stringIndex,
-            fretIndex,
-          })}
+          $isBaseChordShapeNote={isBaseChordNote}
           key={animationTrigger}
           $animateBaseChordDown={isShapeSliderHold}
         >

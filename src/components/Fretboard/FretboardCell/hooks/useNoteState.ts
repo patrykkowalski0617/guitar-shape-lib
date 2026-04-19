@@ -80,7 +80,7 @@ export const useNoteState = ({
       shapeCoordinates,
     } as MatcherParams);
 
-  let isBaseChordNote: boolean;
+  let isBaseChordNote: boolean = false;
 
   if (matchingBaseChordCoordinates) {
     isBaseChordNote = isBaseChordNoteFn({
@@ -109,6 +109,7 @@ export const useNoteState = ({
   return {
     isHighlighted,
     isLockedNote,
+    isBaseChordNote,
     noteLabel: getEnharmonicNoteName(noteData),
     opacity: getOpacity() as Opacity,
     matchingBaseChordCoordinates,
