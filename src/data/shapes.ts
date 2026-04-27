@@ -709,9 +709,10 @@ export const SHAPES: Shapes = {
     type: "Scale",
     intervals: [_1, _m3, _4, _5, _m7],
     semitoneOffsetFromMajorTonicRoot: {
-      Tonic: [_M6],
+      Tonic: [_M6, _M3],
       tonic: [_M6],
       subdomi: [_M2],
+      Subdomi: [_M6],
       Domi: [_5, _M3],
       mediant: [_M3],
     },
