@@ -40,8 +40,8 @@ export const CleanButton = () => {
 
   return (
     <P.Wrapper>
-      <Button className="min-w-[70px] rounded-sm  h-8" onClick={handleClick}>
-        <BrushCleaning size={22} color="var(--warn)" />
+      <Button onClick={handleClick}>
+        <BrushCleaning size={20} color="var(--warn)" />
       </Button>
     </P.Wrapper>
   );

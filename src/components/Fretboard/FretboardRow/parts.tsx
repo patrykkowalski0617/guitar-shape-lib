@@ -10,14 +10,14 @@ export const FretboardRow = styled.div`
     content: "";
     position: absolute;
     height: 1px;
-    left: 10px;
-    right: -10px;
+    left: 5px;
+    right: -25px;
     top: 50%;
     transform: translateY(-50%);
     display: block;
     background: color-mix(in oklab, var(--foreground) 80%, var(--background));
     box-shadow: 0px 3px 2px 0px var(--background);
-    z-index: 15;
+    z-index: 17;
   }
   &:nth-child(4),
   &:nth-child(5),
@@ -33,7 +33,7 @@ export const FretboardRow = styled.div`
       content: "";
       background-color: ${appBgColor};
       height: 24px;
-      right: -10px;
+      right: -15px;
       left: 10px;
       z-index: 16;
       position: absolute;
@@ -51,7 +51,7 @@ export const FretboardRow = styled.div`
     &::after {
       bottom: -15px;
       border-top: 1px solid
-        color-mix(in oklab, var(--foreground) 10%, var(--background));
+        color-mix(in oklab, var(--foreground) 5%, var(--background));
     }
   }
 

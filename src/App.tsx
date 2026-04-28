@@ -5,9 +5,10 @@ import { Toaster } from "@/components/ui/sonner";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
 import ShapeControls from "./components/ShapeControls/ShapeControls";
 import Sign from "./components/Sign/Sign";
-import ShapeExplorerSlider from "./components/ShapeExplorerSlider/ShapeExplorerSlider/ShapeExplorerSlider";
+import ShapeExplorerSlider from "./components/ShapeControls/ShapeExplorerSlider/ShapeExplorerSlider/ShapeExplorerSlider";
 import Player from "./components/Player/Player";
 import { CleanButton } from "./components/ShapeControls/CleanButton/CleanButton";
+import { AddBrickButton } from "./components/ShapeControls/AddBrickButton/AddBrickButton";
 
 export default function App() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -22,8 +23,9 @@ export default function App() {
           <Fretboard />
         </Section>
         <Section>
-          <div className="flex justify-center items-center">
+          <div className="flex justify-center items-center gap-5">
             <CleanButton />
+            <AddBrickButton />
             <ShapeExplorerSlider />
           </div>
         </Section>

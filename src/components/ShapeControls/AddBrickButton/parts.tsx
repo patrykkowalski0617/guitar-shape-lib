@@ -1,14 +1,5 @@
-import styled, { keyframes } from "styled-components";
-import { shapeExplorerCommon } from "../constants";
-
-const opacityAnimation = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
+import styled from "styled-components";
+import { opacityAnimation, shapeExplorerCommon } from "../constants";
 
 export const Wrapper = styled.div`
   opacity: 0;
@@ -18,11 +9,11 @@ export const Wrapper = styled.div`
   width: 40px;
   animation: ${opacityAnimation} 0.3s 0.4s ease-in-out forwards;
   svg {
-    filter: drop-shadow(0px 0px 4px var(--warn));
+    filter: drop-shadow(0px 0px 4px var(--secondary));
   }
   &:hover {
     svg {
-      filter: drop-shadow(0px 0px 0px var(--warn));
+      filter: drop-shadow(0px 0px 0px var(--secondary));
       opacity: 0.9;
     }
   }

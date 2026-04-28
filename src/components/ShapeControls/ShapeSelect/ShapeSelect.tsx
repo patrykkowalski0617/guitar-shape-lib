@@ -55,7 +55,10 @@ export default function ShapeSelect() {
       onOpenChange={setIsShapeSelectOpen}
     >
       <SelectContent
-        style={{ boxShadow: "15px 15px 20px 5px var(--background)" }}
+        style={{
+          boxShadow: "15px 15px 20px 5px var(--background)",
+          marginTop: 10,
+        }}
       >
         <div className="text-center py-1 text-xs text-muted-foreground">
           Choose a shape to practice over the {selectedChordLabel} chord

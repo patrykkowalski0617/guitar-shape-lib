@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
+import { shapeExplorerCommon } from "../../constants";
 
 const highlightAnimation = keyframes`
   0% { 
@@ -71,6 +72,7 @@ export const ShapeExplorerWrapper = styled.div<{ $isDisabled: boolean }>`
   transform: translateX(calc(25px / -2));
   padding: 0 5px;
   opacity: 0;
+  ${shapeExplorerCommon}
   ${({ $isDisabled }) => {
     if ($isDisabled) return;
     return css`

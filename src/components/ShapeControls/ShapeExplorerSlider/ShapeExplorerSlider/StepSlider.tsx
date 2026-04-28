@@ -24,7 +24,7 @@ export function StepSlider({
   const { effectiveMax, highlightedId, handleToggleAction, clearHighlight } =
     useStepSliderLogic({ value, options });
 
-  const thumbSize = 30;
+  const thumbSize = 28;
 
   const hasNoOptions = options.length === 0;
   const sliderMax = hasNoOptions ? 1 : effectiveMax;
@@ -45,8 +45,10 @@ export function StepSlider({
       {...props}
     >
       <SliderPrimitive.Track
-        className="relative grow h-0.5 w-full bg-muted/50 rounded-full"
-        style={{ margin: `0 ${thumbSize / 2}px` }}
+        className="relative grow h-[3px] w-full bg-background/70 rounded-full"
+        style={{
+          margin: `0 ${thumbSize / 2}px`,
+        }}
       >
         <StepSliderTicks
           options={options}
@@ -61,13 +63,19 @@ export function StepSlider({
       <SliderPrimitive.Thumb
         onDoubleClick={handleToggleAction}
         className={cn(
-          "block rounded-full border-5 shadow-lg border-border",
-          "cursor-grab active:cursor-grabbing hover:scale-120 transition-transform",
+          "block rounded-full border-3 shadow-lg border-accent",
+          "cursor-grab active:cursor-grabbing hover:scale-110 transition-transform",
           "data-[disabled]:border-border data-[disabled]:scale-100 data-[disabled]:cursor-default",
           "focus:outline-none focus:ring-0 focus-visible:ring-2",
           "focus-visible:ring-accent/70",
         )}
-        style={{ width: thumbSize, height: thumbSize }}
+        style={{
+          width: thumbSize,
+          height: thumbSize,
+          boxShadow: `2px 2px 8px 2px var(--background), 
+          0px 0px 2px 1px #b86cfb inset
+          `,
+        }}
       />
     </SliderPrimitive.Root>
   );

@@ -42,6 +42,7 @@ export function StepSliderTicks({
 
   return (
     <>
+      <Tick key={0} $opacityAnimationDuration={opacityAnimationDuration} />
       {options.map((option, index) => {
         const stepNumber = index + 1;
         const isUserStep = userListIndexes.includes(stepNumber);

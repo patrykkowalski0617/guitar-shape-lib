@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { fretboardRPadding } from "./components/Fretboard/parts";
 
 export const appBgColor = `color-mix(in oklab, var(--muted) 15%, var(--background))`;
 
@@ -7,7 +6,7 @@ export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
+  min-height: 100vh;
   background-color: ${appBgColor};
 `;
 

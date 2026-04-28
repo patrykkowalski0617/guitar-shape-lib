@@ -3,7 +3,6 @@ import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { usePlayerBricksDrag } from "./hooks/usePlayerBricksDrag";
 import { RandomizeButton } from "../PlayerBricksControls/RandomizeButton/RandomizeButton";
-import { AddBrickButton } from "../PlayerBricksControls/AddBrickButton/AddBrickButton";
 import { RemoveBrickButton } from "../PlayerBricksControls/DeleteActiveBrick/RemoveBrickButton";
 import { CloseEditButton } from "../PlayerBricksControls/CloseEditButton/CloseEditButton";
 
@@ -48,7 +47,6 @@ export const PlayerBricksContainer = () => {
       })}
 
       <S.ControlsWrapper>
-        <AddBrickButton />
         <RemoveBrickButton />
         <CloseEditButton />
         {isContainerEmpty && <RandomizeButton />}

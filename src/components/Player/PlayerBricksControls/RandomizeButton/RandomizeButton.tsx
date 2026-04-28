@@ -5,10 +5,10 @@ import {
   useRandomizeShape,
   useRandomizeShapeVariant,
 } from "./hooks";
-import { useAddBrick } from "../AddBrickButton/hooks/useAddBrick";
 import { useMusicStore, usePlayerStore } from "@/store";
 import { Button } from "@/components/ui/button";
 import { playerIconSize } from "@/components/Player/constants";
+import { useAddBrick } from "@/components/ShapeControls/AddBrickButton/hooks/useAddBrick";
 
 export function RandomizeButton() {
   const { setRandomKey } = useRandomizeKey();
