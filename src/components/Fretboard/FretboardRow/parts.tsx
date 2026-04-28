@@ -83,7 +83,7 @@ export const FretboardRow = styled.div`
     &::before {
       height: 8px;
       border-radius: 3px 3px 0 0;
-      box-shadow: 0 2px 2px 1px var(--background) inset;
+      box-shadow: 0 2px 3px 1px var(--background) inset;
     }
   }
   &:nth-child(6) > :first-child {

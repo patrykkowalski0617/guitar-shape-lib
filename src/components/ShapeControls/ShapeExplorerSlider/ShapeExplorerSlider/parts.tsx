@@ -39,7 +39,7 @@ export const Tick = styled.div<{
   border-radius: 50%;
   background: ${({ $isUserList }) =>
     $isUserList
-      ? "radial-gradient(circle,var(--secondary) 0%, var(--foreground) 100%)"
+      ? "radial-gradient(circle,var(--foreground) 0%, var(--secondary) 100%)"
       : "radial-gradient(circle,var(--accent) 0%, var(--muted) 100%)"};
 
   box-shadow: ${({ $isUserList }) =>
