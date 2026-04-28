@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
 import { Separator } from "../Separator";
+import { extendedChordNamesMap } from "./constants";
 
 interface Props {
   activeGroup: any;
@@ -21,7 +22,7 @@ export function BaseChordCollapsedView({
       <Button
         variant="active"
         onClick={onExpand}
-        className="rounded-r-none rounded-l-sm min-w-[70px]"
+        className="rounded-r-none rounded-l-sm"
         style={{ boxShadow: "5px 5px 10px 0px var(--background)" }}
       >
         {activeGroup.label}
@@ -45,7 +46,7 @@ export function BaseChordCollapsedView({
                 isLastInRow && "border-r !rounded-r-sm",
               )}
             >
-              {item.chordName}
+              {`${item.chordName}${extendedChordNamesMap[idx]}`}
             </ToggleGroupItem>
           );
         })}

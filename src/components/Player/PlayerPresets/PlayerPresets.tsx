@@ -18,6 +18,7 @@ import { PRESETS } from "@/data";
 import { Button } from "@/components/ui/button";
 import { playerIconSize } from "../constants";
 import { useCloseEdit } from "../PlayerBricksControls/CloseEditButton/hooks/useCloseEdit";
+import { PlayerElementWrapper } from "../parts";
 
 export function PlayerPresets() {
   const [open, setOpen] = useState(false);
@@ -57,13 +58,16 @@ export function PlayerPresets() {
 
   return (
     <>
-      <Button
-        variant={"playerOutline"}
-        onClick={handleClick}
-        disabled={isPlaying}
-      >
-        <FolderOpen size={playerIconSize} />
-      </Button>
+      <PlayerElementWrapper>
+        <Button
+          variant={"playerOutline"}
+          onClick={handleClick}
+          disabled={isPlaying}
+        >
+          <FolderOpen size={playerIconSize} />
+        </Button>
+      </PlayerElementWrapper>
+
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Search for exercises..." />
         <CommandList>

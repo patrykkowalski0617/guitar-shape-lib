@@ -40,3 +40,7 @@ export const PlayerSection = styled.div`
     flex: 0 0 0;
   }
 `;
+
+export const PlayerElementWrapper = styled.div`
+  box-shadow: 3px 3px 4px 1px var(--background);
+`;

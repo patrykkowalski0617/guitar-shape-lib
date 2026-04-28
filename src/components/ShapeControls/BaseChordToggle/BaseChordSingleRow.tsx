@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
 import { Separator } from "../Separator";
+import { extendedChordNamesMap } from "./constants";
 
 interface Props {
   group: any;
@@ -46,7 +47,7 @@ export function BaseChordSingleRow({
         onValueChange={onSelectChord}
         className="max-w-none flex-1"
       >
-        {group.chords.map((item: any) => (
+        {group.chords.map((item: any, idx: number) => (
           <ToggleGroupItem
             key={item.combinedId}
             value={item.combinedId}
@@ -55,7 +56,7 @@ export function BaseChordSingleRow({
               isLastRow && "border-b-0",
             )}
           >
-            {item.chordName}
+            {`${item.chordName}${extendedChordNamesMap[idx]}`}
           </ToggleGroupItem>
         ))}
       </ToggleGroup>

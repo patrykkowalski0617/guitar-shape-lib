@@ -5,6 +5,7 @@ import { usePlayerStore } from "@/store";
 import { useWakeLock } from "@/hooks";
 import { playerIconSize } from "../../constants";
 import { useCloseEdit } from "@/components/Player/PlayerBricksControls/CloseEditButton/hooks/useCloseEdit";
+import { PlayerElementWrapper } from "../../parts";
 
 export const PlayButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -28,29 +29,31 @@ export const PlayButton = () => {
   };
 
   return (
-    <S.PlayButton
-      variant={"playerSolid"}
-      $isPlaying={isPlaying}
-      onClick={handleClick}
-      $bpm={bpm}
-    >
-      {isCountingIn ? (
-        countIn
-      ) : isPlaying ? (
-        <Square
-          size={playerIconSize}
-          fill="currentColor"
-          stroke="var(--background)"
-          strokeWidth={1}
-        />
-      ) : (
-        <Play
-          size={playerIconSize}
-          fill="currentColor"
-          stroke="var(--background)"
-          strokeWidth={1}
-        />
-      )}
-    </S.PlayButton>
+    <PlayerElementWrapper>
+      <S.PlayButton
+        variant={"playerSolid"}
+        $isPlaying={isPlaying}
+        onClick={handleClick}
+        $bpm={bpm}
+      >
+        {isCountingIn ? (
+          countIn
+        ) : isPlaying ? (
+          <Square
+            size={playerIconSize}
+            fill="currentColor"
+            stroke="var(--background)"
+            strokeWidth={1}
+          />
+        ) : (
+          <Play
+            size={playerIconSize}
+            fill="currentColor"
+            stroke="var(--background)"
+            strokeWidth={1}
+          />
+        )}
+      </S.PlayButton>
+    </PlayerElementWrapper>
   );
 };

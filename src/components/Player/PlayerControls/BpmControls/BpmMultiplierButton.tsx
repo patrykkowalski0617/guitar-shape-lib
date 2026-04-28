@@ -1,6 +1,7 @@
 import { useState } from "react";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
+import { PlayerElementWrapper } from "../../parts";
 
 export const BpmMultiplierButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -14,8 +15,10 @@ export const BpmMultiplierButton = () => {
   };
 
   return (
-    <S.BpmButton disabled={isPlaying} onClick={handleClick}>
-      {count} x
-    </S.BpmButton>
+    <PlayerElementWrapper>
+      <S.BpmButton disabled={isPlaying} onClick={handleClick}>
+        {count} x
+      </S.BpmButton>
+    </PlayerElementWrapper>
   );
 };

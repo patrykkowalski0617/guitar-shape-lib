@@ -3,6 +3,7 @@ import { BrushCleaning } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { playerIconSize } from "../../constants";
 import { useCleanBricks } from "../../hooks";
+import { PlayerElementWrapper } from "../../parts";
 
 export const CleanButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -11,12 +12,14 @@ export const CleanButton = () => {
   const handleClick = cleanBricks;
 
   return (
-    <Button
-      variant={"playerOutlineWarn"}
-      disabled={isPlaying}
-      onClick={handleClick}
-    >
-      <BrushCleaning size={playerIconSize} />
-    </Button>
+    <PlayerElementWrapper>
+      <Button
+        variant={"playerOutlineWarn"}
+        disabled={isPlaying}
+        onClick={handleClick}
+      >
+        <BrushCleaning size={playerIconSize} />
+      </Button>
+    </PlayerElementWrapper>
   );
 };
