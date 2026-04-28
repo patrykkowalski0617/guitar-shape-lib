@@ -1,10 +1,14 @@
 import styled, { css } from "styled-components";
+import { fretboardRPadding } from "./components/Fretboard/parts";
+
+export const appBgColor = `color-mix(in oklab, var(--muted) 15%, var(--background))`;
 
 export const AppWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100vh;
+  background-color: ${appBgColor};
 `;
 
 export const MainContent = styled.main`
@@ -17,7 +21,7 @@ export const MainContent = styled.main`
 `;
 
 const SectionCommonCss = css`
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   @media (min-width: 1024px) {
     margin-bottom: 30px;
   }
@@ -39,7 +43,9 @@ export const InstrumentScrollWrapper = styled.div`
   overflow-x: auto;
   scrollbar-width: none;
   position: relative;
-  border-radius: var(--radius-lg);
+  margin: 0 -10px;
+  margin-bottom: -20px;
+  z-index: 2;
   @media (max-width: 1400px) {
     mask-image: linear-gradient(
       to right,

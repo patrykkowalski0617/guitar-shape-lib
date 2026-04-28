@@ -11,7 +11,7 @@ export const RemoveBrickButton = () => {
   }
 
   return (
-    <Button variant={"playerOutlinePrimary"} onClick={removeActiveBrick}>
+    <Button variant={"playerOutlineWarn"} onClick={removeActiveBrick}>
       <Trash2 size={playerIconSize} />
     </Button>
   );

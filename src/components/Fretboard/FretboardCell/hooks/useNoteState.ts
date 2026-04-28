@@ -91,18 +91,18 @@ export const useNoteState = ({
   }
 
   const getOpacity = () => {
-    const isSemiVisible = isActiveNote || isTuneNote;
-    const isVisibleInGeneralMode = !shapeId && isSemiVisible;
-    const isVisibleInSelectionMode = isShapeNote || isShapeRootNote;
+    const isVisibleInGeneralMode = !shapeId && isActiveNote;
+    const isVisibleInSelectionMode = shapeId && isShapeNote;
 
     if (
-      isVisibleInSelectionMode ||
-      isVisibleInGeneralMode ||
-      isActiveLockedNotes ||
-      isBaseChordNote
+      (isVisibleInSelectionMode ||
+        isVisibleInGeneralMode ||
+        isActiveLockedNotes ||
+        isBaseChordNote ||
+        (isTuneNote && !shapeId)) &&
+      isHighlighted
     )
       return "max";
-    if (isSemiVisible) return "medium";
     return "min";
   };
 

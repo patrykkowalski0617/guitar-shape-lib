@@ -24,7 +24,7 @@ export function StepSlider({
   const { effectiveMax, highlightedId, handleToggleAction, clearHighlight } =
     useStepSliderLogic({ value, options });
 
-  const thumbSize = 25;
+  const thumbSize = 30;
 
   const hasNoOptions = options.length === 0;
   const sliderMax = hasNoOptions ? 1 : effectiveMax;
@@ -61,9 +61,9 @@ export function StepSlider({
       <SliderPrimitive.Thumb
         onDoubleClick={handleToggleAction}
         className={cn(
-          "block rounded-full border-2 shadow-lg border-primary",
+          "block rounded-full border-5 shadow-lg border-border",
           "cursor-grab active:cursor-grabbing hover:scale-120 transition-transform",
-          "data-[disabled]:border-primary/35 data-[disabled]:scale-100 data-[disabled]:cursor-default",
+          "data-[disabled]:border-border data-[disabled]:scale-100 data-[disabled]:cursor-default",
           "focus:outline-none focus:ring-0 focus-visible:ring-2",
           "focus-visible:ring-accent/70",
         )}

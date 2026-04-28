@@ -1,45 +1,70 @@
-import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
-import styled, { css, keyframes } from "styled-components";
-
-const regularBgColor = `color-mix(in oklab, var(--accent) 10%, transparent)`;
-
-const baseChordExitAnimation = keyframes`
-  from{
-    height: 10px;
-  }
-  to{
-    height: 1px;
-  }
-`;
-
-const baseChordEntryAnimation = keyframes`
-  0%{
-    transform: scale(1);
-  }
-  50%{
-    transform: scale(1.3);
-  }
-  100%{
-    transform: scale(1);
-  }
-`;
+import styled, { css } from "styled-components";
 
 export const FretWrapper = styled.div`
   position: relative;
   flex: 1 1 0;
-  width: 0;
-  height: 28px;
-  @media (min-width: 1024px) {
-    height: 32px;
+  height: 32px;
+  padding: 1px 7px;
+  &::before {
+    content: "";
+    box-shadow: 4px 0px 2px 1px
+      color-mix(in oklab, var(--background) 50%, transparent);
+    height: 100%;
+    width: 3px;
+    background: linear-gradient(
+      90deg,
+      var(--foreground) 0%,
+      var(--border) 30%,
+      var(--border) 100%
+    );
+    position: absolute;
+    right: -1.5px;
   }
-  padding: 2px;
 `;
+
+export type Opacity = "max" | "min";
 
 export const Fret = styled.div<{
   $isLockedNote: boolean;
+  $isBaseChordShapeNote: boolean;
+  $opacity: Opacity;
 }>`
   height: 100%;
-  border-radius: ${instrumentElBRadius};
+  width: 100%;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 32;
+
+  &::before {
+    content: "";
+    transform: scale(1.1);
+    z-index: 32;
+    position: absolute;
+    inset: 0;
+    transition:
+      opacity 0.1s ease-out,
+      transform 0.2s ease-out;
+    border-radius: 12px;
+    opacity: 0;
+  }
+  ${({ $isBaseChordShapeNote }) => {
+    if (!$isBaseChordShapeNote) return null;
+    return css`
+      &::before {
+        opacity: 1;
+        transform: scale(1);
+        background: color-mix(in oklab, var(--muted) 80%, var(--background));
+        box-shadow: 5px 5px 3px 0px
+          color-mix(in oklab, var(--background) 70%, transparent);
+        border: 1px solid
+          color-mix(in oklab, var(--foreground) 20%, transparent);
+      }
+    `;
+  }}
+
   ${({ $isLockedNote }) => {
     if (!$isLockedNote) return null;
 
@@ -50,81 +75,33 @@ export const Fret = styled.div<{
   }}
 `;
 
-export type Opacity = "max" | "min";
-
 export const Note = styled.div<{
-  $opacity: Opacity;
-  $isBaseChordShapeNote: boolean;
-  $isHighlighted: boolean;
   $animateBaseChordDown: boolean;
+  $opacity: Opacity;
 }>`
-  background-color: ${regularBgColor};
-  border-width: 1px;
-  border-style: solid;
-  border-color: color-mix(in oklab, var(--border) 55%, transparent);
-  border-radius: ${instrumentElBRadius};
-  height: 100%;
+  transition:
+    opacity 0.1s ease-out,
+    transform 0.2s ease-out;
+  opacity: 0;
+  transform: scale(1.2);
+  ${({ $opacity }) => {
+    if ($opacity === "min") return null;
+    return css`
+      opacity: 1;
+      transform: scale(1);
+    `;
+  }}
+  background: var(--foreground);
+  box-shadow: 3px 3px 3px 0px
+    color-mix(in oklab, var(--background) 70%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  height: 25px;
+  width: 25px;
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: ${({ $opacity }) =>
-    $opacity === "max" ? 1 : $opacity === "min" ? "0" : "0.7"};
   overflow: hidden;
   position: relative;
-  ${({ $isBaseChordShapeNote }) => {
-    if (!$isBaseChordShapeNote) return null;
-    const markupColor = `color-mix(in oklab, var(--primary) 100%, transparent)`;
-    const deg = 25;
-    const space = 6;
-    const size = 14;
-    const layers = 3;
-
-    return css`
-      animation: ${baseChordEntryAnimation} 0.3s linear forwards;
-      &::before,
-      &::after {
-        content: "";
-        height: ${size}px;
-        width: 65px;
-        background: ${markupColor};
-        position: absolute;
-        z-index: 30;
-        box-shadow: ${Array.from({ length: layers })
-          .map(
-            (_, i) => `
-            0px ${space * i}px 0px ${markupColor},
-            0px -${space * i}px 0px ${markupColor}`,
-          )
-          .join(", ")};
-      }
-      &::before {
-        transform: rotate(${deg}deg);
-      }
-      &::after {
-        transform: rotate(-${deg}deg);
-      }
-    `;
-  }}
-  ${({ $animateBaseChordDown }) => {
-    if ($animateBaseChordDown) return null;
-    return css`
-      &::before,
-      &::after {
-        animation: ${baseChordExitAnimation} 0.2s ease-out forwards;
-      }
-    `;
-  }} 
-    
-  ${({ $isHighlighted }) => {
-    if ($isHighlighted) {
-      return css`
-        background-color: color-mix(in oklab, var(--accent) 50%, transparent);
-        border-color: var(--secondary);
-        box-shadow: inset 0 0px 8px 0px var(--accent);
-        @media (min-width: 1024px) {
-          border-width: 3px;
-        }
-      `;
-    }
-  }}
+  z-index: 52;
 `;

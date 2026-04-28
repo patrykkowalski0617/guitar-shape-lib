@@ -58,6 +58,9 @@ export default function BaseChordToggle() {
   return (
     <div className="relative w-full" data-chord-area="true">
       <div className="relative w-full h-8">
+        <div className="absolute w-full top-[-27px]">
+          <BaseChordLabel />
+        </div>
         <AnimatePresence>
           {isExpanded ? (
             <BaseChordExpandedList
@@ -78,9 +81,6 @@ export default function BaseChordToggle() {
             />
           )}
         </AnimatePresence>
-        <div className="absolute w-full bottom-[-27px]">
-          <BaseChordLabel />
-        </div>
       </div>
     </div>
   );

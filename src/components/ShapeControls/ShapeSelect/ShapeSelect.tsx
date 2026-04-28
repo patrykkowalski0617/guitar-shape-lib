@@ -3,8 +3,6 @@ import {
   Select,
   SelectContent,
   SelectItem,
-  SelectTrigger,
-  SelectValue,
 } from "@/components/ui/custom-select";
 import { useShapeSelection } from "./hooks/useShapeSelection";
 import { useSortedShapeOptions } from "./hooks/useSortedShapeOptions";
@@ -49,8 +47,6 @@ export default function ShapeSelect() {
     }
   }, [isShapeSelectOpen, currentShapeValue, baseChordId, setToggleBaseChordId]);
 
-  const isSelectDisabled = !options;
-
   return (
     <Select
       value={currentShapeValue ?? ""}
@@ -58,11 +54,9 @@ export default function ShapeSelect() {
       open={isShapeSelectOpen}
       onOpenChange={setIsShapeSelectOpen}
     >
-      <SelectTrigger disabled={isSelectDisabled}>
-        <SelectValue options={options} />{" "}
-        <span className="opacity-50">over {selectedChordLabel}</span>
-      </SelectTrigger>
-      <SelectContent style={{ boxShadow: "0 0 30px -20px #6c6c6cb7" }}>
+      <SelectContent
+        style={{ boxShadow: "15px 15px 20px 5px var(--background)" }}
+      >
         <div className="text-center py-1 text-xs text-muted-foreground">
           Choose a shape to practice over the {selectedChordLabel} chord
         </div>

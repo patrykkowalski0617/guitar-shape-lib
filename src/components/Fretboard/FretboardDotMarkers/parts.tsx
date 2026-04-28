@@ -1,4 +1,15 @@
 import styled, { css } from "styled-components";
+import { fretboardRPadding } from "../parts";
+
+export const FretboardDotMarkers = styled.div`
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  transform: translateY(-100%);
+  padding-right: ${fretboardRPadding};
+  display: flex;
+  flex-direction: row;
+`;
 
 export const Marker = styled.div<{
   $singleDot?: boolean;
@@ -10,34 +21,25 @@ export const Marker = styled.div<{
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 25px;
+  transform: translateY(50%);
   font-size: 12px;
   font-weight: 800;
   color: var(--border);
-  user-select: none;
-  z-index: 20;
-
   &::before,
   &::after {
-    content: "";
-    position: absolute;
-    top: 12px;
-    transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    border: 1px solid var(--background);
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background-color: var(--primary);
-    display: none;
     box-shadow:
-      0 0 8px 0 var(--primary),
-      0 0 4px 0 var(--primary);
+      0 0 3px 0 var(--background) inset,
+      0 0 1px 0 var(--background) inset;
   }
   ${({ $singleDot }) =>
     $singleDot &&
     css`
       &::before {
-        display: block;
+        content: "";
       }
     `}
 
@@ -45,12 +47,12 @@ export const Marker = styled.div<{
     $doubleDot &&
     css`
       &::before {
-        display: block;
-        transform: translate(-7px, -50%);
+        content: "";
+        transform: translateY(-24px);
       }
       &::after {
-        display: block;
-        transform: translate(7px, -50%);
+        content: "";
+        transform: translateY(24px);
       }
     `}
 `;

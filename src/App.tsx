@@ -7,6 +7,7 @@ import ShapeControls from "./components/ShapeControls/ShapeControls";
 import Sign from "./components/Sign/Sign";
 import ShapeExplorerSlider from "./components/ShapeExplorerSlider/ShapeExplorerSlider/ShapeExplorerSlider";
 import Player from "./components/Player/Player";
+import { CleanButton } from "./components/ShapeControls/CleanButton/CleanButton";
 
 export default function App() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -21,7 +22,10 @@ export default function App() {
           <Fretboard />
         </Section>
         <Section>
-          <ShapeExplorerSlider />
+          <div className="flex justify-center items-center">
+            <CleanButton />
+            <ShapeExplorerSlider />
+          </div>
         </Section>
 
         <Section>

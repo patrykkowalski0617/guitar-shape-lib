@@ -22,6 +22,7 @@ export function BaseChordCollapsedView({
         variant="active"
         onClick={onExpand}
         className="rounded-r-none rounded-l-sm min-w-[70px]"
+        style={{ boxShadow: "5px 5px 10px 0px var(--background)" }}
       >
         {activeGroup.label}
       </Button>
@@ -31,6 +32,7 @@ export function BaseChordCollapsedView({
         value={currentValue}
         onValueChange={onSelectChord}
         className="max-w-none flex-1"
+        style={{ boxShadow: "5px 5px 10px 0px var(--background)" }}
       >
         {activeGroup.chords.map((item: any, idx: number) => {
           const isLastInRow = idx === activeGroup.chords.length - 1;

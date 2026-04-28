@@ -36,13 +36,12 @@ export const CleanButton = () => {
     setToggleBaseChordId(null);
   };
 
+  if (!isVisible) return null;
+
   return (
-    <P.Wrapper $isVisible={isVisible}>
-      <Button
-        className="min-w-[70px] rounded-sm bg-background h-8"
-        onClick={handleClick}
-      >
-        <BrushCleaning size={18} color="var(--primary)" />
+    <P.Wrapper>
+      <Button className="min-w-[70px] rounded-sm  h-8" onClick={handleClick}>
+        <BrushCleaning size={22} color="var(--warn)" />
       </Button>
     </P.Wrapper>
   );

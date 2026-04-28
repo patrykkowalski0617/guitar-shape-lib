@@ -68,6 +68,7 @@ export const useShapeExplorerLogic = () => {
   };
 
   return {
+    shapeId,
     options,
     sliderValue,
     userListIndexes,

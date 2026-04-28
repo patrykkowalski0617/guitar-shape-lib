@@ -4,6 +4,7 @@ import { StepSlider } from "./StepSlider";
 
 export default function ShapeExplorerSlider() {
   const {
+    shapeId,
     options,
     sliderValue,
     userListIndexes,
@@ -14,18 +15,20 @@ export default function ShapeExplorerSlider() {
   } = useShapeExplorerLogic();
 
   return (
-    <S.ShapeExplorerWrapper>
-      <StepSlider
-        key={isDisabled ? "disabled" : "enabled"}
-        value={sliderValue}
-        options={options}
-        step={1}
-        userListIndexes={userListIndexes}
-        onValueChange={handleValueChange}
-        disabled={isDisabled}
-        onPointerDown={handleMouseDown}
-        onPointerUp={handleMouseUp}
-      />
-    </S.ShapeExplorerWrapper>
+    shapeId && (
+      <S.ShapeExplorerWrapper>
+        <StepSlider
+          key={isDisabled ? "disabled" : "enabled"}
+          value={sliderValue}
+          options={options}
+          step={1}
+          userListIndexes={userListIndexes}
+          onValueChange={handleValueChange}
+          disabled={isDisabled}
+          onPointerDown={handleMouseDown}
+          onPointerUp={handleMouseUp}
+        />
+      </S.ShapeExplorerWrapper>
+    )
   );
 }

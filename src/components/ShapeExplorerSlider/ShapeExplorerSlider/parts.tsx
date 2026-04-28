@@ -6,7 +6,7 @@ const highlightAnimation = keyframes`
     box-shadow: 0 0 0 0px transparent;
   }
   50% { 
-    transform: translate(-50%, -50%) scale(1.4);
+    transform: translate(-50%, -50%) scale(1.2);
     box-shadow: 0 0 8px 4px var(--secondary);
   }
   100% { 
@@ -33,16 +33,18 @@ export const Tick = styled.div<{
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 6px;
-  height: 6px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background-color: ${({ $isUserList }) =>
+  background: ${({ $isUserList }) =>
     $isUserList
-      ? "var(--secondary)"
-      : "color-mix(in oklab, var(--muted) 80%, var(--foreground))"};
+      ? "radial-gradient(circle,var(--secondary) 0%, var(--foreground) 100%)"
+      : "radial-gradient(circle,var(--accent) 0%, var(--muted) 100%)"};
 
   box-shadow: ${({ $isUserList }) =>
-    $isUserList ? "0 0 8px var(--secondary)" : "none"};
+    $isUserList
+      ? "0 0 8px var(--secondary), 0 0 12px var(--secondary)"
+      : "2px 2px 8px 2px var(--background)"};
   ${({
     $isHighlighted,
     $isOpacityAnimationLocked,
@@ -64,15 +66,18 @@ export const Tick = styled.div<{
 `;
 
 export const ShapeExplorerWrapper = styled.div<{ $isDisabled: boolean }>`
-  margin: 0 auto;
   max-width: 0px;
   transition: 0.5s;
   transform: translateX(calc(25px / -2));
+  padding: 0 5px;
+  opacity: 0;
   ${({ $isDisabled }) => {
     if ($isDisabled) return;
     return css`
       transform: none;
       max-width: 430px;
+      flex: 1;
+      opacity: 1;
     `;
   }}
 `;

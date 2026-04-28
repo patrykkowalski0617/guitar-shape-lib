@@ -12,7 +12,7 @@ export const CleanButton = () => {
 
   return (
     <Button
-      variant={"playerOutlinePrimary"}
+      variant={"playerOutlineWarn"}
       disabled={isPlaying}
       onClick={handleClick}
     >

@@ -21,18 +21,12 @@ export default function FretboardCell({
     noteData,
   });
 
-  const {
-    isLockedNote,
-    isHighlighted,
-    isBaseChordNote,
-    opacity,
-    noteLabel,
-    matchingBaseChordCoordinates,
-  } = useNoteState({
-    noteData,
-    stringIndex,
-    fretIndex,
-  });
+  const { isLockedNote, isHighlighted, isBaseChordNote, opacity, noteLabel } =
+    useNoteState({
+      noteData,
+      stringIndex,
+      fretIndex,
+    });
 
   const setActiveLockedNotes = useMusicStore(
     (state) => state.setActiveLockedNotes,
@@ -40,8 +34,6 @@ export default function FretboardCell({
   const isShapeSliderHold = useControlsStore(
     (state) => state.isShapeSliderHold,
   );
-
-  const animationTrigger = matchingBaseChordCoordinates?.CAGEDassigment;
 
   return (
     <S.FretWrapper
@@ -51,14 +43,13 @@ export default function FretboardCell({
         setActiveLockedNotes(noteData.noteId);
       }}
     >
-      <S.Fret $isLockedNote={isLockedNote} data-fret={fretIndex}>
-        <S.Note
-          $opacity={opacity}
-          $isHighlighted={isHighlighted}
-          $isBaseChordShapeNote={isBaseChordNote}
-          key={animationTrigger}
-          $animateBaseChordDown={isShapeSliderHold}
-        >
+      <S.Fret
+        $isLockedNote={isLockedNote}
+        data-fret={fretIndex}
+        $isBaseChordShapeNote={isBaseChordNote}
+        $opacity={opacity}
+      >
+        <S.Note $animateBaseChordDown={isShapeSliderHold} $opacity={opacity}>
           <NoteLabel
             isHighlighted={isHighlighted}
             variant="fretboard"

@@ -27,9 +27,9 @@ const buttonVariants = cva(
           "h-[30px] w-[35px] font-bold border border-accent-foreground",
           "bg-background hover:bg-muted/5 text-accent-foreground",
         ),
-        playerOutlinePrimary: cn(
-          "h-[30px] w-[35px] font-bold border-2 border-primary",
-          "bg-background hover:bg-muted/5 text-primary",
+        playerOutlineWarn: cn(
+          "h-[30px] w-[35px] font-bold border-2 border-warn",
+          "bg-background hover:bg-muted/5 text-warn",
         ),
         playerSolid: cn(
           "h-[30px] w-[35px] font-bold border-none",

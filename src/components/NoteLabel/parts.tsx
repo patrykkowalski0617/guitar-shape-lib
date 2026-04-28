@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 import type { Variant } from "./NoteLabel";
 import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
 
-const highlightedColor = "var(--foreground)";
 const unHighlightedColor = "var(--border)";
 
 export const Note = styled.div`
@@ -10,7 +9,7 @@ export const Note = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: bold;
   box-shadow: 0 0 8px var(--background);
   position: absolute;
@@ -39,7 +38,7 @@ export const NoteWrapper = styled.div<{
       }
     `}
 
-  ${({ $variant, $isHighlighted }) =>
+  ${({ $variant }) =>
     $variant === "fretboard" &&
     css`
       display: flex;
@@ -47,9 +46,10 @@ export const NoteWrapper = styled.div<{
       justify-content: center;
       flex-direction: row;
       ${Note} {
-        color: ${$isHighlighted ? highlightedColor : unHighlightedColor};
-        height: 15px;
-        width: 30px;
+        background: transparent;
+        color: var(--background);
+        height: 100%;
+        width: 100%;
         border-radius: 4px;
       }
     `}
