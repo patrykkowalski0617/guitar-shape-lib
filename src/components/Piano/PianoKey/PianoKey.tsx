@@ -5,6 +5,7 @@ import { usePianoKey } from "./hooks/usePianoKey";
 import { useEnharmonicNoteName } from "@/hooks";
 import { WhiteKeyJustifyContainer } from "./parts/whiteKeys";
 import { useMusicStore } from "@/store/useMusicStore";
+import { BlacKeyJustifyContainer } from "./parts/blackKeys";
 
 interface PianoKeyProps {
   note: NoteObject;
@@ -21,14 +22,14 @@ const PianoKey = ({ note }: PianoKeyProps) => {
   const {
     isWhitePianoKey,
     pianoKeyShape,
-    isHighlighted,
+    isVisible,
     isRoleNote,
     isShapeSelected,
   } = visualState;
 
   const label = (
     <NoteLabel
-      isHighlighted={isHighlighted || activeLockedNotes.includes(note.noteId)}
+      isVisible={isVisible || activeLockedNotes.includes(note.noteId)}
       variant="piano"
       noteLabel={getEnharmonicNoteName(note)}
     />
@@ -49,16 +50,14 @@ const PianoKey = ({ note }: PianoKeyProps) => {
         $isShapeSelected={isShapeSelected}
         $isWhitePianoKey={isWhitePianoKey}
         $pianoKeyShape={pianoKeyShape}
-        $isHighlighted={
-          isHighlighted || activeLockedNotes.includes(note.noteId)
-        }
+        $isVisible={isVisible || activeLockedNotes.includes(note.noteId)}
         $isRoleNote={isRoleNote}
         //
       ></S.Key>
       {isWhitePianoKey ? (
         <WhiteKeyJustifyContainer>{label}</WhiteKeyJustifyContainer>
       ) : (
-        label
+        <BlacKeyJustifyContainer>{label}</BlacKeyJustifyContainer>
       )}
     </S.KeyWrapper>
   );

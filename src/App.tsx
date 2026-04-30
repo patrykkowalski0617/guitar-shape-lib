@@ -5,10 +5,10 @@ import { Toaster } from "@/components/ui/sonner";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
 import ShapeControls from "./components/ShapeControls/ShapeControls";
 import Sign from "./components/Sign/Sign";
-import ShapeExplorerSlider from "./components/ShapeControls/ShapeExplorerSlider/ShapeExplorerSlider/ShapeExplorerSlider";
+import ShapeExplorerSlider from "./components/ShapeControls/ShapeExplorer/ShapeExplorerSlider/ShapeExplorerSlider";
 import Player from "./components/Player/Player";
-import { CleanButton } from "./components/ShapeControls/CleanButton/CleanButton";
-import { AddBrickButton } from "./components/ShapeControls/AddBrickButton/AddBrickButton";
+import { CleanButton } from "./components/ShapeControls/ShapeExplorer/CleanButton/CleanButton";
+import { AddBrickButton } from "./components/ShapeControls/ShapeExplorer/AddBrickButton/AddBrickButton";
 import Piano from "./components/Piano/Piano";
 
 export default function App() {
@@ -25,9 +25,9 @@ export default function App() {
         </Section>
         <Section>
           <div className="flex justify-center items-center gap-5">
+            <ShapeExplorerSlider />
             <CleanButton />
             <AddBrickButton />
-            <ShapeExplorerSlider />
           </div>
         </Section>
 

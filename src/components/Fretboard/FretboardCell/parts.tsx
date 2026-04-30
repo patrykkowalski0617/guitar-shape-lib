@@ -22,12 +22,9 @@ export const FretWrapper = styled.div`
   }
 `;
 
-export type Opacity = "max" | "min";
-
 export const Fret = styled.div<{
   $isLockedNote: boolean;
   $isBaseChordShapeNote: boolean;
-  $opacity: Opacity;
 }>`
   height: 100%;
   width: 100%;
@@ -46,7 +43,7 @@ export const Fret = styled.div<{
     inset: 0;
     transition:
       opacity 0.1s ease-out,
-      transform 0.2s ease-out;
+      transform 0.1s ease-out;
     border-radius: 12px;
     opacity: 0;
   }
@@ -77,15 +74,15 @@ export const Fret = styled.div<{
 
 export const Note = styled.div<{
   $animateBaseChordDown: boolean;
-  $opacity: Opacity;
+  $isVisible: boolean;
 }>`
   transition:
     opacity 0.1s ease-out,
-    transform 0.2s ease-out;
+    transform 0.1s ease-out;
   opacity: 0;
   transform: scale(1.2);
-  ${({ $opacity }) => {
-    if ($opacity === "min") return null;
+  ${({ $isVisible }) => {
+    if (!$isVisible) return null;
     return css`
       opacity: 1;
       transform: scale(1);

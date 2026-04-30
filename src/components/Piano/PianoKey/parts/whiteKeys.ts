@@ -177,7 +177,6 @@ export const whiteKeyCommon = css`
   outline: 1px solid
     color-mix(in oklab, var(--fretboard) 70%, var(--background));
   outline-offset: -1px;
-  margin: 0 ${keysGap}px;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   height: 140px;
   overflow: hidden;
@@ -194,4 +193,5 @@ export const whiteKeyCommon = css`
 
 export const whiteWrapperKeyCommon = css`
   position: relative;
+  padding: 0 ${keysGap}px 0 0;
 `;

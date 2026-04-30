@@ -1,6 +1,21 @@
 import styled, { css } from "styled-components";
 
-export const appBgColor = `color-mix(in oklab, var(--muted) 20%, var(--background))`;
+export const appBgColor = `color-mix(in oklab, var(--muted) 40%, var(--background))`;
+
+export const insetShadow = css`
+  box-shadow:
+    3px 3px 4px 1px color-mix(in oklab, var(--background) 90%, transparent)
+      inset,
+    -1px -1px 1px 0px color-mix(in oklab, var(--foreground) 30%, transparent)
+      inset,
+    3px 3px 5px 0px color-mix(in oklab, var(--background) 50%, transparent),
+    -1px -1px 7px 0px color-mix(in oklab, var(--foreground) 8%, transparent);
+  background: linear-gradient(
+    342deg,
+    color-mix(in oklab, ${appBgColor} 85%, var(--background)) 0%,
+    color-mix(in oklab, ${appBgColor} 65%, var(--background)) 100%
+  );
+`;
 
 export const AppWrapper = styled.div`
   display: flex;

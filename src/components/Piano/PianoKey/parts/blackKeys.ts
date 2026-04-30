@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import styled, { css } from "styled-components";
 import {
   blackKeyH,
   blackKeyW,
@@ -8,6 +8,12 @@ import {
   tripleBlackKeysOffset,
 } from "./constants";
 import { transition, type BlackKeyTypes } from "../../constants";
+
+export const BlacKeyJustifyContainer = styled.div`
+  position: absolute;
+  top: 0;
+  z-index: 20;
+`;
 
 export const blackKeysStyles: Partial<
   Record<BlackKeyTypes, ReturnType<typeof css>>
@@ -26,8 +32,34 @@ export const blackKeysStyles: Partial<
   `,
 };
 
+export const blackKeysWrapperStyles: Partial<
+  Record<BlackKeyTypes, ReturnType<typeof css>>
+> = {
+  "C#": css`
+    ${BlacKeyJustifyContainer} {
+      transform: translateX(-${doubleBlackKeysOffset}px);
+    }
+  `,
+  "D#": css`
+    ${BlacKeyJustifyContainer} {
+      transform: translateX(${doubleBlackKeysOffset}px);
+    }
+  `,
+  "F#": css`
+    ${BlacKeyJustifyContainer} {
+      transform: translateX(-${tripleBlackKeysOffset}px);
+    }
+  `,
+  "A#": css`
+    ${BlacKeyJustifyContainer} {
+      transform: translateX(${tripleBlackKeysOffset}px);
+    }
+  `,
+};
+
 export const blackKeyCommon = css`
   ${commonStyleForKeyBase}
+
   background-color: var(--background);
   height: calc(${blackKeyH}px - 1px);
   z-index: 10;

@@ -14,7 +14,11 @@ export const FretboardNumericMarkers = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  background: color-mix(in oklab, var(--muted) 25%, var(--background));
+  background-image: linear-gradient(
+    -90deg,
+    color-mix(in oklab, var(--muted) 30%, var(--background)) 0%,
+    color-mix(in oklab, var(--muted) 35%, var(--background)) 100%
+  );
   box-shadow:
     -1px -1px 1px 0px color-mix(in oklab, var(--foreground) 6%, transparent),
     1px 1px 2px 0px color-mix(in oklab, var(--background) 80%, transparent);

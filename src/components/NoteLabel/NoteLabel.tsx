@@ -4,18 +4,18 @@ import * as S from "./parts";
 export type Variant = "fretboard" | "piano";
 
 interface NoteLabelProps {
-  isHighlighted?: boolean;
+  isVisible?: boolean;
   variant: Variant;
   noteLabel: string;
 }
 
 export default function NoteLabel({
-  isHighlighted = false,
+  isVisible = false,
   variant,
   noteLabel,
 }: NoteLabelProps): JSX.Element {
   return (
-    <S.NoteWrapper $isHighlighted={isHighlighted} $variant={variant}>
+    <S.NoteWrapper $isVisible={isVisible} $variant={variant}>
       <S.Note>{noteLabel}</S.Note>
     </S.NoteWrapper>
   );

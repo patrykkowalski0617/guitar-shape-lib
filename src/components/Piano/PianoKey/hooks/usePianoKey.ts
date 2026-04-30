@@ -39,7 +39,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
     visualState: {
       isWhitePianoKey,
       pianoKeyShape,
-      isHighlighted: isActiveNote || isShapeNote,
+      isVisible: isActiveNote || isShapeNote,
       isRoleNote,
       isShapeSelected: !!shapeId,
     },

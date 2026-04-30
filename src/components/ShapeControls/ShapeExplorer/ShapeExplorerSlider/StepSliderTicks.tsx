@@ -46,17 +46,16 @@ export function StepSliderTicks({
       {options.map((option, index) => {
         const stepNumber = index + 1;
         const isUserStep = userListIndexes.includes(stepNumber);
-        const isHighlighted =
-          highlightedId !== null && option.id === highlightedId;
+        const isVisible = highlightedId !== null && option.id === highlightedId;
 
         return (
           <Tick
             key={option.id + index}
             $isUserList={isUserStep}
-            $isHighlighted={isHighlighted}
+            $isVisible={isVisible}
             $isOpacityAnimationLocked={isOpacityAnimationLocked}
             $opacityAnimationDuration={opacityAnimationDuration}
-            onAnimationEnd={isHighlighted ? onHighlightEnd : undefined}
+            onAnimationEnd={isVisible ? onHighlightEnd : undefined}
             style={{ left: `${calculateTickPosition(stepNumber)}%` }}
           />
         );

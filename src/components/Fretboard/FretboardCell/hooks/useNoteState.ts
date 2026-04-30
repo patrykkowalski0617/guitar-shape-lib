@@ -1,7 +1,6 @@
-import { useControlsStore, useMusicStore } from "@/store";
+import { useMusicStore } from "@/store";
 import { type NoteObject } from "@/utils";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
-import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
 import { useShapeCoordinates } from "./useShapeCoordinates";
 import { isShapeNote as isShapeNoteFn } from "../helpers";
 import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
@@ -12,7 +11,6 @@ import {
   type MatcherParams,
 } from "../helpers/findMatchingBaseChordCoordinates";
 import { isBaseChordNote as isBaseChordNoteFn } from "../helpers/isBaseChordNote";
-import type { Opacity } from "../parts";
 import type { FretboardCoordinate } from "@/data";
 
 interface UseNoteStateProps {
@@ -26,9 +24,7 @@ export const useNoteState = ({
   stringIndex,
   fretIndex,
 }: UseNoteStateProps) => {
-  const shapeId = useControlsStore((state) => state.shapeId);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
-  // const isPlaying = usePlayerStore((state) => state.isPlaying);
   const shapeVariantLocationData = useMusicStore(
     (state) => state.shapeVariantLocationData,
   );
@@ -51,26 +47,23 @@ export const useNoteState = ({
     shapeVariantLocationData_locked,
   ) as FretboardCoordinate[];
 
-  // const shapeRootSharpNote = useShapeRootSharpNote();
   const isActiveNote = activeNoteId === noteData.noteId;
-  // const isShapeRootNote =
-  //   shapeRootSharpNote === noteData.sharpNoteName && !isPlaying;
 
   const isShapeNote = isShapeNoteFn(
     currentCoordinates,
     finalShapeCoordinates as FretboardCoordinate[],
   );
 
+  if (isShapeNote) {
+    console.log(noteData.noteId);
+  }
+
   const isLockedNote = isShapeNoteFn(
     currentCoordinates,
     lockedShapeCoordinates,
   );
 
-  const isTuneNote = useInTuneSharpNoteNames().includes(noteData.sharpNoteName);
-
   const isActiveLockedNotes = activeLockedNotes.includes(noteData.noteId);
-
-  const isHighlighted = isShapeNote || isActiveNote || isActiveLockedNotes;
 
   const { baseChordCoordinates } = useBaseChordShapes();
   const matchingBaseChordCoordinates =
@@ -90,28 +83,11 @@ export const useNoteState = ({
     });
   }
 
-  const getOpacity = () => {
-    const isVisibleInGeneralMode = !shapeId && isActiveNote;
-    const isVisibleInSelectionMode = shapeId && isShapeNote;
-
-    if (
-      (isVisibleInSelectionMode ||
-        isVisibleInGeneralMode ||
-        isActiveLockedNotes ||
-        isBaseChordNote ||
-        (isTuneNote && !shapeId)) &&
-      isHighlighted
-    )
-      return "max";
-    return "min";
-  };
-
   return {
-    isHighlighted,
+    isVisible: isShapeNote || isActiveNote || isActiveLockedNotes,
     isLockedNote,
     isBaseChordNote,
     noteLabel: getEnharmonicNoteName(noteData),
-    opacity: getOpacity() as Opacity,
     matchingBaseChordCoordinates,
   };
 };

@@ -15,7 +15,7 @@ export const ShapeExplorerWrapper = styled.div`
 
 export const Tick = styled.div<{
   $isUserList: boolean;
-  $isHighlighted: boolean;
+  $isVisible: boolean;
 }>`
   flex: 1 1 0;
   height: 100%;

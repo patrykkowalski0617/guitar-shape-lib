@@ -24,15 +24,14 @@ export function StepSliderTicks({
       {options.map((option, index) => {
         const stepNumber = index + 1;
         const isUserStep = userListIndexes.includes(stepNumber);
-        const isHighlighted =
-          highlightedId !== null && option.id === highlightedId;
+        const isVisible = highlightedId !== null && option.id === highlightedId;
 
         return (
           <Tick
             key={option.id + index}
             $isUserList={isUserStep}
-            $isHighlighted={isHighlighted}
-            onAnimationEnd={isHighlighted ? onHighlightEnd : undefined}
+            $isVisible={isVisible}
+            onAnimationEnd={isVisible ? onHighlightEnd : undefined}
             style={{ left: `${calculateTickPosition(stepNumber)}%` }}
           />
         );

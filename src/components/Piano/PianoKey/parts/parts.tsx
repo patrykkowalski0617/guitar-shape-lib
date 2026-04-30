@@ -10,6 +10,7 @@ import {
 import {
   blackKeyCommon,
   blackKeysStyles,
+  blackKeysWrapperStyles,
   blackKeyWrapperCommon,
 } from "./blackKeys";
 import type { BlackKeyTypes, KeyTypes, WhiteKeyTypes } from "../../constants";
@@ -18,14 +19,14 @@ export const Key = styled.div<{
   $isShapeSelected: boolean;
   $isWhitePianoKey: boolean;
   $pianoKeyShape?: KeyTypes;
-  $isHighlighted: boolean;
+  $isVisible: boolean;
   $isRoleNote: boolean;
 }>`
   position: relative;
 
-  ${({ $isHighlighted, $pianoKeyShape }) =>
+  ${({ $isVisible, $pianoKeyShape }) =>
     getKeyHighlight({
-      isHighlighted: $isHighlighted,
+      isVisible: $isVisible,
       pianoKeyShape: $pianoKeyShape,
     })}
 
@@ -42,9 +43,12 @@ export const KeyWrapper = styled.div<{
   $pianoKeyShape?: KeyTypes;
 }>`
   flex: 1 1 0;
-
+  position: relative;
   ${({ $pianoKeyShape }) =>
     $pianoKeyShape && whiteKeyWrapperStyles[$pianoKeyShape as WhiteKeyTypes]}
+
+  ${({ $pianoKeyShape }) =>
+    $pianoKeyShape && blackKeysWrapperStyles[$pianoKeyShape as BlackKeyTypes]}
 
   ${({ $isWhitePianoKey }) =>
     $isWhitePianoKey ? whiteWrapperKeyCommon : blackKeyWrapperCommon}

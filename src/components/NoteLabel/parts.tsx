@@ -15,15 +15,19 @@ export const Note = styled.div`
 `;
 
 export const NoteWrapper = styled.div<{
-  $isHighlighted: boolean;
+  $isVisible: boolean;
   $variant: Variant;
 }>`
-  ${({ $variant, $isHighlighted }) =>
+  ${({ $variant, $isVisible }) =>
     $variant === "piano" &&
     css`
       position: relative;
       z-index: 40;
-      opacity: ${$isHighlighted ? "1" : "0"};
+      opacity: ${$isVisible ? "1" : "0"};
+      transform: ${$isVisible ? "scale(1)" : "scale(1.1)"};
+      transition:
+        opacity 0.1s ease-out,
+        transform 0.1s ease-out;
       ${Note} {
         border-radius: ${instrumentElBRadius};
         width: 22px;
@@ -32,7 +36,7 @@ export const NoteWrapper = styled.div<{
         top: 10px;
         transform: translateX(-50%);
         background-color: var(--foreground);
-        box-shadow: 3px 3px 10px 3px var(--background);
+        box-shadow: 2px 2px 5px 2px var(--background);
         border: 1px solid var(--border);
       }
     `}

@@ -8,7 +8,7 @@ import {
 import { useMusicStore, usePlayerStore } from "@/store";
 import { Button } from "@/components/ui/button";
 import { playerIconSize } from "@/components/Player/constants";
-import { useAddBrick } from "@/components/ShapeControls/AddBrickButton/hooks/useAddBrick";
+import { useAddBrick } from "@/components/ShapeControls/ShapeExplorer/AddBrickButton/hooks/useAddBrick";
 import { PlayerElementWrapper } from "../../parts";
 
 export function RandomizeButton() {

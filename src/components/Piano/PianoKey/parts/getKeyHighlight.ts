@@ -4,7 +4,7 @@ import type { KeyTypes } from "../../constants";
 export type HighlightType = "secondary" | "accent";
 
 export interface KeyHighlightProps {
-  isHighlighted: boolean;
+  isVisible: boolean;
   pianoKeyShape: KeyTypes | undefined;
 }
 
@@ -26,7 +26,7 @@ export const generateRandomRadialGradient = () => {
 };
 
 export const getKeyHighlight = ({
-  isHighlighted = false,
+  isVisible = false,
   pianoKeyShape,
 }: KeyHighlightProps) => {
   const whiteKeyShadowSize = 5;
@@ -110,20 +110,26 @@ export const getKeyHighlight = ({
     ? keySpecificStyles[pianoKeyShape]
     : "";
 
-  const activeStyle = css`
-    transform: scale(0.95);
-    opacity: 0.95;
-    border-color: red;
-    background: radial-gradient(
-      circle,
-      rgba(63, 94, 251, 0.5) 0%,
-      rgba(252, 70, 107, 0.5) 100%
-    );
-    ${activeShapeStyle}
-    &::before,
-    &::after {
-      border-color: var(--muted);
-    }
+  const activeStyle = css<{ $isWhitePianoKey: boolean }>`
+    ${({ $isWhitePianoKey }) => {
+      const scaleValue = $isWhitePianoKey ? "scale(0.95)" : "none";
+
+      return css`
+        transform: ${scaleValue};
+        opacity: 0.95;
+        border-color: red;
+        background: radial-gradient(
+          circle,
+          rgba(63, 94, 251, 0.5) 0%,
+          rgba(252, 70, 107, 0.5) 100%
+        );
+        ${activeShapeStyle}
+        &::before,
+      &::after {
+          border-color: var(--muted);
+        }
+      `;
+    }}
   `;
 
   const standardStyle = css`
@@ -134,5 +140,5 @@ export const getKeyHighlight = ({
     }
   `;
 
-  return isHighlighted ? activeStyle : standardStyle;
+  return isVisible ? activeStyle : standardStyle;
 };

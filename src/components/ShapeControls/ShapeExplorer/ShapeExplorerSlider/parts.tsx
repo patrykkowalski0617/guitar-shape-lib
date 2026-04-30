@@ -27,7 +27,7 @@ const tickOpacity = keyframes`
 
 export const Tick = styled.div<{
   $isUserList?: boolean;
-  $isHighlighted?: boolean;
+  $isVisible?: boolean;
   $isOpacityAnimationLocked?: boolean;
   $opacityAnimationDuration: number;
 }>`
@@ -46,12 +46,8 @@ export const Tick = styled.div<{
     $isUserList
       ? "0 0 8px var(--secondary), 0 0 12px var(--secondary)"
       : "2px 2px 8px 2px var(--background)"};
-  ${({
-    $isHighlighted,
-    $isOpacityAnimationLocked,
-    $opacityAnimationDuration,
-  }) => {
-    if ($isHighlighted) {
+  ${({ $isVisible, $isOpacityAnimationLocked, $opacityAnimationDuration }) => {
+    if ($isVisible) {
       return css`
         animation: ${highlightAnimation} 0.6s ease-in-out forwards;
         z-index: 10;

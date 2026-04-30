@@ -21,12 +21,11 @@ export default function FretboardCell({
     noteData,
   });
 
-  const { isLockedNote, isHighlighted, isBaseChordNote, opacity, noteLabel } =
-    useNoteState({
-      noteData,
-      stringIndex,
-      fretIndex,
-    });
+  const { isLockedNote, isVisible, isBaseChordNote, noteLabel } = useNoteState({
+    noteData,
+    stringIndex,
+    fretIndex,
+  });
 
   const setActiveLockedNotes = useMusicStore(
     (state) => state.setActiveLockedNotes,
@@ -47,11 +46,13 @@ export default function FretboardCell({
         $isLockedNote={isLockedNote}
         data-fret={fretIndex}
         $isBaseChordShapeNote={isBaseChordNote}
-        $opacity={opacity}
       >
-        <S.Note $animateBaseChordDown={isShapeSliderHold} $opacity={opacity}>
+        <S.Note
+          $animateBaseChordDown={isShapeSliderHold}
+          $isVisible={isVisible}
+        >
           <NoteLabel
-            isHighlighted={isHighlighted}
+            isVisible={isVisible}
             variant="fretboard"
             noteLabel={noteLabel}
           />

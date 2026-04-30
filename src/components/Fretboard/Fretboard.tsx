@@ -7,7 +7,7 @@ import { InstrumentScrollWrapper, InstrumentWrapper } from "@/parts";
 import { useFretboardScroll } from "./hooks";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
-import HiddenShapeExplorerSlider from "@/components/ShapeControls/ShapeExplorerSlider/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
+import HiddenShapeExplorerSlider from "@/components/ShapeControls/ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
