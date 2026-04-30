@@ -15,7 +15,7 @@ import {
   _m9,
   _M9,
 } from "./INTERVAL_SEMITONES";
-import type { FretboardCoordinate } from "./_TYPES";
+import type { FretboardCoordinate } from "./TYPES";
 
 export type ShapeType = "Arpeggio" | "Scale" | "Set";
 

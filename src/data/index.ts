@@ -5,6 +5,6 @@ export * from "./NOTE_NAMES";
 export * from "./PRESETS";
 export * from "./SCALE_SEMITONE_TEMPLATES";
 export * from "./SHAPES";
-export * from "./_TYPES";
+export * from "./TYPES";
 export * from "./UNIFIED_MUSIC_KEYS";
 export * from "./USER_LIST_MESSAGES";
