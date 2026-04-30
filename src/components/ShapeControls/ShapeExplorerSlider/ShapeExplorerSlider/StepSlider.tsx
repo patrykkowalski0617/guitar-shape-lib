@@ -63,7 +63,7 @@ export function StepSlider({
       <SliderPrimitive.Thumb
         onDoubleClick={handleToggleAction}
         className={cn(
-          "block rounded-full border-3 shadow-lg border-accent",
+          "block rounded-full border-1 border-accent",
           "cursor-grab active:cursor-grabbing hover:scale-110 transition-transform",
           "data-[disabled]:border-border data-[disabled]:scale-100 data-[disabled]:cursor-default",
           "focus:outline-none focus:ring-0 focus-visible:ring-2",
@@ -73,7 +73,8 @@ export function StepSlider({
           width: thumbSize,
           height: thumbSize,
           boxShadow: `2px 2px 8px 2px var(--background), 
-          0px 0px 2px 1px #b86cfb inset
+          0px 0px 2px 1px var(--border) inset,
+          0px 0px 3px 2px var(--contrast) inset
           `,
         }}
       />

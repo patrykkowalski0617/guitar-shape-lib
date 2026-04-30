@@ -4,18 +4,20 @@ import { instrumentBRadius, instrumentElBRadius } from "./constants";
 import {
   whiteKeyCommon,
   whiteKeyStyles,
-  type WhiteKeyTypes,
+  whiteKeyWrapperStyles,
+  whiteWrapperKeyCommon,
 } from "./whiteKeys";
 import {
   blackKeyCommon,
   blackKeysStyles,
-  type BlackKeyTypes,
+  blackKeyWrapperCommon,
 } from "./blackKeys";
+import type { BlackKeyTypes, KeyTypes, WhiteKeyTypes } from "../../constants";
 
 export const Key = styled.div<{
   $isShapeSelected: boolean;
   $isWhitePianoKey: boolean;
-  $pianoKeyShape?: WhiteKeyTypes | BlackKeyTypes;
+  $pianoKeyShape?: KeyTypes;
   $isHighlighted: boolean;
   $isRoleNote: boolean;
 }>`
@@ -25,7 +27,6 @@ export const Key = styled.div<{
     getKeyHighlight({
       isHighlighted: $isHighlighted,
       pianoKeyShape: $pianoKeyShape,
-      highlightColor: "var(--secondary)",
     })}
 
   ${({ $isWhitePianoKey }) =>
@@ -34,10 +35,20 @@ export const Key = styled.div<{
     $pianoKeyShape && whiteKeyStyles[$pianoKeyShape as WhiteKeyTypes]}
   ${({ $pianoKeyShape }) =>
     $pianoKeyShape && blackKeysStyles[$pianoKeyShape as BlackKeyTypes]}
+`;
 
+export const KeyWrapper = styled.div<{
+  $isWhitePianoKey: boolean;
+  $pianoKeyShape?: KeyTypes;
+}>`
+  flex: 1 1 0;
 
+  ${({ $pianoKeyShape }) =>
+    $pianoKeyShape && whiteKeyWrapperStyles[$pianoKeyShape as WhiteKeyTypes]}
 
-  &:first-child {
+  ${({ $isWhitePianoKey }) =>
+    $isWhitePianoKey ? whiteWrapperKeyCommon : blackKeyWrapperCommon}
+  &:first-child ${Key} {
     border-radius: ${instrumentBRadius} 0 ${instrumentElBRadius}
       ${instrumentElBRadius};
     &::before,
@@ -45,7 +56,7 @@ export const Key = styled.div<{
       display: none;
     }
   }
-  &:last-child {
+  &:last-child ${Key} {
     border-radius: 0 ${instrumentBRadius} ${instrumentElBRadius}
       ${instrumentElBRadius};
   }

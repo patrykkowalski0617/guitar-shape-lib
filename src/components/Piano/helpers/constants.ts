@@ -1,6 +1,6 @@
 import { getNotes } from "@/utils";
 import { type Note } from "@/data";
-import type { KeyShape } from "../parts";
+import type { KeyTypes } from "../constants";
 
 export const numberOfKeys = 49;
 
@@ -12,7 +12,7 @@ export const pianoNotes = getNotes({
   firstOctave: 2,
 });
 
-export const SHAPES_OF_WHITE_PIANO_KEYS: Record<number, KeyShape> = {
+export const SHAPES_OF_WHITE_PIANO_KEYS: Record<number, KeyTypes> = {
   0: "C",
   1: "C#",
   2: "D",

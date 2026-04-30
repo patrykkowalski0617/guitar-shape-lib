@@ -18,7 +18,11 @@ const commonBpmElementStyles = css`
   font-weight: 600;
 
   &:hover {
-    background-color: color-mix(in oklab, var(--accent) 30%, var(--background));
+    background-color: color-mix(
+      in oklab,
+      var(--background) 75%,
+      var(--primary)
+    );
   }
 
   &:focus {

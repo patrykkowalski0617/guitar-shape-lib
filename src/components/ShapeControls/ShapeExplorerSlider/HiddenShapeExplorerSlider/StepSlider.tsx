@@ -47,10 +47,7 @@ export function StepSlider({
       )}
       {...props}
     >
-      <SliderPrimitive.Track
-        className="relative grow h-full w-full bg-muted/50 flex"
-        style={{ margin: `0 ${thumbSize / 2}px` }}
-      >
+      <SliderPrimitive.Track className="relative grow h-full w-full bg-muted/50 flex">
         <StepSliderTicks
           options={options}
           effectiveMax={sliderMax}

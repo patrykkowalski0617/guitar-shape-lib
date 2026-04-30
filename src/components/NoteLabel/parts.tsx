@@ -2,8 +2,6 @@ import styled, { css } from "styled-components";
 import type { Variant } from "./NoteLabel";
 import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
 
-const unHighlightedColor = "var(--border)";
-
 export const Note = styled.div`
   opacity: 1;
   display: flex;
@@ -11,10 +9,9 @@ export const Note = styled.div`
   justify-content: center;
   font-size: 15px;
   font-weight: bold;
-  box-shadow: 0 0 8px var(--background);
   position: absolute;
   z-index: 40;
-  background: color-mix(in oklab, var(--background) 95%, transparent);
+  color: var(--background);
 `;
 
 export const NoteWrapper = styled.div<{
@@ -29,12 +26,14 @@ export const NoteWrapper = styled.div<{
       opacity: ${$isHighlighted ? "1" : "0"};
       ${Note} {
         border-radius: ${instrumentElBRadius};
-        width: 18px;
-        height: 30px;
+        width: 22px;
+        height: 22px;
         line-height: 22px;
-        color: ${unHighlightedColor};
         top: 10px;
         transform: translateX(-50%);
+        background-color: var(--foreground);
+        box-shadow: 3px 3px 10px 3px var(--background);
+        border: 1px solid var(--border);
       }
     `}
 
@@ -47,7 +46,6 @@ export const NoteWrapper = styled.div<{
       flex-direction: row;
       ${Note} {
         background: transparent;
-        color: var(--background);
         height: 100%;
         width: 100%;
         border-radius: 4px;

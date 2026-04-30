@@ -1,11 +1,11 @@
-import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
+import { useControlsStore, useMusicStore } from "@/store";
 import { type NoteObject } from "@/utils";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import { useInTuneSharpNoteNames } from "./useInTuneSharpNoteNames";
 import { useShapeCoordinates } from "./useShapeCoordinates";
 import { isShapeNote as isShapeNoteFn } from "../helpers";
 import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
-import { useEnharmonicNoteName, useShapeRootSharpNote } from "@/hooks";
+import { useEnharmonicNoteName } from "@/hooks";
 import { useBaseChordShapes } from "./useBaseChordShapes";
 import {
   findMatchingBaseChordCoordinates,
@@ -28,7 +28,7 @@ export const useNoteState = ({
 }: UseNoteStateProps) => {
   const shapeId = useControlsStore((state) => state.shapeId);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
-  const isPlaying = usePlayerStore((state) => state.isPlaying);
+  // const isPlaying = usePlayerStore((state) => state.isPlaying);
   const shapeVariantLocationData = useMusicStore(
     (state) => state.shapeVariantLocationData,
   );
@@ -51,10 +51,10 @@ export const useNoteState = ({
     shapeVariantLocationData_locked,
   ) as FretboardCoordinate[];
 
-  const shapeRootSharpNote = useShapeRootSharpNote();
+  // const shapeRootSharpNote = useShapeRootSharpNote();
   const isActiveNote = activeNoteId === noteData.noteId;
-  const isShapeRootNote =
-    shapeRootSharpNote === noteData.sharpNoteName && !isPlaying;
+  // const isShapeRootNote =
+  //   shapeRootSharpNote === noteData.sharpNoteName && !isPlaying;
 
   const isShapeNote = isShapeNoteFn(
     currentCoordinates,

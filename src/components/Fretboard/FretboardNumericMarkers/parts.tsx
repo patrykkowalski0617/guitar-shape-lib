@@ -14,9 +14,10 @@ export const FretboardNumericMarkers = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  background: color-mix(in oklab, var(--muted) 25%, var(--background));
   box-shadow:
-    -1px -1px 1px 1px color-mix(in oklab, var(--foreground) 3%, transparent),
-    1px 2px 3px 1px color-mix(in oklab, var(--background) 40%, transparent);
+    -1px -1px 1px 0px color-mix(in oklab, var(--foreground) 6%, transparent),
+    1px 1px 2px 0px color-mix(in oklab, var(--background) 80%, transparent);
 `;
 
 export const Marker = styled.div`
@@ -25,7 +26,7 @@ export const Marker = styled.div`
   justify-content: center;
   flex: 1 1 0;
   width: 100%;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 600;
   color: color-mix(in oklab, var(--foreground) 75%, var(--border));
   user-select: none;

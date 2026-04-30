@@ -14,16 +14,16 @@ import {
   wideCutWidth,
   widerCutWidth,
 } from "./constants";
-
-export type WhiteKeyTypes = "C" | "D" | "E" | "F" | "G" | "A" | "B";
+import { transition, type WhiteKeyTypes } from "../../constants";
 
 export const WhiteKeyJustifyContainer = styled.div`
-  position: relative;
+  position: absolute;
+  top: 0;
+  bottom: 0;
 `;
 
 export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
   C: css`
-    justify-content: flex-start;
     &::after {
       display: none;
     }
@@ -31,16 +31,9 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
       right: -1px;
       width: ${wideCutWidth};
       border-radius: 0 0 0 6px;
-    }
-    ${WhiteKeyJustifyContainer} {
-      width: calc(100% - ${wideCutWidth});
-    }
-    ${Note} {
-      left: 50%;
     }
   `,
   F: css`
-    justify-content: flex-start;
     &::after {
       display: none;
     }
@@ -49,15 +42,8 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
       width: ${widerCutWidth};
       border-radius: 0 0 0 6px;
     }
-    ${WhiteKeyJustifyContainer} {
-      width: calc(100% - ${widerCutWidth});
-    }
-    ${Note} {
-      left: 50%;
-    }
   `,
   E: css`
-    justify-content: flex-end;
     &::after {
       display: none;
     }
@@ -66,15 +52,8 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
       width: ${wideCutWidth};
       border-radius: 0 0 6px 0;
     }
-    ${WhiteKeyJustifyContainer} {
-      width: calc(100% - ${wideCutWidth});
-    }
-    ${Note} {
-      left: 50%;
-    }
   `,
   B: css`
-    justify-content: flex-end;
     &::after {
       display: none;
     }
@@ -82,12 +61,6 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
       left: -1px;
       width: ${widerCutWidth};
       border-radius: 0 0 6px 0;
-    }
-    ${WhiteKeyJustifyContainer} {
-      width: calc(100% - ${widerCutWidth});
-    }
-    ${Note} {
-      left: 50%;
     }
   `,
   D: css`
@@ -101,15 +74,8 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
       width: ${narrowCutWidth};
       border-radius: 0 0 0 6px;
     }
-    ${WhiteKeyJustifyContainer} {
-      width: calc(100% - ${narrowCutWidth} - ${narrowCutWidth});
-    }
-    ${Note} {
-      left: 50%;
-    }
   `,
   G: css`
-    justify-content: flex-start;
     &::after {
       left: calc(${keyBorderWidth} * -1px);
       width: ${narrowerCutWidth};
@@ -120,6 +86,71 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
       width: ${simpleCutWidth};
       border-radius: 0 0 0 6px;
     }
+  `,
+  A: css`
+    &::after {
+      left: calc(${keyBorderWidth} * -1px);
+      width: ${simpleCutWidth};
+      border-radius: 0 0 6px 0;
+    }
+    &::before {
+      right: calc(${keyBorderWidth} * -1px);
+      width: ${narrowerCutWidth};
+      border-radius: 0 0 0 6px;
+    }
+  `,
+};
+export const whiteKeyWrapperStyles: Record<
+  WhiteKeyTypes,
+  ReturnType<typeof css>
+> = {
+  C: css`
+    ${WhiteKeyJustifyContainer} {
+      width: calc(100% - ${wideCutWidth});
+      left: 0;
+    }
+    ${Note} {
+      left: 50%;
+    }
+  `,
+  F: css`
+    ${WhiteKeyJustifyContainer} {
+      width: calc(100% - ${widerCutWidth});
+      left: 0;
+    }
+    ${Note} {
+      left: 50%;
+    }
+  `,
+  E: css`
+    ${WhiteKeyJustifyContainer} {
+      right: 0;
+      width: calc(100% - ${wideCutWidth});
+    }
+    ${Note} {
+      left: 50%;
+    }
+  `,
+  B: css`
+    ${WhiteKeyJustifyContainer} {
+      right: 0;
+      width: calc(100% - ${widerCutWidth});
+    }
+    ${Note} {
+      left: 50%;
+    }
+  `,
+  D: css`
+    ${WhiteKeyJustifyContainer} {
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - ${narrowCutWidth} - ${narrowCutWidth});
+    }
+    ${Note} {
+      left: 50%;
+    }
+  `,
+  G: css`
     ${WhiteKeyJustifyContainer} {
       width: calc(100% - ${narrowerCutWidth} - ${simpleCutWidth});
       left: ${narrowerCutWidth};
@@ -129,17 +160,6 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
     }
   `,
   A: css`
-    justify-content: flex-start;
-    &::after {
-      left: calc(${keyBorderWidth} * -1px);
-      width: ${simpleCutWidth};
-      border-radius: 0 0 6px 0;
-    }
-    &::before {
-      right: calc(${keyBorderWidth} * -1px);
-      width: ${narrowerCutWidth};
-      border-radius: 0 0 0 6px;
-    }
     ${WhiteKeyJustifyContainer} {
       width: calc(100% - ${simpleCutWidth} - ${narrowerCutWidth});
       left: ${simpleCutWidth};
@@ -152,8 +172,10 @@ export const whiteKeyStyles: Record<WhiteKeyTypes, ReturnType<typeof css>> = {
 
 export const whiteKeyCommon = css`
   ${commonStyleForKeyBase}
+  ${transition}
   position: relative;
-  outline: 1px solid color-mix(in oklab, var(--border) 70%, var(--background));
+  outline: 1px solid
+    color-mix(in oklab, var(--fretboard) 70%, var(--background));
   outline-offset: -1px;
   margin: 0 ${keysGap}px;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
@@ -168,4 +190,8 @@ export const whiteKeyCommon = css`
     z-index: 1;
     top: -1px;
   }
+`;
+
+export const whiteWrapperKeyCommon = css`
+  position: relative;
 `;

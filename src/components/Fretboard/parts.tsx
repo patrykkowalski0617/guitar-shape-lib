@@ -8,12 +8,15 @@ export const FretboardWrapper = styled.div`
 
 export const FretboardShadow = styled.div`
   left: 10px;
-  right: calc(${fretboardRPadding});
+  right: calc(${fretboardRPadding} - 1px);
+  right: 15px;
   height: 174px;
   position: absolute;
   z-index: 16;
   top: 10px;
-  box-shadow: 5px 10px 25px 0px var(--background);
+  box-shadow:
+    5px 10px 10px 0px var(--background),
+    -1px -1px 2px 0px color-mix(in oklab, var(--foreground) 10%, transparent);
 `;
 
 export const Fretboard = styled.div`
@@ -27,7 +30,11 @@ export const Fretboard = styled.div`
     inset: 0;
     right: calc(${fretboardRPadding} - 15px);
     left: 10px;
-    background-color: color-mix(in oklab, var(--primary) 45%, var(--muted));
+    background-color: color-mix(
+      in oklab,
+      var(--fretboard) 50%,
+      var(--background)
+    );
     background-image: linear-gradient(
       0deg,
       color-mix(in oklab, var(--background) 100%, transparent) 0%,

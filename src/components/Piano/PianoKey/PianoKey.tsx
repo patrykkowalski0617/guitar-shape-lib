@@ -35,26 +35,32 @@ const PianoKey = ({ note }: PianoKeyProps) => {
   );
 
   return (
-    <S.Key
-      $isShapeSelected={isShapeSelected}
+    <S.KeyWrapper
       $isWhitePianoKey={isWhitePianoKey}
       $pianoKeyShape={pianoKeyShape}
-      $isHighlighted={isHighlighted || activeLockedNotes.includes(note.noteId)}
-      $isRoleNote={isRoleNote}
-      //
-      data-piano-scroll-target={interactivity.isScrollTarget}
       onMouseOver={interactivity.handleMouseEnter}
       onMouseLeave={interactivity.handleMouseLeave}
       onClick={() => {
         setActiveLockedNotes(note.noteId);
       }}
+      data-piano-scroll-target={interactivity.isScrollTarget}
     >
+      <S.Key
+        $isShapeSelected={isShapeSelected}
+        $isWhitePianoKey={isWhitePianoKey}
+        $pianoKeyShape={pianoKeyShape}
+        $isHighlighted={
+          isHighlighted || activeLockedNotes.includes(note.noteId)
+        }
+        $isRoleNote={isRoleNote}
+        //
+      ></S.Key>
       {isWhitePianoKey ? (
         <WhiteKeyJustifyContainer>{label}</WhiteKeyJustifyContainer>
       ) : (
         label
       )}
-    </S.Key>
+    </S.KeyWrapper>
   );
 };
 

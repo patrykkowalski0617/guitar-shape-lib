@@ -9,6 +9,7 @@ import ShapeExplorerSlider from "./components/ShapeControls/ShapeExplorerSlider/
 import Player from "./components/Player/Player";
 import { CleanButton } from "./components/ShapeControls/CleanButton/CleanButton";
 import { AddBrickButton } from "./components/ShapeControls/AddBrickButton/AddBrickButton";
+import Piano from "./components/Piano/Piano";
 
 export default function App() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -32,6 +33,10 @@ export default function App() {
 
         <Section>
           <Player />
+        </Section>
+
+        <Section>
+          <Piano />
         </Section>
 
         <Section>

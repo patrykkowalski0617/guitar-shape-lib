@@ -1,13 +1,11 @@
 import { css } from "styled-components";
-import type { WhiteKeyTypes } from "./whiteKeys";
-import type { BlackKeyTypes } from "./blackKeys";
+import type { KeyTypes } from "../../constants";
 
 export type HighlightType = "secondary" | "accent";
 
 export interface KeyHighlightProps {
   isHighlighted: boolean;
-  pianoKeyShape: WhiteKeyTypes | BlackKeyTypes | undefined;
-  highlightColor: string;
+  pianoKeyShape: KeyTypes | undefined;
 }
 
 const getRandomOffset = (range: number) =>
@@ -30,19 +28,18 @@ export const generateRandomRadialGradient = () => {
 export const getKeyHighlight = ({
   isHighlighted = false,
   pianoKeyShape,
-  highlightColor,
 }: KeyHighlightProps) => {
-  const whiteKeyShadowSize = 35;
-  const blackKeyShadowSize = 25;
-  const boxShadowColor = `color-mix(in oklab, ${highlightColor} 100%, var(--background))`;
-  const regularBorderColor = `color-mix(in oklab, var(--border) 70%, var(--background))`;
+  const whiteKeyShadowSize = 5;
+  const boxShadowColor = `color-mix(in oklab, var(--background) 100%, transparent)`;
+  const regularBorderColor = `color-mix(in oklab, var(--fretboard) 70%, var(--background))`;
   const whiteKeyShadow = `inset 0 0 ${whiteKeyShadowSize}px 0 ${boxShadowColor}`;
-  const blackKeyShadow = `inset 0 0 ${blackKeyShadowSize}px 0 ${boxShadowColor}`;
 
   const blackKeyHighlightStyle = css`
     &::before {
-      box-shadow: ${blackKeyShadow};
-      ${generateRandomRadialGradient()}
+      transform: scale(0.98) translateY(-1px);
+      box-shadow: 1px 2px 1px 0px
+        color-mix(in oklab, var(--background) 80%, var(--foreground));
+      border-color: color-mix(in oklab, var(--fretboard) 0%, var(--background));
     }
   `;
 
@@ -50,10 +47,7 @@ export const getKeyHighlight = ({
     box-shadow: 0px 0px ${whiteKeyShadowSize / 2}px 0px ${boxShadowColor};
   `;
 
-  const keySpecificStyles: Record<
-    WhiteKeyTypes | BlackKeyTypes,
-    ReturnType<typeof css>
-  > = {
+  const keySpecificStyles: Record<KeyTypes, ReturnType<typeof css>> = {
     C: css`
       box-shadow: ${whiteKeyShadow};
       &::before {
@@ -117,7 +111,9 @@ export const getKeyHighlight = ({
     : "";
 
   const activeStyle = css`
-    border-color: ${highlightColor};
+    transform: scale(0.95);
+    opacity: 0.95;
+    border-color: red;
     background: radial-gradient(
       circle,
       rgba(63, 94, 251, 0.5) 0%,
@@ -126,7 +122,7 @@ export const getKeyHighlight = ({
     ${activeShapeStyle}
     &::before,
     &::after {
-      border-color: ${highlightColor};
+      border-color: var(--muted);
     }
   `;
 

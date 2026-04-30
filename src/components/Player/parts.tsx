@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
+import { appBgColor } from "@/parts";
 
 export const PlayerContainer = styled.div`
   display: flex;
@@ -19,9 +20,9 @@ export const PlayerContainer = styled.div`
 `;
 
 export const PlayerSection = styled.div`
-  background-color: color-mix(in oklab, var(--muted) 30%, transparent);
+  background-color: color-mix(in oklab, ${appBgColor} 85%, var(--background));
   border-radius: ${instrumentElBRadius};
-  padding: 8px 8px 6px;
+  padding: 6px 8px;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,3 +1,4 @@
+import { appBgColor } from "@/parts";
 import { css, keyframes } from "styled-components";
 
 export const shapeExplorerCommon = css`
@@ -11,6 +12,7 @@ export const shapeExplorerCommon = css`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: color-mix(in oklab, ${appBgColor} 85%, var(--background));
 `;
 
 export const opacityAnimation = keyframes`

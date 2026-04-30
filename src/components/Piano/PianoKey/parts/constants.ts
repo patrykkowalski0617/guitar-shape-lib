@@ -6,7 +6,7 @@ export const instrumentBRadius = "var(--radius-lg)";
 export const keyBorderWidth = 1;
 export const blackKeyH = 85;
 export const blackKeyW = 23;
-export const keysGap = 2;
+export const keysGap = 1;
 export const tripleBlackKeysOffset = blackKeyW / 4 + 2;
 export const doubleBlackKeysOffset = tripleBlackKeysOffset - 3;
 export const pianoBgColor = `color-mix(in oklab, var(--muted) 15%, var(--background))`;
@@ -23,7 +23,7 @@ export const commonStyleForKeyBase = css`
   display: flex;
   justify-content: center;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
-  background-color: color-mix(in oklab, var(--accent) 45%, var(--background));
+  background: color-mix(in oklab, var(--foreground) 80%, var(--fretboard));
 `;
 
 export const pseudoElKeyBase = css`

@@ -5,13 +5,12 @@ export const FretboardRow = styled.div`
   display: flex;
   flex-direction: row;
   position: relative;
-
   &::before {
     content: "";
     position: absolute;
     height: 1px;
-    left: 5px;
-    right: -25px;
+    left: -50px;
+    right: -50px;
     top: 50%;
     transform: translateY(-50%);
     display: block;
@@ -51,7 +50,7 @@ export const FretboardRow = styled.div`
     &::after {
       bottom: -15px;
       border-top: 1px solid
-        color-mix(in oklab, var(--foreground) 5%, var(--background));
+        color-mix(in oklab, var(--foreground) 3%, var(--background));
     }
   }
 
@@ -67,8 +66,8 @@ export const FretboardRow = styled.div`
       background-image: linear-gradient(
         90deg,
         var(--muted) 0%,
-        color-mix(in oklab, var(--foreground) 70%, var(--primary)) 10%,
-        color-mix(in oklab, var(--foreground) 70%, var(--primary)) 80%,
+        color-mix(in oklab, var(--foreground) 70%, var(--fretboard)) 10%,
+        color-mix(in oklab, var(--foreground) 70%, var(--fretboard)) 80%,
         var(--background) 100%
       );
     }

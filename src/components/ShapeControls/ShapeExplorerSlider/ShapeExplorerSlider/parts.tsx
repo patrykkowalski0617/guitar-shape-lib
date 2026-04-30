@@ -26,9 +26,9 @@ const tickOpacity = keyframes`
 `;
 
 export const Tick = styled.div<{
-  $isUserList: boolean;
-  $isHighlighted: boolean;
-  $isOpacityAnimationLocked: boolean;
+  $isUserList?: boolean;
+  $isHighlighted?: boolean;
+  $isOpacityAnimationLocked?: boolean;
   $opacityAnimationDuration: number;
 }>`
   position: absolute;
@@ -70,14 +70,14 @@ export const ShapeExplorerWrapper = styled.div<{ $isDisabled: boolean }>`
   max-width: 0px;
   transition: 0.5s;
   transform: translateX(calc(25px / -2));
-  padding: 0 5px;
+  padding: 0 7px;
   opacity: 0;
   ${shapeExplorerCommon}
   ${({ $isDisabled }) => {
     if ($isDisabled) return;
     return css`
       transform: none;
-      max-width: 430px;
+      max-width: 500px;
       flex: 1;
       opacity: 1;
     `;

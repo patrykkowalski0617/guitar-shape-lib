@@ -7,8 +7,7 @@ import {
   pseudoElKeyBase,
   tripleBlackKeysOffset,
 } from "./constants";
-
-export type BlackKeyTypes = "C#" | "D#" | "F#" | "G#" | "A#";
+import { transition, type BlackKeyTypes } from "../../constants";
 
 export const blackKeysStyles: Partial<
   Record<BlackKeyTypes, ReturnType<typeof css>>
@@ -35,11 +34,29 @@ export const blackKeyCommon = css`
   flex: 0 0 0;
   &::before {
     ${pseudoElKeyBase}
+    ${transition}
+    box-shadow: 1px 2px 5px 0px
+    color-mix(in oklab, var(--background) 100%, transparent);
     width: ${blackKeyW}px;
     height: 100%;
     background-color: var(--background);
     top: 0px;
     z-index: 9;
-    border-color: color-mix(in oklab, var(--border) 50%, var(--background));
+    border-right-color: color-mix(
+      in oklab,
+      var(--muted) 80%,
+      var(--background)
+    );
+    border-left-color: color-mix(
+      in oklab,
+      var(--fretboard) 100%,
+      var(--background)
+    );
+    border-left-width: 2px;
   }
+`;
+
+export const blackKeyWrapperCommon = css`
+  height: 100%;
+  flex: 0 0 0;
 `;

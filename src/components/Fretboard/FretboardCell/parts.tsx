@@ -7,18 +7,18 @@ export const FretWrapper = styled.div`
   padding: 1px 7px;
   &::before {
     content: "";
-    box-shadow: 4px 0px 2px 1px
-      color-mix(in oklab, var(--background) 50%, transparent);
+    box-shadow: 4px 0px 5px 0px
+      color-mix(in oklab, var(--background) 70%, transparent);
     height: 100%;
-    width: 3px;
+    width: 5px;
     background: linear-gradient(
       90deg,
       var(--foreground) 0%,
       var(--border) 30%,
-      var(--border) 100%
+      var(--background) 100%
     );
     position: absolute;
-    right: -1.5px;
+    right: -3px;
   }
 `;
 
@@ -57,10 +57,10 @@ export const Fret = styled.div<{
         opacity: 1;
         transform: scale(1);
         background: color-mix(in oklab, var(--muted) 80%, var(--background));
-        box-shadow: 5px 5px 3px 0px
+        box-shadow: 3px 3px 3px 0px
           color-mix(in oklab, var(--background) 70%, transparent);
         border: 1px solid
-          color-mix(in oklab, var(--foreground) 20%, transparent);
+          color-mix(in oklab, var(--foreground) 10%, transparent);
       }
     `;
   }}
@@ -92,7 +92,7 @@ export const Note = styled.div<{
     `;
   }}
   background: var(--foreground);
-  box-shadow: 3px 3px 3px 0px
+  box-shadow: 5px 3px 4px 1px
     color-mix(in oklab, var(--background) 70%, transparent);
   border: 1px solid var(--border);
   border-radius: 50px;

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const appBgColor = `color-mix(in oklab, var(--muted) 15%, var(--background))`;
+export const appBgColor = `color-mix(in oklab, var(--muted) 20%, var(--background))`;
 
 export const AppWrapper = styled.div`
   display: flex;
