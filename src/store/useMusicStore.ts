@@ -1,7 +1,8 @@
-import type { FretboardStringId, VariantId } from "@/data";
+import type { FretboardCoordinate, FretboardStringId, VariantId } from "@/data";
 import { create } from "zustand";
 import { usePlayerStore } from "./usePlayerStore";
 import { useControlsStore } from "./useControlsStore";
+import type { NoteObject } from "@/utils";
 
 export interface ShapeVariantLocationData {
   shapeId: string | null;
@@ -13,6 +14,13 @@ export interface ShapeVariantLocationData {
 interface MusicState {
   activeNoteId: string | null;
   setActiveNoteId: (noteId: string | null) => void;
+
+  shapeNoteIds: string[];
+  setShapeNoteIds: (shapeNoteIds: string[]) => void;
+  updateShapeNotes: (
+    allNotes: NoteObject[][],
+    coordinates: FretboardCoordinate[],
+  ) => void;
 
   activeLockedNotes: string[];
   setActiveLockedNotes: (activeNote: string) => void;
@@ -31,49 +39,65 @@ interface MusicState {
 
 export const useMusicStore = create<MusicState>((set) => ({
   activeNoteId: null,
+  shapeNoteIds: [],
+  activeLockedNotes: [],
+  shapeVariantLocationData: null,
+  shapeVariantLocationData_locked: null,
+
   setActiveNoteId: (noteId) => {
     const playerState = usePlayerStore.getState();
     const controlState = useControlsStore.getState();
-
     const isSmallScreen = window.innerWidth < 1024;
     const isPlayingOrHasShape =
       controlState.shapeId !== null || playerState.isPlaying;
 
-    const dontShowActiveNotes = isPlayingOrHasShape || isSmallScreen;
-
-    if (dontShowActiveNotes) return;
+    if (isPlayingOrHasShape || isSmallScreen) return;
 
     set({ activeNoteId: noteId });
   },
 
-  activeLockedNotes: [],
+  setShapeNoteIds: (shapeNoteIds) => set({ shapeNoteIds }),
+
+  updateShapeNotes: (allNotes, coordinates) => {
+    const nextShapeNoteIds: string[] = [];
+
+    allNotes.forEach((row, stringIdx) => {
+      row.forEach((note, fretIdx) => {
+        const isMatch = coordinates.some(
+          ([s, f]) => s === stringIdx && f === fretIdx,
+        );
+        if (isMatch) {
+          nextShapeNoteIds.push(note.noteId);
+        }
+      });
+    });
+
+    set({ shapeNoteIds: nextShapeNoteIds });
+  },
+  setShapeVariantLocationData: (data) => {
+    if (!data) {
+      set({ shapeVariantLocationData: null, shapeNoteIds: [] });
+      return;
+    }
+
+    set({ shapeVariantLocationData: data });
+  },
+
   setActiveLockedNotes: (activeNote) => {
     const controlState = useControlsStore.getState();
-    const isShapeActive = controlState.shapeId !== null;
-
-    if (isShapeActive) return;
+    if (controlState.shapeId !== null) return;
 
     set((state) => {
-      const isNoteAlreadyActive = state.activeLockedNotes.includes(activeNote);
-
-      const nextActiveNotes = isNoteAlreadyActive
+      const isAlreadyActive = state.activeLockedNotes.includes(activeNote);
+      const nextActiveNotes = isAlreadyActive
         ? state.activeLockedNotes.filter((note) => note !== activeNote)
         : [...state.activeLockedNotes, activeNote];
 
-      return {
-        activeLockedNotes: nextActiveNotes,
-      };
+      return { activeLockedNotes: nextActiveNotes };
     });
   },
+
   resetActiveLockedNotes: () => set({ activeLockedNotes: [] }),
-
-  shapeVariantLocationData: null,
-  setShapeVariantLocationData: (shapeVariantLocationData) =>
-    set({ shapeVariantLocationData }),
-
-  shapeVariantLocationData_locked: null,
-  setShapeVariantLocationData_locked: (shapeVariantLocationData_locked) =>
-    set({
-      shapeVariantLocationData_locked,
-    }),
+  setShapeVariantLocationData_locked: (data) =>
+    set({ shapeVariantLocationData_locked: data }),
 }));

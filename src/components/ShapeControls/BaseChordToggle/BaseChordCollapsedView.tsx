@@ -1,8 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { cn } from "@/lib/utils";
+import { ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Separator } from "../Separator";
 import { extendedChordNamesMap } from "./constants";
+import * as S from "./parts";
 
 interface Props {
   activeGroup: any;
@@ -19,38 +18,28 @@ export function BaseChordCollapsedView({
 }: Props) {
   return (
     <div className="absolute inset-0 flex flex-row w-full items-center z-10">
-      <Button
+      <S.KeySelectButton
         variant="active"
         onClick={onExpand}
-        className="rounded-r-none rounded-l-sm"
-        style={{ boxShadow: "5px 5px 10px 0px var(--background)" }}
+        className="rounded-sm"
       >
         {activeGroup.label}
-      </Button>
+      </S.KeySelectButton>
       <Separator />
-      <ToggleGroup
+      <S.ToggleGroup
         type="single"
         value={currentValue}
         onValueChange={onSelectChord}
-        className="max-w-none flex-1"
-        style={{ boxShadow: "5px 5px 10px 0px var(--background)" }}
+        className="max-w-none flex-1 rounded-sm overflow-hidden"
       >
         {activeGroup.chords.map((item: any, idx: number) => {
-          const isLastInRow = idx === activeGroup.chords.length - 1;
           return (
-            <ToggleGroupItem
-              key={item.combinedId}
-              value={item.combinedId}
-              className={cn(
-                "!rounded-none border-y border-background/20",
-                isLastInRow && "border-r !rounded-r-sm",
-              )}
-            >
+            <ToggleGroupItem key={item.combinedId} value={item.combinedId}>
               {`${item.chordName}${extendedChordNamesMap[idx]}`}
             </ToggleGroupItem>
           );
         })}
-      </ToggleGroup>
+      </S.ToggleGroup>
     </div>
   );
 }

@@ -34,13 +34,15 @@ export default function FretboardCell({
     (state) => state.isShapeSliderHold,
   );
 
+  const handleCellClick = () => {
+    setActiveLockedNotes(noteData.noteId);
+  };
+
   return (
     <S.FretWrapper
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={() => {
-        setActiveLockedNotes(noteData.noteId);
-      }}
+      onClick={handleCellClick}
     >
       <S.Fret
         $isLockedNote={isLockedNote}

@@ -18,6 +18,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
     (state) => state.setActiveLockedNotes,
   );
   const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
+  const shapeNoteIds = useMusicStore((state) => state.shapeNoteIds);
 
   const {
     isWhitePianoKey,
@@ -27,9 +28,14 @@ const PianoKey = ({ note }: PianoKeyProps) => {
     isShapeSelected,
   } = visualState;
 
+  const isPushed =
+    isVisible ||
+    activeLockedNotes.includes(note.noteId) ||
+    shapeNoteIds.includes(note.noteId);
+
   const label = (
     <NoteLabel
-      isVisible={isVisible || activeLockedNotes.includes(note.noteId)}
+      isVisible={isPushed}
       variant="piano"
       noteLabel={getEnharmonicNoteName(note)}
     />
@@ -50,7 +56,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
         $isShapeSelected={isShapeSelected}
         $isWhitePianoKey={isWhitePianoKey}
         $pianoKeyShape={pianoKeyShape}
-        $isVisible={isVisible || activeLockedNotes.includes(note.noteId)}
+        $isPushed={isPushed}
         $isRoleNote={isRoleNote}
         //
       ></S.Key>

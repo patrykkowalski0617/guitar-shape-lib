@@ -55,9 +55,9 @@ function ToggleGroupItem({
       className={cn(
         toggleVariants(),
         "h-8 flex-1 px-1 flex items-center justify-center relative",
-        "bg-muted/50 text-foreground shadow-none transition-none",
+        "bg-muted/40 text-foreground shadow-none transition-none",
         "border-r border-background/20 last:border-r-0",
-        "hover:bg-muted/70 hover:text-accent-foreground",
+        "hover:bg-muted/50 hover:text-accent-foreground",
         "data-[state=on]:bg-accent/50 data-[state=on]:text-accent-foreground",
         sharedFocusStyles,
         "rounded-none",

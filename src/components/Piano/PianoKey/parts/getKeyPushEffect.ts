@@ -4,7 +4,7 @@ import type { KeyTypes } from "../../constants";
 export type HighlightType = "secondary" | "accent";
 
 export interface KeyHighlightProps {
-  isVisible: boolean;
+  isPushed: boolean;
   pianoKeyShape: KeyTypes | undefined;
 }
 
@@ -25,8 +25,8 @@ export const generateRandomRadialGradient = () => {
   `;
 };
 
-export const getKeyHighlight = ({
-  isVisible = false,
+export const getKeyPushEffect = ({
+  isPushed = false,
   pianoKeyShape,
 }: KeyHighlightProps) => {
   const whiteKeyShadowSize = 5;
@@ -36,10 +36,15 @@ export const getKeyHighlight = ({
 
   const blackKeyHighlightStyle = css`
     &::before {
-      transform: scale(0.98) translateY(-1px);
-      box-shadow: 1px 2px 1px 0px
-        color-mix(in oklab, var(--background) 80%, var(--foreground));
-      border-color: color-mix(in oklab, var(--fretboard) 0%, var(--background));
+      transform: scale(0.99) translateY(-1px);
+      box-shadow: 1px 1px 3px 1px
+        color-mix(in oklab, var(--background) 100%, transparent) !important;
+
+      border-color: color-mix(
+        in oklab,
+        var(--fretboard) 20%,
+        var(--muted)
+      ) !important;
     }
   `;
 
@@ -140,5 +145,5 @@ export const getKeyHighlight = ({
     }
   `;
 
-  return isVisible ? activeStyle : standardStyle;
+  return isPushed ? activeStyle : standardStyle;
 };

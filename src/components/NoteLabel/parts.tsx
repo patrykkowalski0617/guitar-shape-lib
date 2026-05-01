@@ -36,7 +36,7 @@ export const NoteWrapper = styled.div<{
         top: 10px;
         transform: translateX(-50%);
         background-color: var(--foreground);
-        box-shadow: 2px 2px 5px 2px var(--background);
+        box-shadow: 1px 2px 3px 2px var(--background);
         border: 1px solid var(--border);
       }
     `}

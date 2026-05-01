@@ -54,10 +54,6 @@ export const useNoteState = ({
     finalShapeCoordinates as FretboardCoordinate[],
   );
 
-  if (isShapeNote) {
-    console.log(noteData.noteId);
-  }
-
   const isLockedNote = isShapeNoteFn(
     currentCoordinates,
     lockedShapeCoordinates,
@@ -85,6 +81,7 @@ export const useNoteState = ({
 
   return {
     isVisible: isShapeNote || isActiveNote || isActiveLockedNotes,
+    isShapeNote,
     isLockedNote,
     isBaseChordNote,
     noteLabel: getEnharmonicNoteName(noteData),

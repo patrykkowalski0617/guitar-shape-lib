@@ -2,7 +2,7 @@ export * from "./BASE_CHORDS";
 export * from "./CAGED_CHORDS_SHAPES";
 export * from "./INTERVAL_SEMITONES";
 export * from "./NOTE_NAMES";
-export * from "./_PRESETS";
+export * from "./PRESETS";
 export * from "./SCALE_SEMITONE_TEMPLATES";
 export * from "./SHAPES";
 export * from "./TYPES";
