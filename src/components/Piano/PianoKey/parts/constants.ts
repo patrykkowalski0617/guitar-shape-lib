@@ -12,11 +12,11 @@ export const doubleBlackKeysOffset = tripleBlackKeysOffset - 3;
 export const pianoBgColor = `color-mix(in oklab, var(--muted) 15%, var(--background))`;
 
 export const baseCutCalc = `${blackKeyW}px / 2 + ${keysGap}px + 1px`;
-export const wideCutWidth = css`calc(${baseCutCalc} + ${doubleBlackKeysOffset}px)`;
-export const widerCutWidth = css`calc(${baseCutCalc} + ${tripleBlackKeysOffset}px)`;
-export const narrowCutWidth = css`calc(${baseCutCalc} - ${doubleBlackKeysOffset}px)`;
-export const narrowerCutWidth = css`calc(${baseCutCalc} - ${tripleBlackKeysOffset}px)`;
-export const simpleCutWidth = css`calc(${baseCutCalc})`;
+export const wideCutWidth = css`calc(${baseCutCalc} + ${doubleBlackKeysOffset}px + 1px) `;
+export const widerCutWidth = css`calc(${baseCutCalc} + ${tripleBlackKeysOffset}px + 1px) `;
+export const narrowCutWidth = css`calc(${baseCutCalc} - ${doubleBlackKeysOffset}px + 1px) `;
+export const narrowerCutWidth = css`calc(${baseCutCalc} - ${tripleBlackKeysOffset}px + 1px) `;
+export const simpleCutWidth = css`calc(${baseCutCalc} + 1px) `;
 
 export const commonStyleForKeyBase = css`
   flex: 1 1 0;

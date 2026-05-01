@@ -66,7 +66,7 @@ export const blackKeyCommon = css`
   &::before {
     ${pseudoElKeyBase}
     ${transition}
-    box-shadow: 3px 3px 4px 3px
+    box-shadow: 3px 3px 6px 3px
     color-mix(in oklab, var(--background) 90%, transparent);
     width: ${blackKeyW}px;
     height: 100%;
@@ -75,9 +75,9 @@ export const blackKeyCommon = css`
     z-index: 9;
     border-right-color: color-mix(
       in oklab,
-      var(--muted) 80%,
+      var(--muted) 90%,
       var(--background)
-    );
+    ) !important;
     border-left-color: color-mix(
       in oklab,
       var(--fretboard) 100%,
