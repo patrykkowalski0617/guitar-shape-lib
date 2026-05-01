@@ -16,7 +16,8 @@ export const FretboardShadow = styled.div`
   top: 10px;
   box-shadow:
     5px 10px 10px 0px var(--background),
-    -1px -1px 5px 0px color-mix(in oklab, var(--foreground) 10%, transparent);
+    -3px 0px 5px 0px color-mix(in oklab, var(--fretboard) 1%, var(--background));
+  border-radius: 12px;
 `;
 
 export const Fretboard = styled.div`
@@ -25,6 +26,7 @@ export const Fretboard = styled.div`
   z-index: 1;
   width: 100%;
   &::before {
+    border-radius: 20px;
     content: "";
     position: absolute;
     inset: 0;

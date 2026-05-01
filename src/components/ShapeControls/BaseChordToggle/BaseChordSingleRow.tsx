@@ -26,8 +26,8 @@ export function BaseChordSingleRow({
   return (
     <div
       className={cn(
-        "flex flex-row w-full items-center bg-background transition-opacity duration-200",
-        !isCurrentKey && "opacity-40 hover:opacity-100",
+        "flex flex-row w-full items-center transition-opacity duration-200",
+        !isCurrentKey && "opacity-70 hover:opacity-100",
       )}
     >
       <Button

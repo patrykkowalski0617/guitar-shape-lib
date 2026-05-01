@@ -23,19 +23,17 @@ export const Key = styled.div<{
   $isRoleNote: boolean;
 }>`
   position: relative;
-
-  ${({ $isPushed, $pianoKeyShape }) =>
-    getKeyPushEffect({
-      isPushed: $isPushed,
-      pianoKeyShape: $pianoKeyShape,
-    })}
-
   ${({ $isWhitePianoKey }) =>
     $isWhitePianoKey ? whiteKeyCommon : blackKeyCommon}
   ${({ $pianoKeyShape }) =>
     $pianoKeyShape && whiteKeyStyles[$pianoKeyShape as WhiteKeyTypes]}
   ${({ $pianoKeyShape }) =>
     $pianoKeyShape && blackKeysStyles[$pianoKeyShape as BlackKeyTypes]}
+  ${({ $isPushed, $pianoKeyShape }) =>
+    getKeyPushEffect({
+      isPushed: $isPushed,
+      pianoKeyShape: $pianoKeyShape,
+    })}
 `;
 
 export const KeyWrapper = styled.div<{

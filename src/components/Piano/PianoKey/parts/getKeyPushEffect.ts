@@ -1,9 +1,9 @@
 import { css } from "styled-components";
 import type { KeyTypes } from "../../constants";
 
-export type HighlightType = "secondary" | "accent";
+export type PushedType = "secondary" | "accent";
 
-export interface KeyHighlightProps {
+export interface KeyPushedProps {
   isPushed: boolean;
   pianoKeyShape: KeyTypes | undefined;
 }
@@ -28,13 +28,13 @@ export const generateRandomRadialGradient = () => {
 export const getKeyPushEffect = ({
   isPushed = false,
   pianoKeyShape,
-}: KeyHighlightProps) => {
+}: KeyPushedProps) => {
   const whiteKeyShadowSize = 5;
   const boxShadowColor = `color-mix(in oklab, var(--background) 100%, transparent)`;
   const regularBorderColor = `color-mix(in oklab, var(--fretboard) 70%, var(--background))`;
   const whiteKeyShadow = `inset 0 0 ${whiteKeyShadowSize}px 0 ${boxShadowColor}`;
 
-  const blackKeyHighlightStyle = css`
+  const blackKeyPushedStyle = css`
     &::before {
       transform: scale(0.99) translateY(-1px);
       box-shadow: 1px 1px 3px 1px
@@ -49,7 +49,8 @@ export const getKeyPushEffect = ({
   `;
 
   const whiteKeyPseudoElShadow = css`
-    box-shadow: 0px 0px ${whiteKeyShadowSize / 2}px 0px ${boxShadowColor};
+    box-shadow: 0px 0px ${whiteKeyShadowSize * 2}px 0px ${boxShadowColor};
+    border-color: var(--muted);
   `;
 
   const keySpecificStyles: Record<KeyTypes, ReturnType<typeof css>> = {
@@ -104,11 +105,11 @@ export const getKeyPushEffect = ({
         ${whiteKeyPseudoElShadow}
       }
     `,
-    "C#": blackKeyHighlightStyle,
-    "D#": blackKeyHighlightStyle,
-    "F#": blackKeyHighlightStyle,
-    "G#": blackKeyHighlightStyle,
-    "A#": blackKeyHighlightStyle,
+    "C#": blackKeyPushedStyle,
+    "D#": blackKeyPushedStyle,
+    "F#": blackKeyPushedStyle,
+    "G#": blackKeyPushedStyle,
+    "A#": blackKeyPushedStyle,
   };
 
   const activeShapeStyle = pianoKeyShape
@@ -117,22 +118,18 @@ export const getKeyPushEffect = ({
 
   const activeStyle = css<{ $isWhitePianoKey: boolean }>`
     ${({ $isWhitePianoKey }) => {
-      const scaleValue = $isWhitePianoKey ? "scale(0.95)" : "none";
+      const whitePianoKeyCommonPushedStyle = $isWhitePianoKey
+        ? css`
+            transform: scale(0.95) translateY(-2px);
+            opacity: 0.95;
+            outline: 1px solid var(--foreground);
+          `
+        : "";
 
       return css`
-        transform: ${scaleValue};
-        opacity: 0.95;
-        border-color: red;
-        background: radial-gradient(
-          circle,
-          rgba(63, 94, 251, 0.5) 0%,
-          rgba(252, 70, 107, 0.5) 100%
-        );
+        ${whitePianoKeyCommonPushedStyle};
+
         ${activeShapeStyle}
-        &::before,
-      &::after {
-          border-color: var(--muted);
-        }
       `;
     }}
   `;

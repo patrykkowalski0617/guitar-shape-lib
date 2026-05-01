@@ -144,15 +144,19 @@ export function BaseChordExpandedList({
         style={{
           ...computedStyle,
           boxShadow: "10px 10px 30px 10px var(--background)",
+          background:
+            "color-mix(in oklab, var(--background) 60%, var(--muted))",
         }}
-        className="absolute left-0 w-full z-[50] bg-background rounded-sm border border-background/20 flex flex-col overflow-hidden"
+        className="absolute left-0 w-full z-[50] rounded-sm border border-background/20 flex flex-col overflow-hidden"
       >
         <BaseChordLabel />
 
         <div
           ref={scrollRef}
-          className="overflow-y-auto flex-1 min-h-0 scrollbar-hide bg-background"
-          style={{ scrollbarWidth: "none" }}
+          className="overflow-y-auto flex-1 min-h-0 scrollbar-hide"
+          style={{
+            scrollbarWidth: "none",
+          }}
         >
           <div className="flex flex-col">
             {optionsPerKey.map((group, index) => (

@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useControlsStore, useMusicStore } from "@/store";
 import { BrushCleaning } from "lucide-react";
 import * as P from "./parts";
@@ -39,10 +38,8 @@ export const CleanButton = () => {
   if (!isVisible) return null;
 
   return (
-    <P.Wrapper>
-      <Button onClick={handleClick}>
-        <BrushCleaning size={20} color="var(--warn)" />
-      </Button>
+    <P.Wrapper onClick={handleClick}>
+      <BrushCleaning size={20} color="var(--warn)" />
     </P.Wrapper>
   );
 };

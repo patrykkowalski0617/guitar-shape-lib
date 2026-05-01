@@ -58,7 +58,7 @@ export const InstrumentScrollWrapper = styled.div`
   scrollbar-width: none;
   position: relative;
   margin: 0 -10px;
-  margin-bottom: -20px;
+  margin-bottom: -10px;
   z-index: 2;
   @media (max-width: 1400px) {
     mask-image: linear-gradient(

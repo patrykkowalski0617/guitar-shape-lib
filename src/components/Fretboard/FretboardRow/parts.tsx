@@ -41,16 +41,12 @@ export const FretboardRow = styled.div`
   &:nth-child(1) {
     &::after {
       top: -15px;
-      border-bottom: 1px solid
-        color-mix(in oklab, var(--foreground) 10%, var(--background));
     }
   }
 
   &:nth-child(6) {
     &::after {
-      bottom: -15px;
-      border-top: 1px solid
-        color-mix(in oklab, var(--foreground) 3%, var(--background));
+      bottom: -16px;
     }
   }
 

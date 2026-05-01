@@ -1,7 +1,6 @@
 import { Plus } from "lucide-react";
 import { useControlsStore, usePlayerStore } from "@/store";
 import { useAddBrick } from "./hooks/useAddBrick";
-import { Button } from "@/components/ui/button";
 import * as S from "./parts";
 
 export const AddBrickButton = () => {
@@ -14,10 +13,8 @@ export const AddBrickButton = () => {
   }
 
   return (
-    <S.Wrapper>
-      <Button onClick={addBrick}>
-        <Plus size={22} color="var(--secondary)" />
-      </Button>
+    <S.Wrapper onClick={addBrick}>
+      <Plus size={22} color="var(--secondary)" />
     </S.Wrapper>
   );
 };
