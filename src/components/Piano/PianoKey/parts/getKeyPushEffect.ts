@@ -120,7 +120,7 @@ export const getKeyPushEffect = ({
     ${({ $isWhitePianoKey }) => {
       const whitePianoKeyCommonPushedStyle = $isWhitePianoKey
         ? css`
-            transform: scale(0.95) translateY(-2px);
+            transform: scale(0.95);
             opacity: 0.95;
             outline: 1px solid var(--foreground);
           `

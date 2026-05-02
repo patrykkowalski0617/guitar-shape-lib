@@ -187,7 +187,6 @@ export const whiteKeyCommon = css`
     background-color: ${pianoBgColor};
     border-top: calc(${keyBorderWidth}px + 1px) solid ${pianoBgColor};
     z-index: 1;
-    top: -1px;
   }
 `;
 

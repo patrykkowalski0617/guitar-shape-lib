@@ -50,11 +50,16 @@ export const BrickOptions = styled.div<{ $isEditable: boolean }>`
   justify-content: center;
   align-items: center;
   position: absolute;
-  inset: 0;
+  inset: 2px;
   background-color: color-mix(in oklab, var(--accent) 40%, var(--background));
-  opacity: ${({ $isEditable }) => ($isEditable ? 0 : 0.9)};
+  opacity: ${({ $isEditable }) => ($isEditable ? 0 : 0.8)};
   pointer-events: none;
   z-index: 2;
+  box-shadow:
+    1px 1px 4px 1px color-mix(in oklab, var(--background) 70%, transparent)
+      inset,
+    -1px -1px 3px 0px color-mix(in oklab, var(--foreground) 20%, transparent)
+      inset;
 `;
 
 export const Brick = styled.div<{

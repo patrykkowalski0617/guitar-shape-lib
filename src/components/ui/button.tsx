@@ -21,19 +21,19 @@ const buttonVariants = cva(
         ),
         playerDashed: cn(
           "h-[30px] w-[35px] border border-dashed border-border",
-          "bg-muted/20 hover:bg-muted/40 hover:bg-muted/20 text-foreground",
+          "bg-muted/30 hover:bg-muted/50 hover:bg-muted/20 text-foreground",
         ),
         playerOutline: cn(
           "h-[30px] w-[35px] border border-accent-foreground",
-          "bg-muted/20 hover:bg-muted/40 text-accent-foreground",
+          "bg-muted/30 hover:bg-muted/50 text-accent-foreground",
         ),
         playerOutlineAccent: cn(
           "h-[30px] w-[35px] font border border-contrast",
-          "bg-muted/20 hover:bg-muted/40 text-contrast",
+          "bg-muted/30 hover:bg-muted/50 text-contrast",
         ),
         playerOutlineWarn: cn(
           "h-[30px] w-[35px] border border-warn",
-          "bg-muted/20 hover:bg-muted/40 text-warn",
+          "bg-muted/30 hover:bg-muted/50 text-warn",
         ),
         playerSolid: cn(
           "h-[30px] w-[35px] border",
