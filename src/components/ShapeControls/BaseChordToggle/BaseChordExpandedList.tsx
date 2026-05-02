@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { BaseChordSingleRow } from "./BaseChordSingleRow";
 import type { TuneKeyId } from "@/data";
 import { BaseChordLabel } from "./BaseChordLabel";

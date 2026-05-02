@@ -8,8 +8,8 @@ import {
 import { useMusicStore, usePlayerStore } from "@/store";
 import { Button } from "@/components/ui/button";
 import { playerIconSize } from "@/components/Player/constants";
-import { useAddBrick } from "@/components/ShapeControls/ShapeExplorer/AddBrickButton/hooks/useAddBrick";
 import { PlayerElementWrapper } from "../../parts";
+import { useAddBrick } from "@/components/ShapeControls/ShapeExplorerBar/AddBrickButton/hooks/useAddBrick";
 
 export function RandomizeButton() {
   const { setRandomKey } = useRandomizeKey();
