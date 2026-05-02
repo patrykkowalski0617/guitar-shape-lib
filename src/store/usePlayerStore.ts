@@ -22,7 +22,8 @@ interface PlayerState {
   countIn: number;
   isCountingIn: boolean;
 
-  addBrick: () => void;
+  // Poprawione: teraz przyjmuje opcjonalny snapshot
+  addBrick: (initialSnapshot?: Snapshot | null) => void;
   removeBrick: (id: number) => void;
   updateBrickWidth: (id: number, newWidth: number) => void;
   updateBrickSnapshot: (id: number, snapshot: Snapshot) => void;
@@ -46,10 +47,17 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   countIn: 0,
   isCountingIn: false,
 
-  addBrick: () => {
+  addBrick: (initialSnapshot = null) => {
     const newId = Date.now();
     set((state) => ({
-      bricks: [...state.bricks, { id: newId, width: 4, snapshot: null }],
+      bricks: [
+        ...state.bricks,
+        {
+          id: newId,
+          width: 4,
+          snapshot: initialSnapshot,
+        },
+      ],
     }));
   },
 
@@ -57,11 +65,14 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     set((state) => ({
       bricks: state.bricks.map((b) => {
         if (b.id !== id) return b;
+
         const hasSameSnapshot =
           JSON.stringify(b.snapshot) === JSON.stringify(snapshot);
+
         if (hasSameSnapshot) {
           return b;
         }
+
         return { ...b, snapshot };
       }),
     })),
@@ -123,7 +134,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     set({ currentStep: (currentStep + 1) % total });
   },
 
-  reorderBricks: (startIndex: number, endIndex: number) => {
+  reorderBricks: (startIndex, endIndex) => {
     set((state) => {
       const newBricks = Array.from(state.bricks);
       const [removed] = newBricks.splice(startIndex, 1);

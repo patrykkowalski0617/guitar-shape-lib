@@ -19,8 +19,9 @@ const commonBpmElementStyles = css`
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
+  text-shadow: 1px 1px 0 color-mix(in oklab, var(--background) 50%, transparent);
   ${playerElementCommon}
   &:hover {
     background-color: color-mix(in oklab, var(--primary) 70%, var(--muted));

@@ -20,11 +20,7 @@ export type Snapshot = {
   shapeId: string | null;
 };
 
-export function usePlayerSnapshot(
-  brickId: number,
-  isEditable: boolean,
-  onToggleEdit: () => void,
-) {
+export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
   const updateBrickSnapshot = usePlayerStore(
     (state) => state.updateBrickSnapshot,
   );
@@ -74,15 +70,11 @@ export function usePlayerSnapshot(
   );
 
   useEffect(() => {
-    const prefix = `[EFFECT][Brick:${brickId}]`;
-
     if (!isEditable) {
-      // Logujemy tylko raz przy zmianie na false, żeby nie spamować
       return;
     }
 
     if (!brick) {
-      console.warn(`${prefix} Brick not found in store!`);
       return;
     }
 
@@ -91,55 +83,27 @@ export function usePlayerSnapshot(
       JSON.stringify(currentStoredSnapshot) ===
       JSON.stringify(currentLiveState);
 
-    console.log(`${prefix} Checking update...`, {
-      isEditable,
-      hasStoredSnapshot: !!currentStoredSnapshot,
-      isSameWithLive: isSame,
-      storedData: JSON.stringify(currentStoredSnapshot),
-      liveData: JSON.stringify(currentLiveState),
-    });
-
     if (isSame) {
-      console.log(`${prefix} Update skipped: Data is identical.`);
       return;
     }
 
-    console.log(`${prefix} ACTION: updateBrickSnapshot called!`);
     updateBrickSnapshot(brickId, currentLiveState);
   }, [isEditable, currentLiveState, brickId, updateBrickSnapshot, brick]);
 
-  // DIAGNOSTYKA RENDERU
   const displayData = isEditable
     ? currentLiveState
     : brick?.snapshot || currentLiveState;
 
   const lockedSnapshot = brick?.snapshot || currentLiveState;
 
-  console.log(`[RENDER][Brick:${brickId}]`, {
-    isEditable,
-    source: isEditable ? "LIVE" : brick?.snapshot ? "STORE" : "FALLBACK_LIVE",
-    displayRootNote: displayData.rootNote,
-    fullDisplayData: JSON.stringify(displayData),
-  });
-
   const handleClick = (e: React.MouseEvent) => {
-    const prefix = `[CLICK][Brick:${brickId}]`;
-    console.log(`${prefix} Clicked!`, { isEditable });
-
     e.stopPropagation();
 
-    console.log(`${prefix} Setting location lock...`);
     setShapeVariantLocationData_locked(shapeVariantLocationData);
 
     if (!isEditable && lockedSnapshot.rootNote !== null) {
-      console.log(`${prefix} ACTION: applySnapshotToStore called!`, {
-        snapshotToApply: JSON.stringify(lockedSnapshot),
-      });
       applySnapshotToStore(lockedSnapshot);
     }
-
-    console.log(`${prefix} Calling onToggleEdit...`);
-    onToggleEdit();
   };
 
   return {

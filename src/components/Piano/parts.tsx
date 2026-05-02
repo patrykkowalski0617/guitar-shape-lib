@@ -10,7 +10,7 @@ export const ShadowWrapper = styled.div`
 `;
 
 export const PianoKeysShadow = styled.div`
-  box-shadow: 0px 5px 4px 1px
+  box-shadow: 0px 10px 6px 0px
     color-mix(in oklab, var(--background) 100%, transparent) inset;
   position: absolute;
   top: 0;

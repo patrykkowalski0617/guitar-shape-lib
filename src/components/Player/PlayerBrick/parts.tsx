@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import { playerElementCommon, playerElementHeight } from "../constants";
 import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
+import { BrickOptions } from "./BrickOptions/parts";
 
 const flash = keyframes`
   0% { background-color: color-mix(in oklab, var(--accent) 45%, var(--background)); }
@@ -43,25 +44,6 @@ export const Part = styled.div<{ $unit: number; $isActive: boolean }>`
     `}
 `;
 
-export const BrickOptions = styled.div<{ $isEditable: boolean }>`
-  border-radius: ${instrumentElBRadius};
-  transition: all 0.1s ease;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  inset: 2px;
-  background-color: color-mix(in oklab, var(--accent) 40%, var(--background));
-  opacity: ${({ $isEditable }) => ($isEditable ? 0 : 0.8)};
-  pointer-events: none;
-  z-index: 2;
-  box-shadow:
-    1px 1px 4px 1px color-mix(in oklab, var(--background) 70%, transparent)
-      inset,
-    -1px -1px 3px 0px color-mix(in oklab, var(--foreground) 20%, transparent)
-      inset;
-`;
-
 export const Brick = styled.div<{
   $isEditable: boolean;
   $widthUnit: number;
@@ -82,7 +64,17 @@ export const Brick = styled.div<{
   color: var(--foreground);
   flex-shrink: 0;
   opacity: ${({ $isDragging }) => ($isDragging ? 0.4 : 1)};
-  cursor: ${({ $isEditable }) => ($isEditable ? "ew-resize" : "grab")};
+  ${({ $isEditable }) =>
+    $isEditable
+      ? css`
+          cursor: ew-resize;
+          ${BrickOptions} {
+            opacity: 1;
+          }
+        `
+      : css`
+          cursor: grab;
+        `};
   transition:
     transform 0.2s ease,
     opacity 0.2s ease;
@@ -98,7 +90,7 @@ export const Brick = styled.div<{
 
   &:hover {
     ${BrickOptions} {
-      display: ${({ $isEditable }) => ($isEditable ? "none" : "flex")};
+      opacity: 1;
     }
   }
 
@@ -118,5 +110,4 @@ export const Label = styled.div`
   font-size: 11px;
   color: var(--foreground);
   pointer-events: none;
-  z-index: 1;
 `;

@@ -15,7 +15,6 @@ interface UsePlayerBrickLogicProps {
 export const usePlayerBrickLogic = ({
   brick,
   isEditable,
-  onToggleEdit,
   onWidthChange,
 }: UsePlayerBrickLogicProps) => {
   const { id, width } = brick;
@@ -32,7 +31,7 @@ export const usePlayerBrickLogic = ({
   const birckWidthUnit = useBrickWidthUnit();
 
   const { displayData, handleClick, applySnapshotToStore, lockedSnapshot } =
-    usePlayerSnapshot(id, isEditable, onToggleEdit);
+    usePlayerSnapshot(id, isEditable);
 
   const resizeHandlers = useBrickResize({
     isEditable,
