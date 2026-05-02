@@ -20,23 +20,23 @@ const buttonVariants = cva(
           "bg-accent/15 hover:bg-accent/25 text-accent-foreground",
         ),
         playerDashed: cn(
-          "h-[30px] w-[35px] font-bold border border-dashed border-border",
-          "bg-background bg-background/80 hover:bg-muted/20 text-foreground",
+          "h-[30px] w-[35px] border border-dashed border-border",
+          "bg-muted/20 hover:bg-muted/40 hover:bg-muted/20 text-foreground",
         ),
         playerOutline: cn(
-          "h-[30px] w-[35px] font-bold border border-accent-foreground",
-          "bg-background hover:bg-background/80 text-accent-foreground",
+          "h-[30px] w-[35px] border border-accent-foreground",
+          "bg-muted/20 hover:bg-muted/40 text-accent-foreground",
         ),
         playerOutlineAccent: cn(
-          "h-[30px] w-[35px] font-bold border-2 border-contrast",
-          "bg-background hover:bg-background/80 text-contrast",
+          "h-[30px] w-[35px] font border border-contrast",
+          "bg-muted/20 hover:bg-muted/40 text-contrast",
         ),
         playerOutlineWarn: cn(
-          "h-[30px] w-[35px] font-bold border-2 border-warn",
-          "bg-background hover:bg-background/80 text-warn",
+          "h-[30px] w-[35px] border border-warn",
+          "bg-muted/20 hover:bg-muted/40 text-warn",
         ),
         playerSolid: cn(
-          "h-[30px] w-[35px] font-bold border-none",
+          "h-[30px] w-[35px] border",
           "bg-background bg-accent/70 hover:bg-accent/90 text-foreground",
         ),
       },

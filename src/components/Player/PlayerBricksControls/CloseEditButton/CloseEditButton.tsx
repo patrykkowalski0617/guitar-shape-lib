@@ -1,8 +1,7 @@
 import { Check } from "lucide-react";
 import { useCloseEdit } from "./hooks/useCloseEdit";
-import { Button } from "@/components/ui/button";
+import * as S from "./parts";
 import { playerIconSize } from "@/components/Player/constants";
-import { PlayerElementWrapper } from "../../parts";
 
 export const CloseEditButton = () => {
   const { isEditModeActive, closeEdit } = useCloseEdit();
@@ -12,10 +11,8 @@ export const CloseEditButton = () => {
   }
 
   return (
-    <PlayerElementWrapper>
-      <Button variant={"playerSolid"} onClick={closeEdit}>
-        <Check size={playerIconSize} strokeWidth={3} />
-      </Button>
-    </PlayerElementWrapper>
+    <S.Button variant={"playerSolid"} onClick={closeEdit}>
+      <Check size={playerIconSize} strokeWidth={3} />
+    </S.Button>
   );
 };

@@ -50,7 +50,6 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
     const newId = Date.now();
     set((state) => ({
       bricks: [...state.bricks, { id: newId, width: 4, snapshot: null }],
-      activeBrickId: newId,
     }));
   },
 

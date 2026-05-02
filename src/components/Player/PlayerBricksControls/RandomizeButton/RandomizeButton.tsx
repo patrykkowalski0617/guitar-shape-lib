@@ -6,10 +6,9 @@ import {
   useRandomizeShapeVariant,
 } from "./hooks";
 import { useMusicStore, usePlayerStore } from "@/store";
-import { Button } from "@/components/ui/button";
 import { playerIconSize } from "@/components/Player/constants";
-import { PlayerElementWrapper } from "../../parts";
 import { useAddBrick } from "@/components/ShapeControls/ShapeExplorerBar/AddBrickButton/hooks/useAddBrick";
+import * as S from "./parts";
 
 export function RandomizeButton() {
   const { setRandomKey } = useRandomizeKey();
@@ -51,10 +50,8 @@ export function RandomizeButton() {
   };
 
   return (
-    <PlayerElementWrapper>
-      <Button variant={"playerOutlineAccent"} onClick={handleRandomize}>
-        <Dices size={playerIconSize} />
-      </Button>
-    </PlayerElementWrapper>
+    <S.Button variant={"playerOutlineAccent"} onClick={handleRandomize}>
+      <Dices size={playerIconSize} />
+    </S.Button>
   );
 }

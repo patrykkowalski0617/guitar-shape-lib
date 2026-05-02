@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import { playerElementHeight } from "../constants";
+import { playerElementCommon, playerElementHeight } from "../constants";
 import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
 
 const flash = keyframes`
@@ -81,6 +81,7 @@ export const Brick = styled.div<{
   transition:
     transform 0.2s ease,
     opacity 0.2s ease;
+  ${playerElementCommon}
   ${({ $isDragging }) =>
     $isDragging &&
     css`
