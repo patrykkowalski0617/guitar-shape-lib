@@ -1,13 +1,10 @@
 import { useRef, useEffect } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/custom-select";
+import { Select, SelectItem } from "@/components/ui/custom-select";
 import { useShapeSelection } from "./hooks/useShapeSelection";
 import { useSortedShapeOptions } from "./hooks/useSortedShapeOptions";
 import { useCurrentBaseChordName } from "@/hooks";
 import { useControlsStore } from "@/store";
+import * as S from "./parts";
 
 export default function ShapeSelect() {
   const setToggleBaseChordId = useControlsStore(
@@ -54,12 +51,7 @@ export default function ShapeSelect() {
       open={isShapeSelectOpen}
       onOpenChange={setIsShapeSelectOpen}
     >
-      <SelectContent
-        style={{
-          boxShadow: "15px 15px 20px 5px var(--background)",
-          marginTop: 10,
-        }}
-      >
+      <S.SelectContent>
         <div className="text-center py-1 text-xs text-muted-foreground">
           Choose a shape to practice over the {selectedChordLabel} chord
         </div>
@@ -69,7 +61,7 @@ export default function ShapeSelect() {
             <span>{option.labelShapeName}</span>
           </SelectItem>
         ))}
-      </SelectContent>
+      </S.SelectContent>
     </Select>
   );
 }

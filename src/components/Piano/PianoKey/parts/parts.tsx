@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { getKeyPushEffect } from "./getKeyPushEffect";
 import { instrumentBRadius, instrumentElBRadius } from "./constants";
 import {
   whiteKeyCommon,
@@ -14,13 +13,13 @@ import {
   blackKeyWrapperCommon,
 } from "./blackKeys";
 import type { BlackKeyTypes, KeyTypes, WhiteKeyTypes } from "../../constants";
+import { getKeyPushEffect } from "./getKeyPushEffect";
 
 export const Key = styled.div<{
   $isShapeSelected: boolean;
   $isWhitePianoKey: boolean;
   $pianoKeyShape?: KeyTypes;
   $isPushed: boolean;
-  $isRoleNote: boolean;
 }>`
   position: relative;
   ${({ $isWhitePianoKey }) =>

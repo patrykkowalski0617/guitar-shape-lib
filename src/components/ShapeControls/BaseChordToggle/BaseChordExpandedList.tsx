@@ -3,6 +3,7 @@ import { BaseChordSingleRow } from "./BaseChordSingleRow";
 import type { TuneKeyId } from "@/data";
 import { BaseChordLabel } from "./BaseChordLabel";
 import { useLayoutEffect, useRef, useState } from "react";
+import * as S from "./parts";
 
 interface Props {
   optionsPerKey: any[];
@@ -135,7 +136,7 @@ export function BaseChordExpandedList({
   return (
     <>
       <div className="fixed inset-0 z-[40]" onClick={onClose} />
-      <motion.div
+      <S.StyledMotionDiv
         ref={containerRef}
         initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: computedStyle.opacity as number, scale: 1 }}
@@ -143,11 +144,7 @@ export function BaseChordExpandedList({
         transition={{ duration: 0.1, ease: "easeOut" }}
         style={{
           ...computedStyle,
-          boxShadow: "10px 10px 30px 10px var(--background)",
-          background:
-            "color-mix(in oklab, var(--background) 60%, var(--muted))",
         }}
-        className="absolute left-0 w-full z-[50] rounded-sm border border-background/20 flex flex-col overflow-hidden"
       >
         <BaseChordLabel />
 
@@ -173,7 +170,7 @@ export function BaseChordExpandedList({
             ))}
           </div>
         </div>
-      </motion.div>
+      </S.StyledMotionDiv>
     </>
   );
 }

@@ -4,7 +4,6 @@ import { usePlayerStore, useMusicStore, useControlsStore } from "@/store";
 
 export function usePlayer() {
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
-  // const setRoleId = useControlsStore((state) => state.setRoleId);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
@@ -38,7 +37,6 @@ export function usePlayer() {
       setShapeVariantLocationData(null);
       setShapeVariantLocationData_locked(null);
       setActiveBrickId(null);
-      // setRoleId("all-matching-key");
       setIsMajorMode(true);
     }
 
@@ -63,7 +61,6 @@ export function usePlayer() {
     setShapeVariantLocationData,
     setTuneKeyId,
     setActiveBrickId,
-    // setRoleId,
     setIsMajorMode,
   ]);
 
