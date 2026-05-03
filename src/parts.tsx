@@ -19,7 +19,7 @@ export const MainContent = styled.main`
 `;
 
 const SectionCommonCss = css`
-  margin-bottom: 15px;
+  margin-bottom: 13px;
   @media (min-width: 1024px) {
     margin-bottom: 30px;
   }
@@ -28,17 +28,12 @@ export const Section = styled.div<{ $isDisabled?: boolean }>`
   max-width: 1400px;
   width: 100%;
   interpolate-size: allow-keywords;
-  padding: 10px 0;
-  margin-top: -20px;
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  > * {
-    flex: 1 1 0;
-  }
+
   ${({ $isDisabled }) =>
     $isDisabled !== undefined
       ? css`
+          padding: 10px 0;
+          margin-top: -20px;
           overflow: hidden;
           height: 0;
           opacity: 0;
