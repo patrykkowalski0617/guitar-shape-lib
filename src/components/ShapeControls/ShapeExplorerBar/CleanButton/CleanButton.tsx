@@ -1,6 +1,7 @@
 import { useControlsStore, useMusicStore } from "@/store";
 import { BrushCleaning } from "lucide-react";
 import * as P from "./parts";
+import { usePersistentUnlock } from "@/hooks";
 
 export const CleanButton = () => {
   const shapeVariantLocationData = useMusicStore(
@@ -27,6 +28,8 @@ export const CleanButton = () => {
     shapeId
   );
 
+  const isTemporarlyDisabled = usePersistentUnlock(isDisabled);
+
   const handleClick = () => {
     setShapeVariantLocationData(null);
     resetActiveLockedNotes();
@@ -36,7 +39,11 @@ export const CleanButton = () => {
   };
 
   return (
-    <P.Wrapper onClick={handleClick} $isDisabled={isDisabled}>
+    <P.Wrapper
+      onClick={handleClick}
+      $isDisabled={isDisabled}
+      $isTemporarlyDisabled={isTemporarlyDisabled}
+    >
       <BrushCleaning size={20} color="var(--warn)" />
     </P.Wrapper>
   );

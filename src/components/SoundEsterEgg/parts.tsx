@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const MakeItActuallyPlayable = styled.div<{ $isActive: boolean }>`
   position: absolute;
@@ -8,7 +8,7 @@ export const MakeItActuallyPlayable = styled.div<{ $isActive: boolean }>`
   height: 25px;
   &::before {
     content: ${({ $isActive }) =>
-      `"Make It Actually Playable ${$isActive ? "🔊" : "🙄"}"`};
+      `"Make it actually playable ${$isActive ? "🔊" : "🙄"}"`};
     height: 25px;
     display: flex;
     justify-content: center;
@@ -20,12 +20,6 @@ export const MakeItActuallyPlayable = styled.div<{ $isActive: boolean }>`
     transition: all 0.3s ease;
     font-size: 13px;
     font-weight: 500;
-    ${({ $isActive }) =>
-      $isActive
-        ? css`
-            transform: translateY(0%);
-          `
-        : ""};
   }
 
   &:hover {

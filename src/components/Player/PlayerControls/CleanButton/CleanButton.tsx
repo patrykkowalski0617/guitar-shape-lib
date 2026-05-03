@@ -6,9 +6,12 @@ import { useCleanBricks } from "../../hooks";
 
 export const CleanButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const bricks = usePlayerStore((state) => state.bricks);
   const cleanBricks = useCleanBricks();
 
   const handleClick = cleanBricks;
+
+  if (!bricks.length) return null;
 
   return (
     <S.Button

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Play, Square } from "lucide-react";
+import { Metronome } from "lucide-react";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { useWakeLock } from "@/hooks";
@@ -36,19 +36,11 @@ export const PlayButton = () => {
     >
       {isCountingIn ? (
         countIn
-      ) : isPlaying ? (
-        <Square
-          size={playerIconSize}
-          fill="currentColor"
-          stroke="var(--background)"
-          strokeWidth={1}
-        />
       ) : (
-        <Play
+        <Metronome
           size={playerIconSize}
-          fill="currentColor"
           stroke="var(--background)"
-          strokeWidth={1}
+          strokeWidth={3}
         />
       )}
     </S.PlayButton>

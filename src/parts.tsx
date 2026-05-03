@@ -24,28 +24,26 @@ const SectionCommonCss = css`
     margin-bottom: 30px;
   }
 `;
-
 export const Section = styled.div<{ $isDisabled?: boolean }>`
   max-width: 1400px;
   width: 100%;
-
+  interpolate-size: allow-keywords;
+  padding: 10px 0;
+  margin-top: -20px;
   ${({ $isDisabled }) =>
     $isDisabled !== undefined
       ? css`
-          interpolate-size: allow-keywords;
           overflow: hidden;
-          transition:
-            height 0.1s ease-in-out,
-            opacity 0.1s 0.1s ease-in-out;
           height: 0;
           opacity: 0;
-          margin-bottom: 0;
+          transition:
+            height 0.4s ease-in-out,
+            opacity 0.2s 0.2s ease-in-out;
 
           ${!$isDisabled &&
           css`
             height: auto;
             opacity: 1;
-            overflow: visible;
             ${SectionCommonCss};
           `}
         `
