@@ -1,3 +1,4 @@
+import { usePersistentUnlock } from "@/hooks";
 import { useShapeExplorerLogic } from "../hooks/useShapeExplorerLogic";
 import * as S from "./parts";
 import { StepSlider } from "./StepSlider";
@@ -13,8 +14,13 @@ export default function ShapeExplorerSlider() {
     handleMouseUp,
   } = useShapeExplorerLogic();
 
+  const isTemporarlyDisabled = usePersistentUnlock(isDisabled);
+
   return (
-    <S.ShapeExplorerWrapper $isDisabled={isDisabled}>
+    <S.ShapeExplorerWrapper
+      $isTemporarlyDisabled={isTemporarlyDisabled}
+      $isDisabled={isDisabled}
+    >
       <StepSlider
         value={sliderValue}
         options={options}

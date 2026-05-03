@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import { shapeExplorerCommon } from "../../constants";
+import { shapeExplorerCommon } from "../../ShapeExplorerBar/constants";
 
 const highlightAnimation = keyframes`
   0% { 
@@ -62,7 +62,10 @@ export const Tick = styled.div<{
   }}
 `;
 
-export const ShapeExplorerWrapper = styled.div<{ $isDisabled: boolean }>`
+export const ShapeExplorerWrapper = styled.div<{
+  $isTemporarlyDisabled: boolean;
+  $isDisabled: boolean;
+}>`
   max-width: 0px;
   transition: 0.5s;
   transform: translateX(calc(25px / -2));
@@ -71,6 +74,10 @@ export const ShapeExplorerWrapper = styled.div<{ $isDisabled: boolean }>`
   ${shapeExplorerCommon}
   ${({ $isDisabled }) => {
     if ($isDisabled) return;
+    return css``;
+  }}
+  ${({ $isTemporarlyDisabled }) => {
+    if ($isTemporarlyDisabled) return;
     return css`
       transform: none;
       max-width: 500px;

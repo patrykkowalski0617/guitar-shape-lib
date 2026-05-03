@@ -1,17 +1,7 @@
-import { insetShadow } from "@/parts";
 import { css, keyframes } from "styled-components";
 
 export const expandedListCommon = css`
   box-shadow: 15px 15px 20px 0px var(--background);
-`;
-
-export const shapeExplorerCommon = css`
-  ${insetShadow}
-  height: 40px;
-  border-radius: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const opacityAnimation = keyframes`

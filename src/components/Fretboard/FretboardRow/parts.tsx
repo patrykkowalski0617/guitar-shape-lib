@@ -1,4 +1,4 @@
-import { appBgColor } from "@/parts";
+import { appBgColor } from "@/constants";
 import styled from "styled-components";
 
 export const FretboardRow = styled.div`

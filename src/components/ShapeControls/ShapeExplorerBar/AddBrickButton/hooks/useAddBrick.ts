@@ -6,8 +6,10 @@ export function useAddBrick() {
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
   );
-
   const activeRootNote = useShapeRootNote();
+
+  const shapeId = useControlsStore((state) => state.shapeId);
+  if (!shapeId) return {};
 
   const addBrick = () => {
     const { addBrick: addBrickToStore } = usePlayerStore.getState();

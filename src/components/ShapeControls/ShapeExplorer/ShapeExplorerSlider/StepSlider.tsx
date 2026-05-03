@@ -70,6 +70,7 @@ export function StepSlider({
           "focus-visible:ring-accent/70",
         )}
         style={{
+          opacity: isSliderDisabled ? "0.5" : "1",
           width: thumbSize,
           height: thumbSize,
           boxShadow: `2px 2px 8px 2px var(--background), 

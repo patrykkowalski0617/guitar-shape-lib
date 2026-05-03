@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
-import { insetShadow } from "@/parts";
+import { insetShadow } from "@/constants";
 
 export const PlayerContainer = styled.div`
   display: flex;

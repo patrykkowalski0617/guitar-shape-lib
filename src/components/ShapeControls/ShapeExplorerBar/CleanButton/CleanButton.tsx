@@ -21,7 +21,7 @@ export const CleanButton = () => {
     (state) => state.setToggleBaseChordId,
   );
 
-  const isVisible = !!(
+  const isDisabled = !(
     activeLockedNotes.length ||
     shapeVariantLocationData ||
     shapeId
@@ -35,10 +35,8 @@ export const CleanButton = () => {
     setToggleBaseChordId(null);
   };
 
-  if (!isVisible) return null;
-
   return (
-    <P.Wrapper onClick={handleClick}>
+    <P.Wrapper onClick={handleClick} $isDisabled={isDisabled}>
       <BrushCleaning size={20} color="var(--warn)" />
     </P.Wrapper>
   );
