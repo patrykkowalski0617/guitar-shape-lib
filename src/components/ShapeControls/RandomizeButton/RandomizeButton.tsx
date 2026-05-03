@@ -7,14 +7,12 @@ import {
 } from "./hooks";
 import { useMusicStore, usePlayerStore } from "@/store";
 import { playerIconSize } from "@/components/Player/constants";
-import { useAddBrick } from "@/components/ShapeControls/ShapeExplorerBar/AddBrickButton/hooks/useAddBrick";
 import * as S from "./parts";
 
 export function RandomizeButton() {
   const { setRandomKey } = useRandomizeKey();
   const { setRandomShape } = useRandomizeShape();
   const { setRandomShapeVariant } = useRandomizeShapeVariant();
-  const { addBrick } = useAddBrick();
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   const shapeVariantLocationData = useMusicStore(
@@ -26,10 +24,9 @@ export function RandomizeButton() {
     const shouldExecuteAddBrick = isRandomizeActionActive.current;
 
     if (shouldExecuteAddBrick) {
-      addBrick();
       isRandomizeActionActive.current = false;
     }
-  }, [shapeVariantLocationData, addBrick]);
+  }, [shapeVariantLocationData]);
 
   if (isPlaying) {
     return null;

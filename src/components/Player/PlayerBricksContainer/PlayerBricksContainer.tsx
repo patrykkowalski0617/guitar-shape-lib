@@ -2,7 +2,6 @@ import PlayerBrick from "../PlayerBrick/PlayerBrick";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { usePlayerBricksDrag } from "./hooks/usePlayerBricksDrag";
-import { RandomizeButton } from "../PlayerBricksControls/RandomizeButton/RandomizeButton";
 
 export const PlayerBricksContainer = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -13,8 +12,6 @@ export const PlayerBricksContainer = () => {
 
   const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } =
     usePlayerBricksDrag();
-
-  const isContainerEmpty = bricks.length === 0;
 
   return (
     <S.PlayerWrapper $isPlaying={isPlaying}>
@@ -43,10 +40,6 @@ export const PlayerBricksContainer = () => {
           </S.BrickDragWrapper>
         );
       })}
-
-      <S.ControlsWrapper>
-        {isContainerEmpty && <RandomizeButton />}
-      </S.ControlsWrapper>
     </S.PlayerWrapper>
   );
 };

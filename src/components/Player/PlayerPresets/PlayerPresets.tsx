@@ -17,7 +17,7 @@ import {
 import { PRESETS } from "@/data";
 import * as S from "./parts";
 import { playerIconSize } from "../constants";
-import { useCloseEdit } from "../PlayerBricksControls/CloseEditButton/hooks/useCloseEdit";
+import { useCloseEdit } from "../hooks/useCloseEdit";
 
 export function PlayerPresets() {
   const [open, setOpen] = useState(false);

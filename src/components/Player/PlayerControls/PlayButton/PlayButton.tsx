@@ -4,7 +4,7 @@ import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { useWakeLock } from "@/hooks";
 import { playerIconSize } from "../../constants";
-import { useCloseEdit } from "@/components/Player/PlayerBricksControls/CloseEditButton/hooks/useCloseEdit";
+import { useCloseEdit } from "@/components/Player/hooks/useCloseEdit";
 
 export const PlayButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
