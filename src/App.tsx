@@ -8,11 +8,13 @@ import Sign from "./components/Sign/Sign";
 import Player from "./components/Player/Player";
 import Piano from "./components/Piano/Piano";
 import { ShapeExplorerBar } from "./components/ShapeControls/ShapeExplorerBar/ShapeExplorerBar";
+import { SoundEsterEgg } from "./components/Piano/SoundEsterEgg/SoundEsterEgg";
 
 export default function App() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   return (
     <AppWrapper>
+      <SoundEsterEgg />
       <Toaster position="top-center" />
       <FullscreenButton />
 

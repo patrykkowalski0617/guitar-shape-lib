@@ -5,6 +5,7 @@ import * as S from "@/components/Piano/parts";
 import PianoKey from "./PianoKey/PianoKey";
 import { pianoNotes, numberOfKeys } from "./helpers/constants";
 import { usePianoScroll } from "./hooks/usePianoScroll";
+import { MakeItActuallyPlayable } from "./SoundEsterEgg/MakeItActuallyPlayable";
 
 export default function Piano(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -18,6 +19,7 @@ export default function Piano(): JSX.Element {
         <InstrumentWrapper>
           <S.PianoWrapper>
             <S.PianoKeysShadow />
+            <MakeItActuallyPlayable />
             <S.Piano $numberOfKeys={numberOfKeys}>
               {pianoNotes.map((note) => (
                 <PianoKey key={note.noteId} note={note} />

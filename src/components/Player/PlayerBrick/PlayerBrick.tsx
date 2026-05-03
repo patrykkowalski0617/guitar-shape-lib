@@ -1,5 +1,5 @@
 import * as S from "./parts";
-import { type Brick, usePlayerStore } from "@/store"; // Założyłem import store dla usuwania
+import { type Brick, usePlayerStore } from "@/store";
 import { usePlayerBrickLogic } from "./hooks";
 import { BrickOptions } from "./BrickOptions/BrickOptions";
 

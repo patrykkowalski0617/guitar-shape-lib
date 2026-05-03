@@ -7,8 +7,8 @@ export const BrickOptions = styled.div<{ $isEditable: boolean }>`
   align-items: center;
   position: absolute;
   top: -95%;
-  right: -15px;
-  padding: 3px 5px;
+  right: -10px;
+  padding: 2px 3px;
   z-index: 50;
   background: color-mix(in oklab, var(--background) 70%, transparent);
   gap: 5px;
@@ -23,6 +23,11 @@ export const BrickOptions = styled.div<{ $isEditable: boolean }>`
 `;
 
 const editButtonsCommon = css`
+  height: 25px;
+  width: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-shadow:
     -1px -1px 4px 1px color-mix(in oklab, var(--background) 70%, transparent)
       inset,
@@ -32,23 +37,12 @@ const editButtonsCommon = css`
   border: 1px solid color-mix(in oklab, var(--background) 90%, var(--muted));
   border-radius: 4px;
   color: var(--background);
-  cursor: pointer;
-
   &:hover {
-    filter: brightness(1.1);
-  }
-
-  &:active {
-    transform: scale(0.95);
+    filter: brightness(1.2);
   }
 `;
 
 export const EditBrickButton = styled.button<{ $isEditable: boolean }>`
-  height: 30px;
-  width: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   ${editButtonsCommon}
   background-color: ${({ $isEditable }) =>
     $isEditable
@@ -57,11 +51,6 @@ export const EditBrickButton = styled.button<{ $isEditable: boolean }>`
 `;
 
 export const DeleteBrickButton = styled.button`
-  height: 30px;
-  width: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   ${editButtonsCommon}
   background-color: color-mix(in oklab, var(--warn) 100%, var(--background));
 `;

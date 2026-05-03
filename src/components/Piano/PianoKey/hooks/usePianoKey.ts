@@ -34,7 +34,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
     visualState: {
       isWhitePianoKey,
       pianoKeyShape,
-      isPushed: isPushed,
+      isPushed,
       isShapeSelected: !!shapeId,
     },
     interactivity: {

@@ -66,8 +66,8 @@ export const Fret = styled.div<{
     if (!$isLockedNote) return null;
 
     return css`
-      outline: 2px solid var(--secondary-foreground);
-      padding: 2px;
+      /* outline: 2px solid var(--secondary-foreground);
+      padding: 2px; */
     `;
   }}
 `;

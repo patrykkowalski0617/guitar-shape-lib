@@ -24,13 +24,13 @@ export const Part = styled.div<{ $unit: number; $isActive: boolean }>`
   justify-content: space-between;
   align-items: flex-end;
   flex-shrink: 0;
+  opacity: 0.5;
   &::after,
   &::before {
     content: "";
     width: 1px;
     height: 1px;
     background-color: var(--border);
-    opacity: 0.7;
   }
 
   ${({ $isActive }) =>
@@ -110,4 +110,6 @@ export const Label = styled.div`
   font-size: 11px;
   color: var(--foreground);
   pointer-events: none;
+  position: relative;
+  z-index: 5;
 `;

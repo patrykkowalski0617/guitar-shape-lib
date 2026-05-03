@@ -22,7 +22,6 @@ interface PlayerState {
   countIn: number;
   isCountingIn: boolean;
 
-  // Poprawione: teraz przyjmuje opcjonalny snapshot
   addBrick: (initialSnapshot?: Snapshot | null) => void;
   removeBrick: (id: number) => void;
   updateBrickWidth: (id: number, newWidth: number) => void;

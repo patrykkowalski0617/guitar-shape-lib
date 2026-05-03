@@ -6,7 +6,7 @@ export type StringIndex = 0 | 1 | 2 | 3 | 4 | 5;
 
 interface FretboardRowProps {
   stringIndex: StringIndex;
-  rowNotes: NoteObject[]; // Zmieniono z parametrów generujących na gotową tablicę
+  rowNotes: NoteObject[];
 }
 
 export default function FretboardRow({
