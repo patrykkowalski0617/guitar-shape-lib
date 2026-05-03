@@ -6,13 +6,13 @@ import {
   usePlayerStore,
   type ShapeVariantLocationData,
 } from "@/store";
-import { SHAPES, type TuneKeyId, type Shapes, type RoleId } from "@/data";
+import { SHAPES, type TuneKeyId, type Shapes, type BaseChordId } from "@/data";
 import { useApplySnapshotToStore } from "./useApplySnapshotToStore";
 
 export type Snapshot = {
   keyId: TuneKeyId;
   isMajorMode: boolean;
-  roleId: RoleId | null;
+  baseChordId: BaseChordId | null;
   shapeVariantLocationData: ShapeVariantLocationData | null;
   rootNote: string | null;
   shapeLabel: string | undefined;
@@ -30,7 +30,7 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
 
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
-  const roleId = useControlsStore((state) => state.roleId);
+  const baseChordId = useControlsStore((state) => state.baseChordId);
   const shapeId = useControlsStore((state) => state.shapeId);
   const shapeSemitoneOffsetFromC = useControlsStore(
     (state) => state.shapeSemitoneOffsetFromC,
@@ -50,7 +50,7 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
     () => ({
       keyId: tuneKeyId,
       isMajorMode,
-      roleId,
+      baseChordId,
       shapeVariantLocationData,
       rootNote: activeRootNote,
       shapeLabel: activeShape?.label,
@@ -60,7 +60,7 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
     [
       tuneKeyId,
       isMajorMode,
-      roleId,
+      baseChordId,
       shapeVariantLocationData,
       activeRootNote,
       activeShape,

@@ -15,7 +15,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: true,
-          roleId: "tonic",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
             stringId: "strE",
@@ -34,7 +34,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: true,
-          roleId: "subdominant",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
             stringId: "strA",
@@ -55,7 +55,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: true,
-          roleId: "dominant",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "dominant",
             stringId: "strA",
@@ -81,7 +81,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: false,
-          roleId: "tonic",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "m_add9",
             stringId: "strE",
@@ -102,7 +102,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: false,
-          roleId: "dominant",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "7b9",
             stringId: "strA",
@@ -128,7 +128,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: true,
-          roleId: "tonic",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "m7",
             stringId: "strA",
@@ -147,7 +147,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: false,
-          roleId: "tonic",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "m7",
             stringId: "strD",
@@ -166,7 +166,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "G",
           isMajorMode: false,
-          roleId: "dominant",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "dominant",
             stringId: "strE",
@@ -190,7 +190,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "E",
           isMajorMode: true,
-          roleId: "tonic",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
             stringId: "strE",
@@ -211,7 +211,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "E",
           isMajorMode: false,
-          roleId: "tonic",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
             stringId: "strE",
@@ -232,7 +232,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "E",
           isMajorMode: true,
-          roleId: "subdominant",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
             stringId: "strA",
@@ -253,7 +253,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "E",
           isMajorMode: true,
-          roleId: "dominant",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "dominant",
             stringId: "strD",
@@ -279,7 +279,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: true,
-          roleId: "tonic",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
             stringId: "strE",
@@ -300,7 +300,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: true,
-          roleId: "subdominant",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
             stringId: "strA",
@@ -321,7 +321,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: true,
-          roleId: "dominant",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "dominant",
             stringId: "strD",
@@ -342,7 +342,7 @@ export const PRESETS: Preset[] = [
         snapshot: {
           keyId: "C",
           isMajorMode: false,
-          roleId: "dominant",
+          baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "7b9",
             stringId: "strA",

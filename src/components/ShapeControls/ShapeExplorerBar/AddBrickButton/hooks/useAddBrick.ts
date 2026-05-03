@@ -14,7 +14,7 @@ export function useAddBrick() {
     const {
       tuneKeyId,
       isMajorMode,
-      roleId,
+      baseChordId,
       shapeId,
       shapeSemitoneOffsetFromC,
     } = useControlsStore.getState();
@@ -25,7 +25,7 @@ export function useAddBrick() {
     const initialSnapshot = {
       keyId: tuneKeyId,
       isMajorMode,
-      roleId,
+      baseChordId,
       shapeVariantLocationData,
       rootNote: activeRootNote,
       shapeLabel: activeShape?.label,

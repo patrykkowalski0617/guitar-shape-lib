@@ -124,10 +124,10 @@ export const usePlayerBrickLogic = ({
 
   const roleMarker =
     displayData &&
-    displayData.roleId !== null &&
-    displayData.roleId in roleMarkersMap[modeKey]
+    displayData.baseChordId !== null &&
+    displayData.baseChordId in roleMarkersMap[modeKey]
       ? roleMarkersMap[modeKey][
-          displayData.roleId as keyof (typeof roleMarkersMap)[typeof modeKey]
+          displayData.baseChordId as keyof (typeof roleMarkersMap)[typeof modeKey]
         ].chordName + " | "
       : "";
 
