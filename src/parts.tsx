@@ -30,6 +30,12 @@ export const Section = styled.div<{ $isDisabled?: boolean }>`
   interpolate-size: allow-keywords;
   padding: 10px 0;
   margin-top: -20px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  > * {
+    flex: 1 1 0;
+  }
   ${({ $isDisabled }) =>
     $isDisabled !== undefined
       ? css`

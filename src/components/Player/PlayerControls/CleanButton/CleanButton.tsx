@@ -3,6 +3,7 @@ import { BrushCleaning } from "lucide-react";
 import * as S from "./parts";
 import { playerIconSize } from "../../constants";
 import { useCleanBricks } from "../../hooks";
+import { usePersistentUnlock } from "@/hooks";
 
 export const CleanButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -10,13 +11,14 @@ export const CleanButton = () => {
   const cleanBricks = useCleanBricks();
 
   const handleClick = cleanBricks;
-
-  if (!bricks.length) return null;
+  const isDisabled = !bricks.length;
+  const isTemporarlyDisabled = usePersistentUnlock(isDisabled);
 
   return (
     <S.Button
       variant={"playerOutlineWarn"}
-      disabled={isPlaying}
+      disabled={isPlaying || isDisabled}
+      $isTemporarlyDisabled={isTemporarlyDisabled}
       onClick={handleClick}
     >
       <BrushCleaning size={playerIconSize} />
