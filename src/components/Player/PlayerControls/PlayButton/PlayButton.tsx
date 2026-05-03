@@ -40,7 +40,7 @@ export const PlayButton = () => {
         <Metronome
           size={playerIconSize}
           stroke="var(--background)"
-          strokeWidth={3}
+          strokeWidth={2.5}
         />
       )}
     </S.PlayButton>

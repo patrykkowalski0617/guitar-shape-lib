@@ -14,7 +14,6 @@ interface PlayerBrickProps {
 export default function PlayerBrick(props: PlayerBrickProps) {
   const { brick, isEditable, $isDragging, onToggleEdit } = props;
   const removeBrick = usePlayerStore((state) => state.removeBrick);
-  console.log(brick);
 
   const { birckWidthUnit, activePart, label, handleClick, resizeHandlers } =
     usePlayerBrickLogic(props);

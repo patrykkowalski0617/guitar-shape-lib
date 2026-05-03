@@ -10,7 +10,4 @@ export const Button = styled(_Button)<{ $isTemporarlyDisabled?: boolean }>`
           display: none;
         `
       : ""}
-  svg {
-    filter: drop-shadow(0px 0px 1px black);
-  }
 `;

@@ -10,4 +10,10 @@ export const playerElementCommon = css`
       inset,
     -1px -1px 3px 0px color-mix(in oklab, var(--foreground) 20%, transparent)
       inset;
+
+  > svg {
+    filter: drop-shadow(
+      2px 2px 0px color-mix(in oklab, var(--background) 90%, transparent)
+    );
+  }
 `;

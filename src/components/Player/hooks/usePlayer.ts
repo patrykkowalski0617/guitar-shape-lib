@@ -17,7 +17,6 @@ export function usePlayer() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const isCountingIn = usePlayerStore((state) => state.isCountingIn);
   const bricks = usePlayerStore((state) => state.bricks);
-  console.log(bricks);
 
   const nextStep = usePlayerStore((state) => state.nextStep);
   const handleTick = useCallback(() => {

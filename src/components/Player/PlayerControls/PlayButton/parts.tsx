@@ -15,11 +15,6 @@ export const PlayButton = styled(Button)<{
   ${playerElementCommon}
   font-size: 16px;
   font-weight: 900;
-  text-shadow:
-    -1px -1px 0 var(--background),
-    1px -1px 0 var(--background),
-    -1px 1px 0 var(--background),
-    1px 1px 0 var(--background);
   position: relative;
   &::before {
     content: "";
