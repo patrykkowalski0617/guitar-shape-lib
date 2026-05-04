@@ -15,16 +15,15 @@ import {
   type Brick,
 } from "@/store";
 import { PRESETS } from "@/data";
-import { Button } from "@/components/ui/button";
+import * as S from "./parts";
 import { playerIconSize } from "../constants";
-import { useCloseEdit } from "../PlayerBricksControls/CloseEditButton/hooks/useCloseEdit";
+import { useCloseEdit } from "../hooks/useCloseEdit";
 
 export function PlayerPresets() {
   const [open, setOpen] = useState(false);
   const setBricks = usePlayerStore((state) => state.setBricks);
   const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
-  // const setRoleId = useControlsStore((state) => state.setRoleId);
   const setShapeVariantLocationData = useMusicStore(
     (state) => state.setShapeVariantLocationData,
   );
@@ -43,7 +42,6 @@ export function PlayerPresets() {
     const isMajorMode = bricks[0].snapshot.isMajorMode;
     setTuneKeyId(keyId);
     setIsMajorMode(isMajorMode);
-    // setRoleId("all-matching-key");
     setShapeVariantLocationData(null);
     setShapeVariantLocationData_locked(null);
 
@@ -57,13 +55,14 @@ export function PlayerPresets() {
 
   return (
     <>
-      <Button
+      <S.Button
         variant={"playerOutline"}
         onClick={handleClick}
         disabled={isPlaying}
       >
         <FolderOpen size={playerIconSize} />
-      </Button>
+      </S.Button>
+
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Search for exercises..." />
         <CommandList>

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
+import { insetShadow } from "@/constants";
 
 export const PlayerContainer = styled.div`
   display: flex;
@@ -8,6 +9,7 @@ export const PlayerContainer = styled.div`
   max-width: 1400px;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 0 5px;
   @media (min-width: 1024px) {
     flex-direction: row;
     margin: auto;
@@ -18,7 +20,6 @@ export const PlayerContainer = styled.div`
 `;
 
 export const PlayerSection = styled.div`
-  background-color: color-mix(in oklab, var(--muted) 30%, transparent);
   border-radius: ${instrumentElBRadius};
   padding: 6px 8px;
   display: flex;
@@ -28,8 +29,12 @@ export const PlayerSection = styled.div`
   flex-direction: row;
   width: 100%;
   flex: 1 1 0;
+  ${insetShadow}
   &:last-child {
     justify-content: center;
     flex: 0 0 0;
   }
+  flex: 1 1 0px;
+  height: auto;
+  padding: 6px 8px;
 `;

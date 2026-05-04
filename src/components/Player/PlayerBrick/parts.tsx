@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
-import { playerElementHeight } from "../constants";
+import { playerElementCommon, playerElementHeight } from "../constants";
 import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
+import { BrickOptions } from "./BrickOptions/parts";
 
 const flash = keyframes`
   0% { background-color: color-mix(in oklab, var(--accent) 45%, var(--background)); }
@@ -23,13 +24,13 @@ export const Part = styled.div<{ $unit: number; $isActive: boolean }>`
   justify-content: space-between;
   align-items: flex-end;
   flex-shrink: 0;
+  opacity: 0.5;
   &::after,
   &::before {
     content: "";
     width: 1px;
     height: 1px;
     background-color: var(--border);
-    opacity: 0.7;
   }
 
   ${({ $isActive }) =>
@@ -41,20 +42,6 @@ export const Part = styled.div<{ $unit: number; $isActive: boolean }>`
         var(--background)
       );
     `}
-`;
-
-export const BrickOptions = styled.div<{ $isEditable: boolean }>`
-  border-radius: ${instrumentElBRadius};
-  transition: all 0.1s ease;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  inset: 0;
-  background-color: color-mix(in oklab, var(--accent) 40%, var(--background));
-  opacity: ${({ $isEditable }) => ($isEditable ? 0 : 0.9)};
-  pointer-events: none;
-  z-index: 2;
 `;
 
 export const Brick = styled.div<{
@@ -77,10 +64,21 @@ export const Brick = styled.div<{
   color: var(--foreground);
   flex-shrink: 0;
   opacity: ${({ $isDragging }) => ($isDragging ? 0.4 : 1)};
-  cursor: ${({ $isEditable }) => ($isEditable ? "ew-resize" : "grab")};
+  ${({ $isEditable }) =>
+    $isEditable
+      ? css`
+          cursor: ew-resize;
+          ${BrickOptions} {
+            opacity: 1;
+          }
+        `
+      : css`
+          cursor: grab;
+        `};
   transition:
     transform 0.2s ease,
     opacity 0.2s ease;
+  ${playerElementCommon}
   ${({ $isDragging }) =>
     $isDragging &&
     css`
@@ -92,7 +90,7 @@ export const Brick = styled.div<{
 
   &:hover {
     ${BrickOptions} {
-      display: ${({ $isEditable }) => ($isEditable ? "none" : "flex")};
+      opacity: 1;
     }
   }
 
@@ -112,5 +110,6 @@ export const Label = styled.div`
   font-size: 11px;
   color: var(--foreground);
   pointer-events: none;
-  z-index: 1;
+  position: relative;
+  z-index: 5;
 `;

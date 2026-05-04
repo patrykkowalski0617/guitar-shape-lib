@@ -6,13 +6,13 @@ import {
   usePlayerStore,
   type ShapeVariantLocationData,
 } from "@/store";
-import { SHAPES, type TuneKeyId, type Shapes, type RoleId } from "@/data";
+import { SHAPES, type TuneKeyId, type Shapes, type BaseChordId } from "@/data";
 import { useApplySnapshotToStore } from "./useApplySnapshotToStore";
 
 export type Snapshot = {
   keyId: TuneKeyId;
   isMajorMode: boolean;
-  roleId: RoleId | null;
+  baseChordId: BaseChordId | null;
   shapeVariantLocationData: ShapeVariantLocationData | null;
   rootNote: string | null;
   shapeLabel: string | undefined;
@@ -20,11 +20,7 @@ export type Snapshot = {
   shapeId: string | null;
 };
 
-export function usePlayerSnapshot(
-  brickId: number,
-  isEditable: boolean,
-  onToggleEdit: () => void,
-) {
+export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
   const updateBrickSnapshot = usePlayerStore(
     (state) => state.updateBrickSnapshot,
   );
@@ -34,7 +30,7 @@ export function usePlayerSnapshot(
 
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const isMajorMode = useControlsStore((state) => state.isMajorMode);
-  const roleId = useControlsStore((state) => state.roleId);
+  const baseChordId = useControlsStore((state) => state.baseChordId);
   const shapeId = useControlsStore((state) => state.shapeId);
   const shapeSemitoneOffsetFromC = useControlsStore(
     (state) => state.shapeSemitoneOffsetFromC,
@@ -54,7 +50,7 @@ export function usePlayerSnapshot(
     () => ({
       keyId: tuneKeyId,
       isMajorMode,
-      roleId,
+      baseChordId,
       shapeVariantLocationData,
       rootNote: activeRootNote,
       shapeLabel: activeShape?.label,
@@ -64,7 +60,7 @@ export function usePlayerSnapshot(
     [
       tuneKeyId,
       isMajorMode,
-      roleId,
+      baseChordId,
       shapeVariantLocationData,
       activeRootNote,
       activeShape,
@@ -74,13 +70,22 @@ export function usePlayerSnapshot(
   );
 
   useEffect(() => {
-    if (!isEditable) return;
-    if (!brick) return;
+    if (!isEditable) {
+      return;
+    }
 
-    const currentSnapshot = brick.snapshot;
-    const isSameSnapshot =
-      JSON.stringify(currentSnapshot) === JSON.stringify(currentLiveState);
-    if (isSameSnapshot) return;
+    if (!brick) {
+      return;
+    }
+
+    const currentStoredSnapshot = brick.snapshot;
+    const isSame =
+      JSON.stringify(currentStoredSnapshot) ===
+      JSON.stringify(currentLiveState);
+
+    if (isSame) {
+      return;
+    }
 
     updateBrickSnapshot(brickId, currentLiveState);
   }, [isEditable, currentLiveState, brickId, updateBrickSnapshot, brick]);
@@ -99,8 +104,6 @@ export function usePlayerSnapshot(
     if (!isEditable && lockedSnapshot.rootNote !== null) {
       applySnapshotToStore(lockedSnapshot);
     }
-
-    onToggleEdit();
   };
 
   return {

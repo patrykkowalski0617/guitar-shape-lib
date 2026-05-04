@@ -54,11 +54,11 @@ function ToggleGroupItem({
       data-spacing={context.spacing}
       className={cn(
         toggleVariants(),
-        "h-8 flex-1 px-1 flex items-center justify-center relative",
-        "bg-muted/50 text-foreground shadow-none transition-none",
+        "h-8 flex-1 px-1 flex items-center justify-center relative font-bold",
+        "bg-foreground/20 text-background transition-none text-background/90",
         "border-r border-background/20 last:border-r-0",
-        "hover:bg-muted/70 hover:text-accent-foreground",
-        "data-[state=on]:bg-accent/50 data-[state=on]:text-accent-foreground",
+        "hover:bg-foreground/25",
+        "data-[state=on]:bg-accent/35 data-[state=on]:hover:bg-accent/40 data-[state=on]:text-accent-foreground",
         sharedFocusStyles,
         "rounded-none",
         context.spacing === 0 && "first:rounded-l-sm last:rounded-r-sm",

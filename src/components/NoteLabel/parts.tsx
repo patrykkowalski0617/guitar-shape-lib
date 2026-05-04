@@ -1,45 +1,44 @@
 import styled, { css } from "styled-components";
 import type { Variant } from "./NoteLabel";
-import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
-
-const highlightedColor = "var(--foreground)";
-const unHighlightedColor = "var(--border)";
+import { noteCommon } from "./constants";
 
 export const Note = styled.div`
   opacity: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: bold;
-  box-shadow: 0 0 8px var(--background);
   position: absolute;
   z-index: 40;
-  background: color-mix(in oklab, var(--background) 95%, transparent);
 `;
 
 export const NoteWrapper = styled.div<{
-  $isHighlighted: boolean;
+  $isVisible: boolean;
   $variant: Variant;
 }>`
-  ${({ $variant, $isHighlighted }) =>
+  ${({ $isVisible }) => css`
+    opacity: ${$isVisible ? "1" : "0"};
+    transform: ${$isVisible ? "scale(1)" : "scale(1.1)"};
+    transition:
+      opacity 0.1s ease-out,
+      transform 0.1s ease-out;
+  `}
+
+  ${({ $variant }) =>
     $variant === "piano" &&
     css`
       position: relative;
       z-index: 40;
-      opacity: ${$isHighlighted ? "1" : "0"};
       ${Note} {
-        border-radius: ${instrumentElBRadius};
-        width: 18px;
-        height: 30px;
-        line-height: 22px;
-        color: ${unHighlightedColor};
-        top: 10px;
+        ${noteCommon}
+        top: 20px;
         transform: translateX(-50%);
+        box-shadow: 1px 2px 3px 2px var(--background);
       }
     `}
 
-  ${({ $variant, $isHighlighted }) =>
+  ${({ $variant }) =>
     $variant === "fretboard" &&
     css`
       display: flex;
@@ -47,10 +46,12 @@ export const NoteWrapper = styled.div<{
       justify-content: center;
       flex-direction: row;
       ${Note} {
-        color: ${$isHighlighted ? highlightedColor : unHighlightedColor};
-        height: 15px;
-        width: 30px;
-        border-radius: 4px;
+        ${noteCommon}
+        box-shadow: 5px 3px 4px 1px
+          color-mix(in oklab, var(--background) 70%, transparent);
+        height: 25px;
+        width: 25px;
+        border-radius: 40px;
       }
     `}
 `;

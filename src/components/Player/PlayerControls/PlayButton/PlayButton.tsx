@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { Play, Square } from "lucide-react";
+import { Metronome } from "lucide-react";
 import * as S from "./parts";
 import { usePlayerStore } from "@/store";
 import { useWakeLock } from "@/hooks";
 import { playerIconSize } from "../../constants";
-import { useCloseEdit } from "@/components/Player/PlayerBricksControls/CloseEditButton/hooks/useCloseEdit";
+import { useCloseEdit } from "@/components/Player/hooks/useCloseEdit";
 
 export const PlayButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -29,26 +29,18 @@ export const PlayButton = () => {
 
   return (
     <S.PlayButton
-      variant={"playerSolid"}
       $isPlaying={isPlaying}
-      onClick={handleClick}
       $bpm={bpm}
+      variant={"playerSolid"}
+      onClick={handleClick}
     >
       {isCountingIn ? (
         countIn
-      ) : isPlaying ? (
-        <Square
-          size={playerIconSize}
-          fill="currentColor"
-          stroke="var(--background)"
-          strokeWidth={1}
-        />
       ) : (
-        <Play
+        <Metronome
           size={playerIconSize}
-          fill="currentColor"
           stroke="var(--background)"
-          strokeWidth={1}
+          strokeWidth={2.5}
         />
       )}
     </S.PlayButton>

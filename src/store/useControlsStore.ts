@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { BaseChordId, TuneKeyId, RoleId } from "@/data";
+import type { BaseChordId, TuneKeyId } from "@/data";
 
 interface ControlsState {
   isMajorMode: boolean;
@@ -7,8 +7,6 @@ interface ControlsState {
 
   tuneKeyId: TuneKeyId;
   setTuneKeyId: (id: TuneKeyId) => void;
-
-  roleId: RoleId | null;
 
   baseChordId: BaseChordId | null;
   setBaseChordId: (id: BaseChordId | null) => void;
@@ -30,6 +28,9 @@ interface ControlsState {
 
   isShapeSliderHold: boolean;
   setIsShapeSliderHold: (hold: boolean) => void;
+
+  isActuallyPlayable: boolean;
+  toggleItIsActuallyPlayable: () => void;
 }
 
 const initialState = {
@@ -37,29 +38,23 @@ const initialState = {
   tuneKeyId: "C" as TuneKeyId,
   baseChordId: null,
   toggleBaseChordId: null,
-  roleId: "all-matching-key" as RoleId | null,
-  shapeId: null as string | null,
+  shapeId: null,
   shapeSemitoneOffsetFromC: null as number | null,
   isShapeSelectOpen: false,
   isShapeSliderHold: false,
+  isActuallyPlayable: false,
 };
 
 export const useControlsStore = create<ControlsState>((set) => ({
   ...initialState,
 
-  setIsMajorMode: (isMajorMode) =>
-    set((state) => {
-      if (!state.roleId) return { isMajorMode };
+  setIsMajorMode: (isMajorMode) => set({ isMajorMode }),
 
-      return {
-        isMajorMode,
-      };
-    }),
+  setTuneKeyId: (tuneKeyId) => set({ tuneKeyId }),
 
-  setTuneKeyId: (id) => set({ tuneKeyId: id }),
+  setBaseChordId: (baseChordId) => set({ baseChordId }),
 
-  setBaseChordId: (id) => set({ baseChordId: id }),
-  setToggleBaseChordId: (id) => set({ toggleBaseChordId: id }),
+  setToggleBaseChordId: (toggleBaseChordId) => set({ toggleBaseChordId }),
 
   setShape: (shapeId, shapeSemitoneOffsetFromC) =>
     set({
@@ -67,9 +62,12 @@ export const useControlsStore = create<ControlsState>((set) => ({
       shapeSemitoneOffsetFromC,
     }),
 
-  setIsShapeSelectOpen: (open) => set({ isShapeSelectOpen: open }),
+  setIsShapeSelectOpen: (isShapeSelectOpen) => set({ isShapeSelectOpen }),
 
-  setIsShapeSliderHold: (hold) => set({ isShapeSliderHold: hold }),
+  setIsShapeSliderHold: (isShapeSliderHold) => set({ isShapeSliderHold }),
+
+  toggleItIsActuallyPlayable: () =>
+    set((state) => ({ isActuallyPlayable: !state.isActuallyPlayable })),
 
   resetControls: () => set(initialState),
 }));

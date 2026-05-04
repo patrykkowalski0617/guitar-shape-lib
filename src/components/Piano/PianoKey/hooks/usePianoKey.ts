@@ -1,7 +1,6 @@
 import { NOTES_SHARP, SCALE_SEMITONE_TEMPLATES } from "@/data";
 import { type NoteObject } from "@/utils";
 import { useControlsStore, useMusicStore } from "@/store";
-import { useScaleLogic } from "../../hooks";
 import { SHAPES_OF_WHITE_PIANO_KEYS } from "../../helpers/constants";
 
 interface UsePianoKeyParams {
@@ -12,25 +11,21 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const shapeId = useControlsStore((state) => state.shapeId);
-  const baseChordId = useControlsStore((state) => state.baseChordId);
-
-  const { currentRoleNoteIds, currentShapeNoteIds } = useScaleLogic();
+  const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
+  const shapeNoteIds = useMusicStore((state) => state.shapeNoteIds);
 
   const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
   const isWhitePianoKey =
     SCALE_SEMITONE_TEMPLATES.ionianScale.includes(noteOctaveIndex);
   const pianoKeyShape = SHAPES_OF_WHITE_PIANO_KEYS[noteOctaveIndex];
 
-  const isRoleSelected = !!baseChordId;
   const isActiveNote = note.noteId === activeNoteId;
-  const isShapeNote =
-    isRoleSelected && (currentShapeNoteIds as string[]).includes(note.noteId);
+  const isPushed =
+    isActiveNote ||
+    activeLockedNotes.includes(note.noteId) ||
+    shapeNoteIds.includes(note.noteId);
 
-  const isRoleNote = (currentRoleNoteIds as string[])?.includes(note.noteId);
-
-  const isScaleScrollTarget = !isRoleSelected;
-  const isRoleScrollTarget = isRoleSelected && isRoleNote;
-  const isScrollTarget = isScaleScrollTarget || isRoleScrollTarget;
+  const isScrollTarget = false;
 
   const handleMouseEnter = () => setActiveNoteId(note.noteId);
   const handleMouseLeave = () => setActiveNoteId(null);
@@ -39,8 +34,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
     visualState: {
       isWhitePianoKey,
       pianoKeyShape,
-      isHighlighted: isActiveNote || isShapeNote,
-      isRoleNote,
+      isPushed,
       isShapeSelected: !!shapeId,
     },
     interactivity: {

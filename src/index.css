@@ -15,6 +15,7 @@
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
+  --color-warn: var(--warn);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
@@ -22,6 +23,7 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
+  --color-contrast: var(--contrast);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-border: var(--border);
@@ -38,17 +40,19 @@
   --radius: 0.65rem;
 
   --background: hsl(0, 0%, 2%);
-  --foreground: hsl(0, 0%, 100%);
+  --foreground: hsl(0, 0%, 98%);
 
   --card: hsl(190, 20%, 10%);
   --card-foreground: hsl(0 0% 93%);
   --popover: hsl(190 20% 10%);
   --popover-foreground: hsl(0 0% 93%);
 
-  --primary: hsl(345, 100%, 50%);
+  --instrument: hsl(41, 100%, 50%);
+  --primary: hsl(190, 85%, 41%);
+  --warn: hsl(0, 100%, 57%);
   --primary-foreground: hsl(0, 0%, 80%);
 
-  --secondary: hsl(163, 100%, 50%);
+  --secondary: hsl(163, 100%, 55%);
   --secondary-foreground: hsl(0 0% 100%);
 
   --muted: hsl(0, 0%, 40%);
@@ -60,6 +64,7 @@
   --border: hsl(190, 62%, 49%);
   --input: hsl(194, 23%, 41%);
   --ring: hsl(190, 61%, 69%);
+  --contrast: hsl(272, 100%, 82%);
 }
 
 @layer base {

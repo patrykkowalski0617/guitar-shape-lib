@@ -11,9 +11,10 @@ export const useBaseChordShapes = () => {
 
   const semitoneOffsetFromMajorScaleRoot =
     currentBaseChordData.semitoneOffsetFromMajorScaleRoot ?? 0;
-  const mode = currentBaseChordData.isMajorMode ? "major" : "minor";
 
-  const baseChordCoordinates = CAGED_CHORDS_SHAPES[mode].flatMap((shape) => {
+  const baseChordCoordinates = CAGED_CHORDS_SHAPES[
+    currentBaseChordData.CAGEDchordShape
+  ].flatMap((shape) => {
     const fretIndexAdjustment =
       shape.baseFretIndex + tuneKeyOffset + semitoneOffsetFromMajorScaleRoot;
 

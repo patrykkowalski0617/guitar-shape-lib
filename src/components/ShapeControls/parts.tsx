@@ -1,14 +1,21 @@
 import styled from "styled-components";
 
-export const ControlWrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
-  gap: calc(var(--spacing) * 2);
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 50px;
+`;
+
+export const BaseChordToggleWrapper = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   flex-direction: column;
-  max-width: 500px;
-  margin: auto;
+  max-width: 600px;
+  flex: 1 1 0;
 `;
 
 export const BottomRow = styled.div`

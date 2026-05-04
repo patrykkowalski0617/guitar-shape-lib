@@ -5,7 +5,6 @@ import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
 import { useNoteState } from "./hooks";
 import { useControlsStore, useMusicStore } from "@/store";
-import { isBaseChordNote } from "./helpers/isBaseChordNote";
 
 interface FretboardCellProps {
   noteData: NoteObject;
@@ -22,13 +21,7 @@ export default function FretboardCell({
     noteData,
   });
 
-  const {
-    isLockedNote,
-    isHighlighted,
-    opacity,
-    noteLabel,
-    matchingBaseChordCoordinates,
-  } = useNoteState({
+  const { isLockedNote, isVisible, isBaseChordNote, noteLabel } = useNoteState({
     noteData,
     stringIndex,
     fretIndex,
@@ -41,31 +34,27 @@ export default function FretboardCell({
     (state) => state.isShapeSliderHold,
   );
 
-  const animationTrigger = matchingBaseChordCoordinates?.CAGEDassigment;
+  const handleCellClick = () => {
+    setActiveLockedNotes(noteData.noteId);
+  };
 
   return (
     <S.FretWrapper
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={() => {
-        setActiveLockedNotes(noteData.noteId);
-      }}
+      onClick={handleCellClick}
     >
-      <S.Fret $isLockedNote={isLockedNote} data-fret={fretIndex}>
+      <S.Fret
+        $isLockedNote={isLockedNote}
+        data-fret={fretIndex}
+        $isBaseChordShapeNote={isBaseChordNote}
+      >
         <S.Note
-          $opacity={opacity}
-          $isHighlighted={isHighlighted}
-          $isBaseChordShapeNote={isBaseChordNote({
-            matchingBaseChordCoordinates:
-              matchingBaseChordCoordinates ?? undefined,
-            stringIndex,
-            fretIndex,
-          })}
-          key={animationTrigger}
           $animateBaseChordDown={isShapeSliderHold}
+          $isVisible={isVisible}
         >
           <NoteLabel
-            isHighlighted={isHighlighted}
+            isVisible={isVisible}
             variant="fretboard"
             noteLabel={noteLabel}
           />

@@ -1,7 +1,7 @@
-import { Pencil, Check } from "lucide-react";
 import * as S from "./parts";
-import { type Brick } from "@/store";
+import { type Brick, usePlayerStore } from "@/store";
 import { usePlayerBrickLogic } from "./hooks";
+import { BrickOptions } from "./BrickOptions/BrickOptions";
 
 interface PlayerBrickProps {
   brick: Brick;
@@ -12,8 +12,21 @@ interface PlayerBrickProps {
 }
 
 export default function PlayerBrick(props: PlayerBrickProps) {
-  const { brick, isEditable, $isDragging } = props;
-  const { birckWidthUnit, activePart, label, handleClick, resizeHandlers } = usePlayerBrickLogic(props);
+  const { brick, isEditable, $isDragging, onToggleEdit } = props;
+  const removeBrick = usePlayerStore((state) => state.removeBrick);
+
+  const { birckWidthUnit, activePart, label, handleClick, resizeHandlers } =
+    usePlayerBrickLogic(props);
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    removeBrick(brick.id);
+  };
+
+  const handleToggleEdit = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onToggleEdit();
+  };
 
   return (
     <S.Brick
@@ -31,13 +44,19 @@ export default function PlayerBrick(props: PlayerBrickProps) {
 
       <S.PartsContainer>
         {Array.from({ length: brick.width }).map((_, i) => (
-          <S.Part key={i} $unit={birckWidthUnit} $isActive={i + 1 === activePart} />
+          <S.Part
+            key={i}
+            $unit={birckWidthUnit}
+            $isActive={i + 1 === activePart}
+          />
         ))}
       </S.PartsContainer>
 
-      <S.BrickOptions $isEditable={isEditable}>
-        {isEditable ? <Check size={16} /> : <Pencil size={14} />}
-      </S.BrickOptions>
+      <BrickOptions
+        isEditable={isEditable}
+        onToggleEdit={handleToggleEdit}
+        onDelete={handleDelete}
+      />
     </S.Brick>
   );
 }

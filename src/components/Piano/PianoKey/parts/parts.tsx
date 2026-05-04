@@ -1,43 +1,55 @@
 import styled from "styled-components";
-import { getKeyHighlight } from "./getKeyHighlight";
 import { instrumentBRadius, instrumentElBRadius } from "./constants";
 import {
   whiteKeyCommon,
   whiteKeyStyles,
-  type WhiteKeyTypes,
+  whiteKeyWrapperStyles,
+  whiteWrapperKeyCommon,
 } from "./whiteKeys";
 import {
   blackKeyCommon,
   blackKeysStyles,
-  type BlackKeyTypes,
+  blackKeysWrapperStyles,
+  blackKeyWrapperCommon,
 } from "./blackKeys";
+import type { BlackKeyTypes, KeyTypes, WhiteKeyTypes } from "../../constants";
+import { getKeyPushEffect } from "./getKeyPushEffect";
 
 export const Key = styled.div<{
   $isShapeSelected: boolean;
   $isWhitePianoKey: boolean;
-  $pianoKeyShape?: WhiteKeyTypes | BlackKeyTypes;
-  $isHighlighted: boolean;
-  $isRoleNote: boolean;
+  $pianoKeyShape?: KeyTypes;
+  $isPushed: boolean;
 }>`
   position: relative;
-
-  ${({ $isHighlighted, $pianoKeyShape }) =>
-    getKeyHighlight({
-      isHighlighted: $isHighlighted,
-      pianoKeyShape: $pianoKeyShape,
-      highlightColor: "var(--secondary)",
-    })}
-
   ${({ $isWhitePianoKey }) =>
     $isWhitePianoKey ? whiteKeyCommon : blackKeyCommon}
   ${({ $pianoKeyShape }) =>
     $pianoKeyShape && whiteKeyStyles[$pianoKeyShape as WhiteKeyTypes]}
   ${({ $pianoKeyShape }) =>
     $pianoKeyShape && blackKeysStyles[$pianoKeyShape as BlackKeyTypes]}
+  ${({ $isPushed, $pianoKeyShape }) =>
+    getKeyPushEffect({
+      isPushed: $isPushed,
+      pianoKeyShape: $pianoKeyShape,
+    })}
+`;
 
+export const KeyWrapper = styled.div<{
+  $isWhitePianoKey: boolean;
+  $pianoKeyShape?: KeyTypes;
+}>`
+  flex: 1 1 0;
+  position: relative;
+  ${({ $pianoKeyShape }) =>
+    $pianoKeyShape && whiteKeyWrapperStyles[$pianoKeyShape as WhiteKeyTypes]}
 
+  ${({ $pianoKeyShape }) =>
+    $pianoKeyShape && blackKeysWrapperStyles[$pianoKeyShape as BlackKeyTypes]}
 
-  &:first-child {
+  ${({ $isWhitePianoKey }) =>
+    $isWhitePianoKey ? whiteWrapperKeyCommon : blackKeyWrapperCommon}
+  &:first-child ${Key} {
     border-radius: ${instrumentBRadius} 0 ${instrumentElBRadius}
       ${instrumentElBRadius};
     &::before,
@@ -45,7 +57,7 @@ export const Key = styled.div<{
       display: none;
     }
   }
-  &:last-child {
+  &:last-child ${Key} {
     border-radius: 0 ${instrumentBRadius} ${instrumentElBRadius}
       ${instrumentElBRadius};
   }

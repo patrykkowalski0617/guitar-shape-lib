@@ -1,24 +1,30 @@
 import styled, { css } from "styled-components";
-import { playerElementHeight, playerElementWidth } from "../../constants";
+import {
+  playerElementCommon,
+  playerElementHeight,
+  playerElementWidth,
+} from "../../constants";
 import { Button } from "@/components/ui/button";
 import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
 
 const commonBpmElementStyles = css`
-  background-color: color-mix(in oklab, var(--accent) 10%, var(--background));
+  background-color: color-mix(in oklab, var(--primary) 40%, var(--muted));
   border: 1px solid var(--border);
   border-radius: ${instrumentElBRadius};
-  color: var(--foreground);
+  color: var(--background);
+
   height: ${playerElementHeight};
   width: ${playerElementWidth};
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 12px;
-  font-weight: 600;
-
+  font-size: 16px;
+  font-weight: 700;
+  text-shadow: 1px 1px 0 color-mix(in oklab, var(--background) 50%, transparent);
+  ${playerElementCommon}
   &:hover {
-    background-color: color-mix(in oklab, var(--accent) 30%, var(--background));
+    background-color: color-mix(in oklab, var(--primary) 70%, var(--muted));
   }
 
   &:focus {

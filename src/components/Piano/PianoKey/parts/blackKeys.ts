@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import styled, { css } from "styled-components";
 import {
   blackKeyH,
   blackKeyW,
@@ -7,8 +7,13 @@ import {
   pseudoElKeyBase,
   tripleBlackKeysOffset,
 } from "./constants";
+import { transition, type BlackKeyTypes } from "../../constants";
 
-export type BlackKeyTypes = "C#" | "D#" | "F#" | "G#" | "A#";
+export const BlacKeyJustifyContainer = styled.div`
+  position: absolute;
+  top: 0;
+  z-index: 20;
+`;
 
 export const blackKeysStyles: Partial<
   Record<BlackKeyTypes, ReturnType<typeof css>>
@@ -27,6 +32,31 @@ export const blackKeysStyles: Partial<
   `,
 };
 
+export const blackKeysWrapperStyles: Partial<
+  Record<BlackKeyTypes, ReturnType<typeof css>>
+> = {
+  "C#": css`
+    ${BlacKeyJustifyContainer} {
+      transform: translateX(-${doubleBlackKeysOffset}px);
+    }
+  `,
+  "D#": css`
+    ${BlacKeyJustifyContainer} {
+      transform: translateX(${doubleBlackKeysOffset}px);
+    }
+  `,
+  "F#": css`
+    ${BlacKeyJustifyContainer} {
+      transform: translateX(-${tripleBlackKeysOffset}px);
+    }
+  `,
+  "A#": css`
+    ${BlacKeyJustifyContainer} {
+      transform: translateX(${tripleBlackKeysOffset}px);
+    }
+  `,
+};
+
 export const blackKeyCommon = css`
   ${commonStyleForKeyBase}
   background-color: var(--background);
@@ -35,11 +65,29 @@ export const blackKeyCommon = css`
   flex: 0 0 0;
   &::before {
     ${pseudoElKeyBase}
+    ${transition}
+    box-shadow: 3px 3px 6px 3px
+    color-mix(in oklab, var(--background) 90%, transparent);
     width: ${blackKeyW}px;
     height: 100%;
     background-color: var(--background);
     top: 0px;
     z-index: 9;
-    border-color: color-mix(in oklab, var(--border) 50%, var(--background));
+    border-right-color: color-mix(
+      in oklab,
+      var(--muted) 90%,
+      var(--background)
+    ) !important;
+    border-left-color: color-mix(
+      in oklab,
+      var(--instrument) 100%,
+      var(--background)
+    );
+    border-left-width: 2px;
   }
+`;
+
+export const blackKeyWrapperCommon = css`
+  height: 100%;
+  flex: 0 0 0;
 `;

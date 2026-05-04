@@ -13,26 +13,30 @@ const buttonVariants = cva(
       variant: {
         default: cn(
           "h-8 px-2.5 rounded-md",
-          "bg-muted/50 hover:bg-muted/70 text-foreground",
+          "bg-muted/30 hover:bg-muted/60 text-foreground",
         ),
         active: cn(
           "h-8 px-2.5 rounded-md border border-muted-foreground/30",
-          "bg-accent/30 hover:bg-accent/40 text-accent-foreground",
+          "bg-accent/15 hover:bg-accent/25 text-accent-foreground",
         ),
         playerDashed: cn(
-          "h-[30px] w-[35px] font-bold border border-dashed border-border",
-          "bg-background bg-muted/10 hover:bg-muted/30 text-foreground",
+          "h-[30px] w-[35px] border border-dashed border-border",
+          "bg-muted/30 hover:bg-muted/50 hover:bg-muted/20 text-foreground",
         ),
         playerOutline: cn(
-          "h-[30px] w-[35px] font-bold border border-accent-foreground",
-          "bg-background hover:bg-muted/5 text-accent-foreground",
+          "h-[30px] w-[35px] border border-accent-foreground",
+          "bg-muted/30 hover:bg-muted/50 text-accent-foreground",
         ),
-        playerOutlinePrimary: cn(
-          "h-[30px] w-[35px] font-bold border-2 border-primary",
-          "bg-background hover:bg-muted/5 text-primary",
+        playerOutlineAccent: cn(
+          "h-[30px] w-[35px] font border border-contrast",
+          "bg-muted/30 hover:bg-muted/50 text-contrast",
+        ),
+        playerOutlineWarn: cn(
+          "h-[30px] w-[35px] border border-warn",
+          "bg-muted/30 hover:bg-muted/50 text-warn",
         ),
         playerSolid: cn(
-          "h-[30px] w-[35px] font-bold border-none",
+          "h-[30px] w-[35px] border",
           "bg-background bg-accent/70 hover:bg-accent/90 text-foreground",
         ),
       },
