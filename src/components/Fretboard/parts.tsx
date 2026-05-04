@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const WoodTexture = `data:image/svg+xml;utf8,<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.01 0.4' numOctaves='3'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>`;
+const WoodTexture = `data:image/svg+xml;utf8,<svg width='400' height='400' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.1 0.4' numOctaves='3'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>`;
 
 export const fretboardRPadding = "30px";
 
@@ -21,7 +21,7 @@ export const FretboardShadow = styled.div`
   z-index: 16;
   top: 10px;
   background-image: url("${WoodTexture}");
-  background-size: 500px;
+  background-size: 1400px;
   box-shadow:
     5px 15px 10px 0px var(--background),
     0px 0px 10px 0px

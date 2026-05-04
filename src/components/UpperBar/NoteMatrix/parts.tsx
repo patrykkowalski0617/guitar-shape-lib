@@ -13,6 +13,7 @@ export const NoteMatrixSection = styled.div`
   padding: 8px;
   gap: 4px;
   position: relative;
+  background-color: color-mix(in oklab, var(--foreground) 5%, transparent);
   ${glassEffectShadow}
 `;
 
