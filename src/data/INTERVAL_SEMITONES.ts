@@ -1,29 +1,31 @@
-export const INTERVAL_SEMITONES = {
-  _1: 0,
-  _m2: 1,
-  _M2: 2,
-  _m3: 3,
-  _M3: 4,
-  _4: 5,
-  _T: 6,
-  _5: 7,
-  _m6: 8,
-  _M6: 9,
-  _m7: 10,
-  _M7: 11,
-  _8: 12,
-  _m9: 13,
-  _M9: 14,
-  _m10: 15,
-  _M10: 16,
-  _11: 17,
-  _TT: 18,
-  _12: 19,
-  _m13: 20,
-  _M13: 21,
-  _m14: 22,
-  _M14: 23,
-} as const;
+export const INTERVAL_SEMITONES = [
+  { _1: 0, name: "1" },
+  { _m2: 1, name: "m2" },
+  { _M2: 2, name: "M2" },
+  { _m3: 3, name: "m3" },
+  { _M3: 4, name: "M3" },
+  { _4: 5, name: "4" },
+  { _T: 6, name: "T" },
+  { _5: 7, name: "5" },
+  { _m6: 8, name: "m6" },
+  { _M6: 9, name: "M6" },
+  { _m7: 10, name: "m7" },
+  { _M7: 11, name: "M7" },
+  { _8: 12, name: "8" },
+  { _m9: 13, name: "m9" },
+  { _M9: 14, name: "M9" },
+  { _m10: 15, name: "m10" },
+  { _M10: 16, name: "M10" },
+  { _11: 17, name: "11" },
+  { _TT: 18, name: "TT" },
+  { _12: 19, name: "12" },
+  { _m13: 20, name: "m13" },
+  { _M13: 21, name: "M13" },
+  { _m14: 22, name: "m14" },
+  { _M14: 23, name: "M14" },
+] as const;
+
+const mappedIntervals = Object.assign({}, ...INTERVAL_SEMITONES);
 
 export const {
   _1,
@@ -50,4 +52,4 @@ export const {
   _M13,
   _m14,
   _M14,
-} = INTERVAL_SEMITONES;
+} = mappedIntervals;

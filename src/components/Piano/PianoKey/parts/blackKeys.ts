@@ -80,7 +80,7 @@ export const blackKeyCommon = css`
     ) !important;
     border-left-color: color-mix(
       in oklab,
-      var(--fretboard) 100%,
+      var(--instrument) 100%,
       var(--background)
     );
     border-left-width: 2px;

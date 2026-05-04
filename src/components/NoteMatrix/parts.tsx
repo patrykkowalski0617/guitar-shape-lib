@@ -1,6 +1,7 @@
 import { noteCommon } from "@/components/NoteLabel/constants";
 import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
 import { outsideShadow } from "@/constants";
+import { Label } from "@/parts";
 import styled, { css } from "styled-components";
 
 export const NoteMatrixSection = styled.div`
@@ -11,7 +12,6 @@ export const NoteMatrixSection = styled.div`
   border-radius: calc(${instrumentElBRadius} + 2px);
   padding: 4px 8px;
   gap: 4px;
-  width: fit-content;
   position: relative;
 `;
 
@@ -19,14 +19,12 @@ export const NoteMatrixSectionColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
-  opacity: 0.7;
 `;
 
-export const Title = styled.div`
-  font-size: 10px;
+export const Title = styled(Label)`
   position: absolute;
-  width: 100%;
-  top: -22px;
+  top: -23px;
+  text-align: left;
 `;
 
 export const RowTitle = styled.div`
@@ -35,6 +33,7 @@ export const RowTitle = styled.div`
   justify-content: flex-end;
   align-items: center;
   margin-right: 8px;
+  opacity: 0.7;
 `;
 
 export const NotesRow = styled.div`
@@ -43,12 +42,18 @@ export const NotesRow = styled.div`
   gap: 4px;
 `;
 
-export const Note = styled.div<{ $isVisible: boolean }>`
+export const Note = styled.div<{ $isVisible: boolean; $isSharedNote: boolean }>`
   ${noteCommon}
+  opacity: 0.5;
   ${({ $isVisible }) =>
     !$isVisible &&
     css`
       opacity: 0.2;
+    `}
+  ${({ $isSharedNote }) =>
+    $isSharedNote &&
+    css`
+      opacity: 1;
     `}
   display: flex;
   justify-content: center;
@@ -66,5 +71,6 @@ export const IntervalContainer = styled.div`
   text-align: center;
   position: absolute;
   width: 100%;
-  top: -22px;
+  top: -26px;
+  opacity: 0.7;
 `;

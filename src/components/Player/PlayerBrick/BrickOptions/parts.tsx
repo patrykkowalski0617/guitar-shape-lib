@@ -47,7 +47,7 @@ export const EditBrickButton = styled.button<{ $isEditable: boolean }>`
   background-color: ${({ $isEditable }) =>
     $isEditable
       ? "color-mix(in oklab, var(--secondary) 100%, var(--background))"
-      : "color-mix(in oklab, var(--fretboard) 90%, var(--background))"};
+      : "color-mix(in oklab, var(--instrument) 90%, var(--background))"};
 `;
 
 export const DeleteBrickButton = styled.button`

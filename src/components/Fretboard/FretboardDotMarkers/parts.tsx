@@ -30,7 +30,7 @@ export const Marker = styled.div<{
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background-color: var(--fretboard);
+    background-color: var(--instrument);
     box-shadow:
       0 0 3px 0 var(--background) inset,
       0 0 1px 0 var(--background) inset;

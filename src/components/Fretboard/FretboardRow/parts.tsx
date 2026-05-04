@@ -62,8 +62,8 @@ export const FretboardRow = styled.div`
       background-image: linear-gradient(
         90deg,
         var(--muted) 0%,
-        color-mix(in oklab, var(--foreground) 70%, var(--fretboard)) 10%,
-        color-mix(in oklab, var(--foreground) 70%, var(--fretboard)) 80%,
+        color-mix(in oklab, var(--foreground) 70%, var(--instrument)) 10%,
+        color-mix(in oklab, var(--foreground) 70%, var(--instrument)) 80%,
         var(--background) 100%
       );
     }

@@ -23,7 +23,7 @@ export const commonStyleForKeyBase = css`
   display: flex;
   justify-content: center;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
-  background: color-mix(in oklab, var(--foreground) 80%, var(--fretboard));
+  background: color-mix(in oklab, var(--foreground) 80%, var(--instrument));
 `;
 
 export const pseudoElKeyBase = css`

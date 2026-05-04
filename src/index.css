@@ -47,7 +47,7 @@
   --popover: hsl(190 20% 10%);
   --popover-foreground: hsl(0 0% 93%);
 
-  --fretboard: hsl(41, 100%, 50%);
+  --instrument: hsl(41, 100%, 50%);
   --primary: hsl(190, 85%, 41%);
   --warn: hsl(0, 100%, 57%);
   --primary-foreground: hsl(0, 0%, 80%);

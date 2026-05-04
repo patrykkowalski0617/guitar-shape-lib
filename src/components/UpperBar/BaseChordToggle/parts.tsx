@@ -1,14 +1,10 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Button } from "@/components/ui/button";
 import { ToggleGroup as ToggleG } from "@/components/ui/toggle-group";
 import { motion } from "framer-motion";
-import { expandedListCommon } from "../constants";
-import { outsideShadow } from "@/constants";
-
-const buttonBarShadow = css`
-  border: unset;
-  ${outsideShadow}
-`;
+import { buttonBarShadow } from "./constants";
+import { Label } from "@/parts";
+import { expandedListCommon } from "@/components/ShapeControls/constants";
 
 export const KeySelectButton = styled(Button)`
   ${buttonBarShadow}
@@ -30,4 +26,19 @@ export const StyledMotionDiv = styled(motion.div)`
   overflow: hidden;
   background: color-mix(in oklab, var(--background) 60%, var(--muted));
   ${expandedListCommon}
+`;
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  padding: 4px 8px;
+  font-size: 10px;
+`;
+
+export const KeyLabel = styled(Label)`
+  text-align: left;
+`;
+
+export const ChordsLabel = styled(Label)`
+  width: 100%;
+  text-align: right;
 `;

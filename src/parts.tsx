@@ -89,3 +89,12 @@ export const ControlLabel = styled.span`
   line-height: 1;
   display: inline-block;
 `;
+
+export const Label = styled.div`
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  color: color-mix(in oklab, var(--foreground) 20%, var(--primary));
+  text-align: center;
+  font-size: 12px;
+`;

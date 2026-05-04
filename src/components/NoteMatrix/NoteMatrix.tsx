@@ -79,27 +79,56 @@ export const NoteMatrix = () => {
       const isVisibleInShape = getIsShapeNoteVisible(i, shapeIndexes);
       return isVisibleInBaseChord || isVisibleInShape;
     });
+
   const baseChordDisplayTitle = `${chordRootName} ${baseChord.modeExtendedName}`;
+
+  const visibleBaseNoteNames = new Set<string>(
+    visibleColumnsIndices
+      .filter((i) => getIsScaleNoteVisible(i, onlyScaleNotesIndices))
+      .map((i) => displayNoteNames[i]),
+  );
+
+  const visibleShapeNoteNames = new Set<string>(
+    visibleColumnsIndices
+      .filter((i) => getIsShapeNoteVisible(i, shapeIndexes))
+      .map((i) => displayNoteNames[i]),
+  );
+
+  const checkIfShared = (noteName: string) =>
+    noteName !== "" &&
+    visibleBaseNoteNames.has(noteName) &&
+    visibleShapeNoteNames.has(noteName);
+
   return (
     <S.NoteMatrixSection>
-      <S.Title>Notes Matrix</S.Title>
       <S.NoteMatrixSectionColumn>
-        <S.RowTitle>Back Chord: {baseChordDisplayTitle}</S.RowTitle>
-        <S.RowTitle>Solo Shape: {shapeLabel}</S.RowTitle>
+        <S.Title>Notes Matrix</S.Title>
+        <S.RowTitle>Back Chord "{baseChordDisplayTitle}":</S.RowTitle>
+        <S.RowTitle>Solo Shape "{shapeLabel}":</S.RowTitle>
       </S.NoteMatrixSectionColumn>
       <S.NoteMatrixSectionColumn>
         <S.NotesRow>
           {visibleColumnsIndices.map((i) => {
             const isVisible = getIsScaleNoteVisible(i, onlyScaleNotesIndices);
+            const noteName = isVisible ? displayNoteNames[i] : "";
+            const isSharedNote = checkIfShared(noteName);
+
             return (
-              <S.NoteWrapper>
+              <S.NoteWrapper key={`base-wrapper-${i}`}>
                 <S.IntervalContainer>
-                  {Object.keys(INTERVAL_SEMITONES)
-                    .find((key) => INTERVAL_SEMITONES[key] === i % 24)
-                    ?.replace("_", "")}
+                  {
+                    INTERVAL_SEMITONES.find((interval) => {
+                      const semitones = Object.values(interval)[0];
+                      return semitones === i % 24;
+                    })?.name
+                  }
                 </S.IntervalContainer>
-                <S.Note key={`base-${i}`} $isVisible={isVisible}>
-                  {isVisible ? displayNoteNames[i] : ""}
+                <S.Note
+                  $isVisible={isVisible}
+                  $isSharedNote={isSharedNote}
+                  data-is-shared={isSharedNote}
+                >
+                  {noteName}
                 </S.Note>
               </S.NoteWrapper>
             );
@@ -109,9 +138,17 @@ export const NoteMatrix = () => {
         <S.NotesRow>
           {visibleColumnsIndices.map((i) => {
             const isVisible = getIsShapeNoteVisible(i, shapeIndexes);
+            const noteName = isVisible ? displayNoteNames[i] : "";
+            const isSharedNote = checkIfShared(noteName);
+
             return (
-              <S.Note key={`shape-${i}`} $isVisible={isVisible}>
-                {isVisible ? displayNoteNames[i] : ""}
+              <S.Note
+                key={`shape-${i}`}
+                $isVisible={isVisible}
+                $isSharedNote={isSharedNote}
+                data-is-shared={isSharedNote}
+              >
+                {noteName}
               </S.Note>
             );
           })}

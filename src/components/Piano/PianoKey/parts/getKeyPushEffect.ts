@@ -31,7 +31,7 @@ export const getKeyPushEffect = ({
 }: KeyPushedProps) => {
   const whiteKeyShadowSize = 5;
   const boxShadowColor = `color-mix(in oklab, var(--background) 100%, transparent)`;
-  const regularBorderColor = `color-mix(in oklab, var(--fretboard) 70%, var(--background))`;
+  const regularBorderColor = `color-mix(in oklab, var(--instrument) 70%, var(--background))`;
   const whiteKeyShadow = `inset 0 0 ${whiteKeyShadowSize}px 0 ${boxShadowColor}`;
 
   const blackKeyPushedStyle = css`
@@ -42,7 +42,7 @@ export const getKeyPushEffect = ({
 
       border-color: color-mix(
         in oklab,
-        var(--fretboard) 20%,
+        var(--instrument) 20%,
         var(--muted)
       ) !important;
     }

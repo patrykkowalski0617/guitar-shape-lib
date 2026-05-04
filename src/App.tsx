@@ -3,7 +3,7 @@ import { AppWrapper, MainContent, Section } from "@/parts";
 import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
 import { Toaster } from "@/components/ui/sonner";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
-import ShapeControls from "./components/ShapeControls/ShapeControls";
+import ShapeControls from "./components/UpperBar/ShapeControls";
 import Sign from "./components/Sign/Sign";
 import Player from "./components/Player/Player";
 import Piano from "./components/Piano/Piano";

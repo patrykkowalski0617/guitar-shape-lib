@@ -643,7 +643,7 @@ export const SHAPES: Shapes = {
     },
   },
   alt: {
-    label: "alt",
+    label: "Altered",
     type: "Scale",
     intervals: [_1, _m2, _m3, _M3, _T, _m6, _m7],
     semitoneOffsetFromMajorTonicRoot: {

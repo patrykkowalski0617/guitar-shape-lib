@@ -175,7 +175,7 @@ export const whiteKeyCommon = css`
   ${transition}
   position: relative;
   outline: 1px solid
-    color-mix(in oklab, var(--fretboard) 70%, var(--background));
+    color-mix(in oklab, var(--instrument) 70%, var(--background));
   outline-offset: -1px;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
   height: 140px;
