@@ -1,9 +1,7 @@
 import type { FretboardCoordinate } from "@/data";
 
-export type CAGEDassigment = "C" | "A" | "G" | "E" | "D";
-
 export interface BaseChordShape {
-  CAGEDassigment: CAGEDassigment;
+  CAGEDassigment: string;
   baseFretIndex: number;
   coordinates: FretboardCoordinate[];
 }
@@ -133,25 +131,23 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
   ],
   halfDim: [
     {
-      CAGEDassigment: "C",
-      baseFretIndex: 3,
-      coordinates: [
-        [4, 0],
-        [3, -2],
-        [2, -3],
-        [1, -2],
-        [0, -4],
-      ],
-    },
-    {
       CAGEDassigment: "A",
       baseFretIndex: 3,
       coordinates: [
         [4, 0],
-        [3, 2],
-        [2, 2],
+        [2, 0],
         [1, 1],
-        [0, 0],
+        [0, -1],
+      ],
+    },
+    {
+      CAGEDassigment: "Aalt",
+      baseFretIndex: 3,
+      coordinates: [
+        [4, 0],
+        [3, 1],
+        [2, 0],
+        [1, 1],
       ],
     },
     {
@@ -160,10 +156,8 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
       coordinates: [
         [5, 0],
         [4, -2],
-        [3, -3],
-        [2, -3],
-        [1, 0],
-        [0, 0],
+        [3, 0],
+        [1, -1],
       ],
     },
     {
@@ -171,11 +165,9 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
       baseFretIndex: 8,
       coordinates: [
         [5, 0],
-        [4, 2],
-        [3, 2],
+        [4, 1],
+        [3, 0],
         [2, 0],
-        [1, 0],
-        [0, 0],
       ],
     },
     {
@@ -183,8 +175,8 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
       baseFretIndex: 10,
       coordinates: [
         [3, 0],
-        [2, 2],
-        [1, 3],
+        [2, 1],
+        [1, 1],
         [0, 1],
       ],
     },

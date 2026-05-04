@@ -262,6 +262,7 @@ export const SHAPES: Shapes = {
       Subdomi: [_M6, _M2],
       subdomi: [_M2],
       mediant: [_M3],
+      halfDim: [_M2],
     },
     shapeVariants: {
       strE: {
@@ -460,7 +461,6 @@ export const SHAPES: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       Domi: [_5, _m2],
       DomiPh: [_M3],
-      halfDim: [_M7],
     },
     shapeVariants: {
       strE: {
@@ -518,6 +518,7 @@ export const SHAPES: Shapes = {
     semitoneOffsetFromMajorTonicRoot: {
       Domi: [_M7],
       subdomi: [_M7],
+      halfDim: [_M7],
     },
     shapeVariants: {
       strE: {

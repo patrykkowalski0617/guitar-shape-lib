@@ -1,5 +1,6 @@
 import {
   BASE_CHORDS,
+  INTERVAL_SEMITONES,
   SCALE_SEMITONE_TEMPLATES,
   SHAPES,
   UNIFIED_MUSIC_KEYS,
@@ -59,9 +60,12 @@ export const NoteMatrix = () => {
     .filter((index) => scaleTemplate.includes(index % 12));
 
   const shapeRootIndex =
-    shapeSemitoneOffsetFromC - baseChordOffsetFromMajorRoot;
+    shapeSemitoneOffsetFromC - baseChordOffsetFromMajorRoot < 0
+      ? shapeSemitoneOffsetFromC - baseChordOffsetFromMajorRoot + 12
+      : shapeSemitoneOffsetFromC - baseChordOffsetFromMajorRoot;
+
   const shapeRootName = displayNoteNames[shapeRootIndex];
-  const shapeLabel = `${shapeRootName}${shape.label}`;
+  const shapeLabel = `${shapeRootName} ${shape.label}`;
 
   const shapeIndexes = shape.intervals.map((i) => i + shapeRootIndex);
 
@@ -75,34 +79,41 @@ export const NoteMatrix = () => {
       const isVisibleInShape = getIsShapeNoteVisible(i, shapeIndexes);
       return isVisibleInBaseChord || isVisibleInShape;
     });
-  const baseChordDisplayTitle = `${chordRootName}${baseChord.modeExtendedName}`;
+  const baseChordDisplayTitle = `${chordRootName} ${baseChord.modeExtendedName}`;
   return (
     <S.NerdSection>
       <S.NerdSectionColumn>
-        <S.RowTitle>Base Chord: {baseChordDisplayTitle}</S.RowTitle>
-        <S.RowTitle>Shape: {shapeLabel}</S.RowTitle>
+        <S.RowTitle>Back Chord: {baseChordDisplayTitle}</S.RowTitle>
+        <S.RowTitle>Solo Shape: {shapeLabel}</S.RowTitle>
       </S.NerdSectionColumn>
       <S.NerdSectionColumn>
         <S.NotesRow>
-          {visibleColumnsIndices.map((i) => (
-            <S.Note
-              key={`base-${i}`}
-              $isVisible={getIsScaleNoteVisible(i, onlyScaleNotesIndices)}
-            >
-              {displayNoteNames[i]}
-            </S.Note>
-          ))}
+          {visibleColumnsIndices.map((i) => {
+            const isVisible = getIsScaleNoteVisible(i, onlyScaleNotesIndices);
+            return (
+              <S.NoteWrapper>
+                <S.IntervalContainer>
+                  {Object.keys(INTERVAL_SEMITONES)
+                    .find((key) => INTERVAL_SEMITONES[key] === i % 24)
+                    ?.replace("_", "")}
+                </S.IntervalContainer>
+                <S.Note key={`base-${i}`} $isVisible={isVisible}>
+                  {isVisible ? displayNoteNames[i] : ""}
+                </S.Note>
+              </S.NoteWrapper>
+            );
+          })}
         </S.NotesRow>
 
         <S.NotesRow>
-          {visibleColumnsIndices.map((i) => (
-            <S.Note
-              key={`shape-${i}`}
-              $isVisible={getIsShapeNoteVisible(i, shapeIndexes)}
-            >
-              {displayNoteNames[i]}
-            </S.Note>
-          ))}
+          {visibleColumnsIndices.map((i) => {
+            const isVisible = getIsShapeNoteVisible(i, shapeIndexes);
+            return (
+              <S.Note key={`shape-${i}`} $isVisible={isVisible}>
+                {isVisible ? displayNoteNames[i] : ""}
+              </S.Note>
+            );
+          })}
         </S.NotesRow>
       </S.NerdSectionColumn>
     </S.NerdSection>

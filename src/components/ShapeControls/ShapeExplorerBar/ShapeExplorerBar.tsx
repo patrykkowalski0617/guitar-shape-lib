@@ -7,10 +7,10 @@ import { NoteMatrix } from "./NoteMatrix/NoteMatrix";
 export const ShapeExplorerBar = () => {
   return (
     <S.ShapeExplorerBar>
+      <NoteMatrix />
       <ShapeExplorerSlider />
       <CleanButton />
       <AddBrickButton />
-      <NoteMatrix />
     </S.ShapeExplorerBar>
   );
 };

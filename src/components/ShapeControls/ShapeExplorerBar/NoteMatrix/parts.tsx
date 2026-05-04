@@ -32,10 +32,24 @@ export const Note = styled.div<{ $isVisible: boolean }>`
   ${({ $isVisible }) =>
     !$isVisible &&
     css`
-      color: transparent;
+      opacity: 0.2;
     `}
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 600;
+  cursor: default;
+`;
+
+export const NoteWrapper = styled.div`
+  position: relative;
+`;
+
+export const IntervalContainer = styled.div`
+  font-size: 10px;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  top: -17px;
+  opacity: 0.7;
 `;
