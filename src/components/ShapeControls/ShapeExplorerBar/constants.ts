@@ -35,7 +35,7 @@ export const buttonsCommon = css<{
       ? css`
           svg {
             filter: unset !important;
-            opacity: 0.6;
+            opacity: 0.3;
           }
         `
       : ""}

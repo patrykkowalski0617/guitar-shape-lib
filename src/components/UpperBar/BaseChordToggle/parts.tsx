@@ -12,6 +12,7 @@ export const KeySelectButton = styled(Button)`
 
 export const ToggleGroup = styled(ToggleG)`
   ${buttonBarShadow}
+  border: 1px solid color-mix(in oklab, var(--background) 90%, transparent);
 `;
 
 export const StyledMotionDiv = styled(motion.div)`
@@ -20,7 +21,7 @@ export const StyledMotionDiv = styled(motion.div)`
   width: 100%;
   z-index: 50;
   border-radius: var(--radius-sm, 0.125rem);
-  border: 1px solid color-mix(in srgb, var(--background), transparent 80%);
+  border: 1px solid color-mix(in oklab, var(--background) 60%, transparent);
   display: flex;
   flex-direction: column;
   overflow: hidden;

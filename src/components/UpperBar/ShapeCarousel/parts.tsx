@@ -60,8 +60,8 @@ export const Dot = styled.div<{ $active: boolean }>`
   border-radius: 50%;
   background-color: ${({ $active }) =>
     $active
-      ? "var(--accent)"
-      : "color-mix(in oklab, var(--accent) 60%, var(--background))"};
+      ? "color-mix(in oklab, var(--accent) 70%, var(--background))"
+      : "color-mix(in oklab, var(--accent) 50%, var(--background))"};
   transition:
     background-color 0.2s ease,
     transform 0.2s ease;

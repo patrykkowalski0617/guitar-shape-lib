@@ -11,7 +11,6 @@ const ShapeCarousel = () => {
   const [visibleIndex, setVisibleIndex] = useState(0);
 
   const shapeKeys = Object.keys(SHAPES) as (keyof Shapes)[];
-
   const currentActiveId = activeShapeId || EMPTY_ID;
 
   useEffect(() => {
@@ -19,16 +18,20 @@ const ShapeCarousel = () => {
     if (!el) return;
 
     const handleWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaX) > 0 || e.shiftKey) return;
+      const isHorizontalScroll = Math.abs(e.deltaX) > 0 || e.shiftKey;
+      if (isHorizontalScroll) return;
+
       e.preventDefault();
 
-      el.style.scrollBehavior = "auto";
-      el.scrollLeft += e.deltaY * 0.5;
+      const direction = e.deltaY > 0 ? 1 : -1;
+      const scrollStep = S.ITEM_WIDTH;
+      const targetLeft = el.scrollLeft + direction * scrollStep;
 
-      const timer = setTimeout(() => {
-        el.style.scrollBehavior = "smooth";
-      }, 50);
-      return () => clearTimeout(timer);
+      // Używamy smooth, ale dzięki CSS Snap przeglądarka lepiej zarządza kolejką
+      el.scrollTo({
+        left: targetLeft,
+        behavior: "smooth",
+      });
     };
 
     el.addEventListener("wheel", handleWheel, { passive: false });
@@ -64,7 +67,8 @@ const ShapeCarousel = () => {
     };
 
     const handleScroll = () => {
-      const index = Math.round(container.scrollLeft / S.ITEM_WIDTH);
+      const currentScroll = container.scrollLeft;
+      const index = Math.round(currentScroll / S.ITEM_WIDTH);
       setVisibleIndex(index);
 
       clearTimeout(snapTimer);
@@ -83,11 +87,18 @@ const ShapeCarousel = () => {
   return (
     <S.RelativeContainer>
       <S.Label>You are currently learning</S.Label>
-      <S.Wrapper ref={carouselWrapperRef}>
+      <S.Wrapper
+        ref={carouselWrapperRef}
+        style={{
+          scrollSnapType: "x mandatory",
+          scrollBehavior: "smooth",
+        }}
+      >
         <S.ScrollContainer>
           <S.ShapeItem
             $isActive={currentActiveId === EMPTY_ID}
             data-id={EMPTY_ID}
+            style={{ scrollSnapAlign: "start" }}
           />
 
           {shapeKeys.map((key) => {
@@ -97,7 +108,12 @@ const ShapeCarousel = () => {
             const displayLabel = isArpeggio ? `X${shape.label}` : shape.label;
 
             return (
-              <S.ShapeItem key={key} $isActive={isActive} data-id={key}>
+              <S.ShapeItem
+                key={key}
+                $isActive={isActive}
+                data-id={key}
+                style={{ scrollSnapAlign: "start" }}
+              >
                 {displayLabel} {shape.type}
               </S.ShapeItem>
             );

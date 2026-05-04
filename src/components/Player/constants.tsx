@@ -9,7 +9,7 @@ export const playerElementCommon = css`
 
   > svg {
     filter: drop-shadow(
-      2px 2px 0px color-mix(in oklab, var(--background) 90%, transparent)
+      1px 2px 0px color-mix(in oklab, var(--background) 80%, transparent)
     );
   }
 `;

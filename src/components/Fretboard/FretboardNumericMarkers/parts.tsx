@@ -19,8 +19,8 @@ export const FretboardNumericMarkers = styled.div`
   flex-direction: row;
   background-image: linear-gradient(
     -90deg,
-    color-mix(in oklab, var(--muted) 30%, var(--background)) 0%,
-    color-mix(in oklab, var(--muted) 35%, var(--background)) 100%
+    color-mix(in oklab, var(--muted) 35%, var(--background)) 0%,
+    color-mix(in oklab, var(--muted) 45%, var(--background)) 100%
   );
   box-shadow:
     -1px -1px 1px 0px color-mix(in oklab, var(--foreground) 6%, transparent),

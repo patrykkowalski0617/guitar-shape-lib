@@ -14,7 +14,7 @@ export const FretboardRow = styled.div`
     top: 50%;
     transform: translateY(-50%);
     display: block;
-    background: color-mix(in oklab, var(--foreground) 80%, var(--background));
+    background: color-mix(in oklab, var(--foreground) 20%, var(--muted));
     box-shadow: 0px 3px 2px 0px var(--background);
     z-index: 17;
   }

@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { appBgColor } from "./constants";
+import { instrumentBRadius } from "./components/Piano/PianoKey/parts/constants";
 
 export const AppWrapper = styled.div`
   display: flex;
@@ -19,11 +20,11 @@ export const MainContent = styled.main`
 `;
 
 const SectionCommonCss = css`
-  margin-bottom: 13px;
+  padding: 13px 0;
   @media (min-width: 1024px) {
-    margin-bottom: 50px;
+    padding: 25px 0;
     &:last-child {
-      margin-bottom: 0px;
+      padding-bottom: 0px;
     }
   }
 `;
@@ -35,8 +36,6 @@ export const Section = styled.div<{ $isDisabled?: boolean }>`
   ${({ $isDisabled }) =>
     $isDisabled !== undefined
       ? css`
-          padding-top: 20px;
-          margin-top: -20px;
           overflow: hidden;
           height: 0;
           opacity: 0;
@@ -68,12 +67,13 @@ export const InstrumentScrollWrapper = styled.div`
   scrollbar-width: none;
   position: relative;
   z-index: 2;
+  border-radius: ${instrumentBRadius};
   @media (max-width: 1400px) {
     mask-image: linear-gradient(
       to right,
       transparent,
-      var(--background) 5px,
-      var(--background) calc(100% - 5px),
+      var(--background) 10px,
+      var(--background) calc(100% - 10px),
       transparent
     );
   }
