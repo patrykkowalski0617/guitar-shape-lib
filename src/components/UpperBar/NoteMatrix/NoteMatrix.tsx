@@ -99,6 +99,10 @@ export const NoteMatrix = () => {
     visibleBaseNoteNames.has(noteName) &&
     visibleShapeNoteNames.has(noteName);
 
+  const MIN_NOTES = 12;
+  const paddingSize = Math.max(0, MIN_NOTES - visibleColumnsIndices.length);
+  const paddingArray = Array.from({ length: paddingSize });
+
   return (
     <S.NoteMatrixSection>
       <S.NoteMatrixSectionColumn>
@@ -106,6 +110,7 @@ export const NoteMatrix = () => {
         <S.RowTitle>Back Chord "{baseChordDisplayTitle}":</S.RowTitle>
         <S.RowTitle>Solo Shape "{shapeLabel}":</S.RowTitle>
       </S.NoteMatrixSectionColumn>
+
       <S.NoteMatrixSectionColumn>
         <S.NotesRow>
           {visibleColumnsIndices.map((i) => {
@@ -123,16 +128,18 @@ export const NoteMatrix = () => {
                     })?.name
                   }
                 </S.IntervalContainer>
-                <S.Note
-                  $isVisible={isVisible}
-                  $isSharedNote={isSharedNote}
-                  data-is-shared={isSharedNote}
-                >
+                <S.Note $isVisible={isVisible} $isSharedNote={isSharedNote}>
                   {noteName}
                 </S.Note>
               </S.NoteWrapper>
             );
           })}
+          {paddingArray.map((_, index) => (
+            <S.NoteWrapper key={`base-padding-${index}`}>
+              <S.IntervalContainer />
+              <S.Note $isVisible={false} />
+            </S.NoteWrapper>
+          ))}
         </S.NotesRow>
 
         <S.NotesRow>
@@ -146,12 +153,14 @@ export const NoteMatrix = () => {
                 key={`shape-${i}`}
                 $isVisible={isVisible}
                 $isSharedNote={isSharedNote}
-                data-is-shared={isSharedNote}
               >
                 {noteName}
               </S.Note>
             );
           })}
+          {paddingArray.map((_, index) => (
+            <S.Note key={`shape-padding-${index}`} $isVisible={false} />
+          ))}
         </S.NotesRow>
       </S.NoteMatrixSectionColumn>
     </S.NoteMatrixSection>

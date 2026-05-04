@@ -9,7 +9,7 @@ export const PlayerContainer = styled.div`
   max-width: 1400px;
   flex-wrap: wrap;
   justify-content: center;
-
+  padding: 0 5px;
   @media (min-width: 1024px) {
     flex-direction: row;
     margin: auto;
