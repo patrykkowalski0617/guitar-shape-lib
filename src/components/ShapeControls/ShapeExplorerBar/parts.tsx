@@ -5,5 +5,4 @@ export const ShapeExplorerBar = styled.div`
   justify-content: center;
   align-items: center;
   gap: 16px;
-  padding-top: 5px;
 `;

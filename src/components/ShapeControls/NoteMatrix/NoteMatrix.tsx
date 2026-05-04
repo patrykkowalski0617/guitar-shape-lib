@@ -81,12 +81,13 @@ export const NoteMatrix = () => {
     });
   const baseChordDisplayTitle = `${chordRootName} ${baseChord.modeExtendedName}`;
   return (
-    <S.NerdSection>
-      <S.NerdSectionColumn>
+    <S.NoteMatrixSection>
+      <S.Title>Notes Matrix</S.Title>
+      <S.NoteMatrixSectionColumn>
         <S.RowTitle>Back Chord: {baseChordDisplayTitle}</S.RowTitle>
         <S.RowTitle>Solo Shape: {shapeLabel}</S.RowTitle>
-      </S.NerdSectionColumn>
-      <S.NerdSectionColumn>
+      </S.NoteMatrixSectionColumn>
+      <S.NoteMatrixSectionColumn>
         <S.NotesRow>
           {visibleColumnsIndices.map((i) => {
             const isVisible = getIsScaleNoteVisible(i, onlyScaleNotesIndices);
@@ -115,7 +116,7 @@ export const NoteMatrix = () => {
             );
           })}
         </S.NotesRow>
-      </S.NerdSectionColumn>
-    </S.NerdSection>
+      </S.NoteMatrixSectionColumn>
+    </S.NoteMatrixSection>
   );
 };

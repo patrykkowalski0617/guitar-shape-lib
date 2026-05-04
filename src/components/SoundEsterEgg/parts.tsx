@@ -1,14 +1,18 @@
 import styled from "styled-components";
+import { instrumentBRadius } from "../Piano/PianoKey/parts/constants";
 
 export const MakeItActuallyPlayable = styled.div<{ $isActive: boolean }>`
   position: absolute;
   right: 0;
   top: 0;
   z-index: 50;
-  height: 25px;
+  height: 18px;
+  width: 100%;
   &::before {
     content: ${({ $isActive }) =>
       `"Make it actually playable ${$isActive ? "🔊" : "🙄"}"`};
+    box-shadow: 0px 10px 10px 0px
+      color-mix(in oklab, var(--background) 80%, transparent);
     height: 25px;
     display: flex;
     justify-content: center;
@@ -20,6 +24,7 @@ export const MakeItActuallyPlayable = styled.div<{ $isActive: boolean }>`
     transition: all 0.3s ease;
     font-size: 13px;
     font-weight: 500;
+    border-radius: ${instrumentBRadius};
   }
 
   &:hover {

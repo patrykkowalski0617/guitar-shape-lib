@@ -32,7 +32,7 @@ export const NoteWrapper = styled.div<{
       z-index: 40;
       ${Note} {
         ${noteCommon}
-        top: 10px;
+        top: 20px;
         transform: translateX(-50%);
         box-shadow: 1px 2px 3px 2px var(--background);
       }

@@ -1,16 +1,32 @@
 import { noteCommon } from "@/components/NoteLabel/constants";
+import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
+import { outsideShadow } from "@/constants";
 import styled, { css } from "styled-components";
 
-export const NerdSection = styled.div`
+export const NoteMatrixSection = styled.div`
   display: flex;
   flex-direction: row;
   font-size: 14px;
+  ${outsideShadow}
+  border-radius: calc(${instrumentElBRadius} + 2px);
+  padding: 4px 8px;
+  gap: 4px;
+  width: fit-content;
+  position: relative;
 `;
 
-export const NerdSectionColumn = styled.div`
+export const NoteMatrixSectionColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+  opacity: 0.7;
+`;
+
+export const Title = styled.div`
+  font-size: 10px;
+  position: absolute;
+  width: 100%;
+  top: -22px;
 `;
 
 export const RowTitle = styled.div`
@@ -18,7 +34,7 @@ export const RowTitle = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-right: 16px;
+  margin-right: 8px;
 `;
 
 export const NotesRow = styled.div`
@@ -50,6 +66,5 @@ export const IntervalContainer = styled.div`
   text-align: center;
   position: absolute;
   width: 100%;
-  top: -17px;
-  opacity: 0.7;
+  top: -22px;
 `;

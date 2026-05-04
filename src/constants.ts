@@ -16,3 +16,16 @@ export const insetShadow = css`
     color-mix(in oklab, ${appBgColor} 65%, var(--background)) 100%
   );
 `;
+
+export const outsideShadow = css`
+  box-shadow:
+    inset 1px 1px 1px 0px color-mix(in oklab, var(--foreground) 5%, transparent),
+    inset -1px -1px 1px 0px
+      color-mix(in oklab, var(--background) 50%, transparent),
+    0px 0px 1px 0px color-mix(in oklab, var(--foreground) 20%, transparent),
+    -2px -2px 6px 1px color-mix(in oklab, var(--foreground) 20%, transparent),
+    1px 1px 4px 0px color-mix(in oklab, var(--background) 100%, transparent),
+    0px 0px 6px 0px color-mix(in oklab, var(--background) 100%, transparent),
+    0px 0px 8px 0px color-mix(in oklab, var(--background) 100%, transparent),
+    0px 0px 10px 1px color-mix(in oklab, var(--background) 100%, transparent);
+`;
