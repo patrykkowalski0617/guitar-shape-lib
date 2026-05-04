@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import type { Variant } from "./NoteLabel";
-import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
+import { noteCommon } from "./constants";
 
 export const Note = styled.div`
   opacity: 1;
@@ -11,33 +11,30 @@ export const Note = styled.div`
   font-weight: bold;
   position: absolute;
   z-index: 40;
-  color: var(--background);
 `;
 
 export const NoteWrapper = styled.div<{
   $isVisible: boolean;
   $variant: Variant;
 }>`
-  ${({ $variant, $isVisible }) =>
+  ${({ $isVisible }) => css`
+    opacity: ${$isVisible ? "1" : "0"};
+    transform: ${$isVisible ? "scale(1)" : "scale(1.1)"};
+    transition:
+      opacity 0.1s ease-out,
+      transform 0.1s ease-out;
+  `}
+
+  ${({ $variant }) =>
     $variant === "piano" &&
     css`
       position: relative;
       z-index: 40;
-      opacity: ${$isVisible ? "1" : "0"};
-      transform: ${$isVisible ? "scale(1)" : "scale(1.1)"};
-      transition:
-        opacity 0.1s ease-out,
-        transform 0.1s ease-out;
       ${Note} {
-        border-radius: ${instrumentElBRadius};
-        width: 22px;
-        height: 22px;
-        line-height: 22px;
+        ${noteCommon}
         top: 10px;
         transform: translateX(-50%);
-        background-color: var(--foreground);
         box-shadow: 1px 2px 3px 2px var(--background);
-        border: 1px solid var(--border);
       }
     `}
 
@@ -49,10 +46,12 @@ export const NoteWrapper = styled.div<{
       justify-content: center;
       flex-direction: row;
       ${Note} {
-        background: transparent;
-        height: 100%;
-        width: 100%;
-        border-radius: 4px;
+        ${noteCommon}
+        box-shadow: 5px 3px 4px 1px
+          color-mix(in oklab, var(--background) 70%, transparent);
+        height: 25px;
+        width: 25px;
+        border-radius: 40px;
       }
     `}
 `;

@@ -76,29 +76,11 @@ export const Note = styled.div<{
   $animateBaseChordDown: boolean;
   $isVisible: boolean;
 }>`
-  transition:
-    opacity 0.1s ease-out,
-    transform 0.1s ease-out;
-  opacity: 0;
-  transform: scale(1.2);
-  ${({ $isVisible }) => {
-    if (!$isVisible) return null;
-    return css`
-      opacity: 1;
-      transform: scale(1);
-    `;
-  }}
-  background: var(--foreground);
-  box-shadow: 5px 3px 4px 1px
-    color-mix(in oklab, var(--background) 70%, transparent);
-  border: 1px solid var(--border);
-  border-radius: 50px;
-  height: 25px;
-  width: 25px;
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   position: relative;
   z-index: 52;
 `;

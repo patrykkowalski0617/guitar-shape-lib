@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
 import { Separator } from "../Separator";
-import { extendedChordNamesMap } from "./constants";
+import { BASE_CHORDS } from "@/data";
 
 interface Props {
   group: any;
@@ -56,7 +56,7 @@ export function BaseChordSingleRow({
               isLastRow && "border-b-0",
             )}
           >
-            {`${item.chordName}${extendedChordNamesMap[idx]}`}
+            {`${item.chordName}${Object.values(BASE_CHORDS)[idx].modeExtendedName}`}
           </ToggleGroupItem>
         ))}
       </ToggleGroup>

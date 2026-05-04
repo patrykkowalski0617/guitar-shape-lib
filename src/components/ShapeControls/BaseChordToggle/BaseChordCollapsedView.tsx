@@ -1,7 +1,7 @@
 import { ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Separator } from "../Separator";
-import { extendedChordNamesMap } from "./constants";
 import * as S from "./parts";
+import { BASE_CHORDS } from "@/data";
 
 interface Props {
   activeGroup: any;
@@ -35,7 +35,7 @@ export function BaseChordCollapsedView({
         {activeGroup.chords.map((item: any, idx: number) => {
           return (
             <ToggleGroupItem key={item.combinedId} value={item.combinedId}>
-              {`${item.chordName}${extendedChordNamesMap[idx]}`}
+              {`${item.chordName}${Object.values(BASE_CHORDS)[idx].modeExtendedName}`}
             </ToggleGroupItem>
           );
         })}
