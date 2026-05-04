@@ -1,8 +1,11 @@
 import styled from "styled-components";
 export const fretboardRPadding = "30px";
 
+export const FretboardAdjustmentWrapper = styled.div`
+  margin-bottom: -20px;
+`;
 export const FretboardWrapper = styled.div`
-  padding: 5px 0 20px;
+  padding-bottom: 20px;
   position: relative;
 `;
 

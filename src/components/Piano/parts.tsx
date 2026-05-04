@@ -5,7 +5,9 @@ import {
 } from "./PianoKey/parts/constants";
 
 export const ShadowWrapper = styled.div`
-  margin: 15px 0;
+  padding-top: 15px;
+  margin-top: -15px;
+
   position: relative;
 `;
 

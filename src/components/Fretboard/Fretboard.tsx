@@ -53,24 +53,27 @@ export default function Fretboard(): JSX.Element {
   ]);
 
   return (
-    <InstrumentScrollWrapper ref={scrollRef}>
-      <InstrumentWrapper>
-        <FretboardNumericMarkers />
-        <S.FretboardWrapper>
-          <S.Fretboard>
-            {allFretboardNotes.map((rowNotes, index) => (
-              <FretboardRow
-                key={index}
-                stringIndex={index as StringIndex}
-                rowNotes={rowNotes}
-              />
-            ))}
-            <S.FretboardShadow />
-            <HiddenShapeExplorerSlider />
-            <FretboardDotMarkers />
-          </S.Fretboard>
-        </S.FretboardWrapper>
-      </InstrumentWrapper>
-    </InstrumentScrollWrapper>
+    <S.FretboardAdjustmentWrapper>
+      <InstrumentScrollWrapper ref={scrollRef}>
+        <InstrumentWrapper>
+          <FretboardNumericMarkers />
+
+          <S.FretboardWrapper>
+            <S.Fretboard>
+              {allFretboardNotes.map((rowNotes, index) => (
+                <FretboardRow
+                  key={index}
+                  stringIndex={index as StringIndex}
+                  rowNotes={rowNotes}
+                />
+              ))}
+              <S.FretboardShadow />
+              <HiddenShapeExplorerSlider />
+              <FretboardDotMarkers />
+            </S.Fretboard>
+          </S.FretboardWrapper>
+        </InstrumentWrapper>
+      </InstrumentScrollWrapper>
+    </S.FretboardAdjustmentWrapper>
   );
 }

@@ -5,7 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
 import ShapeControls from "./components/UpperBar/ShapeControls";
 import Sign from "./components/Sign/Sign";
-import Player from "./components/Player/Player";
+import { Player } from "./components/Player/Player";
 import Piano from "./components/Piano/Piano";
 import { ShapeExplorerBar } from "./components/ShapeControls/ShapeExplorerBar/ShapeExplorerBar";
 import { SoundEsterEgg } from "./components/SoundEsterEgg/SoundEsterEgg";
@@ -13,11 +13,14 @@ import { usePersistentUnlock } from "@/hooks/usePersistentUnlock";
 
 export default function App() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const bricks = usePlayerStore((state) => state.bricks);
   const shapeId = useControlsStore((state) => state.shapeId);
   const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
-  const isShapeExplorerDisabled = usePersistentUnlock(
-    !(activeLockedNotes.length || shapeId),
-  );
+
+  const isShapeExplorerBarDisabled =
+    usePersistentUnlock(!shapeId) && !!bricks.length;
+
+  const isPlayerDisabled = usePersistentUnlock(!bricks.length);
 
   return (
     <AppWrapper>
@@ -37,13 +40,16 @@ export default function App() {
         </Section>
 
         {!isPlaying && (
-          <Section $isDisabled={isShapeExplorerDisabled}>
+          <Section $isDisabled={isShapeExplorerBarDisabled}>
             <ShapeExplorerBar />
           </Section>
         )}
 
-        <Section>
-          <Player />
+        <Section $isDisabled={isPlayerDisabled}>
+          <Player>
+            <Player.Bricks />
+            <Player.Controls />
+          </Player>
         </Section>
 
         {!isPlaying && (

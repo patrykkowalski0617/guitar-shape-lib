@@ -2,24 +2,30 @@ import * as S from "./parts";
 import { usePlayer } from "./hooks/usePlayer";
 import { PlayerBricksContainer } from "./PlayerBricksContainer/PlayerBricksContainer";
 import { PlayerControls } from "./PlayerControls/PlayerControls";
-import { usePersistentUnlock } from "@/hooks";
-import { usePlayerStore } from "@/store";
 
-export default function Player() {
+// 1. Definicja głównych komponentów wewnętrznych
+const Bricks = () => (
+  <S.PlayerSection>
+    <PlayerBricksContainer />
+  </S.PlayerSection>
+);
+
+const Controls = () => (
+  <S.PlayerSection>
+    <PlayerControls />
+  </S.PlayerSection>
+);
+
+// 2. Komponent główny
+const PlayerRoot = ({ children }: { children: React.ReactNode }) => {
   usePlayer();
-  const bricks = usePlayerStore((state) => state.bricks);
 
-  const isTemporarlyDisabled = usePersistentUnlock(!bricks.length);
+  return <S.PlayerContainer>{children}</S.PlayerContainer>;
+};
 
-  return (
-    <S.PlayerContainer>
-      <S.PlayerSection $isTemporarlyDisabled={isTemporarlyDisabled}>
-        <PlayerBricksContainer />
-      </S.PlayerSection>
-
-      <S.PlayerSection>
-        <PlayerControls />
-      </S.PlayerSection>
-    </S.PlayerContainer>
-  );
-}
+// 3. Eksport w stylu Compound Components
+export const Player = Object.assign(PlayerRoot, {
+  Bricks,
+  Controls,
+  Section: S.PlayerSection, // Pozwalamy na użycie samej sekcji, jeśli potrzeba tam wsadzić coś customowego
+});

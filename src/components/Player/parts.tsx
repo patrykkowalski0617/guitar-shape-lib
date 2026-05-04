@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
 import { insetShadow } from "@/constants";
 
@@ -19,9 +19,7 @@ export const PlayerContainer = styled.div`
   }
 `;
 
-export const PlayerSection = styled.div<{
-  $isTemporarlyDisabled?: boolean;
-}>`
+export const PlayerSection = styled.div`
   border-radius: ${instrumentElBRadius};
   padding: 6px 8px;
   display: flex;
@@ -36,15 +34,7 @@ export const PlayerSection = styled.div<{
     justify-content: center;
     flex: 0 0 0;
   }
-  interpolate-size: allow-keywords;
-  transition: 0.1s;
-  ${({ $isTemporarlyDisabled }) =>
-    $isTemporarlyDisabled !== undefined &&
-    css`
-      opacity: ${$isTemporarlyDisabled ? 0 : 1};
-      width: ${$isTemporarlyDisabled ? "0%" : "100%"};
-      flex: ${$isTemporarlyDisabled ? "0 0 0px" : "1 1 0px"};
-      height: ${$isTemporarlyDisabled ? "0px" : "auto"};
-      padding: ${$isTemporarlyDisabled ? "0px" : "6px 8px"};
-    `}
+  flex: 1 1 0px;
+  height: auto;
+  padding: 6px 8px;
 `;

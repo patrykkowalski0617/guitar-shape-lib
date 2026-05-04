@@ -21,7 +21,10 @@ export const MainContent = styled.main`
 const SectionCommonCss = css`
   margin-bottom: 13px;
   @media (min-width: 1024px) {
-    margin-bottom: 30px;
+    margin-bottom: 50px;
+    &:last-child {
+      margin-bottom: 0px;
+    }
   }
 `;
 export const Section = styled.div<{ $isDisabled?: boolean }>`
@@ -32,7 +35,7 @@ export const Section = styled.div<{ $isDisabled?: boolean }>`
   ${({ $isDisabled }) =>
     $isDisabled !== undefined
       ? css`
-          padding: 10px 0;
+          padding-top: 20px;
           margin-top: -20px;
           overflow: hidden;
           height: 0;
@@ -64,8 +67,6 @@ export const InstrumentScrollWrapper = styled.div`
   overflow-x: auto;
   scrollbar-width: none;
   position: relative;
-  margin: 0 -10px;
-  margin-bottom: -10px;
   z-index: 2;
   @media (max-width: 1400px) {
     mask-image: linear-gradient(
