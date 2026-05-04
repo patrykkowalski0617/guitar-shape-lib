@@ -453,13 +453,14 @@ export const SHAPES: Shapes = {
       },
     },
   },
-  "7b9": {
-    label: "7b9",
+  m7b9: {
+    label: "m7b9",
     type: "Arpeggio",
-    intervals: [_1, _M3, _5, _m7, _m9],
+    intervals: [_1, _m3, _T, _m7, _m9],
     semitoneOffsetFromMajorTonicRoot: {
       Domi: [_5, _m2],
       DomiPh: [_M3],
+      halfDim: [_M7],
     },
     shapeVariants: {
       strE: {

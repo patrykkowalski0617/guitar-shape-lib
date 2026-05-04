@@ -2,14 +2,7 @@ import type { SemitoneTemplateKey } from "./SCALE_SEMITONE_TEMPLATES";
 
 export type BaseChordId = keyof typeof BASE_CHORDS;
 
-export type RoleId =
-  | "tonic"
-  | "subdominant"
-  | "mediant"
-  | "dominant"
-  | "subdominant"
-  | "dominant"
-  | "tonic";
+export type RoleId = "tonic" | "subdominant" | "mediant" | "dominant";
 
 export interface BaseChordValue {
   role: RoleId;
@@ -17,7 +10,8 @@ export interface BaseChordValue {
   baseScaleId: SemitoneTemplateKey;
   isMajorMode: boolean;
   semitoneOffsetFromMajorScaleRoot: number;
-  modeExtendedName: "M7" | "7";
+  modeExtendedName: string;
+  CAGEDchordShape: string;
 }
 
 export const BASE_CHORDS = {
@@ -28,6 +22,7 @@ export const BASE_CHORDS = {
     isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 0,
     modeExtendedName: "M7",
+    CAGEDchordShape: "major",
   },
   subdomi: {
     role: "subdominant",
@@ -35,7 +30,8 @@ export const BASE_CHORDS = {
     baseScaleId: "dorianScale",
     isMajorMode: false,
     semitoneOffsetFromMajorScaleRoot: 2,
-    modeExtendedName: "7",
+    modeExtendedName: "m7",
+    CAGEDchordShape: "minor",
   },
   mediant: {
     role: "mediant",
@@ -43,7 +39,8 @@ export const BASE_CHORDS = {
     baseScaleId: "phrygianScale",
     isMajorMode: false,
     semitoneOffsetFromMajorScaleRoot: 4,
-    modeExtendedName: "7",
+    modeExtendedName: "m7",
+    CAGEDchordShape: "minor",
   },
   DomiPh: {
     role: "dominant",
@@ -52,6 +49,7 @@ export const BASE_CHORDS = {
     isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 4,
     modeExtendedName: "7",
+    CAGEDchordShape: "major",
   },
   Subdomi: {
     role: "subdominant",
@@ -60,6 +58,7 @@ export const BASE_CHORDS = {
     isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 5,
     modeExtendedName: "M7",
+    CAGEDchordShape: "major",
   },
   Domi: {
     role: "dominant",
@@ -68,6 +67,7 @@ export const BASE_CHORDS = {
     isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 7,
     modeExtendedName: "7",
+    CAGEDchordShape: "major",
   },
   tonic: {
     role: "tonic",
@@ -75,6 +75,16 @@ export const BASE_CHORDS = {
     baseScaleId: "aeolianScale",
     isMajorMode: false,
     semitoneOffsetFromMajorScaleRoot: 9,
-    modeExtendedName: "7",
+    modeExtendedName: "m7",
+    CAGEDchordShape: "minor",
+  },
+  halfDim: {
+    role: "subdominant",
+    baseScaleName: "Locrian",
+    baseScaleId: "locrianScale",
+    isMajorMode: false,
+    semitoneOffsetFromMajorScaleRoot: 11,
+    modeExtendedName: "m7b5",
+    CAGEDchordShape: "halfDim",
   },
 } as const satisfies Record<string, BaseChordValue>;

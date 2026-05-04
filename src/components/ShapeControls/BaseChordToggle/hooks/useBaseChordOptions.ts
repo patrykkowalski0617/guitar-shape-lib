@@ -13,12 +13,11 @@ export const useBaseChordOptions = () => {
     const isFlatTune = UNIFIED_MUSIC_KEYS[tuneKeyId].isFlatTune;
     const chords = Object.entries(BASE_CHORDS).map(([chordId, chordData]) => {
       const noteAtOffset = notes[chordData.semitoneOffsetFromMajorScaleRoot];
-      const isMajorMode = chordData.isMajorMode;
 
       const noteName = isFlatTune
         ? noteAtOffset.flatNoteName
         : noteAtOffset.sharpNoteName;
-      const chordName = `${noteName}${isMajorMode ? "" : "m"}`;
+      const chordName = `${noteName}`;
 
       return {
         id: chordId,

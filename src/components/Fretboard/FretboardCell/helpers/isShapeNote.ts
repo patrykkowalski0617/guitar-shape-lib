@@ -5,6 +5,7 @@ export const isShapeNote = (
   shapeCoordinates: FretboardCoordinate[],
 ): boolean => {
   const [currentStringIndex, currentFretIndex] = currentCoordinates;
+  console.log(shapeCoordinates); // dla jednego przypadku shapeFretIndex źle się wylicza
 
   return shapeCoordinates.some(
     ([shapeStringIndex, shapeFretIndex]) =>

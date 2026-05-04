@@ -2,7 +2,7 @@ import ShapeExplorerSlider from "@/components/ShapeControls/ShapeExplorer/ShapeE
 import { CleanButton } from "@/components/ShapeControls/ShapeExplorerBar/CleanButton/CleanButton";
 import { AddBrickButton } from "@/components/ShapeControls/ShapeExplorerBar/AddBrickButton/AddBrickButton";
 import * as S from "./parts";
-import { NerdSection } from "./NerdSection/NerdSection";
+import { NoteMatrix } from "./NoteMatrix/NoteMatrix";
 
 export const ShapeExplorerBar = () => {
   return (
@@ -10,7 +10,7 @@ export const ShapeExplorerBar = () => {
       <ShapeExplorerSlider />
       <CleanButton />
       <AddBrickButton />
-      <NerdSection />
+      <NoteMatrix />
     </S.ShapeExplorerBar>
   );
 };
