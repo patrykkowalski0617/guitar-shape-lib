@@ -1,5 +1,6 @@
 import { noteCommon } from "@/components/NoteLabel/constants";
 import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
+import { glassEffectShadow } from "@/constants";
 import { Label } from "@/parts";
 import styled, { css } from "styled-components";
 
@@ -9,9 +10,10 @@ export const NoteMatrixSection = styled.div`
   font-size: 14px;
   border: 1px solid color-mix(in oklab, var(--instrument) 20%, transparent);
   border-radius: calc(${instrumentElBRadius} + 2px);
-  padding: 4px 4px 4px 8px;
+  padding: 8px;
   gap: 4px;
   position: relative;
+  ${glassEffectShadow}
 `;
 
 export const NoteMatrixSectionColumn = styled.div`

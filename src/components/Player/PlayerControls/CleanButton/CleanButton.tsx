@@ -17,7 +17,7 @@ export const CleanButton = () => {
   return (
     <S.Button
       variant={"playerOutlineWarn"}
-      disabled={isPlaying || isDisabled}
+      $isDisabled={isPlaying || isDisabled}
       $isTemporarlyDisabled={isTemporarlyDisabled}
       onClick={handleClick}
     >

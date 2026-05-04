@@ -29,7 +29,7 @@ export const outsideShadow = css`
 
 export const glassEffectShadow = css`
   box-shadow:
-    3px 3px 4px 1px color-mix(in oklab, var(--background) 60%, transparent),
+    3px 3px 4px 1px color-mix(in oklab, var(--background) 40%, transparent),
     1px 1px 4px 1px color-mix(in oklab, var(--background) 60%, transparent)
       inset,
     -1px -1px 3px 0px color-mix(in oklab, var(--foreground) 20%, transparent)
