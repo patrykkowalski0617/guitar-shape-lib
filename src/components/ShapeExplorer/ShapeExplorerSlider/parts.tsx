@@ -66,8 +66,10 @@ export const ShapeExplorerWrapper = styled.div<{
   $isTemporarlyDisabled: boolean;
   $isDisabled: boolean;
 }>`
-  max-width: 0px;
-  transition: 0.5s;
+  width: 0px;
+  transition:
+    max-width 0.2s,
+    opacity 0.2s 0.2s;
   transform: translateX(calc(25px / -2));
   padding: 0 7px;
   opacity: 0;
@@ -80,7 +82,7 @@ export const ShapeExplorerWrapper = styled.div<{
     if ($isTemporarlyDisabled) return;
     return css`
       transform: none;
-      max-width: 500px;
+      width: 500px;
       flex: 1;
       opacity: 1;
     `;

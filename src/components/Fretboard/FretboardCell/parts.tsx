@@ -8,13 +8,13 @@ export const FretWrapper = styled.div`
   &::before {
     content: "";
     box-shadow: 4px 0px 5px 0px
-      color-mix(in oklab, var(--background) 70%, transparent);
+      color-mix(in oklab, var(--background) 60%, transparent);
     height: 100%;
     width: 5px;
     background: linear-gradient(
       90deg,
-      var(--foreground) 0%,
-      var(--border) 30%,
+      var(--muted) 0%,
+      var(--border) 40%,
       var(--background) 100%
     );
     position: absolute;

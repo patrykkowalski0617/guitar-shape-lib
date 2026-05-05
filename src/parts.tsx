@@ -40,7 +40,7 @@ export const Section = styled.div<{ $isDisabled?: boolean }>`
           height: 0;
           opacity: 0;
           transition:
-            height 0.4s ease-in-out,
+            height 0.2s ease-in-out,
             opacity 0.2s 0.2s ease-in-out;
 
           ${!$isDisabled &&

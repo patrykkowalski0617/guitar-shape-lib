@@ -26,6 +26,10 @@ interface MusicState {
   setActiveLockedNotes: (activeNote: string) => void;
   resetActiveLockedNotes: () => void;
 
+  selectedComponentNotes: string[];
+  setSelectedComponentNotes: (noteName: string) => void;
+  resetSelectedComponentNotes: () => void;
+
   shapeVariantLocationData: ShapeVariantLocationData | null;
   setShapeVariantLocationData: (
     target: ShapeVariantLocationData | null,
@@ -41,6 +45,7 @@ export const useMusicStore = create<MusicState>((set) => ({
   activeNoteId: null,
   shapeNoteIds: [],
   activeLockedNotes: [],
+  selectedComponentNotes: [],
   shapeVariantLocationData: null,
   shapeVariantLocationData_locked: null,
 
@@ -74,6 +79,7 @@ export const useMusicStore = create<MusicState>((set) => ({
 
     set({ shapeNoteIds: nextShapeNoteIds });
   },
+
   setShapeVariantLocationData: (data) => {
     if (!data) {
       set({ shapeVariantLocationData: null, shapeNoteIds: [] });
@@ -98,6 +104,20 @@ export const useMusicStore = create<MusicState>((set) => ({
   },
 
   resetActiveLockedNotes: () => set({ activeLockedNotes: [] }),
+
+  setSelectedComponentNotes: (noteName) => {
+    set((state) => {
+      const isAlreadySelected = state.selectedComponentNotes.includes(noteName);
+      const nextSelectedNotes = isAlreadySelected
+        ? state.selectedComponentNotes.filter((note) => note !== noteName)
+        : [...state.selectedComponentNotes, noteName];
+
+      return { selectedComponentNotes: nextSelectedNotes };
+    });
+  },
+
+  resetSelectedComponentNotes: () => set({ selectedComponentNotes: [] }),
+
   setShapeVariantLocationData_locked: (data) =>
     set({ shapeVariantLocationData_locked: data }),
 }));

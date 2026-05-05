@@ -7,6 +7,7 @@ export const FretboardNumericMarkers = styled.div`
   position: relative;
   z-index: 2;
   margin-bottom: 0px;
+  opacity: 0.6;
   @media (min-width: 1024px) {
     margin-bottom: 10px;
     margin-top: 3px;

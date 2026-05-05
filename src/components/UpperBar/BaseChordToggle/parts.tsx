@@ -4,10 +4,11 @@ import { ToggleGroup as ToggleG } from "@/components/ui/toggle-group";
 import { motion } from "framer-motion";
 import { buttonBarShadow } from "./constants";
 import { Label } from "@/parts";
-import { expandedListCommon } from "@/components/ShapeControls/constants";
+import { expandedListCommon } from "@/components/UpperBar/constants";
 
 export const KeySelectButton = styled(Button)`
   ${buttonBarShadow}
+  height: 33px;
 `;
 
 export const ToggleGroup = styled(ToggleG)`
@@ -36,10 +37,10 @@ export const HeaderContainer = styled.div`
 `;
 
 export const KeyLabel = styled(Label)`
-  text-align: left;
+  text-align: center;
 `;
 
 export const ChordsLabel = styled(Label)`
   width: 100%;
-  text-align: right;
+  text-align: center;
 `;

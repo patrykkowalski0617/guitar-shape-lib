@@ -1,7 +1,7 @@
 import { css } from "styled-components";
 import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
 
-export const noteCommon = css`
+export const noteCommon = css<{ $isSelected?: boolean }>`
   background-color: color-mix(
     in oklab,
     var(--instrument) 25%,
@@ -13,4 +13,10 @@ export const noteCommon = css`
   width: 22px;
   height: 22px;
   line-height: 22px;
+  ${({ $isSelected }) =>
+    $isSelected
+      ? css`
+          outline: 2px solid var(--warn);
+        `
+      : ""}
 `;

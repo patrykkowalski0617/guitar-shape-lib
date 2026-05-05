@@ -58,7 +58,7 @@ function ToggleGroupItem({
         "bg-foreground/10 text-background transition-none text-background/90",
         "border-r border-background/20 last:border-r-0",
         "hover:bg-foreground/15",
-        "data-[state=on]:bg-accent/35 data-[state=on]:hover:bg-accent/40 data-[state=on]:text-accent-foreground",
+        "data-[state=on]:bg-accent/50 data-[state=on]:hover:bg-accent/60 data-[state=on]:text-accent-foreground",
         sharedFocusStyles,
         "rounded-none",
         context.spacing === 0 && "first:rounded-l-sm last:rounded-r-sm",
