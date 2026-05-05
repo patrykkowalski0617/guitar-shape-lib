@@ -1,8 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import { useMusicStore, usePlayerStore, type Brick } from "@/store";
+import {
+  useControlsStore,
+  useMusicStore,
+  usePlayerStore,
+  type Brick,
+} from "@/store";
 import { usePlayerSnapshot } from "./usePlayerSnapshot";
 import { useBrickWidthUnit } from "./useBrickWidthUnit";
 import { useBrickResize } from "./useBrickResize";
+import { BASE_CHORDS } from "@/data";
+import { getNotes } from "@/utils";
+import { useEnharmonicNoteName } from "@/hooks";
 
 interface UsePlayerBrickLogicProps {
   brick: Brick;
@@ -29,6 +37,8 @@ export const usePlayerBrickLogic = ({
   const bricks = usePlayerStore((state) => state.bricks);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const isCountingIn = usePlayerStore((state) => state.isCountingIn);
+  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
+  const getEnharmonicNoteName = useEnharmonicNoteName();
 
   const [isResizing, setIsResizing] = useState(false);
   const birckWidthUnit = useBrickWidthUnit();
@@ -51,9 +61,11 @@ export const usePlayerBrickLogic = ({
 
   const handleBrickClick = (e: React.MouseEvent) => {
     const isNotResizing = !isResizing;
+    const snapshot = brick.snapshot;
 
-    if (isNotResizing) {
+    if (isNotResizing && snapshot) {
       setActiveBrickId(id);
+      setBaseChordId(snapshot?.baseChordId);
       applySnapshot(e);
     }
   };
@@ -144,13 +156,21 @@ export const usePlayerBrickLogic = ({
     setShapeVariantLocationData_locked,
   ]);
 
-  const roleMarker = displayData && displayData.baseChordId !== null;
   const hasData = displayData.rootNote !== null;
+  const roleMarker =
+    hasData && displayData.baseChordId !== null
+      ? getEnharmonicNoteName(
+          getNotes({})[
+            BASE_CHORDS[displayData.baseChordId]
+              .semitoneOffsetFromMajorScaleRoot
+          ],
+        )
+      : null;
 
   const label = isResizing
     ? width
     : hasData
-      ? `${roleMarker}${displayData.rootNote} ${displayData.shapeLabel}`
+      ? `${roleMarker} | ${displayData.rootNote} ${displayData.shapeLabel}`
       : `Empty`;
 
   return {

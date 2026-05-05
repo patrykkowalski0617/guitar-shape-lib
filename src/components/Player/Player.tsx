@@ -9,7 +9,11 @@ const Bricks = () => (
   </S.PlayerSection>
 );
 
-const ControlsWithoutConatiner = () => <PlayerControls />;
+const ControlsWithoutConatiner = () => (
+  <S.PlayerNoShadowSection>
+    <PlayerControls />
+  </S.PlayerNoShadowSection>
+);
 
 const Controls = () => (
   <S.PlayerSection>

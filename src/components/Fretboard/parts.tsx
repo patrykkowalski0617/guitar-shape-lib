@@ -22,7 +22,7 @@ export const FretboardShadow = styled.div`
   background-size: 1400px;
   box-shadow:
     4px 15px 8px 0px color-mix(in oklab, var(--background) 80%, transparent),
-    0px 0px 10px 0px
+    0px 0px 5px 0px
       color-mix(in oklab, var(--instrument) 10%, var(--background));
   border-radius: 12px;
 `;

@@ -19,6 +19,15 @@ export const PlayerContainer = styled.div`
   }
 `;
 
+export const PlayerNoShadowSection = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin: 0 -10px;
+`;
+
 export const PlayerSection = styled.div`
   border-radius: ${instrumentElBRadius};
   padding: 6px 8px;
