@@ -1,6 +1,9 @@
 import styled, { css } from "styled-components";
 import { animationDuration, appBgColor } from "./constants";
-import { instrumentBRadius } from "./components/Piano/PianoKey/parts/constants";
+import {
+  instrumentBRadius,
+  instrumentElBRadius,
+} from "./components/Piano/PianoKey/parts/constants";
 
 export const AppWrapper = styled.div`
   display: flex;
@@ -67,7 +70,9 @@ export const InstrumentScrollWrapper = styled.div`
   scrollbar-width: none;
   position: relative;
   z-index: 2;
-  border-radius: ${instrumentBRadius};
+  border-radius: ${instrumentBRadius} ${instrumentBRadius}
+    ${instrumentElBRadius} ${instrumentElBRadius};
+
   @media (max-width: 1400px) {
     mask-image: linear-gradient(
       to right,
