@@ -10,3 +10,13 @@ export function usePersistentUnlock(isDisabled: boolean) {
 
   return persistentDisabled;
 }
+
+export function usePersistentLock(condition: boolean) {
+  const [isLocked, setIsLocked] = useState(false);
+
+  if (condition && !isLocked) {
+    setIsLocked(true);
+  }
+
+  return isLocked;
+}

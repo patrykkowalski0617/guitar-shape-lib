@@ -10,7 +10,7 @@ import { InstrumentScrollWrapper, InstrumentWrapper } from "@/parts";
 import { useFretboardScroll } from "./hooks";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
-import HiddenShapeExplorerSlider from "@/components/ShapeControls/ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
+import HiddenShapeExplorerSlider from "@/components/ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
 import { useMusicStore } from "@/store";
 import { useShapeCoordinates } from "./FretboardCell/hooks";
 import type { FretboardCoordinate, Note } from "@/data";

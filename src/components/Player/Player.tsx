@@ -9,6 +9,8 @@ const Bricks = () => (
   </S.PlayerSection>
 );
 
+const ControlsWithoutConatiner = () => <PlayerControls />;
+
 const Controls = () => (
   <S.PlayerSection>
     <PlayerControls />
@@ -23,6 +25,7 @@ const PlayerRoot = ({ children }: { children: React.ReactNode }) => {
 
 export const Player = Object.assign(PlayerRoot, {
   Bricks,
+  ControlsWithoutConatiner,
   Controls,
   Section: S.PlayerSection,
 });

@@ -7,7 +7,6 @@ export const Sign = styled.div`
   color: color-mix(in oklab, var(--accent) 80%, var(--secondary-foreground));
   text-align: center;
   width: 100%;
-  padding: 0 5px;
   margin: 0;
   height: 10px;
   @media (min-width: 768px) {

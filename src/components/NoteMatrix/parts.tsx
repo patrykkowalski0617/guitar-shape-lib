@@ -13,28 +13,36 @@ export const NoteMatrixSection = styled.div`
   padding: 8px;
   gap: 4px;
   position: relative;
+  background-color: color-mix(in oklab, var(--foreground) 5%, transparent);
   ${glassEffectShadow}
+  min-width: 550px;
+  justify-content: space-between;
+  width: fit-content;
 `;
 
 export const NoteMatrixSectionColumn = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+  width: 100%;
 `;
 
 export const Title = styled(Label)`
   position: absolute;
   top: -23px;
-  text-align: left;
 `;
 
-export const RowTitle = styled.div`
+export const RowTitle = styled.div<{ $isStateReady: boolean }>`
   height: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  flex: 1 1 0;
   margin-right: 8px;
   opacity: 0.7;
+  text-align: center;
+  ${({ $isStateReady }) =>
+    !$isStateReady &&
+    css`
+      opacity: 0.2;
+    `}
 `;
 
 export const NotesRow = styled.div`
@@ -46,6 +54,7 @@ export const NotesRow = styled.div`
 export const Note = styled.div<{
   $isVisible: boolean;
   $isSharedNote?: boolean;
+  $isSelected?: boolean;
 }>`
   ${noteCommon}
   opacity: 0.5;
@@ -64,6 +73,7 @@ export const Note = styled.div<{
   align-items: center;
   font-weight: 600;
   cursor: default;
+  box-shadow: 2px 2px 2px 0 var(--background);
 `;
 
 export const NoteWrapper = styled.div`
@@ -71,10 +81,10 @@ export const NoteWrapper = styled.div`
 `;
 
 export const IntervalContainer = styled.div`
-  font-size: 10px;
+  font-size: 12px;
   text-align: center;
   position: absolute;
   width: 100%;
-  top: -26px;
+  top: -28px;
   opacity: 0.7;
 `;

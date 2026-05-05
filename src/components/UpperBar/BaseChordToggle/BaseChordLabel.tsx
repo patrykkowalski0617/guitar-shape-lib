@@ -4,7 +4,7 @@ export function BaseChordLabel() {
   return (
     <S.HeaderContainer>
       <S.KeyLabel>Key</S.KeyLabel>
-      <S.ChordsLabel>Chords</S.ChordsLabel>
+      <S.ChordsLabel>Chords and Shapes</S.ChordsLabel>
     </S.HeaderContainer>
   );
 }

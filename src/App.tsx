@@ -3,11 +3,11 @@ import { AppWrapper, MainContent, Section } from "@/parts";
 import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
 import { Toaster } from "@/components/ui/sonner";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
-import ShapeControls from "./components/UpperBar/ShapeControls";
+import ShapeControls from "./components/UpperBar/UpperBar";
 import Sign from "./components/Sign/Sign";
 import { Player } from "./components/Player/Player";
 import Piano from "./components/Piano/Piano";
-import { ShapeExplorerBar } from "./components/ShapeControls/ShapeExplorerBar/ShapeExplorerBar";
+import { ShapeExplorerBar } from "./components/ShapeExplorerBar/ShapeExplorerBar";
 import { SoundEsterEgg } from "./components/SoundEsterEgg/SoundEsterEgg";
 import { usePersistentUnlock } from "@/hooks/usePersistentUnlock";
 
@@ -16,10 +16,11 @@ export default function App() {
   const bricks = usePlayerStore((state) => state.bricks);
   const shapeId = useControlsStore((state) => state.shapeId);
   const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
-
-  const isShapeExplorerBarDisabled =
-    usePersistentUnlock(!shapeId) && !!bricks.length;
-
+  const activeLockedNotesUnlockState = usePersistentUnlock(
+    !activeLockedNotes.length,
+  );
+  const isShape = usePersistentUnlock(!shapeId);
+  const isShapeExplorerBarDisabled = isShape && activeLockedNotesUnlockState;
   const isPlayerDisabled = usePersistentUnlock(!bricks.length);
 
   return (

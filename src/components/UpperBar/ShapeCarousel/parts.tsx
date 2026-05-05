@@ -9,6 +9,7 @@ export const RelativeContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  width: fit-content;
 `;
 
 export const Wrapper = styled.div`
@@ -60,12 +61,16 @@ export const Dot = styled.div<{ $active: boolean }>`
   border-radius: 50%;
   background-color: ${({ $active }) =>
     $active
-      ? "color-mix(in oklab, var(--accent) 70%, var(--background))"
+      ? "color-mix(in oklab, var(--secondary) 70%, var(--background))"
       : "color-mix(in oklab, var(--accent) 50%, var(--background))"};
+  box-shadow: ${({ $active }) =>
+    $active
+      ? "0 0 3px 0px color-mix(in oklab, var(--secondary) 70%, var(--background))"
+      : "1px 1px 4px 0px color-mix(in oklab, var(--background) 70%, transparent)"};
   transition:
     background-color 0.2s ease,
     transform 0.2s ease;
-  transform: ${({ $active }) => ($active ? "scale(1.4)" : "scale(1)")};
+  transform: ${({ $active }) => ($active ? "scale(1.1)" : "scale(1)")};
 `;
 
 export const Label = styled(_Label)`

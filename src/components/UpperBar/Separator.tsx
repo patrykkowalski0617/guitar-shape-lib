@@ -1,1 +1,1 @@
-export const Separator = () => <div className="w-1 md:w-2"></div>;
+export const Separator = () => <div className="w-1 md:w-3"></div>;
