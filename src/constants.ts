@@ -35,3 +35,5 @@ export const glassEffectShadow = css`
     -1px -1px 3px 0px color-mix(in oklab, var(--foreground) 20%, transparent)
       inset;
 `;
+
+export const animationDuration = "0.4s";

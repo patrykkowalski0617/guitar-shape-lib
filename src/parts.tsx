@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { appBgColor } from "./constants";
+import { animationDuration, appBgColor } from "./constants";
 import { instrumentBRadius } from "./components/Piano/PianoKey/parts/constants";
 
 export const AppWrapper = styled.div`
@@ -40,8 +40,8 @@ export const Section = styled.div<{ $isDisabled?: boolean }>`
           height: 0;
           opacity: 0;
           transition:
-            height 0.2s ease-in-out,
-            opacity 0.2s 0.2s ease-in-out;
+            height ${animationDuration} ease-in-out,
+            opacity ${animationDuration} ${animationDuration} ease-in-out;
 
           ${!$isDisabled &&
           css`

@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import { shapeExplorerCommon } from "../../ShapeExplorerBar/constants";
+import { animationDuration } from "@/constants";
 
 const highlightAnimation = keyframes`
   0% { 
@@ -68,10 +69,9 @@ export const ShapeExplorerWrapper = styled.div<{
 }>`
   width: 0px;
   transition:
-    max-width 0.2s,
-    opacity 0.2s 0.2s;
-  transform: translateX(calc(25px / -2));
-  padding: 0 7px;
+    width ${animationDuration},
+    opacity ${animationDuration} ${animationDuration};
+  padding: 0;
   opacity: 0;
   ${shapeExplorerCommon}
   ${({ $isDisabled }) => {
@@ -83,8 +83,8 @@ export const ShapeExplorerWrapper = styled.div<{
     return css`
       transform: none;
       width: 500px;
-      flex: 1;
       opacity: 1;
+      padding: 0 7px;
     `;
   }}
 `;

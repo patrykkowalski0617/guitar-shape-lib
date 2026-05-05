@@ -9,6 +9,7 @@ export const RelativeContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  width: fit-content;
 `;
 
 export const Wrapper = styled.div`

@@ -14,7 +14,6 @@ export const PRESETS: Preset[] = [
         width: 8,
         snapshot: {
           keyId: "C",
-          isMajorMode: true,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -33,7 +32,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "C",
-          isMajorMode: true,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -54,7 +52,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "C",
-          isMajorMode: true,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "dominant",
@@ -80,7 +77,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "C",
-          isMajorMode: false,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "m_add9",
@@ -101,7 +97,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "C",
-          isMajorMode: false,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "7b9",
@@ -127,7 +122,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "C",
-          isMajorMode: true,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "m7",
@@ -146,7 +140,6 @@ export const PRESETS: Preset[] = [
         width: 2,
         snapshot: {
           keyId: "C",
-          isMajorMode: false,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "m7",
@@ -165,7 +158,6 @@ export const PRESETS: Preset[] = [
         width: 2,
         snapshot: {
           keyId: "G",
-          isMajorMode: false,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "dominant",
@@ -189,7 +181,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "E",
-          isMajorMode: true,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -210,7 +201,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "E",
-          isMajorMode: false,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -231,7 +221,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "E",
-          isMajorMode: true,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -252,7 +241,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "E",
-          isMajorMode: true,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "dominant",
@@ -278,7 +266,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "C",
-          isMajorMode: true,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -299,7 +286,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "C",
-          isMajorMode: true,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -320,7 +306,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "C",
-          isMajorMode: true,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "dominant",
@@ -341,7 +326,6 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "C",
-          isMajorMode: false,
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "7b9",

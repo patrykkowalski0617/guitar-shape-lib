@@ -11,7 +11,6 @@ import { useApplySnapshotToStore } from "./useApplySnapshotToStore";
 
 export type Snapshot = {
   keyId: TuneKeyId;
-  isMajorMode: boolean;
   baseChordId: BaseChordId | null;
   shapeVariantLocationData: ShapeVariantLocationData | null;
   rootNote: string | null;

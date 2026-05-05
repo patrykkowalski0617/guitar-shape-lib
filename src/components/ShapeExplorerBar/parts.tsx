@@ -1,3 +1,4 @@
+import { animationDuration } from "@/constants";
 import styled, { css } from "styled-components";
 
 export const ShapeExplorerBar = styled.div`
@@ -6,24 +7,39 @@ export const ShapeExplorerBar = styled.div`
   align-items: center;
   width: 100%;
   padding: 0 10px;
-  gap: 20px;
 `;
 
-export const Section = styled.div<{ $isDisabled: boolean }>`
+export const ShapeExplorerSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  gap: 16px;
+  flex-direction: row;
+  gap: 30px;
+`;
+
+export const Section = styled.div<{ $isDisabled?: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
   interpolate-size: allow-keywords;
-  transition: 0.2s;
+  transition:
+    width ${animationDuration},
+    margin ${animationDuration},
+    height ${animationDuration},
+    opacity ${animationDuration} ${animationDuration};
+  width: auto;
+  height: auto;
+  opacity: 1;
+  margin: 0 50px;
   ${({ $isDisabled }) =>
-    $isDisabled &&
+    $isDisabled === true &&
     css`
       width: 0;
-      padding: 0;
-      display: none;
+      height: 0;
       overflow: hidden;
-    `}
+      flex-basis: 0;
+      opacity: 0;
+      margin: 0;
+    `};
 `;

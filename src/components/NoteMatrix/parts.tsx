@@ -15,7 +15,7 @@ export const NoteMatrixSection = styled.div`
   position: relative;
   background-color: color-mix(in oklab, var(--foreground) 5%, transparent);
   ${glassEffectShadow}
-  min-width: 500px;
+  min-width: 550px;
   justify-content: space-between;
   width: fit-content;
 `;
@@ -32,12 +32,17 @@ export const Title = styled(Label)`
   top: -23px;
 `;
 
-export const RowTitle = styled.div`
+export const RowTitle = styled.div<{ $isStateReady: boolean }>`
   height: 100%;
   flex: 1 1 0;
   margin-right: 8px;
   opacity: 0.7;
   text-align: center;
+  ${({ $isStateReady }) =>
+    !$isStateReady &&
+    css`
+      opacity: 0.2;
+    `}
 `;
 
 export const NotesRow = styled.div`
