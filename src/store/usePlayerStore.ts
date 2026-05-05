@@ -32,7 +32,7 @@ interface PlayerState {
   setBpm: (bpm: number) => void;
   setBpmMultiplier: (multiplier: number) => void;
   togglePlay: () => void;
-  nextStep: () => void;
+  nextStep: () => { isNewBrick: boolean; isFirstStepTotal: boolean };
   getTotalSteps: () => number;
   reorderBricks: (startIndex: number, endIndex: number) => void;
   setBricks: (bricks: Brick[]) => void;
@@ -70,10 +70,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
 
         const hasSameSnapshot =
           JSON.stringify(b.snapshot) === JSON.stringify(snapshot);
-
-        if (hasSameSnapshot) {
-          return b;
-        }
+        if (hasSameSnapshot) return b;
 
         return { ...b, snapshot };
       }),
@@ -126,18 +123,34 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   },
 
   nextStep: () => {
-    const { currentStep, getTotalSteps, isCountingIn, countIn } = get();
+    const { currentStep, getTotalSteps, isCountingIn, countIn, bricks } = get();
+
     if (isCountingIn) {
       if (countIn > 1) {
         set({ countIn: countIn - 1 });
       } else {
         set({ isCountingIn: false, countIn: 0, currentStep: 0 });
       }
-      return;
+      return { isNewBrick: true, isFirstStepTotal: countIn === 1 };
     }
+
     const total = getTotalSteps();
-    if (total === 0) return;
-    set({ currentStep: (currentStep + 1) % total });
+    if (total === 0) return { isNewBrick: false, isFirstStepTotal: false };
+
+    const nextStepIndex = (currentStep + 1) % total;
+    set({ currentStep: nextStepIndex });
+
+    let accumulatedWidth = 0;
+    const isNewBrick = bricks.some((brick) => {
+      const isStart = nextStepIndex === accumulatedWidth;
+      accumulatedWidth += brick.width;
+      return isStart;
+    });
+
+    return {
+      isNewBrick,
+      isFirstStepTotal: nextStepIndex === 0,
+    };
   },
 
   reorderBricks: (startIndex, endIndex) => {

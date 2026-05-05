@@ -2,6 +2,8 @@ interface Window {
   webkitAudioContext?: typeof AudioContext;
 }
 
+type ClickType = "brick-start" | "beat" | "sub-beat";
+
 export class Metronome {
   private audioContext: AudioContext | null = null;
   private nextTickTime: number = 0;
@@ -10,11 +12,11 @@ export class Metronome {
   private bpm: number = 120;
   private multiplier: number = 1;
   private volume: number = 2.5;
-  private onTick: () => void;
+  private onTick: () => { isNewBrick: boolean };
   private scheduledNodes: AudioNode[] = [];
   private isRunning: boolean = false;
 
-  constructor(onTick: () => void) {
+  constructor(onTick: () => { isNewBrick: boolean }) {
     this.onTick = onTick;
     this.worker = new Worker(new URL("./metronome.worker.ts", import.meta.url));
     this.worker.onmessage = (e) => {
@@ -24,9 +26,20 @@ export class Metronome {
     };
   }
 
-  private playClick(time: number, isAccent: boolean = true) {
+  private playClick(time: number, type: ClickType) {
     if (!this.audioContext || !this.isRunning) return;
-    if (!this.audioContext) return;
+
+    const frequencies: Record<ClickType, number> = {
+      "brick-start": 440,
+      beat: 330,
+      "sub-beat": 220,
+    };
+
+    const noiseFrequencies: Record<ClickType, number> = {
+      "brick-start": 1600,
+      beat: 1000,
+      "sub-beat": 600,
+    };
 
     const mainGain = this.audioContext.createGain();
     mainGain.gain.setValueAtTime(this.volume, time);
@@ -34,11 +47,14 @@ export class Metronome {
     const osc = this.audioContext.createOscillator();
     const oscGain = this.audioContext.createGain();
     osc.type = "sine";
-    osc.frequency.setValueAtTime(isAccent ? 400 : 220, time);
-    osc.frequency.exponentialRampToValueAtTime(10, time + 0.03);
+    osc.frequency.setValueAtTime(frequencies[type], time);
+    osc.frequency.exponentialRampToValueAtTime(10, time + 0.04);
+
     oscGain.gain.setValueAtTime(0, time);
-    oscGain.gain.linearRampToValueAtTime(isAccent ? 0.8 : 0.5, time + 0.001);
-    oscGain.gain.exponentialRampToValueAtTime(0.001, time + 0.03);
+    const gainValue =
+      type === "brick-start" ? 0.9 : type === "beat" ? 0.6 : 0.3;
+    oscGain.gain.linearRampToValueAtTime(gainValue, time + 0.001);
+    oscGain.gain.exponentialRampToValueAtTime(0.001, time + 0.04);
 
     const noiseBuffer = this.audioContext.createBuffer(
       1,
@@ -55,9 +71,9 @@ export class Metronome {
     const noiseFilter = this.audioContext.createBiquadFilter();
     noise.buffer = noiseBuffer;
     noiseFilter.type = "lowpass";
-    noiseFilter.frequency.setValueAtTime(isAccent ? 1390 : 800, time);
-    noiseGain.gain.setValueAtTime(isAccent ? 0.3 : 0.15, time);
-    noiseGain.gain.exponentialRampToValueAtTime(0.001, time + 0.015);
+    noiseFilter.frequency.setValueAtTime(noiseFrequencies[type], time);
+    noiseGain.gain.setValueAtTime(type === "brick-start" ? 0.4 : 0.15, time);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
 
     osc.connect(oscGain);
     oscGain.connect(mainGain);
@@ -67,37 +83,30 @@ export class Metronome {
     mainGain.connect(this.audioContext.destination);
 
     osc.start(time);
-    osc.stop(time + 0.04);
+    osc.stop(time + 0.05);
     noise.start(time);
-    noise.stop(time + 0.04);
+    noise.stop(time + 0.05);
 
     this.scheduledNodes.push(osc, noise);
   }
 
-  private stopNode(node: AudioScheduledSourceNode) {
-    try {
-      node.stop(0);
-    } catch (_e) {}
-  }
-
-  private cancelScheduledNodes() {
-    this.scheduledNodes.forEach((node) =>
-      this.stopNode(node as AudioScheduledSourceNode),
-    );
-    this.scheduledNodes = [];
-  }
-
   private scheduler = () => {
     if (!this.audioContext || !this.isRunning) return;
-    if (!this.audioContext) return;
-    const currentTime = this.audioContext.currentTime;
-    const lookAhead = currentTime + this.scheduleAheadTime;
+    const lookAhead = this.audioContext.currentTime + this.scheduleAheadTime;
 
     while (this.nextTickTime < lookAhead) {
-      this.onTick();
+      const { isNewBrick } = this.onTick();
       const subInterval = 60.0 / this.bpm / this.multiplier;
+
       for (let i = 0; i < this.multiplier; i++) {
-        this.playClick(this.nextTickTime + i * subInterval, i === 0);
+        const time = this.nextTickTime + i * subInterval;
+        let clickType: ClickType = "sub-beat";
+
+        if (i === 0) {
+          clickType = isNewBrick ? "brick-start" : "beat";
+        }
+
+        this.playClick(time, clickType);
       }
       this.advanceTimer();
     }
@@ -120,13 +129,7 @@ export class Metronome {
 
     this.bpm = initialBpm;
     this.multiplier = initialMultiplier;
-    const secondsPerBeat = 60.0 / this.bpm;
-    this.nextTickTime = this.audioContext.currentTime + secondsPerBeat;
-
-    const subInterval = secondsPerBeat / this.multiplier;
-    for (let i = 0; i < this.multiplier; i++) {
-      this.playClick(this.audioContext.currentTime + i * subInterval, i === 0);
-    }
+    this.nextTickTime = this.audioContext.currentTime;
 
     this.worker?.postMessage("start");
   }
@@ -149,12 +152,25 @@ export class Metronome {
     this.volume = newVolume;
   }
 
-  public replaceCallback(newCallback: () => void) {
+  public replaceCallback(newCallback: () => { isNewBrick: boolean }) {
     this.onTick = newCallback;
   }
 
   public cleanup() {
     this.stop();
     this.worker?.terminate();
+  }
+
+  private stopNode(node: AudioScheduledSourceNode) {
+    try {
+      node.stop(0);
+    } catch (_e) {}
+  }
+
+  private cancelScheduledNodes() {
+    this.scheduledNodes.forEach((node) =>
+      this.stopNode(node as AudioScheduledSourceNode),
+    );
+    this.scheduledNodes = [];
   }
 }

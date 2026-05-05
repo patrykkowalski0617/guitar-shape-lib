@@ -22,7 +22,7 @@ export function usePlayer() {
 
   const nextStep = usePlayerStore((state) => state.nextStep);
   const handleTick = useCallback(() => {
-    nextStep();
+    return nextStep();
   }, [nextStep]);
 
   const { toggleMetronome } = useMetronome(bpm, handleTick);
