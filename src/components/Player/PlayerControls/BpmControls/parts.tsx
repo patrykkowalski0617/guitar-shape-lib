@@ -29,7 +29,7 @@ const commonBpmElementStyles = css`
 
   &:focus {
     outline: none;
-    border-color: var(--accent);
+    border-color: var(--primary);
   }
 `;
 

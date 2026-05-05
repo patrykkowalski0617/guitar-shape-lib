@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
   width: ${ITEM_WIDTH}px;
   border-radius: ${instrumentElBRadius};
   border: 1px solid color-mix(in oklab, var(--border) 90%, var(--background));
-  background-color: color-mix(in oklab, var(--accent) 45%, var(--background));
+  background-color: color-mix(in oklab, var(--primary) 40%, var(--background));
   overflow-x: auto;
   scroll-behavior: smooth;
   ${glassEffectShadow}
@@ -62,7 +62,7 @@ export const Dot = styled.div<{ $active: boolean }>`
   background-color: ${({ $active }) =>
     $active
       ? "color-mix(in oklab, var(--secondary) 70%, var(--background))"
-      : "color-mix(in oklab, var(--accent) 50%, var(--background))"};
+      : "color-mix(in oklab, var(--primary) 50%, var(--background))"};
   box-shadow: ${({ $active }) =>
     $active
       ? "0 0 3px 0px color-mix(in oklab, var(--secondary) 70%, var(--background))"

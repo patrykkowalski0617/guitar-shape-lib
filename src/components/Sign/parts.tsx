@@ -4,7 +4,7 @@ export const Sign = styled.div`
   font-weight: 100;
   font-style: italic;
   font-size: 15px;
-  color: color-mix(in oklab, var(--accent) 80%, var(--secondary-foreground));
+  color: color-mix(in oklab, var(--primary) 80%, var(--secondary-foreground));
   text-align: center;
   width: 100%;
   margin: 0;

@@ -14,6 +14,7 @@ export const BPM_LIMITS = {
 
 interface PlayerState {
   bricks: Brick[];
+  editableBrickId: number | null;
   activeBrickId: number | null;
   bpm: number;
   bpmMultiplier: number;
@@ -26,6 +27,7 @@ interface PlayerState {
   removeBrick: (id: number) => void;
   updateBrickWidth: (id: number, newWidth: number) => void;
   updateBrickSnapshot: (id: number, snapshot: Snapshot) => void;
+  setEditableBrickId: (id: number | null) => void;
   setActiveBrickId: (id: number | null) => void;
   setBpm: (bpm: number) => void;
   setBpmMultiplier: (multiplier: number) => void;
@@ -38,6 +40,7 @@ interface PlayerState {
 
 export const usePlayerStore = create<PlayerState>((set, get) => ({
   bricks: [],
+  editableBrickId: null,
   activeBrickId: null,
   bpm: 70,
   bpmMultiplier: 1,
@@ -79,7 +82,8 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   removeBrick: (id) =>
     set((state) => ({
       bricks: state.bricks.filter((b) => b.id !== id),
-      activeBrickId: state.activeBrickId === id ? null : state.activeBrickId,
+      editableBrickId:
+        state.editableBrickId === id ? null : state.editableBrickId,
     })),
 
   updateBrickWidth: (id, newWidth) =>
@@ -89,7 +93,10 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
       ),
     })),
 
+  setEditableBrickId: (id) => set({ editableBrickId: id }),
+
   setActiveBrickId: (id) => set({ activeBrickId: id }),
+
   setBpm: (bpm) =>
     set({ bpm: Math.max(BPM_LIMITS.MIN, Math.min(BPM_LIMITS.MAX, bpm)) }),
   setBpmMultiplier: (bpmMultiplier) => set({ bpmMultiplier }),

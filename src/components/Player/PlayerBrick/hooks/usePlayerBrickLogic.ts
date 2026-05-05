@@ -14,6 +14,7 @@ interface UsePlayerBrickLogicProps {
 export const usePlayerBrickLogic = ({
   brick,
   isEditable,
+  onToggleEdit,
   onWidthChange,
 }: UsePlayerBrickLogicProps) => {
   const { id, width } = brick;
@@ -21,6 +22,9 @@ export const usePlayerBrickLogic = ({
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
   );
+
+  const removeBrick = usePlayerStore((state) => state.removeBrick);
+  const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
   const currentStep = usePlayerStore((state) => state.currentStep);
   const bricks = usePlayerStore((state) => state.bricks);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -29,8 +33,12 @@ export const usePlayerBrickLogic = ({
   const [isResizing, setIsResizing] = useState(false);
   const birckWidthUnit = useBrickWidthUnit();
 
-  const { displayData, handleClick, applySnapshotToStore, lockedSnapshot } =
-    usePlayerSnapshot(id, isEditable);
+  const {
+    displayData,
+    handleClick: applySnapshot,
+    applySnapshotToStore,
+    lockedSnapshot,
+  } = usePlayerSnapshot(id, isEditable);
 
   const resizeHandlers = useBrickResize({
     isEditable,
@@ -40,6 +48,25 @@ export const usePlayerBrickLogic = ({
     isResizing,
     setIsResizing,
   });
+
+  const handleBrickClick = (e: React.MouseEvent) => {
+    const isNotResizing = !isResizing;
+
+    if (isNotResizing) {
+      setActiveBrickId(id);
+      applySnapshot(e);
+    }
+  };
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    removeBrick(id);
+  };
+
+  const handleToggleEdit = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onToggleEdit();
+  };
 
   const myIndex = bricks.findIndex((b) => b.id === id);
   const stepsBeforeMe = bricks
@@ -64,6 +91,7 @@ export const usePlayerBrickLogic = ({
 
   const syncSnapshotOnBrickStart = () => {
     const isFirstStepOfBrick = activePart === 1;
+
     if (!isFirstStepOfBrick) {
       didSyncStartRef.current = false;
       return;
@@ -117,7 +145,6 @@ export const usePlayerBrickLogic = ({
   ]);
 
   const roleMarker = displayData && displayData.baseChordId !== null;
-
   const hasData = displayData.rootNote !== null;
 
   const label = isResizing
@@ -130,7 +157,9 @@ export const usePlayerBrickLogic = ({
     birckWidthUnit,
     activePart,
     label,
-    handleClick,
+    handleClick: handleBrickClick,
+    handleDelete,
+    handleToggleEdit,
     isResizing,
     resizeHandlers,
   };

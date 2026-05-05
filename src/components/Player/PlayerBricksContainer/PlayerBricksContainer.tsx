@@ -6,8 +6,12 @@ import { usePlayerBricksDrag } from "./hooks/usePlayerBricksDrag";
 export const PlayerBricksContainer = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const bricks = usePlayerStore((state) => state.bricks);
+  const editableBrickId = usePlayerStore((state) => state.editableBrickId);
   const activeBrickId = usePlayerStore((state) => state.activeBrickId);
   const updateBrickWidth = usePlayerStore((state) => state.updateBrickWidth);
+  const setEditableBrickId = usePlayerStore(
+    (state) => state.setEditableBrickId,
+  );
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
 
   const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } =
@@ -16,7 +20,13 @@ export const PlayerBricksContainer = () => {
   return (
     <S.PlayerWrapper $isPlaying={isPlaying}>
       {bricks.map((brick, index) => {
-        const isEditable = activeBrickId === brick.id;
+        const isEditable = editableBrickId === brick.id;
+
+        const isAnyBrickBeingEdited = editableBrickId !== null;
+        const isActive = isAnyBrickBeingEdited
+          ? isEditable
+          : activeBrickId === brick.id;
+
         const isBeingDragged = draggedIndex === index;
         const canDrag = !isEditable && !isPlaying;
 
@@ -31,10 +41,17 @@ export const PlayerBricksContainer = () => {
             <PlayerBrick
               brick={brick}
               isEditable={isEditable}
+              isActive={isActive}
               $isDragging={isBeingDragged}
-              onToggleEdit={() =>
-                setActiveBrickId(isEditable ? null : brick.id)
-              }
+              onToggleEdit={() => {
+                const isOpening = !isEditable;
+
+                if (isOpening) {
+                  setActiveBrickId(brick.id);
+                }
+
+                setEditableBrickId(isOpening ? brick.id : null);
+              }}
               onWidthChange={(newWidth) => updateBrickWidth(brick.id, newWidth)}
             />
           </S.BrickDragWrapper>

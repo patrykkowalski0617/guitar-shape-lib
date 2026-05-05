@@ -4,9 +4,9 @@ import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants
 import { BrickOptions } from "./BrickOptions/parts";
 
 const flash = keyframes`
-  0% { background-color: color-mix(in oklab, var(--accent) 45%, var(--background)); }
-  50% { background-color: color-mix(in oklab, var(--accent) 60%, var(--background)); }
-  100% { background-color: color-mix(in oklab, var(--accent) 45%, var(--background)); }
+  0% { background-color: color-mix(in oklab, var(--primary) 45%, var(--background)); }
+  50% { background-color: color-mix(in oklab, var(--primary) 60%, var(--background)); }
+  100% { background-color: color-mix(in oklab, var(--primary) 45%, var(--background)); }
 `;
 
 export const PartsContainer = styled.div`
@@ -38,7 +38,7 @@ export const Part = styled.div<{ $unit: number; $isActive: boolean }>`
     css`
       background-color: color-mix(
         in oklab,
-        var(--accent) 70%,
+        var(--primary) 70%,
         var(--background)
       );
     `}
@@ -46,6 +46,7 @@ export const Part = styled.div<{ $unit: number; $isActive: boolean }>`
 
 export const Brick = styled.div<{
   $isEditable: boolean;
+  $isActive: boolean;
   $widthUnit: number;
   $unit: number;
   $isDragging?: boolean;
@@ -59,15 +60,38 @@ export const Brick = styled.div<{
   border-radius: ${instrumentElBRadius};
   position: relative;
   user-select: none;
-  border: 1px solid color-mix(in oklab, var(--border) 90%, var(--background));
-  background-color: color-mix(in oklab, var(--accent) 45%, var(--background));
-  color: var(--foreground);
   flex-shrink: 0;
+
+  ${({ $isActive }) =>
+    $isActive
+      ? css`
+          background-color: color-mix(
+            in oklab,
+            var(--primary) 60%,
+            var(--background)
+          );
+          font-weight: 600;
+          border: 1px solid
+            color-mix(in oklab, var(--border) 100%, var(--background));
+          color: color-mix(in oklab, var(--foreground) 100%, transparent);
+        `
+      : css`
+          background-color: color-mix(
+            in oklab,
+            var(--primary) 40%,
+            var(--background)
+          );
+          border: 1px solid
+            color-mix(in oklab, var(--border) 90%, var(--background));
+          color: color-mix(in oklab, var(--foreground) 90%, transparent);
+        `};
   opacity: ${({ $isDragging }) => ($isDragging ? 0.4 : 1)};
   ${({ $isEditable }) =>
     $isEditable
       ? css`
           cursor: ew-resize;
+          animation: ${flash} 1.5s ease-in-out infinite;
+          border-color: var(--primary);
           ${BrickOptions} {
             opacity: 1;
           }
@@ -93,22 +117,13 @@ export const Brick = styled.div<{
       opacity: 1;
     }
   }
-
-  ${({ $isEditable }) =>
-    $isEditable &&
-    css`
-      animation: ${flash} 1.5s ease-in-out infinite;
-      border-color: var(--accent);
-    `}
 `;
 
 export const Label = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: 400;
-  font-size: 11px;
-  color: var(--foreground);
+  font-size: 12px;
   pointer-events: none;
   position: relative;
   z-index: 5;

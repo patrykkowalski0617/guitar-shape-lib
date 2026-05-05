@@ -14,7 +14,7 @@ export const PRESETS: Preset[] = [
         width: 8,
         snapshot: {
           keyId: "C",
-          baseChordId: "Domi",
+          baseChordId: "Tonic",
           shapeVariantLocationData: {
             shapeId: "M7",
             stringId: "strE",
@@ -32,14 +32,12 @@ export const PRESETS: Preset[] = [
         width: 4,
         snapshot: {
           keyId: "C",
-          baseChordId: "Domi",
+          baseChordId: "Subdomi",
           shapeVariantLocationData: {
             shapeId: "M7",
             stringId: "strA",
             fretIndex: 8,
             variantId: "v2",
-            // id: "M7-strA-v2",
-            // isUserList: false,
           },
           rootNote: "F",
           shapeLabel: "M7",
@@ -58,8 +56,6 @@ export const PRESETS: Preset[] = [
             stringId: "strA",
             fretIndex: 10,
             variantId: "v1",
-            // id: "dominant-strA-v1",
-            // isUserList: false,
           },
           rootNote: "G",
           shapeLabel: "7",

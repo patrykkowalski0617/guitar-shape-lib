@@ -3,7 +3,9 @@ import { useMetronome } from "./useMetronome";
 import { usePlayerStore, useMusicStore, useControlsStore } from "@/store";
 
 export function usePlayer() {
-  const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
+  const setEditableBrickId = usePlayerStore(
+    (state) => state.setEditableBrickId,
+  );
   const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
@@ -35,7 +37,7 @@ export function usePlayer() {
     if (bricks.length === 0) {
       setShapeVariantLocationData(null);
       setShapeVariantLocationData_locked(null);
-      setActiveBrickId(null);
+      setEditableBrickId(null);
       setIsMajorMode(true);
     }
 
@@ -59,7 +61,7 @@ export function usePlayer() {
     setShapeVariantLocationData_locked,
     setShapeVariantLocationData,
     setTuneKeyId,
-    setActiveBrickId,
+    setEditableBrickId,
     setIsMajorMode,
   ]);
 
