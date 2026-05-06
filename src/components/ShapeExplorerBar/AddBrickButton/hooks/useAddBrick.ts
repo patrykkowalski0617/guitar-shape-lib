@@ -13,20 +13,14 @@ export function useAddBrick() {
 
   const addBrick = () => {
     const { addBrick: addBrickToStore } = usePlayerStore.getState();
-    const {
-      tuneKeyId,
-      isMajorMode,
-      baseChordId,
-      shapeId,
-      shapeSemitoneOffsetFromC,
-    } = useControlsStore.getState();
+    const { tuneKeyId, baseChordId, shapeId, shapeSemitoneOffsetFromC } =
+      useControlsStore.getState();
     const { shapeVariantLocationData } = useMusicStore.getState();
 
     const activeShape = SHAPES[shapeId as keyof Shapes] || null;
 
     const initialSnapshot = {
       keyId: tuneKeyId,
-      isMajorMode,
       baseChordId,
       shapeVariantLocationData,
       rootNote: activeRootNote,

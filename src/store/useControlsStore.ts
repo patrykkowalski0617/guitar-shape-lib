@@ -2,9 +2,6 @@ import { create } from "zustand";
 import type { BaseChordId, TuneKeyId } from "@/data";
 
 interface ControlsState {
-  isMajorMode: boolean;
-  setIsMajorMode: (isMajorMode: boolean) => void;
-
   tuneKeyId: TuneKeyId;
   setTuneKeyId: (id: TuneKeyId) => void;
 
@@ -34,7 +31,6 @@ interface ControlsState {
 }
 
 const initialState = {
-  isMajorMode: true,
   tuneKeyId: "C" as TuneKeyId,
   baseChordId: null,
   toggleBaseChordId: null,
@@ -47,8 +43,6 @@ const initialState = {
 
 export const useControlsStore = create<ControlsState>((set) => ({
   ...initialState,
-
-  setIsMajorMode: (isMajorMode) => set({ isMajorMode }),
 
   setTuneKeyId: (tuneKeyId) => set({ tuneKeyId }),
 

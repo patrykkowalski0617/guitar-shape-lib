@@ -12,6 +12,7 @@ import { ShapeExplorerBar } from "./components/ShapeExplorerBar/ShapeExplorerBar
 import { SoundEngine } from "./components/SoundEngine/SoundEngine";
 import { usePersistentBoolean } from "@/hooks/usePersistentBoolean";
 import { animationDuration } from "./constants";
+import { SynthControls } from "./components/SoundEngine/SynthControls/SynthControls";
 
 const MotionSection = motion(Section);
 
@@ -40,6 +41,7 @@ export default function App() {
   return (
     <AppWrapper>
       <SoundEngine />
+      <SynthControls />
       <Toaster position="top-center" />
       <FullscreenButton />
 

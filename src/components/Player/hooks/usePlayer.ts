@@ -6,7 +6,6 @@ export function usePlayer() {
   const setEditableBrickId = usePlayerStore(
     (state) => state.setEditableBrickId,
   );
-  const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
   );
@@ -14,6 +13,7 @@ export function usePlayer() {
     (state) => state.setShapeVariantLocationData,
   );
   const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
+  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
 
   const bpm = usePlayerStore((state) => state.bpm);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -38,7 +38,6 @@ export function usePlayer() {
       setShapeVariantLocationData(null);
       setShapeVariantLocationData_locked(null);
       setEditableBrickId(null);
-      setIsMajorMode(true);
     }
 
     if (!isCountingIn) return;
@@ -53,6 +52,7 @@ export function usePlayer() {
       firstBrick.snapshot.shapeVariantLocationData,
     );
     setTuneKeyId(firstBrick.snapshot.keyId);
+    setBaseChordId(firstBrick.snapshot.baseChordId);
     hasPreparedCountInRef.current = true;
   }, [
     isPlaying,
@@ -61,8 +61,8 @@ export function usePlayer() {
     setShapeVariantLocationData_locked,
     setShapeVariantLocationData,
     setTuneKeyId,
+    setBaseChordId,
     setEditableBrickId,
-    setIsMajorMode,
   ]);
 
   useEffect(() => {

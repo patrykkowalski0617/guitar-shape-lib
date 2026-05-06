@@ -12,8 +12,6 @@ export const useCurrentBaseChordName = () => {
 
   if (!currentBaseChordData) return "";
 
-  const mode = currentBaseChordData.isMajorMode ? "" : "m";
-
   const tuneKeyOffset = UNIFIED_MUSIC_KEYS[tuneKeyId].offsetFromC;
   const chordOffset = currentBaseChordData.semitoneOffsetFromMajorScaleRoot;
   const totalOffset = tuneKeyOffset + chordOffset;
@@ -22,5 +20,5 @@ export const useCurrentBaseChordName = () => {
 
   const noteName = getEnharmonicNoteName(notes[totalOffset]);
 
-  return noteName + mode;
+  return noteName + currentBaseChordData.modeExtendedName;
 };

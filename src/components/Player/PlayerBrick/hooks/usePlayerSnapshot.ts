@@ -28,7 +28,6 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
   );
 
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const baseChordId = useControlsStore((state) => state.baseChordId);
   const shapeId = useControlsStore((state) => state.shapeId);
   const shapeSemitoneOffsetFromC = useControlsStore(
@@ -48,7 +47,6 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
   const currentLiveState: Snapshot = useMemo(
     () => ({
       keyId: tuneKeyId,
-      isMajorMode,
       baseChordId,
       shapeVariantLocationData,
       rootNote: activeRootNote,
@@ -58,7 +56,6 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
     }),
     [
       tuneKeyId,
-      isMajorMode,
       baseChordId,
       shapeVariantLocationData,
       activeRootNote,
