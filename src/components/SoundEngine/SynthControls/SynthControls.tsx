@@ -1,5 +1,41 @@
 import { useState } from "react";
 import { synthConfig, updateMasterParams } from "../synth";
+import { useKnob } from "./hooks/useKnobs";
+import * as S from "./parts";
+
+interface KnobProps {
+  label: string;
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  onChange: (val: number) => void;
+}
+
+const Knob = ({ label, value, min, max, step, onChange }: KnobProps) => {
+  const { rotation, percentage, handleMouseDown } = useKnob({
+    value,
+    min,
+    max,
+    step,
+    onChange,
+  });
+
+  return (
+    <S.ControlWrapper>
+      <S.LabelBox>
+        <S.LabelText>{label}</S.LabelText>
+        <S.ValueText>{percentage}%</S.ValueText>
+      </S.LabelBox>
+
+      <S.KnobOuter onMouseDown={handleMouseDown}>
+        <S.IndicatorContainer $rotation={rotation}>
+          <S.IndicatorMark />
+        </S.IndicatorContainer>
+      </S.KnobOuter>
+    </S.ControlWrapper>
+  );
+};
 
 export const SynthControls = () => {
   const [, setTick] = useState(0);
@@ -7,68 +43,46 @@ export const SynthControls = () => {
   const handleChange = (key: keyof typeof synthConfig, val: number) => {
     synthConfig[key] = val;
     updateMasterParams();
-    setTick((t) => t + 1); // Rerender
+    setTick((t) => t + 1);
   };
 
   return (
-    <div
-      style={{
-        padding: "20px",
-        background: "#222",
-        color: "#fff",
-        borderRadius: "8px",
-        display: "flex",
-      }}
-    >
-      <h3>Synth Settings</h3>
-
-      <label style={{ width: 100, display: "block" }}>
-        Master Gain: {synthConfig.gain.toFixed(2)}
-      </label>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.01"
+    <S.PanelContainer>
+      <Knob
+        label="Gain"
         value={synthConfig.gain}
-        onChange={(e) => handleChange("gain", parseFloat(e.target.value))}
+        min={0}
+        max={1}
+        step={0.01}
+        onChange={(v) => handleChange("gain", v)}
       />
 
-      <label style={{ width: 100, display: "block" }}>
-        Osc Mix (Saw/Square): {synthConfig.oscMix.toFixed(2)}
-      </label>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.01"
+      <Knob
+        label="Mix"
         value={synthConfig.oscMix}
-        onChange={(e) => handleChange("oscMix", parseFloat(e.target.value))}
+        min={0}
+        max={1}
+        step={0.01}
+        onChange={(v) => handleChange("oscMix", v)}
       />
 
-      <label style={{ width: 100, display: "block" }}>
-        Filter Freq: {synthConfig.filterFreq}Hz
-      </label>
-      <input
-        type="range"
-        min="50"
-        max="10000"
-        step="10"
+      <Knob
+        label="Freq"
         value={synthConfig.filterFreq}
-        onChange={(e) => handleChange("filterFreq", parseFloat(e.target.value))}
+        min={50}
+        max={10000}
+        step={10}
+        onChange={(v) => handleChange("filterFreq", v)}
       />
 
-      <label style={{ width: 100, display: "block" }}>
-        Reverb Mix: {synthConfig.reverbMix.toFixed(2)}
-      </label>
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.01"
+      <Knob
+        label="Verb"
         value={synthConfig.reverbMix}
-        onChange={(e) => handleChange("reverbMix", parseFloat(e.target.value))}
+        min={0}
+        max={1}
+        step={0.01}
+        onChange={(v) => handleChange("reverbMix", v)}
       />
-    </div>
+    </S.PanelContainer>
   );
 };

@@ -12,7 +12,7 @@ export const synthConfig = {
   filterFreq: 2600,
   filterQ: 0.7,
   oscMix: 0.5,
-  reverbMix: 0.12,
+  reverbMix: 0.5,
 };
 
 const activeVoices = new Map<

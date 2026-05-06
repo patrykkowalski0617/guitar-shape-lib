@@ -1,5 +1,9 @@
 import styled, { css, keyframes } from "styled-components";
-import { playerElementCommon, playerElementHeight } from "../constants";
+import {
+  playerElementCommon,
+  playerElementHeight,
+  playerTextShadow,
+} from "../constants";
 import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
 import { BrickOptions } from "./BrickOptions/parts";
 
@@ -127,4 +131,6 @@ export const Label = styled.div`
   pointer-events: none;
   position: relative;
   z-index: 5;
+  ${playerTextShadow}
+  padding: 2px;
 `;
