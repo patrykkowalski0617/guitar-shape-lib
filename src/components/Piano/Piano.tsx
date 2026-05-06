@@ -6,6 +6,7 @@ import PianoKey from "./PianoKey/PianoKey";
 import { usePianoScroll } from "./hooks/usePianoScroll";
 import { numberOfKeys, pianoNotes } from "./constants";
 import { PianoSoundSwitch } from "./PianoSoundSwitch/PianoSoundSwitch";
+import { PianoControls } from "./PianoControls/PianoControls";
 
 export default function Piano(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -15,6 +16,7 @@ export default function Piano(): JSX.Element {
   return (
     <S.ShadowWrapper>
       <S.PianoShadow />
+      <PianoControls />
       <InstrumentScrollWrapper ref={scrollRef}>
         <InstrumentWrapper>
           <S.PianoWrapper>

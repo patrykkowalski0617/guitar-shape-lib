@@ -2,7 +2,7 @@ import { glassEffectShadow } from "@/constants";
 import { css } from "styled-components";
 
 export const playerElementHeight = "33px";
-export const playerElementWidth = "50px";
+export const playerElementWidth = "42px";
 export const playerIconSize = 20;
 export const playerTextShadow = css`
   text-shadow: 1px 1px 0px

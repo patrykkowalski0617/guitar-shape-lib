@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: flex-start;
-  gap: 50px;
+  gap: calc(var(--spacing) * 16);
 `;
 
 export const Section = styled.div`

@@ -6,7 +6,7 @@ export const ShapeExplorerBar = styled.div`
   align-items: center;
   width: 100%;
   padding: 0 10px;
-  gap: 50px;
+  gap: calc(var(--spacing) * 16);
 `;
 
 export const ShapeExplorerSection = styled.div`
@@ -14,7 +14,7 @@ export const ShapeExplorerSection = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  gap: 30px;
+  gap: calc(var(--spacing) * 8);
 `;
 
 export const Section = styled.div`

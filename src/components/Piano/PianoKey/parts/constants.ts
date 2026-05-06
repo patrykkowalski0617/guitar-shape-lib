@@ -4,6 +4,7 @@ export const instrumentElBRadius = "4px";
 export const instrumentBRadius = "var(--radius-lg)";
 
 export const keyBorderWidth = 1;
+export const whiteKeyH = 140;
 export const blackKeyH = 85;
 export const blackKeyW = 23;
 export const keysGap = 1;

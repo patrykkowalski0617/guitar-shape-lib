@@ -5,7 +5,7 @@ import { insetShadow } from "@/constants";
 export const PlayerContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: calc(var(--spacing) * 2);
+  gap: calc(var(--spacing) * 8);
   max-width: 1400px;
   flex-wrap: wrap;
   justify-content: center;
@@ -23,7 +23,7 @@ export const PlayerNoShadowSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: calc(var(--spacing) * 2);
   width: 100%;
   margin: 0 -10px;
 `;
@@ -34,7 +34,7 @@ export const PlayerSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: calc(var(--spacing) * 2);
   flex-direction: row;
   width: 100%;
   flex: 1 1 0;

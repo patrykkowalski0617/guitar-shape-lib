@@ -8,9 +8,7 @@ export const Button = styled(_Button)<{
 }>`
   ${playerElementCommon}
   background-color: color-mix(in oklab, var(--foreground) 50%,  var(--warn));
-  &:hover {
-    background-color: color-mix(in oklab, var(--foreground) 65%, var(--warn));
-  }
+
   color: var(--background);
   border-width: 2px;
   ${({ $isDisabled }) =>
@@ -20,5 +18,13 @@ export const Button = styled(_Button)<{
           border-color: var(--muted);
           background-color: var(--muted);
         `
-      : ""}
+      : css`
+          &:hover {
+            background-color: color-mix(
+              in oklab,
+              var(--foreground) 65%,
+              var(--warn)
+            );
+          }
+        `}
 `;

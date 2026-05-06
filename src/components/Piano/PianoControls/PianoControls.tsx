@@ -1,7 +1,10 @@
-import { useState } from "react";
-import { synthConfig, updateMasterParams } from "../synth";
+import { useRef, useState } from "react";
 import { useKnob } from "./hooks/useKnobs";
 import * as S from "./parts";
+import {
+  synthConfig,
+  updateMasterParams,
+} from "@/components/SoundEngine/synth";
 
 interface KnobProps {
   label: string;
@@ -37,11 +40,26 @@ const Knob = ({ label, value, min, max, step, onChange }: KnobProps) => {
   );
 };
 
-export const SynthControls = () => {
+export const PianoControls = () => {
   const [, setTick] = useState(0);
+  const [isOn, setIsOn] = useState(true);
+  const lastGain = useRef(synthConfig.gain);
 
   const handleChange = (key: keyof typeof synthConfig, val: number) => {
     synthConfig[key] = val;
+    if (isOn) updateMasterParams();
+    setTick((t) => t + 1);
+  };
+
+  const togglePower = () => {
+    const newState = !isOn;
+    setIsOn(newState);
+    if (!newState) {
+      lastGain.current = synthConfig.gain;
+      synthConfig.gain = 0;
+    } else {
+      synthConfig.gain = lastGain.current || 0.5;
+    }
     updateMasterParams();
     setTick((t) => t + 1);
   };
@@ -56,16 +74,14 @@ export const SynthControls = () => {
         step={0.01}
         onChange={(v) => handleChange("gain", v)}
       />
-
       <Knob
-        label="Mix"
+        label="Color"
         value={synthConfig.oscMix}
         min={0}
         max={1}
         step={0.01}
         onChange={(v) => handleChange("oscMix", v)}
       />
-
       <Knob
         label="Freq"
         value={synthConfig.filterFreq}
@@ -74,7 +90,6 @@ export const SynthControls = () => {
         step={10}
         onChange={(v) => handleChange("filterFreq", v)}
       />
-
       <Knob
         label="Verb"
         value={synthConfig.reverbMix}
@@ -83,6 +98,19 @@ export const SynthControls = () => {
         step={0.01}
         onChange={(v) => handleChange("reverbMix", v)}
       />
+
+      <S.PowerSwitchWrapper>
+        <S.LabelBox>
+          <S.LabelText>Power</S.LabelText>
+          <S.StatusLed
+            $active={isOn}
+            style={{ marginTop: "2px", alignSelf: "flex-end" }}
+          />
+        </S.LabelBox>
+        <S.SwitchContainer $active={isOn} onClick={togglePower}>
+          <S.ToggleHebel $active={isOn} />
+        </S.SwitchContainer>
+      </S.PowerSwitchWrapper>
     </S.PanelContainer>
   );
 };
