@@ -6,6 +6,7 @@ export const ShapeExplorerBar = styled.div`
   align-items: center;
   width: 100%;
   padding: 0 10px;
+  gap: 50px;
 `;
 
 export const ShapeExplorerSection = styled.div`
