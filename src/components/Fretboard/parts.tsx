@@ -15,7 +15,7 @@ export const FretboardWrapper = styled.div`
 export const FretboardShadow = styled.div`
   left: 10px;
   right: 15px;
-  height: 174px;
+  height: 179px;
   position: absolute;
   z-index: 16;
   top: 10px;
@@ -25,6 +25,7 @@ export const FretboardShadow = styled.div`
     0px 0px 5px 0px
       color-mix(in oklab, var(--instrument) 10%, var(--background));
   border-radius: 12px;
+  border-bottom: 5px solid var(--background);
 `;
 
 export const Fretboard = styled.div`

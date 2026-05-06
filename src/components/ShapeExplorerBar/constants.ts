@@ -23,13 +23,7 @@ export const buttonsCommon = css<{
   svg {
     transition: filter 0.1s ease-in-out;
   }
-  ${({ $isTemporarlyDisabled }) =>
-    $isTemporarlyDisabled
-      ? css`
-          opacity: 0;
-          width: 0;
-        `
-      : ""}
+
   ${({ $isDisabled }) =>
     $isDisabled
       ? css`

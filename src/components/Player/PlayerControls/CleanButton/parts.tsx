@@ -19,10 +19,4 @@ export const Button = styled(_Button)<{
           opacity: 0.2;
         `
       : ""}
-  ${({ $isTemporarlyDisabled }) =>
-    $isTemporarlyDisabled
-      ? css`
-          display: none;
-        `
-      : ""}
 `;

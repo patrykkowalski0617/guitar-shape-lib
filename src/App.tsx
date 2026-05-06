@@ -1,3 +1,4 @@
+import { motion, AnimatePresence } from "framer-motion";
 import Fretboard from "@/components/Fretboard/Fretboard";
 import { AppWrapper, MainContent, Section } from "@/parts";
 import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
@@ -9,19 +10,32 @@ import { Player } from "./components/Player/Player";
 import Piano from "./components/Piano/Piano";
 import { ShapeExplorerBar } from "./components/ShapeExplorerBar/ShapeExplorerBar";
 import { SoundEsterEgg } from "./components/SoundEsterEgg/SoundEsterEgg";
-import { usePersistentUnlock } from "@/hooks/usePersistentUnlock";
+import { usePersistentBoolean } from "@/hooks/usePersistentBoolean";
+import { animationDuration } from "./constants";
+
+const MotionSection = motion(Section);
 
 export default function App() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const bricks = usePlayerStore((state) => state.bricks);
   const shapeId = useControlsStore((state) => state.shapeId);
   const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
-  const activeLockedNotesUnlockState = usePersistentUnlock(
-    !activeLockedNotes.length,
+
+  const isExplorerUnlocked = usePersistentBoolean(
+    shapeId !== null || activeLockedNotes.length > 0,
   );
-  const isShape = usePersistentUnlock(!shapeId);
-  const isShapeExplorerBarDisabled = isShape && activeLockedNotesUnlockState;
-  const isPlayerDisabled = usePersistentUnlock(!bricks.length);
+  const isPlayerUnlocked = usePersistentBoolean(bricks.length > 0);
+
+  const durationSec = animationDuration / 1000;
+
+  const standardAnimation = {
+    initial: { height: 0, opacity: 0 },
+    animate: { height: "auto", opacity: 1 },
+    exit: { height: 0, opacity: 0 },
+    transition: { duration: durationSec, ease: "easeInOut" },
+  } as const;
+
+  const shouldShowPiano = !isPlayerUnlocked || !isPlaying;
 
   return (
     <AppWrapper>
@@ -30,34 +44,40 @@ export default function App() {
       <FullscreenButton />
 
       <MainContent>
-        {!isPlaying && (
-          <Section>
-            <ShapeControls />
-          </Section>
-        )}
+        <Section>
+          <ShapeControls />
+        </Section>
 
         <Section>
           <Fretboard />
         </Section>
 
-        {!isPlaying && (
-          <Section $isDisabled={isShapeExplorerBarDisabled}>
-            <ShapeExplorerBar />
-          </Section>
-        )}
+        <AnimatePresence>
+          {!isPlaying && isExplorerUnlocked && (
+            <MotionSection key="explorer-bar" {...standardAnimation}>
+              <ShapeExplorerBar />
+            </MotionSection>
+          )}
+        </AnimatePresence>
 
-        <Section $isDisabled={isPlayerDisabled}>
-          <Player>
-            <Player.Bricks />
-            <Player.Controls />
-          </Player>
-        </Section>
+        <AnimatePresence>
+          {isPlayerUnlocked && (
+            <MotionSection key="player-bar" {...standardAnimation}>
+              <Player>
+                <Player.Bricks />
+                <Player.Controls />
+              </Player>
+            </MotionSection>
+          )}
+        </AnimatePresence>
 
-        {!isPlaying && (
-          <Section>
-            <Piano />
-          </Section>
-        )}
+        <AnimatePresence>
+          {shouldShowPiano && (
+            <MotionSection key="piano-bar" {...standardAnimation}>
+              <Piano />
+            </MotionSection>
+          )}
+        </AnimatePresence>
 
         <Section>
           <Sign />

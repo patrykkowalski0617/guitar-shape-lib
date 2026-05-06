@@ -36,4 +36,4 @@ export const glassEffectShadow = css`
       inset;
 `;
 
-export const animationDuration = "0.4s";
+export const animationDuration = 400;

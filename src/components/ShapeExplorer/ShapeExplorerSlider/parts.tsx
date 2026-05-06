@@ -1,6 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
 import { shapeExplorerCommon } from "../../ShapeExplorerBar/constants";
-import { animationDuration } from "@/constants";
 
 const highlightAnimation = keyframes`
   0% { 
@@ -64,27 +63,12 @@ export const Tick = styled.div<{
 `;
 
 export const ShapeExplorerWrapper = styled.div<{
-  $isTemporarlyDisabled: boolean;
   $isDisabled: boolean;
 }>`
-  width: 0px;
-  transition:
-    width ${animationDuration},
-    opacity ${animationDuration} ${animationDuration};
-  padding: 0;
-  opacity: 0;
   ${shapeExplorerCommon}
-  ${({ $isDisabled }) => {
-    if ($isDisabled) return;
-    return css``;
-  }}
-  ${({ $isTemporarlyDisabled }) => {
-    if ($isTemporarlyDisabled) return;
-    return css`
-      transform: none;
-      width: 500px;
-      opacity: 1;
-      padding: 0 7px;
-    `;
-  }}
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
 `;

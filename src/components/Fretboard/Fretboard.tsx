@@ -42,6 +42,7 @@ export default function Fretboard(): JSX.Element {
         allFretboardNotes,
         shapeCoordinates as FretboardCoordinate[],
       );
+      console.log(shapeCoordinates);
     } else {
       updateShapeNotes([], []);
     }

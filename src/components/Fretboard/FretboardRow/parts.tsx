@@ -46,7 +46,7 @@ export const FretboardRow = styled.div`
 
   &:nth-child(6) {
     &::after {
-      bottom: -16px;
+      bottom: -21px;
     }
   }
 
