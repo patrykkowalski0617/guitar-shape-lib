@@ -1,5 +1,5 @@
 import { useMusicStore } from "@/store";
-import { type NoteObject } from "@/utils";
+import { getNotes, type NoteObject } from "@/utils";
 import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import { useShapeCoordinates } from "./useShapeCoordinates";
 import { isShapeNote as isShapeNoteFn } from "../helpers";
@@ -12,6 +12,7 @@ import {
 } from "../helpers/findMatchingBaseChordCoordinates";
 import { isBaseChordNote as isBaseChordNoteFn } from "../helpers/isBaseChordNote";
 import type { FretboardCoordinate } from "@/data";
+import { STRINGS_CONFIG } from "../../FretboardRow/helpers/constants";
 
 interface UseNoteStateProps {
   noteData: NoteObject;
@@ -24,6 +25,7 @@ export const useNoteState = ({
   stringIndex,
   fretIndex,
 }: UseNoteStateProps) => {
+  const setBassNote = useMusicStore((state) => state.setBassNote);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const shapeVariantLocationData = useMusicStore(
     (state) => state.shapeVariantLocationData,
@@ -32,11 +34,10 @@ export const useNoteState = ({
     (state) => state.shapeVariantLocationData_locked,
   );
   const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
-
-  const getEnharmonicNoteName = useEnharmonicNoteName();
-
   const allShapesCoordinates = useShapeAllCoordinates();
   const shapeCoordinates = useShapeCoordinates(shapeVariantLocationData);
+  const { baseChordCoordinates } = useBaseChordShapes();
+  const getEnharmonicNoteName = useEnharmonicNoteName();
 
   const currentCoordinates: FretboardCoordinate = [stringIndex, fretIndex];
 
@@ -60,14 +61,13 @@ export const useNoteState = ({
   );
 
   const isActiveLockedNotes = activeLockedNotes.includes(noteData.noteId);
+  const baseChordMatch = findMatchingBaseChordCoordinates({
+    baseChordCoordinates,
+    shapeCoordinates,
+  } as MatcherParams);
 
-  const { baseChordCoordinates } = useBaseChordShapes();
   const matchingBaseChordCoordinates =
-    shapeVariantLocationData &&
-    findMatchingBaseChordCoordinates({
-      baseChordCoordinates,
-      shapeCoordinates,
-    } as MatcherParams);
+    shapeVariantLocationData && baseChordMatch;
 
   let isBaseChordNote: boolean = false;
 
@@ -78,6 +78,21 @@ export const useNoteState = ({
       fretIndex,
     });
   }
+
+  const setBassNoteToStore = () => {
+    if (!baseChordMatch || !shapeVariantLocationData) return;
+
+    const { baseStringIndex, baseFretIndex } = baseChordMatch;
+    const notes = getNotes({
+      firstNote: STRINGS_CONFIG[baseStringIndex].firstNoteInRow,
+      length: 24,
+      firstOctave: STRINGS_CONFIG[baseStringIndex].firstNoteOctaveNumber,
+    });
+    const bassNoteId = notes[baseFretIndex].noteId;
+
+    setBassNote(bassNoteId);
+  };
+  setBassNoteToStore();
 
   return {
     isVisible: isShapeNote || isActiveNote || isActiveLockedNotes,

@@ -2,7 +2,7 @@ import type { FretboardCoordinate, FretboardStringId, VariantId } from "@/data";
 import { create } from "zustand";
 import { usePlayerStore } from "./usePlayerStore";
 import { useControlsStore } from "./useControlsStore";
-import type { NoteObject } from "@/utils";
+import type { NoteId, NoteObject } from "@/utils";
 
 export interface ShapeVariantLocationData {
   shapeId: string | null;
@@ -39,6 +39,9 @@ interface MusicState {
   setShapeVariantLocationData_locked: (
     target: ShapeVariantLocationData | null,
   ) => void;
+
+  bassNoteId: NoteId | null;
+  setBassNote: (noteName: NoteId | null) => void;
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
@@ -48,6 +51,7 @@ export const useMusicStore = create<MusicState>((set) => ({
   selectedComponentNotes: [],
   shapeVariantLocationData: null,
   shapeVariantLocationData_locked: null,
+  bassNoteId: null,
 
   setActiveNoteId: (noteId) => {
     const playerState = usePlayerStore.getState();
@@ -120,4 +124,6 @@ export const useMusicStore = create<MusicState>((set) => ({
 
   setShapeVariantLocationData_locked: (data) =>
     set({ shapeVariantLocationData_locked: data }),
+
+  setBassNote: (bassNoteId) => set({ bassNoteId }),
 }));

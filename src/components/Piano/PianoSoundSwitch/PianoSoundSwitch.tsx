@@ -1,7 +1,7 @@
 import { useControlsStore, usePlayerStore } from "@/store";
 import * as S from "./parts";
 
-export const MakeItActuallyPlayable = () => {
+export const PianoSoundSwitch = () => {
   const isActuallyPlayable = useControlsStore(
     (state) => state.isActuallyPlayable,
   );
@@ -14,7 +14,7 @@ export const MakeItActuallyPlayable = () => {
   if (isPlaying || shapeId) return null;
 
   return (
-    <S.MakeItActuallyPlayable
+    <S.PianoSoundSwitch
       onClick={toggleItIsActuallyPlayable}
       $isActive={isActuallyPlayable}
     />

@@ -31,7 +31,6 @@ export const useBaseChordShapes = () => {
 
         return {
           ...shape,
-          CAGEDassigment: `${shape.CAGEDassigment}_${octaveOffset}`,
           coordinates: adjustedCoordinates,
         };
       })

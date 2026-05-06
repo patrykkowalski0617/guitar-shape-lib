@@ -60,7 +60,7 @@ const calculateVolume = (octave: number): number => {
   return Math.max(0.05, Math.min(0.4, volume));
 };
 
-export const warmSynth = {
+export const synth = {
   play: (pitch: string) => {
     const ctx = getAudioContext();
     if (ctx.state === "suspended") ctx.resume();

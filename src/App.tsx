@@ -9,7 +9,7 @@ import Sign from "./components/Sign/Sign";
 import { Player } from "./components/Player/Player";
 import Piano from "./components/Piano/Piano";
 import { ShapeExplorerBar } from "./components/ShapeExplorerBar/ShapeExplorerBar";
-import { SoundEsterEgg } from "./components/SoundEsterEgg/SoundEsterEgg";
+import { SoundEngine } from "./components/SoundEngine/SoundEngine";
 import { usePersistentBoolean } from "@/hooks/usePersistentBoolean";
 import { animationDuration } from "./constants";
 
@@ -39,7 +39,7 @@ export default function App() {
 
   return (
     <AppWrapper>
-      <SoundEsterEgg />
+      <SoundEngine />
       <Toaster position="top-center" />
       <FullscreenButton />
 

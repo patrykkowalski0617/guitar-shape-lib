@@ -1,7 +1,7 @@
 import { NOTES_SHARP, SCALE_SEMITONE_TEMPLATES } from "@/data";
 import { type NoteObject } from "@/utils";
 import { useControlsStore, useMusicStore } from "@/store";
-import { SHAPES_OF_WHITE_PIANO_KEYS } from "../../helpers/constants";
+import { SHAPES_OF_PIANO_KEYS } from "../../constants";
 
 interface UsePianoKeyParams {
   note: NoteObject;
@@ -17,7 +17,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
   const isWhitePianoKey =
     SCALE_SEMITONE_TEMPLATES.ionianScale.includes(noteOctaveIndex);
-  const pianoKeyShape = SHAPES_OF_WHITE_PIANO_KEYS[noteOctaveIndex];
+  const pianoKeyShape = SHAPES_OF_PIANO_KEYS[noteOctaveIndex];
 
   const isActiveNote = note.noteId === activeNoteId;
   const isPushed =

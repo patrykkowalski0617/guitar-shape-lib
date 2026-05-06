@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const MakeItActuallyPlayable = styled.div<{ $isActive: boolean }>`
+export const PianoSoundSwitch = styled.div<{ $isActive: boolean }>`
   position: absolute;
   right: 0;
   top: 0;

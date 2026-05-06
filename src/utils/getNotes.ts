@@ -1,11 +1,12 @@
 import { NOTES_FLAT, NOTES_SHARP, type NoteFlat, type NoteSharp } from "@/data";
 
+export type NoteId = `${NoteSharp}-${number}`;
 export interface NoteObject {
   sharpNoteName: NoteSharp;
   flatNoteName: NoteFlat;
   octaveNumber: number;
   isEnharmonic: boolean;
-  noteId: string;
+  noteId: NoteId;
 }
 
 export const getNotes = ({
@@ -31,11 +32,11 @@ export const getNotes = ({
     const noteIndex = totalIndex % 12;
     const octaveOffset = Math.floor(totalIndex / 12);
 
-    const sharpNoteName = NOTES_SHARP[noteIndex];
-    const flatNoteName = NOTES_FLAT[noteIndex];
+    const sharpNoteName = NOTES_SHARP[noteIndex] as NoteSharp;
+    const flatNoteName = NOTES_FLAT[noteIndex] as NoteFlat;
     const octaveNumber = firstOctave + octaveOffset;
     const isEnharmonic = flatNoteName !== sharpNoteName;
-    const noteId = `${sharpNoteName}-${octaveNumber}`;
+    const noteId = `${sharpNoteName}-${octaveNumber}` as NoteId;
 
     return {
       sharpNoteName,
