@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { buttonsCommon } from "../constants";
 
 export const Wrapper = styled.div<{
@@ -19,11 +19,4 @@ export const Wrapper = styled.div<{
       color: var(--warn);
     }
   }
-
-  ${({ $isDisabled }) =>
-    $isDisabled &&
-    css`
-      opacity: 0.2;
-      pointer-events: none;
-    `}
 `;

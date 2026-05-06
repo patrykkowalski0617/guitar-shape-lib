@@ -16,7 +16,9 @@ export const Button = styled(_Button)<{
   ${({ $isDisabled }) =>
     $isDisabled
       ? css`
-          opacity: 0.2;
+          opacity: 0.6;
+          border-color: var(--muted);
+          background-color: var(--muted);
         `
       : ""}
 `;
