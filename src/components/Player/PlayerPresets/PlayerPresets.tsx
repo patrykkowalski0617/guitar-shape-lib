@@ -37,9 +37,9 @@ export function PlayerPresets() {
 
     if (!bricks[0].snapshot) return;
 
-    const keyId = bricks[0].snapshot.keyId;
+    const tuneKeyId = bricks[0].snapshot.tuneKeyId;
 
-    setTuneKeyId(keyId);
+    setTuneKeyId(tuneKeyId);
     setShapeVariantLocationData(null);
     setShapeVariantLocationData_locked(null);
 

@@ -13,7 +13,7 @@ export const PRESETS: Preset[] = [
         id: 1,
         width: 8,
         snapshot: {
-          keyId: "C",
+          tuneKeyId: "C",
           baseChordId: "Tonic",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -31,7 +31,7 @@ export const PRESETS: Preset[] = [
         id: 2,
         width: 4,
         snapshot: {
-          keyId: "C",
+          tuneKeyId: "C",
           baseChordId: "Subdomi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -49,7 +49,7 @@ export const PRESETS: Preset[] = [
         id: 3,
         width: 4,
         snapshot: {
-          keyId: "C",
+          tuneKeyId: "C",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "dominant",
@@ -72,7 +72,7 @@ export const PRESETS: Preset[] = [
         id: 11,
         width: 4,
         snapshot: {
-          keyId: "C",
+          tuneKeyId: "C",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "m_add9",
@@ -92,7 +92,7 @@ export const PRESETS: Preset[] = [
         id: 12,
         width: 4,
         snapshot: {
-          keyId: "C",
+          tuneKeyId: "C",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "7b9",
@@ -117,7 +117,7 @@ export const PRESETS: Preset[] = [
         id: 21,
         width: 4,
         snapshot: {
-          keyId: "C",
+          tuneKeyId: "C",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "m7",
@@ -135,7 +135,7 @@ export const PRESETS: Preset[] = [
         id: 22,
         width: 2,
         snapshot: {
-          keyId: "C",
+          tuneKeyId: "C",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "m7",
@@ -153,7 +153,7 @@ export const PRESETS: Preset[] = [
         id: 23,
         width: 2,
         snapshot: {
-          keyId: "G",
+          tuneKeyId: "G",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "dominant",
@@ -176,7 +176,7 @@ export const PRESETS: Preset[] = [
         id: 1773576851002,
         width: 4,
         snapshot: {
-          keyId: "E",
+          tuneKeyId: "E",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -196,7 +196,7 @@ export const PRESETS: Preset[] = [
         id: 1773576894098,
         width: 4,
         snapshot: {
-          keyId: "E",
+          tuneKeyId: "E",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -216,7 +216,7 @@ export const PRESETS: Preset[] = [
         id: 1773577090129,
         width: 4,
         snapshot: {
-          keyId: "E",
+          tuneKeyId: "E",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -236,7 +236,7 @@ export const PRESETS: Preset[] = [
         id: 1773577119161,
         width: 4,
         snapshot: {
-          keyId: "E",
+          tuneKeyId: "E",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "dominant",
@@ -261,7 +261,7 @@ export const PRESETS: Preset[] = [
         id: 1773749075588,
         width: 4,
         snapshot: {
-          keyId: "C",
+          tuneKeyId: "C",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -281,7 +281,7 @@ export const PRESETS: Preset[] = [
         id: 1773749079734,
         width: 4,
         snapshot: {
-          keyId: "C",
+          tuneKeyId: "C",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "M7",
@@ -301,7 +301,7 @@ export const PRESETS: Preset[] = [
         id: 1773749097228,
         width: 4,
         snapshot: {
-          keyId: "C",
+          tuneKeyId: "C",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "dominant",
@@ -321,7 +321,7 @@ export const PRESETS: Preset[] = [
         id: 1773749154562,
         width: 4,
         snapshot: {
-          keyId: "C",
+          tuneKeyId: "C",
           baseChordId: "Domi",
           shapeVariantLocationData: {
             shapeId: "7b9",

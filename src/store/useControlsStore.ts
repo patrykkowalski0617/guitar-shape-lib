@@ -8,9 +8,6 @@ interface ControlsState {
   baseChordId: BaseChordId | null;
   setBaseChordId: (id: BaseChordId | null) => void;
 
-  setToggleBaseChordId: (id: BaseChordId | null) => void;
-  toggleBaseChordId: BaseChordId | null;
-
   shapeId: string | null;
   shapeSemitoneOffsetFromC: number | null;
   setShape: (
@@ -33,7 +30,6 @@ interface ControlsState {
 const initialState = {
   tuneKeyId: "C" as TuneKeyId,
   baseChordId: null,
-  toggleBaseChordId: null,
   shapeId: null,
   shapeSemitoneOffsetFromC: null as number | null,
   isShapeSelectOpen: false,
@@ -47,8 +43,6 @@ export const useControlsStore = create<ControlsState>((set) => ({
   setTuneKeyId: (tuneKeyId) => set({ tuneKeyId }),
 
   setBaseChordId: (baseChordId) => set({ baseChordId }),
-
-  setToggleBaseChordId: (toggleBaseChordId) => set({ toggleBaseChordId }),
 
   setShape: (shapeId, shapeSemitoneOffsetFromC) =>
     set({

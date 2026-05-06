@@ -5,15 +5,13 @@ import { BASE_CHORDS, UNIFIED_MUSIC_KEYS } from "@/data";
 
 export const useSortedShapeOptions = () => {
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const toggleBaseChordId = useControlsStore(
-    (state) => state.toggleBaseChordId,
-  );
+  const baseChordId = useControlsStore((state) => state.baseChordId);
   const options = useShapeOptions();
 
-  if (!toggleBaseChordId || !options) return;
+  if (!baseChordId || !options) return;
 
   const baseChordSemitoneOffset =
-    BASE_CHORDS[toggleBaseChordId].semitoneOffsetFromMajorScaleRoot;
+    BASE_CHORDS[baseChordId].semitoneOffsetFromMajorScaleRoot;
 
   const firstNote = UNIFIED_MUSIC_KEYS[tuneKeyId].majorName;
   const isFlatTune = UNIFIED_MUSIC_KEYS[tuneKeyId].isFlatTune;

@@ -11,7 +11,7 @@ export const useApplySnapshotToStore = () => {
 
   return (snapshot: Snapshot) => {
     setShapeVariantLocationData(snapshot.shapeVariantLocationData);
-    setTuneKeyId(snapshot.keyId);
+    setTuneKeyId(snapshot.tuneKeyId);
     setBaseChordId(snapshot.baseChordId);
     setShape(snapshot.shapeId, snapshot.shapeSemitoneOffsetFromC);
   };

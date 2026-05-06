@@ -7,9 +7,7 @@ import { useControlsStore } from "@/store";
 import * as S from "./parts";
 
 export default function ShapeSelect() {
-  const setToggleBaseChordId = useControlsStore(
-    (state) => state.setToggleBaseChordId,
-  );
+  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
   const baseChordId = useControlsStore((state) => state.baseChordId);
 
   const {
@@ -35,14 +33,14 @@ export default function ShapeSelect() {
     } else {
       const hasChanged = valueOnOpenRef.current !== currentShapeValue;
       if (!currentShapeValue) {
-        setToggleBaseChordId(null);
+        setBaseChordId(null);
       }
 
       if (!hasChanged) {
-        setToggleBaseChordId(baseChordId);
+        setBaseChordId(baseChordId);
       }
     }
-  }, [isShapeSelectOpen, currentShapeValue, baseChordId, setToggleBaseChordId]);
+  }, [isShapeSelectOpen, currentShapeValue, baseChordId, setBaseChordId]);
 
   return (
     <Select

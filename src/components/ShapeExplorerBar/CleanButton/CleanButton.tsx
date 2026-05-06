@@ -22,9 +22,6 @@ export const CleanButton = () => {
   const setShape = useControlsStore((state) => state.setShape);
 
   const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
-  const setToggleBaseChordId = useControlsStore(
-    (state) => state.setToggleBaseChordId,
-  );
 
   const isDisabled = !(
     activeLockedNotes.length ||
@@ -40,7 +37,7 @@ export const CleanButton = () => {
     resetActiveLockedNotes();
     setShape(null, null);
     setBaseChordId(null);
-    setToggleBaseChordId(null);
+    setBaseChordId(null);
   };
 
   return (

@@ -51,7 +51,7 @@ export function usePlayer() {
     setShapeVariantLocationData_locked(
       firstBrick.snapshot.shapeVariantLocationData,
     );
-    setTuneKeyId(firstBrick.snapshot.keyId);
+    setTuneKeyId(firstBrick.snapshot.tuneKeyId);
     setBaseChordId(firstBrick.snapshot.baseChordId);
     hasPreparedCountInRef.current = true;
   }, [

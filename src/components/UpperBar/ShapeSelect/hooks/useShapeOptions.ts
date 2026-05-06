@@ -4,12 +4,9 @@ import { getNotes } from "@/utils";
 import { getFilteredAndFormatedShapes } from "../helpers/getFilteredAndFormatedShapes";
 
 export const useShapeOptions = () => {
-  const toggleBaseChordId = useControlsStore(
-    (state) => state.toggleBaseChordId,
-  );
+  const baseChordId = useControlsStore((state) => state.baseChordId);
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const filteredAndFormatedShapes =
-    getFilteredAndFormatedShapes(toggleBaseChordId);
+  const filteredAndFormatedShapes = getFilteredAndFormatedShapes(baseChordId);
 
   const musicKey = UNIFIED_MUSIC_KEYS[tuneKeyId];
   if (!musicKey) return null;

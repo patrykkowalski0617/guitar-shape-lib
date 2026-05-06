@@ -20,7 +20,7 @@ export function useAddBrick() {
     const activeShape = SHAPES[shapeId as keyof Shapes] || null;
 
     const initialSnapshot = {
-      keyId: tuneKeyId,
+      tuneKeyId: tuneKeyId,
       baseChordId,
       shapeVariantLocationData,
       rootNote: activeRootNote,

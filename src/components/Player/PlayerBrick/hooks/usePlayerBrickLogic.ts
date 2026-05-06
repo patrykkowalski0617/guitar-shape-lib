@@ -169,8 +169,8 @@ export const usePlayerBrickLogic = ({
 
   const label = isResizing
     ? width
-    : hasData
-      ? `${roleMarker} | ${displayData.rootNote} ${displayData.shapeLabel}`
+    : hasData && displayData.baseChordId !== null
+      ? `${roleMarker} ${BASE_CHORDS[displayData.baseChordId].modeExtendedName} | ${displayData.rootNote} ${displayData.shapeLabel}`
       : `Empty`;
 
   return {

@@ -10,7 +10,7 @@ import { SHAPES, type TuneKeyId, type Shapes, type BaseChordId } from "@/data";
 import { useApplySnapshotToStore } from "./useApplySnapshotToStore";
 
 export type Snapshot = {
-  keyId: TuneKeyId;
+  tuneKeyId: TuneKeyId;
   baseChordId: BaseChordId | null;
   shapeVariantLocationData: ShapeVariantLocationData | null;
   rootNote: string | null;
@@ -46,7 +46,7 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
 
   const currentLiveState: Snapshot = useMemo(
     () => ({
-      keyId: tuneKeyId,
+      tuneKeyId: tuneKeyId,
       baseChordId,
       shapeVariantLocationData,
       rootNote: activeRootNote,

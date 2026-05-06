@@ -14,9 +14,7 @@ export function useShapeSelection() {
   const setIsShapeSelectOpen = useControlsStore(
     (state) => state.setIsShapeSelectOpen,
   );
-  const toggleBaseChordId = useControlsStore(
-    (state) => state.toggleBaseChordId,
-  );
+  const baseChordId = useControlsStore((state) => state.baseChordId);
   const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
 
   const setShape = useControlsStore((state) => state.setShape);
@@ -38,7 +36,7 @@ export function useShapeSelection() {
     setShape(id, offset);
 
     resetActiveLockedNotes();
-    setBaseChordId(toggleBaseChordId);
+    setBaseChordId(baseChordId);
   };
 
   return {
