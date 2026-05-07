@@ -8,7 +8,7 @@ import {
 import { usePlayerSnapshot } from "./usePlayerSnapshot";
 import { useBrickWidthUnit } from "./useBrickWidthUnit";
 import { useBrickResize } from "./useBrickResize";
-import { BASE_CHORDS } from "@/data";
+import { BASE_CHORDS, UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
 import { useEnharmonicNoteName } from "@/hooks";
 
@@ -30,13 +30,13 @@ export const usePlayerBrickLogic = ({
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
   );
-
   const removeBrick = usePlayerStore((state) => state.removeBrick);
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
   const currentStep = usePlayerStore((state) => state.currentStep);
   const bricks = usePlayerStore((state) => state.bricks);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const isCountingIn = usePlayerStore((state) => state.isCountingIn);
+  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
   const getEnharmonicNoteName = useEnharmonicNoteName();
 
@@ -157,12 +157,15 @@ export const usePlayerBrickLogic = ({
   ]);
 
   const hasData = displayData.rootNote !== null;
+
+  const tuneKeyOffset = UNIFIED_MUSIC_KEYS[tuneKeyId].offsetFromC;
+
   const roleMarker =
     hasData && displayData.baseChordId !== null
       ? getEnharmonicNoteName(
-          getNotes({})[
+          getNotes({ length: 24 })[
             BASE_CHORDS[displayData.baseChordId]
-              .semitoneOffsetFromMajorScaleRoot
+              .semitoneOffsetFromMajorScaleRoot + tuneKeyOffset
           ],
         )
       : null;

@@ -61,7 +61,8 @@ export const NoteMatrix = () => {
             const isVisible = getIsShapeNoteVisible(i, data.shapeIndices);
             const noteName = isVisible ? data.displayNoteNames[i] : "";
             const isShared = checkIsShared(noteName);
-            const isSelected = selectedNotes.includes(noteName);
+            const isSelected =
+              noteName !== "" && selectedNotes.includes(noteName);
 
             return (
               <S.Note
@@ -69,7 +70,9 @@ export const NoteMatrix = () => {
                 $isVisible={isVisible}
                 $isSharedNote={isShared}
                 $isSelected={isSelected}
-                onClick={() => isVisible && setSelectedNotes(noteName)}
+                onClick={() =>
+                  isVisible && noteName && setSelectedNotes(noteName)
+                }
               >
                 {noteName}
               </S.Note>
