@@ -3,15 +3,13 @@ import { fretboardRPadding } from "../parts";
 import { appBgColor } from "@/constants";
 
 export const FretboardNumericMarkers = styled.div`
-  margin-right: ${fretboardRPadding};
-  margin-left: 55px;
+  padding-right: ${fretboardRPadding};
+  padding-left: 55px;
   position: relative;
-  z-index: 2;
   margin-bottom: 0px;
   opacity: 0.6;
   border-radius: 20px;
   height: 22px;
-  margin-bottom: -4px;
   display: flex;
   align-items: center;
   justify-content: center;
