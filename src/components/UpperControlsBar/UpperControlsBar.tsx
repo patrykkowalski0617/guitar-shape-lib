@@ -34,14 +34,14 @@ export default function UpperControlsBar() {
   return (
     <S.Wrapper>
       <S.Section>
-        <ShapeCarousel />
-      </S.Section>
-      <S.Section>
-        <ShapeCarousel />
+        <Key_Chord_ShapeToggle />
       </S.Section>
 
       <S.Section>
-        <Key_Chord_ShapeToggle />
+        <ShapeCarousel />
+      </S.Section>
+      <S.Section>
+        <ShapeCarousel />
       </S.Section>
 
       <AnimatePresence>

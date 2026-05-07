@@ -38,12 +38,6 @@ export const Section = styled.div<{ $isDisabled?: boolean }>`
   ${SectionCommonCss}
 `;
 
-export const InstrumentWrapper = styled.div`
-  margin: auto;
-  overflow: hidden;
-  width: 1400px;
-`;
-
 export const InstrumentScrollWrapper = styled.div`
   overflow-x: auto;
   scrollbar-width: none;

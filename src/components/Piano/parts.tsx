@@ -41,6 +41,8 @@ export const PianoWrapper = styled.div`
     ${instrumentElBRadius} ${instrumentElBRadius};
   position: relative;
   overflow: hidden;
+  margin: auto;
+  width: 1400px;
 `;
 
 export const Piano = styled.div<{ $numberOfKeys: number }>`

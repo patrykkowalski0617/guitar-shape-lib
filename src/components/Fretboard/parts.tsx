@@ -3,8 +3,11 @@ import WoodImage from "@/assets/wood.jpg";
 
 export const fretboardRPadding = "30px";
 
-export const FretboardAjustWrapper = styled.div`
-  margin-bottom: -20px;
+export const FretboardNotScrollableWrapper = styled.div`
+  margin-bottom: -10px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
 `;
 
 export const StringSliderWrapper = styled.div``;
@@ -12,9 +15,9 @@ export const StringSliderWrapper = styled.div``;
 export const FretboardWrapper = styled.div`
   padding-bottom: 20px;
   position: relative;
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
+  margin: auto;
+  overflow: hidden;
+  width: calc(1400px - 16px - 32px);
 `;
 
 export const FretboardShadow = styled.div`

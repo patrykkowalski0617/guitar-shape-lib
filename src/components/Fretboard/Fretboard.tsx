@@ -2,7 +2,7 @@ import { type JSX, useEffect, useRef } from "react";
 import * as S from "./parts";
 import { numberOfFrets, STRINGS_CONFIG, type StringIndex } from "./constants";
 import { useHorizontalScroll } from "@/hooks";
-import { InstrumentScrollWrapper, InstrumentWrapper } from "@/parts";
+import { InstrumentScrollWrapper } from "@/parts";
 import { useFretboardScroll } from "./hooks";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
@@ -51,30 +51,27 @@ export default function Fretboard(): JSX.Element {
   ]);
 
   return (
-    <S.FretboardAjustWrapper>
+    <S.FretboardNotScrollableWrapper>
+      <S.StringSliderWrapper>
+        <StringSlider />
+      </S.StringSliderWrapper>
       <InstrumentScrollWrapper ref={scrollRef}>
-        <InstrumentWrapper>
+        <S.FretboardWrapper>
           <FretboardNumericMarkers />
-
-          <S.FretboardWrapper>
-            <S.StringSliderWrapper>
-              <StringSlider />
-            </S.StringSliderWrapper>
-            <S.Fretboard>
-              {allFretboardNotes.map((rowNotes, index) => (
-                <FretboardRow
-                  key={index}
-                  stringIndex={index as StringIndex}
-                  rowNotes={rowNotes}
-                />
-              ))}
-              <S.FretboardShadow />
-              <HiddenShapeExplorerSlider />
-              <FretboardDotMarkers />
-            </S.Fretboard>
-          </S.FretboardWrapper>
-        </InstrumentWrapper>
+          <S.Fretboard>
+            {allFretboardNotes.map((rowNotes, index) => (
+              <FretboardRow
+                key={index}
+                stringIndex={index as StringIndex}
+                rowNotes={rowNotes}
+              />
+            ))}
+            <S.FretboardShadow />
+            <HiddenShapeExplorerSlider />
+            <FretboardDotMarkers />
+          </S.Fretboard>
+        </S.FretboardWrapper>
       </InstrumentScrollWrapper>
-    </S.FretboardAjustWrapper>
+    </S.FretboardNotScrollableWrapper>
   );
 }

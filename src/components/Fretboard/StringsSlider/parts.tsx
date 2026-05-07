@@ -6,5 +6,5 @@ export const StringSliderWrapper = styled.div`
   align-items: center;
   height: 100%;
   gap: 12px;
-  padding: 20px 0;
+  padding: 20px 0 25px 0;
 `;
