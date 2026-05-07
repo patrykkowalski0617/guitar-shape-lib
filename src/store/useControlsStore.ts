@@ -1,5 +1,9 @@
 import { create } from "zustand";
 import type { BaseChordId, TuneKeyId } from "@/data";
+import {
+  STRINGS_CONFIG,
+  type StringIndex,
+} from "@/components/Fretboard/constants";
 
 interface ControlsState {
   tuneKeyId: TuneKeyId;
@@ -25,6 +29,9 @@ interface ControlsState {
 
   isPianoOn: boolean;
   togglePianoOn: () => void;
+
+  visibleStrings: StringIndex[];
+  setVisibleStrings: (strings: StringIndex[]) => void;
 }
 
 const initialState = {
@@ -35,6 +42,7 @@ const initialState = {
   isShapeSelectOpen: false,
   isShapeSliderHold: false,
   isPianoOn: false,
+  visibleStrings: Array.from(STRINGS_CONFIG.keys()) as StringIndex[],
 };
 
 export const useControlsStore = create<ControlsState>((set) => ({
@@ -57,4 +65,6 @@ export const useControlsStore = create<ControlsState>((set) => ({
   togglePianoOn: () => set((state) => ({ isPianoOn: !state.isPianoOn })),
 
   resetControls: () => set(initialState),
+
+  setVisibleStrings: (strings) => set({ visibleStrings: strings }),
 }));

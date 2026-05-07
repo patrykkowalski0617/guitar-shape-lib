@@ -1,11 +1,7 @@
 import { type JSX, useEffect, useRef } from "react";
 import * as S from "./parts";
-import {
-  numberOfFrets,
-  STRINGS_CONFIG,
-} from "./FretboardRow/helpers/constants";
+import { numberOfFrets, STRINGS_CONFIG, type StringIndex } from "./constants";
 import { useHorizontalScroll } from "@/hooks";
-import FretboardRow, { type StringIndex } from "./FretboardRow/FretboardRow";
 import { InstrumentScrollWrapper, InstrumentWrapper } from "@/parts";
 import { useFretboardScroll } from "./hooks";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
@@ -15,7 +11,8 @@ import { useShapeCoordinates } from "./FretboardCell/hooks";
 import type { FretboardCoordinate, Note } from "@/data";
 import { getNotes } from "@/utils";
 import HiddenShapeExplorerSlider from "../ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
-import { StringsSlider } from "./StringsSlider/StringsSlider";
+import { StringSlider } from "./StringsSlider/StringsSlider";
+import FretboardRow from "./FretboardRow/FretboardRow";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -60,7 +57,9 @@ export default function Fretboard(): JSX.Element {
           <FretboardNumericMarkers />
 
           <S.FretboardWrapper>
-            {/* <StringsSlider /> */}
+            <S.StringSliderWrapper>
+              <StringSlider />
+            </S.StringSliderWrapper>
             <S.Fretboard>
               {allFretboardNotes.map((rowNotes, index) => (
                 <FretboardRow

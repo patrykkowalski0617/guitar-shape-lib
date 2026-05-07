@@ -1,62 +1,74 @@
 import { useState, useEffect } from "react";
-import type { ShapeLocation } from "../../ShapeExplorer/helpers/getOrderedShapeLocations";
 import { Tick } from "./parts";
 
 interface StepSliderTicksProps {
-  options: ShapeLocation[];
   effectiveMax: number;
-  userListIndexes: number[];
-  highlightedId: string | number | null;
-  onHighlightEnd: () => void;
-  isSliderDisabled: boolean;
+  options?: { id: string | number }[];
+  userListIndexes?: number[];
+  highlightedId?: string | number | null;
+  onHighlightEnd?: () => void;
+  isSliderDisabled?: boolean;
+  orientation?: "horizontal" | "vertical";
 }
 
 export function StepSliderTicks({
   options,
   effectiveMax,
-  userListIndexes,
-  highlightedId,
+  userListIndexes = [],
+  highlightedId = null,
   onHighlightEnd,
-  isSliderDisabled,
+  isSliderDisabled = false,
+  orientation = "horizontal",
 }: StepSliderTicksProps) {
   const [isOpacityAnimationLocked, setIsOpacityLocked] = useState(false);
-
   const opacityAnimationDuration = 500;
-
-  if (isSliderDisabled && isOpacityAnimationLocked) {
-    setIsOpacityLocked(false);
-  }
+  const isVertical = orientation === "vertical";
 
   useEffect(() => {
     if (isSliderDisabled) return;
-
-    const timer = setTimeout(() => {
-      setIsOpacityLocked(true);
-    }, opacityAnimationDuration);
-
+    const timer = setTimeout(
+      () => setIsOpacityLocked(true),
+      opacityAnimationDuration,
+    );
     return () => clearTimeout(timer);
-  }, [isSliderDisabled, isOpacityAnimationLocked]);
+  }, [isSliderDisabled]);
 
   const calculateTickPosition = (stepNumber: number) =>
     (stepNumber / effectiveMax) * 100;
 
+  const tickIndexes = Array.from({ length: effectiveMax + 1 }, (_, i) => i);
+
   return (
     <>
-      <Tick key={0} $opacityAnimationDuration={opacityAnimationDuration} />
-      {options.map((option, index) => {
-        const stepNumber = index + 1;
+      {tickIndexes.map((stepNumber) => {
         const isUserStep = userListIndexes.includes(stepNumber);
-        const isVisible = highlightedId !== null && option.id === highlightedId;
+        const currentOption = options?.[stepNumber - 1];
+        const isVisible =
+          highlightedId !== null && currentOption?.id === highlightedId;
+
+        // Dynamiczne style w zależności od orientacji
+        const tickStyle: React.CSSProperties = isVertical
+          ? {
+              bottom: `${calculateTickPosition(stepNumber)}%`,
+              left: "50%",
+              top: "auto", // Resetujemy top z domyślnych stylów Tick
+              transform: "translate(-50%, 50%)", // Centrowanie w pionie i poziomie
+            }
+          : {
+              left: `${calculateTickPosition(stepNumber)}%`,
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+            };
 
         return (
           <Tick
-            key={option.id + index}
+            key={stepNumber}
             $isUserList={isUserStep}
             $isVisible={isVisible}
             $isOpacityAnimationLocked={isOpacityAnimationLocked}
             $opacityAnimationDuration={opacityAnimationDuration}
             onAnimationEnd={isVisible ? onHighlightEnd : undefined}
-            style={{ left: `${calculateTickPosition(stepNumber)}%` }}
+            style={tickStyle}
           />
         );
       })}

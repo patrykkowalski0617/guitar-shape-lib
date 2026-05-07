@@ -1,21 +1,23 @@
 import * as S from "./parts";
 import type { NoteObject } from "@/utils";
-import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
 import { useNoteState } from "./hooks";
 import { useControlsStore, useMusicStore } from "@/store";
+import type { StringIndex } from "../constants";
 
 interface FretboardCellProps {
   noteData: NoteObject;
   stringIndex: StringIndex;
   fretIndex: number;
+  isVisibleString: boolean;
 }
 
 export default function FretboardCell({
   noteData,
   stringIndex,
   fretIndex,
+  isVisibleString,
 }: FretboardCellProps) {
   const { handleMouseEnter, handleMouseLeave } = useFretboardCellInteraction({
     noteData,
@@ -48,10 +50,12 @@ export default function FretboardCell({
         $isLockedNote={isLockedNote}
         data-fret={fretIndex}
         $isBaseChordShapeNote={isBaseChordNote}
+        $isVisibleString={isVisibleString}
       >
         <S.Note
           $animateBaseChordDown={isShapeSliderHold}
           $isVisible={isVisible}
+          $isVisibleString={isVisibleString}
         >
           <NoteLabel
             isVisible={isVisible}

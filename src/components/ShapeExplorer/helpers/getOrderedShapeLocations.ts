@@ -8,8 +8,8 @@ import { getValidVariants, getNotes } from "@/utils";
 import {
   numberOfFrets,
   STRINGS_CONFIG,
-} from "@/components/Fretboard/FretboardRow/helpers/constants";
-import { STRING_ID_MAP } from "@/components/Fretboard/constants";
+} from "@/components/Fretboard/constants";
+import { BASS_STRING_ID_MAP } from "@/components/Fretboard/constants";
 
 export interface ShapeLocation {
   shapeId: string;
@@ -34,7 +34,7 @@ export const getOrderedShapeLocations = (
   for (let fIdx = 0; fIdx < numberOfFrets; fIdx++) {
     for (const sIdx of stringIndices) {
       const stringConfig = STRINGS_CONFIG[sIdx];
-      const stringId = STRING_ID_MAP[sIdx];
+      const stringId = BASS_STRING_ID_MAP[sIdx];
 
       const noteAtFret = getNotes({
         firstNote: stringConfig.firstNoteInRow as Note,

@@ -25,6 +25,7 @@ export const FretWrapper = styled.div`
 export const Fret = styled.div<{
   $isLockedNote: boolean;
   $isBaseChordShapeNote: boolean;
+  $isVisibleString: boolean;
 }>`
   height: 100%;
   width: 100%;
@@ -34,19 +35,24 @@ export const Fret = styled.div<{
   align-items: center;
   position: relative;
   z-index: 32;
+  ${({ $isVisibleString }) =>
+    $isVisibleString
+      ? css`
+          &::before {
+            content: "";
+            transform: scale(1.1);
+            z-index: 32;
+            position: absolute;
+            inset: 0;
+            transition:
+              opacity 0.1s ease-out,
+              transform 0.1s ease-out;
+            border-radius: 12px;
+            opacity: 0;
+          }
+        `
+      : ""}
 
-  &::before {
-    content: "";
-    transform: scale(1.1);
-    z-index: 32;
-    position: absolute;
-    inset: 0;
-    transition:
-      opacity 0.1s ease-out,
-      transform 0.1s ease-out;
-    border-radius: 12px;
-    opacity: 0;
-  }
   ${({ $isBaseChordShapeNote }) => {
     if (!$isBaseChordShapeNote) return null;
     return css`
@@ -75,10 +81,18 @@ export const Fret = styled.div<{
 export const Note = styled.div<{
   $animateBaseChordDown: boolean;
   $isVisible: boolean;
+  $isVisibleString: boolean;
 }>`
+  ${({ $isVisibleString }) =>
+    $isVisibleString
+      ? css`
+          display: flex;
+        `
+      : css`
+          display: none;
+        `}
   height: 100%;
   width: 100%;
-  display: flex;
   justify-content: center;
   align-items: center;
   position: relative;

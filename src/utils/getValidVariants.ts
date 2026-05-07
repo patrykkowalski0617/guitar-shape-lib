@@ -1,4 +1,4 @@
-import { numberOfFrets } from "@/components/Fretboard/FretboardRow/helpers/constants";
+import { numberOfFrets } from "@/components/Fretboard/constants";
 import {
   type VariantId,
   type StringVariants,

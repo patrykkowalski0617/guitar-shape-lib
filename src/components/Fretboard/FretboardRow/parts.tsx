@@ -1,23 +1,33 @@
 import { appBgColor } from "@/constants";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const FretboardRow = styled.div`
+export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
   display: flex;
   flex-direction: row;
   position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    height: 1px;
-    left: -50px;
-    right: -50px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: block;
-    background: color-mix(in oklab, var(--foreground) 20%, var(--muted));
-    box-shadow: 0px 3px 2px 0px var(--background);
-    z-index: 17;
-  }
+  ${({ $isVisibleString }) =>
+    $isVisibleString
+      ? css`
+          &::before {
+            content: "";
+            position: absolute;
+            height: 1px;
+            left: 0px;
+            right: -50px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: block;
+            background: color-mix(
+              in oklab,
+              var(--foreground) 20%,
+              var(--muted)
+            );
+            box-shadow: 0px 3px 2px 0px var(--background);
+            z-index: 17;
+          }
+        `
+      : ""}
+
   &:nth-child(4),
   &:nth-child(5),
   &:nth-child(6) {

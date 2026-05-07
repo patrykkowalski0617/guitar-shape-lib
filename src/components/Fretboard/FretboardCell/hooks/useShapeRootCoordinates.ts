@@ -1,9 +1,6 @@
 import { useShapeRootSharpNote } from "@/hooks";
-import {
-  numberOfFrets,
-  STRINGS_CONFIG,
-} from "../../FretboardRow/helpers/constants";
 import { getNotes } from "@/utils";
+import { numberOfFrets, STRINGS_CONFIG } from "../../constants";
 
 export const useShapeRootCoordinates = () => {
   const shapeRootSharpNote = useShapeRootSharpNote();

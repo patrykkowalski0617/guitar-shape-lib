@@ -2,7 +2,8 @@ import * as S from "./parts";
 import { useRef, type JSX } from "react";
 import FretboardCell from "../FretboardCell/FretboardCell";
 import type { NoteObject } from "@/utils";
-export type StringIndex = 0 | 1 | 2 | 3 | 4 | 5;
+import type { StringIndex } from "../constants";
+import { useControlsStore } from "@/store";
 
 interface FretboardRowProps {
   stringIndex: StringIndex;
@@ -14,15 +15,18 @@ export default function FretboardRow({
   rowNotes,
 }: FretboardRowProps): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const visibleStrings = useControlsStore((state) => state.visibleStrings);
+  const isVisibleString = visibleStrings.includes(stringIndex);
 
   return (
-    <S.FretboardRow ref={scrollRef}>
+    <S.FretboardRow ref={scrollRef} $isVisibleString={isVisibleString}>
       {rowNotes.map((noteData, fretIndex) => (
         <FretboardCell
           key={`${stringIndex}-${fretIndex}`}
           noteData={noteData}
           stringIndex={stringIndex}
           fretIndex={fretIndex}
+          isVisibleString={isVisibleString}
         />
       ))}
     </S.FretboardRow>

@@ -1,5 +1,5 @@
 import * as S from "./parts";
-import { numberOfFrets } from "../FretboardRow/helpers/constants";
+import { numberOfFrets } from "../constants";
 
 export default function FretboardNumericMarkers() {
   const infoCells = Array.from({ length: numberOfFrets });

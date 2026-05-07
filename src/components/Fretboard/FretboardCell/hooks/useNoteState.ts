@@ -1,6 +1,5 @@
 import { useControlsStore, useMusicStore } from "@/store";
 import { getNotes, type NoteObject } from "@/utils";
-import type { StringIndex } from "@/components/Fretboard/FretboardRow/FretboardRow";
 import { useShapeCoordinates } from "./useShapeCoordinates";
 import { isShapeNote as isShapeNoteFn } from "../helpers";
 import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
@@ -16,7 +15,7 @@ import {
   UNIFIED_MUSIC_KEYS,
   type FretboardCoordinate,
 } from "@/data";
-import { STRINGS_CONFIG } from "../../FretboardRow/helpers/constants";
+import { STRINGS_CONFIG, type StringIndex } from "../../constants";
 
 interface UseNoteStateProps {
   noteData: NoteObject;

@@ -1,82 +1,62 @@
 import * as React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
 import { cn } from "@/lib/utils";
-import { StepSliderTicks } from "./StepSliderTicks";
-import { useStepSliderLogic } from "../../ShapeExplorer/hooks/useStepSliderLogic";
-import type { ShapeLocation } from "../../ShapeExplorer/helpers/getOrderedShapeLocations";
 
-interface StepSliderProps extends React.ComponentProps<
+interface StepSliderProps extends React.ComponentPropsWithoutRef<
   typeof SliderPrimitive.Root
 > {
-  userListIndexes?: number[];
-  options: ShapeLocation[];
+  thumbSize?: number;
+  onThumbDoubleClick?: () => void;
 }
 
 export function StepSlider({
   className,
-  value,
-  min = 0,
-  options,
-  style,
-  userListIndexes = [],
+  thumbSize = 28,
+  children,
+  onThumbDoubleClick,
+  orientation = "horizontal",
   ...props
 }: StepSliderProps) {
-  const { effectiveMax, highlightedId, handleToggleAction, clearHighlight } =
-    useStepSliderLogic({ value, options });
-
-  const thumbSize = 28;
-
-  const hasNoOptions = options.length === 0;
-  const sliderMax = hasNoOptions ? 1 : effectiveMax;
-  const sliderValue = hasNoOptions ? [0] : value;
-  const isSliderDisabled = props.disabled || hasNoOptions;
+  const isVertical = orientation === "vertical";
 
   return (
     <SliderPrimitive.Root
-      min={min}
-      max={sliderMax}
-      value={sliderValue}
-      style={style}
-      disabled={isSliderDisabled}
+      orientation={orientation}
       className={cn(
-        "relative flex w-full touch-none items-center select-none h-8",
+        "relative flex touch-none select-none items-center",
+        isVertical ? "flex-col h-full w-8" : "flex-row w-full h-8",
         className,
       )}
       {...props}
     >
       <SliderPrimitive.Track
-        className="relative grow h-[3px] w-full bg-background/70 rounded-full"
+        className={cn(
+          "relative grow bg-background/70 rounded-full",
+          isVertical ? "w-[3px] h-full" : "h-[3px] w-full",
+        )}
         style={{
-          margin: `0 ${thumbSize / 2}px`,
+          // Zapewniamy margines, aby Thumb nie wychodził poza track przy końcach
+          margin: isVertical ? `${thumbSize / 2}px 0` : `0 ${thumbSize / 2}px`,
         }}
       >
-        <StepSliderTicks
-          options={options}
-          effectiveMax={sliderMax}
-          userListIndexes={userListIndexes}
-          highlightedId={highlightedId}
-          onHighlightEnd={clearHighlight}
-          isSliderDisabled={isSliderDisabled}
-        />
+        {children}
       </SliderPrimitive.Track>
 
       <SliderPrimitive.Thumb
-        onDoubleClick={handleToggleAction}
+        onDoubleClick={onThumbDoubleClick}
         className={cn(
           "block rounded-full border-1 border-accent",
           "cursor-grab active:cursor-grabbing hover:scale-110 transition-transform",
           "data-[disabled]:border-border data-[disabled]:scale-100 data-[disabled]:cursor-default",
-          "focus:outline-none focus:ring-0 focus-visible:ring-2",
-          "focus-visible:ring-accent/70",
+          "focus:outline-none focus:ring-0 focus-visible:ring-2 focus-visible:ring-accent/70",
         )}
         style={{
-          opacity: isSliderDisabled ? "0.5" : "1",
+          opacity: props.disabled ? "0.5" : "1",
           width: thumbSize,
           height: thumbSize,
           boxShadow: `2px 2px 8px 2px var(--background), 
-          0px 0px 2px 1px var(--border) inset,
-          0px 0px 3px 2px var(--contrast) inset
-          `,
+                      0px 0px 2px 1px var(--border) inset,
+                      0px 0px 3px 2px var(--contrast) inset`,
         }}
       />
     </SliderPrimitive.Root>
