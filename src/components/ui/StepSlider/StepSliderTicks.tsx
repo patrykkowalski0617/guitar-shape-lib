@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { ShapeLocation } from "../helpers/getOrderedShapeLocations";
+import type { ShapeLocation } from "../../ShapeExplorer/helpers/getOrderedShapeLocations";
 import { Tick } from "./parts";
 
 interface StepSliderTicksProps {
