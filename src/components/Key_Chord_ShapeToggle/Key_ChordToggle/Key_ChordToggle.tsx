@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useBaseChordOptions } from "./hooks/useBaseChordOptions";
-import { useBaseChordToggle } from "./hooks/useBaseChordToggle";
-import { useShapeSelection } from "../ShapeSelect/hooks/useShapeSelection";
-import { BaseChordExpandedList } from "./BaseChordExpandedList";
-import { BaseChordCollapsedView } from "./BaseChordCollapsedView";
-import { BaseChordLabel } from "./BaseChordLabel";
 import type { TuneKeyId } from "@/data";
+import { useShapeSelection } from "../ShapeSelect/hooks/useShapeSelection";
+import { useBaseChordToggle } from "./hooks/useBaseChordToggle";
+import { Key_ChordLabel } from "./Key_ChordLabel";
+import { Key_ChordExpandedList } from "./Key_ChordExpandedList";
+import { Key_ChordCollapsedView } from "./Key_ChordCollapsedView";
 
-export default function BaseChordToggle() {
+export default function Key_ChordToggle() {
   const [isExpanded, setIsExpanded] = useState(false);
   const optionsPerKey = useBaseChordOptions();
   const { isShapeSelectOpen, setIsShapeSelectOpen } = useShapeSelection();
@@ -34,7 +34,7 @@ export default function BaseChordToggle() {
     setIsExpanded(false);
   };
 
-  const handleBaseChordSelect = (
+  const handleChordSelect = (
     combinedValue: string,
     shouldCloseExpanded = true,
   ) => {
@@ -59,25 +59,25 @@ export default function BaseChordToggle() {
     <div className="relative w-full" data-chord-area="true">
       <div className="relative w-full h-8">
         <div className="absolute w-full top-[-27px]">
-          <BaseChordLabel />
+          <Key_ChordLabel />
         </div>
         <AnimatePresence>
           {isExpanded ? (
-            <BaseChordExpandedList
+            <Key_ChordExpandedList
               optionsPerKey={optionsPerKey}
               currentTuneKeyId={currentTuneKeyId}
               currentValue={currentValue}
               activeIndex={activeIndex}
               onClose={() => setIsExpanded(false)}
               onSelectKey={handleSelectKey}
-              onSelectChord={handleBaseChordSelect}
+              onSelectChord={handleChordSelect}
             />
           ) : (
-            <BaseChordCollapsedView
+            <Key_ChordCollapsedView
               activeGroup={activeGroup}
               currentValue={currentValue}
               onExpand={handleExpandList}
-              onSelectChord={(val) => handleBaseChordSelect(val, false)}
+              onSelectChord={(val) => handleChordSelect(val, false)}
             />
           )}
         </AnimatePresence>

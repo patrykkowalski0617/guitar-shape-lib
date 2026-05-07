@@ -1,5 +1,5 @@
 import { ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Separator } from "../Separator";
+import { Separator } from "@/components/Key_Chord_ShapeToggle/Key_ChordToggle/Separator";
 import * as S from "./parts";
 import { BASE_CHORDS } from "@/data";
 
@@ -10,7 +10,7 @@ interface Props {
   onSelectChord: (val: string) => void;
 }
 
-export function BaseChordCollapsedView({
+export function Key_ChordCollapsedView({
   activeGroup,
   currentValue,
   onExpand,

@@ -1,6 +1,6 @@
 import * as S from "./parts";
 
-export function BaseChordLabel() {
+export function Key_ChordLabel() {
   return (
     <S.HeaderContainer>
       <S.KeyLabel>Key</S.KeyLabel>

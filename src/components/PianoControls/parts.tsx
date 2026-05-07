@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 
 export const PanelContainer = styled.div`
-  padding: 0 0px 25px 0;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -9,8 +8,7 @@ export const PanelContainer = styled.div`
   justify-content: space-between;
   position: relative;
   z-index: 1;
-  width: 43%;
-  margin: -20px 0 0 auto;
+  width: 100%;
 `;
 
 export const ControlWrapper = styled.div`

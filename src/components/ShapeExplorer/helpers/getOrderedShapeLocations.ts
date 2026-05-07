@@ -9,7 +9,7 @@ import {
   numberOfFrets,
   STRINGS_CONFIG,
 } from "@/components/Fretboard/FretboardRow/helpers/constants";
-import { STRING_ID_MAP } from "@/components/Fretboard/helpers/constants";
+import { STRING_ID_MAP } from "@/components/Fretboard/constants";
 
 export interface ShapeLocation {
   shapeId: string;

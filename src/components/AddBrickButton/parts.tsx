@@ -28,16 +28,19 @@ export const AddBrickButton = styled.div<{
     color: var(--secondary);
   }
 
-  &:hover {
-    svg {
-      filter: drop-shadow(0px 0px 4px var(--secondary));
-    }
-  }
-
   ${({ $isDisabled }) =>
-    $isDisabled &&
-    css`
-      opacity: 0;
-      pointer-events: none;
-    `}
+    $isDisabled
+      ? css`
+          svg {
+            color: var(--muted);
+          }
+          pointer-events: none;
+        `
+      : css`
+          &:hover {
+            svg {
+              filter: drop-shadow(0px 0px 4px var(--secondary));
+            }
+          }
+        `}
 `;

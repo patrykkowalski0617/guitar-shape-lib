@@ -1,16 +1,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 import * as S from "./parts";
-import BaseChordToggle from "./BaseChordToggle/BaseChordToggle";
-import ShapeSelect from "./ShapeSelect/ShapeSelect";
-import ShapeCarousel from "./ShapeCarousel/ShapeCarousel";
+import ShapeCarousel from "../ShapeCarousel/ShapeCarousel";
 import { Player } from "../Player/Player";
 import { usePlayerStore } from "@/store";
 import { animationDuration } from "@/constants";
 import { usePersistentBoolean } from "@/hooks/usePersistentBoolean";
+import { Key_Chord_ShapeToggle } from "@/components/Key_Chord_ShapeToggle/Key_Chord_ShapeToggle";
 
 const MotionSection = motion(S.Section);
 
-export default function UpperBar() {
+export default function UpperControlsBar() {
   const bricks = usePlayerStore((state) => state.bricks);
   const isPermanentlyLocked = usePersistentBoolean(bricks.length > 0);
   const isVisible = !isPermanentlyLocked;
@@ -37,12 +36,12 @@ export default function UpperBar() {
       <S.Section>
         <ShapeCarousel />
       </S.Section>
+      <S.Section>
+        <ShapeCarousel />
+      </S.Section>
 
       <S.Section>
-        <S.BaseChordToggleWrapper>
-          <BaseChordToggle />
-          <ShapeSelect />
-        </S.BaseChordToggleWrapper>
+        <Key_Chord_ShapeToggle />
       </S.Section>
 
       <AnimatePresence>

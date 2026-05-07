@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { cn } from "@/lib/utils";
-import { Separator } from "../Separator";
+import { Separator } from "./Separator";
 import { BASE_CHORDS } from "@/data";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
   onClose: () => void;
 }
 
-export function BaseChordSingleRow({
+export function Key_ChordSingleRow({
   group,
   isCurrentKey,
   currentValue,

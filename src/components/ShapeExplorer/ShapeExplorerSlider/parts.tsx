@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import { shapeExplorerCommon } from "../../ShapeExplorerBar/constants";
+import { shapeExplorerCommon } from "../constants";
 
 const highlightAnimation = keyframes`
   0% { 

@@ -1,6 +1,6 @@
-import { BaseChordSingleRow } from "./BaseChordSingleRow";
+import { Key_ChordSingleRow } from "./Key_ChordSingleRow";
 import type { TuneKeyId } from "@/data";
-import { BaseChordLabel } from "./BaseChordLabel";
+import { Key_ChordLabel } from "./Key_ChordLabel";
 import { useLayoutEffect, useRef, useState } from "react";
 import * as S from "./parts";
 
@@ -14,7 +14,7 @@ interface Props {
   onSelectChord: (val: string) => void;
 }
 
-export function BaseChordExpandedList({
+export function Key_ChordExpandedList({
   optionsPerKey,
   currentTuneKeyId,
   currentValue,
@@ -145,7 +145,7 @@ export function BaseChordExpandedList({
           ...computedStyle,
         }}
       >
-        <BaseChordLabel />
+        <Key_ChordLabel />
 
         <div
           ref={scrollRef}
@@ -156,7 +156,7 @@ export function BaseChordExpandedList({
         >
           <div className="flex flex-col">
             {optionsPerKey.map((group, index) => (
-              <BaseChordSingleRow
+              <Key_ChordSingleRow
                 key={group.tuneKeyId}
                 group={group}
                 isCurrentKey={currentTuneKeyId === group.tuneKeyId}

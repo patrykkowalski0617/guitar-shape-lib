@@ -1,4 +1,4 @@
-import { expandedListCommon } from "@/components/UpperBar/constants";
+import { expandedListCommon } from "@/components/UpperControlsBar/constants";
 import { SelectContent as _SelectContent } from "@/components/ui/custom-select";
 import styled from "styled-components";
 

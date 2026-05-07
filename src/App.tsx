@@ -4,14 +4,14 @@ import { AppWrapper, MainContent, Section } from "@/parts";
 import { usePlayerStore } from "@/store";
 import { Toaster } from "@/components/ui/sonner";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
-import UpperBar from "./components/UpperBar/UpperBar";
-import Sign from "./components/Sign/Sign";
+import UpperControlsBar from "./components/UpperControlsBar/UpperControlsBar";
+import Footer from "./components/Footer/Footer";
 import { Player } from "./components/Player/Player";
 import Piano from "./components/Piano/Piano";
 import { SoundEngine } from "./components/SoundEngine/SoundEngine";
 import { usePersistentBoolean } from "@/hooks/usePersistentBoolean";
 import { animationDuration } from "./constants";
-import { AddBrickButton } from "./components/AddBrickButton/AddBrickButton";
+import { MiddleControlsBar } from "./components/MiddleControlsBar/MiddleControlsBar";
 
 const MotionSection = motion(Section);
 
@@ -38,14 +38,16 @@ export default function App() {
       <FullscreenButton />
       <MainContent>
         <Section>
-          <UpperBar />
+          <UpperControlsBar />
         </Section>
 
         <Section>
           <Fretboard />
         </Section>
 
-        <AddBrickButton />
+        <Section>
+          <MiddleControlsBar />
+        </Section>
 
         <AnimatePresence>
           {shouldShowPiano && (
@@ -67,7 +69,7 @@ export default function App() {
         </AnimatePresence>
 
         <Section>
-          <Sign />
+          <Footer />
         </Section>
       </MainContent>
     </AppWrapper>

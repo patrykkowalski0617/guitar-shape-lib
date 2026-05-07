@@ -4,7 +4,7 @@ import { ToggleGroup as ToggleG } from "@/components/ui/toggle-group";
 import { motion } from "framer-motion";
 import { buttonBarShadow } from "./constants";
 import { Label } from "@/parts";
-import { expandedListCommon } from "@/components/UpperBar/constants";
+import { expandedListCommon } from "@/components/UpperControlsBar/constants";
 
 export const KeySelectButton = styled(Button)`
   ${buttonBarShadow}

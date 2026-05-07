@@ -3,6 +3,10 @@ import WoodImage from "@/assets/wood.jpg";
 
 export const fretboardRPadding = "30px";
 
+export const FretboardAjustWrapper = styled.div`
+  margin-bottom: -20px;
+`;
+
 export const FretboardWrapper = styled.div`
   padding-bottom: 20px;
   position: relative;
