@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import { Button } from "@/components/ui/button";
-import { playerElementCommon } from "../../constants";
+import { playerButtonCommon, playerElementCommon } from "../../constants";
 
 const pulse = keyframes`
   0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--primary) 100%, transparent); }
@@ -13,6 +13,7 @@ export const PlayButton = styled(Button)<{
   $bpm?: number;
 }>`
   ${playerElementCommon}
+  ${playerButtonCommon}
   font-size: 16px;
   font-weight: 900;
   position: relative;

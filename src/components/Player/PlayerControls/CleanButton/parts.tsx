@@ -1,14 +1,14 @@
 import { Button as _Button } from "@/components/ui/button";
 import styled, { css } from "styled-components";
-import { playerElementCommon } from "../../constants";
+import { playerButtonCommon, playerElementCommon } from "../../constants";
 
 export const Button = styled(_Button)<{
   $isTemporarlyDisabled?: boolean;
   $isDisabled: boolean;
 }>`
   ${playerElementCommon}
+  ${playerButtonCommon}
   background-color: color-mix(in oklab, var(--foreground) 50%,  var(--warn));
-
   color: var(--background);
   border-width: 2px;
   ${({ $isDisabled }) =>

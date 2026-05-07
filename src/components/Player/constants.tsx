@@ -12,8 +12,10 @@ export const playerTextShadow = css`
 export const playerElementCommon = css`
   ${glassEffectShadow}
   height: ${playerElementHeight};
-  padding: 0 10px;
   ${playerTextShadow}
+`;
+export const playerButtonCommon = css`
+  width: ${playerElementWidth};
   > svg {
     filter: drop-shadow(
       1px 2px 0px color-mix(in oklab, var(--background) 80%, transparent)

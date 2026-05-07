@@ -8,7 +8,7 @@ export const MiddleControlsBar = styled.div`
 `;
 
 export const SideSections = styled.div`
-  width: 40%;
+  width: 43%;
   display: flex;
   position: relative;
 
