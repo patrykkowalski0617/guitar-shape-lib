@@ -1,64 +1,59 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const PanelContainer = styled.div`
-  padding: 0 15px 15px 0;
-  border-radius: 8px;
+  padding: 0 0px 25px 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: calc(var(--spacing) * 4);
-  justify-content: flex-end;
+  justify-content: space-between;
   position: relative;
   z-index: 1;
+  width: 43%;
+  margin: -20px 0 0 auto;
 `;
 
 export const ControlWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
   user-select: none;
+  flex: 1 1 0;
 `;
 
 export const LabelBox = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: flex-end;
-  line-height: 0.9;
-  min-width: 32px;
-  gap: calc(var(--spacing) * 2);
-  margin-right: 10px;
+  justify-content: flex-end;
+  margin: -10px 0 0 10px;
+  height: 100%;
 `;
 
 export const LabelText = styled.span`
   font-size: 8px;
-  color: #888;
+  color: #7f7f7f;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.3px;
-`;
-
-export const ValueText = styled.span`
-  font-size: 10px;
-  font-family: monospace;
+  line-height: 1;
 `;
 
 export const KnobOuter = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #2a2a2a, #000);
+  background: linear-gradient(145deg, #2a2a2a, #050505);
   box-shadow:
-    5px 5px 8px 2px color-mix(in oklab, var(--background) 90%, transparent),
-    0 0 10px 0px color-mix(in oklab, var(--foreground) 40%, transparent),
-    -3px -3px 8px 2px color-mix(in oklab, var(--background) 70%, transparent),
+    3px 3px 5px 1px color-mix(in oklab, var(--background) 50%, transparent),
+    3px 0px 8px 4px color-mix(in oklab, var(--background) 50%, transparent),
+    -7px -1px 11px 3px color-mix(in oklab, var(--background) 80%, transparent),
+    3px 3px 7px 2px color-mix(in oklab, var(--foreground) 40%, transparent),
     inset 1px 1px 1px rgba(255, 255, 255, 0.05);
   position: relative;
   cursor: ns-resize;
-  border: 1px solid #3e3e3e;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  border: 2px solid #151515;
 `;
 
 export const IndicatorContainer = styled.div<{ $rotation: number }>`
@@ -80,50 +75,42 @@ export const IndicatorMark = styled.div`
   box-shadow: 0 0 3px var(--secondary);
 `;
 
-export const PowerSwitchWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: calc(var(--spacing) * 2);
-  padding-right: 8px;
-`;
-
-export const SwitchContainer = styled.div<{ $active: boolean }>`
-  width: 18px;
+export const SwitchContainer = styled.div<{ $isActive: boolean }>`
+  width: 28px;
   height: 32px;
-  background: #0a0a0a;
-  border-radius: 3px;
-  border: 1px solid #222;
+  border-radius: 4px;
+  border: 2px solid #151515;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   padding: 3px 0;
   cursor: pointer;
-  box-shadow:
-    1px 1px 3px 0px color-mix(in oklab, var(--foreground) 30%, transparent),
-    -1px -1px 3px 0px color-mix(in oklab, var(--background) 70%, transparent);
-`;
 
-export const ToggleHebel = styled.div<{ $active: boolean }>`
-  width: 10px;
-  height: 14px;
-  background: linear-gradient(to bottom, #666 0%, #222 100%);
-  border-radius: 1px;
-  transition: transform 0.1s ease-in-out;
-  transform: ${(props) =>
-    props.$active ? "translateY(0)" : "translateY(8px)"};
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  position: relative;
-`;
-
-export const StatusLed = styled.div<{ $active: boolean }>`
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background-color: ${(props) =>
-    props.$active ? "var(--secondary)" : "var(--warn)"};
-  box-shadow: ${(props) =>
-    props.$active ? "0 0 5px var(--secondary)" : "none"};
-  transition: all 0.2s;
+  ${({ $isActive }) =>
+    $isActive
+      ? css`
+          background: color-mix(in oklab, var(--glow-color) 70%, transparent);
+          box-shadow:
+            inset 3px 3px 2px 1px
+              color-mix(in oklab, var(--foreground) 20%, transparent),
+            inset -3px -3px 2px 1px
+              color-mix(in oklab, var(--background) 35%, transparent),
+            1px 1px 10px 0px
+              color-mix(in oklab, var(--glow-color) 50%, transparent),
+            -3px -1px 10px 3px
+              color-mix(in oklab, var(--background) 70%, transparent);
+        `
+      : css`
+          background: linear-gradient(145deg, #696969, #1f1f1f);
+          box-shadow:
+            inset 3px 3px 2px 1px
+              color-mix(in oklab, var(--foreground) 20%, transparent),
+            inset -3px -3px 2px 1px
+              color-mix(in oklab, var(--background) 35%, transparent),
+            3px 3px 7px 1px
+              color-mix(in oklab, var(--foreground) 15%, transparent),
+            -2px -2px 10px 1px
+              color-mix(in oklab, var(--background) 70%, transparent);
+        `}
 `;

@@ -23,8 +23,8 @@ interface ControlsState {
   isShapeSliderHold: boolean;
   setIsShapeSliderHold: (hold: boolean) => void;
 
-  isActuallyPlayable: boolean;
-  toggleItIsActuallyPlayable: () => void;
+  isPianoOn: boolean;
+  togglePianoOn: () => void;
 }
 
 const initialState = {
@@ -34,7 +34,7 @@ const initialState = {
   shapeSemitoneOffsetFromC: null as number | null,
   isShapeSelectOpen: false,
   isShapeSliderHold: false,
-  isActuallyPlayable: false,
+  isPianoOn: false,
 };
 
 export const useControlsStore = create<ControlsState>((set) => ({
@@ -54,8 +54,7 @@ export const useControlsStore = create<ControlsState>((set) => ({
 
   setIsShapeSliderHold: (isShapeSliderHold) => set({ isShapeSliderHold }),
 
-  toggleItIsActuallyPlayable: () =>
-    set((state) => ({ isActuallyPlayable: !state.isActuallyPlayable })),
+  togglePianoOn: () => set((state) => ({ isPianoOn: !state.isPianoOn })),
 
   resetControls: () => set(initialState),
 }));

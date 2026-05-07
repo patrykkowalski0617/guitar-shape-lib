@@ -10,13 +10,13 @@ export const Wrapper = styled.div<{
   align-items: center;
   justify-content: center;
   svg {
-    color: var(--warn);
+    color: var(--instrument);
   }
 
   &:hover {
     svg {
-      filter: drop-shadow(0px 0px 4px var(--warn));
-      color: var(--warn);
+      filter: drop-shadow(0px 0px 4px var(--instrument));
+      color: var(--instrument);
     }
   }
 `;

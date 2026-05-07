@@ -104,11 +104,11 @@ const ShapeCarousel = () => {
 
       interactionTimerRef.current = setTimeout(() => {
         setIsUserInteracting(false);
-        // Jeśli jest aktywny kształt, wróć do niego po zakończeniu scrollowania
+
         if (activeShapeId) {
           scrollToActive();
         }
-      }, 2000); // Czekamy 2s od ostatniego scrolla, zanim wrócimy do aktywnego
+      }, 2000);
     };
 
     container.addEventListener("scroll", handleScroll);
@@ -127,16 +127,13 @@ const ShapeCarousel = () => {
     return () => clearAutoPlay();
   }, [activeShapeId, isUserInteracting]);
 
-  // Reaguj na zmianę aktywnego ID
   useEffect(() => {
     scrollToActive();
   }, [activeShapeId, scrollToActive]);
 
   return (
     <S.RelativeContainer>
-      <S.Label>
-        {activeShapeId ? "Currently learning" : "Available shapes"}
-      </S.Label>
+      <S.Label>{activeShapeId ? "Currently learning" : "Shapes"}</S.Label>
       <S.Wrapper
         ref={carouselWrapperRef}
         style={{

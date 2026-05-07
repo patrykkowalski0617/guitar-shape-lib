@@ -10,11 +10,12 @@ import { InstrumentScrollWrapper, InstrumentWrapper } from "@/parts";
 import { useFretboardScroll } from "./hooks";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
-import HiddenShapeExplorerSlider from "@/components/ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
 import { useMusicStore } from "@/store";
 import { useShapeCoordinates } from "./FretboardCell/hooks";
 import type { FretboardCoordinate, Note } from "@/data";
 import { getNotes } from "@/utils";
+import HiddenShapeExplorerSlider from "./ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
+import { ShapeExplorerBar } from "./ShapeExplorerBar/ShapeExplorerBar";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -53,7 +54,7 @@ export default function Fretboard(): JSX.Element {
   ]);
 
   return (
-    <S.FretboardAdjustmentWrapper>
+    <>
       <InstrumentScrollWrapper ref={scrollRef}>
         <InstrumentWrapper>
           <FretboardNumericMarkers />
@@ -74,6 +75,7 @@ export default function Fretboard(): JSX.Element {
           </S.FretboardWrapper>
         </InstrumentWrapper>
       </InstrumentScrollWrapper>
-    </S.FretboardAdjustmentWrapper>
+      <ShapeExplorerBar />
+    </>
   );
 }

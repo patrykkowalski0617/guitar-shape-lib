@@ -1,67 +1,58 @@
-import { useRef, useState } from "react";
-import { useKnob } from "./hooks/useKnobs";
+import { useState } from "react";
 import * as S from "./parts";
 import {
   synthConfig,
   updateMasterParams,
 } from "@/components/SoundEngine/synth";
-
-interface KnobProps {
-  label: string;
-  value: number;
-  min: number;
-  max: number;
-  step: number;
-  onChange: (val: number) => void;
-}
-
-const Knob = ({ label, value, min, max, step, onChange }: KnobProps) => {
-  const { rotation, percentage, handleMouseDown } = useKnob({
-    value,
-    min,
-    max,
-    step,
-    onChange,
-  });
-
-  return (
-    <S.ControlWrapper>
-      <S.LabelBox>
-        <S.LabelText>{label}</S.LabelText>
-        <S.ValueText>{percentage}%</S.ValueText>
-      </S.LabelBox>
-
-      <S.KnobOuter onMouseDown={handleMouseDown}>
-        <S.IndicatorContainer $rotation={rotation}>
-          <S.IndicatorMark />
-        </S.IndicatorContainer>
-      </S.KnobOuter>
-    </S.ControlWrapper>
-  );
-};
+import { useControlsStore, useMusicStore } from "@/store";
+import { Switch } from "./Switch";
+import { Knob } from "./Knob";
 
 export const PianoControls = () => {
+  const togglePianoOn = useControlsStore((state) => state.togglePianoOn);
+  const isPianoOn = useControlsStore((state) => state.isPianoOn);
+  const setShapeVariantLocationData = useMusicStore(
+    (state) => state.setShapeVariantLocationData,
+  );
+  const resetActiveLockedNotes = useMusicStore(
+    (state) => state.resetActiveLockedNotes,
+  );
+  const setShape = useControlsStore((state) => state.setShape);
+  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
+  const shapeVariantLocationData = useMusicStore(
+    (state) => state.shapeVariantLocationData,
+  );
+
+  const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
+
+  const shapeId = useControlsStore((state) => state.shapeId);
+
   const [, setTick] = useState(0);
-  const [isOn, setIsOn] = useState(true);
-  const lastGain = useRef(synthConfig.gain);
+
+  const isCleanDisabled = !!(
+    activeLockedNotes.length ||
+    shapeVariantLocationData ||
+    shapeId
+  );
 
   const handleChange = (key: keyof typeof synthConfig, val: number) => {
     synthConfig[key] = val;
-    if (isOn) updateMasterParams();
+    updateMasterParams();
+
     setTick((t) => t + 1);
   };
 
-  const togglePower = () => {
-    const newState = !isOn;
-    setIsOn(newState);
-    if (!newState) {
-      lastGain.current = synthConfig.gain;
-      synthConfig.gain = 0;
-    } else {
-      synthConfig.gain = lastGain.current || 0.5;
-    }
-    updateMasterParams();
-    setTick((t) => t + 1);
+  const handleCleanClick = () => {
+    setShapeVariantLocationData(null);
+    resetActiveLockedNotes();
+    setShape(null, null);
+    setBaseChordId(null);
+    setBaseChordId(null);
+  };
+
+  const handleTogglePower = () => {
+    togglePianoOn();
+    setTimeout(() => updateMasterParams(), 0);
   };
 
   return (
@@ -74,6 +65,7 @@ export const PianoControls = () => {
         step={0.01}
         onChange={(v) => handleChange("gain", v)}
       />
+
       <Knob
         label="Color"
         value={synthConfig.oscMix}
@@ -82,6 +74,7 @@ export const PianoControls = () => {
         step={0.01}
         onChange={(v) => handleChange("oscMix", v)}
       />
+
       <Knob
         label="Freq"
         value={synthConfig.filterFreq}
@@ -90,6 +83,7 @@ export const PianoControls = () => {
         step={10}
         onChange={(v) => handleChange("filterFreq", v)}
       />
+
       <Knob
         label="Verb"
         value={synthConfig.reverbMix}
@@ -99,18 +93,19 @@ export const PianoControls = () => {
         onChange={(v) => handleChange("reverbMix", v)}
       />
 
-      <S.PowerSwitchWrapper>
-        <S.LabelBox>
-          <S.LabelText>Power</S.LabelText>
-          <S.StatusLed
-            $active={isOn}
-            style={{ marginTop: "2px", alignSelf: "flex-end" }}
-          />
-        </S.LabelBox>
-        <S.SwitchContainer $active={isOn} onClick={togglePower}>
-          <S.ToggleHebel $active={isOn} />
-        </S.SwitchContainer>
-      </S.PowerSwitchWrapper>
+      <Switch
+        label="Clean"
+        isActive={isCleanDisabled}
+        onClick={handleCleanClick}
+        glowColor="var(--instrument)"
+      />
+
+      <Switch
+        label="Power"
+        isActive={isPianoOn}
+        onClick={handleTogglePower}
+        glowColor="var(--secondary)"
+      />
     </S.PanelContainer>
   );
 };

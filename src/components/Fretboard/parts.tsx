@@ -1,11 +1,7 @@
 import styled from "styled-components";
-import WoodImage from "@/assets/wood2.jpg";
+import WoodImage from "@/assets/wood.jpg";
 
 export const fretboardRPadding = "30px";
-
-export const FretboardAdjustmentWrapper = styled.div`
-  margin-bottom: -20px;
-`;
 
 export const FretboardWrapper = styled.div`
   padding-bottom: 20px;
@@ -42,11 +38,7 @@ export const Fretboard = styled.div`
     inset: 0;
     right: calc(${fretboardRPadding} - 15px);
     left: 10px;
-    background-color: color-mix(
-      in oklab,
-      var(--instrument) 75%,
-      var(--background)
-    );
+    background-color: color-mix(in oklab, var(--instrument) 40%, var(--muted));
     background-image:
       linear-gradient(
         0deg,
@@ -58,8 +50,8 @@ export const Fretboard = styled.div`
 
     background-size: cover;
     background-blend-mode: overlay;
-    opacity: 0.4;
-
+    opacity: 0.45;
+    filter: blur(0.5px);
     box-shadow: 25px 0px 20px 20px var(--background) inset;
   }
 `;

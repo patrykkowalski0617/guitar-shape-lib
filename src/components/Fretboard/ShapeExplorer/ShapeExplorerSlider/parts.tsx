@@ -62,13 +62,11 @@ export const Tick = styled.div<{
   }}
 `;
 
-export const ShapeExplorerWrapper = styled.div<{
-  $isDisabled: boolean;
-}>`
+export const ShapeExplorerWrapper = styled.div`
   ${shapeExplorerCommon}
-  overflow: hidden;
   display: flex;
   align-items: center;
   white-space: nowrap;
-  flex-shrink: 0;
+  flex: 1 1 0;
+  padding: 0 8px;
 `;

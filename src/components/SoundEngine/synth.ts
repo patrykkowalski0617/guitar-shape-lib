@@ -58,7 +58,6 @@ const initAudioPath = (ctx: AudioContext) => {
   masterFilter = ctx.createBiquadFilter();
   masterFilter.type = "lowpass";
 
-  // Filtr usuwający "piasek" z wysokich tonów
   masterTilt = ctx.createBiquadFilter();
   masterTilt.type = "highshelf";
   masterTilt.frequency.setValueAtTime(5000, ctx.currentTime);
@@ -164,8 +163,6 @@ export const synth = {
     oscSqu.type = "square";
     sub.type = "triangle";
 
-    // KLUCZOWE: Skalowanie detune względem wysokości dźwięku
-    // Im wyższy dźwięk, tym mniejsza różnica w centach (zapobiega szybkiemu falowaniu)
     const baseDetune = 6;
     const scaledDetune = baseDetune / Math.max(1, octave - 1);
 
@@ -203,7 +200,6 @@ export const synth = {
     voiceSaturator.connect(voiceMainGain);
     voiceMainGain.connect(masterFilter);
 
-    // Synchronizacja startu z minimalnym przesunięciem
     oscSaw.start(now);
     oscSqu.start(now + 0.002);
     sub.start(now);

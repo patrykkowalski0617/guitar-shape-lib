@@ -5,7 +5,6 @@ import * as S from "@/components/Piano/parts";
 import PianoKey from "./PianoKey/PianoKey";
 import { usePianoScroll } from "./hooks/usePianoScroll";
 import { numberOfKeys, pianoNotes } from "./constants";
-import { PianoSoundSwitch } from "./PianoSoundSwitch/PianoSoundSwitch";
 import { PianoControls } from "./PianoControls/PianoControls";
 
 export default function Piano(): JSX.Element {
@@ -21,7 +20,6 @@ export default function Piano(): JSX.Element {
         <InstrumentWrapper>
           <S.PianoWrapper>
             <S.PianoKeysShadow />
-            <PianoSoundSwitch />
             <S.Piano $numberOfKeys={numberOfKeys}>
               {pianoNotes.map((note) => (
                 <PianoKey key={note.noteId} note={note} />

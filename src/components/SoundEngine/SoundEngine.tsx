@@ -8,9 +8,7 @@ export function SoundEngine() {
   const bassNoteId = useMusicStore((state) => state.bassNoteId);
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
-  const isActuallyPlayable = useControlsStore(
-    (state) => state.isActuallyPlayable,
-  );
+  const isPianoOn = useControlsStore((state) => state.isPianoOn);
 
   const currentlyPlaying = useRef<Set<string>>(new Set());
 
@@ -18,7 +16,7 @@ export function SoundEngine() {
     const notesThatShouldPlay = new Set<string>();
 
     const isPlayerMode = isPlaying;
-    const isExplorationMode = !isPlaying && isActuallyPlayable;
+    const isExplorationMode = !isPlaying && isPianoOn;
     if (isCountingIn) return;
     if (isPlayerMode) {
       if (bassNoteId) {
@@ -47,7 +45,7 @@ export function SoundEngine() {
   }, [
     activeNoteId,
     activeLockedNotes,
-    isActuallyPlayable,
+    isPianoOn,
     isPlaying,
     isCountingIn,
     bassNoteId,

@@ -16,7 +16,6 @@ export const useKnob = ({ value, min, max, step, onChange }: UseKnobProps) => {
   const mouseMoveRef = useRef<(e: MouseEvent) => void>(() => {});
   const mouseUpRef = useRef<() => void>(() => {});
 
-  // 1. Najpierw definiujemy funkcje (handlery)
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
       if (!isDragging.current) return;
@@ -45,14 +44,12 @@ export const useKnob = ({ value, min, max, step, onChange }: UseKnobProps) => {
     document.documentElement.style.cursor = "";
   }, []);
 
-  // 2. Dopiero gdy funkcje są zadeklarowane, możemy je przypisać do refów w useEffect
   useEffect(() => {
     valueRef.current = value;
     mouseMoveRef.current = handleMouseMove;
     mouseUpRef.current = handleMouseUp;
   }, [value, handleMouseMove, handleMouseUp]);
 
-  // 3. Reszta logiki
   const handleMouseDown = (e: React.MouseEvent) => {
     isDragging.current = true;
     lastY.current = e.clientY;

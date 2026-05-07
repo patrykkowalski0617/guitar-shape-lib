@@ -1,11 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
 import { useControlsStore, useMusicStore } from "@/store";
 import { BrushCleaning } from "lucide-react";
 import * as P from "./parts";
-import { usePersistentBoolean } from "@/hooks/usePersistentBoolean";
-import { animationDuration } from "@/constants";
-
-const MotionWrapper = motion(P.Wrapper);
 
 export const CleanButton = () => {
   const shapeVariantLocationData = useMusicStore(
@@ -29,9 +24,6 @@ export const CleanButton = () => {
     shapeId
   );
 
-  const isUnlocked = usePersistentBoolean(!isDisabled);
-  const durationSec = animationDuration / 1000;
-
   const handleClick = () => {
     setShapeVariantLocationData(null);
     resetActiveLockedNotes();
@@ -41,20 +33,8 @@ export const CleanButton = () => {
   };
 
   return (
-    <AnimatePresence>
-      {isUnlocked && (
-        <MotionWrapper
-          key="clean-button-explorer"
-          onClick={handleClick}
-          $isDisabled={isDisabled}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: durationSec, ease: "easeInOut" }}
-        >
-          <BrushCleaning size={20} />
-        </MotionWrapper>
-      )}
-    </AnimatePresence>
+    <P.Wrapper onClick={handleClick} $isDisabled={isDisabled}>
+      <BrushCleaning size={20} />
+    </P.Wrapper>
   );
 };
