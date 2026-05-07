@@ -8,7 +8,6 @@ export const Sign = styled.div`
   text-align: center;
   width: 100%;
   margin: 0;
-  height: 10px;
   @media (min-width: 768px) {
     text-align: right;
   }

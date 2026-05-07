@@ -1,4 +1,9 @@
-import type { FretboardCoordinate, FretboardStringId, VariantId } from "@/data";
+import type {
+  FretboardCoordinate,
+  FretboardStringId,
+  Note,
+  VariantId,
+} from "@/data";
 import { create } from "zustand";
 import { usePlayerStore } from "./usePlayerStore";
 import { useControlsStore } from "./useControlsStore";
@@ -26,9 +31,9 @@ interface MusicState {
   setActiveLockedNotes: (activeNote: string) => void;
   resetActiveLockedNotes: () => void;
 
-  selectedComponentNotes: string[];
-  setSelectedComponentNotes: (noteName: string) => void;
-  resetSelectedComponentNotes: () => void;
+  selectedTargetNotesNames: Note[];
+  setSelectedTargetNotesNames: (noteName: Note) => void;
+  resetSelectedTargetNotesNames: () => void;
 
   shapeVariantLocationData: ShapeVariantLocationData | null;
   setShapeVariantLocationData: (
@@ -41,14 +46,14 @@ interface MusicState {
   ) => void;
 
   bassNoteId: NoteId | null;
-  setBassNote: (noteName: NoteId | null) => void;
+  setBassNote: (noteId: NoteId | null) => void;
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
   activeNoteId: null,
   shapeNoteIds: [],
   activeLockedNotes: [],
-  selectedComponentNotes: [],
+  selectedTargetNotesNames: [],
   shapeVariantLocationData: null,
   shapeVariantLocationData_locked: null,
   bassNoteId: null,
@@ -109,18 +114,19 @@ export const useMusicStore = create<MusicState>((set) => ({
 
   resetActiveLockedNotes: () => set({ activeLockedNotes: [] }),
 
-  setSelectedComponentNotes: (noteName) => {
+  setSelectedTargetNotesNames: (noteName) => {
     set((state) => {
-      const isAlreadySelected = state.selectedComponentNotes.includes(noteName);
+      const isAlreadySelected =
+        state.selectedTargetNotesNames.includes(noteName);
       const nextSelectedNotes = isAlreadySelected
-        ? state.selectedComponentNotes.filter((note) => note !== noteName)
-        : [...state.selectedComponentNotes, noteName];
+        ? state.selectedTargetNotesNames.filter((note) => note !== noteName)
+        : [...state.selectedTargetNotesNames, noteName];
 
-      return { selectedComponentNotes: nextSelectedNotes };
+      return { selectedTargetNotesNames: nextSelectedNotes };
     });
   },
 
-  resetSelectedComponentNotes: () => set({ selectedComponentNotes: [] }),
+  resetSelectedTargetNotesNames: () => set({ selectedTargetNotesNames: [] }),
 
   setShapeVariantLocationData_locked: (data) =>
     set({ shapeVariantLocationData_locked: data }),

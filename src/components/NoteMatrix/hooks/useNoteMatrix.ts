@@ -14,9 +14,11 @@ export const useNoteMatrix = () => {
     (state) => state.shapeSemitoneOffsetFromC,
   );
 
-  const selectedNotes = useMusicStore((state) => state.selectedComponentNotes);
+  const selectedNotes = useMusicStore(
+    (state) => state.selectedTargetNotesNames,
+  );
   const setSelectedNotes = useMusicStore(
-    (state) => state.setSelectedComponentNotes,
+    (state) => state.setSelectedTargetNotesNames,
   );
 
   const getEnharmonicName = useEnharmonicNoteName();
