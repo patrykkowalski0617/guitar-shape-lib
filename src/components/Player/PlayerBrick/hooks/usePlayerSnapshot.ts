@@ -1,13 +1,9 @@
 import { useEffect, useMemo } from "react";
 import { useShapeRootNote } from "@/hooks";
-import {
-  useControlsStore,
-  useMusicStore,
-  usePlayerStore,
-  type ShapeVariantLocationData,
-} from "@/store";
+import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
 import { SHAPES, type TuneKeyId, type Shapes, type BaseChordId } from "@/data";
 import { useApplySnapshotToStore } from "./useApplySnapshotToStore";
+import type { ShapeVariantLocationData } from "@/types";
 
 export type Snapshot = {
   tuneKeyId: TuneKeyId;

@@ -66,7 +66,6 @@ export const Fretboard = styled.div`
 
     background-size: cover;
     background-blend-mode: overlay;
-    filter: blur(0.5px);
     box-shadow: 30px 0px 30px 20px
       color-mix(in oklab, var(--background) 70%, transparent) inset;
   }

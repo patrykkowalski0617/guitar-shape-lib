@@ -14,8 +14,8 @@ interface PianoKeyProps {
 const PianoKey = ({ note }: PianoKeyProps) => {
   const { visualState, interactivity } = usePianoKey({ note });
   const getEnharmonicNoteName = useEnharmonicNoteName();
-  const setActiveLockedNotes = useMusicStore(
-    (state) => state.setActiveLockedNotes,
+  const setActiveLockedNoteIds = useMusicStore(
+    (state) => state.setActiveLockedNoteIds,
   );
 
   const { isWhitePianoKey, pianoKeyShape, isPushed, isShapeSelected } =
@@ -36,7 +36,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
       onMouseOver={interactivity.handleMouseEnter}
       onMouseLeave={interactivity.handleMouseLeave}
       onClick={() => {
-        setActiveLockedNotes(note.noteId);
+        setActiveLockedNoteIds(note.noteId);
       }}
       data-piano-scroll-target={interactivity.isScrollTarget}
     >

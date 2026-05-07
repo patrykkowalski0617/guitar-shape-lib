@@ -11,7 +11,9 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
   const shapeId = useControlsStore((state) => state.shapeId);
-  const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
+  const activeLockedNoteIds = useMusicStore(
+    (state) => state.activeLockedNoteIds,
+  );
   const shapeNoteIds = useMusicStore((state) => state.shapeNoteIds);
 
   const noteOctaveIndex = NOTES_SHARP.indexOf(note.sharpNoteName);
@@ -22,7 +24,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
   const isActiveNote = note.noteId === activeNoteId;
   const isPushed =
     isActiveNote ||
-    activeLockedNotes.includes(note.noteId) ||
+    activeLockedNoteIds.includes(note.noteId) ||
     shapeNoteIds.includes(note.noteId);
 
   const isScrollTarget = false;

@@ -5,8 +5,8 @@ export function useShapeSelection() {
   const shapeSemitoneOffsetFromC = useControlsStore(
     (state) => state.shapeSemitoneOffsetFromC,
   );
-  const resetActiveLockedNotes = useMusicStore(
-    (state) => state.resetActiveLockedNotes,
+  const resetActiveLockedNoteIds = useMusicStore(
+    (state) => state.resetActiveLockedNoteIds,
   );
   const isShapeSelectOpen = useControlsStore(
     (state) => state.isShapeSelectOpen,
@@ -35,7 +35,7 @@ export function useShapeSelection() {
 
     setShape(id, offset);
 
-    resetActiveLockedNotes();
+    resetActiveLockedNoteIds();
     setBaseChordId(baseChordId);
   };
 

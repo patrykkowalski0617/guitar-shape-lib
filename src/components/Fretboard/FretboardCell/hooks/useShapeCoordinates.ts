@@ -1,5 +1,5 @@
 import { SHAPES, type FretboardCoordinate } from "@/data";
-import type { ShapeVariantLocationData } from "@/store";
+import type { ShapeVariantLocationData } from "@/types";
 
 export const useShapeCoordinates = (
   shapeVariantLocationData: ShapeVariantLocationData | null,

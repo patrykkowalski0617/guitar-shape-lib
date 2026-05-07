@@ -29,15 +29,15 @@ export default function FretboardCell({
     fretIndex,
   });
 
-  const setActiveLockedNotes = useMusicStore(
-    (state) => state.setActiveLockedNotes,
+  const setActiveLockedNoteIds = useMusicStore(
+    (state) => state.setActiveLockedNoteIds,
   );
   const isShapeSliderHold = useControlsStore(
     (state) => state.isShapeSliderHold,
   );
 
   const handleCellClick = () => {
-    setActiveLockedNotes(noteData.noteId);
+    setActiveLockedNoteIds(noteData.noteId);
   };
 
   return (

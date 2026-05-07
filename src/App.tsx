@@ -34,7 +34,8 @@ export default function App() {
 
   return (
     <AppWrapper>
-      <SoundEngine /> <Toaster position="top-center" />
+      <SoundEngine />
+      <Toaster position="top-center" />
       <FullscreenButton />
       <MainContent>
         <Section>

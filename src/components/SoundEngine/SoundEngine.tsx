@@ -1,13 +1,20 @@
 import { useEffect, useRef } from "react";
 import { useMusicStore, useControlsStore, usePlayerStore } from "@/store";
 import { synth } from "./synth";
+import { useBackingTrackSync } from "./hooks/useBackingTrackSync";
 
 export function SoundEngine() {
+  useBackingTrackSync();
+
   const isCountingIn = usePlayerStore((state) => state.isCountingIn);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
-  const bassNoteId = useMusicStore((state) => state.bassNoteId);
+  const backgingtrackNoteIds = useMusicStore(
+    (state) => state.backgingtrackNoteIds,
+  );
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
-  const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
+  const activeLockedNoteIds = useMusicStore(
+    (state) => state.activeLockedNoteIds,
+  );
   const isPianoOn = useControlsStore((state) => state.isPianoOn);
 
   const currentlyPlaying = useRef<Set<string>>(new Set());
@@ -17,13 +24,18 @@ export function SoundEngine() {
 
     const isPlayerMode = isPlaying;
     const isExplorationMode = !isPlaying && isPianoOn;
+
     if (isCountingIn) return;
+
     if (isPlayerMode) {
-      if (bassNoteId) {
-        notesThatShouldPlay.add(bassNoteId);
+      if (backgingtrackNoteIds && backgingtrackNoteIds.length > 0) {
+        // Dodajemy wszystkie nuty z backing tracku (całą triadę) do Setu
+        backgingtrackNoteIds.forEach((noteId) => {
+          notesThatShouldPlay.add(noteId);
+        });
       }
     } else if (isExplorationMode) {
-      activeLockedNotes.forEach((noteId) => notesThatShouldPlay.add(noteId));
+      activeLockedNoteIds.forEach((noteId) => notesThatShouldPlay.add(noteId));
       if (activeNoteId) {
         notesThatShouldPlay.add(activeNoteId);
       }
@@ -44,11 +56,11 @@ export function SoundEngine() {
     currentlyPlaying.current = notesThatShouldPlay;
   }, [
     activeNoteId,
-    activeLockedNotes,
+    activeLockedNoteIds,
     isPianoOn,
     isPlaying,
     isCountingIn,
-    bassNoteId,
+    backgingtrackNoteIds,
   ]);
 
   return null;

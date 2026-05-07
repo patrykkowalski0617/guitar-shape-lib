@@ -1,25 +1,11 @@
-import type {
-  FretboardCoordinate,
-  FretboardStringId,
-  Note,
-  VariantId,
-} from "@/data";
+import type { FretboardCoordinate, Note } from "@/data";
 import { create } from "zustand";
 import { usePlayerStore } from "./usePlayerStore";
 import { useControlsStore } from "./useControlsStore";
 import type { NoteId, NoteObject } from "@/utils";
-
-export interface ShapeVariantLocationData {
-  shapeId: string | null;
-  stringId: FretboardStringId;
-  fretIndex: number;
-  variantId: VariantId;
-}
+import type { ShapeVariantLocationData } from "@/types";
 
 interface MusicState {
-  activeNoteId: string | null;
-  setActiveNoteId: (noteId: string | null) => void;
-
   shapeNoteIds: string[];
   setShapeNoteIds: (shapeNoteIds: string[]) => void;
   updateShapeNotes: (
@@ -27,9 +13,15 @@ interface MusicState {
     coordinates: FretboardCoordinate[],
   ) => void;
 
-  activeLockedNotes: string[];
-  setActiveLockedNotes: (activeNote: string) => void;
-  resetActiveLockedNotes: () => void;
+  activeNoteId: string | null;
+  setActiveNoteId: (noteId: string | null) => void;
+
+  activeLockedNoteIds: string[];
+  setActiveLockedNoteIds: (activeNote: string) => void;
+  resetActiveLockedNoteIds: () => void;
+
+  backgingtrackNoteIds: NoteId[];
+  setBackgingtrackNoteIds: (noteId: NoteId[]) => void;
 
   selectedTargetNotesNames: Note[];
   setSelectedTargetNotesNames: (noteName: Note) => void;
@@ -44,31 +36,16 @@ interface MusicState {
   setShapeVariantLocationData_locked: (
     target: ShapeVariantLocationData | null,
   ) => void;
-
-  bassNoteId: NoteId | null;
-  setBassNote: (noteId: NoteId | null) => void;
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
-  activeNoteId: null,
   shapeNoteIds: [],
-  activeLockedNotes: [],
+  activeNoteId: null,
+  activeLockedNoteIds: [],
+  backgingtrackNoteIds: [],
   selectedTargetNotesNames: [],
   shapeVariantLocationData: null,
   shapeVariantLocationData_locked: null,
-  bassNoteId: null,
-
-  setActiveNoteId: (noteId) => {
-    const playerState = usePlayerStore.getState();
-    const controlState = useControlsStore.getState();
-    const isSmallScreen = window.innerWidth < 1024;
-    const isPlayingOrHasShape =
-      controlState.shapeId !== null || playerState.isPlaying;
-
-    if (isPlayingOrHasShape || isSmallScreen) return;
-
-    set({ activeNoteId: noteId });
-  },
 
   setShapeNoteIds: (shapeNoteIds) => set({ shapeNoteIds }),
 
@@ -89,30 +66,36 @@ export const useMusicStore = create<MusicState>((set) => ({
     set({ shapeNoteIds: nextShapeNoteIds });
   },
 
-  setShapeVariantLocationData: (data) => {
-    if (!data) {
-      set({ shapeVariantLocationData: null, shapeNoteIds: [] });
-      return;
-    }
+  setActiveNoteId: (noteId) => {
+    const playerState = usePlayerStore.getState();
+    const controlState = useControlsStore.getState();
+    const isSmallScreen = window.innerWidth < 1024;
+    const isPlayingOrHasShape =
+      controlState.shapeId !== null || playerState.isPlaying;
 
-    set({ shapeVariantLocationData: data });
+    if (isPlayingOrHasShape || isSmallScreen) return;
+
+    set({ activeNoteId: noteId });
   },
 
-  setActiveLockedNotes: (activeNote) => {
+  setActiveLockedNoteIds: (activeNote) => {
     const controlState = useControlsStore.getState();
     if (controlState.shapeId !== null) return;
 
     set((state) => {
-      const isAlreadyActive = state.activeLockedNotes.includes(activeNote);
+      const isAlreadyActive = state.activeLockedNoteIds.includes(activeNote);
       const nextActiveNotes = isAlreadyActive
-        ? state.activeLockedNotes.filter((note) => note !== activeNote)
-        : [...state.activeLockedNotes, activeNote];
+        ? state.activeLockedNoteIds.filter((note) => note !== activeNote)
+        : [...state.activeLockedNoteIds, activeNote];
 
-      return { activeLockedNotes: nextActiveNotes };
+      return { activeLockedNoteIds: nextActiveNotes };
     });
   },
 
-  resetActiveLockedNotes: () => set({ activeLockedNotes: [] }),
+  resetActiveLockedNoteIds: () => set({ activeLockedNoteIds: [] }),
+
+  setBackgingtrackNoteIds: (backgingtrackNoteIds) =>
+    set({ backgingtrackNoteIds }),
 
   setSelectedTargetNotesNames: (noteName) => {
     set((state) => {
@@ -128,8 +111,15 @@ export const useMusicStore = create<MusicState>((set) => ({
 
   resetSelectedTargetNotesNames: () => set({ selectedTargetNotesNames: [] }),
 
+  setShapeVariantLocationData: (data) => {
+    if (!data) {
+      set({ shapeVariantLocationData: null, shapeNoteIds: [] });
+      return;
+    }
+
+    set({ shapeVariantLocationData: data });
+  },
+
   setShapeVariantLocationData_locked: (data) =>
     set({ shapeVariantLocationData_locked: data }),
-
-  setBassNote: (bassNoteId) => set({ bassNoteId }),
 }));

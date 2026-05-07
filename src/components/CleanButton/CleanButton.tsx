@@ -10,9 +10,11 @@ export const CleanButton = () => {
   const setShapeVariantLocationData = useMusicStore(
     (state) => state.setShapeVariantLocationData,
   );
-  const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
-  const resetActiveLockedNotes = useMusicStore(
-    (state) => state.resetActiveLockedNotes,
+  const activeLockedNoteIds = useMusicStore(
+    (state) => state.activeLockedNoteIds,
+  );
+  const resetActiveLockedNoteIds = useMusicStore(
+    (state) => state.resetActiveLockedNoteIds,
   );
   const shapeId = useControlsStore((state) => state.shapeId);
   const setShape = useControlsStore((state) => state.setShape);
@@ -24,7 +26,7 @@ export const CleanButton = () => {
   const defaultVisibleStrings = [0, 1, 2, 3, 4, 5] as StringIndex[];
 
   const isDisabled = !(
-    activeLockedNotes.length ||
+    activeLockedNoteIds.length ||
     shapeVariantLocationData ||
     shapeId ||
     visibleStrings.toString() !== defaultVisibleStrings.toString()
@@ -32,7 +34,7 @@ export const CleanButton = () => {
 
   const handleClick = () => {
     setShapeVariantLocationData(null);
-    resetActiveLockedNotes();
+    resetActiveLockedNoteIds();
     setShape(null, null);
     setBaseChordId(null);
     setBaseChordId(null);
