@@ -35,7 +35,6 @@ export function StepSlider({
           isVertical ? "w-[3px] h-full" : "h-[3px] w-full",
         )}
         style={{
-          // Zapewniamy margines, aby Thumb nie wychodził poza track przy końcach
           margin: isVertical ? `${thumbSize / 2}px 0` : `0 ${thumbSize / 2}px`,
         }}
       >

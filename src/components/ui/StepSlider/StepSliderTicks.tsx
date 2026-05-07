@@ -46,13 +46,12 @@ export function StepSliderTicks({
         const isVisible =
           highlightedId !== null && currentOption?.id === highlightedId;
 
-        // Dynamiczne style w zależności od orientacji
         const tickStyle: React.CSSProperties = isVertical
           ? {
               bottom: `${calculateTickPosition(stepNumber)}%`,
               left: "50%",
-              top: "auto", // Resetujemy top z domyślnych stylów Tick
-              transform: "translate(-50%, 50%)", // Centrowanie w pionie i poziomie
+              top: "auto",
+              transform: "translate(-50%, 50%)",
             }
           : {
               left: `${calculateTickPosition(stepNumber)}%`,

@@ -50,20 +50,24 @@ export const Fretboard = styled.div`
     inset: 0;
     right: calc(${fretboardRPadding} - 15px);
     left: 10px;
-    background-color: color-mix(in oklab, var(--instrument) 40%, var(--muted));
+    background-color: color-mix(
+      in oklab,
+      color-mix(in oklab, var(--instrument) 15%, var(--muted)) 70%,
+      var(--foreground)
+    );
     background-image:
       linear-gradient(
         0deg,
         color-mix(in oklab, var(--background) 100%, transparent) 0%,
-        color-mix(in oklab, var(--background) 20%, transparent) 50%,
+        color-mix(in oklab, var(--background) 20%, transparent) 60%,
         color-mix(in oklab, var(--background) 80%, transparent) 100%
       ),
       url(${WoodImage});
 
     background-size: cover;
     background-blend-mode: overlay;
-    opacity: 0.45;
     filter: blur(0.5px);
-    box-shadow: 25px 0px 20px 20px var(--background) inset;
+    box-shadow: 30px 0px 30px 20px
+      color-mix(in oklab, var(--background) 70%, transparent) inset;
   }
 `;
