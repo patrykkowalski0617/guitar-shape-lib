@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { shapeExplorerCommon } from "../constants";
+import { shapeExplorerCommon } from "../ShapeExplorer/constants";
 
 export const Wrapper = styled.div<{
   $isDisabled: boolean;

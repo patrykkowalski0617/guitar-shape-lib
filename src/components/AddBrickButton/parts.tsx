@@ -9,9 +9,6 @@ export const Wrapper = styled.div`
 export const AddBrickButton = styled.div<{
   $isDisabled: boolean;
 }>`
-  transform: translateY(-50%);
-  position: absolute;
-  z-index: 50;
   box-shadow:
     3px 3px 15px 3px color-mix(in oklab, var(--background) 65%, transparent),
     -3px -3px 15px 3px color-mix(in oklab, var(--foreground) 15%, transparent);

@@ -7,8 +7,15 @@ export const MiddleControlsBar = styled.div`
   align-items: center;
 `;
 
+export const MiddleSection = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-grow: 1;
+`;
+
 export const SideSections = styled.div`
-  width: 43%;
+  flex: 0 0 40%;
   display: flex;
   position: relative;
 

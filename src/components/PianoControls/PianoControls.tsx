@@ -4,50 +4,21 @@ import {
   synthConfig,
   updateMasterParams,
 } from "@/components/SoundEngine/synth";
-import { useControlsStore, useMusicStore } from "@/store";
+import { useControlsStore } from "@/store";
 import { Switch } from "./Switch";
 import { Knob } from "./Knob";
 
 export const PianoControls = () => {
   const togglePianoOn = useControlsStore((state) => state.togglePianoOn);
   const isPianoOn = useControlsStore((state) => state.isPianoOn);
-  const setShapeVariantLocationData = useMusicStore(
-    (state) => state.setShapeVariantLocationData,
-  );
-  const resetActiveLockedNotes = useMusicStore(
-    (state) => state.resetActiveLockedNotes,
-  );
-  const setShape = useControlsStore((state) => state.setShape);
-  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
-  const shapeVariantLocationData = useMusicStore(
-    (state) => state.shapeVariantLocationData,
-  );
-
-  const activeLockedNotes = useMusicStore((state) => state.activeLockedNotes);
-
-  const shapeId = useControlsStore((state) => state.shapeId);
 
   const [, setTick] = useState(0);
-
-  const isCleanDisabled = !!(
-    activeLockedNotes.length ||
-    shapeVariantLocationData ||
-    shapeId
-  );
 
   const handleChange = (key: keyof typeof synthConfig, val: number) => {
     synthConfig[key] = val;
     updateMasterParams();
 
     setTick((t) => t + 1);
-  };
-
-  const handleCleanClick = () => {
-    setShapeVariantLocationData(null);
-    resetActiveLockedNotes();
-    setShape(null, null);
-    setBaseChordId(null);
-    setBaseChordId(null);
   };
 
   const handleTogglePower = () => {
@@ -91,13 +62,6 @@ export const PianoControls = () => {
         max={1}
         step={0.01}
         onChange={(v) => handleChange("reverbMix", v)}
-      />
-
-      <Switch
-        label="Clean"
-        isActive={isCleanDisabled}
-        onClick={handleCleanClick}
-        glowColor="var(--instrument)"
       />
 
       <Switch
