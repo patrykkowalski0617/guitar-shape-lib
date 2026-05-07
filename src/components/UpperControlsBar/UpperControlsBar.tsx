@@ -6,6 +6,7 @@ import { usePlayerStore } from "@/store";
 import { animationDuration } from "@/constants";
 import { usePersistentBoolean } from "@/hooks/usePersistentBoolean";
 import { Key_Chord_ShapeToggle } from "@/components/Key_Chord_ShapeToggle/Key_Chord_ShapeToggle";
+import RoleCarousel from "../RoleCarousel/RoleCarousel";
 
 const MotionSection = motion(S.Section);
 
@@ -38,7 +39,7 @@ export default function UpperControlsBar() {
       </S.Section>
 
       <S.Section>
-        <ShapeCarousel />
+        <RoleCarousel />
       </S.Section>
       <S.Section>
         <ShapeCarousel />

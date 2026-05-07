@@ -16,7 +16,7 @@ export const MiddleSection = styled.div`
 `;
 
 export const SideSections = styled.div`
-  flex: 0 0 35%;
+  flex: 0 0 38%;
   display: flex;
   position: relative;
 

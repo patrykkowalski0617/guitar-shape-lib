@@ -51,7 +51,7 @@ export default function ShapeSelect() {
     >
       <S.SelectContent>
         <div className="text-center py-1 text-xs text-muted-foreground">
-          Choose a shape to practice over the {selectedChordLabel} chord
+          Choose a shape to solo over the {selectedChordLabel} chord
         </div>
         {options?.map((option) => (
           <SelectItem key={option.value} value={option.value}>

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { fretboardRPadding } from "../parts";
+import { appBgColor } from "@/constants";
 
 export const FretboardNumericMarkers = styled.div`
   margin-right: ${fretboardRPadding};
@@ -8,24 +9,19 @@ export const FretboardNumericMarkers = styled.div`
   z-index: 2;
   margin-bottom: 0px;
   opacity: 0.6;
-  @media (min-width: 1024px) {
-    margin-bottom: 10px;
-    margin-top: 3px;
-  }
   border-radius: 20px;
   height: 22px;
+  margin-bottom: -4px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   background-image: linear-gradient(
     -90deg,
-    color-mix(in oklab, var(--muted) 35%, var(--background)) 0%,
-    color-mix(in oklab, var(--muted) 45%, var(--background)) 100%
+    ${appBgColor} 0%,
+    color-mix(in oklab, var(--muted) 30%, var(--background)),
+    ${appBgColor} 100%
   );
-  box-shadow:
-    -1px -1px 1px 0px color-mix(in oklab, var(--foreground) 6%, transparent),
-    1px 1px 2px 0px color-mix(in oklab, var(--background) 80%, transparent);
 `;
 
 export const Marker = styled.div`

@@ -12,7 +12,7 @@ export const AddBrickButton = () => {
   return (
     <S.Wrapper>
       <S.AddBrickButton onClick={addBrick} $isDisabled={isDisabled}>
-        <Plus size={22} />
+        <Plus size={25} strokeWidth={4} />
       </S.AddBrickButton>
     </S.Wrapper>
   );
