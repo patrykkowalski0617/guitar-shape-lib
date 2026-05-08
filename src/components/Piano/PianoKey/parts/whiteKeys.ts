@@ -14,7 +14,7 @@ import {
   whiteKeyH,
   wideCutWidth,
   widerCutWidth,
-} from "./constants";
+} from "../../constants";
 import { transition, type WhiteKeyTypes } from "../../constants";
 
 export const WhiteKeyJustifyContainer = styled.div`

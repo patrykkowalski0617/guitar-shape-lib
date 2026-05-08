@@ -4,7 +4,7 @@ import {
   playerElementHeight,
   playerTextShadow,
 } from "../constants";
-import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
+import { instrumentElBRadius } from "@/components/Piano/constants";
 import { BrickOptions } from "./BrickOptions/parts";
 
 const flash = keyframes`

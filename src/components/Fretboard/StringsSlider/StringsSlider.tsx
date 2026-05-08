@@ -46,7 +46,6 @@ export function StringSlider() {
         step={1}
         value={[maxSteps - currentKey]}
         onValueChange={handleValueChange}
-        thumbSize={20}
       >
         <StepSliderTicks effectiveMax={maxSteps} orientation="vertical" />
       </StepSlider>

@@ -3,7 +3,7 @@ import { appBgColor } from "./constants";
 import {
   instrumentBRadius,
   instrumentElBRadius,
-} from "./components/Piano/PianoKey/parts/constants";
+} from "./components/Piano/constants";
 
 export const AppWrapper = styled.div`
   display: flex;

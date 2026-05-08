@@ -4,7 +4,7 @@ import WoodImage from "@/assets/wood.jpg";
 export const fretboardRPadding = "30px";
 
 export const FretboardNotScrollableWrapper = styled.div`
-  margin-bottom: -10px;
+  margin-bottom: -20px;
   display: flex;
   flex-direction: row;
   gap: 16px;

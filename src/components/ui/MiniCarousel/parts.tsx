@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
+import { instrumentElBRadius } from "@/components/Piano/constants";
 import { Label as _Label } from "@/parts";
 import { glassEffectShadow } from "@/constants";
 

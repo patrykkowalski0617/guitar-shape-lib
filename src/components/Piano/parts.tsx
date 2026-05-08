@@ -1,8 +1,5 @@
 import styled from "styled-components";
-import {
-  instrumentBRadius,
-  instrumentElBRadius,
-} from "./PianoKey/parts/constants";
+import { instrumentBRadius, instrumentElBRadius } from "./constants";
 
 export const ShadowWrapper = styled.div`
   position: relative;
@@ -27,7 +24,7 @@ export const PianoShadow = styled.div`
     5px 8px 10px 5px color-mix(in oklab, var(--background) 100%, transparent),
     0px -5px 20px 5px color-mix(in oklab, var(--foreground) 30%, transparent),
     0px 5px 20px 5px color-mix(in oklab, var(--background) 100%, transparent);
-  height: 140px;
+  top: 0;
   left: 1px;
   right: 1px;
   bottom: 1px;
@@ -41,7 +38,7 @@ export const PianoWrapper = styled.div`
     ${instrumentElBRadius} ${instrumentElBRadius};
   position: relative;
   overflow: hidden;
-  margin: auto;
+  margin-left: auto;
   width: 1400px;
 `;
 

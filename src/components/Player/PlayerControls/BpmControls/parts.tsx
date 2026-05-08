@@ -5,7 +5,7 @@ import {
   playerElementWidth,
 } from "../../constants";
 import { Button } from "@/components/ui/button";
-import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
+import { instrumentElBRadius } from "@/components/Piano/constants";
 
 const commonBpmElementStyles = css`
   background-color: color-mix(in oklab, var(--primary) 40%, var(--muted));

@@ -1,5 +1,5 @@
 import { noteCommon } from "@/components/NoteLabel/constants";
-import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
+import { instrumentElBRadius } from "@/components/Piano/constants";
 import { glassEffectShadow } from "@/constants";
 import { Label } from "@/parts";
 import styled, { css } from "styled-components";

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { instrumentBRadius, instrumentElBRadius } from "./constants";
+import { instrumentBRadius, instrumentElBRadius } from "../../constants";
 import {
   whiteKeyCommon,
   whiteKeyStyles,

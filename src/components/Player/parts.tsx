@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
+import { instrumentElBRadius } from "../Piano/constants";
 import { insetShadow } from "@/constants";
 
 export const PlayerContainer = styled.div`

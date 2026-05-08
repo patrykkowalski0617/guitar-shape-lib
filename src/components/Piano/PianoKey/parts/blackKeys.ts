@@ -6,8 +6,9 @@ import {
   doubleBlackKeysOffset,
   pseudoElKeyBase,
   tripleBlackKeysOffset,
-} from "./constants";
-import { transition, type BlackKeyTypes } from "../../constants";
+  transition,
+  type BlackKeyTypes,
+} from "../../constants";
 
 export const BlacKeyJustifyContainer = styled.div`
   position: absolute;
