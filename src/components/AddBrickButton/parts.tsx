@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { middleBarButtons } from "../MiddleControlsBar/constants";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -9,17 +10,7 @@ export const Wrapper = styled.div`
 export const AddBrickButton = styled.div<{
   $isDisabled: boolean;
 }>`
-  box-shadow:
-    3px 3px 15px 3px color-mix(in oklab, var(--background) 65%, transparent),
-    -3px -3px 15px 3px color-mix(in oklab, var(--foreground) 15%, transparent);
-  border-radius: 100px;
-  width: unset;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  transition: opacity 0.4s ease-in-out;
+  ${middleBarButtons}
   svg {
     transition: filter 0.1s ease-in-out;
     color: var(--secondary);

@@ -22,7 +22,7 @@ export const SideSections = styled.div`
 
   &:first-child {
     top: -25px;
-    padding-left: 30px;
+    padding-left: 50px;
   }
   &:last-child {
     bottom: -25px;

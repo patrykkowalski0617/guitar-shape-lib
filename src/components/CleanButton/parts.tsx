@@ -1,14 +1,10 @@
 import styled, { css } from "styled-components";
-import { shapeExplorerCommon } from "../ShapeExplorer/constants";
+import { middleBarButtons } from "../MiddleControlsBar/constants";
 
 export const Wrapper = styled.div<{
   $isDisabled: boolean;
 }>`
-  ${shapeExplorerCommon}
-  position: relative;
-  z-index: 10;
-  width: 40px;
-  transition: opacity 0.1s ease-in-out;
+  ${middleBarButtons}
   svg {
     transition: filter 0.1s ease-in-out;
   }
