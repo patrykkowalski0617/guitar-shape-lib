@@ -16,6 +16,10 @@ export const playerElementCommon = css`
 `;
 export const playerButtonCommon = css`
   width: ${playerElementWidth};
+  font-size: 16px;
+  font-weight: 900;
+  position: relative;
+  color: var(--background);
   > svg {
     filter: drop-shadow(
       1px 2px 0px color-mix(in oklab, var(--background) 80%, transparent)

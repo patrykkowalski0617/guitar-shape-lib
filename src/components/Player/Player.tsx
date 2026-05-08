@@ -7,6 +7,7 @@ import { BpmInput } from "./PlayerControls/BpmControls/BpmInput";
 import { PlayButton } from "./PlayerControls/PlayButton/PlayButton";
 import { UploadPreset } from "./PlayerControls/UploadPreset/UploadPreset";
 import { SavePreset } from "./PlayerControls/SavePreset/SavePreset";
+import { ToggleSynthButton } from "./PlayerControls/ToggleSynthButton/ToggleSynthButton";
 
 const Bricks = () => (
   <S.PlayerSection>
@@ -31,6 +32,7 @@ const Controls = () => (
     <BpmMultiplierButton />
     <BpmInput />
     <PlayButton />
+    <ToggleSynthButton />
   </S.PlayerSection>
 );
 

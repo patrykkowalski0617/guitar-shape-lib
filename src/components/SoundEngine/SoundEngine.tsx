@@ -16,6 +16,8 @@ export function SoundEngine() {
     (state) => state.activeLockedNoteIds,
   );
   const isPianoOn = useControlsStore((state) => state.isPianoOn);
+  // Pobieramy stan przełącznika ikonki z nutką
+  const playBackingtrack = useControlsStore((state) => state.playBackingtrack);
 
   const currentlyPlaying = useRef<Set<string>>(new Set());
 
@@ -28,7 +30,11 @@ export function SoundEngine() {
     if (isCountingIn) return;
 
     if (isPlayerMode) {
-      if (backgingtrackNoteIds && backgingtrackNoteIds.length > 0) {
+      // Dodajemy warunek playBackingtrack jako "zezwalacz"
+      const hasNotesToPlay =
+        backgingtrackNoteIds && backgingtrackNoteIds.length > 0;
+
+      if (hasNotesToPlay && playBackingtrack) {
         backgingtrackNoteIds.forEach((noteId) => {
           notesThatShouldPlay.add(noteId);
         });
@@ -40,12 +46,14 @@ export function SoundEngine() {
       }
     }
 
+    // Logika zatrzymywania dźwięków, które już nie powinny grać
     currentlyPlaying.current.forEach((noteId) => {
       if (!notesThatShouldPlay.has(noteId)) {
         synth.stop(noteId);
       }
     });
 
+    // Logika uruchamiania nowych dźwięków
     notesThatShouldPlay.forEach((noteId) => {
       if (!currentlyPlaying.current.has(noteId)) {
         synth.play(noteId);
@@ -60,6 +68,7 @@ export function SoundEngine() {
     isPlaying,
     isCountingIn,
     backgingtrackNoteIds,
+    playBackingtrack, // Ważne: dodajemy do tablicy zależności
   ]);
 
   return null;
