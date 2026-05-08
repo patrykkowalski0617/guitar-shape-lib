@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { middleBarButtons } from "../MiddleControlsBar/constants";
 
 export const Wrapper = styled.div`
@@ -10,25 +10,6 @@ export const Wrapper = styled.div`
 export const AddBrickButton = styled.div<{
   $isDisabled: boolean;
 }>`
+  background: color-mix(in oklab, var(--secondary) 90%, var(--background));
   ${middleBarButtons}
-  svg {
-    transition: filter 0.1s ease-in-out;
-    color: var(--secondary);
-  }
-
-  ${({ $isDisabled }) =>
-    $isDisabled
-      ? css`
-          svg {
-            color: var(--muted);
-          }
-          pointer-events: none;
-        `
-      : css`
-          &:hover {
-            svg {
-              filter: drop-shadow(0px 0px 4px var(--secondary));
-            }
-          }
-        `}
 `;
