@@ -9,7 +9,7 @@ import {
 import * as S from "./parts";
 import { playerIconSize } from "../../constants";
 import { useCloseEdit } from "../../hooks/useCloseEdit";
-import { importBricksFromJson } from "../../PlayerPresets/importBricksFromJson";
+import { importBricksFromJson } from "../../helpers/importBricksFromJson";
 
 export function UploadPreset() {
   const fileInputRef = useRef<HTMLInputElement>(null);

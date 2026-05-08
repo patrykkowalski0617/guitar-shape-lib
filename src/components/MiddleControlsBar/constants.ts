@@ -5,7 +5,7 @@ export const middleBarButtons = css<{ $isDisabled: boolean }>`
   box-shadow:
     3px 3px 15px 4px color-mix(in oklab, var(--background) 95%, transparent),
     -3px -3px 15px 3px color-mix(in oklab, var(--foreground) 30%, transparent),
-    3px 3px 7px 0px color-mix(in oklab, var(--background) 25%, transparent)
+    3px 3px 7px 2px color-mix(in oklab, var(--background) 35%, transparent)
       inset;
   border-radius: 100px;
   display: flex;

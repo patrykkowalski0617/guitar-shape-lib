@@ -8,6 +8,7 @@ import { PlayButton } from "./PlayerControls/PlayButton/PlayButton";
 import { UploadPreset } from "./PlayerControls/UploadPreset/UploadPreset";
 import { SavePreset } from "./PlayerControls/SavePreset/SavePreset";
 import { ToggleSynthButton } from "./PlayerControls/ToggleSynthButton/ToggleSynthButton";
+import { Transpose } from "./PlayerControls/Transpose/Transpose";
 
 const Bricks = () => (
   <S.PlayerSection>
@@ -27,6 +28,7 @@ const BasicControls = () => (
 const Controls = () => (
   <S.PlayerSection>
     <CleanButton />
+    <Transpose />
     <SavePreset />
     <UploadPreset />
     <BpmMultiplierButton />

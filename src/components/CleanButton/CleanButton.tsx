@@ -1,9 +1,10 @@
-import { useControlsStore, useMusicStore } from "@/store";
+import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
 import { BrushCleaning } from "lucide-react";
 import * as P from "./parts";
 import type { StringIndex } from "../Fretboard/constants";
 
 export const CleanButton = () => {
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
   const shapeVariantLocationData = useMusicStore(
     (state) => state.shapeVariantLocationData,
   );
@@ -25,12 +26,14 @@ export const CleanButton = () => {
   const visibleStrings = useControlsStore((state) => state.visibleStrings);
   const defaultVisibleStrings = [0, 1, 2, 3, 4, 5] as StringIndex[];
 
-  const isDisabled = !(
-    activeLockedNoteIds.length ||
-    shapeVariantLocationData ||
-    shapeId ||
-    visibleStrings.toString() !== defaultVisibleStrings.toString()
-  );
+  const isDisabled =
+    isPlaying ||
+    !(
+      activeLockedNoteIds.length ||
+      shapeVariantLocationData ||
+      shapeId ||
+      visibleStrings.toString() !== defaultVisibleStrings.toString()
+    );
 
   const handleClick = () => {
     setShapeVariantLocationData(null);

@@ -14,7 +14,7 @@ export const getValidVariants = (
     { coordinates: FretboardCoordinate[] },
   ][];
 
-  return variantEntries.filter(([, variantObj]) => {
+  const validVariants = variantEntries.filter(([, variantObj]) => {
     return variantObj.coordinates.every((coord) => {
       const fretOffset = coord[1];
       const absoluteFret = rootFretIndex + fretOffset;
@@ -25,4 +25,6 @@ export const getValidVariants = (
       return isWithinFretboardLimits;
     });
   });
+
+  return validVariants;
 };

@@ -3,6 +3,7 @@ import { instrumentBRadius, instrumentElBRadius } from "./constants";
 
 export const ShadowWrapper = styled.div`
   position: relative;
+  transform-origin: center;
 `;
 
 export const PianoKeysShadow = styled.div`

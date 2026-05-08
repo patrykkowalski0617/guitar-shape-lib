@@ -23,6 +23,12 @@ export const FretboardWrapper = styled.div`
   margin: auto;
   overflow: hidden;
   width: calc(1400px - 50px - 15px);
+  transform: rotate3d(1, 0, 0, 1deg);
+  transform-origin: center;
+`;
+
+export const PerspectiveWrapper = styled.div`
+  perspective: 600px;
 `;
 
 export const FretboardShadow = styled.div`

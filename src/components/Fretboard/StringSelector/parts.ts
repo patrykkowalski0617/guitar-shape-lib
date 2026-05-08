@@ -24,6 +24,9 @@ export const StringSelectorWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 23px 0 0 20px;
+  transform: skewX(-1deg);
+  position: relative;
+  z-index: 10;
 `;
 
 export const StringOption = styled.div`
