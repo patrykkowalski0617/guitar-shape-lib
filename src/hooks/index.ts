@@ -4,6 +4,6 @@ export * from "./useCurrentTuneKeyOffsetFromC";
 export * from "./useDelayedRender";
 export * from "./useHorizontalScroll";
 export * from "./usePersistentBoolean";
-export * from "./useShapeRootNote";
+export * from "./useCurrentShapeRootNote";
 export * from "./useShapeRootSharpNote";
 export * from "./useWakeLock";

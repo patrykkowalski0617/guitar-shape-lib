@@ -1,12 +1,12 @@
 import { usePlayerStore, useMusicStore, useControlsStore } from "@/store";
-import { useShapeRootNote } from "@/hooks";
+import { useCurrentShapeRootNote } from "@/hooks";
 import { SHAPES, type Shapes } from "@/data";
 
 export function useAddBrick() {
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
   );
-  const activeRootNote = useShapeRootNote();
+  const activeRootNote = useCurrentShapeRootNote();
 
   const shapeId = useControlsStore((state) => state.shapeId);
   if (!shapeId) return {};

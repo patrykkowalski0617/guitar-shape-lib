@@ -24,7 +24,7 @@ export const useKnob = ({ value, min, max, step, onChange }: UseKnobProps) => {
       lastY.current = e.clientY;
 
       const range = max - min;
-      const sensitivity = 0.05;
+      const sensitivity = 0.02;
       const change = deltaY * range * sensitivity;
 
       const nextValue = Math.min(max, Math.max(min, valueRef.current + change));

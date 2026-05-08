@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useShapeRootNote } from "@/hooks";
+import { useCurrentShapeRootNote } from "@/hooks";
 import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
 import { SHAPES, type TuneKeyId, type Shapes, type BaseChordId } from "@/data";
 import { useApplySnapshotToStore } from "./useApplySnapshotToStore";
@@ -32,7 +32,7 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
   const shapeVariantLocationData = useMusicStore(
     (state) => state.shapeVariantLocationData,
   );
-  const activeRootNote = useShapeRootNote();
+  const activeRootNote = useCurrentShapeRootNote();
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
   );
