@@ -2,10 +2,11 @@ import * as S from "./parts";
 import { usePlayer } from "./hooks/usePlayer";
 import { PlayerBricksContainer } from "./PlayerBricksContainer/PlayerBricksContainer";
 import { CleanButton } from "./PlayerControls/CleanButton/CleanButton";
-import { PlayerPresets } from "./PlayerPresets/PlayerPresets";
 import { BpmMultiplierButton } from "./PlayerControls/BpmControls/BpmMultiplierButton";
 import { BpmInput } from "./PlayerControls/BpmControls/BpmInput";
 import { PlayButton } from "./PlayerControls/PlayButton/PlayButton";
+import { UploadPreset } from "./PlayerPresets/UploadPreset";
+import { SavePreset } from "./PlayerPresets/SavePreset";
 
 const Bricks = () => (
   <S.PlayerSection>
@@ -15,7 +16,7 @@ const Bricks = () => (
 
 const BasicControls = () => (
   <S.PlayerNoShadowSection>
-    <PlayerPresets />
+    <UploadPreset />
     <BpmMultiplierButton />
     <BpmInput />
     <PlayButton />
@@ -25,7 +26,8 @@ const BasicControls = () => (
 const Controls = () => (
   <S.PlayerSection>
     <CleanButton />
-    <PlayerPresets />
+    <SavePreset />
+    <UploadPreset />
     <BpmMultiplierButton />
     <BpmInput />
     <PlayButton />
