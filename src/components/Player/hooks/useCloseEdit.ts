@@ -2,6 +2,7 @@ import { usePlayerStore, useMusicStore } from "@/store";
 
 export function useCloseEdit() {
   const editableBrickId = usePlayerStore((state) => state.editableBrickId);
+  const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
   const setEditableBrickId = usePlayerStore(
     (state) => state.setEditableBrickId,
   );
@@ -18,6 +19,7 @@ export function useCloseEdit() {
     setEditableBrickId(null);
     setShapeVariantLocationData_locked(null);
     setShapeVariantLocationData(null);
+    setActiveBrickId(null);
   };
 
   return {
