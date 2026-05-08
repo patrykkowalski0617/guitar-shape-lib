@@ -8,10 +8,10 @@ let dryGain: GainNode | null = null;
 let wetGain: GainNode | null = null;
 
 export const synthConfig = {
-  gain: 0.6,
-  filterFreq: 2600,
-  filterQ: 0.7,
-  oscMix: 0.5,
+  gain: 0.7,
+  filterFreq: 300,
+  filterReso: 0.1,
+  oscMix: 0.4,
   reverbMix: 0.5,
 };
 
@@ -92,7 +92,7 @@ export const updateMasterParams = () => {
 
   masterGain.gain.setTargetAtTime(synthConfig.gain, now, 0.02);
   masterFilter.frequency.setTargetAtTime(synthConfig.filterFreq, now, 0.02);
-  masterFilter.Q.setTargetAtTime(synthConfig.filterQ, now, 0.02);
+  masterFilter.Q.setTargetAtTime(synthConfig.filterReso, now, 0.02);
 
   const dryVol = Math.cos(synthConfig.reverbMix * Math.PI * 0.5);
   const wetVol = Math.sin(synthConfig.reverbMix * Math.PI * 0.5);

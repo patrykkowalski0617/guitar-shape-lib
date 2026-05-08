@@ -50,7 +50,7 @@ export const PianoControls = () => {
         label="Freq"
         value={synthConfig.filterFreq}
         min={50}
-        max={10000}
+        max={1000}
         step={10}
         onChange={(v) => handleChange("filterFreq", v)}
       />

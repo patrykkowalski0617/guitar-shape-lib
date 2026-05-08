@@ -1,4 +1,3 @@
-import { insetShadow } from "@/constants";
 import { css } from "styled-components";
 
 export const shapeExplorerCommon = css`

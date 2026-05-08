@@ -29,7 +29,6 @@ export function SoundEngine() {
 
     if (isPlayerMode) {
       if (backgingtrackNoteIds && backgingtrackNoteIds.length > 0) {
-        // Dodajemy wszystkie nuty z backing tracku (całą triadę) do Setu
         backgingtrackNoteIds.forEach((noteId) => {
           notesThatShouldPlay.add(noteId);
         });
