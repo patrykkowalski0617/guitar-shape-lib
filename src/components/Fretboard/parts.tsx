@@ -8,16 +8,21 @@ export const FretboardNotScrollableWrapper = styled.div`
   display: flex;
   flex-direction: row;
   gap: 16px;
+  justify-content: space-between;
 `;
 
-export const StringSliderWrapper = styled.div``;
+export const StringSliderWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 50px;
+`;
 
 export const FretboardWrapper = styled.div`
   padding-bottom: 20px;
   position: relative;
   margin: auto;
   overflow: hidden;
-  width: calc(1400px - 16px - 32px);
+  width: calc(1400px - 50px - 15px);
 `;
 
 export const FretboardShadow = styled.div`

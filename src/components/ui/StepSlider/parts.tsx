@@ -28,7 +28,7 @@ export const Tick = styled.div<{
   $isUserList?: boolean;
   $isVisible?: boolean;
   $isOpacityAnimationLocked?: boolean;
-  $opacityAnimationDuration: number;
+  $opacityAnimationDuration?: number;
 }>`
   position: absolute;
   top: 50%;
@@ -46,6 +46,7 @@ export const Tick = styled.div<{
       ? "0 0 8px var(--secondary), 0 0 12px var(--secondary)"
       : "2px 2px 8px 2px var(--background)"};
   ${({ $isVisible, $isOpacityAnimationLocked, $opacityAnimationDuration }) => {
+    if (!$opacityAnimationDuration) return;
     if ($isVisible) {
       return css`
         animation: ${highlightAnimation} 0.6s ease-in-out forwards;

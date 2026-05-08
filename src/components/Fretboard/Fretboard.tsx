@@ -13,6 +13,7 @@ import { getNotes } from "@/utils";
 import HiddenShapeExplorerSlider from "../ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
 import { StringSlider } from "./StringsSlider/StringsSlider";
 import FretboardRow from "./FretboardRow/FretboardRow";
+import { StringSelector } from "./StringSelector/StringSelector";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -54,6 +55,7 @@ export default function Fretboard(): JSX.Element {
     <S.FretboardNotScrollableWrapper>
       <S.StringSliderWrapper>
         <StringSlider />
+        <StringSelector />
       </S.StringSliderWrapper>
       <InstrumentScrollWrapper ref={scrollRef}>
         <FretboardNumericMarkers />
