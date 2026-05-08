@@ -13,7 +13,6 @@ export const ToggleSynthButton = () => {
     togglePlayBackingtrack();
   };
 
-  // Logika: jeśli backing track jest wyłączony, pokazujemy przekreślenie
   const isOff = !playBackingtrack;
 
   return (
