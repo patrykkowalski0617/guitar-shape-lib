@@ -1,14 +1,11 @@
 import type { SemitoneTemplateKey } from "./SCALE_SEMITONE_TEMPLATES";
 
 export type BaseChordId = keyof typeof BASE_CHORDS;
-
-export type RoleId = "tonic" | "subdominant" | "mediant" | "dominant";
-
 export interface BaseChordValue {
-  role: RoleId;
+  roleName: string;
+  roleShortName: string;
   baseScaleName: string;
   baseScaleId: SemitoneTemplateKey;
-  isMajorMode: boolean;
   semitoneOffsetFromMajorScaleRoot: number;
   modeExtendedName: string;
   CAGEDchordShape: string;
@@ -16,73 +13,73 @@ export interface BaseChordValue {
 
 export const BASE_CHORDS = {
   Tonic: {
-    role: "tonic",
+    roleName: "Major Tonic",
+    roleShortName: "T",
     baseScaleName: "Ionian",
     baseScaleId: "ionianScale",
-    isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 0,
     modeExtendedName: "M7",
     CAGEDchordShape: "major",
   },
   subdomi: {
-    role: "subdominant",
+    roleName: "Minor Subdominant",
+    roleShortName: "s",
     baseScaleName: "Dorian",
     baseScaleId: "dorianScale",
-    isMajorMode: false,
     semitoneOffsetFromMajorScaleRoot: 2,
     modeExtendedName: "m7",
     CAGEDchordShape: "minor",
   },
   mediant: {
-    role: "mediant",
+    roleName: "Mediant",
+    roleShortName: "m",
     baseScaleName: "Phrygian",
     baseScaleId: "phrygianScale",
-    isMajorMode: false,
     semitoneOffsetFromMajorScaleRoot: 4,
     modeExtendedName: "m7",
     CAGEDchordShape: "minor",
   },
   DomiPh: {
-    role: "dominant",
+    roleName: "Dominant (Phrygian)",
+    roleShortName: "DPh",
     baseScaleName: "Phrygian Dominant",
     baseScaleId: "phrygianDominantScale",
-    isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 4,
     modeExtendedName: "7",
     CAGEDchordShape: "major",
   },
   Subdomi: {
-    role: "subdominant",
+    roleName: "Major Subdominant",
+    roleShortName: "S",
     baseScaleName: "Lydian",
     baseScaleId: "lydianScale",
-    isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 5,
     modeExtendedName: "M7",
     CAGEDchordShape: "major",
   },
   Domi: {
-    role: "dominant",
+    roleName: "Dominant",
+    roleShortName: "D",
     baseScaleName: "Mixolydian",
     baseScaleId: "mixolydianScale",
-    isMajorMode: true,
     semitoneOffsetFromMajorScaleRoot: 7,
     modeExtendedName: "7",
     CAGEDchordShape: "major",
   },
   tonic: {
-    role: "tonic",
+    roleName: "Minor Tonic",
+    roleShortName: "t",
     baseScaleName: "Aeolian",
     baseScaleId: "aeolianScale",
-    isMajorMode: false,
     semitoneOffsetFromMajorScaleRoot: 9,
     modeExtendedName: "m7",
     CAGEDchordShape: "minor",
   },
   halfDim: {
-    role: "subdominant",
+    roleName: "Minor Sub. (Half Dim.)",
+    roleShortName: "h-dim",
     baseScaleName: "Locrian",
     baseScaleId: "locrianScale",
-    isMajorMode: false,
     semitoneOffsetFromMajorScaleRoot: 11,
     modeExtendedName: "m7b5",
     CAGEDchordShape: "halfDim",

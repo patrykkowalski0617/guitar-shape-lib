@@ -11,9 +11,10 @@ import {
   pianoBgColor,
   pseudoElKeyBase,
   simpleCutWidth,
+  whiteKeyH,
   wideCutWidth,
   widerCutWidth,
-} from "./constants";
+} from "../../constants";
 import { transition, type WhiteKeyTypes } from "../../constants";
 
 export const WhiteKeyJustifyContainer = styled.div`
@@ -178,7 +179,7 @@ export const whiteKeyCommon = css`
     color-mix(in oklab, var(--instrument) 70%, var(--background));
   outline-offset: -1px;
   border-radius: 0 0 ${instrumentElBRadius} ${instrumentElBRadius};
-  height: 140px;
+  height: ${whiteKeyH}px;
   overflow: hidden;
   &::after,
   &::before {

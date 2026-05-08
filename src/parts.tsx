@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
-import { animationDuration, appBgColor } from "./constants";
+import { appBgColor } from "./constants";
 import {
   instrumentBRadius,
   instrumentElBRadius,
-} from "./components/Piano/PianoKey/parts/constants";
+} from "./components/Piano/constants";
 
 export const AppWrapper = styled.div`
   display: flex;
@@ -31,38 +31,11 @@ const SectionCommonCss = css`
     }
   }
 `;
+
 export const Section = styled.div<{ $isDisabled?: boolean }>`
   max-width: 1400px;
   width: 100%;
-  interpolate-size: allow-keywords;
-
-  ${({ $isDisabled }) =>
-    $isDisabled !== undefined
-      ? css`
-          overflow: hidden;
-          height: 0;
-          opacity: 0;
-          transition:
-            height ${animationDuration} ease-in-out,
-            opacity ${animationDuration} ${animationDuration} ease-in-out;
-
-          ${!$isDisabled &&
-          css`
-            height: auto;
-            opacity: 1;
-            ${SectionCommonCss};
-          `}
-        `
-      : css`
-          height: auto;
-          ${SectionCommonCss};
-        `}
-`;
-
-export const InstrumentWrapper = styled.div`
-  margin: auto;
-  overflow: hidden;
-  width: 1400px;
+  ${SectionCommonCss}
 `;
 
 export const InstrumentScrollWrapper = styled.div`

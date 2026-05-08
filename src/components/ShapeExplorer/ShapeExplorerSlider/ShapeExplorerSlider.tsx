@@ -1,7 +1,8 @@
-import { usePersistentUnlock } from "@/hooks";
 import { useShapeExplorerLogic } from "../hooks/useShapeExplorerLogic";
+import { useStepSliderLogic } from "../hooks/useStepSliderLogic";
+import { StepSlider } from "../../ui/StepSlider/StepSlider";
+import { StepSliderTicks } from "../../ui/StepSlider/StepSliderTicks";
 import * as S from "./parts";
-import { StepSlider } from "./StepSlider";
 
 export default function ShapeExplorerSlider() {
   const {
@@ -14,23 +15,35 @@ export default function ShapeExplorerSlider() {
     handleMouseUp,
   } = useShapeExplorerLogic();
 
-  const isTemporarlyDisabled = usePersistentUnlock(isDisabled);
+  const { effectiveMax, highlightedId, handleToggleAction, clearHighlight } =
+    useStepSliderLogic({ value: sliderValue, options });
+
+  const hasNoOptions = options.length === 0;
+  const sliderMax = hasNoOptions ? 1 : effectiveMax;
 
   return (
-    <S.ShapeExplorerWrapper
-      $isTemporarlyDisabled={isTemporarlyDisabled}
-      $isDisabled={isDisabled}
-    >
+    <S.ShapeExplorerWrapper>
       <StepSlider
-        value={sliderValue}
-        options={options}
+        value={hasNoOptions ? [0] : sliderValue}
+        max={sliderMax}
         step={1}
-        userListIndexes={userListIndexes}
+        disabled={isDisabled || hasNoOptions}
         onValueChange={handleValueChange}
-        disabled={isDisabled}
         onPointerDown={handleMouseDown}
         onPointerUp={handleMouseUp}
-      />
+        onThumbDoubleClick={handleToggleAction}
+      >
+        {!hasNoOptions && (
+          <StepSliderTicks
+            options={options}
+            effectiveMax={sliderMax}
+            userListIndexes={userListIndexes}
+            highlightedId={highlightedId}
+            onHighlightEnd={clearHighlight}
+            isSliderDisabled={isDisabled}
+          />
+        )}
+      </StepSlider>
     </S.ShapeExplorerWrapper>
   );
 }

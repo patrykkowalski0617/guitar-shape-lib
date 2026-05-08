@@ -1,5 +1,5 @@
 import { css } from "styled-components";
-import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
+import { instrumentElBRadius } from "../Piano/constants";
 
 export const noteCommon = css<{ $isSelected?: boolean }>`
   background-color: color-mix(

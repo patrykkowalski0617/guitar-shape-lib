@@ -1,30 +1,50 @@
 import styled from "styled-components";
-import WoodImage from "@/assets/wood2.jpg";
+import WoodImage from "@/assets/wood.jpg";
 
 export const fretboardRPadding = "30px";
 
-export const FretboardAdjustmentWrapper = styled.div`
+export const FretboardNotScrollableWrapper = styled.div`
   margin-bottom: -20px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: space-between;
+`;
+
+export const StringSliderWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 50px;
 `;
 
 export const FretboardWrapper = styled.div`
   padding-bottom: 20px;
   position: relative;
+  margin: auto;
+  overflow: hidden;
+  width: calc(1400px - 50px - 15px);
+  transform: rotate3d(1, 0, 0, 1deg);
+  transform-origin: center;
+`;
+
+export const PerspectiveWrapper = styled.div`
+  perspective: 600px;
 `;
 
 export const FretboardShadow = styled.div`
   left: 10px;
   right: 15px;
-  height: 174px;
+  height: 179px;
   position: absolute;
   z-index: 16;
   top: 10px;
   background-size: 1400px;
   box-shadow:
-    4px 15px 8px 0px color-mix(in oklab, var(--background) 80%, transparent),
-    0px 0px 10px 0px
+    4px 10px 8px 0px color-mix(in oklab, var(--background) 80%, transparent),
+    0px 0px 5px 0px
       color-mix(in oklab, var(--instrument) 10%, var(--background));
   border-radius: 12px;
+  border-bottom: 5px solid var(--background);
 `;
 
 export const Fretboard = styled.div`
@@ -43,22 +63,21 @@ export const Fretboard = styled.div`
     left: 10px;
     background-color: color-mix(
       in oklab,
-      var(--instrument) 75%,
-      var(--background)
+      color-mix(in oklab, var(--instrument) 15%, var(--muted)) 70%,
+      var(--foreground)
     );
     background-image:
       linear-gradient(
         0deg,
         color-mix(in oklab, var(--background) 100%, transparent) 0%,
-        color-mix(in oklab, var(--background) 20%, transparent) 50%,
+        color-mix(in oklab, var(--background) 20%, transparent) 60%,
         color-mix(in oklab, var(--background) 80%, transparent) 100%
       ),
       url(${WoodImage});
 
     background-size: cover;
     background-blend-mode: overlay;
-    opacity: 0.4;
-
-    box-shadow: 25px 0px 20px 20px var(--background) inset;
+    box-shadow: 30px 0px 30px 20px
+      color-mix(in oklab, var(--background) 70%, transparent) inset;
   }
 `;

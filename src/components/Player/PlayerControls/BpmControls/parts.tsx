@@ -5,7 +5,7 @@ import {
   playerElementWidth,
 } from "../../constants";
 import { Button } from "@/components/ui/button";
-import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
+import { instrumentElBRadius } from "@/components/Piano/constants";
 
 const commonBpmElementStyles = css`
   background-color: color-mix(in oklab, var(--primary) 40%, var(--muted));
@@ -21,7 +21,6 @@ const commonBpmElementStyles = css`
   text-align: center;
   font-size: 16px;
   font-weight: 700;
-  text-shadow: 1px 1px 0 color-mix(in oklab, var(--background) 50%, transparent);
   ${playerElementCommon}
   &:hover {
     background-color: color-mix(in oklab, var(--primary) 70%, var(--muted));
@@ -29,7 +28,7 @@ const commonBpmElementStyles = css`
 
   &:focus {
     outline: none;
-    border-color: var(--accent);
+    border-color: var(--primary);
   }
 `;
 

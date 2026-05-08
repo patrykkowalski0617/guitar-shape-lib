@@ -1,16 +1,12 @@
 import { useEffect, useMemo } from "react";
 import { useShapeRootNote } from "@/hooks";
-import {
-  useControlsStore,
-  useMusicStore,
-  usePlayerStore,
-  type ShapeVariantLocationData,
-} from "@/store";
+import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
 import { SHAPES, type TuneKeyId, type Shapes, type BaseChordId } from "@/data";
 import { useApplySnapshotToStore } from "./useApplySnapshotToStore";
+import type { ShapeVariantLocationData } from "@/types";
 
 export type Snapshot = {
-  keyId: TuneKeyId;
+  tuneKeyId: TuneKeyId;
   baseChordId: BaseChordId | null;
   shapeVariantLocationData: ShapeVariantLocationData | null;
   rootNote: string | null;
@@ -28,7 +24,6 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
   );
 
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const isMajorMode = useControlsStore((state) => state.isMajorMode);
   const baseChordId = useControlsStore((state) => state.baseChordId);
   const shapeId = useControlsStore((state) => state.shapeId);
   const shapeSemitoneOffsetFromC = useControlsStore(
@@ -47,8 +42,7 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
 
   const currentLiveState: Snapshot = useMemo(
     () => ({
-      keyId: tuneKeyId,
-      isMajorMode,
+      tuneKeyId: tuneKeyId,
       baseChordId,
       shapeVariantLocationData,
       rootNote: activeRootNote,
@@ -58,7 +52,6 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
     }),
     [
       tuneKeyId,
-      isMajorMode,
       baseChordId,
       shapeVariantLocationData,
       activeRootNote,

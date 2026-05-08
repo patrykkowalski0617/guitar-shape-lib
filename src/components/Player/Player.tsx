@@ -1,7 +1,14 @@
 import * as S from "./parts";
 import { usePlayer } from "./hooks/usePlayer";
 import { PlayerBricksContainer } from "./PlayerBricksContainer/PlayerBricksContainer";
-import { PlayerControls } from "./PlayerControls/PlayerControls";
+import { CleanButton } from "./PlayerControls/CleanButton/CleanButton";
+import { BpmMultiplierButton } from "./PlayerControls/BpmControls/BpmMultiplierButton";
+import { BpmInput } from "./PlayerControls/BpmControls/BpmInput";
+import { PlayButton } from "./PlayerControls/PlayButton/PlayButton";
+import { UploadPreset } from "./PlayerControls/UploadPreset/UploadPreset";
+import { SavePreset } from "./PlayerControls/SavePreset/SavePreset";
+import { ToggleSynthButton } from "./PlayerControls/ToggleSynthButton/ToggleSynthButton";
+import { Transpose } from "./PlayerControls/Transpose/Transpose";
 
 const Bricks = () => (
   <S.PlayerSection>
@@ -9,11 +16,25 @@ const Bricks = () => (
   </S.PlayerSection>
 );
 
-const ControlsWithoutConatiner = () => <PlayerControls />;
+const BasicControls = () => (
+  <S.PlayerNoShadowSection>
+    <UploadPreset />
+    <BpmMultiplierButton />
+    <BpmInput />
+    <PlayButton />
+  </S.PlayerNoShadowSection>
+);
 
 const Controls = () => (
   <S.PlayerSection>
-    <PlayerControls />
+    <CleanButton />
+    <Transpose />
+    <SavePreset />
+    <UploadPreset />
+    <BpmMultiplierButton />
+    <BpmInput />
+    <PlayButton />
+    <ToggleSynthButton />
   </S.PlayerSection>
 );
 
@@ -25,7 +46,7 @@ const PlayerRoot = ({ children }: { children: React.ReactNode }) => {
 
 export const Player = Object.assign(PlayerRoot, {
   Bricks,
-  ControlsWithoutConatiner,
+  BasicControls,
   Controls,
   Section: S.PlayerSection,
 });

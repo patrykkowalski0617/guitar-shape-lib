@@ -4,7 +4,7 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { instrumentElBRadius } from "../Piano/PianoKey/parts/constants";
+import { instrumentElBRadius } from "../Piano/constants";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-none disabled:cursor-not-allowed disabled:opacity-50 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-none text-[12px]",
@@ -20,23 +20,23 @@ const buttonVariants = cva(
           "bg-accent/50 hover:bg-accent/60 text-accent-foreground",
         ),
         playerDashed: cn(
-          "h-[30px] w-[35px] border border-dashed border-border",
+          "border border-dashed border-border",
           "bg-muted/30 hover:bg-muted/50 hover:bg-muted/20 text-foreground",
         ),
         playerOutline: cn(
-          "h-[30px] w-[35px] border border-accent-foreground",
+          "border border-accent-foreground",
           "bg-foreground/40 hover:bg-foreground/50 text-accent-foreground",
         ),
         playerOutlineAccent: cn(
-          "h-[30px] w-[35px] font border border-contrast",
+          "font border border-contrast",
           "bg-muted/30 hover:bg-muted/50 text-contrast",
         ),
         playerOutlineWarn: cn(
-          "h-[30px] w-[35px] border border-warn",
+          "border border-warn",
           "bg-warn/30 hover:bg-muted/50 text-warn",
         ),
         playerSolid: cn(
-          "h-[30px] w-[35px] border",
+          "border",
           "bg-background bg-accent/70 hover:bg-accent/90 text-foreground",
         ),
       },

@@ -1,8 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import { useMusicStore, usePlayerStore, type Brick } from "@/store";
+import {
+  useControlsStore,
+  useMusicStore,
+  usePlayerStore,
+  type Brick,
+} from "@/store";
 import { usePlayerSnapshot } from "./usePlayerSnapshot";
 import { useBrickWidthUnit } from "./useBrickWidthUnit";
 import { useBrickResize } from "./useBrickResize";
+import { BASE_CHORDS, UNIFIED_MUSIC_KEYS } from "@/data";
+import { getNotes } from "@/utils";
+import { useEnharmonicNoteName } from "@/hooks";
 
 interface UsePlayerBrickLogicProps {
   brick: Brick;
@@ -14,6 +22,7 @@ interface UsePlayerBrickLogicProps {
 export const usePlayerBrickLogic = ({
   brick,
   isEditable,
+  onToggleEdit,
   onWidthChange,
 }: UsePlayerBrickLogicProps) => {
   const { id, width } = brick;
@@ -21,16 +30,24 @@ export const usePlayerBrickLogic = ({
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
   );
+  const removeBrick = usePlayerStore((state) => state.removeBrick);
+  const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
   const currentStep = usePlayerStore((state) => state.currentStep);
   const bricks = usePlayerStore((state) => state.bricks);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const isCountingIn = usePlayerStore((state) => state.isCountingIn);
+  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
+  const getEnharmonicNoteName = useEnharmonicNoteName();
 
   const [isResizing, setIsResizing] = useState(false);
   const birckWidthUnit = useBrickWidthUnit();
 
-  const { displayData, handleClick, applySnapshotToStore, lockedSnapshot } =
-    usePlayerSnapshot(id, isEditable);
+  const {
+    displayData,
+    handleClick: applySnapshot,
+    applySnapshotToStore,
+    lockedSnapshot,
+  } = usePlayerSnapshot(id, isEditable);
 
   const resizeHandlers = useBrickResize({
     isEditable,
@@ -40,6 +57,27 @@ export const usePlayerBrickLogic = ({
     isResizing,
     setIsResizing,
   });
+
+  const handleBrickClick = (e: React.MouseEvent) => {
+    const isNotResizing = !isResizing;
+    const snapshot = brick.snapshot;
+
+    if (isNotResizing && snapshot) {
+      setActiveBrickId(id);
+      setBaseChordId(snapshot?.baseChordId);
+      applySnapshot(e);
+    }
+  };
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    removeBrick(id);
+  };
+
+  const handleToggleEdit = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onToggleEdit();
+  };
 
   const myIndex = bricks.findIndex((b) => b.id === id);
   const stepsBeforeMe = bricks
@@ -64,6 +102,7 @@ export const usePlayerBrickLogic = ({
 
   const syncSnapshotOnBrickStart = () => {
     const isFirstStepOfBrick = activePart === 1;
+
     if (!isFirstStepOfBrick) {
       didSyncStartRef.current = false;
       return;
@@ -116,21 +155,33 @@ export const usePlayerBrickLogic = ({
     setShapeVariantLocationData_locked,
   ]);
 
-  const roleMarker = displayData && displayData.baseChordId !== null;
-
   const hasData = displayData.rootNote !== null;
+
+  const tuneKeyOffset = UNIFIED_MUSIC_KEYS[displayData.tuneKeyId].offsetFromC;
+
+  const roleMarker =
+    hasData && displayData.baseChordId !== null
+      ? getEnharmonicNoteName(
+          getNotes({ length: 24 })[
+            BASE_CHORDS[displayData.baseChordId]
+              .semitoneOffsetFromMajorScaleRoot + tuneKeyOffset
+          ],
+        )
+      : null;
 
   const label = isResizing
     ? width
-    : hasData
-      ? `${roleMarker}${displayData.rootNote} ${displayData.shapeLabel}`
+    : hasData && displayData.baseChordId !== null
+      ? `${roleMarker} ${BASE_CHORDS[displayData.baseChordId].modeExtendedName} | ${displayData.rootNote} ${displayData.shapeLabel}`
       : `Empty`;
 
   return {
     birckWidthUnit,
     activePart,
     label,
-    handleClick,
+    handleClick: handleBrickClick,
+    handleDelete,
+    handleToggleEdit,
     isResizing,
     resizeHandlers,
   };

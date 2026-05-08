@@ -79,7 +79,7 @@ export const calculateMatrixData = (
     allScaleIndices,
     shapeIndices,
     visibleColumnsIndices,
-    baseChordDisplayTitle: `${chordRootName} ${baseChord.modeExtendedName}`,
+    baseChordDisplayTitle: `${chordRootName} (${baseChord.modeExtendedName})`,
     shapeLabel: `${shapeRootName} ${shape.label}`,
   };
 };

@@ -3,8 +3,9 @@ import { useMetronome } from "./useMetronome";
 import { usePlayerStore, useMusicStore, useControlsStore } from "@/store";
 
 export function usePlayer() {
-  const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
-  const setIsMajorMode = useControlsStore((state) => state.setIsMajorMode);
+  const setEditableBrickId = usePlayerStore(
+    (state) => state.setEditableBrickId,
+  );
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
   );
@@ -12,6 +13,7 @@ export function usePlayer() {
     (state) => state.setShapeVariantLocationData,
   );
   const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
+  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
 
   const bpm = usePlayerStore((state) => state.bpm);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -20,7 +22,7 @@ export function usePlayer() {
 
   const nextStep = usePlayerStore((state) => state.nextStep);
   const handleTick = useCallback(() => {
-    nextStep();
+    return nextStep();
   }, [nextStep]);
 
   const { toggleMetronome } = useMetronome(bpm, handleTick);
@@ -35,8 +37,7 @@ export function usePlayer() {
     if (bricks.length === 0) {
       setShapeVariantLocationData(null);
       setShapeVariantLocationData_locked(null);
-      setActiveBrickId(null);
-      setIsMajorMode(true);
+      setEditableBrickId(null);
     }
 
     if (!isCountingIn) return;
@@ -50,7 +51,8 @@ export function usePlayer() {
     setShapeVariantLocationData_locked(
       firstBrick.snapshot.shapeVariantLocationData,
     );
-    setTuneKeyId(firstBrick.snapshot.keyId);
+    setTuneKeyId(firstBrick.snapshot.tuneKeyId);
+    setBaseChordId(firstBrick.snapshot.baseChordId);
     hasPreparedCountInRef.current = true;
   }, [
     isPlaying,
@@ -59,8 +61,8 @@ export function usePlayer() {
     setShapeVariantLocationData_locked,
     setShapeVariantLocationData,
     setTuneKeyId,
-    setActiveBrickId,
-    setIsMajorMode,
+    setBaseChordId,
+    setEditableBrickId,
   ]);
 
   useEffect(() => {

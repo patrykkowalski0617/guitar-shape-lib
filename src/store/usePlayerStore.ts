@@ -14,6 +14,7 @@ export const BPM_LIMITS = {
 
 interface PlayerState {
   bricks: Brick[];
+  editableBrickId: number | null;
   activeBrickId: number | null;
   bpm: number;
   bpmMultiplier: number;
@@ -26,11 +27,12 @@ interface PlayerState {
   removeBrick: (id: number) => void;
   updateBrickWidth: (id: number, newWidth: number) => void;
   updateBrickSnapshot: (id: number, snapshot: Snapshot) => void;
+  setEditableBrickId: (id: number | null) => void;
   setActiveBrickId: (id: number | null) => void;
   setBpm: (bpm: number) => void;
   setBpmMultiplier: (multiplier: number) => void;
   togglePlay: () => void;
-  nextStep: () => void;
+  nextStep: () => { isNewBrick: boolean; isFirstStepTotal: boolean };
   getTotalSteps: () => number;
   reorderBricks: (startIndex: number, endIndex: number) => void;
   setBricks: (bricks: Brick[]) => void;
@@ -38,6 +40,7 @@ interface PlayerState {
 
 export const usePlayerStore = create<PlayerState>((set, get) => ({
   bricks: [],
+  editableBrickId: null,
   activeBrickId: null,
   bpm: 70,
   bpmMultiplier: 1,
@@ -67,10 +70,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
 
         const hasSameSnapshot =
           JSON.stringify(b.snapshot) === JSON.stringify(snapshot);
-
-        if (hasSameSnapshot) {
-          return b;
-        }
+        if (hasSameSnapshot) return b;
 
         return { ...b, snapshot };
       }),
@@ -79,7 +79,8 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   removeBrick: (id) =>
     set((state) => ({
       bricks: state.bricks.filter((b) => b.id !== id),
-      activeBrickId: state.activeBrickId === id ? null : state.activeBrickId,
+      editableBrickId:
+        state.editableBrickId === id ? null : state.editableBrickId,
     })),
 
   updateBrickWidth: (id, newWidth) =>
@@ -89,7 +90,10 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
       ),
     })),
 
+  setEditableBrickId: (id) => set({ editableBrickId: id }),
+
   setActiveBrickId: (id) => set({ activeBrickId: id }),
+
   setBpm: (bpm) =>
     set({ bpm: Math.max(BPM_LIMITS.MIN, Math.min(BPM_LIMITS.MAX, bpm)) }),
   setBpmMultiplier: (bpmMultiplier) => set({ bpmMultiplier }),
@@ -119,18 +123,34 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   },
 
   nextStep: () => {
-    const { currentStep, getTotalSteps, isCountingIn, countIn } = get();
+    const { currentStep, getTotalSteps, isCountingIn, countIn, bricks } = get();
+
     if (isCountingIn) {
       if (countIn > 1) {
         set({ countIn: countIn - 1 });
       } else {
         set({ isCountingIn: false, countIn: 0, currentStep: 0 });
       }
-      return;
+      return { isNewBrick: true, isFirstStepTotal: countIn === 1 };
     }
+
     const total = getTotalSteps();
-    if (total === 0) return;
-    set({ currentStep: (currentStep + 1) % total });
+    if (total === 0) return { isNewBrick: false, isFirstStepTotal: false };
+
+    const nextStepIndex = (currentStep + 1) % total;
+    set({ currentStep: nextStepIndex });
+
+    let accumulatedWidth = 0;
+    const isNewBrick = bricks.some((brick) => {
+      const isStart = nextStepIndex === accumulatedWidth;
+      accumulatedWidth += brick.width;
+      return isStart;
+    });
+
+    return {
+      isNewBrick,
+      isFirstStepTotal: nextStepIndex === 0,
+    };
   },
 
   reorderBricks: (startIndex, endIndex) => {

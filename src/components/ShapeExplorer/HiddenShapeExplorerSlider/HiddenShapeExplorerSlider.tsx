@@ -2,7 +2,7 @@ import { useShapeExplorerLogic } from "../hooks/useShapeExplorerLogic";
 import * as S from "./parts";
 import { StepSlider } from "./StepSlider";
 
-export default function ShapeExplorerSlider() {
+export default function HiddenShapeExplorerSlider() {
   const {
     shapeId,
     options,

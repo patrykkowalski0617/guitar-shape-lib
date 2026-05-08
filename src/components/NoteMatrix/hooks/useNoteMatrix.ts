@@ -1,5 +1,5 @@
 import { useControlsStore, useMusicStore } from "@/store";
-import { useEnharmonicNoteName, usePersistentUnlock } from "@/hooks";
+import { useEnharmonicNoteName } from "@/hooks";
 import {
   calculateMatrixData,
   getIsScaleNoteVisible,
@@ -14,12 +14,13 @@ export const useNoteMatrix = () => {
     (state) => state.shapeSemitoneOffsetFromC,
   );
 
-  const selectedNotes = useMusicStore((state) => state.selectedComponentNotes);
+  const selectedNotes = useMusicStore(
+    (state) => state.selectedTargetNotesNames,
+  );
   const setSelectedNotes = useMusicStore(
-    (state) => state.setSelectedComponentNotes,
+    (state) => state.setSelectedTargetNotesNames,
   );
 
-  const isTemporarlyDisabled = usePersistentUnlock(!shapeId);
   const getEnharmonicName = useEnharmonicNoteName();
 
   const isStateReady = !!(
@@ -62,7 +63,6 @@ export const useNoteMatrix = () => {
   });
 
   return {
-    isTemporarlyDisabled,
     isStateReady,
     data,
     selectedNotes,

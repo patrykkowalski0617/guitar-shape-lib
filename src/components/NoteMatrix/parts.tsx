@@ -1,5 +1,5 @@
 import { noteCommon } from "@/components/NoteLabel/constants";
-import { instrumentElBRadius } from "@/components/Piano/PianoKey/parts/constants";
+import { instrumentElBRadius } from "@/components/Piano/constants";
 import { glassEffectShadow } from "@/constants";
 import { Label } from "@/parts";
 import styled, { css } from "styled-components";
@@ -11,7 +11,7 @@ export const NoteMatrixSection = styled.div`
   border: 1px solid color-mix(in oklab, var(--instrument) 20%, transparent);
   border-radius: calc(${instrumentElBRadius} + 2px);
   padding: 8px;
-  gap: 4px;
+  gap: calc(var(--spacing) * 4);
   position: relative;
   background-color: color-mix(in oklab, var(--foreground) 5%, transparent);
   ${glassEffectShadow}
@@ -23,7 +23,7 @@ export const NoteMatrixSection = styled.div`
 export const NoteMatrixSectionColumn = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: calc(var(--spacing));
   width: 100%;
 `;
 
@@ -48,7 +48,7 @@ export const RowTitle = styled.div<{ $isStateReady: boolean }>`
 export const NotesRow = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 4px;
+  gap: calc(var(--spacing));
 `;
 
 export const Note = styled.div<{
@@ -61,7 +61,7 @@ export const Note = styled.div<{
   ${({ $isVisible }) =>
     !$isVisible &&
     css`
-      opacity: 0.2;
+      opacity: 0.1;
     `}
   ${({ $isSharedNote }) =>
     $isSharedNote &&

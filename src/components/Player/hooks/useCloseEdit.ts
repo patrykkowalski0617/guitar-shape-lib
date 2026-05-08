@@ -1,8 +1,11 @@
 import { usePlayerStore, useMusicStore } from "@/store";
 
 export function useCloseEdit() {
-  const activeBrickId = usePlayerStore((state) => state.activeBrickId);
+  const editableBrickId = usePlayerStore((state) => state.editableBrickId);
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
+  const setEditableBrickId = usePlayerStore(
+    (state) => state.setEditableBrickId,
+  );
   const setShapeVariantLocationData_locked = useMusicStore(
     (state) => state.setShapeVariantLocationData_locked,
   );
@@ -10,12 +13,13 @@ export function useCloseEdit() {
     (state) => state.setShapeVariantLocationData,
   );
 
-  const isEditModeActive = activeBrickId !== null;
+  const isEditModeActive = editableBrickId !== null;
 
   const closeEdit = () => {
-    setActiveBrickId(null);
+    setEditableBrickId(null);
     setShapeVariantLocationData_locked(null);
     setShapeVariantLocationData(null);
+    setActiveBrickId(null);
   };
 
   return {

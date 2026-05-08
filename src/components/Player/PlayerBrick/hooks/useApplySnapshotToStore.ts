@@ -3,6 +3,7 @@ import type { Snapshot } from ".";
 
 export const useApplySnapshotToStore = () => {
   const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
+  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
   const setShape = useControlsStore((state) => state.setShape);
   const setShapeVariantLocationData = useMusicStore(
     (state) => state.setShapeVariantLocationData,
@@ -10,8 +11,8 @@ export const useApplySnapshotToStore = () => {
 
   return (snapshot: Snapshot) => {
     setShapeVariantLocationData(snapshot.shapeVariantLocationData);
-    setTuneKeyId(snapshot.keyId);
-
+    setTuneKeyId(snapshot.tuneKeyId);
+    setBaseChordId(snapshot.baseChordId);
     setShape(snapshot.shapeId, snapshot.shapeSemitoneOffsetFromC);
   };
 };

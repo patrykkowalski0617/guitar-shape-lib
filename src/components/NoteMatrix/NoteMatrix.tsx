@@ -37,17 +37,12 @@ export const NoteMatrix = () => {
             const isVisible = getIsScaleNoteVisible(i, data.allScaleIndices);
             const noteName = isVisible ? data.displayNoteNames[i] : "";
             const isShared = checkIsShared(noteName);
-            const isSelected = selectedNotes.includes(noteName);
+            // const isSelected = selectedNotes.includes(noteName);
 
             return (
               <S.NoteWrapper key={`base-wrapper-${i}`}>
                 <S.IntervalContainer>{getIntervalName(i)}</S.IntervalContainer>
-                <S.Note
-                  $isVisible={isVisible}
-                  $isSharedNote={isShared}
-                  $isSelected={isSelected}
-                  onClick={() => isVisible && setSelectedNotes(noteName)}
-                >
+                <S.Note $isVisible={isVisible} $isSharedNote={isShared}>
                   {noteName}
                 </S.Note>
               </S.NoteWrapper>
@@ -66,7 +61,8 @@ export const NoteMatrix = () => {
             const isVisible = getIsShapeNoteVisible(i, data.shapeIndices);
             const noteName = isVisible ? data.displayNoteNames[i] : "";
             const isShared = checkIsShared(noteName);
-            const isSelected = selectedNotes.includes(noteName);
+            const isSelected =
+              noteName !== "" && selectedNotes.includes(noteName);
 
             return (
               <S.Note
@@ -74,7 +70,9 @@ export const NoteMatrix = () => {
                 $isVisible={isVisible}
                 $isSharedNote={isShared}
                 $isSelected={isSelected}
-                onClick={() => isVisible && setSelectedNotes(noteName)}
+                onClick={() =>
+                  isVisible && noteName && setSelectedNotes(noteName)
+                }
               >
                 {noteName}
               </S.Note>

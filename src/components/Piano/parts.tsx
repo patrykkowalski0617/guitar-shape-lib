@@ -1,23 +1,18 @@
 import styled from "styled-components";
-import {
-  instrumentBRadius,
-  instrumentElBRadius,
-} from "./PianoKey/parts/constants";
+import { instrumentBRadius, instrumentElBRadius } from "./constants";
 
 export const ShadowWrapper = styled.div`
-  padding-top: 15px;
-  margin-top: -15px;
-
   position: relative;
+  transform-origin: center;
 `;
 
 export const PianoKeysShadow = styled.div`
-  box-shadow: 0px 10px 6px 0px
+  box-shadow: 0px 8px 8px 1px
     color-mix(in oklab, var(--background) 100%, transparent) inset;
   position: absolute;
   top: 0;
-  left: -2px;
-  right: 0;
+  left: -4px;
+  right: -2px;
   border-radius: ${instrumentBRadius} ${instrumentBRadius} 0 0;
   height: 20px;
   z-index: 15;
@@ -28,9 +23,9 @@ export const PianoShadow = styled.div`
     ${instrumentElBRadius} ${instrumentElBRadius};
   box-shadow:
     5px 8px 10px 5px color-mix(in oklab, var(--background) 100%, transparent),
-    0px -2px 25px 5px color-mix(in oklab, var(--foreground) 35%, transparent),
-    0px 5px 25px 10px color-mix(in oklab, var(--background) 100%, transparent);
-  height: 140px;
+    0px -5px 20px 5px color-mix(in oklab, var(--foreground) 30%, transparent),
+    0px 5px 20px 5px color-mix(in oklab, var(--background) 100%, transparent);
+  top: 0;
   left: 1px;
   right: 1px;
   bottom: 1px;
@@ -44,6 +39,8 @@ export const PianoWrapper = styled.div`
     ${instrumentElBRadius} ${instrumentElBRadius};
   position: relative;
   overflow: hidden;
+  margin-left: auto;
+  width: 1400px;
 `;
 
 export const Piano = styled.div<{ $numberOfKeys: number }>`

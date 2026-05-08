@@ -1,18 +1,16 @@
 import { create } from "zustand";
 import type { BaseChordId, TuneKeyId } from "@/data";
+import {
+  STRINGS_CONFIG,
+  type StringIndex,
+} from "@/components/Fretboard/constants";
 
 interface ControlsState {
-  isMajorMode: boolean;
-  setIsMajorMode: (isMajorMode: boolean) => void;
-
   tuneKeyId: TuneKeyId;
   setTuneKeyId: (id: TuneKeyId) => void;
 
   baseChordId: BaseChordId | null;
   setBaseChordId: (id: BaseChordId | null) => void;
-
-  setToggleBaseChordId: (id: BaseChordId | null) => void;
-  toggleBaseChordId: BaseChordId | null;
 
   shapeId: string | null;
   shapeSemitoneOffsetFromC: number | null;
@@ -29,32 +27,34 @@ interface ControlsState {
   isShapeSliderHold: boolean;
   setIsShapeSliderHold: (hold: boolean) => void;
 
-  isActuallyPlayable: boolean;
-  toggleItIsActuallyPlayable: () => void;
+  isPianoOn: boolean;
+  togglePianoOn: () => void;
+
+  visibleStrings: StringIndex[];
+  setVisibleStrings: (strings: StringIndex[]) => void;
+
+  playBackingtrack: boolean;
+  togglePlayBackingtrack: () => void;
 }
 
 const initialState = {
-  isMajorMode: true,
   tuneKeyId: "C" as TuneKeyId,
   baseChordId: null,
-  toggleBaseChordId: null,
   shapeId: null,
   shapeSemitoneOffsetFromC: null as number | null,
   isShapeSelectOpen: false,
   isShapeSliderHold: false,
-  isActuallyPlayable: false,
+  isPianoOn: false,
+  visibleStrings: Array.from(STRINGS_CONFIG.keys()) as StringIndex[],
+  playBackingtrack: true,
 };
 
 export const useControlsStore = create<ControlsState>((set) => ({
   ...initialState,
 
-  setIsMajorMode: (isMajorMode) => set({ isMajorMode }),
-
   setTuneKeyId: (tuneKeyId) => set({ tuneKeyId }),
 
   setBaseChordId: (baseChordId) => set({ baseChordId }),
-
-  setToggleBaseChordId: (toggleBaseChordId) => set({ toggleBaseChordId }),
 
   setShape: (shapeId, shapeSemitoneOffsetFromC) =>
     set({
@@ -66,8 +66,12 @@ export const useControlsStore = create<ControlsState>((set) => ({
 
   setIsShapeSliderHold: (isShapeSliderHold) => set({ isShapeSliderHold }),
 
-  toggleItIsActuallyPlayable: () =>
-    set((state) => ({ isActuallyPlayable: !state.isActuallyPlayable })),
+  togglePianoOn: () => set((state) => ({ isPianoOn: !state.isPianoOn })),
 
   resetControls: () => set(initialState),
+
+  setVisibleStrings: (strings) => set({ visibleStrings: strings }),
+
+  togglePlayBackingtrack: () =>
+    set((state) => ({ playBackingtrack: !state.playBackingtrack })),
 }));

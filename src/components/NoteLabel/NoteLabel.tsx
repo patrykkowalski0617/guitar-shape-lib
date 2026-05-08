@@ -1,13 +1,14 @@
 import { type JSX } from "react";
 import { useMusicStore } from "@/store";
 import * as S from "./parts";
+import type { Note } from "@/data";
 
 export type Variant = "fretboard" | "piano";
 
 interface NoteLabelProps {
   isVisible?: boolean;
   variant: Variant;
-  noteLabel: string;
+  noteLabel: Note;
 }
 
 export default function NoteLabel({
@@ -16,7 +17,7 @@ export default function NoteLabel({
   noteLabel,
 }: NoteLabelProps): JSX.Element {
   const isSelected = useMusicStore((state) =>
-    state.selectedComponentNotes.includes(noteLabel),
+    state.selectedTargetNotesNames.includes(noteLabel),
   );
 
   return (

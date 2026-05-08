@@ -1,20 +1,19 @@
 import { type JSX, useEffect, useRef } from "react";
 import * as S from "./parts";
-import {
-  numberOfFrets,
-  STRINGS_CONFIG,
-} from "./FretboardRow/helpers/constants";
+import { numberOfFrets, STRINGS_CONFIG, type StringIndex } from "./constants";
 import { useHorizontalScroll } from "@/hooks";
-import FretboardRow, { type StringIndex } from "./FretboardRow/FretboardRow";
-import { InstrumentScrollWrapper, InstrumentWrapper } from "@/parts";
+import { InstrumentScrollWrapper } from "@/parts";
 import { useFretboardScroll } from "./hooks";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
-import HiddenShapeExplorerSlider from "@/components/ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
 import { useMusicStore } from "@/store";
 import { useShapeCoordinates } from "./FretboardCell/hooks";
 import type { FretboardCoordinate, Note } from "@/data";
 import { getNotes } from "@/utils";
+import HiddenShapeExplorerSlider from "../ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
+import { StringSlider } from "./StringsSlider/StringsSlider";
+import FretboardRow from "./FretboardRow/FretboardRow";
+import { StringSelector } from "./StringSelector/StringSelector";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -53,11 +52,14 @@ export default function Fretboard(): JSX.Element {
   ]);
 
   return (
-    <S.FretboardAdjustmentWrapper>
+    <S.FretboardNotScrollableWrapper>
+      <S.StringSliderWrapper>
+        <StringSlider />
+        <StringSelector />
+      </S.StringSliderWrapper>
       <InstrumentScrollWrapper ref={scrollRef}>
-        <InstrumentWrapper>
-          <FretboardNumericMarkers />
-
+        <FretboardNumericMarkers />
+        <S.PerspectiveWrapper>
           <S.FretboardWrapper>
             <S.Fretboard>
               {allFretboardNotes.map((rowNotes, index) => (
@@ -72,8 +74,8 @@ export default function Fretboard(): JSX.Element {
               <FretboardDotMarkers />
             </S.Fretboard>
           </S.FretboardWrapper>
-        </InstrumentWrapper>
+        </S.PerspectiveWrapper>
       </InstrumentScrollWrapper>
-    </S.FretboardAdjustmentWrapper>
+    </S.FretboardNotScrollableWrapper>
   );
 }

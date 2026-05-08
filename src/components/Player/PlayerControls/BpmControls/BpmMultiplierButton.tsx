@@ -8,14 +8,14 @@ export const BpmMultiplierButton = () => {
   const setBpmMultiplier = usePlayerStore((state) => state.setBpmMultiplier);
 
   const handleClick = () => {
-    const nextCount = count >= 3 ? 1 : count + 1;
+    const nextCount = count >= 4 ? 1 : count + 1;
     setCount(nextCount);
     setBpmMultiplier(nextCount);
   };
 
   return (
     <S.BpmButton disabled={isPlaying} onClick={handleClick}>
-      {count} x
+      /{count}
     </S.BpmButton>
   );
 };
