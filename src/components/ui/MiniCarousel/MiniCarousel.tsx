@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import * as S from "./parts";
+import { usePlayerStore } from "@/store";
 
 interface MiniCarouselProps<T> {
   items: T[];
@@ -24,6 +25,7 @@ export function MiniCarousel<T>({
   renderItem,
   getItemId,
 }: MiniCarouselProps<T>) {
+  const isPlaying = usePlayerStore((state) => state.isPlaying);
   const carouselWrapperRef = useRef<HTMLDivElement>(null);
   const [visibleIndex, setVisibleIndex] = useState(0);
   const [isUserInteracting, setIsUserInteracting] = useState(false);
@@ -54,11 +56,11 @@ export function MiniCarousel<T>({
       if (!isFullyVisible) {
         container.scrollTo({
           left: container.scrollLeft + (targetRect.left - containerRect.left),
-          behavior: "smooth",
+          behavior: isPlaying ? "instant" : "smooth",
         });
       }
     }
-  }, [activeId]);
+  }, [activeId, isPlaying]);
 
   const clearAutoPlay = () => {
     if (autoPlayIntervalRef.current) {
