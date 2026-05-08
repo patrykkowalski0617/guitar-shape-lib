@@ -7,9 +7,9 @@ import {
   type Brick,
 } from "@/store";
 import * as S from "./parts";
-import { playerIconSize } from "../constants";
-import { useCloseEdit } from "../hooks/useCloseEdit";
-import { importBricksFromJson } from "./importBricksFromJson";
+import { playerIconSize } from "../../constants";
+import { useCloseEdit } from "../../hooks/useCloseEdit";
+import { importBricksFromJson } from "../../PlayerPresets/importBricksFromJson";
 
 export function UploadPreset() {
   const fileInputRef = useRef<HTMLInputElement>(null);

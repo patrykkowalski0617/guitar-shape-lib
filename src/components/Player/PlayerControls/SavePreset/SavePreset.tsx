@@ -1,8 +1,8 @@
 import { FileDown } from "lucide-react";
 import { usePlayerStore } from "@/store";
 import * as S from "./parts";
-import { playerIconSize } from "../constants";
-import { exportBricksToJson } from "./exportBricksToJson";
+import { playerIconSize } from "../../constants";
+import { exportBricksToJson } from "../../PlayerPresets/exportBricksToJson";
 
 export function SavePreset() {
   const isPlaying = usePlayerStore((state) => state.isPlaying);

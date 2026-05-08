@@ -5,8 +5,8 @@ import { CleanButton } from "./PlayerControls/CleanButton/CleanButton";
 import { BpmMultiplierButton } from "./PlayerControls/BpmControls/BpmMultiplierButton";
 import { BpmInput } from "./PlayerControls/BpmControls/BpmInput";
 import { PlayButton } from "./PlayerControls/PlayButton/PlayButton";
-import { UploadPreset } from "./PlayerPresets/UploadPreset";
-import { SavePreset } from "./PlayerPresets/SavePreset";
+import { UploadPreset } from "./PlayerControls/UploadPreset/UploadPreset";
+import { SavePreset } from "./PlayerControls/SavePreset/SavePreset";
 
 const Bricks = () => (
   <S.PlayerSection>
