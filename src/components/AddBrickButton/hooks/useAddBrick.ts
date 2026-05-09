@@ -13,8 +13,12 @@ export function useAddBrick() {
 
   const addBrick = () => {
     const { addBrick: addBrickToStore } = usePlayerStore.getState();
-    const { tuneKeyId, baseChordId, shapeId, shapeSemitoneOffsetFromC } =
-      useControlsStore.getState();
+    const {
+      tuneKeyId,
+      baseChordId,
+      shapeId,
+      semitoneOffsetFromMajorTonicRoot,
+    } = useControlsStore.getState();
     const { shapeVariantLocationData } = useMusicStore.getState();
 
     const activeShape = SHAPES[shapeId as keyof Shapes] || null;
@@ -25,7 +29,7 @@ export function useAddBrick() {
       shapeVariantLocationData,
       rootNote: activeRootNote,
       shapeLabel: activeShape?.label,
-      shapeSemitoneOffsetFromC,
+      semitoneOffsetFromMajorTonicRoot,
       shapeId,
     };
 

@@ -35,8 +35,8 @@ export const LabelText = styled.span`
 `;
 
 export const KnobOuter = styled.div`
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: linear-gradient(145deg, #2a2a2a, #050505);
   box-shadow:
@@ -75,7 +75,7 @@ export const IndicatorMark = styled.div`
 
 export const SwitchContainer = styled.div<{ $isActive: boolean }>`
   width: 28px;
-  height: 32px;
+  height: 40px;
   border-radius: 4px;
   border: 2px solid #151515;
   display: flex;

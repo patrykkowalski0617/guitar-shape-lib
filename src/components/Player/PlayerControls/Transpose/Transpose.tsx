@@ -1,7 +1,6 @@
 import { Plus, Minus } from "lucide-react";
 import { usePlayerStore } from "@/store";
 import * as S from "./parts";
-import { playerIconSize } from "../../constants";
 import { transposeBricks } from "./helpers/transposeBricks";
 
 export function Transpose() {
@@ -27,10 +26,10 @@ export function Transpose() {
   return (
     <S.Button variant={"playerOutline"} disabled={isPlaying || !bricks.length}>
       <S.MinusArea onClick={handleDecrement}>
-        <Minus size={playerIconSize} strokeWidth={3} />
+        <Minus size={18} strokeWidth={3} />
       </S.MinusArea>
       <S.PlusArea onClick={handleIncrement}>
-        <Plus size={playerIconSize} strokeWidth={3} />
+        <Plus size={18} strokeWidth={3} />
       </S.PlusArea>
     </S.Button>
   );

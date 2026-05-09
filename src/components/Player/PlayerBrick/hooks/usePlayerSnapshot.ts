@@ -11,7 +11,7 @@ export type Snapshot = {
   shapeVariantLocationData: ShapeVariantLocationData | null;
   rootNote: string | null;
   shapeLabel: string | undefined;
-  shapeSemitoneOffsetFromC: number | null;
+  semitoneOffsetFromMajorTonicRoot: number | null;
   shapeId: string | null;
 };
 
@@ -26,8 +26,8 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
   const baseChordId = useControlsStore((state) => state.baseChordId);
   const shapeId = useControlsStore((state) => state.shapeId);
-  const shapeSemitoneOffsetFromC = useControlsStore(
-    (state) => state.shapeSemitoneOffsetFromC,
+  const semitoneOffsetFromMajorTonicRoot = useControlsStore(
+    (state) => state.semitoneOffsetFromMajorTonicRoot,
   );
   const shapeVariantLocationData = useMusicStore(
     (state) => state.shapeVariantLocationData,
@@ -47,7 +47,7 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
       shapeVariantLocationData,
       rootNote: activeRootNote,
       shapeLabel: activeShape?.label,
-      shapeSemitoneOffsetFromC,
+      semitoneOffsetFromMajorTonicRoot,
       shapeId,
     }),
     [
@@ -56,7 +56,7 @@ export function usePlayerSnapshot(brickId: number, isEditable: boolean) {
       shapeVariantLocationData,
       activeRootNote,
       activeShape,
-      shapeSemitoneOffsetFromC,
+      semitoneOffsetFromMajorTonicRoot,
       shapeId,
     ],
   );

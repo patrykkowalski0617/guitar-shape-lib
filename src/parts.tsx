@@ -25,7 +25,7 @@ export const MainContent = styled.main`
 const SectionCommonCss = css`
   padding: 13px 0;
   @media (min-width: 1024px) {
-    padding: 25px 0;
+    padding: 20px 0;
     &:last-child {
       padding-bottom: 0px;
     }

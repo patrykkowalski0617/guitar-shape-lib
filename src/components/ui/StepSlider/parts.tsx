@@ -1,4 +1,11 @@
+import { insetShadow } from "@/constants";
+import * as SliderPrimitive from "@radix-ui/react-slider";
 import styled, { css, keyframes } from "styled-components";
+
+interface StyledProps {
+  $isVertical?: boolean;
+  $thumbSize?: number;
+}
 
 const highlightAnimation = keyframes`
   0% { 
@@ -16,12 +23,8 @@ const highlightAnimation = keyframes`
 `;
 
 const tickOpacity = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 `;
 
 export const Tick = styled.div<{
@@ -36,23 +39,28 @@ export const Tick = styled.div<{
   width: 12px;
   height: 12px;
   border-radius: 50%;
+
   background: ${({ $isUserList }) =>
     $isUserList
-      ? "radial-gradient(circle,var(--foreground) 0%, var(--secondary) 100%)"
-      : "radial-gradient(circle,var(--accent) 0%, var(--muted) 100%)"};
+      ? "radial-gradient(circle, var(--foreground) 0%, var(--secondary) 100%)"
+      : "radial-gradient(circle, var(--accent) 0%, var(--muted) 100%)"};
 
   box-shadow: ${({ $isUserList }) =>
     $isUserList
       ? "0 0 8px var(--secondary), 0 0 12px var(--secondary)"
       : "2px 2px 8px 2px var(--background)"};
+
   ${({ $isVisible, $isOpacityAnimationLocked, $opacityAnimationDuration }) => {
     if (!$opacityAnimationDuration) return;
+
     if ($isVisible) {
       return css`
         animation: ${highlightAnimation} 0.6s ease-in-out forwards;
         z-index: 10;
       `;
-    } else if (!$isOpacityAnimationLocked) {
+    }
+
+    if (!$isOpacityAnimationLocked) {
       return css`
         opacity: 0;
         animation: ${tickOpacity} ${$opacityAnimationDuration}ms
@@ -60,4 +68,89 @@ export const Tick = styled.div<{
       `;
     }
   }}
+`;
+
+export const SliderRoot = styled(SliderPrimitive.Root)<StyledProps>`
+  position: relative;
+  display: flex;
+  align-items: center;
+  touch-action: none;
+  user-select: none;
+
+  ${({ $isVertical }) =>
+    $isVertical
+      ? css`
+          flex-direction: column;
+          height: 100%;
+          width: 32px;
+        `
+      : css`
+          flex-direction: row;
+          width: 100%;
+          height: 32px;
+        `}
+`;
+
+export const SliderTrack = styled(SliderPrimitive.Track)<StyledProps>`
+  position: relative;
+  flex-grow: 1;
+  background-color: color-mix(in oklab, var(--background) 50%, transparent);
+  border-radius: 9999px;
+  ${insetShadow}
+  ${({ $isVertical, $thumbSize = 28 }) =>
+    $isVertical
+      ? css`
+          width: 5px;
+          height: 100%;
+          margin: ${$thumbSize / 2}px 0;
+        `
+      : css`
+          height: 5px;
+          width: 100%;
+          margin: 0 ${$thumbSize / 2}px;
+        `}
+`;
+
+// prettier-ignore
+export const SliderThumb = styled(SliderPrimitive.Thumb)<StyledProps & { disabled?: boolean }>`
+  display: block;
+  border-radius: 9999px;
+  border: 1px solid var(--accent);
+  cursor: grab;
+  transition:  0.2s;
+  width: ${({ $thumbSize }) => $thumbSize}px;
+  height: ${({ $thumbSize }) => $thumbSize}px;
+
+  box-shadow:
+    2px 2px 8px 2px var(--background),
+    0px 0px 2px 1px var(--border) inset,
+    0px 0px 3px 2px var(--contrast) inset;
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    box-shadow:
+      2px 2px 8px 2px var(--background),
+      0px 0px 2px 1px var(--border) inset,
+      0px 0px 3px 2px var(--contrast) inset,
+      0 0 0 2px color-mix(in oklab, var(--accent) 70%, transparent);
+  }
+
+  &[data-disabled] {
+    border-color: var(--border);
+    transform: scale(1);
+    cursor: default;
+    filter: grayscale(100%);
+    background-color: #444;
+  }
 `;

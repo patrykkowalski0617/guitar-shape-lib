@@ -4,6 +4,6 @@ import { middleBarButtons } from "../MiddleControlsBar/constants";
 export const Wrapper = styled.div<{
   $isDisabled: boolean;
 }>`
-  background: color-mix(in oklab, var(--warn) 80%, var(--background));
+  background: color-mix(in oklab, var(--warn) 75%, var(--background));
   ${middleBarButtons}
 `;

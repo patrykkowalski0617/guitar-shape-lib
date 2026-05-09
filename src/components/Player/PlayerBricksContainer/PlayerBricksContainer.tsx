@@ -16,7 +16,7 @@ export const PlayerBricksContainer = () => {
 
   const { draggedIndex, handleDragStart, handleDragOver, handleDragEnd } =
     usePlayerBricksDrag();
-
+  console.log(bricks);
   return (
     <S.PlayerWrapper $isPlaying={isPlaying}>
       {bricks.map((brick, index) => {

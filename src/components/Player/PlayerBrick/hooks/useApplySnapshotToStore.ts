@@ -13,6 +13,6 @@ export const useApplySnapshotToStore = () => {
     setShapeVariantLocationData(snapshot.shapeVariantLocationData);
     setTuneKeyId(snapshot.tuneKeyId);
     setBaseChordId(snapshot.baseChordId);
-    setShape(snapshot.shapeId, snapshot.shapeSemitoneOffsetFromC);
+    setShape(snapshot.shapeId, snapshot.semitoneOffsetFromMajorTonicRoot);
   };
 };

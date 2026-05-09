@@ -13,8 +13,8 @@ export const useShapeExplorerLogic = () => {
   );
   const shapeId = useControlsStore((state) => state.shapeId);
   const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const shapeSemitoneOffsetFromC = useControlsStore(
-    (state) => state.shapeSemitoneOffsetFromC,
+  const semitoneOffsetFromMajorTonicRoot = useControlsStore(
+    (state) => state.semitoneOffsetFromMajorTonicRoot,
   );
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
@@ -28,7 +28,9 @@ export const useShapeExplorerLogic = () => {
 
   const notes = getNotes({ firstNote: tuneKeyId });
   const rootNoteIndex =
-    shapeSemitoneOffsetFromC !== null ? shapeSemitoneOffsetFromC % 12 : null;
+    semitoneOffsetFromMajorTonicRoot !== null
+      ? semitoneOffsetFromMajorTonicRoot % 12
+      : null;
   const rootNoteName =
     rootNoteIndex !== null ? notes[rootNoteIndex].sharpNoteName : null;
 

@@ -8,7 +8,7 @@ export const Button = styled(_Button)`
   color: var(--background);
   position: relative;
   padding: 0;
-  width: 64px;
+  width: 66px;
 `;
 
 export const ControlArea = styled.div<{ $disabled?: boolean }>`

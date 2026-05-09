@@ -11,7 +11,7 @@ export const useNoteMatrix = () => {
   const baseChordId = useControlsStore((state) => state.baseChordId);
   const shapeId = useControlsStore((state) => state.shapeId);
   const shapeOffset = useControlsStore(
-    (state) => state.shapeSemitoneOffsetFromC,
+    (state) => state.semitoneOffsetFromMajorTonicRoot,
   );
 
   const selectedNotes = useMusicStore(

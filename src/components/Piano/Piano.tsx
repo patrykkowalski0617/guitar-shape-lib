@@ -16,7 +16,9 @@ export default function Piano(): JSX.Element {
       <S.PianoShadow />
       <InstrumentScrollWrapper ref={scrollRef}>
         <S.PianoWrapper>
-          <S.PianoKeysShadow />
+          <S.PianoKeysTopShadow />
+          <S.PianoKeysLeftSideShadow />
+          <S.PianoKeysRightSideShadow />
           <S.Piano $numberOfKeys={numberOfKeys}>
             {pianoNotes.map((note) => (
               <PianoKey key={note.noteId} note={note} />

@@ -21,10 +21,9 @@ export const SideSections = styled.div`
   position: relative;
 
   &:first-child {
-    top: -25px;
-    padding-left: 70px;
+    top: -20px;
   }
   &:last-child {
-    bottom: -25px;
+    bottom: -20px;
   }
 `;

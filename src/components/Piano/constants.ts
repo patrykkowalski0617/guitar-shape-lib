@@ -37,8 +37,8 @@ export const SHAPES_OF_PIANO_KEYS: Record<number, KeyTypes> = {
   11: "B",
 };
 
-export const instrumentElBRadius = "4px";
-export const instrumentBRadius = "var(--radius-lg)";
+export const instrumentElBRadius = "var(--radius-sm)";
+export const instrumentBRadius = "var(--radius-2xl)";
 
 export const keyBorderWidth = 1;
 export const whiteKeyH = 140;

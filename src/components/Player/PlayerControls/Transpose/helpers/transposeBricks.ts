@@ -17,11 +17,6 @@ export const transposeBricks = (
     const nextKeyIndex = (currentKeyIndex + semitones + keysCount) % keysCount;
     const newTuneKeyId = keysArray[nextKeyIndex];
 
-    const OFFSET_LIMIT = 12;
-    const currentOffset = snapshot.shapeSemitoneOffsetFromC ?? 0;
-    const nextOffset =
-      (currentOffset + semitones + (OFFSET_LIMIT + 1)) % (OFFSET_LIMIT + 1);
-
     const FRET_LIMIT = 24;
     let newLocationData = null;
 
@@ -41,7 +36,6 @@ export const transposeBricks = (
       snapshot: {
         ...snapshot,
         tuneKeyId: newTuneKeyId,
-        shapeSemitoneOffsetFromC: nextOffset,
         shapeVariantLocationData: newLocationData,
       },
     };

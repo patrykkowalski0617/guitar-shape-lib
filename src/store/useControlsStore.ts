@@ -13,10 +13,10 @@ interface ControlsState {
   setBaseChordId: (id: BaseChordId | null) => void;
 
   shapeId: string | null;
-  shapeSemitoneOffsetFromC: number | null;
+  semitoneOffsetFromMajorTonicRoot: number | null;
   setShape: (
     shapeId: string | null,
-    shapeSemitoneOffsetFromC: number | null,
+    semitoneOffsetFromMajorTonicRoot: number | null,
   ) => void;
 
   resetControls: () => void;
@@ -41,7 +41,7 @@ const initialState = {
   tuneKeyId: "C" as TuneKeyId,
   baseChordId: null,
   shapeId: null,
-  shapeSemitoneOffsetFromC: null as number | null,
+  semitoneOffsetFromMajorTonicRoot: null as number | null,
   isShapeSelectOpen: false,
   isShapeSliderHold: false,
   isPianoOn: false,
@@ -56,10 +56,10 @@ export const useControlsStore = create<ControlsState>((set) => ({
 
   setBaseChordId: (baseChordId) => set({ baseChordId }),
 
-  setShape: (shapeId, shapeSemitoneOffsetFromC) =>
+  setShape: (shapeId, semitoneOffsetFromMajorTonicRoot) =>
     set({
       shapeId,
-      shapeSemitoneOffsetFromC,
+      semitoneOffsetFromMajorTonicRoot,
     }),
 
   setIsShapeSelectOpen: (isShapeSelectOpen) => set({ isShapeSelectOpen }),

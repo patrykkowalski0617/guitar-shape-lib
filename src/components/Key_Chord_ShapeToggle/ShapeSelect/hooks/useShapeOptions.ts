@@ -14,10 +14,10 @@ export const useShapeOptions = () => {
   const relativeScale = getNotes({ firstNote: tuneKeyId as Note, length: 12 });
 
   const options = filteredAndFormatedShapes.map(
-    ({ shapeId, shapeSemitoneOffsetFromC }) => {
+    ({ shapeId, semitoneOffsetFromMajorTonicRoot }) => {
       const shape = SHAPES[shapeId as keyof Shapes];
 
-      const noteIndex = ((shapeSemitoneOffsetFromC % 12) + 12) % 12;
+      const noteIndex = ((semitoneOffsetFromMajorTonicRoot % 12) + 12) % 12;
       const noteObj = relativeScale[noteIndex];
 
       const rootNote = musicKey.isFlatTune
@@ -25,7 +25,7 @@ export const useShapeOptions = () => {
         : noteObj.sharpNoteName;
 
       return {
-        value: `${shapeId}|${shapeSemitoneOffsetFromC}`,
+        value: `${shapeId}|${semitoneOffsetFromMajorTonicRoot}`,
         labelRootNote: rootNote,
         labelShapeName: `${shape.label} ${shape.type}`,
       };

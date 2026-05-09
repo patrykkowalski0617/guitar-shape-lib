@@ -6,11 +6,33 @@ export const ShadowWrapper = styled.div`
   transform-origin: center;
 `;
 
-export const PianoKeysShadow = styled.div`
-  box-shadow: 0px 8px 8px 1px
-    color-mix(in oklab, var(--background) 100%, transparent) inset;
+export const PianoKeysLeftSideShadow = styled.div`
+  height: 100%;
   position: absolute;
-  top: 0;
+  width: 20px;
+  box-shadow: 13px 0px 11px 0px
+    color-mix(in oklab, var(--background) 100%, transparent);
+  z-index: 11;
+  left: -30px;
+  transform: skew(-6deg, 0deg);
+`;
+
+export const PianoKeysRightSideShadow = styled.div`
+  height: 100%;
+  position: absolute;
+  width: 20px;
+  box-shadow: -7px 0px 11px 0px
+    color-mix(in oklab, var(--background) 100%, transparent);
+  z-index: 11;
+  right: -30px;
+  transform: skew(10deg, 0deg);
+`;
+
+export const PianoKeysTopShadow = styled.div`
+  box-shadow: 0px 10px 20px 8px
+    color-mix(in oklab, var(--background) 100%, transparent);
+  position: absolute;
+  top: -20px;
   left: -4px;
   right: -2px;
   border-radius: ${instrumentBRadius} ${instrumentBRadius} 0 0;
@@ -22,15 +44,13 @@ export const PianoShadow = styled.div`
   border-radius: ${instrumentBRadius} ${instrumentBRadius}
     ${instrumentElBRadius} ${instrumentElBRadius};
   box-shadow:
-    5px 8px 10px 5px color-mix(in oklab, var(--background) 100%, transparent),
-    0px -5px 20px 5px color-mix(in oklab, var(--foreground) 30%, transparent),
-    0px 5px 20px 5px color-mix(in oklab, var(--background) 100%, transparent);
+    10px 10px 20px 4px color-mix(in oklab, var(--background) 100%, transparent),
+    0px -15px 30px 8px color-mix(in oklab, var(--foreground) 25%, transparent);
   top: 0;
   left: 1px;
   right: 1px;
   bottom: 1px;
   position: absolute;
-  transform: skew(1deg, 360deg);
 `;
 
 export const PianoWrapper = styled.div`
@@ -41,6 +61,10 @@ export const PianoWrapper = styled.div`
   overflow: hidden;
   margin-left: auto;
   width: 1400px;
+  border: 3px solid #272727;
+  border-bottom: 0;
+  border-right-width: 1px;
+  border-left-width: 1px;
 `;
 
 export const Piano = styled.div<{ $numberOfKeys: number }>`

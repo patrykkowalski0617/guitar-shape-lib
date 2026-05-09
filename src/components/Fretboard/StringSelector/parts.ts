@@ -6,17 +6,23 @@ export const StyledTick = styled(Tick)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    var(--foreground) 0%,
+    var(--instrument) 10%,
+    var(--background) 100%
+  );
 `;
 
 export const IndicatorWrapper = styled.div<{ $hideTick: boolean }>`
   position: relative;
   height: 32px;
   transition: opacity 0.2s ease-in-out;
-  opacity: ${({ $hideTick }) => ($hideTick ? 1 : 0.5)};
+  opacity: ${({ $hideTick }) => ($hideTick ? 1 : 0.3)};
   display: flex;
   justify-content: center;
   align-items: center;
-  left: 10px;
+  left: 5px;
   z-index: 10;
 `;
 
