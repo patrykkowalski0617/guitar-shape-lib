@@ -4,11 +4,11 @@ import { useAddBrick } from "./hooks/useAddBrick";
 import * as S from "./parts";
 
 export const AddBrickButton = () => {
-  const shapeId = useControlsStore((state) => state.shapeId);
+  const shapeDataKey = useControlsStore((state) => state.shapeDataKey);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const { addBrick } = useAddBrick();
 
-  const isDisabled = !shapeId || isPlaying;
+  const isDisabled = !shapeDataKey || isPlaying;
 
   return (
     <S.Wrapper>

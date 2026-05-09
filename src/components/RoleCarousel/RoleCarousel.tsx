@@ -3,7 +3,7 @@ import { useControlsStore } from "@/store";
 import { MiniCarousel } from "../ui/MiniCarousel/MiniCarousel";
 
 const RoleCarousel = () => {
-  const activeChordId = useControlsStore((state) => state.baseChordId);
+  const activeChordId = useControlsStore((state) => state.baseChordDataKey);
   const chordKeys = Object.keys(BASE_CHORDS);
 
   return (

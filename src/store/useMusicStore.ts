@@ -1,13 +1,17 @@
-import type { FretboardCoordinate, Note } from "@/data";
+import type {
+  FretboardCoordinate,
+  NoteName,
+  ShapeVariantDataKeys,
+} from "@/data";
 import { create } from "zustand";
 import { usePlayerStore } from "./usePlayerStore";
 import { useControlsStore } from "./useControlsStore";
 import type { NoteId, NoteObject } from "@/utils";
-import type { ShapeVariantLocationData } from "@/types";
+import type { Exact } from "@/types";
 
 interface MusicState {
-  shapeNoteIds: string[];
-  setShapeNoteIds: (shapeNoteIds: string[]) => void;
+  shapeNoteIds: NoteId[];
+  setShapeNoteIds: (shapeNoteIds: NoteId[]) => void;
   updateShapeNotes: (
     allNotes: NoteObject[][],
     coordinates: FretboardCoordinate[],
@@ -23,19 +27,21 @@ interface MusicState {
   backgingtrackNoteIds: NoteId[];
   setBackgingtrackNoteIds: (noteId: NoteId[]) => void;
 
-  selectedTargetNotesNames: Note[];
-  setSelectedTargetNotesNames: (noteName: Note) => void;
+  selectedTargetNotesNames: NoteName[];
+  setSelectedTargetNotesNames: (noteName: NoteName) => void;
   resetSelectedTargetNotesNames: () => void;
 
-  shapeVariantLocationData: ShapeVariantLocationData | null;
-  setShapeVariantLocationData: (
-    target: ShapeVariantLocationData | null,
-  ) => void;
+  shapeVariantDataKeys: ShapeVariantDataKeys | null;
+  setShapeVariantDataKeys: {
+    <T>(data: Exact<ShapeVariantDataKeys, T>): void;
+    (data: null): void;
+  };
 
-  shapeVariantLocationData_locked: ShapeVariantLocationData | null;
-  setShapeVariantLocationData_locked: (
-    target: ShapeVariantLocationData | null,
-  ) => void;
+  shapeVariantDataKeys_locked: ShapeVariantDataKeys | null;
+  setShapeVariantDataKeys_locked: {
+    <T>(data: Exact<ShapeVariantDataKeys, T>): void;
+    (data: null): void;
+  };
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
@@ -44,13 +50,13 @@ export const useMusicStore = create<MusicState>((set) => ({
   activeLockedNoteIds: [],
   backgingtrackNoteIds: [],
   selectedTargetNotesNames: [],
-  shapeVariantLocationData: null,
-  shapeVariantLocationData_locked: null,
+  shapeVariantDataKeys: null,
+  shapeVariantDataKeys_locked: null,
 
   setShapeNoteIds: (shapeNoteIds) => set({ shapeNoteIds }),
 
   updateShapeNotes: (allNotes, coordinates) => {
-    const nextShapeNoteIds: string[] = [];
+    const nextShapeNoteIds: NoteId[] = [];
 
     allNotes.forEach((row, stringIdx) => {
       row.forEach((note, fretIdx) => {
@@ -71,7 +77,7 @@ export const useMusicStore = create<MusicState>((set) => ({
     const controlState = useControlsStore.getState();
     const isSmallScreen = window.innerWidth < 1024;
     const isPlayingOrHasShape =
-      controlState.shapeId !== null || playerState.isPlaying;
+      controlState.shapeDataKey !== null || playerState.isPlaying;
 
     if (isPlayingOrHasShape || isSmallScreen) return;
 
@@ -80,7 +86,7 @@ export const useMusicStore = create<MusicState>((set) => ({
 
   setActiveLockedNoteIds: (activeNote) => {
     const controlState = useControlsStore.getState();
-    if (controlState.shapeId !== null) return;
+    if (controlState.shapeDataKey !== null) return;
 
     set((state) => {
       const isAlreadyActive = state.activeLockedNoteIds.includes(activeNote);
@@ -111,15 +117,15 @@ export const useMusicStore = create<MusicState>((set) => ({
 
   resetSelectedTargetNotesNames: () => set({ selectedTargetNotesNames: [] }),
 
-  setShapeVariantLocationData: (data) => {
-    if (!data) {
-      set({ shapeVariantLocationData: null, shapeNoteIds: [] });
-      return;
-    }
-
-    set({ shapeVariantLocationData: data });
+  setShapeVariantDataKeys: (
+    shapeVariantDataKeys: ShapeVariantDataKeys | null,
+  ) => {
+    set({ shapeVariantDataKeys });
   },
 
-  setShapeVariantLocationData_locked: (data) =>
-    set({ shapeVariantLocationData_locked: data }),
+  setShapeVariantDataKeys_locked: (
+    shapeVariantDataKeys_locked: ShapeVariantDataKeys | null,
+  ) => {
+    set({ shapeVariantDataKeys_locked });
+  },
 }));

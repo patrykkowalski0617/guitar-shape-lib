@@ -1,14 +1,14 @@
 import { type JSX } from "react";
 import { useMusicStore } from "@/store";
 import * as S from "./parts";
-import type { Note } from "@/data";
+import type { NoteName } from "@/data";
 
 export type Variant = "fretboard" | "piano";
 
 interface NoteLabelProps {
   isVisible?: boolean;
   variant: Variant;
-  noteLabel: Note;
+  noteLabel: NoteName;
 }
 
 export default function NoteLabel({

@@ -5,15 +5,17 @@ import { useEnharmonicNoteName } from "./useEnharmonicNoteName";
 
 export const useCurrentBaseChordName = () => {
   const getEnharmonicNoteName = useEnharmonicNoteName();
-  const baseChordId = useControlsStore((state) => state.baseChordId);
-  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
+  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
+  const unifiedMusicKeysDataKey = useControlsStore(
+    (state) => state.unifiedMusicKeysDataKey,
+  );
   const currentBaseChordData =
-    BASE_CHORDS[baseChordId as keyof typeof BASE_CHORDS];
+    BASE_CHORDS[baseChordDataKey as keyof typeof BASE_CHORDS];
 
   if (!currentBaseChordData) return "";
 
-  const tuneKeyOffset = UNIFIED_MUSIC_KEYS[tuneKeyId].offsetFromC;
-  const chordOffset = currentBaseChordData.semitoneOffsetFromMajorScaleRoot;
+  const tuneKeyOffset = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
+  const chordOffset = currentBaseChordData.semitoneOffsetFromMajorTonicRoot;
   const totalOffset = tuneKeyOffset + chordOffset;
 
   const notes = getNotes({ length: 24 });

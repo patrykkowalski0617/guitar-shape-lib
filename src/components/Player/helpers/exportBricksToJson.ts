@@ -12,13 +12,13 @@ export const exportBricksToJson = async (bricks: Brick[]) => {
 
   const firstSnapshot = bricks[0].snapshot;
   const keyInfo = firstSnapshot
-    ? `Key-${firstSnapshot.tuneKeyId}`
+    ? `Key-${firstSnapshot.unifiedMusicKeysDataKey}`
     : "Key-unknown";
 
   const bricksInfo = bricks
     .map((b) =>
       b.snapshot
-        ? `${b.snapshot.baseChordId}${b.snapshot.rootNote}${b.snapshot.shapeLabel}`
+        ? `${b.snapshot.baseChordDataKey}${b.snapshot.rootNote}${b.snapshot.shapeLabel}`
         : "",
     )
     .filter(Boolean)

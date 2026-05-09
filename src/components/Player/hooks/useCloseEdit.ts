@@ -6,19 +6,19 @@ export function useCloseEdit() {
   const setEditableBrickId = usePlayerStore(
     (state) => state.setEditableBrickId,
   );
-  const setShapeVariantLocationData_locked = useMusicStore(
-    (state) => state.setShapeVariantLocationData_locked,
+  const setShapeVariantDataKeys_locked = useMusicStore(
+    (state) => state.setShapeVariantDataKeys_locked,
   );
-  const setShapeVariantLocationData = useMusicStore(
-    (state) => state.setShapeVariantLocationData,
+  const setShapeVariantDataKeys = useMusicStore(
+    (state) => state.setShapeVariantDataKeys,
   );
 
   const isEditModeActive = editableBrickId !== null;
 
   const closeEdit = () => {
     setEditableBrickId(null);
-    setShapeVariantLocationData_locked(null);
-    setShapeVariantLocationData(null);
+    setShapeVariantDataKeys_locked(null);
+    setShapeVariantDataKeys(null);
     setActiveBrickId(null);
   };
 

@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 interface ProgressState {
   userList: string[];
-  toggleUserList: (variantId: string) => void;
+  toggleUserList: (variantDataKey: string) => void;
   importData: (data: { userList: string[] }) => void;
 }
 
@@ -14,7 +14,9 @@ export const useProgressStore = create<ProgressState>()(
 
       toggleUserList: (id) =>
         set((state) => ({
-          userList: state.userList.includes(id) ? state.userList.filter((i) => i !== id) : [...state.userList, id],
+          userList: state.userList.includes(id)
+            ? state.userList.filter((i) => i !== id)
+            : [...state.userList, id],
         })),
 
       importData: (data) =>

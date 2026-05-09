@@ -11,22 +11,24 @@ export const useShapeExplorerLogic = () => {
   const setIsShapeSliderHold = useControlsStore(
     (state) => state.setIsShapeSliderHold,
   );
-  const shapeId = useControlsStore((state) => state.shapeId);
-  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
+  const shapeDataKey = useControlsStore((state) => state.shapeDataKey);
+  const unifiedMusicKeysDataKey = useControlsStore(
+    (state) => state.unifiedMusicKeysDataKey,
+  );
   const semitoneOffsetFromMajorTonicRoot = useControlsStore(
     (state) => state.semitoneOffsetFromMajorTonicRoot,
   );
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
   const { userList } = useProgressStore();
-  const shapeVariantLocationData = useMusicStore(
-    (state) => state.shapeVariantLocationData,
+  const shapeVariantDataKeys = useMusicStore(
+    (state) => state.shapeVariantDataKeys,
   );
-  const setShapeVariantLocationData = useMusicStore(
-    (state) => state.setShapeVariantLocationData,
+  const setShapeVariantDataKeys = useMusicStore(
+    (state) => state.setShapeVariantDataKeys,
   );
 
-  const notes = getNotes({ firstNote: tuneKeyId });
+  const notes = getNotes({ firstNote: unifiedMusicKeysDataKey });
   const rootNoteIndex =
     semitoneOffsetFromMajorTonicRoot !== null
       ? semitoneOffsetFromMajorTonicRoot % 12
@@ -34,14 +36,18 @@ export const useShapeExplorerLogic = () => {
   const rootNoteName =
     rootNoteIndex !== null ? notes[rootNoteIndex].sharpNoteName : null;
 
-  const options = getOrderedShapeLocations(shapeId, rootNoteName, userList);
+  const options = getOrderedShapeLocations(
+    shapeDataKey,
+    rootNoteName,
+    userList,
+  );
 
-  const matchingOptionIndex = shapeVariantLocationData
+  const matchingOptionIndex = shapeVariantDataKeys
     ? options.findIndex(
         (opt) =>
-          opt.fretIndex === shapeVariantLocationData.fretIndex &&
-          opt.stringId === shapeVariantLocationData.stringId &&
-          opt.variantId === shapeVariantLocationData.variantId,
+          opt.fretIndex === shapeVariantDataKeys.fretIndex &&
+          opt.stringId === shapeVariantDataKeys.stringId &&
+          opt.variantDataKey === shapeVariantDataKeys.variantDataKey,
       )
     : -1;
 
@@ -51,7 +57,7 @@ export const useShapeExplorerLogic = () => {
     .map((opt, i) => (opt.isUserList ? i + 1 : null))
     .filter((v): v is number => v !== null);
 
-  const isDisabled = !shapeId || options.length === 0;
+  const isDisabled = !shapeDataKey || options.length === 0;
   const sliderValue = isDisabled ? [0] : [currentIndex];
   const isVisible = !isPlaying;
 
@@ -59,7 +65,16 @@ export const useShapeExplorerLogic = () => {
     const selectedValue = values[0];
     const newLocationData =
       selectedValue === 0 ? null : options[selectedValue - 1];
-    setShapeVariantLocationData(newLocationData);
+
+    const { shapeDataKey, stringId, fretIndex, variantDataKey } =
+      newLocationData;
+
+    setShapeVariantDataKeys({
+      shapeDataKey,
+      stringId,
+      fretIndex,
+      variantDataKey,
+    });
   };
 
   const handleMouseDown = () => {
@@ -70,7 +85,7 @@ export const useShapeExplorerLogic = () => {
   };
 
   return {
-    shapeId,
+    shapeDataKey,
     options,
     sliderValue,
     userListIndexes,

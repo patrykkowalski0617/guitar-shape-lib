@@ -26,4 +26,4 @@ export const SCALE_SEMITONE_TEMPLATES: Record<string, SemitoneScale> = {
   locrianScale: [_1, _m2, _m3, _4, _T, _m6, _m7],
 } as const;
 
-export type SemitoneTemplateKey = keyof typeof SCALE_SEMITONE_TEMPLATES;
+export type ScaleSemitoneTemplateKey = keyof typeof SCALE_SEMITONE_TEMPLATES;

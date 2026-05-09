@@ -4,12 +4,12 @@ import { useShapeRootCoordinates } from "./useShapeRootCoordinates";
 
 export const useShapeAllCoordinates = () => {
   const rootsCoordinates = useShapeRootCoordinates() || [];
-  const shapeId = useControlsStore((state) => state.shapeId);
+  const shapeDataKey = useControlsStore((state) => state.shapeDataKey);
 
-  const isMissingRequiredData = !shapeId || !rootsCoordinates.length;
+  const isMissingRequiredData = !shapeDataKey || !rootsCoordinates.length;
   if (isMissingRequiredData) return [];
 
-  const currentShapeVariants = SHAPES[shapeId].shapeVariants;
+  const currentShapeVariants = SHAPES[shapeDataKey].shapeVariants;
 
   type ShapeStringKey = keyof typeof currentShapeVariants;
 

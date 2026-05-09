@@ -1,41 +1,54 @@
 import { useControlsStore, useMusicStore } from "@/store";
-import { type BaseChordId, type TuneKeyId } from "@/data";
+import { type BaseChordDataKey, type UnifiedMusicKeysDataKeys } from "@/data";
 
 export function useBaseChordToggle() {
-  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
-  const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
-  const setShapeVariantLocationData = useMusicStore(
-    (state) => state.setShapeVariantLocationData,
+  const setBaseChordDataKey = useControlsStore(
+    (state) => state.setBaseChordDataKey,
   );
-  const setShapeVariantLocationData_locked = useMusicStore(
-    (state) => state.setShapeVariantLocationData_locked,
+  const setUnifiedMusicKeysDataKeys = useControlsStore(
+    (state) => state.setUnifiedMusicKeysDataKeys,
   );
-  const baseChordId = useControlsStore((state) => state.baseChordId);
-  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
+  const setShapeVariantDataKeys = useMusicStore(
+    (state) => state.setShapeVariantDataKeys,
+  );
+  const setShapeVariantDataKeys_locked = useMusicStore(
+    (state) => state.setShapeVariantDataKeys_locked,
+  );
+  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
+  const unifiedMusicKeysDataKey = useControlsStore(
+    (state) => state.unifiedMusicKeysDataKey,
+  );
 
   const handleValueChange = (combinedValue: string | null) => {
     if (!combinedValue) {
       return;
     }
 
-    const [newTuneKeyId, newBaseChordId] = combinedValue.split(":");
+    const [newUnifiedMusicKeysDataKeys, newBaseChordDataKey] =
+      combinedValue.split(":");
 
-    setBaseChordId(newBaseChordId as BaseChordId);
-    setTuneKeyId(newTuneKeyId as TuneKeyId);
+    setBaseChordDataKey(newBaseChordDataKey as BaseChordDataKey);
+    setUnifiedMusicKeysDataKeys(
+      newUnifiedMusicKeysDataKeys as UnifiedMusicKeysDataKeys,
+    );
   };
 
-  const handleKeyOnlyChange = (tuneKeyId: TuneKeyId) => {
-    setTuneKeyId(tuneKeyId);
-    setShapeVariantLocationData(null);
-    setShapeVariantLocationData_locked(null);
+  const handleKeyOnlyChange = (
+    unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys,
+  ) => {
+    setUnifiedMusicKeysDataKeys(unifiedMusicKeysDataKey);
+    setShapeVariantDataKeys(null);
+    setShapeVariantDataKeys_locked(null);
   };
 
-  const currentCombinedValue = baseChordId ? `${tuneKeyId}:${baseChordId}` : "";
+  const currentCombinedValue = baseChordDataKey
+    ? `${unifiedMusicKeysDataKey}:${baseChordDataKey}`
+    : "";
 
   return {
     currentValue: currentCombinedValue,
     handleValueChange,
     handleKeyOnlyChange,
-    currentTuneKeyId: tuneKeyId,
+    currentUnifiedMusicKeysDataKeys: unifiedMusicKeysDataKey,
   };
 }

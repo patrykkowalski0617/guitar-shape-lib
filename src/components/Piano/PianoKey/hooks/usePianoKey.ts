@@ -10,7 +10,7 @@ interface UsePianoKeyParams {
 export function usePianoKey({ note }: UsePianoKeyParams) {
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
   const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
-  const shapeId = useControlsStore((state) => state.shapeId);
+  const shapeDataKey = useControlsStore((state) => state.shapeDataKey);
   const activeLockedNoteIds = useMusicStore(
     (state) => state.activeLockedNoteIds,
   );
@@ -37,7 +37,7 @@ export function usePianoKey({ note }: UsePianoKeyParams) {
       isWhitePianoKey,
       pianoKeyShape,
       isPushed,
-      isShapeSelected: !!shapeId,
+      isShapeSelected: !!shapeDataKey,
     },
     interactivity: {
       isScrollTarget,

@@ -1,22 +1,22 @@
 import { Key_ChordSingleRow } from "./Key_ChordSingleRow";
-import type { TuneKeyId } from "@/data";
+import type { UnifiedMusicKeysDataKeys } from "@/data";
 import { Key_ChordLabel } from "./Key_ChordLabel";
 import { useLayoutEffect, useRef, useState } from "react";
 import * as S from "./parts";
 
 interface Props {
   optionsPerKey: any[];
-  currentTuneKeyId: TuneKeyId | null;
+  currentUnifiedMusicKeysDataKeys: UnifiedMusicKeysDataKeys | null;
   currentValue: string | undefined;
   activeIndex: number;
   onClose: () => void;
-  onSelectKey: (id: TuneKeyId) => void;
+  onSelectKey: (id: UnifiedMusicKeysDataKeys) => void;
   onSelectChord: (val: string) => void;
 }
 
 export function Key_ChordExpandedList({
   optionsPerKey,
-  currentTuneKeyId,
+  currentUnifiedMusicKeysDataKeys,
   currentValue,
   activeIndex,
   onClose,
@@ -157,12 +157,15 @@ export function Key_ChordExpandedList({
           <div className="flex flex-col">
             {optionsPerKey.map((group, index) => (
               <Key_ChordSingleRow
-                key={group.tuneKeyId}
+                key={group.unifiedMusicKeysDataKey}
                 group={group}
-                isCurrentKey={currentTuneKeyId === group.tuneKeyId}
+                isCurrentKey={
+                  currentUnifiedMusicKeysDataKeys ===
+                  group.unifiedMusicKeysDataKey
+                }
                 currentValue={currentValue}
                 isLastRow={index === optionsPerKey.length - 1}
-                onSelectKey={() => onSelectKey(group.tuneKeyId)}
+                onSelectKey={() => onSelectKey(group.unifiedMusicKeysDataKey)}
                 onSelectChord={onSelectChord}
                 onClose={onClose}
               />

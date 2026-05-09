@@ -5,11 +5,11 @@ import type { StringIndex } from "../Fretboard/constants";
 
 export const CleanButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
-  const shapeVariantLocationData = useMusicStore(
-    (state) => state.shapeVariantLocationData,
+  const shapeVariantDataKeys = useMusicStore(
+    (state) => state.shapeVariantDataKeys,
   );
-  const setShapeVariantLocationData = useMusicStore(
-    (state) => state.setShapeVariantLocationData,
+  const setShapeVariantDataKeys = useMusicStore(
+    (state) => state.setShapeVariantDataKeys,
   );
   const activeLockedNoteIds = useMusicStore(
     (state) => state.activeLockedNoteIds,
@@ -17,9 +17,11 @@ export const CleanButton = () => {
   const resetActiveLockedNoteIds = useMusicStore(
     (state) => state.resetActiveLockedNoteIds,
   );
-  const shapeId = useControlsStore((state) => state.shapeId);
+  const shapeDataKey = useControlsStore((state) => state.shapeDataKey);
   const setShape = useControlsStore((state) => state.setShape);
-  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
+  const setBaseChordDataKey = useControlsStore(
+    (state) => state.setBaseChordDataKey,
+  );
   const setVisibleStrings = useControlsStore(
     (state) => state.setVisibleStrings,
   );
@@ -30,17 +32,17 @@ export const CleanButton = () => {
     isPlaying ||
     !(
       activeLockedNoteIds.length ||
-      shapeVariantLocationData ||
-      shapeId ||
+      shapeVariantDataKeys ||
+      shapeDataKey ||
       visibleStrings.toString() !== defaultVisibleStrings.toString()
     );
 
   const handleClick = () => {
-    setShapeVariantLocationData(null);
+    setShapeVariantDataKeys(null);
     resetActiveLockedNoteIds();
     setShape(null, null);
-    setBaseChordId(null);
-    setBaseChordId(null);
+    setBaseChordDataKey(null);
+    setBaseChordDataKey(null);
     setVisibleStrings(defaultVisibleStrings);
   };
 

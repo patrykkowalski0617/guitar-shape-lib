@@ -1,16 +1,16 @@
-import type { NoteSharp } from "@/data";
+import type { NoteSharpName } from "@/data";
 import { getNotes, type NoteId, type NoteObject } from "./getNotes";
 
 interface GetNotesFromNoteIdProps {
-  noteId: NoteId;
+  firstNoteNoteId: NoteId;
   length?: number;
 }
 
 export const getNotesFromNoteId = ({
-  noteId,
+  firstNoteNoteId,
   length = 12,
 }: GetNotesFromNoteIdProps): NoteObject[] => {
-  const [noteName, octaveStr] = noteId.split("-");
+  const [noteName, octaveStr] = firstNoteNoteId.split("-");
   const octave = parseInt(octaveStr, 10);
 
   const isValidNoteName = !!noteName;
@@ -18,12 +18,12 @@ export const getNotesFromNoteId = ({
 
   if (!isValidNoteName || !isValidOctave) {
     throw new Error(
-      `Invalid NoteId format: ${noteId}. Expected format: "NoteName-Octave" (e.g., "C#-2")`,
+      `Invalid NoteId format: ${firstNoteNoteId}. Expected format: "NoteName-Octave" (e.g., "C#-2")`,
     );
   }
 
   return getNotes({
-    firstNote: noteName as NoteSharp,
+    firstNote: noteName as NoteSharpName,
     firstOctave: octave,
     length,
   });

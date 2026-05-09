@@ -8,7 +8,7 @@ import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericM
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
 import { useMusicStore } from "@/store";
 import { useShapeCoordinates } from "./FretboardCell/hooks";
-import type { FretboardCoordinate, Note } from "@/data";
+import type { FretboardCoordinate, NoteName } from "@/data";
 import { getNotes } from "@/utils";
 import HiddenShapeExplorerSlider from "../ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
 import { StringSlider } from "./StringsSlider/StringsSlider";
@@ -20,16 +20,16 @@ export default function Fretboard(): JSX.Element {
   useHorizontalScroll(scrollRef);
   useFretboardScroll(scrollRef);
 
-  const shapeVariantLocationData = useMusicStore(
-    (state) => state.shapeVariantLocationData,
+  const shapeVariantDataKeys = useMusicStore(
+    (state) => state.shapeVariantDataKeys,
   );
   const updateShapeNotes = useMusicStore((state) => state.updateShapeNotes);
-  const shapeCoordinates = useShapeCoordinates(shapeVariantLocationData);
+  const shapeCoordinates = useShapeCoordinates(shapeVariantDataKeys);
 
   const allFretboardNotes = STRINGS_CONFIG.map(
     ({ firstNoteInRow, firstNoteOctaveNumber }) =>
       getNotes({
-        firstNote: firstNoteInRow as Note,
+        firstNote: firstNoteInRow as NoteName,
         length: numberOfFrets,
         firstOctave: firstNoteOctaveNumber,
       }),
@@ -45,7 +45,7 @@ export default function Fretboard(): JSX.Element {
       updateShapeNotes([], []);
     }
   }, [
-    shapeVariantLocationData,
+    shapeVariantDataKeys,
     shapeCoordinates,
     allFretboardNotes,
     updateShapeNotes,
@@ -59,22 +59,20 @@ export default function Fretboard(): JSX.Element {
       </S.StringSliderWrapper>
       <InstrumentScrollWrapper ref={scrollRef}>
         <FretboardNumericMarkers />
-        <S.PerspectiveWrapper>
-          <S.FretboardWrapper>
-            <S.Fretboard>
-              {allFretboardNotes.map((rowNotes, index) => (
-                <FretboardRow
-                  key={index}
-                  stringIndex={index as StringIndex}
-                  rowNotes={rowNotes}
-                />
-              ))}
-              <S.FretboardShadow />
-              <HiddenShapeExplorerSlider />
-              <FretboardDotMarkers />
-            </S.Fretboard>
-          </S.FretboardWrapper>
-        </S.PerspectiveWrapper>
+        <S.FretboardWrapper>
+          <S.Fretboard>
+            {allFretboardNotes.map((rowNotes, index) => (
+              <FretboardRow
+                key={index}
+                stringIndex={index as StringIndex}
+                rowNotes={rowNotes}
+              />
+            ))}
+            <S.FretboardShadow />
+            <HiddenShapeExplorerSlider />
+            <FretboardDotMarkers />
+          </S.Fretboard>
+        </S.FretboardWrapper>
       </InstrumentScrollWrapper>
     </S.FretboardNotScrollableWrapper>
   );

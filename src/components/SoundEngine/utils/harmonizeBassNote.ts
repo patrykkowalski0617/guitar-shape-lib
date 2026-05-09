@@ -5,7 +5,10 @@ export const harmonizeBassNote = (
   bassNoteId: NoteId,
   scaleTemplate: number[],
 ): string[] => {
-  const notesChunk = getNotesFromNoteId({ noteId: bassNoteId, length: 12 });
+  const notesChunk = getNotesFromNoteId({
+    firstNoteNoteId: bassNoteId,
+    length: 12,
+  });
 
   const indexForFirst = scaleTemplate[0];
   const indexForThird = scaleTemplate[2];

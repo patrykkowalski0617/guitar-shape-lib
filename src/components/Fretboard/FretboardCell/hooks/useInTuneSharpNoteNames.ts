@@ -3,8 +3,10 @@ import { SCALE_SEMITONE_TEMPLATES, UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
 
 export const useInTuneSharpNoteNames = () => {
-  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const firstNote = UNIFIED_MUSIC_KEYS[tuneKeyId].majorFirstNote;
+  const unifiedMusicKeysDataKey = useControlsStore(
+    (state) => state.unifiedMusicKeysDataKey,
+  );
+  const firstNote = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].majorFirstNote;
   const allSharpNoteNames = getNotes({ firstNote }).map(
     ({ sharpNoteName }) => sharpNoteName,
   );

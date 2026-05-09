@@ -7,8 +7,10 @@ import { useControlsStore } from "@/store";
 import * as S from "./parts";
 
 export default function ShapeSelect() {
-  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
-  const baseChordId = useControlsStore((state) => state.baseChordId);
+  const setBaseChordDataKey = useControlsStore(
+    (state) => state.setBaseChordDataKey,
+  );
+  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
 
   const {
     currentShapeValue,
@@ -33,14 +35,19 @@ export default function ShapeSelect() {
     } else {
       const hasChanged = valueOnOpenRef.current !== currentShapeValue;
       if (!currentShapeValue) {
-        setBaseChordId(null);
+        setBaseChordDataKey(null);
       }
 
       if (!hasChanged) {
-        setBaseChordId(baseChordId);
+        setBaseChordDataKey(baseChordDataKey);
       }
     }
-  }, [isShapeSelectOpen, currentShapeValue, baseChordId, setBaseChordId]);
+  }, [
+    isShapeSelectOpen,
+    currentShapeValue,
+    baseChordDataKey,
+    setBaseChordDataKey,
+  ]);
 
   return (
     <Select

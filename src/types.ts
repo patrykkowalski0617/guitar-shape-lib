@@ -1,8 +1,3 @@
-import type { FretboardStringId, VariantId } from "./data";
-
-export interface ShapeVariantLocationData {
-  shapeId: string | null;
-  stringId: FretboardStringId;
-  fretIndex: number;
-  variantId: VariantId;
-}
+export type Exact<Target, T> = Target & {
+  [K in keyof T]: K extends keyof Target ? T[K] : never;
+};

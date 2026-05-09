@@ -1,9 +1,10 @@
+import type { StringIndex } from "@/components/Fretboard/constants";
 import type { FretboardCoordinate } from "@/data";
 
 export interface BaseChordShape {
   CAGEDassigment: string;
   baseFretIndex: number;
-  baseStringIndex: number;
+  baseStringIndex: StringIndex;
   coordinates: FretboardCoordinate[];
 }
 

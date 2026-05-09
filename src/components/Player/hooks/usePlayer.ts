@@ -6,14 +6,18 @@ export function usePlayer() {
   const setEditableBrickId = usePlayerStore(
     (state) => state.setEditableBrickId,
   );
-  const setShapeVariantLocationData_locked = useMusicStore(
-    (state) => state.setShapeVariantLocationData_locked,
+  const setShapeVariantDataKeys_locked = useMusicStore(
+    (state) => state.setShapeVariantDataKeys_locked,
   );
-  const setShapeVariantLocationData = useMusicStore(
-    (state) => state.setShapeVariantLocationData,
+  const setShapeVariantDataKeys = useMusicStore(
+    (state) => state.setShapeVariantDataKeys,
   );
-  const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
-  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
+  const setUnifiedMusicKeysDataKeys = useControlsStore(
+    (state) => state.setUnifiedMusicKeysDataKeys,
+  );
+  const setBaseChordDataKey = useControlsStore(
+    (state) => state.setBaseChordDataKey,
+  );
 
   const bpm = usePlayerStore((state) => state.bpm);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -35,8 +39,8 @@ export function usePlayer() {
     }
 
     if (bricks.length === 0) {
-      setShapeVariantLocationData(null);
-      setShapeVariantLocationData_locked(null);
+      setShapeVariantDataKeys(null);
+      setShapeVariantDataKeys_locked(null);
       setEditableBrickId(null);
     }
 
@@ -47,21 +51,19 @@ export function usePlayer() {
     const firstBrick = bricks[0];
     if (!firstBrick?.snapshot) return;
 
-    setShapeVariantLocationData(null);
-    setShapeVariantLocationData_locked(
-      firstBrick.snapshot.shapeVariantLocationData,
-    );
-    setTuneKeyId(firstBrick.snapshot.tuneKeyId);
-    setBaseChordId(firstBrick.snapshot.baseChordId);
+    setShapeVariantDataKeys(null);
+    setShapeVariantDataKeys_locked(firstBrick.snapshot.shapeVariantDataKeys);
+    setUnifiedMusicKeysDataKeys(firstBrick.snapshot.unifiedMusicKeysDataKey);
+    setBaseChordDataKey(firstBrick.snapshot.baseChordDataKey);
     hasPreparedCountInRef.current = true;
   }, [
     isPlaying,
     isCountingIn,
     bricks,
-    setShapeVariantLocationData_locked,
-    setShapeVariantLocationData,
-    setTuneKeyId,
-    setBaseChordId,
+    setShapeVariantDataKeys_locked,
+    setShapeVariantDataKeys,
+    setUnifiedMusicKeysDataKeys,
+    setBaseChordDataKey,
     setEditableBrickId,
   ]);
 

@@ -1,10 +1,10 @@
 import { getNotes } from "@/utils";
 import { useEnharmonicNoteName } from "./useEnharmonicNoteName";
-import type { Note } from "@/data";
+import type { NoteName } from "@/data";
 
-export const useRoleMarkers = (tuneKeyId: Note) => {
+export const useRoleMarkers = (unifiedMusicKeysDataKey: NoteName) => {
   const getEnharmonicNoteName = useEnharmonicNoteName();
-  const tuneNotes = getNotes({ firstNote: tuneKeyId });
+  const tuneNotes = getNotes({ firstNote: unifiedMusicKeysDataKey });
   const enharmonicTuneNotesNames = tuneNotes.map((note) =>
     getEnharmonicNoteName(note),
   );

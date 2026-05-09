@@ -1,4 +1,4 @@
-import type { BaseChordId } from "./BASE_CHORDS";
+import type { BaseChordDataKey } from "./BASE_CHORDS";
 import {
   _1,
   _m2,
@@ -15,26 +15,21 @@ import {
   _m9,
   _M9,
 } from "./INTERVAL_SEMITONES";
-import type { FretboardCoordinate } from "./TYPES";
+
+export type FretboardCoordinate = [number, number];
 
 export type ShapeType = "Arpeggio" | "Scale" | "Set";
 
-export interface SemitoneOffsetFromMajorTonicRoot {
-  majorMode?: number[];
-  minorMode?: number[];
-  bothModes?: number[];
-}
-
-export type VariantId = `v${number}`;
+export type VariantDataKey = `v${number}`;
 
 export type StringVariants = Record<
-  VariantId,
+  VariantDataKey,
   {
     coordinates: FretboardCoordinate[];
   }
 >;
 
-export type FretboardStringId = keyof ShapeVariants;
+export type BassStringDataKey = keyof ShapeVariants;
 
 export interface ShapeVariants {
   strE: StringVariants;
@@ -46,12 +41,21 @@ export interface Shape {
   label: string;
   type: ShapeType;
   intervals: number[];
-  semitoneOffsetFromMajorTonicRoot: Partial<Record<BaseChordId, number[]>>;
+  semitoneOffsetFromMajorTonicRoot: Partial<Record<BaseChordDataKey, number[]>>;
   shapeVariants: ShapeVariants;
 }
 
 export interface Shapes {
   [key: string]: Shape;
+}
+
+export type ShapeDataKey = keyof typeof SHAPES;
+
+export interface ShapeVariantDataKeys {
+  shapeDataKey: ShapeDataKey;
+  stringId: BassStringDataKey;
+  fretIndex: number;
+  variantDataKey: VariantDataKey;
 }
 
 export const SHAPES: Shapes = {

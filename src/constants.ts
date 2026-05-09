@@ -10,11 +10,6 @@ export const insetShadow = css`
       inset,
     3px 3px 10px 2px color-mix(in oklab, var(--background) 40%, transparent),
     -1px -1px 10px 3px color-mix(in oklab, var(--foreground) 7%, transparent);
-  background: linear-gradient(
-    342deg,
-    color-mix(in oklab, ${appBgColor} 85%, transparent) 0%,
-    color-mix(in oklab, ${appBgColor} 100%, transparent) 100%
-  );
 `;
 
 export const outsideShadow = css`

@@ -1,3 +1,5 @@
+export type UnifiedMusicKeysDataKeys = keyof typeof UNIFIED_MUSIC_KEYS;
+
 export const UNIFIED_MUSIC_KEYS = {
   C: {
     offsetFromC: 0,
@@ -96,5 +98,3 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorName: "G#m",
   },
 } as const;
-
-export type TuneKeyId = keyof typeof UNIFIED_MUSIC_KEYS;

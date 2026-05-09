@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { useProgressStore, useMusicStore } from "@/store";
 import { toast } from "sonner";
-import { USER_LIST_MESSAGES } from "@/data";
-import type { ShapeLocation } from "../helpers/getOrderedShapeLocations";
+import { USER_LIST_MESSAGES, type ShapeVariantDataKeys } from "@/data";
 
 interface UseStepSliderLogicProps {
   value: number[] | undefined;
-  options: ShapeLocation[];
+  options: ShapeVariantDataKeys[];
 }
 
 export function useStepSliderLogic({
@@ -18,8 +17,8 @@ export function useStepSliderLogic({
   );
 
   const { userList, toggleUserList } = useProgressStore();
-  const shapeVariantLocationData = useMusicStore(
-    (state) => state.shapeVariantLocationData,
+  const shapeVariantDataKeys = useMusicStore(
+    (state) => state.shapeVariantDataKeys,
   );
 
   const currentValue = value?.[0] ?? 0;
@@ -35,8 +34,8 @@ export function useStepSliderLogic({
       return;
     }
 
-    const compositeId = shapeVariantLocationData
-      ? `${shapeVariantLocationData.shapeId}-${shapeVariantLocationData.stringId}-${shapeVariantLocationData.variantId}`
+    const compositeId = shapeVariantDataKeys
+      ? `${shapeVariantDataKeys.shapeDataKey}-${shapeVariantDataKeys.stringId}-${shapeVariantDataKeys.variantDataKey}`
       : null;
 
     if (!compositeId) return;

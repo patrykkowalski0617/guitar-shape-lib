@@ -1,7 +1,7 @@
 import { useControlsStore, useMusicStore } from "@/store";
 
 export function useShapeSelection() {
-  const shapeId = useControlsStore((state) => state.shapeId);
+  const shapeDataKey = useControlsStore((state) => state.shapeDataKey);
   const semitoneOffsetFromMajorTonicRoot = useControlsStore(
     (state) => state.semitoneOffsetFromMajorTonicRoot,
   );
@@ -14,22 +14,24 @@ export function useShapeSelection() {
   const setIsShapeSelectOpen = useControlsStore(
     (state) => state.setIsShapeSelectOpen,
   );
-  const baseChordId = useControlsStore((state) => state.baseChordId);
-  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
+  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
+  const setBaseChordDataKey = useControlsStore(
+    (state) => state.setBaseChordDataKey,
+  );
 
   const setShape = useControlsStore((state) => state.setShape);
-  const setShapeVariantLocationData = useMusicStore(
-    (state) => state.setShapeVariantLocationData,
+  const setShapeVariantDataKeys = useMusicStore(
+    (state) => state.setShapeVariantDataKeys,
   );
 
   const isShapeActive =
-    shapeId !== null && semitoneOffsetFromMajorTonicRoot !== null;
-  const activeShapeValue = `${shapeId}|${semitoneOffsetFromMajorTonicRoot}`;
+    shapeDataKey !== null && semitoneOffsetFromMajorTonicRoot !== null;
+  const activeShapeValue = `${shapeDataKey}|${semitoneOffsetFromMajorTonicRoot}`;
 
   const currentShapeValue = isShapeActive ? activeShapeValue : undefined;
 
   const handleValueChange = (value: string) => {
-    setShapeVariantLocationData(null);
+    setShapeVariantDataKeys(null);
 
     const [id, offsetStr] = value.split("|");
     const offset = parseInt(offsetStr, 10);
@@ -37,7 +39,7 @@ export function useShapeSelection() {
     setShape(id, offset);
 
     resetActiveLockedNoteIds();
-    setBaseChordId(baseChordId);
+    setBaseChordDataKey(baseChordDataKey);
   };
 
   return {

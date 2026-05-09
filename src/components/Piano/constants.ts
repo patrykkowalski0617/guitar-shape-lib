@@ -1,6 +1,5 @@
 import { css } from "styled-components";
-import { getNotes } from "@/utils";
-import { type Note } from "@/data";
+import { getNotesFromNoteId, type NoteId } from "@/utils";
 
 export type BlackKeyTypes = "C#" | "D#" | "F#" | "G#" | "A#";
 
@@ -14,12 +13,11 @@ export const transition = css`
 
 export const numberOfKeys = 49;
 
-const firstNote: Note = "E";
+const firstNoteNoteId: NoteId = "E-2";
 
-export const pianoNotes = getNotes({
+export const pianoNotes = getNotesFromNoteId({
   length: numberOfKeys,
-  firstNote,
-  firstOctave: 2,
+  firstNoteNoteId: firstNoteNoteId,
 });
 
 export const SHAPES_OF_PIANO_KEYS: Record<number, KeyTypes> = {

@@ -22,29 +22,29 @@ export const useNoteState = ({
   fretIndex,
 }: UseNoteStateProps) => {
   const activeNoteId = useMusicStore((state) => state.activeNoteId);
-  const shapeVariantLocationData = useMusicStore(
-    (state) => state.shapeVariantLocationData,
+  const shapeVariantDataKeys = useMusicStore(
+    (state) => state.shapeVariantDataKeys,
   );
-  const shapeVariantLocationData_locked = useMusicStore(
-    (state) => state.shapeVariantLocationData_locked,
+  const shapeVariantDataKeys_locked = useMusicStore(
+    (state) => state.shapeVariantDataKeys_locked,
   );
   const activeLockedNoteIds = useMusicStore(
     (state) => state.activeLockedNoteIds,
   );
 
   const allShapesCoordinates = useShapeAllCoordinates();
-  const shapeCoordinates = useShapeCoordinates(shapeVariantLocationData);
+  const shapeCoordinates = useShapeCoordinates(shapeVariantDataKeys);
   const { baseChordCoordinates } = useBaseChordShapes();
   const getEnharmonicNoteName = useEnharmonicNoteName();
 
   const currentCoordinates: FretboardCoordinate = [stringIndex, fretIndex];
 
-  const finalShapeCoordinates = shapeVariantLocationData
+  const finalShapeCoordinates = shapeVariantDataKeys
     ? shapeCoordinates
     : allShapesCoordinates;
 
   const lockedShapeCoordinates = useShapeCoordinates(
-    shapeVariantLocationData_locked,
+    shapeVariantDataKeys_locked,
   ) as FretboardCoordinate[];
 
   const isActiveNote = activeNoteId === noteData.noteId;
@@ -64,8 +64,7 @@ export const useNoteState = ({
     shapeCoordinates,
   });
 
-  const matchingBaseChordCoordinates =
-    shapeVariantLocationData && baseChordMatch;
+  const matchingBaseChordCoordinates = shapeVariantDataKeys && baseChordMatch;
 
   const isBaseChordNote =
     !!matchingBaseChordCoordinates &&

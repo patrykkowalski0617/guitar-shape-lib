@@ -4,7 +4,7 @@ import { StepSlider } from "./StepSlider";
 
 export default function HiddenShapeExplorerSlider() {
   const {
-    shapeId,
+    shapeDataKey,
     options,
     sliderValue,
     userListIndexes,
@@ -15,7 +15,7 @@ export default function HiddenShapeExplorerSlider() {
   } = useShapeExplorerLogic();
 
   return (
-    shapeId && (
+    shapeDataKey && (
       <S.ShapeExplorerWrapper>
         <StepSlider
           key={isDisabled ? "disabled" : "enabled"}

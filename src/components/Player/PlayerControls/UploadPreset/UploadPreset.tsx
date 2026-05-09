@@ -17,12 +17,14 @@ export function UploadPreset() {
   const setBricks = usePlayerStore((state) => state.setBricks);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
-  const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
-  const setShapeVariantLocationData = useMusicStore(
-    (state) => state.setShapeVariantLocationData,
+  const setUnifiedMusicKeysDataKeys = useControlsStore(
+    (state) => state.setUnifiedMusicKeysDataKeys,
   );
-  const setShapeVariantLocationData_locked = useMusicStore(
-    (state) => state.setShapeVariantLocationData_locked,
+  const setShapeVariantDataKeys = useMusicStore(
+    (state) => state.setShapeVariantDataKeys,
+  );
+  const setShapeVariantDataKeys_locked = useMusicStore(
+    (state) => state.setShapeVariantDataKeys_locked,
   );
 
   const { closeEdit } = useCloseEdit();
@@ -32,11 +34,11 @@ export function UploadPreset() {
 
     const firstSnapshot = bricks[0]?.snapshot;
     if (firstSnapshot) {
-      setTuneKeyId(firstSnapshot.tuneKeyId);
+      setUnifiedMusicKeysDataKeys(firstSnapshot.unifiedMusicKeysDataKey);
     }
 
-    setShapeVariantLocationData(null);
-    setShapeVariantLocationData_locked(null);
+    setShapeVariantDataKeys(null);
+    setShapeVariantDataKeys_locked(null);
 
     if (fileInputRef.current) fileInputRef.current.value = "";
   };

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import { useBaseChordOptions } from "./hooks/useBaseChordOptions";
-import type { TuneKeyId } from "@/data";
+import type { UnifiedMusicKeysDataKeys } from "@/data";
 import { useShapeSelection } from "../ShapeSelect/hooks/useShapeSelection";
 import { useBaseChordToggle } from "./hooks/useBaseChordToggle";
 import { Key_ChordLabel } from "./Key_ChordLabel";
@@ -16,11 +16,11 @@ export default function Key_ChordToggle() {
     currentValue,
     handleValueChange,
     handleKeyOnlyChange,
-    currentTuneKeyId,
+    currentUnifiedMusicKeysDataKeys,
   } = useBaseChordToggle();
 
   const activeIndex = optionsPerKey.findIndex(
-    (g) => g.tuneKeyId === currentTuneKeyId,
+    (g) => g.unifiedMusicKeysDataKey === currentUnifiedMusicKeysDataKeys,
   );
   const activeGroup = optionsPerKey[activeIndex] || optionsPerKey[0];
 
@@ -29,8 +29,10 @@ export default function Key_ChordToggle() {
     setIsExpanded(true);
   };
 
-  const handleSelectKey = (tuneKeyId: TuneKeyId) => {
-    handleKeyOnlyChange(tuneKeyId);
+  const handleSelectKey = (
+    unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys,
+  ) => {
+    handleKeyOnlyChange(unifiedMusicKeysDataKey);
     setIsExpanded(false);
   };
 
@@ -65,7 +67,7 @@ export default function Key_ChordToggle() {
           {isExpanded ? (
             <Key_ChordExpandedList
               optionsPerKey={optionsPerKey}
-              currentTuneKeyId={currentTuneKeyId}
+              currentUnifiedMusicKeysDataKeys={currentUnifiedMusicKeysDataKeys}
               currentValue={currentValue}
               activeIndex={activeIndex}
               onClose={() => setIsExpanded(false)}

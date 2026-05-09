@@ -4,18 +4,24 @@ import { getNotes } from "@/utils";
 import { getFilteredAndFormatedShapes } from "../helpers/getFilteredAndFormatedShapes";
 
 export const useShapeOptions = () => {
-  const baseChordId = useControlsStore((state) => state.baseChordId);
-  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const filteredAndFormatedShapes = getFilteredAndFormatedShapes(baseChordId);
+  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
+  const unifiedMusicKeysDataKey = useControlsStore(
+    (state) => state.unifiedMusicKeysDataKey,
+  );
+  const filteredAndFormatedShapes =
+    getFilteredAndFormatedShapes(baseChordDataKey);
 
-  const musicKey = UNIFIED_MUSIC_KEYS[tuneKeyId];
+  const musicKey = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey];
   if (!musicKey) return null;
 
-  const relativeScale = getNotes({ firstNote: tuneKeyId as Note, length: 12 });
+  const relativeScale = getNotes({
+    firstNote: unifiedMusicKeysDataKey as Note,
+    length: 12,
+  });
 
   const options = filteredAndFormatedShapes.map(
-    ({ shapeId, semitoneOffsetFromMajorTonicRoot }) => {
-      const shape = SHAPES[shapeId as keyof Shapes];
+    ({ shapeDataKey, semitoneOffsetFromMajorTonicRoot }) => {
+      const shape = SHAPES[shapeDataKey as keyof Shapes];
 
       const noteIndex = ((semitoneOffsetFromMajorTonicRoot % 12) + 12) % 12;
       const noteObj = relativeScale[noteIndex];
@@ -25,7 +31,7 @@ export const useShapeOptions = () => {
         : noteObj.sharpNoteName;
 
       return {
-        value: `${shapeId}|${semitoneOffsetFromMajorTonicRoot}`,
+        value: `${shapeDataKey}|${semitoneOffsetFromMajorTonicRoot}`,
         labelRootNote: rootNote,
         labelShapeName: `${shape.label} ${shape.type}`,
       };

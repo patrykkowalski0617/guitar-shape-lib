@@ -1,12 +1,12 @@
-import type { SemitoneTemplateKey } from "./SCALE_SEMITONE_TEMPLATES";
+import type { ScaleSemitoneTemplateKey } from "./SCALE_SEMITONE_TEMPLATES";
 
-export type BaseChordId = keyof typeof BASE_CHORDS;
+export type BaseChordDataKey = keyof typeof BASE_CHORDS;
 export interface BaseChordValue {
   roleName: string;
   roleShortName: string;
   baseScaleName: string;
-  baseScaleId: SemitoneTemplateKey;
-  semitoneOffsetFromMajorScaleRoot: number;
+  baseScaleId: ScaleSemitoneTemplateKey;
+  semitoneOffsetFromMajorTonicRoot: number;
   modeExtendedName: string;
   CAGEDchordShape: string;
 }
@@ -17,7 +17,7 @@ export const BASE_CHORDS = {
     roleShortName: "T",
     baseScaleName: "Ionian",
     baseScaleId: "ionianScale",
-    semitoneOffsetFromMajorScaleRoot: 0,
+    semitoneOffsetFromMajorTonicRoot: 0,
     modeExtendedName: "M7",
     CAGEDchordShape: "major",
   },
@@ -26,7 +26,7 @@ export const BASE_CHORDS = {
     roleShortName: "s",
     baseScaleName: "Dorian",
     baseScaleId: "dorianScale",
-    semitoneOffsetFromMajorScaleRoot: 2,
+    semitoneOffsetFromMajorTonicRoot: 2,
     modeExtendedName: "m7",
     CAGEDchordShape: "minor",
   },
@@ -35,7 +35,7 @@ export const BASE_CHORDS = {
     roleShortName: "m",
     baseScaleName: "Phrygian",
     baseScaleId: "phrygianScale",
-    semitoneOffsetFromMajorScaleRoot: 4,
+    semitoneOffsetFromMajorTonicRoot: 4,
     modeExtendedName: "m7",
     CAGEDchordShape: "minor",
   },
@@ -44,7 +44,7 @@ export const BASE_CHORDS = {
     roleShortName: "DPh",
     baseScaleName: "Phrygian Dominant",
     baseScaleId: "phrygianDominantScale",
-    semitoneOffsetFromMajorScaleRoot: 4,
+    semitoneOffsetFromMajorTonicRoot: 4,
     modeExtendedName: "7",
     CAGEDchordShape: "major",
   },
@@ -53,7 +53,7 @@ export const BASE_CHORDS = {
     roleShortName: "S",
     baseScaleName: "Lydian",
     baseScaleId: "lydianScale",
-    semitoneOffsetFromMajorScaleRoot: 5,
+    semitoneOffsetFromMajorTonicRoot: 5,
     modeExtendedName: "M7",
     CAGEDchordShape: "major",
   },
@@ -62,7 +62,7 @@ export const BASE_CHORDS = {
     roleShortName: "D",
     baseScaleName: "Mixolydian",
     baseScaleId: "mixolydianScale",
-    semitoneOffsetFromMajorScaleRoot: 7,
+    semitoneOffsetFromMajorTonicRoot: 7,
     modeExtendedName: "7",
     CAGEDchordShape: "major",
   },
@@ -71,7 +71,7 @@ export const BASE_CHORDS = {
     roleShortName: "t",
     baseScaleName: "Aeolian",
     baseScaleId: "aeolianScale",
-    semitoneOffsetFromMajorScaleRoot: 9,
+    semitoneOffsetFromMajorTonicRoot: 9,
     modeExtendedName: "m7",
     CAGEDchordShape: "minor",
   },
@@ -80,8 +80,8 @@ export const BASE_CHORDS = {
     roleShortName: "h-dim",
     baseScaleName: "Locrian",
     baseScaleId: "locrianScale",
-    semitoneOffsetFromMajorScaleRoot: 11,
+    semitoneOffsetFromMajorTonicRoot: 11,
     modeExtendedName: "m7b5",
     CAGEDchordShape: "halfDim",
   },
-} as const satisfies Record<string, BaseChordValue>;
+};

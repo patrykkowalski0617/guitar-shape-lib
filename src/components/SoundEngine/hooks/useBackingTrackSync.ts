@@ -22,25 +22,29 @@ export const useBackingTrackSync = () => {
     (state) => state.backgingtrackNoteIds,
   );
 
-  const shapeVariantLocationData = useMusicStore(
-    (state) => state.shapeVariantLocationData,
+  const shapeVariantDataKeys = useMusicStore(
+    (state) => state.shapeVariantDataKeys,
   );
-  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const baseChordId = useControlsStore((state) => state.baseChordId);
+  const unifiedMusicKeysDataKey = useControlsStore(
+    (state) => state.unifiedMusicKeysDataKey,
+  );
+  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
 
   const baseScaleId =
-    baseChordId != null ? BASE_CHORDS[baseChordId].baseScaleId : undefined;
+    baseChordDataKey != null
+      ? BASE_CHORDS[baseChordDataKey].baseScaleId
+      : undefined;
   const scaleTemplate =
     baseScaleId != null ? SCALE_SEMITONE_TEMPLATES[baseScaleId] : undefined;
 
   const { baseChordCoordinates } = useBaseChordShapes();
-  const shapeCoordinates = useShapeCoordinates(shapeVariantLocationData);
+  const shapeCoordinates = useShapeCoordinates(shapeVariantDataKeys);
 
   useEffect(() => {
     const canCalculate =
-      shapeVariantLocationData &&
-      tuneKeyId &&
-      baseChordId &&
+      shapeVariantDataKeys &&
+      unifiedMusicKeysDataKey &&
+      baseChordDataKey &&
       scaleTemplate &&
       baseChordCoordinates &&
       shapeCoordinates.length > 0;
@@ -55,9 +59,10 @@ export const useBackingTrackSync = () => {
     if (!baseChordMatch) return;
 
     const { baseStringIndex, baseFretIndex } = baseChordMatch;
-    const tuneKeyOffset = UNIFIED_MUSIC_KEYS[tuneKeyId].offsetFromC;
+    const tuneKeyOffset =
+      UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
     const baseChordOffsetFromC =
-      BASE_CHORDS[baseChordId].semitoneOffsetFromMajorScaleRoot - 12;
+      BASE_CHORDS[baseChordDataKey].semitoneOffsetFromMajorTonicRoot - 12;
 
     let bassNoteFretIndex =
       baseFretIndex + tuneKeyOffset + baseChordOffsetFromC;
@@ -91,9 +96,9 @@ export const useBackingTrackSync = () => {
       }
     }
   }, [
-    shapeVariantLocationData,
-    tuneKeyId,
-    baseChordId,
+    shapeVariantDataKeys,
+    unifiedMusicKeysDataKey,
+    baseChordDataKey,
     baseChordCoordinates,
     shapeCoordinates,
     scaleTemplate,

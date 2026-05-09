@@ -1,41 +1,38 @@
 import { usePlayerStore, useMusicStore, useControlsStore } from "@/store";
-import { useCurrentShapeRootNote } from "@/hooks";
 import { SHAPES, type Shapes } from "@/data";
 
 export function useAddBrick() {
-  const setShapeVariantLocationData_locked = useMusicStore(
-    (state) => state.setShapeVariantLocationData_locked,
+  const setShapeVariantDataKeys_locked = useMusicStore(
+    (state) => state.setShapeVariantDataKeys_locked,
   );
-  const activeRootNote = useCurrentShapeRootNote();
 
-  const shapeId = useControlsStore((state) => state.shapeId);
-  if (!shapeId) return {};
+  const shapeDataKey = useControlsStore((state) => state.shapeDataKey);
+  if (!shapeDataKey) return {};
 
   const addBrick = () => {
     const { addBrick: addBrickToStore } = usePlayerStore.getState();
     const {
-      tuneKeyId,
-      baseChordId,
-      shapeId,
+      unifiedMusicKeysDataKey,
+      baseChordDataKey,
+      shapeDataKey,
       semitoneOffsetFromMajorTonicRoot,
     } = useControlsStore.getState();
-    const { shapeVariantLocationData } = useMusicStore.getState();
+    const { shapeVariantDataKeys } = useMusicStore.getState();
 
-    const activeShape = SHAPES[shapeId as keyof Shapes] || null;
+    const activeShape = SHAPES[shapeDataKey as keyof Shapes] || null;
 
     const initialSnapshot = {
-      tuneKeyId: tuneKeyId,
-      baseChordId,
-      shapeVariantLocationData,
-      rootNote: activeRootNote,
+      unifiedMusicKeysDataKey: unifiedMusicKeysDataKey,
+      baseChordDataKey,
+      shapeVariantDataKeys,
       shapeLabel: activeShape?.label,
       semitoneOffsetFromMajorTonicRoot,
-      shapeId,
+      shapeDataKey,
     };
 
     addBrickToStore(initialSnapshot);
 
-    setShapeVariantLocationData_locked(shapeVariantLocationData);
+    setShapeVariantDataKeys_locked(shapeVariantDataKeys);
   };
 
   return { addBrick };

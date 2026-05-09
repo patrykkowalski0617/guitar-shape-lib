@@ -1,6 +1,6 @@
 import { numberOfFrets } from "@/components/Fretboard/constants";
 import {
-  type VariantId,
+  type VariantDataKey,
   type StringVariants,
   type FretboardCoordinate,
 } from "@/data";
@@ -8,9 +8,9 @@ import {
 export const getValidVariants = (
   rootFretIndex: number,
   allVariants: StringVariants,
-): [VariantId, { coordinates: FretboardCoordinate[] }][] => {
+): [VariantDataKey, { coordinates: FretboardCoordinate[] }][] => {
   const variantEntries = Object.entries(allVariants) as [
-    VariantId,
+    VariantDataKey,
     { coordinates: FretboardCoordinate[] },
   ][];
 

@@ -4,7 +4,7 @@ import {
   SHAPES,
   SCALE_SEMITONE_TEMPLATES,
   INTERVAL_SEMITONES,
-  type Note,
+  type NoteName,
 } from "@/data";
 import { getNotes, type NoteObject } from "@/utils";
 
@@ -34,18 +34,20 @@ export const getIntervalName = (index: number) => {
 };
 
 export const calculateMatrixData = (
-  tuneKeyId: keyof typeof UNIFIED_MUSIC_KEYS,
-  baseChordId: keyof typeof BASE_CHORDS,
-  shapeId: keyof typeof SHAPES,
+  unifiedMusicKeysDataKey: keyof typeof UNIFIED_MUSIC_KEYS,
+  baseChordDataKey: keyof typeof BASE_CHORDS,
+  shapeDataKey: keyof typeof SHAPES,
   shapeOffset: number,
-  getEnharmonicName: (note: NoteObject) => Note,
+  getEnharmonicName: (note: NoteObject) => NoteName,
 ) => {
   const tuneKey =
-    UNIFIED_MUSIC_KEYS[tuneKeyId as keyof typeof UNIFIED_MUSIC_KEYS];
-  const baseChord = BASE_CHORDS[baseChordId];
-  const shape = SHAPES[shapeId];
+    UNIFIED_MUSIC_KEYS[
+      unifiedMusicKeysDataKey as keyof typeof UNIFIED_MUSIC_KEYS
+    ];
+  const baseChord = BASE_CHORDS[baseChordDataKey];
+  const shape = SHAPES[shapeDataKey];
   const scaleTemplate = SCALE_SEMITONE_TEMPLATES[baseChord.baseScaleId];
-  const chordOffset = baseChord.semitoneOffsetFromMajorScaleRoot;
+  const chordOffset = baseChord.semitoneOffsetFromMajorTonicRoot;
 
   const allNotes = getNotes({});
   const rootNote = allNotes[tuneKey.offsetFromC];

@@ -3,13 +3,13 @@ import { useControlsStore } from "@/store";
 import { MiniCarousel } from "../ui/MiniCarousel/MiniCarousel";
 
 const ShapeCarousel = () => {
-  const activeShapeId = useControlsStore((state) => state.shapeId);
+  const activeShapeDataKey = useControlsStore((state) => state.shapeDataKey);
   const shapeKeys = Object.keys(SHAPES) as (keyof Shapes)[];
 
   return (
     <MiniCarousel
       items={shapeKeys}
-      activeId={activeShapeId}
+      activeId={activeShapeDataKey}
       label="Shapes"
       activeLabel="Current shape"
       getItemId={(key) => String(key)}

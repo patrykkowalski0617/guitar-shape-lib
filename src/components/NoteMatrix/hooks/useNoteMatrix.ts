@@ -7,9 +7,11 @@ import {
 } from "../utils";
 
 export const useNoteMatrix = () => {
-  const tuneKeyId = useControlsStore((state) => state.tuneKeyId);
-  const baseChordId = useControlsStore((state) => state.baseChordId);
-  const shapeId = useControlsStore((state) => state.shapeId);
+  const unifiedMusicKeysDataKey = useControlsStore(
+    (state) => state.unifiedMusicKeysDataKey,
+  );
+  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
+  const shapeDataKey = useControlsStore((state) => state.shapeDataKey);
   const shapeOffset = useControlsStore(
     (state) => state.semitoneOffsetFromMajorTonicRoot,
   );
@@ -24,17 +26,17 @@ export const useNoteMatrix = () => {
   const getEnharmonicName = useEnharmonicNoteName();
 
   const isStateReady = !!(
-    shapeId &&
-    tuneKeyId &&
-    baseChordId &&
+    shapeDataKey &&
+    unifiedMusicKeysDataKey &&
+    baseChordDataKey &&
     shapeOffset !== null
   );
 
   const data = isStateReady
     ? calculateMatrixData(
-        tuneKeyId!,
-        baseChordId!,
-        shapeId!,
+        unifiedMusicKeysDataKey!,
+        baseChordDataKey!,
+        shapeDataKey!,
         shapeOffset!,
         getEnharmonicName,
       )

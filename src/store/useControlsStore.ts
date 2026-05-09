@@ -1,21 +1,25 @@
 import { create } from "zustand";
-import type { BaseChordId, TuneKeyId } from "@/data";
+import type {
+  BaseChordDataKey,
+  ShapeDataKey,
+  UnifiedMusicKeysDataKeys,
+} from "@/data";
 import {
   STRINGS_CONFIG,
   type StringIndex,
 } from "@/components/Fretboard/constants";
 
 interface ControlsState {
-  tuneKeyId: TuneKeyId;
-  setTuneKeyId: (id: TuneKeyId) => void;
+  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys;
+  setUnifiedMusicKeysDataKeys: (id: UnifiedMusicKeysDataKeys) => void;
 
-  baseChordId: BaseChordId | null;
-  setBaseChordId: (id: BaseChordId | null) => void;
+  baseChordDataKey: BaseChordDataKey | null;
+  setBaseChordDataKey: (id: BaseChordDataKey | null) => void;
 
-  shapeId: string | null;
+  shapeDataKey: ShapeDataKey | null;
   semitoneOffsetFromMajorTonicRoot: number | null;
   setShape: (
-    shapeId: string | null,
+    shapeDataKey: ShapeDataKey | null,
     semitoneOffsetFromMajorTonicRoot: number | null,
   ) => void;
 
@@ -38,9 +42,9 @@ interface ControlsState {
 }
 
 const initialState = {
-  tuneKeyId: "C" as TuneKeyId,
-  baseChordId: null,
-  shapeId: null,
+  unifiedMusicKeysDataKey: "C" as UnifiedMusicKeysDataKeys,
+  baseChordDataKey: null,
+  shapeDataKey: null,
   semitoneOffsetFromMajorTonicRoot: null as number | null,
   isShapeSelectOpen: false,
   isShapeSliderHold: false,
@@ -52,13 +56,14 @@ const initialState = {
 export const useControlsStore = create<ControlsState>((set) => ({
   ...initialState,
 
-  setTuneKeyId: (tuneKeyId) => set({ tuneKeyId }),
+  setUnifiedMusicKeysDataKeys: (unifiedMusicKeysDataKey) =>
+    set({ unifiedMusicKeysDataKey }),
 
-  setBaseChordId: (baseChordId) => set({ baseChordId }),
+  setBaseChordDataKey: (baseChordDataKey) => set({ baseChordDataKey }),
 
-  setShape: (shapeId, semitoneOffsetFromMajorTonicRoot) =>
+  setShape: (shapeDataKey, semitoneOffsetFromMajorTonicRoot) =>
     set({
-      shapeId,
+      shapeDataKey,
       semitoneOffsetFromMajorTonicRoot,
     }),
 

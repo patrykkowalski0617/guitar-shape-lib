@@ -1,18 +1,22 @@
-import { BASE_CHORDS, UNIFIED_MUSIC_KEYS, type TuneKeyId } from "@/data";
+import {
+  BASE_CHORDS,
+  UNIFIED_MUSIC_KEYS,
+  type UnifiedMusicKeysDataKeys,
+} from "@/data";
 import { getNotes } from "@/utils";
 
 export const useBaseChordOptions = () => {
   const keyEntries = Object.entries(UNIFIED_MUSIC_KEYS) as [
-    TuneKeyId,
-    (typeof UNIFIED_MUSIC_KEYS)[TuneKeyId],
+    UnifiedMusicKeysDataKeys,
+    (typeof UNIFIED_MUSIC_KEYS)[UnifiedMusicKeysDataKeys],
   ][];
 
-  const optionsPerKey = keyEntries.map(([tuneKeyId, keyData]) => {
+  const optionsPerKey = keyEntries.map(([unifiedMusicKeysDataKey, keyData]) => {
     const firstNote = keyData.majorName;
     const notes = getNotes({ firstNote });
-    const isFlatTune = UNIFIED_MUSIC_KEYS[tuneKeyId].isFlatTune;
+    const isFlatTune = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].isFlatTune;
     const chords = Object.entries(BASE_CHORDS).map(([chordId, chordData]) => {
-      const noteAtOffset = notes[chordData.semitoneOffsetFromMajorScaleRoot];
+      const noteAtOffset = notes[chordData.semitoneOffsetFromMajorTonicRoot];
 
       const noteName = isFlatTune
         ? noteAtOffset.flatNoteName
@@ -21,13 +25,13 @@ export const useBaseChordOptions = () => {
 
       return {
         id: chordId,
-        combinedId: `${tuneKeyId}:${chordId}`,
+        combinedId: `${unifiedMusicKeysDataKey}:${chordId}`,
         chordName,
       };
     });
 
     return {
-      tuneKeyId,
+      unifiedMusicKeysDataKey,
       label: `${keyData.majorName}/${keyData.relativeMinorName}`,
       chords,
     };

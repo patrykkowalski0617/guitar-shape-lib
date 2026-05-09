@@ -7,18 +7,18 @@ export const useFretboardScroll = (
   containerRef: RefObject<HTMLDivElement | null>,
 ) => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
-  const shapeVariantLocationData_locked = useMusicStore(
-    (state) => state.shapeVariantLocationData_locked,
+  const shapeVariantDataKeys_locked = useMusicStore(
+    (state) => state.shapeVariantDataKeys_locked,
   );
-  const shapeVariantLocationData_regular = useMusicStore(
-    (state) => state.shapeVariantLocationData,
+  const shapeVariantDataKeys_regular = useMusicStore(
+    (state) => state.shapeVariantDataKeys,
   );
 
-  const shapeVariantLocationData = isPlaying
-    ? shapeVariantLocationData_locked
-    : shapeVariantLocationData_regular;
+  const shapeVariantDataKeys = isPlaying
+    ? shapeVariantDataKeys_locked
+    : shapeVariantDataKeys_regular;
 
-  const notes = useShapeCoordinates(shapeVariantLocationData);
+  const notes = useShapeCoordinates(shapeVariantDataKeys);
   const { min, max } = getShapeFretRange(notes);
 
   const theLowestFret = min === -1 ? 0 : min;
@@ -26,7 +26,7 @@ export const useFretboardScroll = (
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || !shapeVariantLocationData) return;
+    if (!container || !shapeVariantDataKeys) return;
 
     const timer = setTimeout(() => {
       if (theLowestFret === 0) {
@@ -71,5 +71,5 @@ export const useFretboardScroll = (
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [containerRef, shapeVariantLocationData, theLowestFret, theHighestFret]);
+  }, [containerRef, shapeVariantDataKeys, theLowestFret, theHighestFret]);
 };

@@ -27,8 +27,8 @@ export const usePlayerBrickLogic = ({
 }: UsePlayerBrickLogicProps) => {
   const { id, width } = brick;
 
-  const setShapeVariantLocationData_locked = useMusicStore(
-    (state) => state.setShapeVariantLocationData_locked,
+  const setShapeVariantDataKeys_locked = useMusicStore(
+    (state) => state.setShapeVariantDataKeys_locked,
   );
   const removeBrick = usePlayerStore((state) => state.removeBrick);
   const setActiveBrickId = usePlayerStore((state) => state.setActiveBrickId);
@@ -36,7 +36,9 @@ export const usePlayerBrickLogic = ({
   const bricks = usePlayerStore((state) => state.bricks);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const isCountingIn = usePlayerStore((state) => state.isCountingIn);
-  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
+  const setBaseChordDataKey = useControlsStore(
+    (state) => state.setBaseChordDataKey,
+  );
   const getEnharmonicNoteName = useEnharmonicNoteName();
 
   const [isResizing, setIsResizing] = useState(false);
@@ -64,7 +66,7 @@ export const usePlayerBrickLogic = ({
 
     if (isNotResizing && snapshot) {
       setActiveBrickId(id);
-      setBaseChordId(snapshot?.baseChordId);
+      setBaseChordDataKey(snapshot?.baseChordDataKey);
       applySnapshot(e);
     }
   };
@@ -117,7 +119,7 @@ export const usePlayerBrickLogic = ({
 
     const isNotSingleBlockBrick = width > 1;
     if (isNotSingleBlockBrick) {
-      setShapeVariantLocationData_locked(null);
+      setShapeVariantDataKeys_locked(null);
     }
   };
 
@@ -132,9 +134,7 @@ export const usePlayerBrickLogic = ({
       currentStep - stepStartOfActive + 1 === currentActiveBrick.width;
 
     if (isLastStepOfActiveBrick && bricks.length > 1) {
-      setShapeVariantLocationData_locked(
-        lockedSnapshot.shapeVariantLocationData,
-      );
+      setShapeVariantDataKeys_locked(lockedSnapshot.shapeVariantDataKeys);
     }
   };
 
@@ -143,7 +143,7 @@ export const usePlayerBrickLogic = ({
     applySnapshotToStore,
     lockedSnapshot,
     width,
-    setShapeVariantLocationData_locked,
+    setShapeVariantDataKeys_locked,
   ]);
 
   useEffect(syncNextBrickPreview, [
@@ -151,28 +151,29 @@ export const usePlayerBrickLogic = ({
     currentStep,
     activeBrickIndex,
     bricks,
-    lockedSnapshot.shapeVariantLocationData,
-    setShapeVariantLocationData_locked,
+    lockedSnapshot.shapeVariantDataKeys,
+    setShapeVariantDataKeys_locked,
   ]);
 
   const hasData = displayData.rootNote !== null;
 
-  const tuneKeyOffset = UNIFIED_MUSIC_KEYS[displayData.tuneKeyId].offsetFromC;
+  const tuneKeyOffset =
+    UNIFIED_MUSIC_KEYS[displayData.unifiedMusicKeysDataKey].offsetFromC;
 
   const roleMarker =
-    hasData && displayData.baseChordId !== null
+    hasData && displayData.baseChordDataKey !== null
       ? getEnharmonicNoteName(
           getNotes({ length: 24 })[
-            BASE_CHORDS[displayData.baseChordId]
-              .semitoneOffsetFromMajorScaleRoot + tuneKeyOffset
+            BASE_CHORDS[displayData.baseChordDataKey]
+              .semitoneOffsetFromMajorTonicRoot + tuneKeyOffset
           ],
         )
       : null;
 
   const label = isResizing
     ? width
-    : hasData && displayData.baseChordId !== null
-      ? `${roleMarker} ${BASE_CHORDS[displayData.baseChordId].modeExtendedName} | ${displayData.rootNote} ${displayData.shapeLabel}`
+    : hasData && displayData.baseChordDataKey !== null
+      ? `${roleMarker} ${BASE_CHORDS[displayData.baseChordDataKey].modeExtendedName} | ${displayData.rootNote} ${displayData.shapeLabel}`
       : `Empty`;
 
   return {

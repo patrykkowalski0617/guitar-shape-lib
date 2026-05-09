@@ -1,8 +1,8 @@
-import type { ShapeLocation } from "../helpers/getOrderedShapeLocations";
+import type { ShapeVariantDataKeys } from "@/data";
 import { Tick } from "./parts";
 
 interface StepSliderTicksProps {
-  options: ShapeLocation[];
+  options: ShapeVariantDataKeys[];
   effectiveMax: number;
   userListIndexes: number[];
   highlightedId: string | number | null;

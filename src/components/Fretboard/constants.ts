@@ -1,15 +1,15 @@
-import type { FretboardStringId, Note } from "@/data";
+import type { BassStringDataKey, NoteName } from "@/data";
 
 export type StringIndex = 0 | 1 | 2 | 3 | 4 | 5;
 
-export const BASS_STRING_ID_MAP: Record<number, FretboardStringId> = {
+export const BASS_STRING_ID_MAP: Record<number, BassStringDataKey> = {
   5: "strE",
   4: "strA",
   3: "strD",
 };
 
 interface STRINGS_CONFIG {
-  firstNoteInRow: Note;
+  firstNoteInRow: NoteName;
   firstNoteOctaveNumber: number;
 }
 

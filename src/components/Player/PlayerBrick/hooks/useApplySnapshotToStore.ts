@@ -2,17 +2,21 @@ import { useControlsStore, useMusicStore } from "@/store";
 import type { Snapshot } from ".";
 
 export const useApplySnapshotToStore = () => {
-  const setTuneKeyId = useControlsStore((state) => state.setTuneKeyId);
-  const setBaseChordId = useControlsStore((state) => state.setBaseChordId);
+  const setUnifiedMusicKeysDataKeys = useControlsStore(
+    (state) => state.setUnifiedMusicKeysDataKeys,
+  );
+  const setBaseChordDataKey = useControlsStore(
+    (state) => state.setBaseChordDataKey,
+  );
   const setShape = useControlsStore((state) => state.setShape);
-  const setShapeVariantLocationData = useMusicStore(
-    (state) => state.setShapeVariantLocationData,
+  const setShapeVariantDataKeys = useMusicStore(
+    (state) => state.setShapeVariantDataKeys,
   );
 
   return (snapshot: Snapshot) => {
-    setShapeVariantLocationData(snapshot.shapeVariantLocationData);
-    setTuneKeyId(snapshot.tuneKeyId);
-    setBaseChordId(snapshot.baseChordId);
-    setShape(snapshot.shapeId, snapshot.semitoneOffsetFromMajorTonicRoot);
+    setShapeVariantDataKeys(snapshot.shapeVariantDataKeys);
+    setUnifiedMusicKeysDataKeys(snapshot.unifiedMusicKeysDataKey);
+    setBaseChordDataKey(snapshot.baseChordDataKey);
+    setShape(snapshot.shapeDataKey, snapshot.semitoneOffsetFromMajorTonicRoot);
   };
 };

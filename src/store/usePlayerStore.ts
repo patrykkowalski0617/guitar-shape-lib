@@ -4,7 +4,7 @@ import { type Snapshot } from "@/components/Player/PlayerBrick/hooks/usePlayerSn
 export interface Brick {
   id: number;
   width: number;
-  snapshot: Snapshot | null;
+  snapshot: Snapshot;
 }
 
 export const BPM_LIMITS = {
@@ -49,7 +49,7 @@ export const usePlayerStore = create<PlayerState>((set, get) => ({
   countIn: 0,
   isCountingIn: false,
 
-  addBrick: (initialSnapshot = null) => {
+  addBrick: (initialSnapshot) => {
     const newId = Date.now();
     set((state) => ({
       bricks: [
