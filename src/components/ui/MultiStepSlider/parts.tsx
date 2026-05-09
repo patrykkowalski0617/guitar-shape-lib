@@ -7,20 +7,12 @@ interface StyledProps {
   $thumbSize?: number;
 }
 
-// ... Twoje animacje (highlightAnimation, tickOpacity) bez zmian ...
-const highlightAnimation = keyframes`
- 0% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 0px transparent; }
- 50% { transform: translate(-50%, -50%) scale(1.2); box-shadow: 0 0 8px 4px var(--secondary); }
- 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 0 0px transparent; }
-`;
-
 const tickOpacity = keyframes`
  0% { opacity: 0; }
  100% { opacity: 1; }
 `;
 
 export const Tick = styled.div<{
-  $isVisible?: boolean;
   $isOpacityAnimationLocked?: boolean;
   $opacityAnimationDuration?: number;
 }>`
@@ -32,13 +24,9 @@ export const Tick = styled.div<{
   border-radius: 50%;
   background: radial-gradient(circle, var(--accent) 0%, var(--muted) 100%);
   box-shadow: 2px 2px 8px 2px var(--background);
-  ${({ $isVisible, $isOpacityAnimationLocked, $opacityAnimationDuration }) => {
+  ${({ $isOpacityAnimationLocked, $opacityAnimationDuration }) => {
     if (!$opacityAnimationDuration) return;
-    if ($isVisible)
-      return css`
-        animation: ${highlightAnimation} 0.6s ease-in-out forwards;
-        z-index: 10;
-      `;
+
     if (!$isOpacityAnimationLocked)
       return css`
         opacity: 0;

@@ -81,12 +81,12 @@ export function MultiStepSlider({
       }
       onValueChange(nextValue.sort((a, b) => a - b));
     }
-  }; // USUWANIE: zostawiamy tylko te, które są mniejsze lub równe klikniętemu (odcinamy górę)
+  };
 
   const removeValuesAbove = (clickedVal: number) => {
     const nextValue = value.filter((v) => v <= clickedVal);
     onValueChange(nextValue.sort((a, b) => a - b));
-  }; // USUWANIE: zostawiamy tylko te, które są większe lub równe klikniętemu (odcinamy dół)
+  };
 
   const removeValuesBelow = (clickedVal: number) => {
     const nextValue = value.filter((v) => v >= clickedVal);
@@ -105,21 +105,17 @@ export function MultiStepSlider({
       disabled={disabled}
       onPointerDownCapture={handleCapturePointerDown}
     >
-           {" "}
       <S.SliderTrack $isVertical={isVertical} $thumbSize={thumbSize}>
-                {children}     {" "}
+        {children}
       </S.SliderTrack>
-           {" "}
       {value.map((val, index) => (
         <S.SliderThumb
           key={`thumb-${index}`}
           $thumbSize={thumbSize}
           disabled={disabled}
         >
-                   {" "}
           {!disabled && (
             <S.ControlsWrapper $isVertical={isVertical} $thumbSize={thumbSize}>
-                           {" "}
               <S.CutButton
                 onClick={(e) => {
                   e.stopPropagation();
@@ -127,9 +123,8 @@ export function MultiStepSlider({
                 }}
                 title="Odtnij wszystko poniżej"
               >
-                                {isVertical ? "▼" : "◀"}             {" "}
+                {isVertical ? "▼" : "◀"}
               </S.CutButton>
-                           {" "}
               <S.CutButton
                 onClick={(e) => {
                   e.stopPropagation();
@@ -137,15 +132,12 @@ export function MultiStepSlider({
                 }}
                 title="Odtnij wszystko powyżej"
               >
-                                {isVertical ? "▲" : "▶"}             {" "}
+                {isVertical ? "▲" : "▶"}
               </S.CutButton>
-                         {" "}
             </S.ControlsWrapper>
           )}
-                 {" "}
         </S.SliderThumb>
       ))}
-         {" "}
     </S.SliderRoot>
   );
 }
