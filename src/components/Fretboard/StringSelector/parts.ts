@@ -1,17 +1,25 @@
-import { Tick } from "@/components/ui/StepSlider/parts";
 import styled from "styled-components";
 
-export const StyledTick = styled(Tick)`
+export const StyledTick = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: radial-gradient(
+  width: 17px;
+  height: 17px;
+  border-radius: 100%;
+  background-color: var(--muted);
+  background-image: radial-gradient(
     circle,
     var(--foreground) 0%,
-    var(--instrument) 10%,
-    var(--background) 100%
+    var(--instrument) 20%,
+    var(--muted) 100%
   );
+  background-position: -6px -2px;
+  background-size: 25px;
+  box-shadow:
+    2px 2px 8px 2px var(--background),
+    -2px -2px 7px 0px var(--background) inset;
 `;
 
 export const IndicatorWrapper = styled.div<{ $hideTick: boolean }>`

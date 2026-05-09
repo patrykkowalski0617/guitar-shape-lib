@@ -61,7 +61,7 @@ export const PianoWrapper = styled.div`
   overflow: hidden;
   margin-left: auto;
   width: 1400px;
-  border: 3px solid #272727;
+  border: 3px solid #1b1b1b;
   border-bottom: 0;
   border-right-width: 1px;
   border-left-width: 1px;
