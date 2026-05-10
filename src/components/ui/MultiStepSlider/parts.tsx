@@ -150,6 +150,9 @@ export const InteractionZone = styled.div.attrs<{
   height: ${({ $thumbSize }) => $thumbSize}px;
   pointer-events: auto;
 
+  &:hover {
+    z-index: 900;
+  }
   &:hover > div {
     opacity: 1;
   }
@@ -166,6 +169,7 @@ export const InteractionZone = styled.div.attrs<{
 
 export const ControlsWrapper = styled.div<{
   $isVertical: boolean;
+  $isDragging: boolean;
   $thumbSize: number;
 }>`
   position: absolute;
@@ -174,6 +178,12 @@ export const ControlsWrapper = styled.div<{
   opacity: 0;
   transition: opacity 0.2s;
   pointer-events: none;
+  ${({ $isDragging }) =>
+    $isDragging
+      ? css`
+          opacity: 0;
+        `
+      : css``}
   ${({ $isVertical }) =>
     $isVertical
       ? css`
