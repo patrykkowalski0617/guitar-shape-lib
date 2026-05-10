@@ -55,7 +55,7 @@ export default function Fretboard(): JSX.Element {
     <S.FretboardNotScrollableWrapper>
       <S.StringSliderWrapper>
         <StringSlider />
-        <StringSelector />
+        {/* <StringSelector /> */}
       </S.StringSliderWrapper>
       <InstrumentScrollWrapper ref={scrollRef}>
         <FretboardNumericMarkers />

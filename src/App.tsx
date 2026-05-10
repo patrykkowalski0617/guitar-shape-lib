@@ -12,6 +12,7 @@ import { SoundEngine } from "./components/SoundEngine/SoundEngine";
 import { usePersistentBoolean } from "@/hooks/usePersistentBoolean";
 import { animationDuration } from "./constants";
 import { MiddleControlsBar } from "./components/MiddleControlsBar/MiddleControlsBar";
+import { MultiStepSliderTest } from "./components/ui/MultiStepSlider/MultiStepSliderTest";
 
 const MotionSection = motion(Section);
 
@@ -38,15 +39,15 @@ export default function App() {
       <Toaster position="top-center" />
       <FullscreenButton />
       <MainContent>
-        <Section>
+        {/* <Section>
           <UpperControlsBar />
-        </Section>
-
+        </Section> */}
         <Section>
           <Fretboard />
         </Section>
+        <MultiStepSliderTest />
 
-        <Section>
+        {/* <Section>
           <MiddleControlsBar />
         </Section>
 
@@ -67,8 +68,7 @@ export default function App() {
               </Player>
             </MotionSection>
           )}
-        </AnimatePresence>
-
+        </AnimatePresence> */}
         <Section>
           <Footer />
         </Section>

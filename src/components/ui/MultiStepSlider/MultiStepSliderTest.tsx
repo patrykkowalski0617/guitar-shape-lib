@@ -17,13 +17,21 @@ export function MultiStepSliderTest() {
     <AppWrapper>
       <h2>MultiStep Slider: Click-to-Fill</h2>
       <p style={{ color: "#888" }}>Wybrane kroki: {activeSteps.join(", ")}</p>
-
       <div style={{ width: "500px", margin: "40px 0" }}>
         <MultiStepSlider
           value={activeSteps}
           onValueChange={setActiveSteps}
           max={MAX_STEPS}
           thumbSize={28}
+        >
+          <MultiStepSliderTicks effectiveMax={MAX_STEPS} options={options} />
+        </MultiStepSlider>
+        <MultiStepSlider
+          value={activeSteps}
+          onValueChange={setActiveSteps}
+          max={MAX_STEPS}
+          thumbSize={28}
+          orientation="vertical"
         >
           <MultiStepSliderTicks effectiveMax={MAX_STEPS} options={options} />
         </MultiStepSlider>

@@ -1,10 +1,11 @@
 import { insetShadow } from "@/constants";
-import * as SliderPrimitive from "@radix-ui/react-slider";
 import styled, { css, keyframes } from "styled-components";
 
 interface StyledProps {
   $isVertical?: boolean;
   $thumbSize?: number;
+  $isFirst?: boolean;
+  $isVisible?: boolean;
 }
 
 const tickOpacity = keyframes`
@@ -26,7 +27,6 @@ export const Tick = styled.div<{
   box-shadow: 2px 2px 8px 2px var(--background);
   ${({ $isOpacityAnimationLocked, $opacityAnimationDuration }) => {
     if (!$opacityAnimationDuration) return;
-
     if (!$isOpacityAnimationLocked)
       return css`
         opacity: 0;
@@ -36,7 +36,7 @@ export const Tick = styled.div<{
   }}
 `;
 
-export const SliderRoot = styled(SliderPrimitive.Root)<StyledProps>`
+export const SliderRoot = styled.div<StyledProps>`
   position: relative;
   display: flex;
   align-items: center;
@@ -56,7 +56,7 @@ export const SliderRoot = styled(SliderPrimitive.Root)<StyledProps>`
         `}
 `;
 
-export const SliderTrack = styled(SliderPrimitive.Track)<StyledProps>`
+export const SliderTrack = styled.div<StyledProps>`
   position: relative;
   flex-grow: 1;
   background-color: color-mix(in oklab, var(--background) 50%, transparent);
@@ -76,7 +76,6 @@ export const SliderTrack = styled(SliderPrimitive.Track)<StyledProps>`
         `}
 `;
 
-// Nowe elementy sterujące
 export const ControlsWrapper = styled.div<StyledProps>`
   position: absolute;
   display: flex;
@@ -84,19 +83,18 @@ export const ControlsWrapper = styled.div<StyledProps>`
   opacity: 0;
   transition: opacity 0.2s;
   pointer-events: none;
-
+  z-index: 20;
   ${({ $isVertical, $thumbSize = 28 }) =>
     $isVertical
       ? css`
           flex-direction: column;
           left: ${$thumbSize + 8}px;
-          top: 30%;
+          top: 50%;
           transform: translateY(-50%);
         `
       : css`
           flex-direction: row;
           bottom: ${$thumbSize + 8}px;
-          top: -30%;
           left: 50%;
           transform: translateX(-50%);
         `}
@@ -116,55 +114,47 @@ export const CutButton = styled.button`
   font-size: 10px;
   cursor: pointer;
   pointer-events: auto;
-
   &:hover {
     background: var(--accent);
     color: var(--background);
   }
 `;
 
-// prettier-ignore
-export const SliderThumb = styled(SliderPrimitive.Thumb)<
- StyledProps & { disabled?: boolean }>`
- display: block;
- border-radius: 9999px;
- border: 1px solid var(--accent);
- cursor: grab;
- transition: 0.2s;
- width: ${({ $thumbSize }) => $thumbSize}px;
- height: ${({ $thumbSize }) => $thumbSize}px;
- position: relative; /* Ważne dla ControlsWrapper */
-
- box-shadow:
-  2px 2px 8px 2px var(--background),
-  0px 0px 2px 1px var(--border) inset,
-  0px 0px 3px 2px var(--contrast) inset;
-
- &:active {
-  cursor: grabbing;
- }
- &:hover {
-  transform: scale(1.1);
-  ${ControlsWrapper} {
-   opacity: 1;
-  }
- }
- &:focus {
-  outline: none;
- }
- &:focus-visible {
+export const ThumbVisual = styled.div<StyledProps>`
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid var(--accent);
   box-shadow:
-   2px 2px 8px 2px var(--background),
-   0px 0px 2px 1px var(--border) inset,
-   0px 0px 3px 2px var(--contrast) inset,
-   0 0 0 2px color-mix(in oklab, var(--accent) 70%, transparent);
- }
+    2px 2px 8px 2px var(--background),
+    0px 0px 2px 1px var(--border) inset,
+    0px 0px 3px 2px var(--contrast) inset;
+  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
+  transition: transform 0.2s;
+`;
 
- &[data-disabled] {
-  border-color: var(--border);
-  transform: scale(1);
-  cursor: default;
-  filter: grayscale(100%);
-  background-color: #444;
- }
+export const SliderThumb = styled.div<StyledProps>`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  cursor: grab;
+  width: ${({ $thumbSize }) => $thumbSize}px;
+  height: ${({ $thumbSize }) => $thumbSize}px;
+
+  &:active {
+    cursor: grabbing;
+  }
+  &:hover {
+    ${({ $isFirst }) =>
+      !$isFirst &&
+      css`
+        ${ThumbVisual} {
+          transform: scale(1.1);
+        }
+      `}
+    ${ControlsWrapper} {
+      opacity: 1;
+    }
+  }
 `;
