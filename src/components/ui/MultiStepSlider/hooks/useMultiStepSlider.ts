@@ -116,5 +116,6 @@ export function useMultiStepSlider({
     startDrag,
     handleCutStart,
     handleCutEnd,
+    calculateValueFromPos,
   };
 }

@@ -85,12 +85,15 @@ export const SliderThumb = styled.div.attrs<{
   $startPos: number;
   $totalWidth: number;
   $thumbSize: number;
+  $isPreview?: boolean;
 }>`
   position: absolute;
-  cursor: grab;
-  z-index: 10;
+  cursor: ${({ $isPreview }) => ($isPreview ? "default" : "grab")};
+  z-index: ${({ $isPreview }) => ($isPreview ? 5 : 10)};
+  opacity: ${({ $isPreview }) => ($isPreview ? 0.4 : 1)};
+  pointer-events: ${({ $isPreview }) => ($isPreview ? "none" : "auto")};
   &:active {
-    cursor: grabbing;
+    cursor: ${({ $isPreview }) => ($isPreview ? "default" : "grabbing")};
   }
 `;
 
@@ -112,6 +115,7 @@ export const InteractionContainer = styled.div<{
 }>`
   position: absolute;
   z-index: 2;
+  pointer-events: none;
   ${({ $isVertical, $thumbSize }) =>
     $isVertical
       ? css`
@@ -144,10 +148,12 @@ export const InteractionZone = styled.div.attrs<{
   justify-content: center;
   width: ${({ $thumbSize }) => $thumbSize}px;
   height: ${({ $thumbSize }) => $thumbSize}px;
+  pointer-events: auto;
+
   &:hover > div {
     opacity: 1;
-    pointer-events: auto;
   }
+
   ${({ $isVertical, $thumbSize }) =>
     $isVertical
       ? css`
@@ -193,6 +199,7 @@ export const CutButton = styled.button`
   justify-content: center;
   font-size: 10px;
   cursor: pointer;
+  pointer-events: auto;
   &:hover:not(:disabled) {
     background: var(--primary);
     color: var(--background);
