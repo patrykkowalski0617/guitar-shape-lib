@@ -69,6 +69,9 @@ export const InteractionContainer = styled.div<{ $isVertical: boolean }>`
   inset: 0;
   display: flex;
   z-index: 2;
+  left: calc((28px / 2)); // thumbSize / 2
+  right: calc((28px / 2)); // thumbSize / 2
+  outline: red 1px solid;
   ${({ $isVertical }) =>
     $isVertical
       ? css`
@@ -78,7 +81,7 @@ export const InteractionContainer = styled.div<{ $isVertical: boolean }>`
           flex-direction: row;
         `}
 `;
-
+const numOfChildren = 4;
 export const InteractionZone = styled.div<{
   $isVertical: boolean;
   $thumbSize: number;
@@ -88,7 +91,48 @@ export const InteractionZone = styled.div<{
   align-items: center;
   justify-content: center;
   position: relative;
+  outline: 1px green solid;
+  position: absolute;
+  transform: translateX(-50%);
+  height: 60px;
+  bottom: 0;
+  &:nth-child(1) {
+    width: calc(100% / ${numOfChildren - 1});
 
+    left: 0;
+  }
+  &:nth-child(2) {
+    width: calc(100% / ${numOfChildren - 1});
+
+    left: calc(100% / ${numOfChildren - 1});
+  }
+  &:nth-child(3) {
+    width: calc(100% / ${numOfChildren - 1});
+
+    left: calc(100% / ${numOfChildren - 1} * 2);
+  }
+
+  &:nth-child(4) {
+    width: calc(100% / ${numOfChildren - 1});
+
+    left: calc(100% / ${numOfChildren - 1} * 3);
+  }
+
+  &:nth-child(5) {
+    width: calc(100% / ${numOfChildren - 1});
+
+    left: calc(100% / ${numOfChildren - 1} * 4);
+  }
+  &:nth-child(6) {
+    width: calc(100% / ${numOfChildren - 1});
+
+    left: calc(100% / ${numOfChildren - 1} * 5);
+  }
+  &:nth-child(7) {
+    width: calc(100% / ${numOfChildren - 1});
+
+    left: calc(100% / ${numOfChildren - 1} * 6);
+  }
   &:hover > div {
     opacity: 1;
     pointer-events: auto;
@@ -102,7 +146,7 @@ export const ControlsWrapper = styled.div<{
   position: absolute;
   display: flex;
   gap: 4px;
-  opacity: 0;
+  opacity: 0.5;
   transition: opacity 0.2s;
   pointer-events: none;
 
@@ -113,7 +157,7 @@ export const ControlsWrapper = styled.div<{
           flex-direction: column-reverse;
         `
       : css`
-          bottom: ${$thumbSize + 8}px;
+          top: 0;
           flex-direction: row;
         `}
 `;
