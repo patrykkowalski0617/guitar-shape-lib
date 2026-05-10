@@ -1,18 +1,7 @@
 import { insetShadow } from "@/constants";
 import styled, { css } from "styled-components";
 
-export const Tick = styled.div`
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--primary) 0%, var(--muted) 100%);
-  box-shadow: 2px 2px 8px 2px var(--background);
-  z-index: 3;
-  pointer-events: none;
-`;
-
-export const SliderRoot = styled.div<{ $isVertical?: boolean }>`
+export const SliderRoot = styled.div<{ $isVertical: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
@@ -32,15 +21,15 @@ export const SliderRoot = styled.div<{ $isVertical?: boolean }>`
 `;
 
 export const SliderTrack = styled.div<{
-  $isVertical?: boolean;
-  $thumbSize?: number;
+  $isVertical: boolean;
+  $thumbSize: number;
 }>`
   position: relative;
   background-color: color-mix(in oklab, var(--background) 50%, transparent);
   border-radius: 9999px;
   z-index: 2;
   ${insetShadow}
-  ${({ $isVertical, $thumbSize = 28 }) =>
+  ${({ $isVertical, $thumbSize }) =>
     $isVertical
       ? css`
           width: 5px;
@@ -50,6 +39,61 @@ export const SliderTrack = styled.div<{
           height: 5px;
           width: calc(100% - ${$thumbSize}px);
         `}
+`;
+
+export const Tick = styled.div.attrs<{
+  $tickPos: number;
+  $isVertical: boolean;
+  $isVisible: boolean;
+}>(({ $tickPos, $isVertical, $isVisible }) => ({
+  style: {
+    bottom: $isVertical ? `${$tickPos}%` : "50%",
+    left: $isVertical ? "50%" : `${$tickPos}%`,
+    transform: $isVertical ? "translate(-50%, 50%)" : "translate(-50%, -50%)",
+    top: $isVertical ? "" : "50%",
+    opacity: $isVisible ? 1 : 0,
+  },
+}))<{ $tickPos: number; $isVertical: boolean; $isVisible: boolean }>`
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--primary) 0%, var(--muted) 100%);
+  box-shadow: 2px 2px 8px 2px var(--background);
+  z-index: 3;
+  pointer-events: none;
+`;
+
+export const SliderThumb = styled.div.attrs<{
+  $isVertical: boolean;
+  $startPos: number;
+  $totalWidth: number;
+  $thumbSize: number;
+}>(({ $isVertical, $startPos, $totalWidth, $thumbSize }) => ({
+  style: {
+    bottom: $isVertical ? `calc(${$startPos}% - ${$thumbSize / 2}px)` : "auto",
+    height: $isVertical
+      ? `calc(${$totalWidth}% + ${$thumbSize}px)`
+      : `${$thumbSize}px`,
+    width: $isVertical
+      ? `${$thumbSize}px`
+      : `calc(${$totalWidth}% + ${$thumbSize}px)`,
+    left: $isVertical ? "50%" : `calc(${$startPos}% - ${$thumbSize / 2}px)`,
+    top: $isVertical ? "auto" : "50%",
+    transform: $isVertical ? "translateX(-50%)" : "translateY(-50%)",
+  },
+}))<{
+  $isVertical: boolean;
+  $startPos: number;
+  $totalWidth: number;
+  $thumbSize: number;
+}>`
+  position: absolute;
+  cursor: grab;
+  z-index: 10;
+  &:active {
+    cursor: grabbing;
+  }
 `;
 
 export const ThumbVisual = styled.div`
@@ -70,7 +114,6 @@ export const InteractionContainer = styled.div<{
 }>`
   position: absolute;
   z-index: 2;
-
   ${({ $isVertical, $thumbSize }) =>
     $isVertical
       ? css`
@@ -87,21 +130,34 @@ export const InteractionContainer = styled.div<{
         `}
 `;
 
-export const InteractionZone = styled.div<{
+export const InteractionZone = styled.div.attrs<{
   $isVertical: boolean;
-  $thumbSize: number;
-}>`
+  $positionPercent: number;
+}>(({ $isVertical, $positionPercent }) => ({
+  style: {
+    left: $isVertical ? "50%" : `${$positionPercent}%`,
+    bottom: $isVertical ? `${$positionPercent}%` : "0",
+    transform: $isVertical ? "translate(-50%, 50%)" : "translateX(-50%)",
+  },
+}))<{ $isVertical: boolean; $thumbSize: number; $positionPercent: number }>`
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: ${({ $thumbSize }) => $thumbSize + 40}px;
-  height: ${({ $thumbSize }) => $thumbSize + 20}px;
-
+  width: ${({ $thumbSize }) => $thumbSize}px;
+  height: ${({ $thumbSize }) => $thumbSize}px;
   &:hover > div {
     opacity: 1;
     pointer-events: auto;
   }
+  ${({ $isVertical, $thumbSize }) =>
+    $isVertical
+      ? css`
+          width: ${$thumbSize + 40}px;
+        `
+      : css`
+          height: ${$thumbSize + 20}px;
+        `}
 `;
 
 export const ControlsWrapper = styled.div<{
@@ -114,11 +170,10 @@ export const ControlsWrapper = styled.div<{
   opacity: 0;
   transition: opacity 0.2s;
   pointer-events: none;
-
   ${({ $isVertical }) =>
     $isVertical
       ? css`
-          right: 0;
+          left: 0;
           flex-direction: column-reverse;
         `
       : css`
@@ -147,14 +202,5 @@ export const CutButton = styled.button`
   &:disabled {
     opacity: 0.3;
     cursor: not-allowed;
-  }
-`;
-
-export const SliderThumb = styled.div<{ $isVertical: boolean }>`
-  position: absolute;
-  cursor: grab;
-  z-index: 10;
-  &:active {
-    cursor: grabbing;
   }
 `;
