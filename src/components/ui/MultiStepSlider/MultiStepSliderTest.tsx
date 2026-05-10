@@ -17,7 +17,7 @@ export function MultiStepSliderTest() {
     <AppWrapper>
       <h2>MultiStep Slider: Click-to-Fill</h2>
       <p style={{ color: "#888" }}>Wybrane kroki: {activeSteps.join(", ")}</p>
-      <div style={{ width: "80%", margin: "40px 0" }}>
+      <div style={{ width: "40%", margin: "40px 0" }}>
         <MultiStepSlider
           value={activeSteps}
           onValueChange={setActiveSteps}

@@ -58,11 +58,18 @@ export function MultiStepSlider({
 
   const handleRootMouseMove = (e: React.MouseEvent) => {
     if (disabled) return;
+
     const hoverVal = calculateValueFromPos(e.clientX, e.clientY);
-    if (hoverVal < firstVal) setHoverPreview({ min: hoverVal, max: lastVal });
-    else if (hoverVal > lastVal)
+    const isExpandingBelow = hoverVal < firstVal;
+    const isExpandingAbove = hoverVal > lastVal;
+
+    if (isExpandingBelow) {
+      setHoverPreview({ min: hoverVal, max: lastVal });
+    } else if (isExpandingAbove) {
       setHoverPreview({ min: firstVal, max: hoverVal });
-    else setHoverPreview(null);
+    } else {
+      setHoverPreview(null);
+    }
   };
 
   const tickIndexes = Array.from({ length: limitValue + 1 }, (_, i) => i);
@@ -90,18 +97,6 @@ export function MultiStepSlider({
           );
         })}
 
-        {hoverPreview && (
-          <S.SliderThumb
-            $isPreview
-            $isVertical={isVertical}
-            $startPos={previewStartPos}
-            $totalWidth={previewWidth}
-            $thumbSize={thumbSize}
-          >
-            <S.ThumbVisual />
-          </S.SliderThumb>
-        )}
-
         <S.SliderThumb
           onMouseDown={startDrag(disabled)}
           $isVertical={isVertical}
@@ -113,6 +108,7 @@ export function MultiStepSlider({
           <S.InteractionContainer
             $isVertical={isVertical}
             $thumbSize={thumbSize}
+            onMouseMove={(e) => e.stopPropagation()}
           >
             {sortedValues.map((val, index) => {
               const totalSteps = sortedValues.length;
@@ -136,10 +132,9 @@ export function MultiStepSlider({
                     >
                       <S.CutButton
                         disabled={isLast || isOnlyOne}
-                        onMouseEnter={() => {
-                          console.log("wsedfdsdfedrf");
-
-                          return setHoverPreview({ min: firstVal, max: val });
+                        onMouseEnter={(e) => {
+                          e.stopPropagation();
+                          setHoverPreview({ min: firstVal, max: val });
                         }}
                         onMouseLeave={() => setHoverPreview(null)}
                         onClick={(e) => {
@@ -151,9 +146,10 @@ export function MultiStepSlider({
                       </S.CutButton>
                       <S.CutButton
                         disabled={isFirst || isOnlyOne}
-                        onMouseEnter={() =>
-                          setHoverPreview({ min: val, max: lastVal })
-                        }
+                        onMouseEnter={(e) => {
+                          e.stopPropagation();
+                          setHoverPreview({ min: val, max: lastVal });
+                        }}
                         onMouseLeave={() => setHoverPreview(null)}
                         onClick={(e) => {
                           e.stopPropagation();
@@ -169,6 +165,19 @@ export function MultiStepSlider({
             })}
           </S.InteractionContainer>
         </S.SliderThumb>
+
+        {hoverPreview && (
+          <S.SliderThumb
+            $isPreview
+            $isVertical={isVertical}
+            $startPos={previewStartPos}
+            $totalWidth={previewWidth}
+            $thumbSize={thumbSize}
+            style={{ pointerEvents: "none", zIndex: 10 }}
+          >
+            <S.ThumbVisual />
+          </S.SliderThumb>
+        )}
       </S.SliderTrack>
     </S.SliderRoot>
   );
