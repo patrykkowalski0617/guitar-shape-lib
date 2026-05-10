@@ -27,10 +27,7 @@ export function MultiStepSlider({
   effectiveMax,
 }: MultiStepSliderProps) {
   const isVertical = orientation === "vertical";
-  const [hoverPreview, setHoverPreview] = React.useState<{
-    min: number;
-    max: number;
-  } | null>(null);
+
   const [isDragging, setIsDragging] = React.useState(false);
 
   const {
@@ -43,73 +40,41 @@ export function MultiStepSlider({
     startDrag,
     handleCutStart,
     handleCutEnd,
-    calculateValueFromPos,
   } = useMultiStepSlider({ value, onValueChange, max, min, isVertical });
 
   const startPosPercent = ((firstVal - min) / range) * 100;
   const totalWidthPercent = ((lastVal - firstVal) / range) * 100;
   const limitValue = effectiveMax ?? max;
 
-  const previewStartPos = hoverPreview
-    ? ((hoverPreview.min - min) / range) * 100
-    : startPosPercent;
-  const previewWidth = hoverPreview
-    ? ((hoverPreview.max - hoverPreview.min) / range) * 100
-    : totalWidthPercent;
-
-  const handleRootMouseMove = (e: React.MouseEvent) => {
-    if (disabled || isDragging) return;
-
-    const hoverVal = calculateValueFromPos(e.clientX, e.clientY);
-    const isExpandingBelow = hoverVal < firstVal;
-    const isExpandingAbove = hoverVal > lastVal;
-
-    if (isExpandingBelow) {
-      setHoverPreview({ min: hoverVal, max: lastVal });
-    } else if (isExpandingAbove) {
-      setHoverPreview({ min: firstVal, max: hoverVal });
-    } else {
-      setHoverPreview(null);
-    }
-  };
-
   const handleThumbMouseDown = (e: React.MouseEvent) => {
     if (disabled) return;
     setIsDragging(true);
-    setHoverPreview(null);
     startDrag(disabled)(e);
 
-    const handleGlobalMouseUp = () => {
+    const stopDragging = () => {
       setIsDragging(false);
-      window.removeEventListener("mouseup", handleGlobalMouseUp);
+      window.removeEventListener("mouseup", stopDragging);
     };
-    window.addEventListener("mouseup", handleGlobalMouseUp);
+    window.addEventListener("mouseup", stopDragging);
   };
-
-  const tickIndexes = Array.from({ length: limitValue + 1 }, (_, i) => i);
 
   return (
     <S.SliderRoot
       $isVertical={isVertical}
-      onMouseDown={handleTrackMouseDown(disabled)}
-      onMouseMove={handleRootMouseMove}
-      onMouseLeave={() => setHoverPreview(null)}
+      onMouseDown={handleTrackMouseDown(disabled || isDragging)}
     >
       <S.SliderTrack
         ref={trackRef}
         $isVertical={isVertical}
         $thumbSize={thumbSize}
       >
-        {tickIndexes.map((stepNumber) => {
-          const tickPos = (stepNumber / limitValue) * 100;
-          return (
-            <S.Tick
-              key={`tick-${stepNumber}`}
-              $tickPos={tickPos}
-              $isVertical={isVertical}
-            />
-          );
-        })}
+        {Array.from({ length: limitValue + 1 }, (_, i) => (
+          <S.Tick
+            key={i}
+            $tickPos={(i / limitValue) * 100}
+            $isVertical={isVertical}
+          />
+        ))}
 
         <S.SliderThumb
           onMouseDown={handleThumbMouseDown}
@@ -117,18 +82,25 @@ export function MultiStepSlider({
           $startPos={startPosPercent}
           $totalWidth={totalWidthPercent}
           $thumbSize={thumbSize}
+          style={{
+            cursor: isDragging ? "grabbing" : "grab",
+            zIndex: isDragging ? 20 : 10,
+          }}
         >
           <S.ThumbVisual />
           <S.InteractionContainer
             $isVertical={isVertical}
             $thumbSize={thumbSize}
-            onMouseMove={(e) => e.stopPropagation()}
-            style={{ pointerEvents: isDragging ? "none" : "auto" }}
+            style={{
+              pointerEvents: isDragging ? "none" : "auto",
+              visibility: isDragging ? "hidden" : "visible",
+            }}
           >
             {sortedValues.map((val, index) => {
-              const totalSteps = sortedValues.length;
               const positionPercent =
-                totalSteps > 1 ? (index / (totalSteps - 1)) * 100 : 50;
+                sortedValues.length > 1
+                  ? (index / (sortedValues.length - 1)) * 100
+                  : 50;
 
               return (
                 <S.InteractionZone
@@ -137,62 +109,37 @@ export function MultiStepSlider({
                   $thumbSize={thumbSize}
                   $positionPercent={positionPercent}
                 >
-                  {!disabled && (
-                    <S.ControlsWrapper
-                      $isVertical={isVertical}
-                      $isDragging={isDragging}
-                      $thumbSize={thumbSize}
+                  <S.ControlsWrapper
+                    $isVertical={isVertical}
+                    $isDragging={isDragging}
+                    $thumbSize={thumbSize}
+                  >
+                    <S.CutButton
+                      disabled={val === lastVal || sortedValues.length === 1}
+                      onMouseDown={(e) => e.stopPropagation()}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCutEnd(val);
+                      }}
                     >
-                      <S.CutButton
-                        disabled={val === lastVal || totalSteps === 1}
-                        onMouseEnter={(e) => {
-                          e.stopPropagation();
-                          if (!isDragging)
-                            setHoverPreview({ min: firstVal, max: val });
-                        }}
-                        onMouseLeave={() => setHoverPreview(null)}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCutEnd(val);
-                        }}
-                      >
-                        {isVertical ? "▼" : "◀"}
-                      </S.CutButton>
-                      <S.CutButton
-                        disabled={val === firstVal || totalSteps === 1}
-                        onMouseEnter={(e) => {
-                          e.stopPropagation();
-                          if (!isDragging)
-                            setHoverPreview({ min: val, max: lastVal });
-                        }}
-                        onMouseLeave={() => setHoverPreview(null)}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCutStart(val);
-                        }}
-                      >
-                        {isVertical ? "▲" : "▶"}
-                      </S.CutButton>
-                    </S.ControlsWrapper>
-                  )}
+                      {isVertical ? "▼" : "◀"}
+                    </S.CutButton>
+                    <S.CutButton
+                      disabled={val === firstVal || sortedValues.length === 1}
+                      onMouseDown={(e) => e.stopPropagation()}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCutStart(val);
+                      }}
+                    >
+                      {isVertical ? "▲" : "▶"}
+                    </S.CutButton>
+                  </S.ControlsWrapper>
                 </S.InteractionZone>
               );
             })}
           </S.InteractionContainer>
         </S.SliderThumb>
-
-        {hoverPreview && !isDragging && (
-          <S.SliderThumb
-            $isPreview
-            $isVertical={isVertical}
-            $startPos={previewStartPos}
-            $totalWidth={previewWidth}
-            $thumbSize={thumbSize}
-            style={{ pointerEvents: "none", zIndex: 10 }}
-          >
-            <S.ThumbVisual />
-          </S.SliderThumb>
-        )}
       </S.SliderTrack>
     </S.SliderRoot>
   );
