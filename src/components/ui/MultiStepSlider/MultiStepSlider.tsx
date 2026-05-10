@@ -108,19 +108,19 @@ export function MultiStepSlider({
                       $thumbSize={thumbSize}
                     >
                       <S.CutButton
-                        disabled={isFirst || isOnlyOne}
+                        disabled={isLast || isOnlyOne}
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleCutStart(val);
+                          handleCutEnd(val);
                         }}
                       >
                         {isVertical ? "▼" : "◀"}
                       </S.CutButton>
                       <S.CutButton
-                        disabled={isLast || isOnlyOne}
+                        disabled={isFirst || isOnlyOne}
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleCutEnd(val);
+                          handleCutStart(val);
                         }}
                       >
                         {isVertical ? "▲" : "▶"}
