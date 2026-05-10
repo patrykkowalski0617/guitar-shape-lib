@@ -62,6 +62,13 @@ export function MultiStepSlider({
     <S.SliderRoot
       $isVertical={isVertical}
       onMouseDown={handleTrackMouseDown(disabled || isDragging)}
+      onMouseEnter={(e) => {
+        console.log("enter");
+        // handleTrackMouseDown(disabled || isDragging)(e);
+      }}
+      onMouseLeave={() => {
+        console.log("leave");
+      }}
     >
       <S.SliderTrack
         ref={trackRef}
@@ -82,19 +89,12 @@ export function MultiStepSlider({
           $startPos={startPosPercent}
           $totalWidth={totalWidthPercent}
           $thumbSize={thumbSize}
-          style={{
-            cursor: isDragging ? "grabbing" : "grab",
-            zIndex: isDragging ? 20 : 10,
-          }}
+          $isDragging={isDragging}
         >
-          <S.ThumbVisual />
           <S.InteractionContainer
             $isVertical={isVertical}
             $thumbSize={thumbSize}
-            style={{
-              pointerEvents: isDragging ? "none" : "auto",
-              visibility: isDragging ? "hidden" : "visible",
-            }}
+            $isDragging={isDragging}
           >
             {sortedValues.map((val, index) => {
               const positionPercent =
@@ -119,7 +119,15 @@ export function MultiStepSlider({
                       onMouseDown={(e) => e.stopPropagation()}
                       onClick={(e) => {
                         e.stopPropagation();
+                        console.log("click");
                         handleCutEnd(val);
+                      }}
+                      onMouseEnter={() => {
+                        console.log("enter");
+                        // handleCutEnd(val);
+                      }}
+                      onMouseLeave={() => {
+                        console.log("leave");
                       }}
                     >
                       {isVertical ? "▼" : "◀"}
@@ -128,8 +136,16 @@ export function MultiStepSlider({
                       disabled={val === firstVal || sortedValues.length === 1}
                       onMouseDown={(e) => e.stopPropagation()}
                       onClick={(e) => {
+                        console.log("click");
                         e.stopPropagation();
                         handleCutStart(val);
+                      }}
+                      onMouseEnter={() => {
+                        console.log("enter");
+                        // handleCutStart(val);
+                      }}
+                      onMouseLeave={() => {
+                        console.log("leave");
                       }}
                     >
                       {isVertical ? "▲" : "▶"}

@@ -67,69 +67,78 @@ export const SliderThumb = styled.div.attrs<{
   $startPos: number;
   $totalWidth: number;
   $thumbSize: number;
-}>(({ $isVertical, $startPos, $totalWidth, $thumbSize }) => ({
-  style: {
-    bottom: $isVertical ? `calc(${$startPos}% - ${$thumbSize / 2}px)` : "auto",
-    height: $isVertical
-      ? `calc(${$totalWidth}% + ${$thumbSize}px)`
-      : `${$thumbSize}px`,
-    width: $isVertical
-      ? `${$thumbSize}px`
-      : `calc(${$totalWidth}% + ${$thumbSize}px)`,
-    left: $isVertical ? "50%" : `calc(${$startPos}% - ${$thumbSize / 2}px)`,
-    top: $isVertical ? "auto" : "50%",
-    transform: $isVertical ? "translateX(-50%)" : "translateY(-50%)",
-  },
-}))<{
+  $isDragging?: boolean;
+}>(({ $isVertical, $startPos, $totalWidth, $thumbSize, $isDragging }) => {
+  const halfThumb = `${$thumbSize / 2}px`;
+  const posOffset = `calc(${$startPos}% - ${halfThumb})`;
+  const dynamicSize = `calc(${$totalWidth}% + ${$thumbSize}px) `;
+  const thickness = `${$thumbSize}px`;
+
+  return {
+    style: {
+      bottom: $isVertical ? posOffset : "auto",
+      left: $isVertical ? "50%" : posOffset,
+      top: $isVertical ? "auto" : "50%",
+      height: $isVertical ? dynamicSize : thickness,
+      width: $isVertical ? thickness : dynamicSize,
+      transform: $isVertical ? "translateX(-50%)" : "translateY(-50%)",
+      cursor: $isDragging ? "grabbing" : "default",
+    },
+  };
+})<{
   $isVertical: boolean;
   $startPos: number;
   $totalWidth: number;
   $thumbSize: number;
+  $isDragging?: boolean;
   $isPreview?: boolean;
 }>`
   position: absolute;
-  cursor: ${({ $isPreview }) => ($isPreview ? "default" : "grab")};
-  z-index: ${({ $isPreview }) => ($isPreview ? 5 : 10)};
-  opacity: ${({ $isPreview }) => ($isPreview ? 0.4 : 1)};
-  pointer-events: ${({ $isPreview }) => ($isPreview ? "none" : "auto")};
-  &:active {
-    cursor: ${({ $isPreview }) => ($isPreview ? "default" : "grabbing")};
-  }
-`;
-
-export const ThumbVisual = styled.div`
-  position: absolute;
-  inset: 0;
   border-radius: 9999px;
   border: 1px solid var(--primary);
   box-shadow:
     2px 2px 8px 2px var(--background),
     0px 0px 2px 1px var(--border) inset,
     0px 0px 3px 2px var(--contrast) inset;
-  z-index: 1;
+  z-index: ${({ $isPreview, $isDragging }) => {
+    if ($isPreview) return 5;
+    if ($isDragging) return 20;
+    return 10;
+  }};
+  opacity: ${({ $isPreview }) => ($isPreview ? 0.4 : 1)};
+  pointer-events: ${({ $isPreview }) => ($isPreview ? "none" : "auto")};
+  cursor: ${({ $isPreview }) => ($isPreview ? "default" : "grab")};
+  &:active {
+    cursor: ${({ $isPreview }) => ($isPreview ? "default" : "grabbing")};
+  }
 `;
 
 export const InteractionContainer = styled.div<{
   $isVertical: boolean;
   $thumbSize: number;
+  $isDragging?: boolean;
 }>`
   position: absolute;
   z-index: 2;
-  pointer-events: none;
-  ${({ $isVertical, $thumbSize }) =>
-    $isVertical
-      ? css`
-          left: 0;
-          right: 0;
-          top: ${$thumbSize / 2}px;
-          bottom: ${$thumbSize / 2}px;
-        `
-      : css`
-          top: 0;
-          bottom: 0;
-          left: ${$thumbSize / 2}px;
-          right: ${$thumbSize / 2}px;
-        `}
+  pointer-events: ${({ $isDragging }) => ($isDragging ? "none" : "auto")};
+  visibility: ${({ $isDragging }) => ($isDragging ? "hidden" : "visible")};
+  ${({ $isVertical, $thumbSize }) => {
+    const offset = `${$thumbSize / 2}px`;
+    if ($isVertical) {
+      return css`
+        left: 0;
+        right: 0;
+        top: ${offset};
+        bottom: ${offset};
+      `;
+    }
+    return css`
+      top: 0;
+      bottom: 0;
+      left: ${offset};
+      right: ${offset};
+    `;
+  }}
 `;
 
 export const InteractionZone = styled.div.attrs<{
@@ -149,14 +158,12 @@ export const InteractionZone = styled.div.attrs<{
   width: ${({ $thumbSize }) => $thumbSize}px;
   height: ${({ $thumbSize }) => $thumbSize}px;
   pointer-events: auto;
-
   &:hover {
     z-index: 900;
   }
   &:hover > div {
     opacity: 1;
   }
-
   ${({ $isVertical, $thumbSize }) =>
     $isVertical
       ? css`
@@ -216,6 +223,5 @@ export const CutButton = styled.button`
   }
   &:disabled {
     opacity: 0.3;
-    cursor: not-allowed;
   }
 `;
