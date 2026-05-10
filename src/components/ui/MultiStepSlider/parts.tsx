@@ -95,9 +95,7 @@ export const InteractionZone = styled.div<{
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* Rozmiar strefy trafienia (hitbox) */
-  width: ${({ $thumbSize }) => $thumbSize}px;
+  width: ${({ $thumbSize }) => $thumbSize + 40}px;
   height: ${({ $thumbSize }) => $thumbSize + 20}px;
 
   &:hover > div {
@@ -117,10 +115,10 @@ export const ControlsWrapper = styled.div<{
   transition: opacity 0.2s;
   pointer-events: none;
 
-  ${({ $isVertical, $thumbSize }) =>
+  ${({ $isVertical }) =>
     $isVertical
       ? css`
-          left: ${$thumbSize + 8}px;
+          right: 0;
           flex-direction: column-reverse;
         `
       : css`
