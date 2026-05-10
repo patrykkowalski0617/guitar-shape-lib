@@ -10,8 +10,6 @@ interface MultiStepSliderProps {
   thumbSize?: number;
   orientation?: "horizontal" | "vertical";
   disabled?: boolean;
-  options?: { id: string | number }[];
-  effectiveMax?: number;
   highlightedId?: string | number | null;
   onHighlightEnd?: () => void;
 }
@@ -24,7 +22,6 @@ export function MultiStepSlider({
   thumbSize = 32,
   orientation = "horizontal",
   disabled = false,
-  effectiveMax,
 }: MultiStepSliderProps) {
   const isVertical = orientation === "vertical";
   const [isDragging, setIsDragging] = React.useState(false);
@@ -43,7 +40,6 @@ export function MultiStepSlider({
     calculateValueFromPos,
   } = useMultiStepSlider({ value, onValueChange, max, min, isVertical });
 
-  const limitValue = effectiveMax ?? max;
   const startPosPercent = ((firstVal - min) / range) * 100;
   const totalWidthPercent = ((lastVal - firstVal) / range) * 100;
 
@@ -110,12 +106,8 @@ export function MultiStepSlider({
         $isVertical={isVertical}
         $thumbSize={thumbSize}
       >
-        {Array.from({ length: limitValue + 1 }, (_, i) => (
-          <S.Tick
-            key={i}
-            $tickPos={(i / limitValue) * 100}
-            $isVertical={isVertical}
-          />
+        {Array.from({ length: max + 1 }, (_, i) => (
+          <S.Tick key={i} $tickPos={(i / max) * 100} $isVertical={isVertical} />
         ))}
 
         {previewValue && !isDragging && (

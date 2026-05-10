@@ -1,41 +1,69 @@
 import { useState } from "react";
 import { MultiStepSlider } from "./MultiStepSlider";
-
 import styled from "styled-components";
 
-const AppWrapper = styled.div`
+const Wrapper = styled.div`
   width: 80%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+`;
+
+const Section = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const Label = styled.p`
+  color: #888;
+  font-family: sans-serif;
+  font-size: 14px;
 `;
 
 export function MultiStepSliderTest() {
-  const [activeSteps, setActiveSteps] = useState<number[]>([5]);
+  const [horizontalSteps, setHorizontalSteps] = useState<number[]>([6]);
+  const [verticalSteps, setVerticalSteps] = useState<number[]>([10]);
+  const [rangeSteps, setRangeSteps] = useState<number[]>([8]);
+
   const MAX_STEPS = 15;
 
-  const options = Array.from({ length: MAX_STEPS }, (_, i) => ({ id: i }));
-
   return (
-    <AppWrapper>
-      <h2>MultiStep Slider: Click-to-Fill</h2>
-      <p style={{ color: "#888" }}>Wybrane kroki: {activeSteps.join(", ")}</p>
-      <div style={{ width: "40%", margin: "40px 0" }}>
-        <MultiStepSlider
-          value={activeSteps}
-          onValueChange={setActiveSteps}
-          max={MAX_STEPS}
-          effectiveMax={MAX_STEPS}
-          options={options}
-        />
-      </div>
-      <div style={{ height: "300px", margin: "40px 0" }}>
-        <MultiStepSlider
-          value={activeSteps}
-          onValueChange={setActiveSteps}
-          max={MAX_STEPS}
-          effectiveMax={MAX_STEPS}
-          options={options}
-          orientation="vertical"
-        />
-      </div>
-    </AppWrapper>
+    <Wrapper>
+      <Section>
+        <Label>Slider A: {horizontalSteps.join(", ")}</Label>
+        <div style={{ width: "100%", maxWidth: "800px" }}>
+          <MultiStepSlider
+            value={horizontalSteps}
+            onValueChange={setHorizontalSteps}
+            max={MAX_STEPS}
+          />
+        </div>
+      </Section>
+
+      <Section>
+        <Label>Slider B: {rangeSteps.join(", ")}</Label>
+        <div style={{ width: "100%", maxWidth: "800px" }}>
+          <MultiStepSlider
+            value={rangeSteps}
+            onValueChange={setRangeSteps}
+            max={20}
+          />
+        </div>
+      </Section>
+
+      <Section>
+        <Label>Slider C: {verticalSteps.join(", ")}</Label>
+        <div style={{ height: "400px", paddingLeft: "50px" }}>
+          <MultiStepSlider
+            value={verticalSteps}
+            onValueChange={setVerticalSteps}
+            max={MAX_STEPS}
+            orientation="vertical"
+          />
+        </div>
+      </Section>
+    </Wrapper>
   );
 }
