@@ -1,28 +1,18 @@
 import { insetShadow } from "@/constants";
 import styled, { css } from "styled-components";
 
-interface StyledProps {
-  $isVertical?: boolean;
-  $thumbSize?: number;
-  $isFirst?: boolean;
-  $isVisible?: boolean;
-}
-
-export const Tick = styled.div<{
-  $isOpacityAnimationLocked?: boolean;
-  $opacityAnimationDuration?: number;
-}>`
+export const Tick = styled.div`
   position: absolute;
   width: 12px;
   height: 12px;
   border-radius: 50%;
   background: radial-gradient(circle, var(--primary) 0%, var(--muted) 100%);
   box-shadow: 2px 2px 8px 2px var(--background);
-  top: auto;
-  left: auto;
+  z-index: 3;
+  pointer-events: none;
 `;
 
-export const SliderRoot = styled.div<StyledProps>`
+export const SliderRoot = styled.div<{ $isVertical?: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
@@ -32,21 +22,23 @@ export const SliderRoot = styled.div<StyledProps>`
   ${({ $isVertical }) =>
     $isVertical
       ? css`
-          flex-direction: column;
           height: 100%;
           width: 32px;
         `
       : css`
-          flex-direction: row;
           width: 100%;
           height: 32px;
         `}
 `;
 
-export const SliderTrack = styled.div<StyledProps>`
+export const SliderTrack = styled.div<{
+  $isVertical?: boolean;
+  $thumbSize?: number;
+}>`
   position: relative;
   background-color: color-mix(in oklab, var(--background) 50%, transparent);
   border-radius: 9999px;
+  z-index: 2;
   ${insetShadow}
   ${({ $isVertical, $thumbSize = 28 }) =>
     $isVertical
@@ -60,27 +52,69 @@ export const SliderTrack = styled.div<StyledProps>`
         `}
 `;
 
-export const ControlsWrapper = styled.div<StyledProps>`
+export const ThumbVisual = styled.div`
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid var(--primary);
+  box-shadow:
+    2px 2px 8px 2px var(--background),
+    0px 0px 2px 1px var(--border) inset,
+    0px 0px 3px 2px var(--contrast) inset;
+  z-index: 1;
+`;
+
+export const InteractionContainer = styled.div<{ $isVertical: boolean }>`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  z-index: 2;
+  ${({ $isVertical }) =>
+    $isVertical
+      ? css`
+          flex-direction: column-reverse;
+        `
+      : css`
+          flex-direction: row;
+        `}
+`;
+
+export const InteractionZone = styled.div<{
+  $isVertical: boolean;
+  $thumbSize: number;
+}>`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &:hover > div {
+    opacity: 1;
+    pointer-events: auto;
+  }
+`;
+
+export const ControlsWrapper = styled.div<{
+  $isVertical: boolean;
+  $thumbSize: number;
+}>`
   position: absolute;
   display: flex;
   gap: 4px;
   opacity: 0;
   transition: opacity 0.2s;
   pointer-events: none;
-  z-index: 20;
-  ${({ $isVertical, $thumbSize = 28 }) =>
+
+  ${({ $isVertical, $thumbSize }) =>
     $isVertical
       ? css`
-          flex-direction: row;
           left: ${$thumbSize + 8}px;
-          top: 50%;
-          transform: translateY(-50%);
+          flex-direction: column-reverse;
         `
       : css`
-          flex-direction: row;
           bottom: ${$thumbSize + 8}px;
-          left: 50%;
-          transform: translateX(-50%);
+          flex-direction: row;
         `}
 `;
 
@@ -97,57 +131,21 @@ export const CutButton = styled.button`
   justify-content: center;
   font-size: 10px;
   cursor: pointer;
-  pointer-events: auto;
-  &:hover {
+  &:hover:not(:disabled) {
     background: var(--primary);
     color: var(--background);
   }
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
 `;
 
-export const ThumbVisual = styled.div<StyledProps>`
+export const SliderThumb = styled.div<{ $isVertical: boolean }>`
   position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  border: 1px solid var(--primary);
-  box-shadow:
-    2px 2px 8px 2px var(--background),
-    0px 0px 2px 1px var(--border) inset,
-    0px 0px 3px 2px var(--contrast) inset;
-  opacity: ${({ $isVisible }) => ($isVisible ? 1 : 0)};
-  transition: transform 0.2s;
-`;
-
-export const SliderThumb = styled.div<StyledProps>`
-  position: absolute;
-  display: block;
   cursor: grab;
-  width: ${({ $thumbSize }) => $thumbSize}px;
-  height: ${({ $thumbSize }) => $thumbSize}px;
-
-  ${({ $isVertical }) =>
-    $isVertical
-      ? css`
-          left: 50%;
-          transform: translateX(-50%);
-        `
-      : css`
-          top: 50%;
-          transform: translateY(-50%);
-        `}
-
+  z-index: 10;
   &:active {
     cursor: grabbing;
-  }
-  &:hover {
-    ${({ $isFirst }) =>
-      !$isFirst &&
-      css`
-        ${ThumbVisual} {
-          transform: scale(1.1);
-        }
-      `}
-    ${ControlsWrapper} {
-      opacity: 1;
-    }
   }
 `;

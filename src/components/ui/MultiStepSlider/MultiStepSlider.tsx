@@ -30,17 +30,14 @@ export function MultiStepSlider({
 }: MultiStepSliderProps) {
   const isVertical = orientation === "vertical";
   const trackRef = React.useRef<HTMLDivElement>(null);
-  const [isOpacityAnimationLocked, setIsOpacityLocked] = React.useState(false);
-  const opacityAnimationDuration = 500;
 
-  React.useEffect(() => {
-    if (disabled) return;
-    const timer = setTimeout(
-      () => setIsOpacityLocked(true),
-      opacityAnimationDuration,
-    );
-    return () => clearTimeout(timer);
-  }, [disabled]);
+  const sortedValues = React.useMemo(
+    () => [...value].sort((a, b) => a - b),
+    [value],
+  );
+  const firstVal = sortedValues[0];
+  const lastVal = sortedValues[sortedValues.length - 1];
+  const range = max - min;
 
   const calculateValueFromPos = (clientX: number, clientY: number) => {
     if (!trackRef.current) return 0;
@@ -54,30 +51,27 @@ export function MultiStepSlider({
   const handleTrackMouseDown = (e: React.MouseEvent) => {
     if (disabled) return;
     const clickedVal = calculateValueFromPos(e.clientX, e.clientY);
-    const currentMin = Math.min(...value);
-    const currentMax = Math.max(...value);
+    const currentMin = firstVal;
+    const currentMax = lastVal;
 
     if (clickedVal < currentMin || clickedVal > currentMax) {
       const nextValue = [...value];
       if (clickedVal < currentMin) {
-        for (let i = clickedVal; i < currentMin; i++) {
+        for (let i = clickedVal; i < currentMin; i++)
           if (!nextValue.includes(i)) nextValue.push(i);
-        }
       } else {
-        for (let i = currentMax + 1; i <= clickedVal; i++) {
+        for (let i = currentMax + 1; i <= clickedVal; i++)
           if (!nextValue.includes(i)) nextValue.push(i);
-        }
       }
       onValueChange(nextValue.sort((a, b) => a - b));
     }
   };
 
-  const startDrag = (e: React.MouseEvent, index: number) => {
+  const startDrag = (e: React.MouseEvent) => {
     if (disabled) return;
     e.stopPropagation();
-
-    const initialValue = value[index];
     const initialMousePos = isVertical ? e.clientY : e.clientX;
+    const initialValues = [...value];
 
     const onMouseMove = (moveEvent: MouseEvent) => {
       if (!trackRef.current) return;
@@ -86,20 +80,17 @@ export function MultiStepSlider({
         : moveEvent.clientX;
       const rect = trackRef.current.getBoundingClientRect();
       const trackSize = isVertical ? rect.height : rect.width;
-
       const diffPx = isVertical
         ? initialMousePos - currentMousePos
         : currentMousePos - initialMousePos;
       const diffVal = Math.round((diffPx / trackSize) * (max - min));
 
-      const shift = initialValue + diffVal - value[index];
-      if (shift === 0) return;
-
-      const shiftedValues = value.map((v) => v + shift);
-      const minGroup = Math.min(...shiftedValues);
-      const maxGroup = Math.max(...shiftedValues);
-
-      if (minGroup >= min && maxGroup <= max) {
+      if (diffVal === 0) return;
+      const shiftedValues = initialValues.map((v) => v + diffVal);
+      if (
+        Math.min(...shiftedValues) >= min &&
+        Math.max(...shiftedValues) <= max
+      ) {
         onValueChange(shiftedValues);
       }
     };
@@ -108,23 +99,28 @@ export function MultiStepSlider({
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseup", onMouseUp);
     };
-
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseup", onMouseUp);
   };
 
-  const removeValuesAbove = (clickedVal: number) => {
-    onValueChange(value.filter((v) => v <= clickedVal).sort((a, b) => a - b));
-  };
+  const startPosPercent = ((firstVal - min) / range) * 100;
+  const totalWidthPercent = ((lastVal - firstVal) / range) * 100;
 
-  const removeValuesBelow = (clickedVal: number) => {
-    onValueChange(value.filter((v) => v >= clickedVal).sort((a, b) => a - b));
-  };
-
-  const sortedValues = [...value].sort((a, b) => a - b);
-  const firstVal = sortedValues[0];
-  const lastVal = sortedValues[sortedValues.length - 1];
-  const range = max - min;
+  const thumbStyle: React.CSSProperties = isVertical
+    ? {
+        bottom: `calc(${startPosPercent}% - ${thumbSize / 2}px)`,
+        height: `calc(${totalWidthPercent}% + ${thumbSize}px)`,
+        width: thumbSize,
+        left: "50%",
+        transform: "translateX(-50%)",
+      }
+    : {
+        left: `calc(${startPosPercent}% - ${thumbSize / 2}px)`,
+        width: `calc(${totalWidthPercent}% + ${thumbSize}px)`,
+        height: thumbSize,
+        top: "50%",
+        transform: "translateY(-50%)",
+      };
 
   const tickIndexes = Array.from(
     { length: (effectiveMax ?? max) + 1 },
@@ -143,89 +139,69 @@ export function MultiStepSlider({
           const isTickVisible =
             highlightedId !== null && currentOption?.id === highlightedId;
           const tickPos = (stepNumber / (effectiveMax ?? max)) * 100;
-
-          const tickStyle: React.CSSProperties = isVertical
-            ? {
-                bottom: `${tickPos}%`,
-                left: "50%",
-                transform: "translate(-50%, 50%)",
-              }
-            : {
-                left: `${tickPos}%`,
-                top: "50%",
-                transform: "translate(-50%, -50%)",
-              };
-
           return (
             <S.Tick
-              key={stepNumber}
-              $isOpacityAnimationLocked={isOpacityAnimationLocked}
-              $opacityAnimationDuration={opacityAnimationDuration}
+              key={`tick-${stepNumber}`}
               onAnimationEnd={isTickVisible ? onHighlightEnd : undefined}
-              style={tickStyle}
+              style={{
+                bottom: isVertical ? `${tickPos}%` : "50%",
+                left: isVertical ? "50%" : `${tickPos}%`,
+                transform: isVertical
+                  ? "translate(-50%, 50%)"
+                  : "translate(-50%, -50%)",
+                top: isVertical ? "" : "50%",
+                opacity: highlightedId !== null ? (isTickVisible ? 1 : 0) : 1,
+              }}
             />
           );
         })}
 
-        {value.map((val, index) => {
-          const isFirst = val === firstVal;
-          const positionPercent = ((val - min) / range) * 100;
-          const widthPercent = ((lastVal - firstVal) / range) * 100;
-
-          const style: React.CSSProperties = isVertical
-            ? {
-                height: isFirst
-                  ? `calc(${widthPercent}% + ${thumbSize}px)`
-                  : `${thumbSize}px`,
-                bottom: `calc(${positionPercent}% - ${thumbSize / 2}px)`,
-                left: "50%",
-                zIndex: 10 + index,
-              }
-            : {
-                width: isFirst
-                  ? `calc(${widthPercent}% + ${thumbSize}px)`
-                  : `${thumbSize}px`,
-                left: `calc(${positionPercent}% - ${thumbSize / 2}px)`,
-                top: "50%",
-                zIndex: 10 + index,
-              };
-
-          return (
-            <S.SliderThumb
-              key={`thumb-${index}`}
-              style={style}
-              $thumbSize={thumbSize}
-              $isVertical={isVertical}
-              $isFirst={isFirst}
-              onMouseDown={(e) => startDrag(e, index)}
-            >
-              <S.ThumbVisual $thumbSize={thumbSize} $isVisible={isFirst} />
-              {!disabled && (
-                <S.ControlsWrapper
-                  $isVertical={isVertical}
-                  $thumbSize={thumbSize}
-                >
-                  <S.CutButton
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeValuesBelow(val);
-                    }}
+        <S.SliderThumb
+          style={thumbStyle}
+          onMouseDown={startDrag}
+          $isVertical={isVertical}
+        >
+          <S.ThumbVisual />
+          <S.InteractionContainer $isVertical={isVertical}>
+            {sortedValues.map((val) => (
+              <S.InteractionZone
+                key={val}
+                $isVertical={isVertical}
+                $thumbSize={thumbSize}
+              >
+                {!disabled && (
+                  <S.ControlsWrapper
+                    $isVertical={isVertical}
+                    $thumbSize={thumbSize}
                   >
-                    {isVertical ? "▼" : "◀"}
-                  </S.CutButton>
-                  <S.CutButton
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeValuesAbove(val);
-                    }}
-                  >
-                    {isVertical ? "▲" : "▶"}
-                  </S.CutButton>
-                </S.ControlsWrapper>
-              )}
-            </S.SliderThumb>
-          );
-        })}
+                    <S.CutButton
+                      disabled={val === firstVal || sortedValues.length === 1}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onValueChange(
+                          value.filter((v) => v >= val).sort((a, b) => a - b),
+                        );
+                      }}
+                    >
+                      {isVertical ? "▼" : "◀"}
+                    </S.CutButton>
+                    <S.CutButton
+                      disabled={val === lastVal || sortedValues.length === 1}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onValueChange(
+                          value.filter((v) => v <= val).sort((a, b) => a - b),
+                        );
+                      }}
+                    >
+                      {isVertical ? "▲" : "▶"}
+                    </S.CutButton>
+                  </S.ControlsWrapper>
+                )}
+              </S.InteractionZone>
+            ))}
+          </S.InteractionContainer>
+        </S.SliderThumb>
       </S.SliderTrack>
     </S.SliderRoot>
   );

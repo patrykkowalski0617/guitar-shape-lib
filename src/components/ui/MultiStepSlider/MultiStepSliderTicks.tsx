@@ -60,7 +60,6 @@ export function MultiStepSliderTicks({
         return (
           <Tick
             key={stepNumber}
-            $isVisible={isVisible}
             $isOpacityAnimationLocked={isOpacityAnimationLocked}
             $opacityAnimationDuration={opacityAnimationDuration}
             onAnimationEnd={isVisible ? onHighlightEnd : undefined}

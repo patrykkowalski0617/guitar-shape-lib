@@ -3,7 +3,9 @@ import { MultiStepSlider } from "./MultiStepSlider";
 
 import styled from "styled-components";
 
-const AppWrapper = styled.div``;
+const AppWrapper = styled.div`
+  width: 80%;
+`;
 
 export function MultiStepSliderTest() {
   const [activeSteps, setActiveSteps] = useState<number[]>([5]);
@@ -15,7 +17,7 @@ export function MultiStepSliderTest() {
     <AppWrapper>
       <h2>MultiStep Slider: Click-to-Fill</h2>
       <p style={{ color: "#888" }}>Wybrane kroki: {activeSteps.join(", ")}</p>
-      <div style={{ width: "500px", margin: "40px 0" }}>
+      <div style={{ width: "80%", margin: "40px 0" }}>
         <MultiStepSlider
           value={activeSteps}
           onValueChange={setActiveSteps}
