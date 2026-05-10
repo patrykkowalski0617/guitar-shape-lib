@@ -44,16 +44,14 @@ export const SliderTrack = styled.div<{
 export const Tick = styled.div.attrs<{
   $tickPos: number;
   $isVertical: boolean;
-  $isVisible: boolean;
-}>(({ $tickPos, $isVertical, $isVisible }) => ({
+}>(({ $tickPos, $isVertical }) => ({
   style: {
     bottom: $isVertical ? `${$tickPos}%` : "50%",
     left: $isVertical ? "50%" : `${$tickPos}%`,
     transform: $isVertical ? "translate(-50%, 50%)" : "translate(-50%, -50%)",
     top: $isVertical ? "" : "50%",
-    opacity: $isVisible ? 1 : 0,
   },
-}))<{ $tickPos: number; $isVertical: boolean; $isVisible: boolean }>`
+}))<{ $tickPos: number; $isVertical: boolean }>`
   position: absolute;
   width: 12px;
   height: 12px;

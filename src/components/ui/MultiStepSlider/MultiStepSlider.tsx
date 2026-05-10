@@ -23,10 +23,7 @@ export function MultiStepSlider({
   thumbSize = 28,
   orientation = "horizontal",
   disabled = false,
-  options,
   effectiveMax,
-  highlightedId = null,
-  onHighlightEnd,
 }: MultiStepSliderProps) {
   const isVertical = orientation === "vertical";
   const {
@@ -58,19 +55,13 @@ export function MultiStepSlider({
         $thumbSize={thumbSize}
       >
         {tickIndexes.map((stepNumber) => {
-          const currentOption = options?.[stepNumber - 1];
-          const isTickVisible =
-            highlightedId !== null && currentOption?.id === highlightedId;
           const tickPos = (stepNumber / limitValue) * 100;
-          const shouldHighlight = highlightedId !== null;
 
           return (
             <S.Tick
               key={`tick-${stepNumber}`}
-              onAnimationEnd={isTickVisible ? onHighlightEnd : undefined}
               $tickPos={tickPos}
               $isVertical={isVertical}
-              $isVisible={shouldHighlight ? isTickVisible : true}
             />
           );
         })}
