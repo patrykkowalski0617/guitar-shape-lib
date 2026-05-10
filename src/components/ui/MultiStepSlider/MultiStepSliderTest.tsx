@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { MultiStepSlider } from "./MultiStepSlider";
 
 import styled from "styled-components";
-import { MultiStepSliderTicks } from "./MultiStepSliderTicks";
 
 const AppWrapper = styled.div``;
 
 export function MultiStepSliderTest() {
-  // Zaczynamy od jednego punktu
   const [activeSteps, setActiveSteps] = useState<number[]>([5]);
   const MAX_STEPS = 15;
 
@@ -23,18 +21,20 @@ export function MultiStepSliderTest() {
           onValueChange={setActiveSteps}
           max={MAX_STEPS}
           thumbSize={28}
-        >
-          <MultiStepSliderTicks effectiveMax={MAX_STEPS} options={options} />
-        </MultiStepSlider>
+          effectiveMax={MAX_STEPS}
+          options={options}
+        />
+      </div>
+      <div style={{ height: "300px", margin: "40px 0" }}>
         <MultiStepSlider
           value={activeSteps}
           onValueChange={setActiveSteps}
           max={MAX_STEPS}
           thumbSize={28}
+          effectiveMax={MAX_STEPS}
+          options={options}
           orientation="vertical"
-        >
-          <MultiStepSliderTicks effectiveMax={MAX_STEPS} options={options} />
-        </MultiStepSlider>
+        />
       </div>
     </AppWrapper>
   );

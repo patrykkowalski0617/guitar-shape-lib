@@ -9,7 +9,10 @@ interface MultiStepSliderProps {
   thumbSize?: number;
   orientation?: "horizontal" | "vertical";
   disabled?: boolean;
-  children?: React.ReactNode;
+  options?: { id: string | number }[];
+  effectiveMax?: number;
+  highlightedId?: string | number | null;
+  onHighlightEnd?: () => void;
 }
 
 export function MultiStepSlider({
@@ -20,10 +23,24 @@ export function MultiStepSlider({
   thumbSize = 28,
   orientation = "horizontal",
   disabled = false,
-  children,
+  options,
+  effectiveMax,
+  highlightedId = null,
+  onHighlightEnd,
 }: MultiStepSliderProps) {
   const isVertical = orientation === "vertical";
   const trackRef = React.useRef<HTMLDivElement>(null);
+  const [isOpacityAnimationLocked, setIsOpacityLocked] = React.useState(false);
+  const opacityAnimationDuration = 500;
+
+  React.useEffect(() => {
+    if (disabled) return;
+    const timer = setTimeout(
+      () => setIsOpacityLocked(true),
+      opacityAnimationDuration,
+    );
+    return () => clearTimeout(timer);
+  }, [disabled]);
 
   const calculateValueFromPos = (clientX: number, clientY: number) => {
     if (!trackRef.current) return 0;
@@ -109,6 +126,11 @@ export function MultiStepSlider({
   const lastVal = sortedValues[sortedValues.length - 1];
   const range = max - min;
 
+  const tickIndexes = Array.from(
+    { length: (effectiveMax ?? max) + 1 },
+    (_, i) => i,
+  );
+
   return (
     <S.SliderRoot $isVertical={isVertical} onMouseDown={handleTrackMouseDown}>
       <S.SliderTrack
@@ -116,20 +138,55 @@ export function MultiStepSlider({
         $isVertical={isVertical}
         $thumbSize={thumbSize}
       >
-        {children}
+        {tickIndexes.map((stepNumber) => {
+          const currentOption = options?.[stepNumber - 1];
+          const isTickVisible =
+            highlightedId !== null && currentOption?.id === highlightedId;
+          const tickPos = (stepNumber / (effectiveMax ?? max)) * 100;
+
+          const tickStyle: React.CSSProperties = isVertical
+            ? {
+                bottom: `${tickPos}%`,
+                left: "50%",
+                transform: "translate(-50%, 50%)",
+              }
+            : {
+                left: `${tickPos}%`,
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+              };
+
+          return (
+            <S.Tick
+              key={stepNumber}
+              $isOpacityAnimationLocked={isOpacityAnimationLocked}
+              $opacityAnimationDuration={opacityAnimationDuration}
+              onAnimationEnd={isTickVisible ? onHighlightEnd : undefined}
+              style={tickStyle}
+            />
+          );
+        })}
+
         {value.map((val, index) => {
           const isFirst = val === firstVal;
           const positionPercent = ((val - min) / range) * 100;
           const widthPercent = ((lastVal - firstVal) / range) * 100;
 
-          const style: React.CSSProperties = isFirst
+          const style: React.CSSProperties = isVertical
             ? {
-                width: `calc(${widthPercent}% + ${thumbSize}px)`,
-                left: `calc(${positionPercent}% - ${thumbSize / 2}px)`,
+                height: isFirst
+                  ? `calc(${widthPercent}% + ${thumbSize}px)`
+                  : `${thumbSize}px`,
+                bottom: `calc(${positionPercent}% - ${thumbSize / 2}px)`,
+                left: "50%",
                 zIndex: 10 + index,
               }
             : {
+                width: isFirst
+                  ? `calc(${widthPercent}% + ${thumbSize}px)`
+                  : `${thumbSize}px`,
                 left: `calc(${positionPercent}% - ${thumbSize / 2}px)`,
+                top: "50%",
                 zIndex: 10 + index,
               };
 
@@ -138,6 +195,7 @@ export function MultiStepSlider({
               key={`thumb-${index}`}
               style={style}
               $thumbSize={thumbSize}
+              $isVertical={isVertical}
               $isFirst={isFirst}
               onMouseDown={(e) => startDrag(e, index)}
             >

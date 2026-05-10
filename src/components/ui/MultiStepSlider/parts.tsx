@@ -1,5 +1,5 @@
 import { insetShadow } from "@/constants";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 
 interface StyledProps {
   $isVertical?: boolean;
@@ -8,38 +8,25 @@ interface StyledProps {
   $isVisible?: boolean;
 }
 
-const tickOpacity = keyframes`
- 0% { opacity: 0; }
- 100% { opacity: 1; }
-`;
-
 export const Tick = styled.div<{
   $isOpacityAnimationLocked?: boolean;
   $opacityAnimationDuration?: number;
 }>`
   position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--accent) 0%, var(--muted) 100%);
+  background: radial-gradient(circle, var(--primary) 0%, var(--muted) 100%);
   box-shadow: 2px 2px 8px 2px var(--background);
-  ${({ $isOpacityAnimationLocked, $opacityAnimationDuration }) => {
-    if (!$opacityAnimationDuration) return;
-    if (!$isOpacityAnimationLocked)
-      return css`
-        opacity: 0;
-        animation: ${tickOpacity} ${$opacityAnimationDuration}ms
-          ${$opacityAnimationDuration}ms forwards;
-      `;
-  }}
+  top: auto;
+  left: auto;
 `;
 
 export const SliderRoot = styled.div<StyledProps>`
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
   touch-action: none;
   user-select: none;
   ${({ $isVertical }) =>
@@ -58,7 +45,6 @@ export const SliderRoot = styled.div<StyledProps>`
 
 export const SliderTrack = styled.div<StyledProps>`
   position: relative;
-  flex-grow: 1;
   background-color: color-mix(in oklab, var(--background) 50%, transparent);
   border-radius: 9999px;
   ${insetShadow}
@@ -66,13 +52,11 @@ export const SliderTrack = styled.div<StyledProps>`
     $isVertical
       ? css`
           width: 5px;
-          height: 100%;
-          margin: ${$thumbSize / 2}px 0;
+          height: calc(100% - ${$thumbSize}px);
         `
       : css`
           height: 5px;
-          width: 100%;
-          margin: 0 ${$thumbSize / 2}px;
+          width: calc(100% - ${$thumbSize}px);
         `}
 `;
 
@@ -87,7 +71,7 @@ export const ControlsWrapper = styled.div<StyledProps>`
   ${({ $isVertical, $thumbSize = 28 }) =>
     $isVertical
       ? css`
-          flex-direction: column;
+          flex-direction: row;
           left: ${$thumbSize + 8}px;
           top: 50%;
           transform: translateY(-50%);
@@ -105,9 +89,9 @@ export const CutButton = styled.button`
   width: 20px;
   height: 20px;
   background: var(--background);
-  border: 1px solid var(--accent);
+  border: 1px solid var(--primary);
   border-radius: 4px;
-  color: var(--accent);
+  color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -115,7 +99,7 @@ export const CutButton = styled.button`
   cursor: pointer;
   pointer-events: auto;
   &:hover {
-    background: var(--accent);
+    background: var(--primary);
     color: var(--background);
   }
 `;
@@ -124,7 +108,7 @@ export const ThumbVisual = styled.div<StyledProps>`
   position: absolute;
   inset: 0;
   border-radius: 9999px;
-  border: 1px solid var(--accent);
+  border: 1px solid var(--primary);
   box-shadow:
     2px 2px 8px 2px var(--background),
     0px 0px 2px 1px var(--border) inset,
@@ -135,12 +119,21 @@ export const ThumbVisual = styled.div<StyledProps>`
 
 export const SliderThumb = styled.div<StyledProps>`
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   display: block;
   cursor: grab;
   width: ${({ $thumbSize }) => $thumbSize}px;
   height: ${({ $thumbSize }) => $thumbSize}px;
+
+  ${({ $isVertical }) =>
+    $isVertical
+      ? css`
+          left: 50%;
+          transform: translateX(-50%);
+        `
+      : css`
+          top: 50%;
+          transform: translateY(-50%);
+        `}
 
   &:active {
     cursor: grabbing;
