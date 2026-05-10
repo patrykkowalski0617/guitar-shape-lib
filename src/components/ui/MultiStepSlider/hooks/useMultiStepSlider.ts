@@ -43,8 +43,7 @@ export function useMultiStepSlider({
   };
 
   const handleTrackMouseDown = (disabled: boolean) => (e: React.MouseEvent) => {
-    if (disabled) return;
-    if (e.button !== 0) return;
+    if (disabled || e.button !== 0) return;
 
     const clickedVal = calculateValueFromPos(e.clientX, e.clientY);
     const isOutsideRange = clickedVal < firstVal || clickedVal > lastVal;
@@ -70,15 +69,15 @@ export function useMultiStepSlider({
     e.preventDefault();
     e.stopPropagation();
 
-    const startValue = calculateValueFromPos(e.clientX, e.clientY);
+    const startMouseValue = calculateValueFromPos(e.clientX, e.clientY);
     const initialValues = [...valueRef.current];
 
     const onMouseMove = (moveEvent: MouseEvent) => {
-      const currentValue = calculateValueFromPos(
+      const currentMouseValue = calculateValueFromPos(
         moveEvent.clientX,
         moveEvent.clientY,
       );
-      const diff = currentValue - startValue;
+      const diff = currentMouseValue - startMouseValue;
 
       if (diff === 0) return;
 
@@ -124,5 +123,6 @@ export function useMultiStepSlider({
     startDrag,
     handleCutStart,
     handleCutEnd,
+    calculateValueFromPos,
   };
 }

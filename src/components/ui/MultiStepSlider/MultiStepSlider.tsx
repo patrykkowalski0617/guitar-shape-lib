@@ -21,14 +21,14 @@ export function MultiStepSlider({
   onValueChange,
   max,
   min = 0,
-  thumbSize = 28,
+  thumbSize = 32,
   orientation = "horizontal",
   disabled = false,
   effectiveMax,
 }: MultiStepSliderProps) {
   const isVertical = orientation === "vertical";
-
   const [isDragging, setIsDragging] = React.useState(false);
+  const [previewValue, setPreviewValue] = React.useState<number[] | null>(null);
 
   const {
     trackRef,
@@ -40,15 +40,27 @@ export function MultiStepSlider({
     startDrag,
     handleCutStart,
     handleCutEnd,
+    calculateValueFromPos,
   } = useMultiStepSlider({ value, onValueChange, max, min, isVertical });
 
+  const limitValue = effectiveMax ?? max;
   const startPosPercent = ((firstVal - min) / range) * 100;
   const totalWidthPercent = ((lastVal - firstVal) / range) * 100;
-  const limitValue = effectiveMax ?? max;
+
+  const previewFirstVal = previewValue ? Math.min(...previewValue) : null;
+  const previewLastVal = previewValue ? Math.max(...previewValue) : null;
+
+  const previewStartPos =
+    previewFirstVal !== null ? ((previewFirstVal - min) / range) * 100 : 0;
+  const previewWidth =
+    previewFirstVal !== null && previewLastVal !== null
+      ? ((previewLastVal - previewFirstVal) / range) * 100
+      : 0;
 
   const handleThumbMouseDown = (e: React.MouseEvent) => {
     if (disabled) return;
     setIsDragging(true);
+    setPreviewValue(null);
     startDrag(disabled)(e);
 
     const stopDragging = () => {
@@ -58,17 +70,39 @@ export function MultiStepSlider({
     window.addEventListener("mouseup", stopDragging);
   };
 
+  const handleRootMouseMove = (e: React.MouseEvent) => {
+    if (disabled || isDragging) return;
+
+    const hoverVal = calculateValueFromPos(e.clientX, e.clientY);
+    const isBelow = hoverVal < firstVal;
+    const isAbove = hoverVal > lastVal;
+
+    if (isBelow) {
+      const nextPreview = [...sortedValues];
+      for (let i = hoverVal; i < firstVal; i++) {
+        if (!nextPreview.includes(i)) nextPreview.push(i);
+      }
+      setPreviewValue(nextPreview);
+    } else if (isAbove) {
+      const nextPreview = [...sortedValues];
+      for (let i = lastVal + 1; i <= hoverVal; i++) {
+        if (!nextPreview.includes(i)) nextPreview.push(i);
+      }
+      setPreviewValue(nextPreview);
+    } else {
+      const target = e.target as HTMLElement;
+      if (!target.closest('[data-cut-button="true"]')) {
+        setPreviewValue(null);
+      }
+    }
+  };
+
   return (
     <S.SliderRoot
       $isVertical={isVertical}
       onMouseDown={handleTrackMouseDown(disabled || isDragging)}
-      onMouseEnter={(e) => {
-        console.log("enter");
-        // handleTrackMouseDown(disabled || isDragging)(e);
-      }}
-      onMouseLeave={() => {
-        console.log("leave");
-      }}
+      onMouseMove={handleRootMouseMove}
+      onMouseLeave={() => setPreviewValue(null)}
     >
       <S.SliderTrack
         ref={trackRef}
@@ -82,6 +116,16 @@ export function MultiStepSlider({
             $isVertical={isVertical}
           />
         ))}
+
+        {previewValue && !isDragging && (
+          <S.SliderThumb
+            $isVertical={isVertical}
+            $startPos={previewStartPos}
+            $totalWidth={previewWidth}
+            $thumbSize={thumbSize}
+            $isPreview={true}
+          />
+        )}
 
         <S.SliderThumb
           onMouseDown={handleThumbMouseDown}
@@ -97,10 +141,9 @@ export function MultiStepSlider({
             $isDragging={isDragging}
           >
             {sortedValues.map((val, index) => {
+              const totalSteps = sortedValues.length;
               const positionPercent =
-                sortedValues.length > 1
-                  ? (index / (sortedValues.length - 1)) * 100
-                  : 50;
+                totalSteps > 1 ? (index / (totalSteps - 1)) * 100 : 50;
 
               return (
                 <S.InteractionZone
@@ -115,40 +158,52 @@ export function MultiStepSlider({
                     $thumbSize={thumbSize}
                   >
                     <S.CutButton
-                      disabled={val === lastVal || sortedValues.length === 1}
+                      data-cut-button="true"
+                      disabled={val === lastVal || totalSteps === 1}
                       onMouseDown={(e) => e.stopPropagation()}
+                      onMouseEnter={(e) => {
+                        e.stopPropagation();
+                        const nextPreview = sortedValues.filter(
+                          (v) => v <= val,
+                        );
+                        setPreviewValue(nextPreview);
+                      }}
+                      onMouseLeave={() => setPreviewValue(null)}
                       onClick={(e) => {
                         e.stopPropagation();
-                        console.log("click");
+                        setPreviewValue(null);
                         handleCutEnd(val);
                       }}
-                      onMouseEnter={() => {
-                        console.log("enter");
-                        // handleCutEnd(val);
-                      }}
-                      onMouseLeave={() => {
-                        console.log("leave");
-                      }}
                     >
-                      {isVertical ? "▼" : "◀"}
+                      {isVertical ? (
+                        "▼"
+                      ) : (
+                        <span style={{ transform: "rotate(90deg)" }}>▼</span>
+                      )}
                     </S.CutButton>
                     <S.CutButton
-                      disabled={val === firstVal || sortedValues.length === 1}
+                      data-cut-button="true"
+                      disabled={val === firstVal || totalSteps === 1}
                       onMouseDown={(e) => e.stopPropagation()}
-                      onClick={(e) => {
-                        console.log("click");
+                      onMouseEnter={(e) => {
                         e.stopPropagation();
+                        const nextPreview = sortedValues.filter(
+                          (v) => v >= val,
+                        );
+                        setPreviewValue(nextPreview);
+                      }}
+                      onMouseLeave={() => setPreviewValue(null)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPreviewValue(null);
                         handleCutStart(val);
                       }}
-                      onMouseEnter={() => {
-                        console.log("enter");
-                        // handleCutStart(val);
-                      }}
-                      onMouseLeave={() => {
-                        console.log("leave");
-                      }}
                     >
-                      {isVertical ? "▲" : "▶"}
+                      {isVertical ? (
+                        "▲"
+                      ) : (
+                        <span style={{ transform: "rotate(90deg)" }}> ▲</span>
+                      )}
                     </S.CutButton>
                   </S.ControlsWrapper>
                 </S.InteractionZone>

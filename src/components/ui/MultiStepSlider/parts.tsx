@@ -53,10 +53,15 @@ export const Tick = styled.div.attrs<{
   },
 }))<{ $tickPos: number; $isVertical: boolean }>`
   position: absolute;
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--primary) 0%, var(--muted) 100%);
+  background: radial-gradient(
+    circle,
+    var(--foreground) 0%,
+    var(--primary) 10%,
+    var(--background) 100%
+  );
   box-shadow: 2px 2px 8px 2px var(--background);
   z-index: 3;
   pointer-events: none;
@@ -94,12 +99,12 @@ export const SliderThumb = styled.div.attrs<{
   $isPreview?: boolean;
 }>`
   position: absolute;
-  border-radius: 9999px;
-  border: 1px solid var(--primary);
+  border-radius: 99px;
+  border: 1px solid var(--background);
   box-shadow:
-    2px 2px 8px 2px var(--background),
-    0px 0px 2px 1px var(--border) inset,
-    0px 0px 3px 2px var(--contrast) inset;
+    4px 4px 8px 0px var(--background),
+    0px 0px 4px 1px var(--background) inset,
+    0px 0px 2px 4px var(--primary) inset;
   z-index: ${({ $isPreview, $isDragging }) => {
     if ($isPreview) return 5;
     if ($isDragging) return 20;
@@ -159,7 +164,7 @@ export const InteractionZone = styled.div.attrs<{
   height: ${({ $thumbSize }) => $thumbSize}px;
   pointer-events: auto;
   &:hover {
-    z-index: 900;
+    z-index: 90;
   }
   &:hover > div {
     opacity: 1;
@@ -181,10 +186,10 @@ export const ControlsWrapper = styled.div<{
 }>`
   position: absolute;
   display: flex;
-  gap: 4px;
   opacity: 0;
   transition: opacity 0.2s;
   pointer-events: none;
+  gap: 1px;
   ${({ $isDragging }) =>
     $isDragging
       ? css`
@@ -207,18 +212,14 @@ export const CutButton = styled.button`
   all: unset;
   width: 20px;
   height: 20px;
-  background: var(--background);
-  border: 1px solid var(--primary);
-  border-radius: 4px;
   color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
+  font-size: 20px;
   cursor: pointer;
   pointer-events: auto;
   &:hover:not(:disabled) {
-    background: var(--primary);
     color: var(--background);
   }
   &:disabled {
