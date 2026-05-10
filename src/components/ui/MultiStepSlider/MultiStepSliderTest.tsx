@@ -22,7 +22,7 @@ export function MultiStepSliderTest() {
           value={activeSteps}
           onValueChange={setActiveSteps}
           max={MAX_STEPS}
-          thumbSize={28}
+          thumbSize={30}
           effectiveMax={MAX_STEPS}
           options={options}
         />
@@ -32,7 +32,7 @@ export function MultiStepSliderTest() {
           value={activeSteps}
           onValueChange={setActiveSteps}
           max={MAX_STEPS}
-          thumbSize={28}
+          thumbSize={30}
           effectiveMax={MAX_STEPS}
           options={options}
           orientation="vertical"

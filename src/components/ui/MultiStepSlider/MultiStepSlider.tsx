@@ -162,44 +162,61 @@ export function MultiStepSlider({
           $isVertical={isVertical}
         >
           <S.ThumbVisual />
-          <S.InteractionContainer $isVertical={isVertical}>
-            {sortedValues.map((val) => (
-              <S.InteractionZone
-                key={val}
-                $isVertical={isVertical}
-                $thumbSize={thumbSize}
-              >
-                {!disabled && (
-                  <S.ControlsWrapper
-                    $isVertical={isVertical}
-                    $thumbSize={thumbSize}
-                  >
-                    <S.CutButton
-                      disabled={val === firstVal || sortedValues.length === 1}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onValueChange(
-                          value.filter((v) => v >= val).sort((a, b) => a - b),
-                        );
-                      }}
+          <S.InteractionContainer
+            $isVertical={isVertical}
+            $thumbSize={thumbSize}
+          >
+            {sortedValues.map((val, index) => {
+              const totalSteps = sortedValues.length;
+              // Pozycja to (indeks / (liczba_elementów - 1)) * 100%
+              const positionPercent =
+                totalSteps > 1 ? (index / (totalSteps - 1)) * 100 : 50;
+
+              return (
+                <S.InteractionZone
+                  key={val}
+                  $isVertical={isVertical}
+                  $thumbSize={thumbSize}
+                  style={{
+                    left: isVertical ? "50%" : `${positionPercent}%`,
+                    bottom: isVertical ? `${positionPercent}%` : "0",
+                    transform: isVertical
+                      ? "translate(-50%, 50%)"
+                      : "translateX(-50%)",
+                  }}
+                >
+                  {!disabled && (
+                    <S.ControlsWrapper
+                      $isVertical={isVertical}
+                      $thumbSize={thumbSize}
                     >
-                      {isVertical ? "▼" : "◀"}
-                    </S.CutButton>
-                    <S.CutButton
-                      disabled={val === lastVal || sortedValues.length === 1}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onValueChange(
-                          value.filter((v) => v <= val).sort((a, b) => a - b),
-                        );
-                      }}
-                    >
-                      {isVertical ? "▲" : "▶"}
-                    </S.CutButton>
-                  </S.ControlsWrapper>
-                )}
-              </S.InteractionZone>
-            ))}
+                      <S.CutButton
+                        disabled={val === firstVal || sortedValues.length === 1}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onValueChange(
+                            value.filter((v) => v >= val).sort((a, b) => a - b),
+                          );
+                        }}
+                      >
+                        {isVertical ? "▼" : "◀"}
+                      </S.CutButton>
+                      <S.CutButton
+                        disabled={val === lastVal || sortedValues.length === 1}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onValueChange(
+                            value.filter((v) => v <= val).sort((a, b) => a - b),
+                          );
+                        }}
+                      >
+                        {isVertical ? "▲" : "▶"}
+                      </S.CutButton>
+                    </S.ControlsWrapper>
+                  )}
+                </S.InteractionZone>
+              );
+            })}
           </S.InteractionContainer>
         </S.SliderThumb>
       </S.SliderTrack>
