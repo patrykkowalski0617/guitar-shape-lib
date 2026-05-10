@@ -42,42 +42,46 @@ export function useMultiStepSlider({
     return Math.round(percentage * range + min);
   };
 
-  const handleTrackMouseDown = (disabled: boolean) => (e: React.MouseEvent) => {
-    if (disabled || e.button !== 0) return;
+  const handleTrackPointerDown =
+    (disabled: boolean) => (e: React.PointerEvent) => {
+      const isPrimaryButton = e.button === 0;
+      if (disabled || !isPrimaryButton) return;
 
-    const clickedVal = calculateValueFromPos(e.clientX, e.clientY);
-    const isOutsideRange = clickedVal < firstVal || clickedVal > lastVal;
+      const clickedVal = calculateValueFromPos(e.clientX, e.clientY);
+      const isOutsideCurrentRange =
+        clickedVal < firstVal || clickedVal > lastVal;
 
-    if (isOutsideRange) {
-      const nextValue = [...valueRef.current];
-      if (clickedVal < firstVal) {
-        for (let i = clickedVal; i < firstVal; i++) {
-          if (!nextValue.includes(i)) nextValue.push(i);
+      if (isOutsideCurrentRange) {
+        const nextValue = [...valueRef.current];
+        if (clickedVal < firstVal) {
+          for (let i = clickedVal; i < firstVal; i++) {
+            if (!nextValue.includes(i)) nextValue.push(i);
+          }
+        } else {
+          for (let i = lastVal + 1; i <= clickedVal; i++) {
+            if (!nextValue.includes(i)) nextValue.push(i);
+          }
         }
-      } else {
-        for (let i = lastVal + 1; i <= clickedVal; i++) {
-          if (!nextValue.includes(i)) nextValue.push(i);
-        }
+        onValueChange(nextValue.sort((a, b) => a - b));
       }
-      onValueChange(nextValue.sort((a, b) => a - b));
-    }
-  };
+    };
 
-  const startDrag = (disabled: boolean) => (e: React.MouseEvent) => {
-    if (disabled || e.button !== 0) return;
+  const startDrag = (disabled: boolean) => (e: React.PointerEvent) => {
+    const isPrimaryButton = e.button === 0;
+    if (disabled || !isPrimaryButton) return;
 
-    e.preventDefault();
-    e.stopPropagation();
+    const target = e.currentTarget as HTMLElement;
+    target.setPointerCapture(e.pointerId);
 
-    const startMouseValue = calculateValueFromPos(e.clientX, e.clientY);
+    const startValue = calculateValueFromPos(e.clientX, e.clientY);
     const initialValues = [...valueRef.current];
 
-    const onMouseMove = (moveEvent: MouseEvent) => {
-      const currentMouseValue = calculateValueFromPos(
+    const onPointerMove = (moveEvent: PointerEvent) => {
+      const currentValue = calculateValueFromPos(
         moveEvent.clientX,
         moveEvent.clientY,
       );
-      const diff = currentMouseValue - startMouseValue;
+      const diff = currentValue - startValue;
 
       if (diff === 0) return;
 
@@ -85,18 +89,23 @@ export function useMultiStepSlider({
       const newMin = Math.min(...shiftedValues);
       const newMax = Math.max(...shiftedValues);
 
-      if (newMin >= min && newMax <= max) {
+      const isWithinBounds = newMin >= min && newMax <= max;
+
+      if (isWithinBounds) {
         onValueChange(shiftedValues);
       }
     };
 
-    const onMouseUp = () => {
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseup", onMouseUp);
+    const onPointerUp = (upEvent: PointerEvent) => {
+      target.releasePointerCapture(upEvent.pointerId);
+      document.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("pointerup", onPointerUp);
+      document.removeEventListener("pointercancel", onPointerUp);
     };
 
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseup", onMouseUp);
+    document.addEventListener("pointermove", onPointerMove);
+    document.addEventListener("pointerup", onPointerUp);
+    document.addEventListener("pointercancel", onPointerUp);
   };
 
   const handleCutStart = (val: number) => {
@@ -119,7 +128,7 @@ export function useMultiStepSlider({
     firstVal,
     lastVal,
     range,
-    handleTrackMouseDown,
+    handleTrackPointerDown,
     startDrag,
     handleCutStart,
     handleCutEnd,

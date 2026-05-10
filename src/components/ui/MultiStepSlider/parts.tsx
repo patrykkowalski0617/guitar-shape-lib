@@ -212,15 +212,15 @@ export const CutButton = styled.button`
   all: unset;
   width: 20px;
   height: 20px;
-  color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 20px;
   cursor: pointer;
   pointer-events: auto;
+  color: var(--background);
   &:hover:not(:disabled) {
-    color: var(--background);
+    color: var(--primary);
   }
   &:disabled {
     opacity: 0.3;

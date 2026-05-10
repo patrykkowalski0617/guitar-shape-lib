@@ -36,7 +36,7 @@ export function MultiStepSlider({
     firstVal,
     lastVal,
     range,
-    handleTrackMouseDown,
+    handleTrackPointerDown,
     startDrag,
     handleCutStart,
     handleCutEnd,
@@ -57,33 +57,34 @@ export function MultiStepSlider({
       ? ((previewLastVal - previewFirstVal) / range) * 100
       : 0;
 
-  const handleThumbMouseDown = (e: React.MouseEvent) => {
+  const handlePointerDown = (e: React.PointerEvent) => {
     if (disabled) return;
     setIsDragging(true);
     setPreviewValue(null);
     startDrag(disabled)(e);
 
-    const stopDragging = () => {
+    const onEnd = () => {
       setIsDragging(false);
-      window.removeEventListener("mouseup", stopDragging);
+      window.removeEventListener("pointerup", onEnd);
     };
-    window.addEventListener("mouseup", stopDragging);
+    window.addEventListener("pointerup", onEnd);
   };
 
-  const handleRootMouseMove = (e: React.MouseEvent) => {
-    if (disabled || isDragging) return;
+  const handlePointerMove = (e: React.PointerEvent) => {
+    const isTouch = e.pointerType === "touch";
+    if (disabled || isDragging || isTouch) return;
 
     const hoverVal = calculateValueFromPos(e.clientX, e.clientY);
-    const isBelow = hoverVal < firstVal;
-    const isAbove = hoverVal > lastVal;
+    const isBelowRange = hoverVal < firstVal;
+    const isAboveRange = hoverVal > lastVal;
 
-    if (isBelow) {
+    if (isBelowRange) {
       const nextPreview = [...sortedValues];
       for (let i = hoverVal; i < firstVal; i++) {
         if (!nextPreview.includes(i)) nextPreview.push(i);
       }
       setPreviewValue(nextPreview);
-    } else if (isAbove) {
+    } else if (isAboveRange) {
       const nextPreview = [...sortedValues];
       for (let i = lastVal + 1; i <= hoverVal; i++) {
         if (!nextPreview.includes(i)) nextPreview.push(i);
@@ -91,18 +92,18 @@ export function MultiStepSlider({
       setPreviewValue(nextPreview);
     } else {
       const target = e.target as HTMLElement;
-      if (!target.closest('[data-cut-button="true"]')) {
-        setPreviewValue(null);
-      }
+      const isOverButton = target.closest('[data-cut-button="true"]');
+      if (!isOverButton) setPreviewValue(null);
     }
   };
 
   return (
     <S.SliderRoot
       $isVertical={isVertical}
-      onMouseDown={handleTrackMouseDown(disabled || isDragging)}
-      onMouseMove={handleRootMouseMove}
-      onMouseLeave={() => setPreviewValue(null)}
+      onPointerDown={handleTrackPointerDown(disabled || isDragging)}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={() => setPreviewValue(null)}
+      style={{ touchAction: "none" }}
     >
       <S.SliderTrack
         ref={trackRef}
@@ -128,7 +129,7 @@ export function MultiStepSlider({
         )}
 
         <S.SliderThumb
-          onMouseDown={handleThumbMouseDown}
+          onPointerDown={handlePointerDown}
           $isVertical={isVertical}
           $startPos={startPosPercent}
           $totalWidth={totalWidthPercent}
@@ -142,8 +143,10 @@ export function MultiStepSlider({
           >
             {sortedValues.map((val, index) => {
               const totalSteps = sortedValues.length;
-              const positionPercent =
-                totalSteps > 1 ? (index / (totalSteps - 1)) * 100 : 50;
+              const hasMultipleSteps = totalSteps > 1;
+              const positionPercent = hasMultipleSteps
+                ? (index / (totalSteps - 1)) * 100
+                : 50;
 
               return (
                 <S.InteractionZone
@@ -159,16 +162,8 @@ export function MultiStepSlider({
                   >
                     <S.CutButton
                       data-cut-button="true"
-                      disabled={val === lastVal || totalSteps === 1}
-                      onMouseDown={(e) => e.stopPropagation()}
-                      onMouseEnter={(e) => {
-                        e.stopPropagation();
-                        const nextPreview = sortedValues.filter(
-                          (v) => v <= val,
-                        );
-                        setPreviewValue(nextPreview);
-                      }}
-                      onMouseLeave={() => setPreviewValue(null)}
+                      disabled={val === lastVal || !hasMultipleSteps}
+                      onPointerDown={(e) => e.stopPropagation()}
                       onClick={(e) => {
                         e.stopPropagation();
                         setPreviewValue(null);
@@ -178,21 +173,20 @@ export function MultiStepSlider({
                       {isVertical ? (
                         "▼"
                       ) : (
-                        <span style={{ transform: "rotate(90deg)" }}>▼</span>
+                        <span
+                          style={{
+                            display: "block",
+                            transform: "rotate(90deg)",
+                          }}
+                        >
+                          ▼
+                        </span>
                       )}
                     </S.CutButton>
                     <S.CutButton
                       data-cut-button="true"
-                      disabled={val === firstVal || totalSteps === 1}
-                      onMouseDown={(e) => e.stopPropagation()}
-                      onMouseEnter={(e) => {
-                        e.stopPropagation();
-                        const nextPreview = sortedValues.filter(
-                          (v) => v >= val,
-                        );
-                        setPreviewValue(nextPreview);
-                      }}
-                      onMouseLeave={() => setPreviewValue(null)}
+                      disabled={val === firstVal || !hasMultipleSteps}
+                      onPointerDown={(e) => e.stopPropagation()}
                       onClick={(e) => {
                         e.stopPropagation();
                         setPreviewValue(null);
@@ -202,7 +196,14 @@ export function MultiStepSlider({
                       {isVertical ? (
                         "▲"
                       ) : (
-                        <span style={{ transform: "rotate(90deg)" }}> ▲</span>
+                        <span
+                          style={{
+                            display: "block",
+                            transform: "rotate(90deg)",
+                          }}
+                        >
+                          ▲
+                        </span>
                       )}
                     </S.CutButton>
                   </S.ControlsWrapper>
