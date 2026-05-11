@@ -7,8 +7,12 @@ import {
 import { useShapePlayerStore } from "@/store";
 
 export const useShapePlayerDrag = () => {
-  const { shapePlayerBrickIds, reorderShapePlayerBricks } =
-    useShapePlayerStore();
+  const shapePlayerBricks = useShapePlayerStore(
+    (state) => state.shapePlayerBricks,
+  );
+  const reorderShapePlayerBricks = useShapePlayerStore(
+    (state) => state.reorderShapePlayerBricks,
+  );
 
   const sensors = useSensors(useSensor(PointerSensor));
 
@@ -18,8 +22,10 @@ export const useShapePlayerDrag = () => {
     const isTargetValid = over && active.id !== over.id;
 
     if (isTargetValid) {
-      const oldIndex = shapePlayerBrickIds.indexOf(active.id as string);
-      const newIndex = shapePlayerBrickIds.indexOf(over.id as string);
+      const brickIds = shapePlayerBricks.map((brick) => brick.id);
+      const oldIndex = brickIds.indexOf(active.id as string);
+      const newIndex = brickIds.indexOf(over.id as string);
+
       reorderShapePlayerBricks(oldIndex, newIndex);
     }
   };

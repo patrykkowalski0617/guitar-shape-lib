@@ -7,18 +7,16 @@ import { ShapePlayerBrick } from "../ShapePlayerBrick/ShapePlayerBrick";
 import * as S from "./parts";
 
 export const ShapePlayerList = () => {
-  const shapePlayerBrickIds = useShapePlayerStore(
-    (state) => state.shapePlayerBrickIds,
+  const shapePlayerBricks = useShapePlayerStore(
+    (state) => state.shapePlayerBricks,
   );
+  const brickIds = shapePlayerBricks.map((b) => b.id);
 
   return (
-    <SortableContext
-      items={shapePlayerBrickIds}
-      strategy={verticalListSortingStrategy}
-    >
+    <SortableContext items={brickIds} strategy={verticalListSortingStrategy}>
       <S.ShapePlayerBricksList>
-        {shapePlayerBrickIds.map((id) => (
-          <ShapePlayerBrick key={id} id={id} />
+        {shapePlayerBricks.map((brick) => (
+          <ShapePlayerBrick key={brick.id} id={brick.id} />
         ))}
       </S.ShapePlayerBricksList>
     </SortableContext>
