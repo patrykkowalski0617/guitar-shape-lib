@@ -10,6 +10,7 @@ interface MultiStepSliderProps {
   thumbSize?: number;
   orientation?: "horizontal" | "vertical";
   disabled?: boolean;
+  effectiveMax?: number;
   highlightedId?: string | number | null;
   onHighlightEnd?: () => void;
 }
@@ -22,6 +23,7 @@ export function MultiStepSlider({
   thumbSize = 32,
   orientation = "horizontal",
   disabled = false,
+  effectiveMax,
 }: MultiStepSliderProps) {
   const isVertical = orientation === "vertical";
   const [isDragging, setIsDragging] = React.useState(false);
@@ -40,6 +42,7 @@ export function MultiStepSlider({
     calculateValueFromPos,
   } = useMultiStepSlider({ value, onValueChange, max, min, isVertical });
 
+  const limitValue = effectiveMax ?? max;
   const startPosPercent = ((firstVal - min) / range) * 100;
   const totalWidthPercent = ((lastVal - firstVal) / range) * 100;
 
@@ -53,43 +56,57 @@ export function MultiStepSlider({
       ? ((previewLastVal - previewFirstVal) / range) * 100
       : 0;
 
-  const handlePointerDown = (e: React.PointerEvent) => {
+  const handleThumbPointerDown = (e: React.PointerEvent) => {
     if (disabled) return;
     setIsDragging(true);
     setPreviewValue(null);
     startDrag(disabled)(e);
 
-    const onEnd = () => {
+    const stopDragging = () => {
       setIsDragging(false);
-      window.removeEventListener("pointerup", onEnd);
+      window.removeEventListener("pointerup", stopDragging);
     };
-    window.addEventListener("pointerup", onEnd);
+    window.addEventListener("pointerup", stopDragging);
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
-    const isTouch = e.pointerType === "touch";
-    if (disabled || isDragging || isTouch) return;
+    if (disabled || isDragging || e.pointerType === "touch") return;
+
+    const target = e.target as HTMLElement;
+    const cutButton = target.closest(
+      '[data-cut-button="true"]',
+    ) as HTMLElement | null;
+
+    if (cutButton) {
+      const type = cutButton.getAttribute("data-cut-type");
+      const val = Number(cutButton.getAttribute("data-value"));
+
+      if (type === "start") {
+        setPreviewValue(sortedValues.filter((v) => v >= val));
+      } else {
+        setPreviewValue(sortedValues.filter((v) => v <= val));
+      }
+      return;
+    }
 
     const hoverVal = calculateValueFromPos(e.clientX, e.clientY);
-    const isBelowRange = hoverVal < firstVal;
-    const isAboveRange = hoverVal > lastVal;
+    const isBelow = hoverVal < firstVal;
+    const isAbove = hoverVal > lastVal;
 
-    if (isBelowRange) {
+    if (isBelow) {
       const nextPreview = [...sortedValues];
       for (let i = hoverVal; i < firstVal; i++) {
         if (!nextPreview.includes(i)) nextPreview.push(i);
       }
       setPreviewValue(nextPreview);
-    } else if (isAboveRange) {
+    } else if (isAbove) {
       const nextPreview = [...sortedValues];
       for (let i = lastVal + 1; i <= hoverVal; i++) {
         if (!nextPreview.includes(i)) nextPreview.push(i);
       }
       setPreviewValue(nextPreview);
     } else {
-      const target = e.target as HTMLElement;
-      const isOverButton = target.closest('[data-cut-button="true"]');
-      if (!isOverButton) setPreviewValue(null);
+      setPreviewValue(null);
     }
   };
 
@@ -99,15 +116,19 @@ export function MultiStepSlider({
       onPointerDown={handleTrackPointerDown(disabled || isDragging)}
       onPointerMove={handlePointerMove}
       onPointerLeave={() => setPreviewValue(null)}
-      style={{ touchAction: "none" }}
+      style={{ touchAction: "none", userSelect: "none" }}
     >
       <S.SliderTrack
         ref={trackRef}
         $isVertical={isVertical}
         $thumbSize={thumbSize}
       >
-        {Array.from({ length: max + 1 }, (_, i) => (
-          <S.Tick key={i} $tickPos={(i / max) * 100} $isVertical={isVertical} />
+        {Array.from({ length: limitValue + 1 }, (_, i) => (
+          <S.Tick
+            key={i}
+            $tickPos={(i / limitValue) * 100}
+            $isVertical={isVertical}
+          />
         ))}
 
         {previewValue && !isDragging && (
@@ -121,7 +142,7 @@ export function MultiStepSlider({
         )}
 
         <S.SliderThumb
-          onPointerDown={handlePointerDown}
+          onPointerDown={handleThumbPointerDown}
           $isVertical={isVertical}
           $startPos={startPosPercent}
           $totalWidth={totalWidthPercent}
@@ -135,8 +156,8 @@ export function MultiStepSlider({
           >
             {sortedValues.map((val, index) => {
               const totalSteps = sortedValues.length;
-              const hasMultipleSteps = totalSteps > 1;
-              const positionPercent = hasMultipleSteps
+              const hasMultiple = totalSteps > 1;
+              const positionPercent = hasMultiple
                 ? (index / (totalSteps - 1)) * 100
                 : 50;
 
@@ -154,7 +175,9 @@ export function MultiStepSlider({
                   >
                     <S.CutButton
                       data-cut-button="true"
-                      disabled={val === lastVal || !hasMultipleSteps}
+                      data-cut-type="end"
+                      data-value={val}
+                      disabled={val === lastVal || !hasMultiple}
                       onPointerDown={(e) => e.stopPropagation()}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -177,7 +200,9 @@ export function MultiStepSlider({
                     </S.CutButton>
                     <S.CutButton
                       data-cut-button="true"
-                      disabled={val === firstVal || !hasMultipleSteps}
+                      data-cut-type="start"
+                      data-value={val}
+                      disabled={val === firstVal || !hasMultiple}
                       onPointerDown={(e) => e.stopPropagation()}
                       onClick={(e) => {
                         e.stopPropagation();

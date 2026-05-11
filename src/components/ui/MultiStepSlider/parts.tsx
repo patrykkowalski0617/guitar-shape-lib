@@ -110,7 +110,7 @@ export const SliderThumb = styled.div.attrs<{
     if ($isDragging) return 20;
     return 10;
   }};
-  opacity: ${({ $isPreview }) => ($isPreview ? 0.4 : 1)};
+  opacity: ${({ $isPreview }) => ($isPreview ? 0.85 : 1)};
   pointer-events: ${({ $isPreview }) => ($isPreview ? "none" : "auto")};
   cursor: ${({ $isPreview }) => ($isPreview ? "default" : "grab")};
   &:active {

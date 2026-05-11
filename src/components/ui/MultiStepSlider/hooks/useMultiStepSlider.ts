@@ -44,14 +44,12 @@ export function useMultiStepSlider({
 
   const handleTrackPointerDown =
     (disabled: boolean) => (e: React.PointerEvent) => {
-      const isPrimaryButton = e.button === 0;
-      if (disabled || !isPrimaryButton) return;
+      if (disabled || e.button !== 0) return;
 
       const clickedVal = calculateValueFromPos(e.clientX, e.clientY);
-      const isOutsideCurrentRange =
-        clickedVal < firstVal || clickedVal > lastVal;
+      const isOutsideRange = clickedVal < firstVal || clickedVal > lastVal;
 
-      if (isOutsideCurrentRange) {
+      if (isOutsideRange) {
         const nextValue = [...valueRef.current];
         if (clickedVal < firstVal) {
           for (let i = clickedVal; i < firstVal; i++) {
@@ -67,13 +65,12 @@ export function useMultiStepSlider({
     };
 
   const startDrag = (disabled: boolean) => (e: React.PointerEvent) => {
-    const isPrimaryButton = e.button === 0;
-    if (disabled || !isPrimaryButton) return;
+    if (disabled || e.button !== 0) return;
 
     const target = e.currentTarget as HTMLElement;
     target.setPointerCapture(e.pointerId);
 
-    const startValue = calculateValueFromPos(e.clientX, e.clientY);
+    const startMouseValue = calculateValueFromPos(e.clientX, e.clientY);
     const initialValues = [...valueRef.current];
 
     const onPointerMove = (moveEvent: PointerEvent) => {
@@ -81,7 +78,7 @@ export function useMultiStepSlider({
         moveEvent.clientX,
         moveEvent.clientY,
       );
-      const diff = currentValue - startValue;
+      const diff = currentValue - startMouseValue;
 
       if (diff === 0) return;
 
@@ -89,23 +86,19 @@ export function useMultiStepSlider({
       const newMin = Math.min(...shiftedValues);
       const newMax = Math.max(...shiftedValues);
 
-      const isWithinBounds = newMin >= min && newMax <= max;
-
-      if (isWithinBounds) {
+      if (newMin >= min && newMax <= max) {
         onValueChange(shiftedValues);
       }
     };
 
     const onPointerUp = (upEvent: PointerEvent) => {
       target.releasePointerCapture(upEvent.pointerId);
-      document.removeEventListener("pointermove", onPointerMove);
-      document.removeEventListener("pointerup", onPointerUp);
-      document.removeEventListener("pointercancel", onPointerUp);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
     };
 
-    document.addEventListener("pointermove", onPointerMove);
-    document.addEventListener("pointerup", onPointerUp);
-    document.addEventListener("pointercancel", onPointerUp);
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", onPointerUp);
   };
 
   const handleCutStart = (val: number) => {
