@@ -1,4 +1,5 @@
 export * from "./useControlsStore";
+export * from "./useDataKeyStore";
 export * from "./useMusicStore";
 export * from "./usePlayerStore";
 export * from "./useProgressStore";

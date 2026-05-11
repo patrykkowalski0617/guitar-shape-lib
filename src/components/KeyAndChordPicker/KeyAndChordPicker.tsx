@@ -1,5 +1,5 @@
 import { KeyAndChordPickerRow } from "./KeyAndChordPickerRow/KeyAndChordPickerRow";
-import { useControlsStore, useMusicStore } from "@/store";
+import { useDataKeyStore, useMusicStore } from "@/store";
 import {
   BASE_CHORDS,
   UNIFIED_MUSIC_KEYS,
@@ -9,10 +9,10 @@ import {
 import { getNotes } from "@/utils";
 
 export function KeyAndChordPicker() {
-  const setBaseChordDataKey = useControlsStore(
+  const setBaseChordDataKey = useDataKeyStore(
     (state) => state.setBaseChordDataKey,
   );
-  const setUnifiedMusicKeysDataKeys = useControlsStore(
+  const setUnifiedMusicKeysDataKeys = useDataKeyStore(
     (state) => state.setUnifiedMusicKeysDataKeys,
   );
   const setShapeVariantDataKeys = useMusicStore(
@@ -22,8 +22,8 @@ export function KeyAndChordPicker() {
     (state) => state.setShapeVariantDataKeys_locked,
   );
 
-  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
-  const currentKeyId = useControlsStore(
+  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
+  const currentKeyId = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
 
