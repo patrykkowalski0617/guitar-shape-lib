@@ -13,6 +13,7 @@ interface MultiStepSliderProps {
   effectiveMax?: number;
   highlightedId?: string | number | null;
   onHighlightEnd?: () => void;
+  onBeforeValueChange?: (nextValue: number[]) => boolean;
 }
 
 export function MultiStepSlider({
@@ -24,6 +25,7 @@ export function MultiStepSlider({
   orientation = "horizontal",
   disabled = false,
   effectiveMax,
+  onBeforeValueChange,
 }: MultiStepSliderProps) {
   const isVertical = orientation === "vertical";
   const [isDragging, setIsDragging] = React.useState(false);
@@ -80,12 +82,17 @@ export function MultiStepSlider({
     if (cutButton) {
       const type = cutButton.getAttribute("data-cut-type");
       const val = Number(cutButton.getAttribute("data-value"));
+      const nextPreview =
+        type === "start"
+          ? sortedValues.filter((v) => v >= val)
+          : sortedValues.filter((v) => v <= val);
 
-      if (type === "start") {
-        setPreviewValue(sortedValues.filter((v) => v >= val));
-      } else {
-        setPreviewValue(sortedValues.filter((v) => v <= val));
+      if (onBeforeValueChange && !onBeforeValueChange(nextPreview)) {
+        setPreviewValue(null);
+        return;
       }
+
+      setPreviewValue(nextPreview);
       return;
     }
 
@@ -93,18 +100,21 @@ export function MultiStepSlider({
     const isBelow = hoverVal < firstVal;
     const isAbove = hoverVal > lastVal;
 
-    if (isBelow) {
+    if (isBelow || isAbove) {
       const nextPreview = [...sortedValues];
-      for (let i = hoverVal; i < firstVal; i++) {
-        if (!nextPreview.includes(i)) nextPreview.push(i);
+      if (isBelow) {
+        for (let i = hoverVal; i < firstVal; i++)
+          if (!nextPreview.includes(i)) nextPreview.push(i);
+      } else {
+        for (let i = lastVal + 1; i <= hoverVal; i++)
+          if (!nextPreview.includes(i)) nextPreview.push(i);
       }
-      setPreviewValue(nextPreview);
-    } else if (isAbove) {
-      const nextPreview = [...sortedValues];
-      for (let i = lastVal + 1; i <= hoverVal; i++) {
-        if (!nextPreview.includes(i)) nextPreview.push(i);
+
+      if (onBeforeValueChange && !onBeforeValueChange(nextPreview)) {
+        setPreviewValue(null);
+        return;
       }
-      setPreviewValue(nextPreview);
+      setPreviewValue(nextPreview.sort((a, b) => a - b));
     } else {
       setPreviewValue(null);
     }
@@ -161,6 +171,9 @@ export function MultiStepSlider({
                 ? (index / (totalSteps - 1)) * 100
                 : 50;
 
+              const potentialCutEnd = sortedValues.filter((v) => v <= val);
+              const potentialCutStart = sortedValues.filter((v) => v >= val);
+
               return (
                 <S.InteractionZone
                   key={val}
@@ -177,7 +190,13 @@ export function MultiStepSlider({
                       data-cut-button="true"
                       data-cut-type="end"
                       data-value={val}
-                      disabled={val === lastVal || !hasMultiple}
+                      disabled={
+                        val === lastVal ||
+                        !hasMultiple ||
+                        (onBeforeValueChange
+                          ? !onBeforeValueChange(potentialCutEnd)
+                          : false)
+                      }
                       onPointerDown={(e) => e.stopPropagation()}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -202,7 +221,13 @@ export function MultiStepSlider({
                       data-cut-button="true"
                       data-cut-type="start"
                       data-value={val}
-                      disabled={val === firstVal || !hasMultiple}
+                      disabled={
+                        val === firstVal ||
+                        !hasMultiple ||
+                        (onBeforeValueChange
+                          ? !onBeforeValueChange(potentialCutStart)
+                          : false)
+                      }
                       onPointerDown={(e) => e.stopPropagation()}
                       onClick={(e) => {
                         e.stopPropagation();
