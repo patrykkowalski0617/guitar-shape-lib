@@ -44,14 +44,16 @@ export function useMultiStepSlider({
 
   const handleTrackPointerDown =
     (disabled: boolean) => (e: React.PointerEvent) => {
-      if (disabled || e.button !== 0) return;
+      const isRightClick = e.button !== 0;
+      if (disabled || isRightClick) return;
 
       const clickedVal = calculateValueFromPos(e.clientX, e.clientY);
-      const isOutsideRange = clickedVal < firstVal || clickedVal > lastVal;
+      const isBelowRange = clickedVal < firstVal;
+      const isAboveRange = clickedVal > lastVal;
 
-      if (isOutsideRange) {
+      if (isBelowRange || isAboveRange) {
         const nextValue = [...valueRef.current];
-        if (clickedVal < firstVal) {
+        if (isBelowRange) {
           for (let i = clickedVal; i < firstVal; i++) {
             if (!nextValue.includes(i)) nextValue.push(i);
           }
@@ -65,7 +67,8 @@ export function useMultiStepSlider({
     };
 
   const startDrag = (disabled: boolean) => (e: React.PointerEvent) => {
-    if (disabled || e.button !== 0) return;
+    const isRightClick = e.button !== 0;
+    if (disabled || isRightClick) return;
 
     const target = e.currentTarget as HTMLElement;
     target.setPointerCapture(e.pointerId);
@@ -86,7 +89,8 @@ export function useMultiStepSlider({
       const newMin = Math.min(...shiftedValues);
       const newMax = Math.max(...shiftedValues);
 
-      if (newMin >= min && newMax <= max) {
+      const isInBounds = newMin >= min && newMax <= max;
+      if (isInBounds) {
         onValueChange(shiftedValues);
       }
     };

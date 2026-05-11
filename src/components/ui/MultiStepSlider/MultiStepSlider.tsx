@@ -1,146 +1,36 @@
-import * as React from "react";
 import * as S from "./parts";
-import { useMultiStepSlider } from "./hooks/useMultiStepSlider";
+import { type MultiStepSliderProps } from "./constants";
+import { useMultiStepSliderLogic } from "./hooks/useMultiStepSliderLogic";
+import { calculatePercent } from "./utils";
+import { InteractionZone } from "./InteractionZone";
 
-interface MultiStepSliderProps {
-  value: number[];
-  onValueChange: (value: number[]) => void;
-  max: number;
-  min?: number;
-  thumbSize?: number;
-  orientation?: "horizontal" | "vertical";
-  disabled?: boolean;
-  effectiveMax?: number;
-  highlightedId?: string | number | null;
-  onHighlightEnd?: () => void;
-  onBeforeValueChange?: (nextValue: number[]) => boolean;
-}
-
-export function MultiStepSlider({
-  value,
-  onValueChange,
-  max,
-  min = 0,
-  thumbSize = 32,
-  orientation = "horizontal",
-  disabled = false,
-  effectiveMax,
-  onBeforeValueChange,
-}: MultiStepSliderProps) {
-  const isVertical = orientation === "vertical";
-  const [isDragging, setIsDragging] = React.useState(false);
-  const [previewValue, setPreviewValue] = React.useState<number[] | null>(null);
-
-  const fullRangeValue = React.useMemo(() => {
-    const start = Math.min(...value);
-    const end = Math.max(...value);
-    const res = [];
-    for (let i = start; i <= end; i++) res.push(i);
-    return res;
-  }, [value]);
-
-  const handleExternalChange = (nextFullValue: number[]) => {
-    const start = Math.min(...nextFullValue);
-    const end = Math.max(...nextFullValue);
-    onValueChange([start, end]);
-  };
-
+export function MultiStepSlider(props: MultiStepSliderProps) {
   const {
     trackRef,
     sortedValues,
     firstVal,
     lastVal,
     range,
+    isVertical,
+    isDragging,
+    previewValue,
+    setPreviewValue,
     handleTrackPointerDown,
-    startDrag,
+    handlePointerMove,
+    handleThumbPointerDown,
     handleCutStart,
     handleCutEnd,
-    calculateValueFromPos,
-  } = useMultiStepSlider({
-    value: fullRangeValue,
-    onValueChange: handleExternalChange,
+  } = useMultiStepSliderLogic(props);
+
+  const {
     max,
-    min,
-    isVertical,
-  });
-
+    min = 0,
+    thumbSize = 32,
+    disabled = false,
+    effectiveMax,
+    onBeforeValueChange,
+  } = props;
   const limitValue = effectiveMax ?? max;
-  const startPosPercent = ((firstVal - min) / range) * 100;
-  const totalWidthPercent = ((lastVal - firstVal) / range) * 100;
-
-  const previewFirstVal = previewValue ? Math.min(...previewValue) : null;
-  const previewLastVal = previewValue ? Math.max(...previewValue) : null;
-
-  const previewStartPos =
-    previewFirstVal !== null ? ((previewFirstVal - min) / range) * 100 : 0;
-  const previewWidth =
-    previewFirstVal !== null && previewLastVal !== null
-      ? ((previewLastVal - previewFirstVal) / range) * 100
-      : 0;
-
-  const handleThumbPointerDown = (e: React.PointerEvent) => {
-    if (disabled) return;
-    setIsDragging(true);
-    setPreviewValue(null);
-    startDrag(disabled)(e);
-
-    const stopDragging = () => {
-      setIsDragging(false);
-      window.removeEventListener("pointerup", stopDragging);
-    };
-    window.addEventListener("pointerup", stopDragging);
-  };
-
-  const handlePointerMove = (e: React.PointerEvent) => {
-    if (disabled || isDragging || e.pointerType === "touch") return;
-
-    const target = e.target as HTMLElement;
-    const cutButton = target.closest(
-      '[data-cut-button="true"]',
-    ) as HTMLElement | null;
-
-    if (cutButton) {
-      const type = cutButton.getAttribute("data-cut-type");
-      const val = Number(cutButton.getAttribute("data-value"));
-      const nextPreview =
-        type === "start"
-          ? sortedValues.filter((v) => v >= val)
-          : sortedValues.filter((v) => v <= val);
-
-      if (
-        onBeforeValueChange &&
-        !onBeforeValueChange([
-          Math.min(...nextPreview),
-          Math.max(...nextPreview),
-        ])
-      ) {
-        setPreviewValue(null);
-        return;
-      }
-
-      setPreviewValue(nextPreview);
-      return;
-    }
-
-    const hoverVal = calculateValueFromPos(e.clientX, e.clientY);
-    const isBelow = hoverVal < firstVal;
-    const isAbove = hoverVal > lastVal;
-
-    if (isBelow || isAbove) {
-      const nextPreview = [];
-      const newMin = Math.min(firstVal, hoverVal);
-      const newMax = Math.max(lastVal, hoverVal);
-      for (let i = newMin; i <= newMax; i++) nextPreview.push(i);
-
-      if (onBeforeValueChange && !onBeforeValueChange([newMin, newMax])) {
-        setPreviewValue(null);
-        return;
-      }
-      setPreviewValue(nextPreview);
-    } else {
-      setPreviewValue(null);
-    }
-  };
 
   return (
     <S.SliderRoot
@@ -148,7 +38,6 @@ export function MultiStepSlider({
       onPointerDown={handleTrackPointerDown(disabled || isDragging)}
       onPointerMove={handlePointerMove}
       onPointerLeave={() => setPreviewValue(null)}
-      style={{ touchAction: "none", userSelect: "none" }}
     >
       <S.SliderTrack
         ref={trackRef}
@@ -166,18 +55,22 @@ export function MultiStepSlider({
         {previewValue && !isDragging && (
           <S.SliderThumb
             $isVertical={isVertical}
-            $startPos={previewStartPos}
-            $totalWidth={previewWidth}
+            $startPos={calculatePercent(Math.min(...previewValue), min, range)}
+            $totalWidth={calculatePercent(
+              Math.max(...previewValue) - Math.min(...previewValue),
+              0,
+              range,
+            )}
             $thumbSize={thumbSize}
-            $isPreview={true}
+            $isPreview
           />
         )}
 
         <S.SliderThumb
           onPointerDown={handleThumbPointerDown}
           $isVertical={isVertical}
-          $startPos={startPosPercent}
-          $totalWidth={totalWidthPercent}
+          $startPos={calculatePercent(firstVal, min, range)}
+          $totalWidth={calculatePercent(lastVal - firstVal, 0, range)}
           $thumbSize={thumbSize}
           $isDragging={isDragging}
           $hasActivePreview={!!previewValue && !isDragging}
@@ -187,94 +80,24 @@ export function MultiStepSlider({
             $thumbSize={thumbSize}
             $isDragging={isDragging}
           >
-            {sortedValues.map((val, index) => {
-              const totalSteps = sortedValues.length;
-              const hasMultiple = totalSteps > 1;
-              const positionPercent = hasMultiple
-                ? (index / (totalSteps - 1)) * 100
-                : 50;
-
-              const potentialCutEnd = [firstVal, val];
-              const potentialCutStart = [val, lastVal];
-
-              return (
-                <S.InteractionZone
-                  key={val}
-                  $isVertical={isVertical}
-                  $thumbSize={thumbSize}
-                  $positionPercent={positionPercent}
-                >
-                  <S.ControlsWrapper
-                    $isVertical={isVertical}
-                    $isDragging={isDragging}
-                    $thumbSize={thumbSize}
-                  >
-                    <S.CutButton
-                      data-cut-button="true"
-                      data-cut-type="end"
-                      data-value={val}
-                      disabled={
-                        val === lastVal ||
-                        !hasMultiple ||
-                        (onBeforeValueChange
-                          ? !onBeforeValueChange(potentialCutEnd)
-                          : false)
-                      }
-                      onPointerDown={(e) => e.stopPropagation()}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setPreviewValue(null);
-                        handleCutEnd(val);
-                      }}
-                    >
-                      {isVertical ? (
-                        "▼"
-                      ) : (
-                        <span
-                          style={{
-                            display: "block",
-                            transform: "rotate(90deg)",
-                          }}
-                        >
-                          ▼
-                        </span>
-                      )}
-                    </S.CutButton>
-                    <S.CutButton
-                      data-cut-button="true"
-                      data-cut-type="start"
-                      data-value={val}
-                      disabled={
-                        val === firstVal ||
-                        !hasMultiple ||
-                        (onBeforeValueChange
-                          ? !onBeforeValueChange(potentialCutStart)
-                          : false)
-                      }
-                      onPointerDown={(e) => e.stopPropagation()}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setPreviewValue(null);
-                        handleCutStart(val);
-                      }}
-                    >
-                      {isVertical ? (
-                        "▲"
-                      ) : (
-                        <span
-                          style={{
-                            display: "block",
-                            transform: "rotate(90deg)",
-                          }}
-                        >
-                          ▲
-                        </span>
-                      )}
-                    </S.CutButton>
-                  </S.ControlsWrapper>
-                </S.InteractionZone>
-              );
-            })}
+            {sortedValues.map((val, index) => (
+              <InteractionZone
+                key={val}
+                val={val}
+                index={index}
+                total={sortedValues.length}
+                {...{
+                  isVertical,
+                  thumbSize,
+                  firstVal,
+                  lastVal,
+                  onBeforeValueChange,
+                  handleCutStart,
+                  handleCutEnd,
+                  setPreviewValue,
+                }}
+              />
+            ))}
           </S.InteractionContainer>
         </S.SliderThumb>
       </S.SliderTrack>

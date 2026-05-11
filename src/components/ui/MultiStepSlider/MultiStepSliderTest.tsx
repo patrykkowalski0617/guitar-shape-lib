@@ -29,10 +29,17 @@ const Label = styled.p`
 
 export function MultiStepSliderTest() {
   const [rangeA, setRangeA] = useState<number[]>([4, 6]);
-  const [rangeB, setRangeB] = useState<number[]>([10, 12]);
+  const [rangeB, setRangeB] = useState<number[]>([3, 5]);
 
-  const configA = { min: 0, max: 15 };
-  const configB = { min: 0, max: 20 };
+  const configA = { min: 0, max: 12 };
+  const configB = { min: 0, max: 10 };
+
+  const masterLimits = useMemo(() => {
+    return {
+      min: Math.min(configA.min, configB.min),
+      max: Math.max(configA.max, configB.max),
+    };
+  }, [configA.min, configA.max, configB.min, configB.max]);
 
   const masterValue = useMemo(() => {
     const all = [...rangeA, ...rangeB];
@@ -54,6 +61,7 @@ export function MultiStepSliderTest() {
     ) => {
       const newMin = range[0] + deltaStart;
       const newMax = range[1] + deltaEnd;
+      // Sprawdzamy czy przesunięcie nie wybija któregoś slidera poza jego własny config
       return !(newMin < config.min || newMax > config.max || newMin > newMax);
     };
 
@@ -75,20 +83,24 @@ export function MultiStepSliderTest() {
 
   return (
     <Wrapper>
-      <Section style={{ background: "#f8f9ff", borderColor: "#dbeafe" }}>
-        <Label>🎚️ MASTER SLIDER (Zakresy [min, max])</Label>
+      <Section>
+        <Label>
+          MASTER SLIDER (Dynamiczne limity: {masterLimits.min} -{" "}
+          {masterLimits.max})
+        </Label>
         <MultiStepSlider
           value={masterValue}
           onValueChange={handleMasterChange}
           onBeforeValueChange={validateMasterChange}
-          max={20}
-          min={0}
+          // Master teraz bierze wartości z wyliczonego obiektu
+          max={masterLimits.max}
+          min={masterLimits.min}
         />
       </Section>
 
       <Section>
         <Label>
-          Slider A (Limit 15): {rangeA[0]} - {rangeA[1]}
+          Slider A: {rangeA[0]} - {rangeA[1]}
         </Label>
         <MultiStepSlider
           value={rangeA}
@@ -100,7 +112,7 @@ export function MultiStepSliderTest() {
 
       <Section>
         <Label>
-          Slider B (Limit 20): {rangeB[0]} - {rangeB[1]}
+          Slider B: {rangeB[0]} - {rangeB[1]}
         </Label>
         <MultiStepSlider
           value={rangeB}

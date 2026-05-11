@@ -42,6 +42,15 @@ export default function App() {
         {/* <Section>
           <UpperControlsBar />
         </Section> */}
+
+        <AnimatePresence>
+          {shouldShowPiano && (
+            <MotionSection key="piano-bar" {...standardAnimation}>
+              <Piano />
+            </MotionSection>
+          )}
+        </AnimatePresence>
+
         <Section>
           <Fretboard />
         </Section>
@@ -51,13 +60,7 @@ export default function App() {
           <MiddleControlsBar />
         </Section>
 
-        <AnimatePresence>
-          {shouldShowPiano && (
-            <MotionSection key="piano-bar" {...standardAnimation}>
-              <Piano />
-            </MotionSection>
-          )}
-        </AnimatePresence>
+
 
         <AnimatePresence>
           {isPlayerUnlocked && (
