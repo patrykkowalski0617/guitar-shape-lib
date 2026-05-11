@@ -73,30 +73,51 @@ export const SliderThumb = styled.div.attrs<{
   $totalWidth: number;
   $thumbSize: number;
   $isDragging?: boolean;
-}>(({ $isVertical, $startPos, $totalWidth, $thumbSize, $isDragging }) => {
-  const halfThumb = `${$thumbSize / 2}px`;
-  const posOffset = `calc(${$startPos}% - ${halfThumb})`;
-  const dynamicSize = `calc(${$totalWidth}% + ${$thumbSize}px) `;
-  const thickness = `${$thumbSize}px`;
+  $isPreview?: boolean;
+  $hasActivePreview?: boolean;
+}>(
+  ({
+    $isVertical,
+    $startPos,
+    $totalWidth,
+    $thumbSize,
+    $isDragging,
+    $isPreview,
+    $hasActivePreview,
+  }) => {
+    const halfThumb = `${$thumbSize / 2}px`;
+    const posOffset = `calc(${$startPos}% - ${halfThumb})`;
+    const dynamicSize = `calc(${$totalWidth}% + ${$thumbSize}px)`;
+    const thickness = `${$thumbSize}px`;
 
-  return {
-    style: {
-      bottom: $isVertical ? posOffset : "auto",
-      left: $isVertical ? "50%" : posOffset,
-      top: $isVertical ? "auto" : "50%",
-      height: $isVertical ? dynamicSize : thickness,
-      width: $isVertical ? thickness : dynamicSize,
-      transform: $isVertical ? "translateX(-50%)" : "translateY(-50%)",
-      cursor: $isDragging ? "grabbing" : "default",
-    },
-  };
-})<{
+    let opacity = 1;
+    if ($isPreview) {
+      opacity = 1;
+    } else if ($hasActivePreview) {
+      opacity = 0.5;
+    }
+
+    return {
+      style: {
+        bottom: $isVertical ? posOffset : "auto",
+        left: $isVertical ? "50%" : posOffset,
+        top: $isVertical ? "auto" : "50%",
+        height: $isVertical ? dynamicSize : thickness,
+        width: $isVertical ? thickness : dynamicSize,
+        transform: $isVertical ? "translateX(-50%)" : "translateY(-50%)",
+        cursor: $isDragging ? "grabbing" : $isPreview ? "default" : "grab",
+        opacity: opacity,
+      },
+    };
+  },
+)<{
   $isVertical: boolean;
   $startPos: number;
   $totalWidth: number;
   $thumbSize: number;
   $isDragging?: boolean;
   $isPreview?: boolean;
+  $hasActivePreview?: boolean;
 }>`
   position: absolute;
   border-radius: 99px;
@@ -105,19 +126,19 @@ export const SliderThumb = styled.div.attrs<{
     4px 4px 8px 0px var(--background),
     0px 0px 4px 1px var(--background) inset,
     0px 0px 2px 4px var(--primary) inset;
+
   z-index: ${({ $isPreview, $isDragging }) => {
-    if ($isPreview) return 5;
+    if ($isPreview) return 15;
     if ($isDragging) return 20;
     return 10;
   }};
-  opacity: ${({ $isPreview }) => ($isPreview ? 0.85 : 1)};
+
   pointer-events: ${({ $isPreview }) => ($isPreview ? "none" : "auto")};
-  cursor: ${({ $isPreview }) => ($isPreview ? "default" : "grab")};
+
   &:active {
     cursor: ${({ $isPreview }) => ($isPreview ? "default" : "grabbing")};
   }
 `;
-
 export const InteractionContainer = styled.div<{
   $isVertical: boolean;
   $thumbSize: number;

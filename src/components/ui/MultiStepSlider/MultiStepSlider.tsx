@@ -31,6 +31,20 @@ export function MultiStepSlider({
   const [isDragging, setIsDragging] = React.useState(false);
   const [previewValue, setPreviewValue] = React.useState<number[] | null>(null);
 
+  const fullRangeValue = React.useMemo(() => {
+    const start = Math.min(...value);
+    const end = Math.max(...value);
+    const res = [];
+    for (let i = start; i <= end; i++) res.push(i);
+    return res;
+  }, [value]);
+
+  const handleExternalChange = (nextFullValue: number[]) => {
+    const start = Math.min(...nextFullValue);
+    const end = Math.max(...nextFullValue);
+    onValueChange([start, end]);
+  };
+
   const {
     trackRef,
     sortedValues,
@@ -42,7 +56,13 @@ export function MultiStepSlider({
     handleCutStart,
     handleCutEnd,
     calculateValueFromPos,
-  } = useMultiStepSlider({ value, onValueChange, max, min, isVertical });
+  } = useMultiStepSlider({
+    value: fullRangeValue,
+    onValueChange: handleExternalChange,
+    max,
+    min,
+    isVertical,
+  });
 
   const limitValue = effectiveMax ?? max;
   const startPosPercent = ((firstVal - min) / range) * 100;
@@ -87,7 +107,13 @@ export function MultiStepSlider({
           ? sortedValues.filter((v) => v >= val)
           : sortedValues.filter((v) => v <= val);
 
-      if (onBeforeValueChange && !onBeforeValueChange(nextPreview)) {
+      if (
+        onBeforeValueChange &&
+        !onBeforeValueChange([
+          Math.min(...nextPreview),
+          Math.max(...nextPreview),
+        ])
+      ) {
         setPreviewValue(null);
         return;
       }
@@ -101,20 +127,16 @@ export function MultiStepSlider({
     const isAbove = hoverVal > lastVal;
 
     if (isBelow || isAbove) {
-      const nextPreview = [...sortedValues];
-      if (isBelow) {
-        for (let i = hoverVal; i < firstVal; i++)
-          if (!nextPreview.includes(i)) nextPreview.push(i);
-      } else {
-        for (let i = lastVal + 1; i <= hoverVal; i++)
-          if (!nextPreview.includes(i)) nextPreview.push(i);
-      }
+      const nextPreview = [];
+      const newMin = Math.min(firstVal, hoverVal);
+      const newMax = Math.max(lastVal, hoverVal);
+      for (let i = newMin; i <= newMax; i++) nextPreview.push(i);
 
-      if (onBeforeValueChange && !onBeforeValueChange(nextPreview)) {
+      if (onBeforeValueChange && !onBeforeValueChange([newMin, newMax])) {
         setPreviewValue(null);
         return;
       }
-      setPreviewValue(nextPreview.sort((a, b) => a - b));
+      setPreviewValue(nextPreview);
     } else {
       setPreviewValue(null);
     }
@@ -158,6 +180,7 @@ export function MultiStepSlider({
           $totalWidth={totalWidthPercent}
           $thumbSize={thumbSize}
           $isDragging={isDragging}
+          $hasActivePreview={!!previewValue && !isDragging}
         >
           <S.InteractionContainer
             $isVertical={isVertical}
@@ -171,8 +194,8 @@ export function MultiStepSlider({
                 ? (index / (totalSteps - 1)) * 100
                 : 50;
 
-              const potentialCutEnd = sortedValues.filter((v) => v <= val);
-              const potentialCutStart = sortedValues.filter((v) => v >= val);
+              const potentialCutEnd = [firstVal, val];
+              const potentialCutStart = [val, lastVal];
 
               return (
                 <S.InteractionZone

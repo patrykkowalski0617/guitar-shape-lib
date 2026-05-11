@@ -28,71 +28,55 @@ const Label = styled.p`
 `;
 
 export function MultiStepSliderTest() {
-  const [stepsA, setStepsA] = useState<number[]>([4, 5, 6]);
-  const [stepsB, setStepsB] = useState<number[]>([10, 11, 12]);
+  const [rangeA, setRangeA] = useState<number[]>([4, 6]);
+  const [rangeB, setRangeB] = useState<number[]>([10, 12]);
 
   const configA = { min: 0, max: 15 };
   const configB = { min: 0, max: 20 };
 
   const masterValue = useMemo(() => {
-    const combined = [...stepsA, ...stepsB].sort((a, b) => a - b);
-    const minV = combined[0] ?? 0;
-    const maxV = combined[combined.length - 1] ?? 0;
-    const range: number[] = [];
-    for (let i = minV; i <= maxV; i++) range.push(i);
-    return range;
-  }, [stepsA, stepsB]);
+    const all = [...rangeA, ...rangeB];
+    return [Math.min(...all), Math.max(...all)];
+  }, [rangeA, rangeB]);
 
-  const validateMasterChange = (nextMasterValue: number[]) => {
-    if (nextMasterValue.length === 0) return false;
+  const validateMasterChange = (nextMasterRange: number[]) => {
+    if (nextMasterRange.length < 2) return false;
 
-    const oldMin = Math.min(...masterValue);
-    const oldMax = Math.max(...masterValue);
-    const nextMin = Math.min(...nextMasterValue);
-    const nextMax = Math.max(...nextMasterValue);
+    const [oldMin, oldMax] = masterValue;
+    const [nextMin, nextMax] = nextMasterRange;
 
     const deltaStart = nextMin - oldMin;
     const deltaEnd = nextMax - oldMax;
 
-    const checkSlider = (
-      current: number[],
+    const checkLimit = (
+      range: number[],
       config: { min: number; max: number },
     ) => {
-      const newMin = Math.min(...current) + deltaStart;
-      const newMax = Math.max(...current) + deltaEnd;
+      const newMin = range[0] + deltaStart;
+      const newMax = range[1] + deltaEnd;
       return !(newMin < config.min || newMax > config.max || newMin > newMax);
     };
 
-    return checkSlider(stepsA, configA) && checkSlider(stepsB, configB);
+    return checkLimit(rangeA, configA) && checkLimit(rangeB, configB);
   };
 
-  const handleMasterChange = (nextMasterValue: number[]) => {
-    const oldMin = Math.min(...masterValue);
-    const oldMax = Math.max(...masterValue);
-    const nextMin = Math.min(...nextMasterValue);
-    const nextMax = Math.max(...nextMasterValue);
+  const handleMasterChange = (nextMasterRange: number[]) => {
+    const [oldMin, oldMax] = masterValue;
+    const [nextMin, nextMax] = nextMasterRange;
 
     const deltaStart = nextMin - oldMin;
     const deltaEnd = nextMax - oldMax;
 
-    const getNextSteps = (current: number[]) => {
-      const newMin = Math.min(...current) + deltaStart;
-      const newMax = Math.max(...current) + deltaEnd;
-      const res: number[] = [];
-      for (let i = newMin; i <= newMax; i++) res.push(i);
-      return res;
-    };
-
-    if (validateMasterChange(nextMasterValue)) {
-      setStepsA(getNextSteps(stepsA));
-      setStepsB(getNextSteps(stepsB));
+    if (validateMasterChange(nextMasterRange)) {
+      setRangeA([rangeA[0] + deltaStart, rangeA[1] + deltaEnd]);
+      setRangeB([rangeB[0] + deltaStart, rangeB[1] + deltaEnd]);
     }
   };
 
   return (
     <Wrapper>
       <Section style={{ background: "#f8f9ff", borderColor: "#dbeafe" }}>
-        <Label>🎚️ MASTER SLIDER (Kontroluje granice A i B)</Label>
+        <Label>🎚️ MASTER SLIDER (Zakresy [min, max])</Label>
         <MultiStepSlider
           value={masterValue}
           onValueChange={handleMasterChange}
@@ -104,11 +88,11 @@ export function MultiStepSliderTest() {
 
       <Section>
         <Label>
-          Slider A (0-15): {stepsA[0]} - {stepsA[stepsA.length - 1]}
+          Slider A (Limit 15): {rangeA[0]} - {rangeA[1]}
         </Label>
         <MultiStepSlider
-          value={stepsA}
-          onValueChange={setStepsA}
+          value={rangeA}
+          onValueChange={setRangeA}
           max={configA.max}
           min={configA.min}
         />
@@ -116,11 +100,11 @@ export function MultiStepSliderTest() {
 
       <Section>
         <Label>
-          Slider B (0-20): {stepsB[0]} - {stepsB[stepsB.length - 1]}
+          Slider B (Limit 20): {rangeB[0]} - {rangeB[1]}
         </Label>
         <MultiStepSlider
-          value={stepsB}
-          onValueChange={setStepsB}
+          value={rangeB}
+          onValueChange={setRangeB}
           max={configB.max}
           min={configB.min}
         />
