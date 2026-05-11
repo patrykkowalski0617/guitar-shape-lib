@@ -13,6 +13,8 @@ import { usePersistentBoolean } from "@/hooks/usePersistentBoolean";
 import { animationDuration } from "./constants";
 import { MiddleControlsBar } from "./components/MiddleControlsBar/MiddleControlsBar";
 import { MultiStepSliderTest } from "./components/ui/MultiStepSlider/MultiStepSliderTest";
+import { PianoControls } from "./components/PianoControls/PianoControls";
+import { ShapePlayer } from "./components/ShapePlayer/ShapePlayer";
 
 const MotionSection = motion(Section);
 
@@ -34,26 +36,33 @@ export default function App() {
   const shouldShowPiano = !isPlayerUnlocked || !isPlaying;
 
   return (
-    <AppWrapper>
+    <AppWrapper style={{ maxHeight: 700, minHeight: "unset" }}>
       <SoundEngine />
       <Toaster position="top-center" />
       <FullscreenButton />
       <MainContent>
-        {/* <Section>
-          <UpperControlsBar />
-        </Section> */}
+        <Section>
+          <PianoControls />
+        </Section>
 
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {shouldShowPiano && (
             <MotionSection key="piano-bar" {...standardAnimation}>
-              <Piano />
-            </MotionSection>
+        <Piano />
+        </MotionSection>
           )}
-        </AnimatePresence>
-
+        </AnimatePresence> */}
+        <Section>
+          <Piano />
+        </Section>
         <Section>
           <Fretboard />
         </Section>
+
+        <Section>
+          <ShapePlayer />
+        </Section>
+
         <MultiStepSliderTest />
 
         {/* <Section>

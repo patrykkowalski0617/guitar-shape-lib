@@ -7,14 +7,16 @@ export const FretboardNotScrollableWrapper = styled.div`
   margin-bottom: -20px;
   display: flex;
   flex-direction: row;
-  gap: 16px;
   justify-content: space-between;
 `;
 
 export const StringSliderWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   width: 50px;
+  margin-top: 22px;
+  height: 192px;
 `;
 
 export const FretboardWrapper = styled.div`
@@ -22,7 +24,7 @@ export const FretboardWrapper = styled.div`
   position: relative;
   margin: auto;
   overflow: hidden;
-  width: calc(1400px - 50px - 16px);
+  width: calc(1400px - 50px);
 `;
 
 export const FretboardShadow = styled.div`

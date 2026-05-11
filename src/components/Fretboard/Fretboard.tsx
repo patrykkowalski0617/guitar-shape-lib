@@ -11,9 +11,8 @@ import { useShapeCoordinates } from "./FretboardCell/hooks";
 import type { FretboardCoordinate, NoteName } from "@/data";
 import { getNotes } from "@/utils";
 import HiddenShapeExplorerSlider from "../ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
-import { StringSlider } from "./StringsSlider/StringsSlider";
 import FretboardRow from "./FretboardRow/FretboardRow";
-import { StringSelector } from "./StringSelector/StringSelector";
+import { StringMultiStepSlider } from "./StringMultiStepSlider/StringMultiStepSlider";
 
 export default function Fretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -54,8 +53,7 @@ export default function Fretboard(): JSX.Element {
   return (
     <S.FretboardNotScrollableWrapper>
       <S.StringSliderWrapper>
-        <StringSlider />
-        {/* <StringSelector /> */}
+        <StringMultiStepSlider />
       </S.StringSliderWrapper>
       <InstrumentScrollWrapper ref={scrollRef}>
         <FretboardNumericMarkers />

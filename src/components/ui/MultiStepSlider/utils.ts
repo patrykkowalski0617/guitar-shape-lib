@@ -18,3 +18,12 @@ export const getPotentialRange = (val1: number, val2: number) => [
   Math.min(val1, val2),
   Math.max(val1, val2),
 ];
+
+export const getAllIndexesFromIndexRange = (range: number[]): number[] => {
+  if (range.length === 0) return [];
+
+  const start = Math.min(...range);
+  const end = Math.max(...range);
+
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+};
