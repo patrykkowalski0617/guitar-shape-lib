@@ -43,7 +43,7 @@ interface ControlsState {
 
 const initialState = {
   unifiedMusicKeysDataKey: "C" as UnifiedMusicKeysDataKeys,
-  baseChordDataKey: null,
+  baseChordDataKey: "BaseChord1" as BaseChordDataKey,
   shapeDataKey: null,
   semitoneOffsetFromMajorRoot: null as number | null,
   isShapeSelectOpen: false,
