@@ -7,7 +7,7 @@ interface UiState {
 }
 
 export const useUiStore = create<UiState>((set) => ({
-  isKeyAndChordPickerExpanded: true,
+  isKeyAndChordPickerExpanded: false,
 
   setKeyAndChordPickerExpanded: (isKeyAndChordPickerExpanded) =>
     set({ isKeyAndChordPickerExpanded }),

@@ -3,7 +3,7 @@ import { useShapePlayerHeader } from "./hooks/useShapePlayerHeader";
 
 export const ShapePlayerHeader = () => {
   const {
-    addShapePlayerBrick,
+    handleAddClick,
     clearShapePlayerBricks,
     restoreLastAction,
     isRestoreDisabled,
@@ -12,7 +12,7 @@ export const ShapePlayerHeader = () => {
 
   return (
     <S.ShapePlayerHeaderWrapper>
-      <S.ShapePlayerActionButton onClick={addShapePlayerBrick}>
+      <S.ShapePlayerActionButton onClick={handleAddClick}>
         Dodaj
       </S.ShapePlayerActionButton>
 

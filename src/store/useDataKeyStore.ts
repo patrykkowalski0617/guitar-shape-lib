@@ -4,7 +4,7 @@ import type { BaseChordDataKey, UnifiedMusicKeysDataKeys } from "@/data";
 interface DataKeyState {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys | null;
   baseChordDataKey: BaseChordDataKey | null;
-  setUnifiedMusicKeysDataKeys: (id: UnifiedMusicKeysDataKeys) => void;
+  setUnifiedMusicKeysDataKeys: (id: UnifiedMusicKeysDataKeys | null) => void;
   setBaseChordDataKey: (id: BaseChordDataKey | null) => void;
 }
 

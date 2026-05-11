@@ -10,7 +10,6 @@ export const ShapePlayer = () => {
   return (
     <ShapePlayerLayout>
       <ShapePlayerHeader />
-
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}

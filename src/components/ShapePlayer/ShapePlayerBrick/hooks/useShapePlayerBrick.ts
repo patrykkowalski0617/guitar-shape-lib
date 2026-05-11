@@ -3,6 +3,10 @@ import { CSS } from "@dnd-kit/utilities";
 import { useShapePlayerStore } from "@/store";
 
 export const useShapePlayerBrick = (id: string) => {
+  const brick = useShapePlayerStore((state) =>
+    state.shapePlayerBricks.find((b) => b.id === id),
+  );
+
   const removeShapePlayerBrick = useShapePlayerStore(
     (state) => state.removeShapePlayerBrick,
   );
@@ -25,5 +29,6 @@ export const useShapePlayerBrick = (id: string) => {
     setNodeRef,
     draggingStyles,
     handleRemoveClick,
+    brick,
   };
 };

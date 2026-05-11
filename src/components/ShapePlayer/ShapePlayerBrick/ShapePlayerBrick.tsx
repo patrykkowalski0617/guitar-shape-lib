@@ -12,14 +12,21 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     setNodeRef,
     draggingStyles,
     handleRemoveClick,
+    brick,
   } = useShapePlayerBrick(id);
+
+  const brickLabel = brick
+    ? `${brick.unifiedMusicKeysDataKey} - ${brick.baseChordDataKey}`
+    : id.slice(0, 8);
 
   return (
     <S.ShapePlayerBrickWrapper ref={setNodeRef} style={draggingStyles}>
       <S.ShapePlayerBrickDragHandle {...attributes} {...listeners}>
         ::
       </S.ShapePlayerBrickDragHandle>
-      <S.ShapePlayerBrickLabel>Brick: {id.slice(0, 8)}</S.ShapePlayerBrickLabel>
+
+      <S.ShapePlayerBrickLabel>{brickLabel}</S.ShapePlayerBrickLabel>
+
       <S.ShapePlayerBrickDeleteButton onClick={handleRemoveClick}>
         Usuń
       </S.ShapePlayerBrickDeleteButton>

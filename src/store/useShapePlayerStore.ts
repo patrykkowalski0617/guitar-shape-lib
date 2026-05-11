@@ -1,9 +1,12 @@
 import { create } from "zustand";
 import { arrayMove } from "@dnd-kit/sortable";
 import type { Exact } from "@/types";
+import type { BaseChordDataKey, UnifiedMusicKeysDataKeys } from "@/data";
 
 export interface ShapePlayerBrick {
   id: string;
+  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys;
+  baseChordDataKey: BaseChordDataKey;
 }
 
 interface ShapePlayerHistoryEntry {
@@ -15,7 +18,10 @@ interface ShapePlayerHistoryEntry {
 interface ShapePlayerState {
   shapePlayerBricks: ShapePlayerBrick[];
   shapePlayerHistory: ShapePlayerHistoryEntry[];
-  addShapePlayerBrick: () => void;
+  addShapePlayerBrick: (
+    unifiedKey: UnifiedMusicKeysDataKeys,
+    baseChord: BaseChordDataKey,
+  ) => void;
   removeShapePlayerBrick: (id: string) => void;
   clearShapePlayerBricks: () => void;
   restoreLastAction: () => void;
@@ -26,9 +32,11 @@ export const useShapePlayerStore = create<ShapePlayerState>((set) => ({
   shapePlayerBricks: [],
   shapePlayerHistory: [],
 
-  addShapePlayerBrick: () => {
-    const newBrick: Exact<ShapePlayerBrick, { id: string }> = {
+  addShapePlayerBrick: (unifiedMusicKeysDataKey, baseChordDataKey) => {
+    const newBrick: Exact<ShapePlayerBrick, ShapePlayerBrick> = {
       id: crypto.randomUUID(),
+      unifiedMusicKeysDataKey,
+      baseChordDataKey,
     };
 
     set((state) => ({
