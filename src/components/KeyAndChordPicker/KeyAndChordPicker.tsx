@@ -8,22 +8,27 @@ export function KeyAndChordPicker() {
     optionsPerKey,
     currentTuneKeyDataKey,
     currentCombinedValue,
-    selectChord,
+    handleChordSelection,
   } = useKeyAndChordPicker();
 
   if (!isExpanded) return null;
 
   return (
     <S.Wrapper>
-      {optionsPerKey.map((group) => (
-        <KeyAndChordPickerRow
-          key={group.unifiedMusicKeyDataKey}
-          group={group}
-          isCurrentKey={currentTuneKeyDataKey === group.unifiedMusicKeyDataKey}
-          currentValue={currentCombinedValue}
-          onSelectChord={selectChord}
-        />
-      ))}
+      {optionsPerKey.map((group) => {
+        const isCurrentlyActiveKey =
+          currentTuneKeyDataKey === group.unifiedMusicKeyDataKey;
+
+        return (
+          <KeyAndChordPickerRow
+            key={group.unifiedMusicKeyDataKey}
+            group={group}
+            isCurrentKey={isCurrentlyActiveKey}
+            currentValue={currentCombinedValue}
+            onSelectChord={handleChordSelection}
+          />
+        );
+      })}
     </S.Wrapper>
   );
 }

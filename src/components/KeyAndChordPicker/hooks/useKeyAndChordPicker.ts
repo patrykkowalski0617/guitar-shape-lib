@@ -4,6 +4,7 @@ import {
   UNIFIED_MUSIC_KEYS,
   type BaseChordDataKey,
   type UnifiedMusicKeysDataKeys,
+  type UnifiedMusicKeysDataKeysRecord,
 } from "@/data";
 import { getNotes } from "@/utils";
 
@@ -17,50 +18,56 @@ export function useKeyAndChordPicker() {
   const setUnifiedMusicKeysDataKeys = useDataKeyStore(
     (state) => state.setUnifiedMusicKeysDataKeys,
   );
-
   const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
   const currentTuneKeyDataKey = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
 
-  const keyEntries = Object.entries(UNIFIED_MUSIC_KEYS);
+  const buildOptions = () => {
+    const keyEntries = Object.entries(UNIFIED_MUSIC_KEYS) as [
+      UnifiedMusicKeysDataKeys,
+      UnifiedMusicKeysDataKeysRecord,
+    ][];
 
-  const optionsPerKey = keyEntries.map(([unifiedMusicKeyDataKey, keyData]) => {
-    const notes = getNotes({ firstNote: keyData.majorName });
-    const isFlatTune = keyData.isFlatTune;
+    return keyEntries.map(([unifiedMusicKeyDataKey, keyData]) => {
+      const notesInKey = getNotes({ firstNote: keyData.majorFirstNote });
+      const useFlatNames = keyData.isFlatTune;
 
-    const chords = Object.entries(BASE_CHORDS).map(
-      ([baseChordDataKey, chordData]) => {
-        const noteAtOffset = notes[chordData.semitoneOffsetFromMajorTonicRoot];
-        const chordName = isFlatTune
-          ? noteAtOffset.flatNoteName
-          : noteAtOffset.sharpNoteName;
+      const chords = Object.entries(BASE_CHORDS).map(
+        ([chordKey, chordData]) => {
+          const note = notesInKey[chordData.semitoneOffsetFromMajorTonicRoot];
+          const chordName = useFlatNames
+            ? note.flatNoteName
+            : note.sharpNoteName;
+          const bChordKey = chordKey as BaseChordDataKey;
 
-        return {
-          id: baseChordDataKey,
-          combinedId: `${unifiedMusicKeyDataKey}:${baseChordDataKey}`,
-          chordName,
-        };
-      },
-    );
+          return {
+            baseChordDataKey: bChordKey,
+            combinedId: `${unifiedMusicKeyDataKey}:${bChordKey}`,
+            chordName,
+          };
+        },
+      );
 
-    return {
-      unifiedMusicKeyDataKey,
-      label: `${keyData.majorName}/${keyData.relativeMinorName}`,
-      chords,
-    };
-  });
+      return {
+        unifiedMusicKeyDataKey,
+        label: `${keyData.majorName}/${keyData.relativeMinorName}`,
+        chords,
+      };
+    });
+  };
 
+  const optionsPerKey = buildOptions();
   const currentCombinedValue = baseChordDataKey
     ? `${currentTuneKeyDataKey}:${baseChordDataKey}`
     : "";
 
-  const selectChord = (combinedValue: string) => {
-    if (!combinedValue) return;
-    const [newKeyId, newChordId] = combinedValue.split(":");
-
-    setBaseChordDataKey(newChordId as BaseChordDataKey);
-    setUnifiedMusicKeysDataKeys(newKeyId as UnifiedMusicKeysDataKeys);
+  const handleChordSelection = (
+    newUnifiedKey: UnifiedMusicKeysDataKeys,
+    newChordKey: BaseChordDataKey,
+  ) => {
+    setBaseChordDataKey(newChordKey);
+    setUnifiedMusicKeysDataKeys(newUnifiedKey);
     setExpanded(false);
   };
 
@@ -69,6 +76,6 @@ export function useKeyAndChordPicker() {
     optionsPerKey,
     currentTuneKeyDataKey,
     currentCombinedValue,
-    selectChord,
+    handleChordSelection,
   };
 }
