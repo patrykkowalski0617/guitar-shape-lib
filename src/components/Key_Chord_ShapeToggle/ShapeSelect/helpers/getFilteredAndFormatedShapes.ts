@@ -2,7 +2,7 @@ import { SHAPES, type Shapes, type BaseChordDataKey } from "@/data";
 
 export type ShapeOption = {
   shapeDataKey: keyof Shapes;
-  semitoneOffsetFromMajorTonicRoot: number;
+  semitoneOffsetFromMajorRoot: number;
 };
 
 export const getFilteredAndFormatedShapes = (
@@ -12,16 +12,16 @@ export const getFilteredAndFormatedShapes = (
 
   const filteredAndFormatedShapes: ShapeOption[] = [];
   Object.entries(SHAPES).forEach(([shapeDataKey, shape]) => {
-    if (!shape.semitoneOffsetFromMajorTonicRoot) return;
+    if (!shape.semitoneOffsetFromMajorRoot) return;
 
-    const offsets = shape.semitoneOffsetFromMajorTonicRoot[baseChordDataKey];
+    const offsets = shape.semitoneOffsetFromMajorRoot[baseChordDataKey];
 
     if (offsets === undefined) return;
 
-    offsets.forEach((semitoneOffsetFromMajorTonicRoot) =>
+    offsets.forEach((semitoneOffsetFromMajorRoot) =>
       filteredAndFormatedShapes.push({
         shapeDataKey: shapeDataKey as keyof Shapes,
-        semitoneOffsetFromMajorTonicRoot,
+        semitoneOffsetFromMajorRoot,
       }),
     );
   });

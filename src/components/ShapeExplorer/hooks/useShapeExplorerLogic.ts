@@ -15,8 +15,8 @@ export const useShapeExplorerLogic = () => {
   const unifiedMusicKeysDataKey = useControlsStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
-  const semitoneOffsetFromMajorTonicRoot = useControlsStore(
-    (state) => state.semitoneOffsetFromMajorTonicRoot,
+  const semitoneOffsetFromMajorRoot = useControlsStore(
+    (state) => state.semitoneOffsetFromMajorRoot,
   );
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
@@ -30,8 +30,8 @@ export const useShapeExplorerLogic = () => {
 
   const notes = getNotes({ firstNote: unifiedMusicKeysDataKey });
   const rootNoteIndex =
-    semitoneOffsetFromMajorTonicRoot !== null
-      ? semitoneOffsetFromMajorTonicRoot % 12
+    semitoneOffsetFromMajorRoot !== null
+      ? semitoneOffsetFromMajorRoot % 12
       : null;
   const rootNoteName =
     rootNoteIndex !== null ? notes[rootNoteIndex].sharpNoteName : null;

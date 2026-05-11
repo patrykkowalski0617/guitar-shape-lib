@@ -13,7 +13,7 @@ export const useNoteMatrix = () => {
   const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
   const shapeDataKey = useControlsStore((state) => state.shapeDataKey);
   const shapeOffset = useControlsStore(
-    (state) => state.semitoneOffsetFromMajorTonicRoot,
+    (state) => state.semitoneOffsetFromMajorRoot,
   );
 
   const selectedNotes = useMusicStore(

@@ -13,14 +13,14 @@ export const useBaseChordShapes = () => {
 
   if (!currentBaseChordData) return { baseChordCoordinates: [] };
 
-  const semitoneOffsetFromMajorTonicRoot =
-    currentBaseChordData.semitoneOffsetFromMajorTonicRoot ?? 0;
+  const semitoneOffsetFromMajorRoot =
+    currentBaseChordData.semitoneOffsetFromMajorRoot ?? 0;
 
   const baseChordCoordinates = CAGED_CHORDS_SHAPES[
     currentBaseChordData.CAGEDchordShape
   ].flatMap((shape) => {
     const fretIndexAdjustment =
-      shape.baseFretIndex + tuneKeyOffset + semitoneOffsetFromMajorTonicRoot;
+      shape.baseFretIndex + tuneKeyOffset + semitoneOffsetFromMajorRoot;
 
     const octaveOffsets = [-24, -12, 0, 12, 24];
 

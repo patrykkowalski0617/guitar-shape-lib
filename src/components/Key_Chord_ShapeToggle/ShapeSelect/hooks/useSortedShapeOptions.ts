@@ -13,7 +13,7 @@ export const useSortedShapeOptions = () => {
   if (!baseChordDataKey || !options) return;
 
   const baseChordSemitoneOffset =
-    BASE_CHORDS[baseChordDataKey].semitoneOffsetFromMajorTonicRoot;
+    BASE_CHORDS[baseChordDataKey].semitoneOffsetFromMajorRoot;
 
   const firstNote = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].majorName;
   const isFlatTune = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].isFlatTune;

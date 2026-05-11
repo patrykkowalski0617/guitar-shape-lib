@@ -35,7 +35,7 @@ export function useKeyAndChordPicker() {
 
       const chords = Object.entries(BASE_CHORDS).map(
         ([chordKey, chordData]) => {
-          const note = notesInKey[chordData.semitoneOffsetFromMajorTonicRoot];
+          const note = notesInKey[chordData.semitoneOffsetFromMajorRoot];
           const chordName = useFlatNames
             ? note.flatNoteName
             : note.sharpNoteName;

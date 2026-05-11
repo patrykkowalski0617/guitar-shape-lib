@@ -22,8 +22,9 @@ export const SCALE_SEMITONE_TEMPLATES: Record<string, SemitoneScale> = {
   dorianScale: [_1, _M2, _m3, _4, _5, _M6, _m7],
   aeolianScale: [_1, _M2, _m3, _4, _5, _m6, _m7],
   phrygianScale: [_1, _m2, _m3, _4, _5, _m6, _m7],
-  phrygianDominantScale: [_1, _m2, _M3, _4, _5, _m6, _m7],
+  phrygianBaseChord5nantScale: [_1, _m2, _M3, _4, _5, _m6, _m7],
   locrianScale: [_1, _m2, _m3, _4, _T, _m6, _m7],
 } as const;
 
-export type ScaleSemitoneTemplateKey = keyof typeof SCALE_SEMITONE_TEMPLATES;
+export type ScaleSemitoneTemplateDataKey =
+  keyof typeof SCALE_SEMITONE_TEMPLATES;

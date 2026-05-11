@@ -17,10 +17,10 @@ interface ControlsState {
   setBaseChordDataKey: (id: BaseChordDataKey | null) => void;
 
   shapeDataKey: ShapeDataKey | null;
-  semitoneOffsetFromMajorTonicRoot: number | null;
+  semitoneOffsetFromMajorRoot: number | null;
   setShape: (
     shapeDataKey: ShapeDataKey | null,
-    semitoneOffsetFromMajorTonicRoot: number | null,
+    semitoneOffsetFromMajorRoot: number | null,
   ) => void;
 
   resetControls: () => void;
@@ -45,7 +45,7 @@ const initialState = {
   unifiedMusicKeysDataKey: "C" as UnifiedMusicKeysDataKeys,
   baseChordDataKey: null,
   shapeDataKey: null,
-  semitoneOffsetFromMajorTonicRoot: null as number | null,
+  semitoneOffsetFromMajorRoot: null as number | null,
   isShapeSelectOpen: false,
   isShapeSliderHold: false,
   isPianoOn: false,
@@ -61,10 +61,10 @@ export const useControlsStore = create<ControlsState>((set) => ({
 
   setBaseChordDataKey: (baseChordDataKey) => set({ baseChordDataKey }),
 
-  setShape: (shapeDataKey, semitoneOffsetFromMajorTonicRoot) =>
+  setShape: (shapeDataKey, semitoneOffsetFromMajorRoot) =>
     set({
       shapeDataKey,
-      semitoneOffsetFromMajorTonicRoot,
+      semitoneOffsetFromMajorRoot,
     }),
 
   setIsShapeSelectOpen: (isShapeSelectOpen) => set({ isShapeSelectOpen }),

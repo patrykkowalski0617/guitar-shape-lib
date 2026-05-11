@@ -46,8 +46,8 @@ export const calculateMatrixData = (
     ];
   const baseChord = BASE_CHORDS[baseChordDataKey];
   const shape = SHAPES[shapeDataKey];
-  const scaleTemplate = SCALE_SEMITONE_TEMPLATES[baseChord.baseScaleId];
-  const chordOffset = baseChord.semitoneOffsetFromMajorTonicRoot;
+  const scaleTemplate = SCALE_SEMITONE_TEMPLATES[baseChord.baseScaleDataKey];
+  const chordOffset = baseChord.semitoneOffsetFromMajorRoot;
 
   const allNotes = getNotes({});
   const rootNote = allNotes[tuneKey.offsetFromC];

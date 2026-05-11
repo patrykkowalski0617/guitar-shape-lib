@@ -6,11 +6,11 @@ export function useCurrentShapeRootNote() {
   const unifiedMusicKeysDataKey = useControlsStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
-  const semitoneOffsetFromMajorTonicRoot = useControlsStore(
-    (state) => state.semitoneOffsetFromMajorTonicRoot,
+  const semitoneOffsetFromMajorRoot = useControlsStore(
+    (state) => state.semitoneOffsetFromMajorRoot,
   );
 
-  if (semitoneOffsetFromMajorTonicRoot === null) return null;
+  if (semitoneOffsetFromMajorRoot === null) return null;
 
   const isFlatTune = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].isFlatTune;
 
@@ -19,5 +19,5 @@ export function useCurrentShapeRootNote() {
       isFlatTune ? flatNoteName : sharpNoteName,
   );
 
-  return currentKeyNotes[semitoneOffsetFromMajorTonicRoot % 12];
+  return currentKeyNotes[semitoneOffsetFromMajorRoot % 12];
 }

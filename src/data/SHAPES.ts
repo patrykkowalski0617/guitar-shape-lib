@@ -41,7 +41,7 @@ export interface Shape {
   label: string;
   type: ShapeType;
   intervals: number[];
-  semitoneOffsetFromMajorTonicRoot: Partial<Record<BaseChordDataKey, number[]>>;
+  semitoneOffsetFromMajorRoot: Partial<Record<BaseChordDataKey, number[]>>;
   shapeVariants: ShapeVariants;
 }
 
@@ -63,11 +63,11 @@ export const SHAPES: Shapes = {
     label: "M7",
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _M7],
-    semitoneOffsetFromMajorTonicRoot: {
-      Tonic: [_1],
-      subdomi: [_4],
-      Subdomi: [_4],
-      tonic: [_1],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord1: [_1],
+      BaseChord2: [_4],
+      BaseChord4: [_4],
+      BaseChord6: [_1],
     },
     shapeVariants: {
       strE: {
@@ -118,11 +118,11 @@ export const SHAPES: Shapes = {
     label: "M(add9)",
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _M9],
-    semitoneOffsetFromMajorTonicRoot: {
-      Tonic: [_1],
-      tonic: [_1],
-      Subdomi: [_4],
-      subdomi: [_4],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord1: [_1],
+      BaseChord6: [_1],
+      BaseChord4: [_4],
+      BaseChord2: [_4],
     },
     shapeVariants: {
       strE: {
@@ -169,11 +169,11 @@ export const SHAPES: Shapes = {
     label: "M9",
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _M7, _M9],
-    semitoneOffsetFromMajorTonicRoot: {
-      Tonic: [_1],
-      tonic: [_1],
-      Subdomi: [_4],
-      subdomi: [_4],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord1: [_1],
+      BaseChord6: [_1],
+      BaseChord4: [_4],
+      BaseChord2: [_4],
     },
     shapeVariants: {
       strE: {
@@ -216,8 +216,8 @@ export const SHAPES: Shapes = {
     label: "6",
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _M6],
-    semitoneOffsetFromMajorTonicRoot: {
-      Tonic: [_1],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord1: [_1],
     },
     shapeVariants: {
       strE: {
@@ -260,13 +260,13 @@ export const SHAPES: Shapes = {
     label: "m7",
     type: "Arpeggio",
     intervals: [_1, _m3, _5, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
-      Tonic: [_M3, _M6],
-      tonic: [_M6],
-      Subdomi: [_M6, _M2],
-      subdomi: [_M2],
-      mediant: [_M3],
-      halfDim: [_M2],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord1: [_M3, _M6],
+      BaseChord6: [_M6],
+      BaseChord4: [_M6, _M2],
+      BaseChord2: [_M2],
+      BaseChord3: [_M3],
+      BaseChord7: [_M2],
     },
     shapeVariants: {
       strE: {
@@ -309,10 +309,10 @@ export const SHAPES: Shapes = {
     label: "m(add9)",
     type: "Arpeggio",
     intervals: [_1, _m3, _5, _M9],
-    semitoneOffsetFromMajorTonicRoot: {
-      tonic: [_M6],
-      subdomi: [_M2],
-      Subdomi: [_M6],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord6: [_M6],
+      BaseChord2: [_M2],
+      BaseChord4: [_M6],
     },
     shapeVariants: {
       strE: {
@@ -355,10 +355,10 @@ export const SHAPES: Shapes = {
     label: "m9",
     type: "Arpeggio",
     intervals: [_1, _m3, _5, _m7, _M9],
-    semitoneOffsetFromMajorTonicRoot: {
-      tonic: [_M6],
-      subdomi: [_M2],
-      Subdomi: [_M6],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord6: [_M6],
+      BaseChord2: [_M2],
+      BaseChord4: [_M6],
     },
     shapeVariants: {
       strE: {
@@ -401,9 +401,9 @@ export const SHAPES: Shapes = {
     label: "7",
     type: "Arpeggio",
     intervals: [_1, _M3, _5, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
-      Domi: [_5, _m2],
-      DomiPh: [_M3],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord5: [_5, _m2],
+      BaseChord3Ph: [_M3],
     },
     shapeVariants: {
       strE: {
@@ -462,9 +462,9 @@ export const SHAPES: Shapes = {
     label: "m7b9",
     type: "Arpeggio",
     intervals: [_1, _m3, _T, _m7, _m9],
-    semitoneOffsetFromMajorTonicRoot: {
-      Domi: [_5, _m2],
-      DomiPh: [_M3],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord5: [_5, _m2],
+      BaseChord3Ph: [_M3],
     },
     shapeVariants: {
       strE: {
@@ -519,10 +519,10 @@ export const SHAPES: Shapes = {
     label: "m7b5",
     type: "Arpeggio",
     intervals: [_1, _m3, _T, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
-      Domi: [_M7],
-      subdomi: [_M7],
-      halfDim: [_M7],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord5: [_M7],
+      BaseChord2: [_M7],
+      BaseChord7: [_M7],
     },
     shapeVariants: {
       strE: {
@@ -577,9 +577,9 @@ export const SHAPES: Shapes = {
     label: "dim7",
     type: "Arpeggio",
     intervals: [_1, _m3, _T, _M6],
-    semitoneOffsetFromMajorTonicRoot: {
-      Domi: [_M7],
-      DomiPh: [_M7],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord5: [_M7],
+      BaseChord3Ph: [_M7],
     },
     shapeVariants: {
       strE: {
@@ -650,8 +650,8 @@ export const SHAPES: Shapes = {
     label: "Altered",
     type: "Scale",
     intervals: [_1, _m2, _m3, _M3, _T, _m6, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
-      Domi: [_5],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord5: [_5],
     },
     shapeVariants: {
       strE: {
@@ -714,13 +714,13 @@ export const SHAPES: Shapes = {
     label: "Minor Pentatonic",
     type: "Scale",
     intervals: [_1, _m3, _4, _5, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
-      Tonic: [_M6, _M3],
-      tonic: [_M6],
-      subdomi: [_M2],
-      Subdomi: [_M6],
-      Domi: [_5, _M3],
-      mediant: [_M3],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord1: [_M6, _M3],
+      BaseChord6: [_M6],
+      BaseChord2: [_M2],
+      BaseChord4: [_M6],
+      BaseChord5: [_5, _M3],
+      BaseChord3: [_M3],
     },
     shapeVariants: {
       strE: {
@@ -763,12 +763,12 @@ export const SHAPES: Shapes = {
     label: "Major Pentatonic",
     type: "Scale",
     intervals: [_1, _M2, _M3, _5, _M6],
-    semitoneOffsetFromMajorTonicRoot: {
-      Tonic: [_1],
-      tonic: [_1],
-      Subdomi: [_4],
-      subdomi: [_4],
-      Domi: [_5],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord1: [_1],
+      BaseChord6: [_1],
+      BaseChord4: [_4],
+      BaseChord2: [_4],
+      BaseChord5: [_5],
     },
     shapeVariants: {
       strE: {
@@ -811,11 +811,11 @@ export const SHAPES: Shapes = {
     label: 'No "avoid notes"',
     type: "Set",
     intervals: [_1, _M2, _M3, _5, _M6, _M7],
-    semitoneOffsetFromMajorTonicRoot: {
-      Tonic: [_1],
-      tonic: [_1],
-      Subdomi: [_4],
-      subdomi: [_4],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord1: [_1],
+      BaseChord6: [_1],
+      BaseChord4: [_4],
+      BaseChord2: [_4],
     },
     shapeVariants: {
       strE: {
@@ -858,8 +858,8 @@ export const SHAPES: Shapes = {
     label: "Ionian",
     type: "Scale",
     intervals: [_1, _M2, _M3, _4, _5, _M6, _M7],
-    semitoneOffsetFromMajorTonicRoot: {
-      Tonic: [_1],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord1: [_1],
     },
     shapeVariants: {
       strE: {
@@ -918,8 +918,8 @@ export const SHAPES: Shapes = {
     label: "Aeolian",
     type: "Scale",
     intervals: [_1, _M2, _m3, _4, _5, _m6, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
-      tonic: [_M6],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord6: [_M6],
     },
     shapeVariants: {
       strE: {
@@ -982,10 +982,10 @@ export const SHAPES: Shapes = {
     label: "Dorian",
     type: "Scale",
     intervals: [_1, _M2, _m3, _4, _5, _M6, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
-      tonic: [_M6],
-      Subdomi: [_M2],
-      subdomi: [_M2],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord6: [_M6],
+      BaseChord4: [_M2],
+      BaseChord2: [_M2],
     },
     shapeVariants: {
       strE: {
@@ -1048,10 +1048,10 @@ export const SHAPES: Shapes = {
     label: "Lydian",
     type: "Scale",
     intervals: [_1, _M2, _M3, _T, _5, _M6, _M7],
-    semitoneOffsetFromMajorTonicRoot: {
-      Tonic: [_1],
-      Subdomi: [_4],
-      subdomi: [_4],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord1: [_1],
+      BaseChord4: [_4],
+      BaseChord2: [_4],
     },
     shapeVariants: {
       strE: {
@@ -1106,9 +1106,9 @@ export const SHAPES: Shapes = {
     label: "Mixolydian",
     type: "Scale",
     intervals: [_1, _M2, _M3, _4, _5, _M6, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
-      Domi: [_5],
-      DomiPh: [_M3],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord5: [_5],
+      BaseChord3Ph: [_M3],
     },
     shapeVariants: {
       strE: {
@@ -1179,8 +1179,8 @@ export const SHAPES: Shapes = {
     label: "Phrygian Dominant",
     type: "Scale",
     intervals: [_1, _m2, _M3, _4, _5, _m6, _m7],
-    semitoneOffsetFromMajorTonicRoot: {
-      DomiPh: [_M3],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord3Ph: [_M3],
     },
     shapeVariants: {
       strE: {

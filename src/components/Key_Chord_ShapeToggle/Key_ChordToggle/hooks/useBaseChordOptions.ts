@@ -16,7 +16,7 @@ export const useBaseChordOptions = () => {
     const notes = getNotes({ firstNote });
     const isFlatTune = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].isFlatTune;
     const chords = Object.entries(BASE_CHORDS).map(([chordId, chordData]) => {
-      const noteAtOffset = notes[chordData.semitoneOffsetFromMajorTonicRoot];
+      const noteAtOffset = notes[chordData.semitoneOffsetFromMajorRoot];
 
       const noteName = isFlatTune
         ? noteAtOffset.flatNoteName

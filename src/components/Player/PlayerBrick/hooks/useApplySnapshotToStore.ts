@@ -17,6 +17,6 @@ export const useApplySnapshotToStore = () => {
     setShapeVariantDataKeys(snapshot.shapeVariantDataKeys);
     setUnifiedMusicKeysDataKeys(snapshot.unifiedMusicKeysDataKey);
     setBaseChordDataKey(snapshot.baseChordDataKey);
-    setShape(snapshot.shapeDataKey, snapshot.semitoneOffsetFromMajorTonicRoot);
+    setShape(snapshot.shapeDataKey, snapshot.semitoneOffsetFromMajorRoot);
   };
 };

@@ -20,10 +20,10 @@ export const useShapeOptions = () => {
   });
 
   const options = filteredAndFormatedShapes.map(
-    ({ shapeDataKey, semitoneOffsetFromMajorTonicRoot }) => {
+    ({ shapeDataKey, semitoneOffsetFromMajorRoot }) => {
       const shape = SHAPES[shapeDataKey as keyof Shapes];
 
-      const noteIndex = ((semitoneOffsetFromMajorTonicRoot % 12) + 12) % 12;
+      const noteIndex = ((semitoneOffsetFromMajorRoot % 12) + 12) % 12;
       const noteObj = relativeScale[noteIndex];
 
       const rootNote = musicKey.isFlatTune
@@ -31,7 +31,7 @@ export const useShapeOptions = () => {
         : noteObj.sharpNoteName;
 
       return {
-        value: `${shapeDataKey}|${semitoneOffsetFromMajorTonicRoot}`,
+        value: `${shapeDataKey}|${semitoneOffsetFromMajorRoot}`,
         labelRootNote: rootNote,
         labelShapeName: `${shape.label} ${shape.type}`,
       };

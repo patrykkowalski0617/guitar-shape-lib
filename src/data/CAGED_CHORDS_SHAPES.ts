@@ -11,7 +11,7 @@ export interface BaseChordShape {
 export interface CAGEDChordShape {
   major: BaseChordShape[];
   minor: BaseChordShape[];
-  halfDim: BaseChordShape[];
+  BaseChord7: BaseChordShape[];
 }
 
 export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
@@ -141,7 +141,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
       ],
     },
   ],
-  halfDim: [
+  BaseChord7: [
     {
       CAGEDassigment: "A",
       baseFretIndex: 3,

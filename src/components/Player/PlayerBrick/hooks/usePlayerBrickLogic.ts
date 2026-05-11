@@ -165,7 +165,7 @@ export const usePlayerBrickLogic = ({
       ? getEnharmonicNoteName(
           getNotes({ length: 24 })[
             BASE_CHORDS[displayData.baseChordDataKey]
-              .semitoneOffsetFromMajorTonicRoot + tuneKeyOffset
+              .semitoneOffsetFromMajorRoot + tuneKeyOffset
           ],
         )
       : null;

@@ -10,30 +10,30 @@ export const useRoleMarkers = (unifiedMusicKeysDataKey: NoteName) => {
   );
   const roleMarkersMap = {
     major: {
-      tonic: {
-        roleName: "Tonic",
+      BaseChord6: {
+        roleName: "BaseChord1",
         chordName: enharmonicTuneNotesNames[0],
       },
-      subdominant: {
-        roleName: "Subdominant",
+      BaseChord2nant: {
+        roleName: "BaseChord4nant",
         chordName: enharmonicTuneNotesNames[5],
       },
       dominant: {
-        roleName: "Dominant",
+        roleName: "BaseChord5nant",
         chordName: enharmonicTuneNotesNames[7],
       },
     },
     minor: {
-      tonic: {
-        roleName: "Tonic",
+      BaseChord6: {
+        roleName: "BaseChord1",
         chordName: enharmonicTuneNotesNames[9] + "m",
       },
-      subdominant: {
-        roleName: "Subdominant",
+      BaseChord2nant: {
+        roleName: "BaseChord4nant",
         chordName: enharmonicTuneNotesNames[2] + "m",
       },
       dominant: {
-        roleName: "Dominant",
+        roleName: "BaseChord5nant",
         chordName: enharmonicTuneNotesNames[4],
       },
     },

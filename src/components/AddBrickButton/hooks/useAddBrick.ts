@@ -15,7 +15,7 @@ export function useAddBrick() {
       unifiedMusicKeysDataKey,
       baseChordDataKey,
       shapeDataKey,
-      semitoneOffsetFromMajorTonicRoot,
+      semitoneOffsetFromMajorRoot,
     } = useControlsStore.getState();
     const { shapeVariantDataKeys } = useMusicStore.getState();
 
@@ -26,7 +26,7 @@ export function useAddBrick() {
       baseChordDataKey,
       shapeVariantDataKeys,
       shapeLabel: activeShape?.label,
-      semitoneOffsetFromMajorTonicRoot,
+      semitoneOffsetFromMajorRoot,
       shapeDataKey,
     };
 

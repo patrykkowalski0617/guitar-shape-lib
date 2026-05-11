@@ -30,12 +30,14 @@ export const useBackingTrackSync = () => {
   );
   const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
 
-  const baseScaleId =
+  const baseScaleDataKey =
     baseChordDataKey != null
-      ? BASE_CHORDS[baseChordDataKey].baseScaleId
+      ? BASE_CHORDS[baseChordDataKey].baseScaleDataKey
       : undefined;
   const scaleTemplate =
-    baseScaleId != null ? SCALE_SEMITONE_TEMPLATES[baseScaleId] : undefined;
+    baseScaleDataKey != null
+      ? SCALE_SEMITONE_TEMPLATES[baseScaleDataKey]
+      : undefined;
 
   const { baseChordCoordinates } = useBaseChordShapes();
   const shapeCoordinates = useShapeCoordinates(shapeVariantDataKeys);
@@ -62,7 +64,7 @@ export const useBackingTrackSync = () => {
     const tuneKeyOffset =
       UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
     const baseChordOffsetFromC =
-      BASE_CHORDS[baseChordDataKey].semitoneOffsetFromMajorTonicRoot - 12;
+      BASE_CHORDS[baseChordDataKey].semitoneOffsetFromMajorRoot - 12;
 
     let bassNoteFretIndex =
       baseFretIndex + tuneKeyOffset + baseChordOffsetFromC;
