@@ -16,6 +16,7 @@ import { MultiStepSliderTest } from "./components/ui/MultiStepSlider/MultiStepSl
 import { PianoControls } from "./components/PianoControls/PianoControls";
 import { ShapePlayer } from "./components/ShapePlayer/ShapePlayer";
 import { KeyAndChordPicker } from "@/components/KeyAndChordPicker/KeyAndChordPicker";
+import { DataDebug } from "./DataDebug";
 
 const MotionSection = motion(Section);
 
@@ -40,6 +41,7 @@ export default function App() {
     <AppWrapper style={{ maxHeight: 700, minHeight: "unset" }}>
       <SoundEngine />
       <Toaster position="top-center" />
+      <DataDebug />
       <FullscreenButton />
       <MainContent>
         <Section>
