@@ -2,6 +2,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
   BASE_CHORDS,
   type BaseChordDataKey,
+  type NoteName,
   type UnifiedMusicKeysDataKeys,
 } from "@/data";
 import * as S from "./parts";
@@ -9,7 +10,7 @@ import * as S from "./parts";
 interface ChordOption {
   baseChordDataKey: BaseChordDataKey;
   combinedId: string;
-  chordName: string;
+  chordName: NoteName;
 }
 
 interface KeyGroup {
@@ -42,6 +43,8 @@ export function KeyAndChordPickerRow({
 
       <ToggleGroup type="single" value={currentValue} className="flex-1">
         {group.chords.map((item, index) => {
+          console.log(item);
+
           const modeName = chordsConfig[index].modeExtendedName;
           const fullLabel = `${item.chordName}${modeName}`;
 
