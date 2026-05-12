@@ -15,12 +15,17 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     brick,
   } = useShapePlayerBrick(id);
 
-  const brickLabel = brick
-    ? ` unifiedMusicKeysDataKey: ${brick.unifiedMusicKeysDataKey} 
-     baseChordDataKey: ${brick.baseChordDataKey} 
-     shapeDataKey: ${brick.shapeDataKey}
-     semitoneOffsetFromMajorRoot: ${brick.semitoneOffsetFromMajorRoot} `
-    : id.slice(0, 8);
+  const brickDetails = brick
+    ? [
+        `unifiedMusicKeysDataKey: ${brick.unifiedMusicKeysDataKey}`,
+        `baseChordDataKey: ${brick.baseChordDataKey}`,
+        `shapeDataKey: ${brick.shapeDataKey}`,
+        `semitoneOffsetFromMajorRoot: ${brick.semitoneOffsetFromMajorRoot}`,
+        `brick id: ${id.slice(0, 8)}`,
+      ]
+    : [];
+
+  const brickLabel = brickDetails.join("\n");
 
   return (
     <S.ShapePlayerBrickWrapper ref={setNodeRef} style={draggingStyles}>
@@ -28,7 +33,9 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
         ::
       </S.ShapePlayerBrickDragHandle>
 
-      <S.ShapePlayerBrickLabel>{brickLabel}</S.ShapePlayerBrickLabel>
+      <S.ShapePlayerBrickLabel style={{ whiteSpace: "pre-wrap" }}>
+        {brickLabel}
+      </S.ShapePlayerBrickLabel>
 
       <S.ShapePlayerBrickDeleteButton onClick={handleRemoveClick}>
         Usuń
