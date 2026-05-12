@@ -11,8 +11,9 @@ export const useShapeOptions = () => {
   const filteredAndFormatedShapes =
     getFilteredAndFormatedShapes(baseChordDataKey);
 
+  if (!unifiedMusicKeysDataKey) return null;
+
   const musicKey = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey];
-  if (!musicKey) return null;
 
   const relativeScale = getNotes({
     firstNote: unifiedMusicKeysDataKey,

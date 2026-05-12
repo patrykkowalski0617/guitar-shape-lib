@@ -14,6 +14,9 @@ export const useShapePlayerHeader = () => {
   );
   const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
   const shapeDataKey = useDataKeyStore((state) => state.shapeDataKey);
+  const semitoneOffsetFromMajorRoot = useDataKeyStore(
+    (state) => state.semitoneOffsetFromMajorRoot,
+  );
 
   const setUnifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.setUnifiedMusicKeysDataKey,
@@ -44,7 +47,8 @@ export const useShapePlayerHeader = () => {
 
   useEffect(() => {
     const firstStepCompleted = unifiedMusicKeysDataKey && baseChordDataKey;
-    const processFinalized = firstStepCompleted && shapeDataKey;
+    const processFinalized =
+      firstStepCompleted && shapeDataKey && semitoneOffsetFromMajorRoot;
 
     if (!isAddingProcessActive.current) return;
 
@@ -53,6 +57,7 @@ export const useShapePlayerHeader = () => {
         unifiedMusicKeysDataKey,
         baseChordDataKey,
         shapeDataKey,
+        semitoneOffsetFromMajorRoot,
       );
 
       isAddingProcessActive.current = false;
@@ -68,6 +73,7 @@ export const useShapePlayerHeader = () => {
     unifiedMusicKeysDataKey,
     baseChordDataKey,
     shapeDataKey,
+    semitoneOffsetFromMajorRoot,
     addShapePlayerBrick,
     setUnifiedMusicKeysDataKey,
     setBaseChordDataKey,

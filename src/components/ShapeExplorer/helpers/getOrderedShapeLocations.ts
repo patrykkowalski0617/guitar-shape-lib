@@ -14,7 +14,7 @@ import { BASS_STRING_ID_MAP } from "@/components/Fretboard/constants";
 
 export const getOrderedShapeLocations = (
   shapeDataKey: ShapeDataKey | null,
-  rootNoteName: string | null,
+  rootNoteName: NoteName | null,
 ): ShapeVariantDataKeys[] => {
   if (!shapeDataKey || !rootNoteName) return [];
 

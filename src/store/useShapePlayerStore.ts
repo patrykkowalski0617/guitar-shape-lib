@@ -12,6 +12,7 @@ export interface ShapePlayerBrick {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys;
   baseChordDataKey: BaseChordDataKey;
   shapeDataKey: ShapeDataKey;
+  semitoneOffsetFromMajorRoot: number;
 }
 
 interface ShapePlayerHistoryEntry {
@@ -27,6 +28,7 @@ interface ShapePlayerState {
     unifiedKey: UnifiedMusicKeysDataKeys,
     baseChord: BaseChordDataKey,
     shapeDataKey: ShapeDataKey,
+    semitoneOffsetFromMajorRoot: number,
   ) => void;
   removeShapePlayerBrick: (id: string) => void;
   clearShapePlayerBricks: () => void;
@@ -42,12 +44,14 @@ export const useShapePlayerStore = create<ShapePlayerState>((set) => ({
     unifiedMusicKeysDataKey,
     baseChordDataKey,
     shapeDataKey,
+    semitoneOffsetFromMajorRoot,
   ) => {
     const newBrick: Exact<ShapePlayerBrick, ShapePlayerBrick> = {
       id: crypto.randomUUID(),
       unifiedMusicKeysDataKey,
       baseChordDataKey,
       shapeDataKey,
+      semitoneOffsetFromMajorRoot,
     };
 
     set((state) => ({

@@ -9,18 +9,20 @@ interface DataKeyState {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys | null;
   baseChordDataKey: BaseChordDataKey | null;
   shapeDataKey: ShapeDataKey | null;
-  shapeOffset: number | null;
+  semitoneOffsetFromMajorRoot: number | null;
   setUnifiedMusicKeysDataKey: (id: UnifiedMusicKeysDataKeys | null) => void;
   setBaseChordDataKey: (id: BaseChordDataKey | null) => void;
   setShapeDataKey: (id: ShapeDataKey | null) => void;
-  setShapeOffset: (shapeOffset: number) => void;
+  setShapeSemitoneOffsetFromMajorRoot: (
+    semitoneOffsetFromMajorRoot: number,
+  ) => void;
 }
 
 export const useDataKeyStore = create<DataKeyState>((set) => ({
   unifiedMusicKeysDataKey: null,
   baseChordDataKey: null,
   shapeDataKey: null,
-  shapeOffset: null,
+  semitoneOffsetFromMajorRoot: null,
 
   setUnifiedMusicKeysDataKey: (unifiedMusicKeysDataKey) =>
     set({ unifiedMusicKeysDataKey }),
@@ -29,5 +31,6 @@ export const useDataKeyStore = create<DataKeyState>((set) => ({
 
   setShapeDataKey: (shapeDataKey) => set({ shapeDataKey }),
 
-  setShapeOffset: (shapeDataKey) => set({ shapeDataKey }),
+  setShapeSemitoneOffsetFromMajorRoot: (semitoneOffsetFromMajorRoot) =>
+    set({ semitoneOffsetFromMajorRoot }),
 }));

@@ -10,12 +10,12 @@ export const useSortedShapeOptions = () => {
   const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
   const options = useShapeOptions();
 
-  if (!baseChordDataKey || !options) return;
+  if (!baseChordDataKey || !options || !unifiedMusicKeysDataKey) return;
 
   const baseChordSemitoneOffset =
     BASE_CHORDS[baseChordDataKey].semitoneOffsetFromMajorRoot;
 
-  const firstNote = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].majorName;
+  const firstNote = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].majorFirstNote;
   const isFlatTune = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].isFlatTune;
 
   const notesFromScaleRoot = getNotes({ firstNote, length: 24 });
