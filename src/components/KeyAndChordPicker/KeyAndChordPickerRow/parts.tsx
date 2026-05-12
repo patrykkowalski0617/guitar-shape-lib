@@ -1,15 +1,17 @@
 import styled from "styled-components";
 
-export const RowWrapper = styled.div<{ $isCurrent?: boolean }>`
+export const Row = styled.div<{ $isCurrent?: boolean }>`
   display: flex;
   flex-direction: row;
   width: 100%;
   align-items: center;
-  &:hover {
-    opacity: 1;
-  }
+  background-color: ${({ $isCurrent }) =>
+    $isCurrent ? "var(--primary)" : "transparent"};
 `;
 
-export const KeyLabel = styled.span`
-  min-width: 80px;
+export const Item = styled.div`
+  padding: 4px 8px;
+  width: 75px;
 `;
+export const Chord = styled.div``;
+export const Key = styled.div``;

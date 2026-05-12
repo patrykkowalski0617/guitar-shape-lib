@@ -7,7 +7,6 @@ export function KeyAndChordPicker() {
     isKeyAndChordPickerExpanded,
     optionsPerKey,
     unifiedMusicKeysDataKey,
-    currentCombinedValue,
     handleChordSelection,
   } = useKeyAndChordPicker();
 
@@ -24,7 +23,6 @@ export function KeyAndChordPicker() {
             key={group.unifiedMusicKeyDataKey}
             group={group}
             isCurrentKey={isCurrentlyActiveKey}
-            currentValue={currentCombinedValue}
             onSelectChord={handleChordSelection}
           />
         );

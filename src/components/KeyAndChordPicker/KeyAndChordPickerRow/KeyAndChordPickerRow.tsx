@@ -1,4 +1,3 @@
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
   BASE_CHORDS,
   type BaseChordDataKey,
@@ -22,7 +21,6 @@ interface KeyGroup {
 interface Props {
   group: KeyGroup;
   isCurrentKey: boolean;
-  currentValue: string | undefined;
   onSelectChord: (
     key: UnifiedMusicKeysDataKeys,
     chord: BaseChordDataKey,
@@ -32,36 +30,31 @@ interface Props {
 export function KeyAndChordPickerRow({
   group,
   isCurrentKey,
-  currentValue,
   onSelectChord,
 }: Props) {
   const chordsConfig = Object.values(BASE_CHORDS);
 
   return (
-    <S.RowWrapper $isCurrent={isCurrentKey}>
-      <S.KeyLabel>{group.label}</S.KeyLabel>
+    <S.Row $isCurrent={isCurrentKey}>
+      <S.Item>
+        <S.Key>{group.label}</S.Key>
+      </S.Item>
+      {group.chords.map((item, index) => {
+        const modeName = chordsConfig[index].modeExtendedName;
+        const fullLabel = `${item.chordName}${modeName}`;
 
-      <ToggleGroup type="single" value={currentValue} className="flex-1">
-        {group.chords.map((item, index) => {
-          const modeName = chordsConfig[index].modeExtendedName;
-          const fullLabel = `${item.chordName}${modeName}`;
+        const handleChordClick = () => {
+          onSelectChord(group.unifiedMusicKeyDataKey, item.baseChordDataKey);
+        };
 
-          return (
-            <ToggleGroupItem
-              key={item.combinedId}
-              value={item.combinedId}
-              onClick={() =>
-                onSelectChord(
-                  group.unifiedMusicKeyDataKey,
-                  item.baseChordDataKey,
-                )
-              }
-            >
+        return (
+          <S.Item>
+            <S.Chord key={item.combinedId} onClick={handleChordClick}>
               {fullLabel}
-            </ToggleGroupItem>
-          );
-        })}
-      </ToggleGroup>
-    </S.RowWrapper>
+            </S.Chord>
+          </S.Item>
+        );
+      })}
+    </S.Row>
   );
 }

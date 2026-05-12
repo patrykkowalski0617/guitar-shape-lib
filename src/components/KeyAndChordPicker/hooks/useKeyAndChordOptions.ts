@@ -24,7 +24,7 @@ export function useKeyAndChordOptions() {
 
       return {
         baseChordDataKey: bChordKey,
-        combinedId: `${currentUnifiedKey}:${bChordKey}`,
+        combinedId: `${currentUnifiedKey}|${bChordKey}`,
         chordName,
       };
     });

@@ -1,12 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import * as S from "./parts";
-import ShapeCarousel from "../../ShapeCarousel/ShapeCarousel";
 import { Player } from "../Player/Player";
 import { usePlayerStore } from "@/store";
 import { animationDuration } from "@/constants";
 import { usePersistentBoolean } from "@/hooks/usePersistentBoolean";
-import { Key_Chord_ShapeToggle } from "@/components/bin/Key_Chord_ShapeToggle/Key_Chord_ShapeToggle";
-import RoleCarousel from "../../RoleCarousel/RoleCarousel";
+import { Key_Chord_ShapeToggle } from "../Key_Chord_ShapeToggle/Key_Chord_ShapeToggle";
+import RoleCarousel from "../RoleCarousel/RoleCarousel";
+import ShapeCarousel from "../ShapeCarousel/ShapeCarousel";
 
 const MotionSection = motion(S.Section);
 

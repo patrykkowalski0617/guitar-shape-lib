@@ -20,16 +20,11 @@ export function useKeyAndChordPicker() {
     (state) => state.setUnifiedMusicKeysDataKey,
   );
 
-  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
   const unifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
 
   const { optionsPerKey } = useKeyAndChordOptions();
-
-  const currentCombinedValue = baseChordDataKey
-    ? `${unifiedMusicKeysDataKey}:${baseChordDataKey}`
-    : "";
 
   const handleChordSelection = (
     newUnifiedKey: UnifiedMusicKeysDataKeys,
@@ -45,7 +40,6 @@ export function useKeyAndChordPicker() {
     isKeyAndChordPickerExpanded,
     optionsPerKey,
     unifiedMusicKeysDataKey,
-    currentCombinedValue,
     handleChordSelection,
   };
 }

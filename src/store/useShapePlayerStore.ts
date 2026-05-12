@@ -1,6 +1,5 @@
 import { create } from "zustand";
 import { arrayMove } from "@dnd-kit/sortable";
-import type { Exact } from "@/types";
 import type {
   BaseChordDataKey,
   ShapeDataKey,
@@ -24,12 +23,7 @@ interface ShapePlayerHistoryEntry {
 interface ShapePlayerState {
   shapePlayerBricks: ShapePlayerBrick[];
   shapePlayerHistory: ShapePlayerHistoryEntry[];
-  addShapePlayerBrick: (
-    unifiedKey: UnifiedMusicKeysDataKeys,
-    baseChord: BaseChordDataKey,
-    shapeDataKey: ShapeDataKey,
-    semitoneOffsetFromMajorRoot: number,
-  ) => void;
+  addShapePlayerBrick: (brickData: Omit<ShapePlayerBrick, "id">) => void;
   removeShapePlayerBrick: (id: string) => void;
   clearShapePlayerBricks: () => void;
   restoreLastAction: () => void;
@@ -40,18 +34,10 @@ export const useShapePlayerStore = create<ShapePlayerState>((set) => ({
   shapePlayerBricks: [],
   shapePlayerHistory: [],
 
-  addShapePlayerBrick: (
-    unifiedMusicKeysDataKey,
-    baseChordDataKey,
-    shapeDataKey,
-    semitoneOffsetFromMajorRoot,
-  ) => {
-    const newBrick: Exact<ShapePlayerBrick, ShapePlayerBrick> = {
+  addShapePlayerBrick: (brickData) => {
+    const newBrick: ShapePlayerBrick = {
+      ...brickData,
       id: crypto.randomUUID(),
-      unifiedMusicKeysDataKey,
-      baseChordDataKey,
-      shapeDataKey,
-      semitoneOffsetFromMajorRoot,
     };
 
     set((state) => ({
@@ -63,23 +49,26 @@ export const useShapePlayerStore = create<ShapePlayerState>((set) => ({
   removeShapePlayerBrick: (idToRemove) => {
     set((state) => {
       const brickIndex = state.shapePlayerBricks.findIndex(
-        (b) => b.id === idToRemove,
+        (brick) => brick.id === idToRemove,
       );
-      const brickToRemove = state.shapePlayerBricks[brickIndex];
 
-      const historyEntry: Exact<
-        ShapePlayerHistoryEntry,
-        ShapePlayerHistoryEntry
-      > = {
-        bricks: [brickToRemove],
+      const targetBrick = state.shapePlayerBricks[brickIndex];
+      const hasBrick = brickIndex !== -1;
+
+      if (!hasBrick) return state;
+
+      const historyEntry: ShapePlayerHistoryEntry = {
+        bricks: [targetBrick],
         type: "SINGLE_REMOVAL",
         originalIndex: brickIndex,
       };
 
+      const updatedBricks = state.shapePlayerBricks.filter(
+        (brick) => brick.id !== idToRemove,
+      );
+
       return {
-        shapePlayerBricks: state.shapePlayerBricks.filter(
-          (b) => b.id !== idToRemove,
-        ),
+        shapePlayerBricks: updatedBricks,
         shapePlayerHistory: [...state.shapePlayerHistory, historyEntry],
       };
     });
@@ -87,12 +76,10 @@ export const useShapePlayerStore = create<ShapePlayerState>((set) => ({
 
   clearShapePlayerBricks: () => {
     set((state) => {
-      if (state.shapePlayerBricks.length === 0) return state;
+      const isEmpty = state.shapePlayerBricks.length === 0;
+      if (isEmpty) return state;
 
-      const historyEntry: Exact<
-        ShapePlayerHistoryEntry,
-        ShapePlayerHistoryEntry
-      > = {
+      const historyEntry: ShapePlayerHistoryEntry = {
         bricks: [...state.shapePlayerBricks],
         type: "CLEAN_ALL",
       };
@@ -106,26 +93,27 @@ export const useShapePlayerStore = create<ShapePlayerState>((set) => ({
 
   restoreLastAction: () => {
     set((state) => {
-      const lastEntry =
-        state.shapePlayerHistory[state.shapePlayerHistory.length - 1];
+      const lastEntry = state.shapePlayerHistory.at(-1);
       if (!lastEntry) return state;
 
-      const updatedHistory = state.shapePlayerHistory.slice(0, -1);
-      const updatedBricks = [...state.shapePlayerBricks];
+      const remainingHistory = state.shapePlayerHistory.slice(0, -1);
 
       if (lastEntry.type === "CLEAN_ALL") {
         return {
           shapePlayerBricks: lastEntry.bricks,
-          shapePlayerHistory: updatedHistory,
+          shapePlayerHistory: remainingHistory,
         };
       }
 
+      const updatedBricks = [...state.shapePlayerBricks];
       const [restoredBrick] = lastEntry.bricks;
-      updatedBricks.splice(lastEntry.originalIndex!, 0, restoredBrick);
+      const insertionIndex = lastEntry.originalIndex ?? 0;
+
+      updatedBricks.splice(insertionIndex, 0, restoredBrick);
 
       return {
         shapePlayerBricks: updatedBricks,
-        shapePlayerHistory: updatedHistory,
+        shapePlayerHistory: remainingHistory,
       };
     });
   },
