@@ -1,18 +1,33 @@
-import { useDataKeyStore, useUiStore } from "@/store";
+import { useDataKeyStore, useUiStore, useShapePlayerStore } from "@/store";
 import { useCurrentBaseChordName } from "@/hooks";
 import { useSortedShapeOptions } from "./useSortedShapeOptions";
 
 export const useShapePicker = () => {
-  const setShapeDataKey = useDataKeyStore((state) => state.setShapeDataKey);
-  const setShapeSemitoneOffsetFromMajorRoot = useDataKeyStore(
-    (state) => state.setShapeSemitoneOffsetFromMajorRoot,
+  // Dane potrzebne do snapshota
+  const unifiedMusicKeysDataKey = useDataKeyStore(
+    (state) => state.unifiedMusicKeysDataKey,
   );
   const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
-  const setBaseChordDataKey = useDataKeyStore(
-    (state) => state.setBaseChordDataKey,
+
+  // Settery konfiguratora
+  const setShapeDataKey = useDataKeyStore((state) => state.setShapeDataKey);
+  const setSemitoneOffsetFromMajorRoot = useDataKeyStore(
+    (state) => state.setSemitoneOffsetFromMajorRoot,
   );
 
-  const isExpanded = useUiStore((state) => state.isShapePickerExpanded);
+  // UI State
+  const isShapePickerExpanded = useUiStore(
+    (state) => state.isShapePickerExpanded,
+  );
+  const setShapePickerExpanded = useUiStore(
+    (state) => state.setShapePickerExpanded,
+  );
+
+  // Akcja dodawania cegły
+  const addShapePlayerBrick = useShapePlayerStore(
+    (state) => state.addShapePlayerBrick,
+  );
+
   const options = useSortedShapeOptions();
   const selectedChordLabel = useCurrentBaseChordName();
 
@@ -20,15 +35,28 @@ export const useShapePicker = () => {
     const [id, offsetStr] = value.split("|");
     const offset = parseInt(offsetStr, 10);
 
+    // 1. Aktualizujemy stan konfiguratora
     setShapeDataKey(id);
-    setShapeSemitoneOffsetFromMajorRoot(offset);
-    setBaseChordDataKey(baseChordDataKey);
+    setSemitoneOffsetFromMajorRoot(offset);
+
+    // 2. Finalizacja procesu - Snapshot i dodanie cegły
+    if (unifiedMusicKeysDataKey && baseChordDataKey) {
+      addShapePlayerBrick(
+        unifiedMusicKeysDataKey,
+        baseChordDataKey,
+        id,
+        offset,
+      );
+    }
+
+    // 3. Zamknięcie pickera (koniec "piłeczki")
+    setShapePickerExpanded(false);
   };
 
   return {
     options,
     selectedChordLabel,
-    isExpanded,
+    isShapePickerExpanded,
     handleSelectShape,
   };
 };

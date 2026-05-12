@@ -1,34 +1,10 @@
-import { useEffect, useRef } from "react";
-import { useShapePlayerStore, useUiStore, useDataKeyStore } from "@/store";
+import { useShapePlayerStore, useUiStore } from "@/store";
 
 export const useShapePlayerHeader = () => {
   const setKeyAndChordPickerExpanded = useUiStore(
     (state) => state.setKeyAndChordPickerExpanded,
   );
-  const setShapePickerExpanded = useUiStore(
-    (state) => state.setShapePickerExpanded,
-  );
 
-  const unifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.unifiedMusicKeysDataKey,
-  );
-  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
-  const shapeDataKey = useDataKeyStore((state) => state.shapeDataKey);
-  const semitoneOffsetFromMajorRoot = useDataKeyStore(
-    (state) => state.semitoneOffsetFromMajorRoot,
-  );
-
-  const setUnifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.setUnifiedMusicKeysDataKey,
-  );
-  const setBaseChordDataKey = useDataKeyStore(
-    (state) => state.setBaseChordDataKey,
-  );
-  const setShapeDataKey = useDataKeyStore((state) => state.setShapeDataKey);
-
-  const addShapePlayerBrick = useShapePlayerStore(
-    (state) => state.addShapePlayerBrick,
-  );
   const clearShapePlayerBricks = useShapePlayerStore(
     (state) => state.clearShapePlayerBricks,
   );
@@ -43,47 +19,7 @@ export const useShapePlayerHeader = () => {
     (state) => state.shapePlayerBricks.length === 0,
   );
 
-  const isAddingProcessActive = useRef(false);
-
-  useEffect(() => {
-    const firstStepCompleted = unifiedMusicKeysDataKey && baseChordDataKey;
-    const processFinalized =
-      firstStepCompleted && shapeDataKey && semitoneOffsetFromMajorRoot;
-
-    if (!isAddingProcessActive.current) return;
-
-    if (processFinalized) {
-      addShapePlayerBrick(
-        unifiedMusicKeysDataKey,
-        baseChordDataKey,
-        shapeDataKey,
-        semitoneOffsetFromMajorRoot,
-      );
-
-      isAddingProcessActive.current = false;
-      setUnifiedMusicKeysDataKey(null);
-      setBaseChordDataKey(null);
-      setShapeDataKey(null);
-      setShapePickerExpanded(false);
-    } else if (firstStepCompleted) {
-      setKeyAndChordPickerExpanded(false);
-      setShapePickerExpanded(true);
-    }
-  }, [
-    unifiedMusicKeysDataKey,
-    baseChordDataKey,
-    shapeDataKey,
-    semitoneOffsetFromMajorRoot,
-    addShapePlayerBrick,
-    setUnifiedMusicKeysDataKey,
-    setBaseChordDataKey,
-    setShapeDataKey,
-    setKeyAndChordPickerExpanded,
-    setShapePickerExpanded,
-  ]);
-
   const handleAddClick = () => {
-    isAddingProcessActive.current = true;
     setKeyAndChordPickerExpanded(true);
   };
 

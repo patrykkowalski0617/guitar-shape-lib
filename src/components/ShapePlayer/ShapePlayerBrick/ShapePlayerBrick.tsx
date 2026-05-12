@@ -12,6 +12,7 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     setNodeRef,
     draggingStyles,
     handleRemoveClick,
+    handleRestoreClick,
     brick,
   } = useShapePlayerBrick(id);
 
@@ -37,9 +38,12 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
         {brickLabel}
       </S.ShapePlayerBrickLabel>
 
-      <S.ShapePlayerBrickDeleteButton onClick={handleRemoveClick}>
-        Usuń
-      </S.ShapePlayerBrickDeleteButton>
+      <div style={{ display: "flex", gap: "8px" }}>
+        <button onClick={handleRestoreClick}>Przywróć</button>
+        <S.ShapePlayerBrickDeleteButton onClick={handleRemoveClick}>
+          Usuń
+        </S.ShapePlayerBrickDeleteButton>
+      </div>
     </S.ShapePlayerBrickWrapper>
   );
 };

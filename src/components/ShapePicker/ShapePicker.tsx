@@ -2,10 +2,14 @@ import { useShapePicker } from "./hooks/useShapePicker";
 import * as S from "./parts";
 
 export default function ShapePicker() {
-  const { options, selectedChordLabel, isExpanded, handleSelectShape } =
-    useShapePicker();
+  const {
+    options,
+    selectedChordLabel,
+    isShapePickerExpanded,
+    handleSelectShape,
+  } = useShapePicker();
 
-  if (!isExpanded) return null;
+  if (!isShapePickerExpanded) return null;
 
   return (
     <S.Wrapper>

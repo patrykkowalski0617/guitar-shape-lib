@@ -4,20 +4,20 @@ import { useKeyAndChordPicker } from "./hooks/useKeyAndChordPicker";
 
 export function KeyAndChordPicker() {
   const {
-    isExpanded,
+    isKeyAndChordPickerExpanded,
     optionsPerKey,
-    currentMusicKeyDataKey,
+    unifiedMusicKeysDataKey,
     currentCombinedValue,
     handleChordSelection,
   } = useKeyAndChordPicker();
 
-  if (!isExpanded) return null;
+  if (!isKeyAndChordPickerExpanded) return null;
 
   return (
     <S.Wrapper>
       {optionsPerKey.map((group) => {
         const isCurrentlyActiveKey =
-          currentMusicKeyDataKey === group.unifiedMusicKeyDataKey;
+          unifiedMusicKeysDataKey === group.unifiedMusicKeyDataKey;
 
         return (
           <KeyAndChordPickerRow
