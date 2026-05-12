@@ -8,11 +8,11 @@ import { useBaseChordShapes } from "./useBaseChordShapes";
 import { findMatchingBaseChordCoordinates } from "../helpers/findMatchingBaseChordCoordinates";
 import { isBaseChordNote as isBaseChordNoteFn } from "../helpers/isBaseChordNote";
 import { type FretboardCoordinate } from "@/data";
-import { type StringIndex } from "../../constants";
+import { type StringIndexes } from "../../constants";
 
 interface UseNoteStateProps {
   noteData: NoteObject;
-  stringIndex: StringIndex;
+  stringIndex: StringIndexes;
   fretIndex: number;
 }
 

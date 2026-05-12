@@ -60,7 +60,7 @@ export const useBackingTrackSync = () => {
 
     if (!baseChordMatch) return;
 
-    const { baseStringIndex, baseFretIndex } = baseChordMatch;
+    const { baseStringIndexes, baseFretIndex } = baseChordMatch;
     const musicKeyOffset =
       UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
     const baseChordOffsetFromC =
@@ -75,7 +75,7 @@ export const useBackingTrackSync = () => {
     if (bassNoteFretIndex < 0) bassNoteFretIndex += octave;
     else if (bassNoteFretIndex > maxFret) bassNoteFretIndex -= octave;
 
-    const stringConfig = STRINGS_CONFIG[baseStringIndex];
+    const stringConfig = STRINGS_CONFIG[baseStringIndexes];
     const notes = getNotes({
       firstNote: stringConfig.firstNoteInRow,
       length: 25,

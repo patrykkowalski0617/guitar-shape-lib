@@ -20,8 +20,8 @@ export const useShapeAllCoordinates = () => {
   };
 
   const rawCalculatedCoordinates = rootsCoordinates.flatMap((x) => {
-    const [rootStringIndex, rootFretIndex] = x;
-    const stringName = stringIndexToNameMap[rootStringIndex];
+    const [rootStringIndexes, rootFretIndex] = x;
+    const stringName = stringIndexToNameMap[rootStringIndexes];
     const stringVariants = currentShapeVariants[stringName];
 
     if (!stringVariants) return [];
@@ -31,9 +31,9 @@ export const useShapeAllCoordinates = () => {
     );
 
     const calculatedPoints = allVariantsCoordinates.map(
-      ([targetStringIndex, fretOffset]) => {
+      ([targetStringIndexes, fretOffset]) => {
         const absoluteFretIndex = fretOffset + rootFretIndex;
-        return [targetStringIndex, absoluteFretIndex];
+        return [targetStringIndexes, absoluteFretIndex];
       },
     );
 

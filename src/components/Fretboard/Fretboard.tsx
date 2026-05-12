@@ -1,6 +1,6 @@
 import { type JSX, useEffect, useRef } from "react";
 import * as S from "./parts";
-import { numberOfFrets, STRINGS_CONFIG, type StringIndex } from "./constants";
+import { numberOfFrets, STRINGS_CONFIG, type StringIndexes } from "./constants";
 import { useHorizontalScroll } from "@/hooks";
 import { InstrumentScrollWrapper } from "@/parts";
 import { useFretboardScroll } from "./hooks";
@@ -62,7 +62,7 @@ export default function Fretboard(): JSX.Element {
             {allFretboardNotes.map((rowNotes, index) => (
               <FretboardRow
                 key={index}
-                stringIndex={index as StringIndex}
+                stringIndex={index as StringIndexes}
                 rowNotes={rowNotes}
               />
             ))}

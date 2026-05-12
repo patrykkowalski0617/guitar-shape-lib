@@ -1,7 +1,7 @@
 import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
 import { BrushCleaning } from "lucide-react";
 import * as P from "./parts";
-import type { StringIndex } from "../Fretboard/constants";
+import type { StringIndexes } from "../Fretboard/constants";
 
 export const CleanButton = () => {
   const isPlaying = usePlayerStore((state) => state.isPlaying);
@@ -26,7 +26,7 @@ export const CleanButton = () => {
     (state) => state.setVisibleStrings,
   );
   const visibleStrings = useControlsStore((state) => state.visibleStrings);
-  const defaultVisibleStrings = [0, 1, 2, 3, 4, 5] as StringIndex[];
+  const defaultVisibleStrings = [0, 1, 2, 3, 4, 5] as StringIndexes[];
 
   const isDisabled =
     isPlaying ||

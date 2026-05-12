@@ -2,11 +2,11 @@ import * as S from "./parts";
 import { useRef, type JSX } from "react";
 import FretboardCell from "../FretboardCell/FretboardCell";
 import type { NoteObject } from "@/utils";
-import type { StringIndex } from "../constants";
+import type { StringIndexes } from "../constants";
 import { useControlsStore } from "@/store";
 
 interface FretboardRowProps {
-  stringIndex: StringIndex;
+  stringIndex: StringIndexes;
   rowNotes: NoteObject[];
 }
 

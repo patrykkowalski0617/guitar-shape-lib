@@ -1,10 +1,10 @@
-import type { StringIndex } from "@/components/Fretboard/constants";
+import type { StringIndexes } from "@/components/Fretboard/constants";
 import type { FretboardCoordinate } from "@/data";
 
 export interface BaseChordShape {
   CAGEDassigment: string;
   baseFretIndex: number;
-  baseStringIndex: StringIndex;
+  baseStringIndexes: StringIndexes;
   coordinates: FretboardCoordinate[];
 }
 
@@ -19,7 +19,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "C",
       baseFretIndex: 3,
-      baseStringIndex: 4,
+      baseStringIndexes: 4,
       coordinates: [
         [4, 0],
         [3, -1],
@@ -31,7 +31,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "A",
       baseFretIndex: 3,
-      baseStringIndex: 4,
+      baseStringIndexes: 4,
       coordinates: [
         [4, 0],
         [3, 2],
@@ -43,7 +43,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "G",
       baseFretIndex: 8,
-      baseStringIndex: 5,
+      baseStringIndexes: 5,
       coordinates: [
         [5, 0],
         [4, -1],
@@ -56,7 +56,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "E",
       baseFretIndex: 8,
-      baseStringIndex: 5,
+      baseStringIndexes: 5,
       coordinates: [
         [5, 0],
         [4, 2],
@@ -69,7 +69,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "D",
       baseFretIndex: 10,
-      baseStringIndex: 3,
+      baseStringIndexes: 3,
       coordinates: [
         [3, 0],
         [2, 2],
@@ -82,7 +82,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "C",
       baseFretIndex: 3,
-      baseStringIndex: 4,
+      baseStringIndexes: 4,
       coordinates: [
         [4, 0],
         [3, -2],
@@ -94,7 +94,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "A",
       baseFretIndex: 3,
-      baseStringIndex: 4,
+      baseStringIndexes: 4,
       coordinates: [
         [4, 0],
         [3, 2],
@@ -106,7 +106,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "G",
       baseFretIndex: 8,
-      baseStringIndex: 5,
+      baseStringIndexes: 5,
       coordinates: [
         [5, 0],
         [4, -2],
@@ -119,7 +119,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "E",
       baseFretIndex: 8,
-      baseStringIndex: 5,
+      baseStringIndexes: 5,
       coordinates: [
         [5, 0],
         [4, 2],
@@ -132,7 +132,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "D",
       baseFretIndex: 10,
-      baseStringIndex: 3,
+      baseStringIndexes: 3,
       coordinates: [
         [3, 0],
         [2, 2],
@@ -145,7 +145,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "A",
       baseFretIndex: 3,
-      baseStringIndex: 4,
+      baseStringIndexes: 4,
       coordinates: [
         [4, 0],
         [2, 0],
@@ -156,7 +156,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "Aalt",
       baseFretIndex: 3,
-      baseStringIndex: 4,
+      baseStringIndexes: 4,
       coordinates: [
         [4, 0],
         [3, 1],
@@ -167,7 +167,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "G",
       baseFretIndex: 8,
-      baseStringIndex: 5,
+      baseStringIndexes: 5,
       coordinates: [
         [5, 0],
         [4, -2],
@@ -178,7 +178,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "E",
       baseFretIndex: 8,
-      baseStringIndex: 5,
+      baseStringIndexes: 5,
       coordinates: [
         [5, 0],
         [4, 1],
@@ -189,7 +189,7 @@ export const CAGED_CHORDS_SHAPES: CAGEDChordShape = {
     {
       CAGEDassigment: "D",
       baseFretIndex: 10,
-      baseStringIndex: 3,
+      baseStringIndexes: 3,
       coordinates: [
         [3, 0],
         [2, 1],

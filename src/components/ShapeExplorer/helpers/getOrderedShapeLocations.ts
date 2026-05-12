@@ -1,12 +1,13 @@
 import {
   SHAPES,
-  type Note,
+  type NoteName,
   type ShapeDataKey,
   type ShapeVariantDataKeys,
 } from "@/data";
 import { getValidVariants, getNotes } from "@/utils";
 import {
   numberOfFrets,
+  stringIndexes,
   STRINGS_CONFIG,
 } from "@/components/Fretboard/constants";
 import { BASS_STRING_ID_MAP } from "@/components/Fretboard/constants";
@@ -14,21 +15,19 @@ import { BASS_STRING_ID_MAP } from "@/components/Fretboard/constants";
 export const getOrderedShapeLocations = (
   shapeDataKey: ShapeDataKey | null,
   rootNoteName: string | null,
-  userListIds: string[],
 ): ShapeVariantDataKeys[] => {
   if (!shapeDataKey || !rootNoteName) return [];
 
   const locations: ShapeVariantDataKeys[] = [];
   const shapeData = SHAPES[shapeDataKey as keyof typeof SHAPES];
-  const stringIndices = [5, 4, 3, 2, 1, 0];
 
   for (let fIdx = 0; fIdx < numberOfFrets; fIdx++) {
-    for (const sIdx of stringIndices) {
+    for (const sIdx of stringIndexes) {
       const stringConfig = STRINGS_CONFIG[sIdx];
       const stringId = BASS_STRING_ID_MAP[sIdx];
 
       const noteAtFret = getNotes({
-        firstNote: stringConfig.firstNoteInRow as Note,
+        firstNote: stringConfig.firstNoteInRow as NoteName,
         length: fIdx + 1,
       })[fIdx];
 
@@ -42,14 +41,11 @@ export const getOrderedShapeLocations = (
           const validEntries = getValidVariants(fIdx, variants);
 
           validEntries.forEach(([variantDataKey]) => {
-            const id = `${shapeDataKey}-${stringId}-${variantDataKey}`;
             locations.push({
               shapeDataKey,
               stringId,
               fretIndex: fIdx,
               variantDataKey: variantDataKey,
-              id,
-              isUserList: userListIds.includes(id),
             });
           });
         }

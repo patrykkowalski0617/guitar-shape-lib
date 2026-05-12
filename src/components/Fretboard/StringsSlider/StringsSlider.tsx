@@ -2,9 +2,9 @@ import { StepSlider } from "@/components/ui/StepSlider/StepSlider";
 import { StepSliderTicks } from "@/components/ui/StepSlider/StepSliderTicks";
 import { useControlsStore } from "@/store";
 import * as S from "./parts";
-import type { StringIndex } from "../constants";
+import type { StringIndexes } from "../constants";
 
-const STRING_MAP: Record<number, StringIndex[]> = {
+const STRING_MAP: Record<number, StringIndexes[]> = {
   0: [0, 1, 2, 3, 4, 5],
   1: [0, 1, 2],
   2: [1, 2, 3],

@@ -1,6 +1,10 @@
 import type { BassStringDataKey, NoteName } from "@/data";
 
-export type StringIndex = 0 | 1 | 2 | 3 | 4 | 5;
+export type StringValidIndex = 0 | 1 | 2 | 3 | 4 | 5;
+
+export type StringIndexes = [0, 1, 2, 3, 4, 5];
+
+export const stringIndexes: StringIndexes = [0, 1, 2, 3, 4, 5];
 
 export const BASS_STRING_ID_MAP: Record<number, BassStringDataKey> = {
   5: "strE",

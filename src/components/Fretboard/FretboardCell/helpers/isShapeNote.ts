@@ -4,11 +4,11 @@ export const isShapeNote = (
   currentCoordinates: FretboardCoordinate,
   shapeCoordinates: FretboardCoordinate[],
 ): boolean => {
-  const [currentStringIndex, currentFretIndex] = currentCoordinates;
+  const [currentStringIndexes, currentFretIndex] = currentCoordinates;
 
   return shapeCoordinates.some(
-    ([shapeStringIndex, shapeFretIndex]) =>
-      shapeStringIndex === currentStringIndex &&
+    ([shapeStringIndexes, shapeFretIndex]) =>
+      shapeStringIndexes === currentStringIndexes &&
       shapeFretIndex === currentFretIndex,
   );
 };

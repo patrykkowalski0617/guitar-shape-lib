@@ -1,11 +1,11 @@
 import * as React from "react";
 import { MultiStepSlider } from "@/components/ui/MultiStepSlider/MultiStepSlider";
 import { useControlsStore } from "@/store";
-import type { StringIndex } from "../constants";
+import type { StringIndexes, StringValidIndex } from "../constants";
 import { getAllIndexesFromIndexRange } from "@/components/ui/MultiStepSlider/utils";
 
 export const StringMultiStepSlider = () => {
-  const stringIndexes: StringIndex = [0, 5];
+  const stringIndexes: StringValidIndex[] = [0, 5];
   const maxIdx = stringIndexes[stringIndexes.length - 1];
 
   const visibleStrings = useControlsStore((state) => state.visibleStrings);
@@ -13,27 +13,37 @@ export const StringMultiStepSlider = () => {
     (state) => state.setVisibleStrings,
   );
 
-  const flip = (val: number) => maxIdx - val;
+  const flip = React.useCallback((val: number) => maxIdx - val, [maxIdx]);
 
   const sliderValue = React.useMemo(() => {
-    if (!visibleStrings || visibleStrings.length === 0)
-      return [flip(0), flip(0)];
+    const hasNoVisibleStrings = !visibleStrings || !visibleStrings.length;
 
-    const realMin = Math.min(...visibleStrings);
-    const realMax = Math.max(...visibleStrings);
+    if (hasNoVisibleStrings) {
+      const defaultFlippedValue = flip(0);
+      return [defaultFlippedValue, defaultFlippedValue];
+    }
 
-    return [flip(realMax), flip(realMin)];
-  }, [visibleStrings, maxIdx]);
+    const minStringIndex = Math.min(...visibleStrings);
+    const maxStringIndex = Math.max(...visibleStrings);
+
+    const bottomSliderThumb = flip(maxStringIndex);
+    const topSliderThumb = flip(minStringIndex);
+
+    return [bottomSliderThumb, topSliderThumb];
+  }, [visibleStrings, flip]);
 
   const handleValueChange = (nextRange: number[]) => {
     const realValues = nextRange.map(flip);
 
+    const minSelectedValue = Math.min(...realValues);
+    const maxSelectedValue = Math.max(...realValues);
+
     const fullIndexList = getAllIndexesFromIndexRange([
-      Math.min(...realValues),
-      Math.max(...realValues),
+      minSelectedValue,
+      maxSelectedValue,
     ]);
 
-    setVisibleStrings(fullIndexList);
+    setVisibleStrings(fullIndexList as StringIndexes);
   };
 
   return (

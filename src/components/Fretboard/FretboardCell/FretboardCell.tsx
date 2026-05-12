@@ -4,11 +4,11 @@ import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
 import { useNoteState } from "./hooks";
 import { useControlsStore, useMusicStore } from "@/store";
-import type { StringIndex } from "../constants";
+import type { StringIndexes } from "../constants";
 
 interface FretboardCellProps {
   noteData: NoteObject;
-  stringIndex: StringIndex;
+  stringIndex: StringIndexes;
   fretIndex: number;
   isVisibleString: boolean;
 }

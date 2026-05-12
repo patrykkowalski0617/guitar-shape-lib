@@ -6,7 +6,7 @@ import type {
 } from "@/data";
 import {
   STRINGS_CONFIG,
-  type StringIndex,
+  type StringIndexes,
 } from "@/components/Fretboard/constants";
 
 interface ControlsState {
@@ -34,8 +34,8 @@ interface ControlsState {
   isPianoOn: boolean;
   togglePianoOn: () => void;
 
-  visibleStrings: StringIndex[];
-  setVisibleStrings: (strings: StringIndex[]) => void;
+  visibleStrings: StringIndexes;
+  setVisibleStrings: (strings: StringIndexes) => void;
 
   playBackingtrack: boolean;
   togglePlayBackingtrack: () => void;
@@ -49,7 +49,7 @@ const initialState = {
   isShapeSelectOpen: false,
   isShapeSliderHold: false,
   isPianoOn: false,
-  visibleStrings: Array.from(STRINGS_CONFIG.keys()) as StringIndex[],
+  visibleStrings: Array.from(STRINGS_CONFIG.keys()) as StringIndexes,
   playBackingtrack: true,
 };
 
