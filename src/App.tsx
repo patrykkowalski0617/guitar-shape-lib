@@ -16,7 +16,7 @@ import { MultiStepSliderTest } from "./components/ui/MultiStepSlider/MultiStepSl
 import { PianoControls } from "./components/PianoControls/PianoControls";
 import { ShapePlayer } from "./components/ShapePlayer/ShapePlayer";
 import { KeyAndChordPicker } from "@/components/KeyAndChordPicker/KeyAndChordPicker";
-import { DataDebug } from "./DataDebug";
+import { DataDebug } from "./DataDebug/DataDebug";
 import ShapePicker from "./components/ShapePicker/ShapePicker";
 
 const MotionSection = motion(Section);

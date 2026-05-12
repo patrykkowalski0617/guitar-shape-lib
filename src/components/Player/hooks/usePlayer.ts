@@ -12,8 +12,8 @@ export function usePlayer() {
   const setShapeVariantDataKeys = useMusicStore(
     (state) => state.setShapeVariantDataKeys,
   );
-  const setUnifiedMusicKeysDataKeys = useControlsStore(
-    (state) => state.setUnifiedMusicKeysDataKeys,
+  const setUnifiedMusicKeysDataKey = useControlsStore(
+    (state) => state.setUnifiedMusicKeysDataKey,
   );
   const setBaseChordDataKey = useControlsStore(
     (state) => state.setBaseChordDataKey,
@@ -53,7 +53,7 @@ export function usePlayer() {
 
     setShapeVariantDataKeys(null);
     setShapeVariantDataKeys_locked(firstBrick.snapshot.shapeVariantDataKeys);
-    setUnifiedMusicKeysDataKeys(firstBrick.snapshot.unifiedMusicKeysDataKey);
+    setUnifiedMusicKeysDataKey(firstBrick.snapshot.unifiedMusicKeysDataKey);
     setBaseChordDataKey(firstBrick.snapshot.baseChordDataKey);
     hasPreparedCountInRef.current = true;
   }, [
@@ -62,7 +62,7 @@ export function usePlayer() {
     bricks,
     setShapeVariantDataKeys_locked,
     setShapeVariantDataKeys,
-    setUnifiedMusicKeysDataKeys,
+    setUnifiedMusicKeysDataKey,
     setBaseChordDataKey,
     setEditableBrickId,
   ]);

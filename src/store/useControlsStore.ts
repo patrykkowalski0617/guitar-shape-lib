@@ -11,7 +11,7 @@ import {
 
 interface ControlsState {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys;
-  setUnifiedMusicKeysDataKeys: (id: UnifiedMusicKeysDataKeys) => void;
+  setUnifiedMusicKeysDataKey: (id: UnifiedMusicKeysDataKeys) => void;
 
   baseChordDataKey: BaseChordDataKey | null;
   setBaseChordDataKey: (id: BaseChordDataKey | null) => void;
@@ -56,7 +56,7 @@ const initialState = {
 export const useControlsStore = create<ControlsState>((set) => ({
   ...initialState,
 
-  setUnifiedMusicKeysDataKeys: (unifiedMusicKeysDataKey) =>
+  setUnifiedMusicKeysDataKey: (unifiedMusicKeysDataKey) =>
     set({ unifiedMusicKeysDataKey }),
 
   setBaseChordDataKey: (baseChordDataKey) => set({ baseChordDataKey }),

@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as S from "./parts";
 import { useDataKeyStore } from "@/store";
-import type { UnifiedMusicKeysDataKeys } from "@/data/UNIFIED_MUSIC_KEYS";
-import type { BaseChordDataKey } from "@/data/BASE_CHORDS";
+import { type UnifiedMusicKeysDataKeys, type BaseChordDataKey } from "@/data";
 
 export const DataDebug = () => {
   const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
@@ -18,23 +17,26 @@ export const DataDebug = () => {
 
   const [history, setHistory] = useState<string[]>([]);
 
-  const updateHistory = (newKey: string | null, newChord: string | null) => {
-    const time = new Date().toLocaleTimeString();
-    const keyLabel = newKey ?? "null";
-    const chordLabel = newChord ?? "null";
-    const entry = `${time} | Key: ${keyLabel} | Chord: ${chordLabel}`;
+  useEffect(() => {
+    // Subskrypcja na cały store, aby widzieć zmiany z KAŻDEGO miejsca w aplikacji
+    const unsubscribe = useDataKeyStore.subscribe((state) => {
+      const time = new Date().toLocaleTimeString();
+      const keyLabel = state.unifiedMusicKeysDataKey ?? "null";
+      const chordLabel = state.baseChordDataKey ?? "null";
+      const entry = `${time} | Key: ${keyLabel} | Chord: ${chordLabel}`;
 
-    setHistory((prev) => [entry, ...prev]);
-  };
+      setHistory((prev) => [entry, ...prev]);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const handleKeyUpdate = (value: UnifiedMusicKeysDataKeys | null) => {
     setUnifiedMusicKeysDataKey(value);
-    updateHistory(value, baseChordDataKey);
   };
 
   const handleChordUpdate = (value: BaseChordDataKey | null) => {
     setBaseChordDataKey(value);
-    updateHistory(unifiedMusicKeysDataKey, value);
   };
 
   return (

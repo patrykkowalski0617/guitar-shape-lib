@@ -1,6 +1,6 @@
 export * from "./useEnharmonicNoteName";
 export * from "./useCurrentBaseChordName";
-export * from "./useCurrentTuneKeyOffsetFromC";
+export * from "./useCurrentMusicKeyOffsetFromC";
 export * from "./useDelayedRender";
 export * from "./useHorizontalScroll";
 export * from "./usePersistentBoolean";

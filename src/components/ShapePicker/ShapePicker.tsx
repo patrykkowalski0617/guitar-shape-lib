@@ -1,21 +1,21 @@
-import { useControlsStore, useMusicStore } from "@/store";
+import { useDataKeyStore, useMusicStore, useUiStore } from "@/store";
 import { useCurrentBaseChordName } from "@/hooks";
 import { useSortedShapeOptions } from "./hooks/useSortedShapeOptions";
 
 export default function ShapePicker() {
-  const setShape = useControlsStore((state) => state.setShape);
+  const setShapeDataKey = useDataKeyStore((state) => state.setShapeDataKey);
   const setShapeVariantDataKeys = useMusicStore(
     (state) => state.setShapeVariantDataKeys,
   );
   const resetActiveLockedNoteIds = useMusicStore(
     (state) => state.resetActiveLockedNoteIds,
   );
-  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
-  const setBaseChordDataKey = useControlsStore(
+  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
+  const setBaseChordDataKey = useDataKeyStore(
     (state) => state.setBaseChordDataKey,
   );
-  const activeShapeDataKey = useControlsStore((state) => state.shapeDataKey);
-  const activeOffset = useControlsStore(
+  const activeShapeDataKey = useDataKeyStore((state) => state.shapeDataKey);
+  const activeOffset = useDataKeyStore(
     (state) => state.semitoneOffsetFromMajorRoot,
   );
 
@@ -29,11 +29,15 @@ export default function ShapePicker() {
     const offset = parseInt(offsetStr, 10);
 
     setShapeVariantDataKeys(null);
-    setShape(id, offset);
+    setShapeDataKey(id);
+    setShapeOffset(offset);
     resetActiveLockedNoteIds();
     setBaseChordDataKey(baseChordDataKey);
   };
 
+  const isExpanded = useUiStore((state) => state.isShapePickerExpanded);
+
+  if (!isExpanded) return null;
   return (
     <div className="flex flex-col gap-2">
       <div className="text-center py-1 text-xs text-muted-foreground">

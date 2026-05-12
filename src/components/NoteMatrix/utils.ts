@@ -40,7 +40,7 @@ export const calculateMatrixData = (
   shapeOffset: number,
   getEnharmonicName: (note: NoteObject) => NoteName,
 ) => {
-  const tuneKey =
+  const musicKey =
     UNIFIED_MUSIC_KEYS[
       unifiedMusicKeysDataKey as keyof typeof UNIFIED_MUSIC_KEYS
     ];
@@ -50,7 +50,7 @@ export const calculateMatrixData = (
   const chordOffset = baseChord.semitoneOffsetFromMajorRoot;
 
   const allNotes = getNotes({});
-  const rootNote = allNotes[tuneKey.offsetFromC];
+  const rootNote = allNotes[musicKey.offsetFromC];
   const tuneScale = getNotes({ firstNote: rootNote.sharpNoteName });
   const tuneEnharmonics = tuneScale.map(getEnharmonicName);
 

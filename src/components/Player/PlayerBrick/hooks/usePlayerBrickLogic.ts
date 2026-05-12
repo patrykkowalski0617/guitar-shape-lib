@@ -157,7 +157,7 @@ export const usePlayerBrickLogic = ({
 
   const hasData = displayData.rootNote !== null;
 
-  const tuneKeyOffset =
+  const musicKeyOffset =
     UNIFIED_MUSIC_KEYS[displayData.unifiedMusicKeysDataKey].offsetFromC;
 
   const roleMarker =
@@ -165,7 +165,7 @@ export const usePlayerBrickLogic = ({
       ? getEnharmonicNoteName(
           getNotes({ length: 24 })[
             BASE_CHORDS[displayData.baseChordDataKey]
-              .semitoneOffsetFromMajorRoot + tuneKeyOffset
+              .semitoneOffsetFromMajorRoot + musicKeyOffset
           ],
         )
       : null;

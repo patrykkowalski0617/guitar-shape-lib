@@ -6,7 +6,8 @@ export const useBaseChordShapes = () => {
   const unifiedMusicKeysDataKey = useControlsStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
-  const tuneKeyOffset = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
+  const musicKeyOffset =
+    UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
   const currentBaseChordData = baseChordDataKey
     ? BASE_CHORDS[baseChordDataKey]
     : null;
@@ -20,7 +21,7 @@ export const useBaseChordShapes = () => {
     currentBaseChordData.CAGEDchordShape
   ].flatMap((shape) => {
     const fretIndexAdjustment =
-      shape.baseFretIndex + tuneKeyOffset + semitoneOffsetFromMajorRoot;
+      shape.baseFretIndex + musicKeyOffset + semitoneOffsetFromMajorRoot;
 
     const octaveOffsets = [-24, -12, 0, 12, 24];
 

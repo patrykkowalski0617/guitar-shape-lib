@@ -1,11 +1,11 @@
-import { useControlsStore } from "@/store";
+import { useDataKeyStore } from "@/store";
 import { SHAPES, UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
 import { getFilteredAndFormatedShapes } from "../helpers/getFilteredAndFormatedShapes";
 
 export const useShapeOptions = () => {
-  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
-  const unifiedMusicKeysDataKey = useControlsStore(
+  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
+  const unifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
   const filteredAndFormatedShapes =

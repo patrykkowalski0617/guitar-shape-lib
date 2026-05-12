@@ -15,11 +15,11 @@ export function useKeyAndChordPicker() {
   const setBaseChordDataKey = useDataKeyStore(
     (state) => state.setBaseChordDataKey,
   );
-  const setUnifiedMusicKeysDataKeys = useDataKeyStore(
-    (state) => state.setUnifiedMusicKeysDataKeys,
+  const setUnifiedMusicKeysDataKey = useDataKeyStore(
+    (state) => state.setUnifiedMusicKeysDataKey,
   );
   const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
-  const currentTuneKeyDataKey = useDataKeyStore(
+  const currentMusicKeyDataKey = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
 
@@ -59,7 +59,7 @@ export function useKeyAndChordPicker() {
 
   const optionsPerKey = buildOptions();
   const currentCombinedValue = baseChordDataKey
-    ? `${currentTuneKeyDataKey}:${baseChordDataKey}`
+    ? `${currentMusicKeyDataKey}:${baseChordDataKey}`
     : "";
 
   const handleChordSelection = (
@@ -67,14 +67,14 @@ export function useKeyAndChordPicker() {
     newChordKey: BaseChordDataKey,
   ) => {
     setBaseChordDataKey(newChordKey);
-    setUnifiedMusicKeysDataKeys(newUnifiedKey);
+    setUnifiedMusicKeysDataKey(newUnifiedKey);
     setExpanded(false);
   };
 
   return {
     isExpanded,
     optionsPerKey,
-    currentTuneKeyDataKey,
+    currentMusicKeyDataKey,
     currentCombinedValue,
     handleChordSelection,
   };

@@ -17,8 +17,8 @@ export function UploadPreset() {
   const setBricks = usePlayerStore((state) => state.setBricks);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
-  const setUnifiedMusicKeysDataKeys = useControlsStore(
-    (state) => state.setUnifiedMusicKeysDataKeys,
+  const setUnifiedMusicKeysDataKey = useControlsStore(
+    (state) => state.setUnifiedMusicKeysDataKey,
   );
   const setShapeVariantDataKeys = useMusicStore(
     (state) => state.setShapeVariantDataKeys,
@@ -34,7 +34,7 @@ export function UploadPreset() {
 
     const firstSnapshot = bricks[0]?.snapshot;
     if (firstSnapshot) {
-      setUnifiedMusicKeysDataKeys(firstSnapshot.unifiedMusicKeysDataKey);
+      setUnifiedMusicKeysDataKey(firstSnapshot.unifiedMusicKeysDataKey);
     }
 
     setShapeVariantDataKeys(null);

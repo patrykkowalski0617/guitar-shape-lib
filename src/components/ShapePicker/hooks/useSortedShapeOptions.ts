@@ -1,13 +1,13 @@
 import { getNotes } from "@/utils";
-import { useControlsStore } from "@/store";
+import { useDataKeyStore } from "@/store";
 import { BASE_CHORDS, UNIFIED_MUSIC_KEYS } from "@/data";
 import { useShapeOptions } from "./useShapeOptions";
 
 export const useSortedShapeOptions = () => {
-  const unifiedMusicKeysDataKey = useControlsStore(
+  const unifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
-  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
+  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
   const options = useShapeOptions();
 
   if (!baseChordDataKey || !options) return;

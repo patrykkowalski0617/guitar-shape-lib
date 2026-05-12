@@ -1,7 +1,7 @@
 import { UNIFIED_MUSIC_KEYS } from "@/data";
 import { useControlsStore } from "@/store";
 
-export const useCurrentTuneKeyOffsetFromC = () => {
+export const useCurrentMusicKeyOffsetFromC = () => {
   const unifiedMusicKeysDataKey = useControlsStore(
     (state) => state.unifiedMusicKeysDataKey,
   );

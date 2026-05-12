@@ -16,7 +16,7 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
   } = useShapePlayerBrick(id);
 
   const brickLabel = brick
-    ? `${brick.unifiedMusicKeysDataKey} - ${brick.baseChordDataKey}`
+    ? ` unifiedMusicKeysDataKey: ${brick.unifiedMusicKeysDataKey} - baseChordDataKey: ${brick.baseChordDataKey} shapeDataKey: ${brick.shapeDataKey} `
     : id.slice(0, 8);
 
   return (

@@ -14,9 +14,10 @@ export const useCurrentBaseChordName = () => {
 
   if (!currentBaseChordData) return "";
 
-  const tuneKeyOffset = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
+  const musicKeyOffset =
+    UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
   const chordOffset = currentBaseChordData.semitoneOffsetFromMajorRoot;
-  const totalOffset = tuneKeyOffset + chordOffset;
+  const totalOffset = musicKeyOffset + chordOffset;
 
   const notes = getNotes({ length: 24 });
 

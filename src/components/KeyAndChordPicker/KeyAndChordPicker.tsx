@@ -6,7 +6,7 @@ export function KeyAndChordPicker() {
   const {
     isExpanded,
     optionsPerKey,
-    currentTuneKeyDataKey,
+    currentMusicKeyDataKey,
     currentCombinedValue,
     handleChordSelection,
   } = useKeyAndChordPicker();
@@ -17,7 +17,7 @@ export function KeyAndChordPicker() {
     <S.Wrapper>
       {optionsPerKey.map((group) => {
         const isCurrentlyActiveKey =
-          currentTuneKeyDataKey === group.unifiedMusicKeyDataKey;
+          currentMusicKeyDataKey === group.unifiedMusicKeyDataKey;
 
         return (
           <KeyAndChordPickerRow

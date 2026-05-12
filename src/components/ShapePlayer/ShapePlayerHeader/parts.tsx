@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-export const ShapePlayerLayout = styled.div`
-  max-width: 500px;
-`;
+export const ShapePlayerLayout = styled.div``;
 
 export const ShapePlayerHeaderWrapper = styled.div`
   display: flex;

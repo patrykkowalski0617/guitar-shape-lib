@@ -61,13 +61,13 @@ export const useBackingTrackSync = () => {
     if (!baseChordMatch) return;
 
     const { baseStringIndex, baseFretIndex } = baseChordMatch;
-    const tuneKeyOffset =
+    const musicKeyOffset =
       UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
     const baseChordOffsetFromC =
       BASE_CHORDS[baseChordDataKey].semitoneOffsetFromMajorRoot - 12;
 
     let bassNoteFretIndex =
-      baseFretIndex + tuneKeyOffset + baseChordOffsetFromC;
+      baseFretIndex + musicKeyOffset + baseChordOffsetFromC;
 
     const octave = 12;
     const maxFret = 24;

@@ -5,8 +5,8 @@ export function useBaseChordToggle() {
   const setBaseChordDataKey = useControlsStore(
     (state) => state.setBaseChordDataKey,
   );
-  const setUnifiedMusicKeysDataKeys = useControlsStore(
-    (state) => state.setUnifiedMusicKeysDataKeys,
+  const setUnifiedMusicKeysDataKey = useControlsStore(
+    (state) => state.setUnifiedMusicKeysDataKey,
   );
   const setShapeVariantDataKeys = useMusicStore(
     (state) => state.setShapeVariantDataKeys,
@@ -28,7 +28,7 @@ export function useBaseChordToggle() {
       combinedValue.split(":");
 
     setBaseChordDataKey(newBaseChordDataKey as BaseChordDataKey);
-    setUnifiedMusicKeysDataKeys(
+    setUnifiedMusicKeysDataKey(
       newUnifiedMusicKeysDataKeys as UnifiedMusicKeysDataKeys,
     );
   };
@@ -36,7 +36,7 @@ export function useBaseChordToggle() {
   const handleKeyOnlyChange = (
     unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys,
   ) => {
-    setUnifiedMusicKeysDataKeys(unifiedMusicKeysDataKey);
+    setUnifiedMusicKeysDataKey(unifiedMusicKeysDataKey);
     setShapeVariantDataKeys(null);
     setShapeVariantDataKeys_locked(null);
   };

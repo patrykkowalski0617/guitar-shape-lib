@@ -43,8 +43,6 @@ export function KeyAndChordPickerRow({
 
       <ToggleGroup type="single" value={currentValue} className="flex-1">
         {group.chords.map((item, index) => {
-          console.log(item);
-
           const modeName = chordsConfig[index].modeExtendedName;
           const fullLabel = `${item.chordName}${modeName}`;
 
