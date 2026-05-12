@@ -1,4 +1,4 @@
-import { UNIFIED_MUSIC_KEYS, type UnifiedMusicKeysDataKeys } from "@/data";
+import { UNIFIED_MUSIC_KEYS, type UnifiedMusicKeysDataKey } from "@/data";
 import { type Brick } from "@/store";
 
 export const transposeBricks = (
@@ -7,7 +7,7 @@ export const transposeBricks = (
 ): Brick[] => {
   const keysArray = Object.keys(
     UNIFIED_MUSIC_KEYS,
-  ) as UnifiedMusicKeysDataKeys[];
+  ) as UnifiedMusicKeysDataKey[];
   const keysCount = keysArray.length;
 
   return bricks.map((brick) => {
@@ -16,10 +16,10 @@ export const transposeBricks = (
     const { snapshot } = brick;
 
     const currentKeyIndex = keysArray.indexOf(
-      snapshot.unifiedMusicKeysDataKey as UnifiedMusicKeysDataKeys,
+      snapshot.unifiedMusicKeysDataKey as UnifiedMusicKeysDataKey,
     );
     const nextKeyIndex = (currentKeyIndex + semitones + keysCount) % keysCount;
-    const newUnifiedMusicKeysDataKeys = keysArray[nextKeyIndex];
+    const newUnifiedMusicKeysDataKey = keysArray[nextKeyIndex];
 
     const FRET_LIMIT = 24;
     let newLocationData = null;
@@ -39,7 +39,7 @@ export const transposeBricks = (
       ...brick,
       snapshot: {
         ...snapshot,
-        unifiedMusicKeysDataKey: newUnifiedMusicKeysDataKeys,
+        unifiedMusicKeysDataKey: newUnifiedMusicKeysDataKey,
         shapeVariantDataKeys: newLocationData,
       },
     };

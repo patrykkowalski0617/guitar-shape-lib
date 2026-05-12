@@ -65,17 +65,17 @@ export default function App() {
         </Section>
 
         <Section>
+          <UpperControlsBar />
+          <MiddleControlsBar />
+        </Section>
+
+        <Section>
           <ShapePlayer />
         </Section>
 
         <MultiStepSliderTest />
 
-        {/* <Section>
-          <MiddleControlsBar />
-        </Section>
-
-
-
+        {/*
         <AnimatePresence>
           {isPlayerUnlocked && (
             <MotionSection key="player-bar" {...standardAnimation}>

@@ -1,5 +1,5 @@
 import { useDataKeyStore, useUiStore } from "@/store";
-import { type BaseChordDataKey, type UnifiedMusicKeysDataKeys } from "@/data";
+import { type BaseChordDataKey, type UnifiedMusicKeysDataKey } from "@/data";
 import { useKeyAndChordOptions } from "./useKeyAndChordOptions";
 
 export function useKeyAndChordPicker() {
@@ -27,7 +27,7 @@ export function useKeyAndChordPicker() {
   const { optionsPerKey } = useKeyAndChordOptions();
 
   const handleChordSelection = (
-    newUnifiedKey: UnifiedMusicKeysDataKeys,
+    newUnifiedKey: UnifiedMusicKeysDataKey,
     newChordKey: BaseChordDataKey,
   ) => {
     setBaseChordDataKey(newChordKey);

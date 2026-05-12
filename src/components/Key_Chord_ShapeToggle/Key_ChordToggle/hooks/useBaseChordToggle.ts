@@ -1,5 +1,5 @@
 import { useControlsStore, useMusicStore } from "@/store";
-import { type BaseChordDataKey, type UnifiedMusicKeysDataKeys } from "@/data";
+import { type BaseChordDataKey, type UnifiedMusicKeysDataKey } from "@/data";
 
 export function useBaseChordToggle() {
   const setBaseChordDataKey = useControlsStore(
@@ -24,17 +24,17 @@ export function useBaseChordToggle() {
       return;
     }
 
-    const [newUnifiedMusicKeysDataKeys, newBaseChordDataKey] =
+    const [newUnifiedMusicKeysDataKey, newBaseChordDataKey] =
       combinedValue.split(":");
 
     setBaseChordDataKey(newBaseChordDataKey as BaseChordDataKey);
     setUnifiedMusicKeysDataKey(
-      newUnifiedMusicKeysDataKeys as UnifiedMusicKeysDataKeys,
+      newUnifiedMusicKeysDataKey as UnifiedMusicKeysDataKey,
     );
   };
 
   const handleKeyOnlyChange = (
-    unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys,
+    unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey,
   ) => {
     setUnifiedMusicKeysDataKey(unifiedMusicKeysDataKey);
     setShapeVariantDataKeys(null);
@@ -49,6 +49,6 @@ export function useBaseChordToggle() {
     currentValue: currentCombinedValue,
     handleValueChange,
     handleKeyOnlyChange,
-    currentUnifiedMusicKeysDataKeys: unifiedMusicKeysDataKey,
+    currentUnifiedMusicKeysDataKey: unifiedMusicKeysDataKey,
   };
 }

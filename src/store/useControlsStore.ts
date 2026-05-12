@@ -2,7 +2,7 @@ import { create } from "zustand";
 import type {
   BaseChordDataKey,
   ShapeDataKey,
-  UnifiedMusicKeysDataKeys,
+  UnifiedMusicKeysDataKey,
 } from "@/data";
 import {
   STRINGS_CONFIG,
@@ -10,8 +10,8 @@ import {
 } from "@/components/Fretboard/constants";
 
 interface ControlsState {
-  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys;
-  setUnifiedMusicKeysDataKey: (id: UnifiedMusicKeysDataKeys) => void;
+  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
+  setUnifiedMusicKeysDataKey: (id: UnifiedMusicKeysDataKey) => void;
 
   baseChordDataKey: BaseChordDataKey | null;
   setBaseChordDataKey: (id: BaseChordDataKey | null) => void;
@@ -42,7 +42,7 @@ interface ControlsState {
 }
 
 const initialState = {
-  unifiedMusicKeysDataKey: "C" as UnifiedMusicKeysDataKeys,
+  unifiedMusicKeysDataKey: "C" as UnifiedMusicKeysDataKey,
   baseChordDataKey: "BaseChord1" as BaseChordDataKey,
   shapeDataKey: null,
   semitoneOffsetFromMajorRoot: null as number | null,

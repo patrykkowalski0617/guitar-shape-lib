@@ -1,22 +1,22 @@
 import { Key_ChordSingleRow } from "./Key_ChordSingleRow";
-import type { UnifiedMusicKeysDataKeys } from "@/data";
+import type { UnifiedMusicKeysDataKey } from "@/data";
 import { Key_ChordLabel } from "./Key_ChordLabel";
 import { useLayoutEffect, useRef, useState } from "react";
 import * as S from "./parts";
 
 interface Props {
   optionsPerKey: any[];
-  currentUnifiedMusicKeysDataKeys: UnifiedMusicKeysDataKeys | null;
+  currentUnifiedMusicKeysDataKey: UnifiedMusicKeysDataKey | null;
   currentValue: string | undefined;
   activeIndex: number;
   onClose: () => void;
-  onSelectKey: (id: UnifiedMusicKeysDataKeys) => void;
+  onSelectKey: (id: UnifiedMusicKeysDataKey) => void;
   onSelectChord: (val: string) => void;
 }
 
 export function Key_ChordExpandedList({
   optionsPerKey,
-  currentUnifiedMusicKeysDataKeys,
+  currentUnifiedMusicKeysDataKey,
   currentValue,
   activeIndex,
   onClose,
@@ -160,7 +160,7 @@ export function Key_ChordExpandedList({
                 key={group.unifiedMusicKeysDataKey}
                 group={group}
                 isCurrentKey={
-                  currentUnifiedMusicKeysDataKeys ===
+                  currentUnifiedMusicKeysDataKey ===
                   group.unifiedMusicKeysDataKey
                 }
                 currentValue={currentValue}

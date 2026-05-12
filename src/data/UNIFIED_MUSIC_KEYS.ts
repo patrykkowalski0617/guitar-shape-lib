@@ -1,8 +1,8 @@
 import type { NoteName } from "./NOTE_NAMES";
 
-export type UnifiedMusicKeysDataKeys = keyof typeof UNIFIED_MUSIC_KEYS;
+export type UnifiedMusicKeysDataKey = keyof typeof UNIFIED_MUSIC_KEYS;
 
-export interface UnifiedMusicKeysDataKeysRecord {
+export interface UnifiedMusicKeysDataKeyRecord {
   offsetFromC: number;
   isFlatTune: boolean;
   majorFirstNote: NoteName;
@@ -108,4 +108,4 @@ export const UNIFIED_MUSIC_KEYS = {
     majorName: "B",
     relativeMinorName: "G#m",
   },
-} satisfies Record<string, UnifiedMusicKeysDataKeysRecord>;
+} satisfies Record<string, UnifiedMusicKeysDataKeyRecord>;

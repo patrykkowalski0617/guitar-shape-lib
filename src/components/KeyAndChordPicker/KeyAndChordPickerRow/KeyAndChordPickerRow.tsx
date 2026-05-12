@@ -2,7 +2,7 @@ import {
   BASE_CHORDS,
   type BaseChordDataKey,
   type NoteName,
-  type UnifiedMusicKeysDataKeys,
+  type UnifiedMusicKeysDataKey,
 } from "@/data";
 import * as S from "./parts";
 
@@ -13,7 +13,7 @@ interface ChordOption {
 }
 
 interface KeyGroup {
-  unifiedMusicKeyDataKey: UnifiedMusicKeysDataKeys;
+  unifiedMusicKeyDataKey: UnifiedMusicKeysDataKey;
   label: string;
   chords: ChordOption[];
 }
@@ -22,7 +22,7 @@ interface Props {
   group: KeyGroup;
   isCurrentKey: boolean;
   onSelectChord: (
-    key: UnifiedMusicKeysDataKeys,
+    key: UnifiedMusicKeysDataKey,
     chord: BaseChordDataKey,
   ) => void;
 }
@@ -48,10 +48,8 @@ export function KeyAndChordPickerRow({
         };
 
         return (
-          <S.Item>
-            <S.Chord key={item.combinedId} onClick={handleChordClick}>
-              {fullLabel}
-            </S.Chord>
+          <S.Item key={item.combinedId}>
+            <S.Chord onClick={handleChordClick}>{fullLabel}</S.Chord>
           </S.Item>
         );
       })}

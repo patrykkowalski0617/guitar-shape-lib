@@ -1,14 +1,14 @@
 import {
   BASE_CHORDS,
   UNIFIED_MUSIC_KEYS,
-  type UnifiedMusicKeysDataKeys,
+  type UnifiedMusicKeysDataKey,
 } from "@/data";
 import { getNotes } from "@/utils";
 
 export const useBaseChordOptions = () => {
   const keyEntries = Object.entries(UNIFIED_MUSIC_KEYS) as [
-    UnifiedMusicKeysDataKeys,
-    (typeof UNIFIED_MUSIC_KEYS)[UnifiedMusicKeysDataKeys],
+    UnifiedMusicKeysDataKey,
+    (typeof UNIFIED_MUSIC_KEYS)[UnifiedMusicKeysDataKey],
   ][];
 
   const optionsPerKey = keyEntries.map(([unifiedMusicKeysDataKey, keyData]) => {

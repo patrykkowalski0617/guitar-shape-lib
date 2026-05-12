@@ -1,22 +1,45 @@
 import {
   SHAPES,
+  type BassStringDataKey,
   type NoteName,
   type ShapeDataKey,
-  type ShapeVariantDataKeys,
+  type UnifiedMusicKeysDataKey,
+  type VariantDataKey,
 } from "@/data";
 import { getValidVariants, getNotes } from "@/utils";
 import {
   numberOfFrets,
   stringIndexes,
   STRINGS_CONFIG,
+  BASS_STRING_ID_MAP,
 } from "@/components/Fretboard/constants";
-import { BASS_STRING_ID_MAP } from "@/components/Fretboard/constants";
 
-export const getOrderedShapeLocations = (
-  shapeDataKey: ShapeDataKey | null,
-  rootNoteName: NoteName | null,
-): ShapeVariantDataKeys[] => {
-  if (!shapeDataKey || !rootNoteName) return [];
+interface GetOrderedShapeVariantDataKeysParams {
+  shapeDataKey: ShapeDataKey;
+  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
+  semitoneOffsetFromMajorRoot: number;
+}
+
+export interface ShapeVariantDataKeys {
+  stringId: BassStringDataKey;
+  fretIndex: number;
+  variantDataKey: VariantDataKey;
+}
+
+export const getOrderedShapeVariantDataKeys = ({
+  shapeDataKey,
+  unifiedMusicKeysDataKey,
+  semitoneOffsetFromMajorRoot,
+}: GetOrderedShapeVariantDataKeysParams) => {
+  if (!shapeDataKey) return [];
+
+  const notes = getNotes({ firstNote: unifiedMusicKeysDataKey });
+  const rootNoteIndex =
+    semitoneOffsetFromMajorRoot !== null
+      ? semitoneOffsetFromMajorRoot % 12
+      : null;
+  const rootNoteName =
+    rootNoteIndex !== null ? notes[rootNoteIndex].sharpNoteName : null;
 
   const locations: ShapeVariantDataKeys[] = [];
   const shapeData = SHAPES[shapeDataKey as keyof typeof SHAPES];
@@ -42,17 +65,15 @@ export const getOrderedShapeLocations = (
 
           validEntries.forEach(([variantDataKey]) => {
             locations.push({
-              shapeDataKey,
               stringId,
               fretIndex: fIdx,
-              variantDataKey: variantDataKey,
+              variantDataKey,
             });
           });
         }
       }
     }
   }
-  console.log("old", JSON.stringify(locations));
 
   return locations;
 };

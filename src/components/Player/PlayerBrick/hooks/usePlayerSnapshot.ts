@@ -1,14 +1,14 @@
 import { useEffect, useMemo } from "react";
 import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
 import {
-  type UnifiedMusicKeysDataKeys,
+  type UnifiedMusicKeysDataKey,
   type BaseChordDataKey,
   type ShapeVariantDataKeys,
 } from "@/data";
 import { useApplySnapshotToStore } from "./useApplySnapshotToStore";
 
 export type Snapshot = {
-  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys;
+  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
   baseChordDataKey: BaseChordDataKey;
   shapeVariantDataKeys: ShapeVariantDataKeys;
 };

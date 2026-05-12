@@ -1,5 +1,6 @@
 import * as S from "./parts";
 import { useShapePlayerBrick } from "./hooks/useShapePlayerBrick";
+import { ShapeMulitStepSliderExplorer } from "@/components/ShapeMulitStepSliderExplorer/ShapeMulitStepSliderExplorer";
 
 interface ShapePlayerBrickProps {
   id: string;
@@ -15,13 +16,21 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     handleRestoreClick,
     brick,
   } = useShapePlayerBrick(id);
+  if (!brick) return null;
+
+  const {
+    unifiedMusicKeysDataKey,
+    baseChordDataKey,
+    shapeDataKey,
+    semitoneOffsetFromMajorRoot,
+  } = brick;
 
   const brickDetails = brick
     ? [
-        `unifiedMusicKeysDataKey: ${brick.unifiedMusicKeysDataKey}`,
-        `baseChordDataKey: ${brick.baseChordDataKey}`,
-        `shapeDataKey: ${brick.shapeDataKey}`,
-        `semitoneOffsetFromMajorRoot: ${brick.semitoneOffsetFromMajorRoot}`,
+        `unifiedMusicKeysDataKey: ${unifiedMusicKeysDataKey}`,
+        `baseChordDataKey: ${baseChordDataKey}`,
+        `shapeDataKey: ${shapeDataKey}`,
+        `semitoneOffsetFromMajorRoot: ${semitoneOffsetFromMajorRoot}`,
         `brick id: ${id.slice(0, 8)}`,
       ]
     : [];
@@ -44,6 +53,11 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
           Usuń
         </S.ShapePlayerBrickDeleteButton>
       </div>
+      <ShapeMulitStepSliderExplorer
+        unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
+        shapeDataKey={shapeDataKey}
+        semitoneOffsetFromMajorRoot={semitoneOffsetFromMajorRoot}
+      />
     </S.ShapePlayerBrickWrapper>
   );
 };

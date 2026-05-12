@@ -13,26 +13,43 @@ export function useMultiStepSliderLogic(props: MultiStepSliderProps) {
     disabled,
     onBeforeValueChange,
   } = props;
+
   const isVertical = orientation === "vertical";
   const [isDragging, setIsDragging] = React.useState(false);
   const [previewValue, setPreviewValue] = React.useState<number[] | null>(null);
+
+  const lastEmittedValueRef = React.useRef<string>(JSON.stringify(value));
 
   const fullRangeValue = React.useMemo(() => getFullRange(value), [value]);
 
   const internalHandlers = useMultiStepSlider({
     value: fullRangeValue,
-    onValueChange: (next) =>
-      onValueChange([Math.min(...next), Math.max(...next)]),
+    onValueChange: (next) => {
+      const nextMin = Math.min(...next);
+      const nextMax = Math.max(...next);
+      const nextRange = [nextMin, nextMax];
+
+      const nextRangeStr = JSON.stringify(nextRange);
+
+      if (nextRangeStr !== lastEmittedValueRef.current) {
+        lastEmittedValueRef.current = nextRangeStr;
+        onValueChange(nextRange);
+      }
+    },
     max,
     min,
     isVertical,
   });
 
+  React.useEffect(() => {
+    lastEmittedValueRef.current = JSON.stringify(value);
+  }, [value]);
+
   const handleThumbPointerDown = (e: React.PointerEvent) => {
     if (disabled) return;
     setIsDragging(true);
     setPreviewValue(null);
-    internalHandlers.startDrag(disabled)(e);
+    internalHandlers.startDrag(!!disabled)(e);
     const stop = () => {
       setIsDragging(false);
       window.removeEventListener("pointerup", stop);

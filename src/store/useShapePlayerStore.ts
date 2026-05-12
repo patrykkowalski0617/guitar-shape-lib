@@ -3,12 +3,12 @@ import { arrayMove } from "@dnd-kit/sortable";
 import type {
   BaseChordDataKey,
   ShapeDataKey,
-  UnifiedMusicKeysDataKeys,
+  UnifiedMusicKeysDataKey,
 } from "@/data";
 
 export interface ShapePlayerBrick {
   id: string;
-  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKeys;
+  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
   baseChordDataKey: BaseChordDataKey;
   shapeDataKey: ShapeDataKey;
   semitoneOffsetFromMajorRoot: number;

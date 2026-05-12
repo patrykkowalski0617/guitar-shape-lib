@@ -2,15 +2,15 @@ import {
   BASE_CHORDS,
   UNIFIED_MUSIC_KEYS,
   type BaseChordDataKey,
-  type UnifiedMusicKeysDataKeys,
-  type UnifiedMusicKeysDataKeysRecord,
+  type UnifiedMusicKeysDataKey,
+  type UnifiedMusicKeysDataKeyRecord,
 } from "@/data";
 import { getNotes } from "@/utils";
 
 export function useKeyAndChordOptions() {
   const keyEntries = Object.entries(UNIFIED_MUSIC_KEYS) as [
-    UnifiedMusicKeysDataKeys,
-    UnifiedMusicKeysDataKeysRecord,
+    UnifiedMusicKeysDataKey,
+    UnifiedMusicKeysDataKeyRecord,
   ][];
 
   const optionsPerKey = keyEntries.map(([currentUnifiedKey, keyData]) => {
