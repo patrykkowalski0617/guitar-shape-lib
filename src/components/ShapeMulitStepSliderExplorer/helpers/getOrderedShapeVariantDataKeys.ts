@@ -1,10 +1,9 @@
 import {
   SHAPES,
-  type BassStringDataKey,
   type NoteName,
   type ShapeDataKey,
+  type ShapeVariantDataKeys,
   type UnifiedMusicKeysDataKey,
-  type VariantDataKey,
 } from "@/data";
 import { getValidVariants, getNotes } from "@/utils";
 import {
@@ -18,12 +17,6 @@ interface GetOrderedShapeVariantDataKeysParams {
   shapeDataKey: ShapeDataKey;
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
   semitoneOffsetFromMajorRoot: number;
-}
-
-export interface ShapeVariantDataKeys {
-  stringId: BassStringDataKey;
-  fretIndex: number;
-  variantDataKey: VariantDataKey;
 }
 
 export const getOrderedShapeVariantDataKeys = ({
@@ -65,6 +58,7 @@ export const getOrderedShapeVariantDataKeys = ({
 
           validEntries.forEach(([variantDataKey]) => {
             locations.push({
+              shapeDataKey,
               stringId,
               fretIndex: fIdx,
               variantDataKey,

@@ -18,6 +18,7 @@ import { ShapePlayer } from "./components/ShapePlayer/ShapePlayer";
 import { KeyAndChordPicker } from "@/components/KeyAndChordPicker/KeyAndChordPicker";
 import { DataDebug } from "./DataDebug/DataDebug";
 import ShapePicker from "./components/ShapePicker/ShapePicker";
+import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
 
 const MotionSection = motion(Section);
 
@@ -62,6 +63,7 @@ export default function App() {
         </Section>
         <Section>
           <Fretboard />
+          <GuitarFretboard />
         </Section>
 
         <Section>

@@ -1,7 +1,8 @@
+import { useState, useMemo, useEffect } from "react";
+import { useDataKeyStore } from "@/store";
 import type { ShapeDataKey, UnifiedMusicKeysDataKey } from "@/data";
-import { getOrderedShapeVariantDataKeys } from "./helpers/getOrderedShapeVariantDataKeys";
 import { MultiStepSlider } from "../ui/MultiStepSlider/MultiStepSlider";
-import { useState } from "react";
+import { getOrderedShapeVariantDataKeys } from "./helpers/getOrderedShapeVariantDataKeys";
 
 interface ShapeMultiStepSliderExplorerProps {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
@@ -14,25 +15,45 @@ export const ShapeMulitStepSliderExplorer = ({
   shapeDataKey,
   semitoneOffsetFromMajorRoot,
 }: ShapeMultiStepSliderExplorerProps) => {
-  const orderedLocations = getOrderedShapeVariantDataKeys({
-    shapeDataKey,
-    unifiedMusicKeysDataKey,
-    semitoneOffsetFromMajorRoot,
-  });
-  const [range, setRange] = useState([0, 0]);
+  const setSelectedShapeVariantDataKeys = useDataKeyStore(
+    (state) => state.setSelectedShapeVariantDataKeys,
+  );
+
+  const orderedLocations = useMemo(
+    () =>
+      getOrderedShapeVariantDataKeys({
+        shapeDataKey,
+        unifiedMusicKeysDataKey,
+        semitoneOffsetFromMajorRoot,
+      }),
+    [shapeDataKey, unifiedMusicKeysDataKey, semitoneOffsetFromMajorRoot],
+  );
+
+  const sliderKey = `${shapeDataKey}-${unifiedMusicKeysDataKey}-${semitoneOffsetFromMajorRoot}`;
+
+  const [userRange, setUserRange] = useState<number[] | null>(null);
+
+  const maxIdx = Math.max(0, orderedLocations.length - 1);
+
+  const currentRange = useMemo(() => {
+    return userRange ?? [0, 0];
+  }, [userRange, maxIdx]);
+
+  useEffect(() => {
+    const selectedData = orderedLocations.slice(
+      currentRange[0],
+      currentRange[1] + 1,
+    );
+    setSelectedShapeVariantDataKeys(selectedData);
+  }, [orderedLocations, currentRange, setSelectedShapeVariantDataKeys]);
+
   return (
     <MultiStepSlider
-      value={range}
-      onValueChange={(newRange) => {
-        setRange(newRange);
-        const selectedData = orderedLocations.slice(
-          newRange[0],
-          newRange[1] + 1,
-        );
-        console.log("Wybrane obiekty:", selectedData);
-      }}
+      key={sliderKey}
+      value={currentRange}
+      onValueChange={setUserRange}
       min={0}
-      max={orderedLocations.length - 1}
+      max={maxIdx}
     />
   );
 };

@@ -11,6 +11,7 @@ interface FretboardCellProps {
   stringIndex: StringValidIndex;
   fretIndex: number;
   isVisibleString: boolean;
+  isShapeCell: boolean;
 }
 
 export default function FretboardCell({
@@ -18,12 +19,13 @@ export default function FretboardCell({
   stringIndex,
   fretIndex,
   isVisibleString,
+  isShapeCell,
 }: FretboardCellProps) {
   const { handleMouseEnter, handleMouseLeave } = useFretboardCellInteraction({
     noteData,
   });
 
-  const { isLockedNote, isVisible, isBaseChordNote, noteLabel } = useNoteState({
+  const { isLockedNote, isBaseChordNote, noteLabel } = useNoteState({
     noteData,
     stringIndex,
     fretIndex,
@@ -54,11 +56,11 @@ export default function FretboardCell({
       >
         <S.Note
           $animateBaseChordDown={isShapeSliderHold}
-          $isVisible={isVisible}
+          $isVisible={isShapeCell}
           $isVisibleString={isVisibleString}
         >
           <NoteLabel
-            isVisible={isVisible}
+            isVisible={isShapeCell}
             variant="fretboard"
             noteLabel={noteLabel}
           />

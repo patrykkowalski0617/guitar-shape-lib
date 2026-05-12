@@ -1,4 +1,4 @@
-import { type JSX, useEffect, useRef } from "react";
+import { type JSX, useRef } from "react";
 import * as S from "./parts";
 import {
   numberOfFrets,
@@ -10,25 +10,25 @@ import { InstrumentScrollWrapper } from "@/parts";
 import { useFretboardScroll } from "./hooks";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
-import { useMusicStore } from "@/store";
-import { useShapeCoordinates } from "./FretboardCell/hooks";
-import type { FretboardCoordinate, NoteName } from "@/data";
+import { useDataKeyStore } from "@/store";
+import { useShapeCoordinates } from "./hooks";
+import type { NoteName } from "@/data";
 import { getNotes } from "@/utils";
 import HiddenShapeExplorerSlider from "../ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
 import FretboardRow from "./FretboardRow/FretboardRow";
 import { StringMultiStepSlider } from "./StringMultiStepSlider/StringMultiStepSlider";
 
-export default function Fretboard(): JSX.Element {
+export default function GuitarFretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
   useHorizontalScroll(scrollRef);
   useFretboardScroll(scrollRef);
-  // useShapeCoordinates();
-
-  const shapeVariantDataKeys = useMusicStore(
-    (state) => state.shapeVariantDataKeys,
+  const selectedShapeVariantDataKeys = useDataKeyStore(
+    (state) => state.selectedShapeVariantDataKeys,
   );
-  const updateShapeNotes = useMusicStore((state) => state.updateShapeNotes);
-  const shapeCoordinates = useShapeCoordinates(shapeVariantDataKeys);
+  const _selectedShapeVariantDataKeys = selectedShapeVariantDataKeys
+    ? selectedShapeVariantDataKeys[0]
+    : null;
+  const shapeCoordinates = useShapeCoordinates(_selectedShapeVariantDataKeys);
 
   const allFretboardNotes = STRINGS_CONFIG.map(
     ({ firstNoteInRow, firstNoteOctaveNumber }) =>
@@ -38,22 +38,6 @@ export default function Fretboard(): JSX.Element {
         firstOctave: firstNoteOctaveNumber,
       }),
   );
-
-  useEffect(() => {
-    if (shapeCoordinates) {
-      updateShapeNotes(
-        allFretboardNotes,
-        shapeCoordinates as FretboardCoordinate[],
-      );
-    } else {
-      updateShapeNotes([], []);
-    }
-  }, [
-    shapeVariantDataKeys,
-    shapeCoordinates,
-    allFretboardNotes,
-    updateShapeNotes,
-  ]);
 
   return (
     <S.FretboardNotScrollableWrapper>
@@ -69,6 +53,7 @@ export default function Fretboard(): JSX.Element {
                 key={index}
                 stringIndex={index as StringValidIndex}
                 rowNotes={rowNotes}
+                shapeCoordinates={shapeCoordinates}
               />
             ))}
             <S.FretboardShadow />
