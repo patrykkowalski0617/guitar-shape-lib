@@ -1,6 +1,6 @@
 import { useDataKeyStore } from "@/store";
 import { useShapeCoordinates } from "./useShapeCoordinates";
-import { useBaseChordShapes } from "./useBaseChordShapes";
+import { useCAGED_ChordsShapes } from "./useCAGED_ChordsShapes";
 import { findMatchingBaseChordCoordinates } from "../helpers/findMatchingBaseChordCoordinates";
 
 export const useMultiShapeCoordinates = () => {
@@ -10,12 +10,14 @@ export const useMultiShapeCoordinates = () => {
   const firstVariantKey = selectedShapesVariantDataKeys?.[0] ?? null;
   const shapeCoordinates = useShapeCoordinates(firstVariantKey);
 
-  const { baseChordCoordinates } = useBaseChordShapes();
+  const { CAGED_ChordsShapes } = useCAGED_ChordsShapes();
 
   const baseChordMatch = findMatchingBaseChordCoordinates({
-    baseChordCoordinates,
+    CAGED_ChordsShapes,
     shapeCoordinates,
   });
 
-  return { shapeCoordinates, baseChordMatch };
+  const baseChordCoordinates = baseChordMatch ? baseChordMatch.coordinates : [];
+
+  return { shapeCoordinates, baseChordCoordinates };
 };

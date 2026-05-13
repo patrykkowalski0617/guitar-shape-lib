@@ -1,12 +1,12 @@
 import type { BaseChordShape, FretboardCoordinate } from "@/data";
 
 export interface MatcherParams {
-  baseChordCoordinates: BaseChordShape[];
+  CAGED_ChordsShapes: BaseChordShape[];
   shapeCoordinates: FretboardCoordinate[];
 }
 
 export const findMatchingBaseChordCoordinates = ({
-  baseChordCoordinates,
+  CAGED_ChordsShapes,
   shapeCoordinates,
 }: MatcherParams): BaseChordShape | null => {
   const targetPointKeys = new Set(
@@ -17,7 +17,7 @@ export const findMatchingBaseChordCoordinates = ({
   let highestAccuracy = -1;
   let maxCommonPoints = -1;
 
-  baseChordCoordinates.forEach((candidate) => {
+  CAGED_ChordsShapes.forEach((candidate) => {
     const totalCandidatePoints = candidate.coordinates.length;
     if (totalCandidatePoints === 0) return;
 
