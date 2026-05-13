@@ -4,12 +4,12 @@ export const appBgColor = `color-mix(in oklab, var(--muted) 40%, var(--backgroun
 
 export const insetShadow = css`
   box-shadow:
-    3px 3px 6px 1px color-mix(in oklab, var(--background) 40%, transparent)
+    3px 3px 6px 1px color-mix(in oklab, var(--background) 60%, transparent)
       inset,
-    -1px -1px 1px 0px color-mix(in oklab, var(--foreground) 20%, transparent)
+    -1px -1px 1px 0px color-mix(in oklab, var(--foreground) 50%, transparent)
       inset,
-    3px 3px 10px 2px color-mix(in oklab, var(--background) 40%, transparent),
-    -1px -1px 10px 3px color-mix(in oklab, var(--foreground) 7%, transparent);
+    3px 3px 10px 2px color-mix(in oklab, var(--background) 80%, transparent),
+    -1px -1px 10px 3px color-mix(in oklab, var(--foreground) 20%, transparent);
 `;
 
 export const outsideShadow = css`

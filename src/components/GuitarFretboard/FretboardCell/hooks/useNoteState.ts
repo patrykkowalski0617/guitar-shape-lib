@@ -1,14 +1,11 @@
 import { useMusicStore } from "@/store";
 import { type NoteObject } from "@/utils";
 import { useShapeCoordinates } from "./useShapeCoordinates";
-import { isShapeNote as isShapeNoteFn } from "../helpers";
 import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
 import { useEnharmonicNoteName } from "@/hooks";
-import { useBaseChordShapes } from "./useBaseChordShapes";
-import { findMatchingBaseChordCoordinates } from "../helpers/findMatchingBaseChordCoordinates";
-import { isBaseChordNote as isBaseChordNoteFn } from "../helpers/isBaseChordNote";
 import { type FretboardCoordinate } from "@/data";
 import { type StringIndexes } from "../../constants";
+import { isShapeCell as isShapeCellFn } from "../../FretboardRow/helpers";
 
 interface UseNoteStateProps {
   noteData: NoteObject;
@@ -30,7 +27,6 @@ export const useNoteState = ({
 
   const allShapesCoordinates = useShapeAllCoordinates();
   const shapeCoordinates = useShapeCoordinates(shapeVariantDataKeys);
-  const { baseChordCoordinates } = useBaseChordShapes();
   const getEnharmonicNoteName = useEnharmonicNoteName();
 
   const currentCoordinates: FretboardCoordinate = [stringIndex, fretIndex];
@@ -43,34 +39,20 @@ export const useNoteState = ({
     shapeVariantDataKeys_locked,
   ) as FretboardCoordinate[];
 
-  const isShapeNote = isShapeNoteFn(
+  const isShapeCell = isShapeCellFn(
     currentCoordinates,
     finalShapeCoordinates as FretboardCoordinate[],
   );
-  const isLockedNote = isShapeNoteFn(
+  const isLockedNote = isShapeCellFn(
     currentCoordinates,
     lockedShapeCoordinates,
   );
 
-  const baseChordMatch = findMatchingBaseChordCoordinates({
-    baseChordCoordinates,
-    shapeCoordinates,
-  });
-
-  const matchingBaseChordCoordinates = shapeVariantDataKeys && baseChordMatch;
-
-  const isBaseChordNote =
-    !!matchingBaseChordCoordinates &&
-    isBaseChordNoteFn({
-      matchingBaseChordCoordinates,
-      stringIndex,
-      fretIndex,
-    });
+  const matchingBaseChordCoordinates = shapeVariantDataKeys;
 
   return {
-    isShapeNote,
+    isShapeCell,
     isLockedNote,
-    isBaseChordNote,
     noteLabel: getEnharmonicNoteName(noteData),
     matchingBaseChordCoordinates,
   };

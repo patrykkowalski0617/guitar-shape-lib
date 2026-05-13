@@ -1,6 +1,6 @@
 import type { FretboardCoordinate } from "@/data";
 
-export const isShapeNote = (
+export const isShapeCell = (
   currentCoordinates: FretboardCoordinate,
   shapeCoordinates: FretboardCoordinate[],
 ): boolean => {

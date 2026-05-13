@@ -2,7 +2,7 @@ import type { FretboardCoordinate } from "@/data";
 
 export type Shape = { coordinates: FretboardCoordinate[] };
 
-export const isBaseChordNote = ({
+export const isBaseChordCell = ({
   matchingBaseChordCoordinates,
   stringIndex,
   fretIndex,

@@ -50,7 +50,7 @@ export const calculateMatrixData = (
   const chordOffset = baseChord.semitoneOffsetFromMajorRoot;
 
   const allNotes = getNotes({});
-  const rootNote = allNotes[musicKey.offsetFromC];
+  const rootNote = allNotes[musicKey.semitonOffsetFromC];
   const tuneScale = getNotes({ firstNote: rootNote.sharpNoteName });
   const tuneEnharmonics = tuneScale.map(getEnharmonicName);
 

@@ -58,24 +58,24 @@ export default function App() {
         </MotionSection>
           )}
         </AnimatePresence> */}
-        <Section>
+        {/* <Section>
           <Piano />
-        </Section>
+        </Section> */}
         <Section>
-          <Fretboard />
           <GuitarFretboard />
         </Section>
 
-        <Section>
+        {/* <Section>
+          <Fretboard />
           <UpperControlsBar />
           <MiddleControlsBar />
-        </Section>
+        </Section> */}
 
         <Section>
           <ShapePlayer />
         </Section>
 
-        <MultiStepSliderTest />
+        {/* <MultiStepSliderTest /> */}
 
         {/*
         <AnimatePresence>

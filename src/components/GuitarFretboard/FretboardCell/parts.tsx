@@ -79,7 +79,6 @@ export const Fret = styled.div<{
 `;
 
 export const Note = styled.div<{
-  $animateBaseChordDown: boolean;
   $isVisible: boolean;
   $isVisibleString: boolean;
 }>`

@@ -1,12 +1,12 @@
 import { useMusicStore } from "@/store";
 import { type NoteObject } from "@/utils";
 import { useShapeCoordinates } from "./useShapeCoordinates";
-import { isShapeNote as isShapeNoteFn } from "../helpers";
+import { isShapeCell as isShapeCellFn } from "../helpers/isShapeCell";
 import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
 import { useEnharmonicNoteName } from "@/hooks";
 import { useBaseChordShapes } from "./useBaseChordShapes";
 import { findMatchingBaseChordCoordinates } from "../helpers/findMatchingBaseChordCoordinates";
-import { isBaseChordNote as isBaseChordNoteFn } from "../helpers/isBaseChordNote";
+import { isBaseChordCell as isBaseChordCellFn } from "../helpers/isBaseChordCell";
 import { type FretboardCoordinate } from "@/data";
 import { type StringIndexes } from "../../constants";
 
@@ -48,11 +48,11 @@ export const useNoteState = ({
   ) as FretboardCoordinate[];
 
   const isActiveNote = activeNoteId === noteData.noteId;
-  const isShapeNote = isShapeNoteFn(
+  const isShapeCell = isShapeCellFn(
     currentCoordinates,
     finalShapeCoordinates as FretboardCoordinate[],
   );
-  const isLockedNote = isShapeNoteFn(
+  const isLockedNote = isShapeCellFn(
     currentCoordinates,
     lockedShapeCoordinates,
   );
@@ -63,22 +63,23 @@ export const useNoteState = ({
     baseChordCoordinates,
     shapeCoordinates,
   });
+  console.log(baseChordCoordinates);
 
   const matchingBaseChordCoordinates = shapeVariantDataKeys && baseChordMatch;
 
-  const isBaseChordNote =
+  const isBaseChordCell =
     !!matchingBaseChordCoordinates &&
-    isBaseChordNoteFn({
+    isBaseChordCellFn({
       matchingBaseChordCoordinates,
       stringIndex,
       fretIndex,
     });
 
   return {
-    isVisible: isShapeNote || isActiveNote || isActiveLockedNotes,
-    isShapeNote,
+    isVisible: isShapeCell || isActiveNote || isActiveLockedNotes,
+    isShapeCell,
     isLockedNote,
-    isBaseChordNote,
+    isBaseChordCell,
     noteLabel: getEnharmonicNoteName(noteData),
     matchingBaseChordCoordinates,
   };

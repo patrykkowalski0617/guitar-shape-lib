@@ -158,7 +158,7 @@ export const usePlayerBrickLogic = ({
   const hasData = displayData.rootNote !== null;
 
   const musicKeyOffset =
-    UNIFIED_MUSIC_KEYS[displayData.unifiedMusicKeysDataKey].offsetFromC;
+    UNIFIED_MUSIC_KEYS[displayData.unifiedMusicKeysDataKey].semitonOffsetFromC;
 
   const roleMarker =
     hasData && displayData.baseChordDataKey !== null

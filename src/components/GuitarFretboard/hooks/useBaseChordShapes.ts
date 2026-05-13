@@ -1,13 +1,16 @@
 import { BASE_CHORDS, UNIFIED_MUSIC_KEYS, CAGED_CHORDS_SHAPES } from "@/data";
-import { useControlsStore } from "@/store";
+import { useDataKeyStore } from "@/store";
 
 export const useBaseChordShapes = () => {
-  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
-  const unifiedMusicKeysDataKey = useControlsStore(
+  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
+  const unifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
+
+  if (!unifiedMusicKeysDataKey) return { baseChordCoordinates: [] };
+
   const musicKeyOffset =
-    UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
+    UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].semitonOffsetFromC;
   const currentBaseChordData = baseChordDataKey
     ? BASE_CHORDS[baseChordDataKey]
     : null;
@@ -18,7 +21,7 @@ export const useBaseChordShapes = () => {
     currentBaseChordData.semitoneOffsetFromMajorRoot ?? 0;
 
   const baseChordCoordinates = CAGED_CHORDS_SHAPES[
-    currentBaseChordData.CAGEDchordShape
+    currentBaseChordData.CAGEDchordShape as keyof typeof CAGED_CHORDS_SHAPES
   ].flatMap((shape) => {
     const fretIndexAdjustment =
       shape.baseFretIndex + musicKeyOffset + semitoneOffsetFromMajorRoot;

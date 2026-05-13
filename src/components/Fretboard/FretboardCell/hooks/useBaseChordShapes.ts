@@ -7,7 +7,7 @@ export const useBaseChordShapes = () => {
     (state) => state.unifiedMusicKeysDataKey,
   );
   const musicKeyOffset =
-    UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
+    UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].semitonOffsetFromC;
   const currentBaseChordData = baseChordDataKey
     ? BASE_CHORDS[baseChordDataKey]
     : null;

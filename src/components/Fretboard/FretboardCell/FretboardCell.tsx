@@ -23,7 +23,7 @@ export default function FretboardCell({
     noteData,
   });
 
-  const { isLockedNote, isVisible, isBaseChordNote, noteLabel } = useNoteState({
+  const { isLockedNote, isVisible, isBaseChordCell, noteLabel } = useNoteState({
     noteData,
     stringIndex,
     fretIndex,
@@ -49,7 +49,7 @@ export default function FretboardCell({
       <S.Fret
         $isLockedNote={isLockedNote}
         data-fret={fretIndex}
-        $isBaseChordShapeNote={isBaseChordNote}
+        $isBaseChordShapeNote={isBaseChordCell}
         $isVisibleString={isVisibleString}
       >
         <S.Note

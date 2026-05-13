@@ -52,7 +52,6 @@ export const getOrderedShapeLocations = (
       }
     }
   }
-  console.log("old", JSON.stringify(locations));
 
   return locations;
 };

@@ -15,7 +15,7 @@ export const useCurrentBaseChordName = () => {
   if (!unifiedMusicKeysDataKey) return "";
 
   const musicKeyOffset =
-    UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
+    UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].semitonOffsetFromC;
   const chordOffset = currentBaseChordData.semitoneOffsetFromMajorRoot;
   const totalOffset = musicKeyOffset + chordOffset;
 

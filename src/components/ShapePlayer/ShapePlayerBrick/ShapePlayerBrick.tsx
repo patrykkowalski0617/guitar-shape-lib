@@ -53,8 +53,10 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
           Usuń
         </S.ShapePlayerBrickDeleteButton>
       </div>
+
       <ShapeMulitStepSliderExplorer
         unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
+        baseChordDataKey={baseChordDataKey}
         shapeDataKey={shapeDataKey}
         semitoneOffsetFromMajorRoot={semitoneOffsetFromMajorRoot}
       />

@@ -46,18 +46,21 @@ export const Tick = styled.div.attrs<{
   },
 }))<{ $tickPos: number; $isVertical: boolean }>`
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background: radial-gradient(
-    circle,
+    circle at 35% 35%,
     var(--foreground) 0%,
-    var(--primary) 10%,
-    var(--background) 100%
+    color-mix(in oklab, var(--primary) 100%, var(--foreground)) 30%
   );
-  box-shadow: 2px 2px 8px 2px var(--background);
+  box-shadow:
+    4px 4px 8px 0px var(--background),
+    -2px -2px 4px 0px var(--background) inset;
   z-index: 3;
+  border: 1px solid var(--background);
   pointer-events: none;
+  filter: blur(0.4px);
 `;
 
 export const SliderThumb = styled.div.attrs<{
@@ -97,15 +100,25 @@ export const SliderThumb = styled.div.attrs<{
   }),
 )<any>`
   position: absolute;
+  filter: blur(0.4px);
   border-radius: 99px;
   border: 1px solid var(--background);
   box-shadow:
     4px 4px 8px 0px var(--background),
-    0px 0px 4px 1px var(--background) inset,
+    -2px -2px 4px 0px var(--background) inset,
     0px 0px 2px 4px var(--primary) inset;
   z-index: ${({ $isPreview, $isDragging }) =>
     $isPreview ? 15 : $isDragging ? 20 : 10};
   pointer-events: ${({ $isPreview }) => ($isPreview ? "none" : "auto")};
+  outline: 1px var(--background) solid;
+  outline-offset: -6px;
+  &::before {
+    content: "";
+    inset: 5px;
+    position: absolute;
+    border-radius: 100px;
+    box-shadow: 0 0 4px 3px var(--background);
+  }
 `;
 
 export const InteractionContainer = styled.div<{

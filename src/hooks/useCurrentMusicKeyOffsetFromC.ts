@@ -5,7 +5,8 @@ export const useCurrentMusicKeyOffsetFromC = () => {
   const unifiedMusicKeysDataKey = useControlsStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
-  const offsetFromC = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
+  const semitonOffsetFromC =
+    UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].semitonOffsetFromC;
 
-  return { offsetFromC };
+  return { semitonOffsetFromC };
 };

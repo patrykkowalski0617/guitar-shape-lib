@@ -3,7 +3,7 @@ import type { NoteName } from "./NOTE_NAMES";
 export type UnifiedMusicKeysDataKey = keyof typeof UNIFIED_MUSIC_KEYS;
 
 export interface UnifiedMusicKeysDataKeyRecord {
-  offsetFromC: number;
+  semitonOffsetFromC: number;
   isFlatTune: boolean;
   majorFirstNote: NoteName;
   relativeMinorFirstNote: NoteName;
@@ -13,7 +13,7 @@ export interface UnifiedMusicKeysDataKeyRecord {
 
 export const UNIFIED_MUSIC_KEYS = {
   C: {
-    offsetFromC: 0,
+    semitonOffsetFromC: 0,
     isFlatTune: false,
     majorFirstNote: "C",
     relativeMinorFirstNote: "A",
@@ -21,7 +21,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorName: "Am",
   },
   Db: {
-    offsetFromC: 1,
+    semitonOffsetFromC: 1,
     isFlatTune: true,
     majorFirstNote: "Db",
     relativeMinorFirstNote: "Bb",
@@ -29,7 +29,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorName: "Bbm",
   },
   D: {
-    offsetFromC: 2,
+    semitonOffsetFromC: 2,
     isFlatTune: false,
     majorFirstNote: "D",
     relativeMinorFirstNote: "B",
@@ -37,7 +37,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorName: "Bm",
   },
   Eb: {
-    offsetFromC: 3,
+    semitonOffsetFromC: 3,
     isFlatTune: true,
     majorFirstNote: "Eb",
     relativeMinorFirstNote: "C",
@@ -45,7 +45,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorName: "Cm",
   },
   E: {
-    offsetFromC: 4,
+    semitonOffsetFromC: 4,
     isFlatTune: false,
     majorFirstNote: "E",
     relativeMinorFirstNote: "C#",
@@ -53,7 +53,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorName: "C#m",
   },
   F: {
-    offsetFromC: 5,
+    semitonOffsetFromC: 5,
     isFlatTune: true,
     majorFirstNote: "F",
     relativeMinorFirstNote: "D",
@@ -61,7 +61,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorName: "Dm",
   },
   "F#": {
-    offsetFromC: 6,
+    semitonOffsetFromC: 6,
     isFlatTune: false,
     majorFirstNote: "F#",
     relativeMinorFirstNote: "D#",
@@ -69,7 +69,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorName: "D#m",
   },
   G: {
-    offsetFromC: 7,
+    semitonOffsetFromC: 7,
     isFlatTune: false,
     majorFirstNote: "G",
     relativeMinorFirstNote: "E",
@@ -77,7 +77,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorName: "Em",
   },
   Ab: {
-    offsetFromC: 8,
+    semitonOffsetFromC: 8,
     isFlatTune: true,
     majorFirstNote: "Ab",
     relativeMinorFirstNote: "F",
@@ -85,7 +85,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorName: "Fm",
   },
   A: {
-    offsetFromC: 9,
+    semitonOffsetFromC: 9,
     isFlatTune: false,
     majorFirstNote: "A",
     relativeMinorFirstNote: "F#",
@@ -93,7 +93,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorName: "F#m",
   },
   Bb: {
-    offsetFromC: 10,
+    semitonOffsetFromC: 10,
     isFlatTune: true,
     majorFirstNote: "Bb",
     relativeMinorFirstNote: "G",
@@ -101,7 +101,7 @@ export const UNIFIED_MUSIC_KEYS = {
     relativeMinorName: "Gm",
   },
   B: {
-    offsetFromC: 11,
+    semitonOffsetFromC: 11,
     isFlatTune: false,
     majorFirstNote: "B",
     relativeMinorFirstNote: "G#",

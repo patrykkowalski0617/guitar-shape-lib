@@ -62,7 +62,7 @@ export const useBackingTrackSync = () => {
 
     const { baseStringIndexes, baseFretIndex } = baseChordMatch;
     const musicKeyOffset =
-      UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].offsetFromC;
+      UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].semitonOffsetFromC;
     const baseChordOffsetFromC =
       BASE_CHORDS[baseChordDataKey].semitoneOffsetFromMajorRoot - 12;
 

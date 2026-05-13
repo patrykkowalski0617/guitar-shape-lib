@@ -1,1 +1,1 @@
-export * from "./isShapeNote";
+export * from "./isShapeCell";
