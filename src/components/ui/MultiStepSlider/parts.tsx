@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { insetShadow } from "@/constants";
 
 export const SliderRoot = styled.div<{ $isVertical: boolean }>`
   position: relative;
@@ -20,8 +19,13 @@ export const SliderTrack = styled.div<{
   background-color: color-mix(in oklab, var(--background) 50%, transparent);
   border-radius: 9999px;
   z-index: 2;
-  ${insetShadow}
-
+  box-shadow:
+    3px 3px 6px 1px color-mix(in oklab, var(--background) 60%, transparent)
+      inset,
+    -1px -1px 1px 0px color-mix(in oklab, var(--foreground) 60%, transparent)
+      inset,
+    3px 3px 10px 2px color-mix(in oklab, var(--foreground) 20%, transparent),
+    -1px -1px 8px 3px color-mix(in oklab, var(--background) 80%, transparent);
   ${({ $isVertical, $thumbSize }) =>
     $isVertical
       ? css`
@@ -31,7 +35,7 @@ export const SliderTrack = styled.div<{
       : css`
           height: 5px;
           width: calc(100% - ${$thumbSize}px);
-        `}
+        `};
 `;
 
 export const Tick = styled.div.attrs<{
@@ -55,7 +59,7 @@ export const Tick = styled.div.attrs<{
     color-mix(in oklab, var(--primary) 100%, var(--foreground)) 30%
   );
   box-shadow:
-    4px 4px 8px 0px var(--background),
+    2px 2px 5px 1px color-mix(in oklab, var(--background) 80%, transparent),
     -2px -2px 4px 0px var(--background) inset;
   z-index: 3;
   border: 1px solid var(--background);

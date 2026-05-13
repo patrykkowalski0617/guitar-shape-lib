@@ -1,40 +1,34 @@
 import { useState, useEffect } from "react";
 import * as S from "./parts";
 import { useDataKeyStore } from "@/store";
+import { DebugRow } from "./DebugRow";
+import { DebugHistory } from "./DebugHistory";
 
 export const DataDebug = () => {
-  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
-  const setBaseChordDataKey = useDataKeyStore(
-    (state) => state.setBaseChordDataKey,
-  );
-  const unifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.unifiedMusicKeysDataKey,
-  );
-  const setUnifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.setUnifiedMusicKeysDataKey,
-  );
-
-  const shapeDataKey = useDataKeyStore((state) => state.shapeDataKey);
-  const setShapeDataKey = useDataKeyStore((state) => state.setShapeDataKey);
-
-  const semitoneOffsetFromMajorRoot = useDataKeyStore(
-    (state) => state.semitoneOffsetFromMajorRoot,
-  );
-  const setSemitoneOffsetFromMajorRoot = useDataKeyStore(
-    (state) => state.setSemitoneOffsetFromMajorRoot,
-  );
+  const {
+    baseChordDataKey,
+    setBaseChordDataKey,
+    unifiedMusicKeysDataKey,
+    setUnifiedMusicKeysDataKey,
+    shapeDataKey,
+    setShapeDataKey,
+    semitoneOffsetFromMajorRoot,
+    setSemitoneOffsetFromMajorRoot,
+  } = useDataKeyStore();
 
   const [history, setHistory] = useState<string[]>([]);
 
   useEffect(() => {
     const unsubscribe = useDataKeyStore.subscribe((state) => {
       const time = new Date().toLocaleTimeString();
-      const k = state.unifiedMusicKeysDataKey ?? "null";
-      const c = state.baseChordDataKey ?? "null";
-      const s = state.shapeDataKey ?? "null";
-      const o = state.semitoneOffsetFromMajorRoot ?? "null";
+      const {
+        unifiedMusicKeysDataKey: k,
+        baseChordDataKey: c,
+        shapeDataKey: s,
+        semitoneOffsetFromMajorRoot: o,
+      } = state;
 
-      const entry = `${time} | K:${k} | C:${c} | S:${s} | O:${o}`;
+      const entry = `${time} | K:${k ?? "null"} | C:${c ?? "null"} | S:${s ?? "null"} | O:${o ?? "null"}`;
       setHistory((prev) => [entry, ...prev]);
     });
 
@@ -44,83 +38,40 @@ export const DataDebug = () => {
   return (
     <S.DebugContainer>
       <S.Column>
-        {/* KEY Row */}
-        <S.DataRow>
-          <S.Label>Key:</S.Label>
-          <S.ValueBox>
-            <S.ValueHighlight>
-              {unifiedMusicKeysDataKey ?? "NULL"}
-            </S.ValueHighlight>
-          </S.ValueBox>
-          <S.ButtonGroup>
-            <S.ActionButton onClick={() => setUnifiedMusicKeysDataKey("Db")}>
-              Set Db
-            </S.ActionButton>
-            <S.ResetButton onClick={() => setUnifiedMusicKeysDataKey(null)}>
-              Clear
-            </S.ResetButton>
-          </S.ButtonGroup>
-        </S.DataRow>
+        <DebugRow
+          label="Key"
+          value={unifiedMusicKeysDataKey}
+          onSet={() => setUnifiedMusicKeysDataKey("Db")}
+          onClear={() => setUnifiedMusicKeysDataKey(null)}
+          setActionLabel="Set Db"
+        />
 
-        {/* CHORD Row */}
-        <S.DataRow>
-          <S.Label>Chord:</S.Label>
-          <S.ValueBox>
-            <S.ValueHighlight>{baseChordDataKey ?? "NULL"}</S.ValueHighlight>
-          </S.ValueBox>
-          <S.ButtonGroup>
-            <S.ActionButton onClick={() => setBaseChordDataKey("BaseChord2")}>
-              Set BaseChord2
-            </S.ActionButton>
-            <S.ResetButton onClick={() => setBaseChordDataKey(null)}>
-              Clear
-            </S.ResetButton>
-          </S.ButtonGroup>
-        </S.DataRow>
+        <DebugRow
+          label="Chord"
+          value={baseChordDataKey}
+          onSet={() => setBaseChordDataKey("BaseChord2")}
+          onClear={() => setBaseChordDataKey(null)}
+          setActionLabel="Set BaseChord2"
+        />
 
-        {/* SHAPE Row */}
-        <S.DataRow>
-          <S.Label>Shape:</S.Label>
-          <S.ValueBox>
-            <S.ValueHighlight>{shapeDataKey ?? "NULL"}</S.ValueHighlight>
-          </S.ValueBox>
-          <S.ButtonGroup>
-            <S.ActionButton onClick={() => setShapeDataKey("M7")}>
-              Set M7
-            </S.ActionButton>
-            <S.ResetButton onClick={() => setShapeDataKey(null)}>
-              Clear
-            </S.ResetButton>
-          </S.ButtonGroup>
-        </S.DataRow>
+        <DebugRow
+          label="Shape"
+          value={shapeDataKey}
+          onSet={() => setShapeDataKey("M7")}
+          onClear={() => setShapeDataKey(null)}
+          setActionLabel="Set M7"
+        />
 
-        {/* OFFSET Row */}
-        <S.DataRow>
-          <S.Label>Offset:</S.Label>
-          <S.ValueBox>
-            <S.ValueHighlight>
-              {semitoneOffsetFromMajorRoot ?? "NULL"}
-            </S.ValueHighlight>
-          </S.ValueBox>
-          <S.ButtonGroup>
-            <S.ActionButton onClick={() => setSemitoneOffsetFromMajorRoot(4)}>
-              Set 4
-            </S.ActionButton>
-            <S.ResetButton onClick={() => setSemitoneOffsetFromMajorRoot(null)}>
-              Clear
-            </S.ResetButton>
-          </S.ButtonGroup>
-        </S.DataRow>
+        <DebugRow
+          label="Offset"
+          value={semitoneOffsetFromMajorRoot}
+          onSet={() => setSemitoneOffsetFromMajorRoot(4)}
+          onClear={() => setSemitoneOffsetFromMajorRoot(null)}
+          setActionLabel="Set 4"
+        />
       </S.Column>
 
-      <S.Column>
-        <S.HistoryHeader>Full History</S.HistoryHeader>
-        <S.HistoryScrollArea>
-          {history.map((entry, index) => (
-            <S.HistoryEntry key={index}>{entry}</S.HistoryEntry>
-          ))}
-        </S.HistoryScrollArea>
-      </S.Column>
+      <DebugHistory history={history} />
     </S.DebugContainer>
   );
 };

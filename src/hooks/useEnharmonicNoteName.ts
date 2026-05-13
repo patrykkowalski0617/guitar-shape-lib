@@ -1,13 +1,27 @@
-import { useControlsStore } from "@/store";
+import { useDataKeyStore } from "@/store";
 import type { NoteObject } from "../utils/getNotes";
-import { UNIFIED_MUSIC_KEYS } from "@/data";
+import { UNIFIED_MUSIC_KEYS, type UnifiedMusicKeysDataKey } from "@/data";
 
 export const useEnharmonicNoteName = () => {
-  const unifiedMusicKeysDataKey = useControlsStore(
+  const store_unifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
-  const isFlatTune = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].isFlatTune;
 
-  return (note: NoteObject) =>
-    isFlatTune ? note.flatNoteName : note.sharpNoteName;
+  return (
+    note: NoteObject,
+    {
+      unifiedMusicKeysDataKey: provided_unifiedMusicKeysDataKey,
+    }: { unifiedMusicKeysDataKey?: UnifiedMusicKeysDataKey } = {},
+  ) => {
+    const unifiedMusicKeysDataKey =
+      provided_unifiedMusicKeysDataKey ?? store_unifiedMusicKeysDataKey;
+
+    if (!unifiedMusicKeysDataKey) return "";
+
+    const isFlatTune = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].isFlatTune;
+
+    const noteName = isFlatTune ? note.flatNoteName : note.sharpNoteName;
+
+    return noteName;
+  };
 };

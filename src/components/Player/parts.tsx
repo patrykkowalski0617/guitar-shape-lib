@@ -38,7 +38,12 @@ export const PlayerSection = styled.div`
   flex-direction: row;
   width: 100%;
   flex: 1 1 0;
-  ${insetShadow}
+  /* box-shadow:
+    3px 3px 13px 3px color-mix(in oklab, var(--background) 100%, transparent),
+    -2px -2px 2px 0px color-mix(in oklab, var(--foreground) 20%, transparent),
+    -2px -2px 2px 0px color-mix(in oklab, var(--background) 50%, transparent)
+    2px 2px 2px 0px color-mix(in oklab, var(--foreground) 20%, transparent)
+      inset; */
   &:last-child {
     justify-content: center;
     flex: 0 0 0;

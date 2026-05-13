@@ -1,7 +1,6 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { useShapePlayerStore } from "@/store";
-import { useRestoreBrick } from "./useRestoreBrick";
 
 export const useShapePlayerBrick = (id: string) => {
   const brick = useShapePlayerStore((state) =>
@@ -11,8 +10,6 @@ export const useShapePlayerBrick = (id: string) => {
   const removeShapePlayerBrick = useShapePlayerStore(
     (state) => state.removeShapePlayerBrick,
   );
-
-  const { restoreBrickData } = useRestoreBrick();
 
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
@@ -26,19 +23,12 @@ export const useShapePlayerBrick = (id: string) => {
     removeShapePlayerBrick(id);
   };
 
-  const handleRestoreClick = () => {
-    if (brick) {
-      restoreBrickData(brick);
-    }
-  };
-
   return {
     attributes,
     listeners,
     setNodeRef,
     draggingStyles,
     handleRemoveClick,
-    handleRestoreClick,
     brick,
   };
 };

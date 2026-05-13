@@ -1,3 +1,4 @@
+export * from "./useBaseChord";
 export * from "./useEnharmonicNoteName";
 export * from "./useCurrentBaseChordName";
 export * from "./useCurrentMusicKeyOffsetFromC";
@@ -5,5 +6,7 @@ export * from "./useDelayedRender";
 export * from "./useHorizontalScroll";
 export * from "./usePersistentBoolean";
 export * from "./useCurrentShapeRootNote";
+export * from "./useShape";
 export * from "./useShapeRootSharpNote";
+export * from "./useUnifiedMusicKey";
 export * from "./useWakeLock";

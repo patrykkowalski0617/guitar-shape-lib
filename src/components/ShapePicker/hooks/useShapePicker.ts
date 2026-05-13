@@ -1,5 +1,5 @@
 import { useDataKeyStore, useUiStore, useShapePlayerStore } from "@/store";
-import { useCurrentBaseChordName } from "@/hooks";
+import { useBaseChord } from "@/hooks";
 import { useSortedShapeOptions } from "./useSortedShapeOptions";
 
 export const useShapePicker = () => {
@@ -25,7 +25,8 @@ export const useShapePicker = () => {
   );
 
   const options = useSortedShapeOptions();
-  const selectedChordLabel = useCurrentBaseChordName();
+  const { getBaseChordName } = useBaseChord();
+  const selectedChordLabel = getBaseChordName();
 
   const handleSelectShape = (value: string) => {
     const [shapeDataKey, offsetStr] = value.split("|");
@@ -40,6 +41,7 @@ export const useShapePicker = () => {
         baseChordDataKey,
         shapeDataKey,
         semitoneOffsetFromMajorRoot,
+        playLength: 4,
       });
     }
 

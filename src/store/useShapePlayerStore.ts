@@ -12,6 +12,7 @@ export interface ShapePlayerBrick {
   baseChordDataKey: BaseChordDataKey;
   shapeDataKey: ShapeDataKey;
   semitoneOffsetFromMajorRoot: number;
+  playLength: number;
 }
 
 interface ShapePlayerHistoryEntry {

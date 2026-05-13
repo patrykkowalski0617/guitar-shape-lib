@@ -22,8 +22,8 @@ export const ShapeMulitStepSliderExplorer = ({
   shapeDataKey,
   semitoneOffsetFromMajorRoot,
 }: ShapeMultiStepSliderExplorerProps) => {
-  const setSelectedShapeVariantDataKeys = useDataKeyStore(
-    (state) => state.setSelectedShapeVariantDataKeys,
+  const setSelectedShapesVariantDataKeys = useDataKeyStore(
+    (state) => state.setSelectedShapesVariantDataKeys,
   );
   const setBaseChordDataKey = useDataKeyStore(
     (state) => state.setBaseChordDataKey,
@@ -49,29 +49,18 @@ export const ShapeMulitStepSliderExplorer = ({
     return userRange ?? [0, 0];
   }, [userRange]);
 
-  const selectedData = useMemo(() => {
+  const selectedShapesVariantDataKeys = useMemo(() => {
     return orderedLocations.slice(currentRange[0], currentRange[1] + 1);
   }, [orderedLocations, currentRange]);
 
   useEffect(() => {
-    setSelectedShapeVariantDataKeys(selectedData);
-    setBaseChordDataKey(baseChordDataKey);
-  }, [
-    selectedData,
-    baseChordDataKey,
-    setSelectedShapeVariantDataKeys,
-    setBaseChordDataKey,
-  ]);
+    setSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
+  }, [selectedShapesVariantDataKeys, setSelectedShapesVariantDataKeys]);
 
-  const restoreData = useCallback(() => {
+  const restoreData = () => {
     setBaseChordDataKey(baseChordDataKey);
-    setSelectedShapeVariantDataKeys(selectedData);
-  }, [
-    baseChordDataKey,
-    selectedData,
-    setBaseChordDataKey,
-    setSelectedShapeVariantDataKeys,
-  ]);
+    setSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
+  };
 
   return (
     <S.Wrapper onMouseDown={restoreData}>

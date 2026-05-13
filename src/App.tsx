@@ -58,9 +58,9 @@ export default function App() {
         </MotionSection>
           )}
         </AnimatePresence> */}
-        {/* <Section>
+        <Section>
           <Piano />
-        </Section> */}
+        </Section>
         <Section>
           <GuitarFretboard />
         </Section>
@@ -77,17 +77,10 @@ export default function App() {
 
         {/* <MultiStepSliderTest /> */}
 
-        {/*
-        <AnimatePresence>
-          {isPlayerUnlocked && (
-            <MotionSection key="player-bar" {...standardAnimation}>
-              <Player>
-                <Player.Bricks />
-                <Player.Controls />
-              </Player>
-            </MotionSection>
-          )}
-        </AnimatePresence> */}
+        <Player>
+          <Player.Controls />
+        </Player>
+
         <Section>
           <Footer />
         </Section>

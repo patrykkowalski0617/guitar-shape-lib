@@ -1,7 +1,7 @@
 import type { ScaleSemitoneTemplateDataKey } from "./SCALE_SEMITONE_TEMPLATES";
 
 export type BaseChordDataKey = keyof typeof BASE_CHORDS;
-export interface BaseChordValue {
+export interface BaseChord {
   roleName: string;
   roleShortName: string;
   baseScaleName: string;

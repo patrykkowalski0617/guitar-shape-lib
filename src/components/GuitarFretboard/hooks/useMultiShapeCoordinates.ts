@@ -19,20 +19,18 @@ export const useMultiShapeCoordinates = () => {
     target: FretboardCoordinate[],
     source: FretboardCoordinate[],
   ) => {
-    // Tworzymy zbiór istniejących już kluczy dla szybkiego lookupu O(1)
     const existingKeys = new Set(target.map(([s, f]) => `${s}-${f}`));
 
     source.forEach(([s, f]) => {
       const key = `${s}-${f}`;
       if (!existingKeys.has(key)) {
         target.push([s, f]);
-        existingKeys.add(key); // Dodajemy do seta, by kolejne elementy z source nie dublowały się
+        existingKeys.add(key);
       }
     });
   };
 
   selectedShapesVariantDataKeys?.forEach((variantKey) => {
-    // 1. Logika dla pojedynczej iteracji (identyczna z poprzednim elementem [0])
     const shapeCoordinates = getShapeCoordinates(variantKey);
     const CAGED_ChordsShapes = getCAGED_ChordsShapes();
 
@@ -45,7 +43,6 @@ export const useMultiShapeCoordinates = () => {
       ? baseChordMatch.coordinates
       : [];
 
-    // 2. Akumulacja wyników bez duplikatów
     addUnique(multiShapeCoordinates, shapeCoordinates);
     addUnique(multiBaseChordCoordinates, baseChordCoordinates);
   });
