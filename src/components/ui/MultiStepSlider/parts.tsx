@@ -164,29 +164,34 @@ export const InteractionContainer = styled.div<{
 }>`
   position: absolute;
   z-index: 2;
+
+  --zone-multiplier: 100;
+
+  &:hover {
+    --zone-multiplier: 200;
+  }
+
   ${({ $isDragging, $isVertical, $thumbSize }) => {
     const draggingStyles = $isDragging ? "none" : "auto";
     const visibilityStatus = $isDragging ? "hidden" : "visible";
     const offsetValue = `${$thumbSize / 2}px`;
 
-    const verticalStyles = css`
-      top: ${offsetValue};
-      bottom: ${offsetValue};
-      left: 0;
-      right: 0;
-    `;
-
-    const horizontalStyles = css`
-      top: 0;
-      bottom: 0;
-      left: ${offsetValue};
-      right: ${offsetValue};
-    `;
-
     return css`
       pointer-events: ${draggingStyles};
       visibility: ${visibilityStatus};
-      ${$isVertical ? verticalStyles : horizontalStyles};
+      ${$isVertical
+        ? css`
+            top: ${offsetValue};
+            bottom: ${offsetValue};
+            left: 0;
+            right: 0;
+          `
+        : css`
+            top: 0;
+            bottom: 0;
+            left: ${offsetValue};
+            right: ${offsetValue};
+          `};
     `;
   }}
 `;
@@ -200,24 +205,24 @@ interface InteractionZoneProps {
 
 export const InteractionZone = styled.div.attrs<InteractionZoneProps>(
   ({ $isVertical, $positionPercent, $thumbSize, $numberOfSelectedTicks }) => {
+    const hasMultipleTicks = $numberOfSelectedTicks > 1;
+    const fallbackSize = `${$thumbSize + 30}px`;
+
     const horizontalPosition = $isVertical ? "100%" : `${$positionPercent}%`;
     const verticalPosition = $isVertical ? `${$positionPercent}%` : "0";
     const transformation = $isVertical
       ? "translate(-50%, 50%)"
       : "translateX(-50%)";
 
-    const hasMultipleTicks = $numberOfSelectedTicks > 1;
-    const fallbackSize = `${$thumbSize + 30}px`;
-
     const zoneWidth = $isVertical
       ? fallbackSize
       : hasMultipleTicks
-        ? `calc(200% / ${$numberOfSelectedTicks - 1})`
+        ? `calc(var(--zone-multiplier) * 1% / ${$numberOfSelectedTicks - 1})`
         : fallbackSize;
 
     const zoneHeight = $isVertical
       ? hasMultipleTicks
-        ? `calc(200% / ${$numberOfSelectedTicks - 1})`
+        ? `calc(var(--zone-multiplier) * 1% / ${$numberOfSelectedTicks - 1})`
         : fallbackSize
       : fallbackSize;
 
