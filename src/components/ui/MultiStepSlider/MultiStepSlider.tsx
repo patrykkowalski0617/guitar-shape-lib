@@ -21,7 +21,7 @@ export function MultiStepSlider(props: MultiStepSliderProps) {
     handleCutStart,
     handleCutEnd,
   } = useMultiStepSliderLogic(props);
-
+  // const previewValue = [3, 4];
   const {
     max,
     min = 0,

@@ -120,6 +120,18 @@ export function MultiStepSliderTest() {
           min={configB.min}
         />
       </Section>
+      <Section style={{ height: 400 }}>
+        <Label>
+          Slider B: {rangeB[0]} - {rangeB[1]}
+        </Label>
+        <MultiStepSlider
+          value={rangeB}
+          onValueChange={setSliderRangeB}
+          max={configB.max}
+          min={configB.min}
+          orientation={"vertical"}
+        />
+      </Section>
     </Wrapper>
   );
 }

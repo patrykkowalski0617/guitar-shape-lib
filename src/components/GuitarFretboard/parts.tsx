@@ -13,10 +13,12 @@ export const FretboardNotScrollableWrapper = styled.div`
 export const StringSliderWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-start;
   width: 50px;
   margin-top: 22px;
   height: 192px;
+  position: relative;
+  z-index: 100;
 `;
 
 export const FretboardWrapper = styled.div`

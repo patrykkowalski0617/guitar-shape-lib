@@ -60,6 +60,7 @@ export function InteractionZone({
       $isVertical={isVertical}
       $thumbSize={thumbSize}
       $positionPercent={positionPercent}
+      $numberOfSelectedTicks={total}
     >
       <S.ControlsWrapper $isVertical={isVertical} $isDragging={false}>
         <S.CutButton
@@ -69,6 +70,7 @@ export function InteractionZone({
           disabled={isEndDisabled}
           onPointerDown={(e) => e.stopPropagation()}
           onClick={handleCut("end")}
+          $isVertical={isVertical}
         >
           {isVertical ? "▼" : <S.IconWrapper>▼</S.IconWrapper>}
         </S.CutButton>
@@ -79,6 +81,7 @@ export function InteractionZone({
           disabled={isStartDisabled}
           onPointerDown={(e) => e.stopPropagation()}
           onClick={handleCut("start")}
+          $isVertical={isVertical}
         >
           {isVertical ? "▲" : <S.IconWrapper>▲</S.IconWrapper>}
         </S.CutButton>

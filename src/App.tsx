@@ -10,6 +10,7 @@ import { ShapePlayer } from "./components/ShapePlayer/ShapePlayer";
 import { KeyAndChordPicker } from "@/components/KeyAndChordPicker/KeyAndChordPicker";
 import ShapePicker from "./components/ShapePicker/ShapePicker";
 import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
+import { MultiStepSliderTest } from "./components/ui/MultiStepSlider/MultiStepSliderTest";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
       <SoundEngine />
       <Toaster position="top-center" />
       {/* <DataDebug /> */}
+      {/* <MultiStepSliderTest /> */}
       <FullscreenButton />
       <KeyAndChordPicker />
       <ShapePicker />
@@ -24,7 +26,6 @@ export default function App() {
         <Section>
           <PianoControls />
         </Section>
-
         <Section>
           <Piano />
         </Section>
