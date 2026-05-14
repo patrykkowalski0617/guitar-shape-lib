@@ -6,6 +6,7 @@ import {
 } from "./hooks";
 import { ShapeMulitStepSliderExplorer } from "@/components/ShapeMulitStepSliderExplorer/ShapeMulitStepSliderExplorer";
 import { Button } from "../ui/parts";
+import { usePlayingBricksData } from "../ShapePlayerList/hooks/usePlayingBricks";
 
 interface ShapePlayerBrickProps {
   id: string;
@@ -21,12 +22,14 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     brick,
   } = useShapePlayerBrick(id);
 
+  const { activeBrickId, activeBeatIndex } = usePlayingBricksData();
   const { keyName, chordName, shapeName } = useShapePlayerBrickDisplay(brick);
   const { sliderRange, setSliderRange, orderedLocations, restoreData } =
     useShapePlayerBrickSelection(brick);
 
   if (!brick) return null;
 
+  const isCurrentBrickPlayed = activeBrickId === id;
   const playLength = brick.playLength;
 
   return (
@@ -37,12 +40,30 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
       onMouseUp={restoreData}
     >
       <Button>{keyName}</Button>
-
       <Button>{chordName}</Button>
-
       <Button>{shapeName}</Button>
-
       <Button>{playLength}</Button>
+
+      <div>Am I played: {isCurrentBrickPlayed ? "TAK" : "NIE"}</div>
+
+      <div style={{ display: "flex", gap: "4px", marginTop: "8px" }}>
+        {Array.from({ length: playLength }).map((_, index) => {
+          const isPartActive =
+            isCurrentBrickPlayed && activeBeatIndex === index;
+          return (
+            <div
+              key={index}
+              style={{
+                width: "20px",
+                height: "10px",
+                backgroundColor: isPartActive ? "#4caf50" : "#e0e0e0",
+                borderRadius: "2px",
+                transition: "background-color 0.1s",
+              }}
+            />
+          );
+        })}
+      </div>
 
       <ShapeMulitStepSliderExplorer
         unifiedMusicKeysDataKey={brick.unifiedMusicKeysDataKey}

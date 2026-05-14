@@ -4,6 +4,7 @@ import {
   type BaseChordDataKey,
   type UnifiedMusicKeysDataKey,
   type UnifiedMusicKeysDataKeyRecord,
+  type NoteName,
 } from "@/data";
 import { useBaseChord } from "@/hooks/useBaseChord";
 
@@ -22,7 +23,7 @@ export function useKeyAndChordOptions() {
           baseChordDataKey: baseChordKey,
           unifiedMusicKeysDataKey: currentUnifiedKey,
           isExtendedName: false,
-        });
+        }) as NoteName;
 
         return {
           baseChordDataKey: baseChordKey,

@@ -1,4 +1,4 @@
-import styled from "styled-components"; // zakładam styled-components po składni S.*
+import styled from "styled-components";
 
 export const Wrapper = styled.div`
   display: flex;

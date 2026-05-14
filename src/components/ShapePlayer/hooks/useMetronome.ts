@@ -1,42 +1,31 @@
-import { useEffect, useRef, useCallback } from "react";
-import { Metronome } from "../metronome/Metronome";
+import { useEffect, useCallback } from "react";
 import { useMetronomeStore } from "@/store";
+import { metronomeInstance } from "../metronome/metronomeInstance";
 
 export const useMetronome = (
   bpm: number,
   onTick: () => { isNewBrick: boolean },
 ) => {
-  const metronomeRef = useRef<Metronome | null>(null);
   const multiplier = useMetronomeStore((state) => state.bpmMultiplier);
 
   useEffect(() => {
-    if (!metronomeRef.current) {
-      metronomeRef.current = new Metronome(onTick);
-    }
-    return () => {
-      metronomeRef.current?.cleanup();
-      metronomeRef.current = null;
-    };
-  }, []);
-
-  useEffect(() => {
-    metronomeRef.current?.replaceCallback(onTick);
+    metronomeInstance.replaceCallback(onTick);
   }, [onTick]);
 
   useEffect(() => {
-    metronomeRef.current?.updateBpm(bpm);
+    metronomeInstance.updateBpm(bpm);
   }, [bpm]);
 
   useEffect(() => {
-    metronomeRef.current?.updateMultiplier(multiplier);
+    metronomeInstance.updateMultiplier(multiplier);
   }, [multiplier]);
 
   const toggleMetronome = useCallback(
     (shouldPlay: boolean) => {
       if (shouldPlay) {
-        metronomeRef.current?.start(bpm, multiplier);
+        metronomeInstance.start(bpm, multiplier);
       } else {
-        metronomeRef.current?.stop();
+        metronomeInstance.stop();
       }
     },
     [bpm, multiplier],

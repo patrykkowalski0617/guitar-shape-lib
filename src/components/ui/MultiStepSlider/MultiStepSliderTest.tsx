@@ -61,7 +61,7 @@ export function MultiStepSliderTest() {
     ) => {
       const newMin = range[0] + deltaStart;
       const newMax = range[1] + deltaEnd;
-      // Sprawdzamy czy przesunięcie nie wybija któregoś slidera poza jego własny config
+
       return !(newMin < config.min || newMax > config.max || newMin > newMax);
     };
 
@@ -92,7 +92,6 @@ export function MultiStepSliderTest() {
           value={masterValue}
           onValueChange={handleMasterChange}
           onBeforeValueChange={validateMasterChange}
-          // Master teraz bierze wartości z wyliczonego obiektu
           max={masterLimits.max}
           min={masterLimits.min}
         />
