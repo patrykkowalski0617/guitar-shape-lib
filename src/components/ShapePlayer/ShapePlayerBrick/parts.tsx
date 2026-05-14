@@ -12,8 +12,6 @@ export const ShapePlayerBrickDragHandle = styled.button`
   }
 `;
 
-export const ShapePlayerBrickLabel = styled.span``;
-
 export const ShapePlayerBrickDeleteButton = styled.button`
   color: #cc0000;
 `;

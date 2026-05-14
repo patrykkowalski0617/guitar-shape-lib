@@ -27,23 +27,23 @@ export const useShape = ({
     (state) => state.unifiedMusicKeysDataKey,
   );
 
-  const shapeDataKey = provided_shapeDataKey ?? store_shapeDataKey;
-  const shape = shapeDataKey ? SHAPES[shapeDataKey] : null;
-
   const getShapeName = ({
     semitoneOffsetFromMajorRoot,
     unifiedMusicKeysDataKey: provided_unifiedMusicKeysDataKey,
-  }: GetShapeNameProps) => {
+    shapeDataKey: override_shapeDataKey,
+  }: GetShapeNameProps & { shapeDataKey?: ShapeDataKey }) => {
     const unifiedMusicKeysDataKey =
       provided_unifiedMusicKeysDataKey ?? store_unifiedMusicKeysDataKey;
 
-    if (!unifiedMusicKeysDataKey) return {};
+    const currentShapeDataKey =
+      override_shapeDataKey ?? provided_shapeDataKey ?? store_shapeDataKey;
 
+    if (!unifiedMusicKeysDataKey || !currentShapeDataKey) return {};
+
+    const shape = SHAPES[currentShapeDataKey];
     const musicKeyOffset =
       UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].semitonOffsetFromC;
-
     const totalOffset = musicKeyOffset + semitoneOffsetFromMajorRoot;
-
     const notes = getNotes({ length: 24 });
 
     const shapeType = shape?.type;
@@ -52,11 +52,11 @@ export const useShape = ({
     const shapeNoteName = getEnharmonicNoteName(notes[totalOffset], {
       unifiedMusicKeysDataKey,
     });
+
     return { shapeNoteName, shapeLabel, shapeType };
   };
 
   return {
-    shape,
     getShapeName,
   };
 };

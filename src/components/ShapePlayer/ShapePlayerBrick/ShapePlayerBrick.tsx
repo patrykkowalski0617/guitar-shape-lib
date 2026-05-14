@@ -27,7 +27,7 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
 
   if (!brick) return null;
 
-  const brickDetails = [` ${brick.playLength}`, `id: ${id.slice(0, 8)}`];
+  const playLength = brick.playLength;
 
   return (
     <S.ShapePlayerBrickWrapper
@@ -42,9 +42,7 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
 
       <Button>{shapeName}</Button>
 
-      <S.ShapePlayerBrickLabel style={{ whiteSpace: "pre-wrap" }}>
-        {brickDetails}
-      </S.ShapePlayerBrickLabel>
+      <Button>{playLength}</Button>
 
       <ShapeMulitStepSliderExplorer
         unifiedMusicKeysDataKey={brick.unifiedMusicKeysDataKey}
