@@ -5,12 +5,17 @@ import type { ShapeVariantDataKeys } from "@/data";
 import type { ShapePlayerBrick } from "@/store";
 
 export const useShapePlayerBrickSelection = (brick?: ShapePlayerBrick) => {
+  const setBaseChordDataKey = useDataKeyStore(
+    (state) => state.setBaseChordDataKey,
+  );
   const setSelectedShapesVariantDataKeys = useDataKeyStore(
     (state) => state.setSelectedShapesVariantDataKeys,
   );
-
-  const setBaseChordDataKey = useDataKeyStore(
-    (state) => state.setBaseChordDataKey,
+  const setSemitoneOffsetFromMajorRoot = useDataKeyStore(
+    (state) => state.setSemitoneOffsetFromMajorRoot,
+  );
+  const setUnifiedMusicKeysDataKey = useDataKeyStore(
+    (state) => state.setUnifiedMusicKeysDataKey,
   );
 
   const updateBrickRange = useShapePlayerStore(
@@ -38,7 +43,7 @@ export const useShapePlayerBrickSelection = (brick?: ShapePlayerBrick) => {
     return locations as ShapeVariantDataKeys[];
   }, [brick]);
 
-  const selectedKeys = useMemo(() => {
+  const selectedShapesVariantDataKeys = useMemo(() => {
     const startIdx = currentSliderRange[0];
     const endIdx = currentSliderRange[1] + 1;
     return orderedLocations.slice(startIdx, endIdx);
@@ -55,7 +60,9 @@ export const useShapePlayerBrickSelection = (brick?: ShapePlayerBrick) => {
 
     if (canRestore) {
       setBaseChordDataKey(brick.baseChordDataKey);
-      setSelectedShapesVariantDataKeys(selectedKeys);
+      setSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
+      setSemitoneOffsetFromMajorRoot(brick.semitoneOffsetFromMajorRoot);
+      setUnifiedMusicKeysDataKey(brick.unifiedMusicKeysDataKey);
     }
   };
 

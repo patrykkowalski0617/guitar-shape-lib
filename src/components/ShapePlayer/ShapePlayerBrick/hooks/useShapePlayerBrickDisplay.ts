@@ -22,10 +22,12 @@ export const useShapePlayerBrickDisplay = (brick?: ShapePlayerBrick) => {
 
   if (!brick) return {};
 
-  const shapeName = getShapeName({
+  const { shapeNoteName, shapeLabel, shapeType } = getShapeName({
     semitoneOffsetFromMajorRoot: brick?.semitoneOffsetFromMajorRoot,
     unifiedMusicKeysDataKey: brick?.unifiedMusicKeysDataKey,
   });
+
+  const shapeName = `${shapeType !== "Set" ? shapeNoteName : ""}${shapeType === "Scale" ? " " : ""}${shapeLabel}`;
 
   return {
     keyName,

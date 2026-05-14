@@ -37,7 +37,7 @@ export const useShape = ({
     const unifiedMusicKeysDataKey =
       provided_unifiedMusicKeysDataKey ?? store_unifiedMusicKeysDataKey;
 
-    if (!unifiedMusicKeysDataKey) return "";
+    if (!unifiedMusicKeysDataKey) return {};
 
     const musicKeyOffset =
       UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].semitonOffsetFromC;
@@ -46,11 +46,13 @@ export const useShape = ({
 
     const notes = getNotes({ length: 24 });
 
-    const shapeName = getEnharmonicNoteName(notes[totalOffset], {
+    const shapeType = shape?.type;
+    const shapeLabel = shape?.label;
+
+    const shapeNoteName = getEnharmonicNoteName(notes[totalOffset], {
       unifiedMusicKeysDataKey,
     });
-
-    return shapeName + shape?.label;
+    return { shapeNoteName, shapeLabel, shapeType };
   };
 
   return {
