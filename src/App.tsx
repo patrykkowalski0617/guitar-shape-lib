@@ -43,7 +43,7 @@ export default function App() {
     <AppWrapper style={{ maxHeight: 700, minHeight: "unset" }}>
       <SoundEngine />
       <Toaster position="top-center" />
-      <DataDebug />
+      {/* <DataDebug /> */}
       <FullscreenButton />
       <KeyAndChordPicker />
       <ShapePicker />

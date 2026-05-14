@@ -1,5 +1,6 @@
 import * as S from "./parts";
 import { useShapePlayerHeader } from "./hooks/useShapePlayerHeader";
+import { Button } from "../ui/parts";
 
 export const ShapePlayerHeader = () => {
   const {
@@ -12,23 +13,15 @@ export const ShapePlayerHeader = () => {
 
   return (
     <S.ShapePlayerHeaderWrapper>
-      <S.ShapePlayerActionButton onClick={handleAddClick}>
-        Dodaj
-      </S.ShapePlayerActionButton>
+      <Button onClick={handleAddClick}>Dodaj</Button>
 
-      <S.ShapePlayerActionButton
-        onClick={clearShapePlayerBricks}
-        disabled={isListEmpty}
-      >
+      <Button onClick={clearShapePlayerBricks} disabled={isListEmpty}>
         Wyczyść
-      </S.ShapePlayerActionButton>
+      </Button>
 
-      <S.ShapePlayerActionButton
-        onClick={restoreLastAction}
-        disabled={isRestoreDisabled}
-      >
+      <Button onClick={restoreLastAction} disabled={isRestoreDisabled}>
         Cofnij usunięcie
-      </S.ShapePlayerActionButton>
+      </Button>
     </S.ShapePlayerHeaderWrapper>
   );
 };

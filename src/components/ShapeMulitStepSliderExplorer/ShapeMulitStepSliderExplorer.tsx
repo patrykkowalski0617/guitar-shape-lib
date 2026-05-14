@@ -1,12 +1,12 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { useDataKeyStore } from "@/store";
 import type {
   BaseChordDataKey,
   ShapeDataKey,
   UnifiedMusicKeysDataKey,
+  ShapeVariantDataKeys,
 } from "@/data";
 import { MultiStepSlider } from "../ui/MultiStepSlider/MultiStepSlider";
-import { getOrderedShapeVariantDataKeys } from "./helpers/getOrderedShapeVariantDataKeys";
 import * as S from "./parts";
 
 interface ShapeMultiStepSliderExplorerProps {
@@ -14,60 +14,40 @@ interface ShapeMultiStepSliderExplorerProps {
   baseChordDataKey: BaseChordDataKey;
   shapeDataKey: ShapeDataKey;
   semitoneOffsetFromMajorRoot: number;
+  range: number[];
+  onRangeChange: (range: number[]) => void;
+  orderedLocations: ShapeVariantDataKeys[];
 }
 
 export const ShapeMulitStepSliderExplorer = ({
-  unifiedMusicKeysDataKey,
-  baseChordDataKey,
   shapeDataKey,
+  unifiedMusicKeysDataKey,
   semitoneOffsetFromMajorRoot,
+  range,
+  onRangeChange,
+  orderedLocations,
 }: ShapeMultiStepSliderExplorerProps) => {
   const setSelectedShapesVariantDataKeys = useDataKeyStore(
     (state) => state.setSelectedShapesVariantDataKeys,
   );
-  const setBaseChordDataKey = useDataKeyStore(
-    (state) => state.setBaseChordDataKey,
-  );
-
-  const orderedLocations = useMemo(
-    () =>
-      getOrderedShapeVariantDataKeys({
-        shapeDataKey,
-        unifiedMusicKeysDataKey,
-        semitoneOffsetFromMajorRoot,
-      }),
-    [shapeDataKey, unifiedMusicKeysDataKey, semitoneOffsetFromMajorRoot],
-  );
 
   const sliderKey = `${shapeDataKey}-${unifiedMusicKeysDataKey}-${semitoneOffsetFromMajorRoot}`;
-
-  const [userRange, setUserRange] = useState<number[] | null>(null);
-
   const maxIdx = Math.max(0, orderedLocations.length - 1);
 
-  const currentRange = useMemo(() => {
-    return userRange ?? [0, 0];
-  }, [userRange]);
-
-  const selectedShapesVariantDataKeys = useMemo(() => {
-    return orderedLocations.slice(currentRange[0], currentRange[1] + 1);
-  }, [orderedLocations, currentRange]);
-
   useEffect(() => {
+    const selectedShapesVariantDataKeys = orderedLocations.slice(
+      range[0],
+      range[1] + 1,
+    );
     setSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
-  }, [selectedShapesVariantDataKeys, setSelectedShapesVariantDataKeys]);
-
-  const restoreData = () => {
-    setBaseChordDataKey(baseChordDataKey);
-    setSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
-  };
+  }, [range, orderedLocations, setSelectedShapesVariantDataKeys]);
 
   return (
-    <S.Wrapper onMouseDown={restoreData}>
+    <S.Wrapper>
       <MultiStepSlider
         key={sliderKey}
-        value={currentRange}
-        onValueChange={setUserRange}
+        value={range}
+        onValueChange={onRangeChange}
         min={0}
         max={maxIdx}
       />
