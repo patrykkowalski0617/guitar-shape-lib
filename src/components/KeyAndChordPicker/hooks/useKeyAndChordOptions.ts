@@ -5,29 +5,32 @@ import {
   type UnifiedMusicKeysDataKey,
   type UnifiedMusicKeysDataKeyRecord,
 } from "@/data";
-import { getNotes } from "@/utils";
+import { useBaseChord } from "@/hooks/useBaseChord";
 
 export function useKeyAndChordOptions() {
+  const { getBaseChordName } = useBaseChord();
+
   const keyEntries = Object.entries(UNIFIED_MUSIC_KEYS) as [
     UnifiedMusicKeysDataKey,
     UnifiedMusicKeysDataKeyRecord,
   ][];
 
   const optionsPerKey = keyEntries.map(([currentUnifiedKey, keyData]) => {
-    const notesInKey = getNotes({ firstNote: keyData.majorFirstNote });
-    const useFlatNames = keyData.isFlatTune;
+    const chords = (Object.keys(BASE_CHORDS) as BaseChordDataKey[]).map(
+      (baseChordKey) => {
+        const chordName = getBaseChordName({
+          baseChordDataKey: baseChordKey,
+          unifiedMusicKeysDataKey: currentUnifiedKey,
+          isExtendedName: false,
+        });
 
-    const chords = Object.entries(BASE_CHORDS).map(([chordKey, chordData]) => {
-      const note = notesInKey[chordData.semitoneOffsetFromMajorRoot];
-      const chordName = useFlatNames ? note.flatNoteName : note.sharpNoteName;
-      const bChordKey = chordKey as BaseChordDataKey;
-
-      return {
-        baseChordDataKey: bChordKey,
-        combinedId: `${currentUnifiedKey}|${bChordKey}`,
-        chordName,
-      };
-    });
+        return {
+          baseChordDataKey: baseChordKey,
+          combinedId: `${currentUnifiedKey}|${baseChordKey}`,
+          chordName,
+        };
+      },
+    );
 
     return {
       unifiedMusicKeyDataKey: currentUnifiedKey,

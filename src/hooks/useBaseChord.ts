@@ -29,20 +29,22 @@ export const useBaseChord = ({
     (state) => state.unifiedMusicKeysDataKey,
   );
 
-  const baseChordDataKey = provided_baseChordDataKey ?? store_baseChordDataKey;
-  const baseChord = baseChordDataKey ? BASE_CHORDS[baseChordDataKey] : null;
-
   const getBaseChordName = ({
     isExtendedName = true,
     unifiedMusicKeysDataKey: provided_unifiedMusicKeysDataKey,
-  }: GetBaseChordNameProps = {}) => {
-    if (!baseChord) return "";
-
+    baseChordDataKey: local_baseChordDataKey,
+  }: GetBaseChordNameProps & { baseChordDataKey?: BaseChordDataKey } = {}) => {
     const unifiedMusicKeysDataKey =
       provided_unifiedMusicKeysDataKey ?? store_unifiedMusicKeysDataKey;
 
-    if (!unifiedMusicKeysDataKey) return "";
+    const baseChordDataKey =
+      local_baseChordDataKey ??
+      provided_baseChordDataKey ??
+      store_baseChordDataKey;
 
+    if (!unifiedMusicKeysDataKey || !baseChordDataKey) return "";
+
+    const baseChord = BASE_CHORDS[baseChordDataKey];
     const musicKeyOffset =
       UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].semitonOffsetFromC;
     const chordOffset = baseChord.semitoneOffsetFromMajorRoot;
@@ -59,7 +61,6 @@ export const useBaseChord = ({
   };
 
   return {
-    baseChord,
     getBaseChordName,
   };
 };
