@@ -28,6 +28,11 @@ export const useBaseChord = ({
   const store_unifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
+  const baseChordDataKey = provided_baseChordDataKey
+    ? provided_baseChordDataKey
+    : store_baseChordDataKey;
+
+  const baseChord = baseChordDataKey && BASE_CHORDS[baseChordDataKey];
 
   const getBaseChordName = ({
     isExtendedName = true,
@@ -60,7 +65,5 @@ export const useBaseChord = ({
     return `${noteName}${extension}`;
   };
 
-  return {
-    getBaseChordName,
-  };
+  return { baseChord, getBaseChordName };
 };

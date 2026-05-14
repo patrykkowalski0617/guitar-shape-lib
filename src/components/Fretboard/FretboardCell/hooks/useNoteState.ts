@@ -5,7 +5,7 @@ import { isShapeCell as isShapeCellFn } from "../helpers/isShapeCell";
 import { useShapeAllCoordinates } from "./useShapeAllCoordinates";
 import { useEnharmonicNoteName } from "@/hooks";
 import { useBaseChordShapes } from "./useBaseChordShapes";
-import { findMatchingBaseChordCoordinates } from "../helpers/findMatchingBaseChordCoordinates";
+import { findMatchingBaseChord } from "../helpers/findMatchingBaseChord";
 import { isBaseChordCell as isBaseChordCellFn } from "../helpers/isBaseChordCell";
 import { type FretboardCoordinate } from "@/data";
 import { type StringIndexes } from "../../constants";
@@ -59,11 +59,10 @@ export const useNoteState = ({
 
   const isActiveLockedNotes = activeLockedNoteIds.includes(noteData.noteId);
 
-  const baseChordMatch = findMatchingBaseChordCoordinates({
+  const baseChordMatch = findMatchingBaseChord({
     baseChordCoordinates,
     shapeCoordinates,
   });
-  console.log(baseChordCoordinates);
 
   const matchingBaseChordCoordinates = shapeVariantDataKeys && baseChordMatch;
 

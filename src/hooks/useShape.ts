@@ -26,6 +26,10 @@ export const useShape = ({
   const store_unifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
+  const shapeDataKey = provided_shapeDataKey
+    ? provided_shapeDataKey
+    : store_unifiedMusicKeysDataKey;
+  const shape = shapeDataKey && SHAPES[shapeDataKey];
 
   const getShapeName = ({
     semitoneOffsetFromMajorRoot,
@@ -57,6 +61,7 @@ export const useShape = ({
   };
 
   return {
+    shape,
     getShapeName,
   };
 };

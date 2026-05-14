@@ -44,8 +44,6 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
       <Button>{shapeName}</Button>
       <Button>{playLength}</Button>
 
-      <div>Am I played: {isCurrentBrickPlayed ? "TAK" : "NIE"}</div>
-
       <div style={{ display: "flex", gap: "4px", marginTop: "8px" }}>
         {Array.from({ length: playLength }).map((_, index) => {
           const isPartActive =

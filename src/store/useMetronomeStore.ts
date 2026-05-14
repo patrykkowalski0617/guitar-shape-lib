@@ -45,8 +45,6 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
   setBpmMultiplier: (bpmMultiplier) => set({ bpmMultiplier }),
 
   togglePlay: () => {
-    console.log("togglePlay");
-
     const { isPlaying, bpm } = get();
 
     if (!isPlaying) {

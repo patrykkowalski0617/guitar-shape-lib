@@ -10,6 +10,9 @@ import type { NoteId, NoteObject } from "@/utils";
 import type { Exact } from "@/types";
 
 interface MusicState {
+  baseChordBassNoteId: NoteId | null;
+  setBaseChordBassNoteId: (noteId: NoteId | null) => void;
+
   shapeNoteIds: NoteId[];
   setShapeNoteIds: (shapeNoteIds: NoteId[]) => void;
   updateShapeNotes: (
@@ -45,6 +48,7 @@ interface MusicState {
 }
 
 export const useMusicStore = create<MusicState>((set) => ({
+  baseChordBassNoteId: null,
   shapeNoteIds: [],
   activeNoteId: null,
   activeLockedNoteIds: [],
@@ -52,6 +56,8 @@ export const useMusicStore = create<MusicState>((set) => ({
   selectedTargetNotesNames: [],
   shapeVariantDataKeys: null,
   shapeVariantDataKeys_locked: null,
+
+  setBaseChordBassNoteId: (baseChordBassNoteId) => set({ baseChordBassNoteId }),
 
   setShapeNoteIds: (shapeNoteIds) => set({ shapeNoteIds }),
 

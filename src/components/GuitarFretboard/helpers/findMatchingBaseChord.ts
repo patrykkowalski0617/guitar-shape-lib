@@ -5,7 +5,7 @@ export interface MatcherParams {
   shapeCoordinates: FretboardCoordinate[];
 }
 
-export const findMatchingBaseChordCoordinates = ({
+export const findMatchingBaseChord = ({
   CAGED_ChordsShapes,
   shapeCoordinates,
 }: MatcherParams): BaseChordShape | null => {

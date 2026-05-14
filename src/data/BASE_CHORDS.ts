@@ -43,7 +43,7 @@ export const BASE_CHORDS = {
     roleName: "BaseChord5nant (Phrygian)",
     roleShortName: "DPh",
     baseScaleName: "Phrygian BaseChord5nant",
-    baseScaleDataKey: "phrygianBaseChord5nantScale",
+    baseScaleDataKey: "phrygianDominantScale",
     semitoneOffsetFromMajorRoot: 4,
     modeExtendedName: "7",
     CAGEDchordShape: "major",

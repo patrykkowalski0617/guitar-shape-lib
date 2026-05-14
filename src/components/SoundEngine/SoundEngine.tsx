@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
-import { useMusicStore, useControlsStore, usePlayerStore } from "@/store";
+import { useMusicStore, useMetronomeStore } from "@/store";
 import { synth } from "./synth";
 import { useBackingTrackSync } from "./hooks/useBackingTrackSync";
 
 export function SoundEngine() {
   useBackingTrackSync();
 
-  const isCountingIn = usePlayerStore((state) => state.isCountingIn);
-  const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const isCountingIn = useMetronomeStore((state) => state.isCountingIn);
+  const isPlaying = useMetronomeStore((state) => state.isPlaying);
   const backgingtrackNoteIds = useMusicStore(
     (state) => state.backgingtrackNoteIds,
   );
@@ -15,9 +15,8 @@ export function SoundEngine() {
   const activeLockedNoteIds = useMusicStore(
     (state) => state.activeLockedNoteIds,
   );
-  const isPianoOn = useControlsStore((state) => state.isPianoOn);
 
-  const playBackingtrack = useControlsStore((state) => state.playBackingtrack);
+  const playBackingtrack = true;
 
   const currentlyPlaying = useRef<Set<string>>(new Set());
 
@@ -25,7 +24,7 @@ export function SoundEngine() {
     const notesThatShouldPlay = new Set<string>();
 
     const isPlayerMode = isPlaying;
-    const isExplorationMode = !isPlaying && isPianoOn;
+    const isExplorationMode = !isPlaying;
 
     if (isCountingIn) return;
 
@@ -61,7 +60,6 @@ export function SoundEngine() {
   }, [
     activeNoteId,
     activeLockedNoteIds,
-    isPianoOn,
     isPlaying,
     isCountingIn,
     backgingtrackNoteIds,
