@@ -13,6 +13,7 @@ export interface ShapePlayerBrick {
   shapeDataKey: ShapeDataKey;
   semitoneOffsetFromMajorRoot: number;
   playLength: number;
+  range?: number[];
 }
 
 interface ShapePlayerHistoryEntry {
@@ -26,6 +27,7 @@ interface ShapePlayerState {
   shapePlayerHistory: ShapePlayerHistoryEntry[];
   addShapePlayerBrick: (brickData: Omit<ShapePlayerBrick, "id">) => void;
   removeShapePlayerBrick: (id: string) => void;
+  updateBrickRange: (id: string, range: [number, number]) => void;
   clearShapePlayerBricks: () => void;
   restoreLastAction: () => void;
   reorderShapePlayerBricks: (oldIndex: number, newIndex: number) => void;
@@ -73,6 +75,14 @@ export const useShapePlayerStore = create<ShapePlayerState>((set) => ({
         shapePlayerHistory: [...state.shapePlayerHistory, historyEntry],
       };
     });
+  },
+
+  updateBrickRange: (id, range) => {
+    set((state) => ({
+      shapePlayerBricks: state.shapePlayerBricks.map((brick) =>
+        brick.id === id ? { ...brick, range } : brick,
+      ),
+    }));
   },
 
   clearShapePlayerBricks: () => {

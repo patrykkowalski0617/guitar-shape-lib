@@ -1,11 +1,11 @@
-import { useState, useMemo } from "react";
 import * as S from "./parts";
-import { useShapePlayerBrick } from "./hooks/useShapePlayerBrick";
+import {
+  useShapePlayerBrick,
+  useShapePlayerBrickDisplay,
+  useShapePlayerBrickSelection,
+} from "./hooks";
 import { ShapeMulitStepSliderExplorer } from "@/components/ShapeMulitStepSliderExplorer/ShapeMulitStepSliderExplorer";
 import { Button } from "../ui/parts";
-import { useBaseChord, useShape, useUnifiedMusicKey } from "@/hooks";
-import { useDataKeyStore } from "@/store";
-import { getOrderedShapeVariantDataKeys } from "@/components/ShapeMulitStepSliderExplorer/helpers/getOrderedShapeVariantDataKeys";
 
 interface ShapePlayerBrickProps {
   id: string;
@@ -21,54 +21,13 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     brick,
   } = useShapePlayerBrick(id);
 
-  const setSelectedShapesVariantDataKeys = useDataKeyStore(
-    (state) => state.setSelectedShapesVariantDataKeys,
-  );
-  const setBaseChordDataKey = useDataKeyStore(
-    (state) => state.setBaseChordDataKey,
-  );
-
-  const [range, setRange] = useState<number[]>([0, 0]);
-
-  const unifiedMusicKey = useUnifiedMusicKey({
-    unifiedMusicKeysDataKey: brick?.unifiedMusicKeysDataKey,
-  });
-  const { getBaseChordName } = useBaseChord({
-    baseChordDataKey: brick?.baseChordDataKey,
-  });
-  const { getShapeName } = useShape({
-    shapeDataKey: brick?.shapeDataKey,
-  });
-
-  const orderedLocations = useMemo(() => {
-    if (!brick) return [];
-    return getOrderedShapeVariantDataKeys({
-      shapeDataKey: brick.shapeDataKey,
-      unifiedMusicKeysDataKey: brick.unifiedMusicKeysDataKey,
-      semitoneOffsetFromMajorRoot: brick.semitoneOffsetFromMajorRoot,
-    });
-  }, [brick]);
-
-  const selectedShapesVariantDataKeys = useMemo(() => {
-    return orderedLocations.slice(range[0], range[1] + 1);
-  }, [orderedLocations, range]);
+  const { keyName, chordName, shapeName } = useShapePlayerBrickDisplay(brick);
+  const { range, setRange, orderedLocations, restoreData } =
+    useShapePlayerBrickSelection(brick);
 
   if (!brick) return null;
 
-  const {
-    unifiedMusicKeysDataKey,
-    baseChordDataKey,
-    shapeDataKey,
-    semitoneOffsetFromMajorRoot,
-    playLength,
-  } = brick;
-
-  const restoreData = () => {
-    setBaseChordDataKey(baseChordDataKey);
-    setSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
-  };
-
-  const brickDetails = [` ${playLength}`, `id: ${id.slice(0, 8)}`];
+  const brickDetails = [` ${brick.playLength}`, `id: ${id.slice(0, 8)}`];
 
   return (
     <S.ShapePlayerBrickWrapper
@@ -77,33 +36,26 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
       onMouseDown={restoreData}
       onMouseUp={restoreData}
     >
-      <Button>
-        {unifiedMusicKey?.majorName} / {unifiedMusicKey?.relativeMinorName}
-      </Button>
+      <Button>{keyName}</Button>
 
-      <Button>
-        {getBaseChordName({
-          unifiedMusicKeysDataKey,
-        })}
-      </Button>
+      <Button>{chordName}</Button>
 
-      <Button>
-        {getShapeName({ semitoneOffsetFromMajorRoot, unifiedMusicKeysDataKey })}
-      </Button>
+      <Button>{shapeName}</Button>
 
       <S.ShapePlayerBrickLabel style={{ whiteSpace: "pre-wrap" }}>
         {brickDetails}
       </S.ShapePlayerBrickLabel>
 
       <ShapeMulitStepSliderExplorer
-        unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
-        baseChordDataKey={baseChordDataKey}
-        shapeDataKey={shapeDataKey}
-        semitoneOffsetFromMajorRoot={semitoneOffsetFromMajorRoot}
+        unifiedMusicKeysDataKey={brick.unifiedMusicKeysDataKey}
+        baseChordDataKey={brick.baseChordDataKey}
+        shapeDataKey={brick.shapeDataKey}
+        semitoneOffsetFromMajorRoot={brick.semitoneOffsetFromMajorRoot}
         range={range}
         onRangeChange={setRange}
         orderedLocations={orderedLocations}
       />
+
       <S.ShapePlayerBrickDeleteButton onClick={handleRemoveClick}>
         Usuń
       </S.ShapePlayerBrickDeleteButton>
