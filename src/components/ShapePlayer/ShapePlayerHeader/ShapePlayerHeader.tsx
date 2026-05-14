@@ -4,8 +4,8 @@ import { Button } from "../ui/parts";
 
 export const ShapePlayerHeader = () => {
   const {
-    handleAddClick,
-    clearShapePlayerBricks,
+    handleAdd,
+    handleClear,
     restoreLastAction,
     isRestoreDisabled,
     isListEmpty,
@@ -13,9 +13,9 @@ export const ShapePlayerHeader = () => {
 
   return (
     <S.ShapePlayerHeaderWrapper>
-      <Button onClick={handleAddClick}>Dodaj</Button>
+      <Button onClick={handleAdd}>Dodaj</Button>
 
-      <Button onClick={clearShapePlayerBricks} disabled={isListEmpty}>
+      <Button onClick={handleClear} disabled={isListEmpty}>
         Wyczyść
       </Button>
 

@@ -6,12 +6,15 @@ import type {
   UnifiedMusicKeysDataKey,
 } from "@/data";
 
-interface DataKeyState {
+interface DataKeyValues {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey | null;
   baseChordDataKey: BaseChordDataKey | null;
   shapeDataKey: ShapeDataKey | null;
   semitoneOffsetFromMajorRoot: number | null;
   selectedShapesVariantDataKeys: ShapeVariantDataKeys[] | null;
+}
+
+interface DataKeyActions {
   setUnifiedMusicKeysDataKey: (id: UnifiedMusicKeysDataKey | null) => void;
   setBaseChordDataKey: (id: BaseChordDataKey | null) => void;
   setShapeDataKey: (id: ShapeDataKey | null) => void;
@@ -19,16 +22,23 @@ interface DataKeyState {
     semitoneOffsetFromMajorRoot: number | null,
   ) => void;
   setSelectedShapesVariantDataKeys: (
-    selectedShapesVariantDataKeys: ShapeVariantDataKeys[],
+    selectedShapesVariantDataKeys: ShapeVariantDataKeys[] | null,
   ) => void;
+  resetDataKeys: () => void;
 }
 
-export const useDataKeyStore = create<DataKeyState>((set) => ({
-  unifiedMusicKeysDataKey: null,
+type DataKeyState = DataKeyValues & DataKeyActions;
+
+const initialState: DataKeyValues = {
+  unifiedMusicKeysDataKey: "C",
   baseChordDataKey: null,
   shapeDataKey: null,
   semitoneOffsetFromMajorRoot: null,
   selectedShapesVariantDataKeys: null,
+};
+
+export const useDataKeyStore = create<DataKeyState>((set) => ({
+  ...initialState,
 
   setUnifiedMusicKeysDataKey: (unifiedMusicKeysDataKey) =>
     set({ unifiedMusicKeysDataKey }),
@@ -42,4 +52,6 @@ export const useDataKeyStore = create<DataKeyState>((set) => ({
 
   setSelectedShapesVariantDataKeys: (selectedShapesVariantDataKeys) =>
     set({ selectedShapesVariantDataKeys }),
+
+  resetDataKeys: () => set({ ...initialState }),
 }));

@@ -29,7 +29,7 @@ export function useMultiStepSlider({
 
   const firstVal = sortedValues[0];
   const lastVal = sortedValues[sortedValues.length - 1];
-  const range = max - min;
+  const sliderRange = max - min;
 
   const calculateValueFromPos = (clientX: number, clientY: number) => {
     const track = trackRef.current;
@@ -39,7 +39,7 @@ export function useMultiStepSlider({
     const trackSize = isVertical ? rect.height : rect.width;
     const pos = isVertical ? rect.bottom - clientY : clientX - rect.left;
     const percentage = Math.max(0, Math.min(1, pos / trackSize));
-    return Math.round(percentage * range + min);
+    return Math.round(percentage * sliderRange + min);
   };
 
   const handleTrackPointerDown =
@@ -124,7 +124,7 @@ export function useMultiStepSlider({
     sortedValues,
     firstVal,
     lastVal,
-    range,
+    sliderRange,
     handleTrackPointerDown,
     startDrag,
     handleCutStart,

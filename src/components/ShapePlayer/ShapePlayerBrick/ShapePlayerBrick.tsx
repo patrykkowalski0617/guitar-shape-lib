@@ -22,7 +22,7 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
   } = useShapePlayerBrick(id);
 
   const { keyName, chordName, shapeName } = useShapePlayerBrickDisplay(brick);
-  const { range, setRange, orderedLocations, restoreData } =
+  const { sliderRange, setSliderRange, orderedLocations, restoreData } =
     useShapePlayerBrickSelection(brick);
 
   if (!brick) return null;
@@ -51,8 +51,8 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
         baseChordDataKey={brick.baseChordDataKey}
         shapeDataKey={brick.shapeDataKey}
         semitoneOffsetFromMajorRoot={brick.semitoneOffsetFromMajorRoot}
-        range={range}
-        onRangeChange={setRange}
+        sliderRange={sliderRange}
+        onRangeChange={setSliderRange}
         orderedLocations={orderedLocations}
       />
 

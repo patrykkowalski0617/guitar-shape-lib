@@ -28,8 +28,8 @@ const Label = styled.p`
 `;
 
 export function MultiStepSliderTest() {
-  const [rangeA, setRangeA] = useState<number[]>([4, 6]);
-  const [rangeB, setRangeB] = useState<number[]>([3, 5]);
+  const [rangeA, setSliderRangeA] = useState<number[]>([4, 6]);
+  const [rangeB, setSliderRangeB] = useState<number[]>([3, 5]);
 
   const configA = { min: 0, max: 12 };
   const configB = { min: 0, max: 10 };
@@ -76,8 +76,8 @@ export function MultiStepSliderTest() {
     const deltaEnd = nextMax - oldMax;
 
     if (validateMasterChange(nextMasterRange)) {
-      setRangeA([rangeA[0] + deltaStart, rangeA[1] + deltaEnd]);
-      setRangeB([rangeB[0] + deltaStart, rangeB[1] + deltaEnd]);
+      setSliderRangeA([rangeA[0] + deltaStart, rangeA[1] + deltaEnd]);
+      setSliderRangeB([rangeB[0] + deltaStart, rangeB[1] + deltaEnd]);
     }
   };
 
@@ -104,7 +104,7 @@ export function MultiStepSliderTest() {
         </Label>
         <MultiStepSlider
           value={rangeA}
-          onValueChange={setRangeA}
+          onValueChange={setSliderRangeA}
           max={configA.max}
           min={configA.min}
         />
@@ -116,7 +116,7 @@ export function MultiStepSliderTest() {
         </Label>
         <MultiStepSlider
           value={rangeB}
-          onValueChange={setRangeB}
+          onValueChange={setSliderRangeB}
           max={configB.max}
           min={configB.min}
         />

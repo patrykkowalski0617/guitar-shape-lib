@@ -10,7 +10,7 @@ export function MultiStepSlider(props: MultiStepSliderProps) {
     sortedValues,
     firstVal,
     lastVal,
-    range,
+    sliderRange,
     isVertical,
     isDragging,
     previewValue,
@@ -55,11 +55,15 @@ export function MultiStepSlider(props: MultiStepSliderProps) {
         {previewValue && !isDragging && (
           <S.SliderThumb
             $isVertical={isVertical}
-            $startPos={calculatePercent(Math.min(...previewValue), min, range)}
+            $startPos={calculatePercent(
+              Math.min(...previewValue),
+              min,
+              sliderRange,
+            )}
             $totalWidth={calculatePercent(
               Math.max(...previewValue) - Math.min(...previewValue),
               0,
-              range,
+              sliderRange,
             )}
             $thumbSize={thumbSize}
             $isPreview
@@ -69,8 +73,8 @@ export function MultiStepSlider(props: MultiStepSliderProps) {
         <S.SliderThumb
           onPointerDown={handleThumbPointerDown}
           $isVertical={isVertical}
-          $startPos={calculatePercent(firstVal, min, range)}
-          $totalWidth={calculatePercent(lastVal - firstVal, 0, range)}
+          $startPos={calculatePercent(firstVal, min, sliderRange)}
+          $totalWidth={calculatePercent(lastVal - firstVal, 0, sliderRange)}
           $thumbSize={thumbSize}
           $isDragging={isDragging}
           $hasActivePreview={!!previewValue && !isDragging}

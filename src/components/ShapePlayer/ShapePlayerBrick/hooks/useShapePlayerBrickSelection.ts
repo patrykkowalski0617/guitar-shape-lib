@@ -17,9 +17,9 @@ export const useShapePlayerBrickSelection = (brick?: ShapePlayerBrick) => {
     (state) => state.updateBrickRange,
   );
 
-  const currentRange = useMemo(() => {
-    return brick?.range ?? [0, 0];
-  }, [brick?.range]);
+  const currentSliderRange: [number, number] = useMemo(() => {
+    return brick?.sliderRange ?? [0, 0];
+  }, [brick?.sliderRange]);
 
   const orderedLocations = useMemo(() => {
     const hasRequiredData =
@@ -39,12 +39,12 @@ export const useShapePlayerBrickSelection = (brick?: ShapePlayerBrick) => {
   }, [brick]);
 
   const selectedKeys = useMemo(() => {
-    const startIdx = currentRange[0];
-    const endIdx = currentRange[1] + 1;
+    const startIdx = currentSliderRange[0];
+    const endIdx = currentSliderRange[1] + 1;
     return orderedLocations.slice(startIdx, endIdx);
-  }, [orderedLocations, currentRange]);
+  }, [orderedLocations, currentSliderRange]);
 
-  const setRange = (newRange: [number, number]) => {
+  const setSliderRange = (newRange: [number, number]) => {
     if (brick?.id) {
       updateBrickRange(brick.id, newRange);
     }
@@ -60,8 +60,8 @@ export const useShapePlayerBrickSelection = (brick?: ShapePlayerBrick) => {
   };
 
   return {
-    range: currentRange,
-    setRange,
+    sliderRange: currentSliderRange,
+    setSliderRange,
     orderedLocations,
     restoreData,
   };

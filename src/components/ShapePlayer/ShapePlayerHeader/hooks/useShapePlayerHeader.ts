@@ -1,4 +1,4 @@
-import { useShapePlayerStore, useUiStore } from "@/store";
+import { useDataKeyStore, useShapePlayerStore, useUiStore } from "@/store";
 
 export const useShapePlayerHeader = () => {
   const setKeyAndChordPickerExpanded = useUiStore(
@@ -16,13 +16,21 @@ export const useShapePlayerHeader = () => {
   const isListEmpty = useShapePlayerStore(
     (state) => state.shapePlayerBricks.length === 0,
   );
-  const handleAddClick = () => {
+
+  const resetDataKeys = useDataKeyStore((state) => state.resetDataKeys);
+
+  const handleAdd = () => {
     setKeyAndChordPickerExpanded(true);
   };
 
+  const handleClear = () => {
+    clearShapePlayerBricks();
+    resetDataKeys();
+  };
+
   return {
-    handleAddClick,
-    clearShapePlayerBricks,
+    handleAdd,
+    handleClear,
     restoreLastAction,
     isRestoreDisabled,
     isListEmpty,

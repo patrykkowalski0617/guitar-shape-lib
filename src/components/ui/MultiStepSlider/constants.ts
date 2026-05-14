@@ -2,7 +2,7 @@ export const ROTATE_90 = { display: "block", transform: "rotate(90deg)" };
 
 export interface MultiStepSliderProps {
   value: number[];
-  onValueChange: (value: number[]) => void;
+  onValueChange: (value: [number, number]) => void;
   max: number;
   min?: number;
   thumbSize?: number;

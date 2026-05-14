@@ -14,8 +14,8 @@ interface ShapeMultiStepSliderExplorerProps {
   baseChordDataKey: BaseChordDataKey;
   shapeDataKey: ShapeDataKey;
   semitoneOffsetFromMajorRoot: number;
-  range: number[];
-  onRangeChange: (range: number[]) => void;
+  sliderRange: [number, number];
+  onRangeChange: (sliderRange: [number, number]) => void;
   orderedLocations: ShapeVariantDataKeys[];
 }
 
@@ -23,7 +23,7 @@ export const ShapeMulitStepSliderExplorer = ({
   shapeDataKey,
   unifiedMusicKeysDataKey,
   semitoneOffsetFromMajorRoot,
-  range,
+  sliderRange,
   onRangeChange,
   orderedLocations,
 }: ShapeMultiStepSliderExplorerProps) => {
@@ -36,17 +36,17 @@ export const ShapeMulitStepSliderExplorer = ({
 
   useEffect(() => {
     const selectedShapesVariantDataKeys = orderedLocations.slice(
-      range[0],
-      range[1] + 1,
+      sliderRange[0],
+      sliderRange[1] + 1,
     );
     setSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
-  }, [range, orderedLocations, setSelectedShapesVariantDataKeys]);
+  }, [sliderRange, orderedLocations, setSelectedShapesVariantDataKeys]);
 
   return (
     <S.Wrapper>
       <MultiStepSlider
         key={sliderKey}
-        value={range}
+        value={sliderRange}
         onValueChange={onRangeChange}
         min={0}
         max={maxIdx}
