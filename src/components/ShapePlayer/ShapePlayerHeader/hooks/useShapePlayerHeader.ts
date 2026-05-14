@@ -1,4 +1,5 @@
 import { useDataKeyStore, useShapePlayerStore, useUiStore } from "@/store";
+import { useMetronomeStore } from "@/store/useMetronomeStore";
 
 export const useShapePlayerHeader = () => {
   const setKeyAndChordPickerExpanded = useUiStore(
@@ -16,6 +17,7 @@ export const useShapePlayerHeader = () => {
   const isListEmpty = useShapePlayerStore(
     (state) => state.shapePlayerBricks.length === 0,
   );
+  const togglePlay = useMetronomeStore((state) => state.togglePlay);
 
   const resetDataKeys = useDataKeyStore((state) => state.resetDataKeys);
 
@@ -28,10 +30,15 @@ export const useShapePlayerHeader = () => {
     resetDataKeys();
   };
 
+  const handleMetronomeToggle = () => {
+    togglePlay();
+  };
+
   return {
     handleAdd,
     handleClear,
     restoreLastAction,
+    handleMetronomeToggle,
     isRestoreDisabled,
     isListEmpty,
   };

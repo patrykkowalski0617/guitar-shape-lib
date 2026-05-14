@@ -7,6 +7,7 @@ export const ShapePlayerHeader = () => {
     handleAdd,
     handleClear,
     restoreLastAction,
+    handleMetronomeToggle,
     isRestoreDisabled,
     isListEmpty,
   } = useShapePlayerHeader();
@@ -22,6 +23,8 @@ export const ShapePlayerHeader = () => {
       <Button onClick={restoreLastAction} disabled={isRestoreDisabled}>
         Cofnij usunięcie
       </Button>
+
+      <Button onClick={handleMetronomeToggle}>Toggle metronome</Button>
     </S.ShapePlayerHeaderWrapper>
   );
 };
