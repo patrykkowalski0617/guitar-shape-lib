@@ -205,20 +205,29 @@ export const InteractionZone = styled.div.attrs<InteractionZoneProps>(
     const transformation = $isVertical
       ? "translate(-50%, 50%)"
       : "translateX(-50%)";
+
+    const hasMultipleTicks = $numberOfSelectedTicks > 1;
+    const fallbackSize = `${$thumbSize + 30}px`;
+
     const zoneWidth = $isVertical
-      ? $thumbSize + 30 + "px"
-      : `calc(200% / ${$numberOfSelectedTicks - 1})`;
+      ? fallbackSize
+      : hasMultipleTicks
+        ? `calc(200% / ${$numberOfSelectedTicks - 1})`
+        : fallbackSize;
+
     const zoneHeight = $isVertical
-      ? `calc(200% / ${$numberOfSelectedTicks - 1})`
-      : $thumbSize + 30 + "px";
+      ? hasMultipleTicks
+        ? `calc(200% / ${$numberOfSelectedTicks - 1})`
+        : fallbackSize
+      : fallbackSize;
 
     return {
       style: {
         left: horizontalPosition,
         bottom: verticalPosition,
         transform: transformation,
-        width: `${zoneWidth}`,
-        height: `${zoneHeight}`,
+        width: zoneWidth,
+        height: zoneHeight,
       },
     };
   },
@@ -228,9 +237,16 @@ export const InteractionZone = styled.div.attrs<InteractionZoneProps>(
   align-items: center;
   justify-content: center;
   pointer-events: auto;
-  &:hover {
-    z-index: 90;
+  z-index: 10;
+
+  &:hover + & {
+    z-index: 20;
   }
+
+  &:hover {
+    z-index: 30;
+  }
+
   &:hover > div {
     opacity: 1;
   }
