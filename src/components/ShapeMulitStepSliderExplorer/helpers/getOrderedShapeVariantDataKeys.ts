@@ -1,4 +1,10 @@
 import {
+  BASS_STRING_ID_MAP,
+  numberOfFrets,
+  stringIndexes,
+  STRINGS_CONFIG,
+} from "@/components/GuitarFretboard/constants";
+import {
   SHAPES,
   type NoteName,
   type ShapeDataKey,
@@ -6,12 +12,6 @@ import {
   type UnifiedMusicKeysDataKey,
 } from "@/data";
 import { getValidVariants, getNotes } from "@/utils";
-import {
-  numberOfFrets,
-  stringIndexes,
-  STRINGS_CONFIG,
-  BASS_STRING_ID_MAP,
-} from "@/components/Fretboard/constants";
 
 interface GetOrderedShapeVariantDataKeysParams {
   shapeDataKey: ShapeDataKey;

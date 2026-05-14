@@ -7,7 +7,7 @@ import type {
 import {
   STRINGS_CONFIG,
   type StringIndexes,
-} from "@/components/Fretboard/constants";
+} from "@/components/GuitarFretboard/constants";
 
 interface ControlsState {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;

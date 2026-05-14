@@ -1,4 +1,4 @@
-import { numberOfFrets } from "@/components/Fretboard/constants";
+import { numberOfFrets } from "@/components/GuitarFretboard/constants";
 import {
   type VariantDataKey,
   type StringVariants,
