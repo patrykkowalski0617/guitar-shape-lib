@@ -2,8 +2,7 @@ import * as S from "./parts";
 import { type MultiStepSliderProps } from "./constants";
 import { useMultiStepSliderLogic } from "./hooks/useMultiStepSliderLogic";
 import { calculatePercent } from "./utils";
-import { InteractionZone } from "./RangeChangeZone/InteractionZone";
-import { InteractionContainer } from "./RangeChangeZone/parts";
+import { RangeChangeZone } from "./RangeChangeZone/RangeChangeZone";
 
 export function MultiStepSlider(props: MultiStepSliderProps) {
   const {
@@ -30,14 +29,12 @@ export function MultiStepSlider(props: MultiStepSliderProps) {
     effectiveMax,
     onBeforeValueChange,
   } = props;
-  const limitValue = effectiveMax ?? max;
 
-  const isValueInRange = (val: number) => val >= firstVal && val <= lastVal;
+  const limitValue = effectiveMax ?? max;
 
   return (
     <S.SliderRoot
       $isVertical={isVertical}
-      // onPointerDown={handleTrackPointerDown(disabled || isDragging)} <-- USUŃ TO
       onPointerMove={handlePointerMove}
       onPointerLeave={() => setPreviewValue(null)}
     >
@@ -82,32 +79,20 @@ export function MultiStepSlider(props: MultiStepSliderProps) {
           $hasActivePreview={!!previewValue && !isDragging}
         />
 
-        <InteractionContainer
-          $isVertical={isVertical}
-          $thumbSize={thumbSize}
-          $isDragging={isDragging}
-        >
-          {Array.from({ length: limitValue + 1 }, (_, i) => (
-            <InteractionZone
-              key={i}
-              val={i}
-              index={i}
-              total={limitValue + 1}
-              isInRange={isValueInRange(i)}
-              {...{
-                isVertical,
-                thumbSize,
-                firstVal,
-                lastVal,
-                onBeforeValueChange,
-                handleCutStart,
-                handleCutEnd,
-                setPreviewValue,
-                handleTrackPointerDown: handleTrackPointerDown(disabled),
-              }}
-            />
-          ))}
-        </InteractionContainer>
+        <RangeChangeZone
+          limitValue={limitValue}
+          isVertical={isVertical}
+          thumbSize={thumbSize}
+          isDragging={isDragging}
+          firstVal={firstVal}
+          lastVal={lastVal}
+          disabled={disabled}
+          onBeforeValueChange={onBeforeValueChange}
+          handleCutStart={handleCutStart}
+          handleCutEnd={handleCutEnd}
+          setPreviewValue={setPreviewValue}
+          handleTrackPointerDown={handleTrackPointerDown}
+        />
       </S.SliderTrack>
     </S.SliderRoot>
   );

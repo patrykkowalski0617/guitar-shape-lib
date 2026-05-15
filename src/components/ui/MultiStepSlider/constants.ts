@@ -14,7 +14,7 @@ export interface MultiStepSliderProps {
   onBeforeValueChange?: (nextValue: number[]) => boolean;
 }
 
-export interface InteractionZoneProps {
+export interface RangeChangeZoneProps {
   val: number;
   index: number;
   total: number;

@@ -4,136 +4,48 @@ export const InteractionContainer = styled.div<{
   $isVertical: boolean;
   $thumbSize: number;
   $isDragging?: boolean;
+  $numberOfTicks: number;
 }>`
-  position: absolute;
-  z-index: 2;
-
-  --zone-multiplier: 100;
-
-  &:hover {
-    --zone-multiplier: 200;
-  }
-
-  ${({ $isDragging, $isVertical, $thumbSize }) => {
-    const draggingStyles = $isDragging ? "none" : "auto";
-    const visibilityStatus = $isDragging ? "hidden" : "visible";
-    const offsetValue = `${$thumbSize / 2}px`;
+  ${({ $thumbSize, $numberOfTicks }) => {
+    const halfChildWidthPercentage = 100 / (($numberOfTicks - 1) * 2);
+    const offset = `${halfChildWidthPercentage}%`;
+    const topPosition = $thumbSize / 2;
 
     return css`
-      pointer-events: ${draggingStyles};
-      visibility: ${visibilityStatus};
-      ${$isVertical
-        ? css`
-            top: ${offsetValue};
-            bottom: ${offsetValue};
-            left: 0;
-            right: 0;
-          `
-        : css`
-            top: 0;
-            bottom: 0;
-            left: ${offsetValue};
-            right: ${offsetValue};
-          `};
+      border: 1px red solid;
+      height: 40px;
+      display: flex;
+      position: absolute;
+      top: ${topPosition}px;
+      left: -${offset};
+      right: -${offset};
     `;
   }}
-`;
-
-interface InteractionZoneProps {
-  $isVertical: boolean;
-  $positionPercent: number;
-  $thumbSize: number;
-  $numberOfSelectedTicks: number;
-}
-
-export const InteractionZone = styled.div.attrs<InteractionZoneProps>(
-  ({ $isVertical, $positionPercent, $thumbSize, $numberOfSelectedTicks }) => {
-    const fallbackSize = `${$thumbSize + 18}px`;
-
-    const horizontalPosition = $isVertical
-      ? `${$thumbSize}px`
-      : `${$positionPercent}%`;
-    const verticalPosition = $isVertical ? `${$positionPercent}%` : "0";
-    const transformation = $isVertical
-      ? "translate(-50%, 50%)"
-      : "translateX(-50%)";
-
-    const zoneWidth = $isVertical
-      ? `${$thumbSize + 20}px`
-      : `calc(var(--zone-multiplier) * 1% / ${$numberOfSelectedTicks - 1})`;
-    const zoneHeight = $isVertical
-      ? `calc(var(--zone-multiplier) * 1% / ${$numberOfSelectedTicks - 1})`
-      : fallbackSize;
-    return {
-      style: {
-        left: horizontalPosition,
-        bottom: verticalPosition,
-        transform: transformation,
-        width: zoneWidth,
-        height: zoneHeight,
-      },
-    };
-  },
-)`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: auto;
-  z-index: 10;
-  border: red 1px solid;
-  &:hover + & {
-    z-index: 20;
-  }
-  &:hover {
-    z-index: 30;
-  }
-`;
-
-export const ExpandButton = styled.button<{ $isVertical: boolean }>`
-  all: unset;
-  height: ${({ $isVertical }) => ($isVertical ? "50%" : "30px")};
-  width: ${({ $isVertical }) => ($isVertical ? "30px" : "50%")};
-  cursor: pointer;
-  pointer-events: auto;
-  background-color: transparent;
-
-  &:hover {
-    background-color: color-mix(in oklab, var(--primary) 20%, transparent);
-  }
 `;
 
 export const ControlsWrapper = styled.div<{
   $isVertical: boolean;
   $isDragging: boolean;
+  $positionPercent: number;
+  $thumbSize: number;
+  $numberOfTicks: number;
 }>`
-  position: absolute;
+  border: 1px yellow solid;
   display: flex;
-  /* opacity: 0; */
-  border: green 1px solid;
-  pointer-events: none;
-  gap: 1px;
-  flex-direction: ${({ $isVertical }) =>
-    $isVertical ? "column-reverse" : "row"};
-  ${({ $isVertical }) => ($isVertical ? "right: 0;" : "top: 0;")}
-  ${({ $isVertical }) => ($isVertical ? "height: 100%;" : "width: 100%;")}
-  border: blue solid 1px;
+  height: 100%;
+  flex: 1;
+`;
+
+export const ExpandButton = styled.button<{ $isVertical: boolean }>`
+  flex: 1;
+  height: 100%;
+  border: 1px green solid;
 `;
 
 export const CutButton = styled.button<{
   $isVertical: boolean;
 }>`
-  all: unset;
-  height: ${({ $isVertical }) => ($isVertical ? "50%" : "30px")};
-  width: ${({ $isVertical }) => ($isVertical ? "30px" : "50%")};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 100%;
-  cursor: pointer;
-  pointer-events: auto;
-  color: var(--foreground);
-  &:hover:not(:disabled) {
-    color: var(--primary);
-  }
+  flex: 1;
+  height: 100%;
+  border: 1px blue solid;
 `;
