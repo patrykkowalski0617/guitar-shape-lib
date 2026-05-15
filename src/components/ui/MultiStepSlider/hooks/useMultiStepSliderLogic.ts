@@ -27,7 +27,7 @@ export function useMultiStepSliderLogic(props: MultiStepSliderProps) {
     onValueChange: (next) => {
       const nextMin = Math.min(...next);
       const nextMax = Math.max(...next);
-      const nextRange = [nextMin, nextMax];
+      const nextRange: [number, number] = [nextMin, nextMax];
 
       const nextRangeStr = JSON.stringify(nextRange);
 

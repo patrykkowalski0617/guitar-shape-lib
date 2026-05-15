@@ -49,7 +49,7 @@ interface InteractionZoneProps {
 export const InteractionZone = styled.div.attrs<InteractionZoneProps>(
   ({ $isVertical, $positionPercent, $thumbSize, $numberOfSelectedTicks }) => {
     const hasMultipleTicks = $numberOfSelectedTicks > 1;
-    const fallbackSize = `${$thumbSize + 30}px`;
+    const fallbackSize = `${$thumbSize + 18}px`;
 
     const horizontalPosition = $isVertical ? "100%" : `${$positionPercent}%`;
     const verticalPosition = $isVertical ? `${$positionPercent}%` : "0";
@@ -58,10 +58,10 @@ export const InteractionZone = styled.div.attrs<InteractionZoneProps>(
       : "translateX(-50%)";
 
     const zoneWidth = $isVertical
-      ? fallbackSize
+      ? `${$thumbSize + 55}px`
       : hasMultipleTicks
         ? `calc(var(--zone-multiplier) * 1% / ${$numberOfSelectedTicks - 1})`
-        : fallbackSize;
+        : `${$thumbSize + 28}px`;
 
     const zoneHeight = $isVertical
       ? hasMultipleTicks
@@ -86,7 +86,7 @@ export const InteractionZone = styled.div.attrs<InteractionZoneProps>(
   justify-content: center;
   pointer-events: auto;
   z-index: 10;
-
+  /* border: red 1px solid; */
   &:hover + & {
     z-index: 20;
   }
@@ -96,7 +96,20 @@ export const InteractionZone = styled.div.attrs<InteractionZoneProps>(
   }
 
   &:hover > div {
-    opacity: 1;
+    /* opacity: 1; */
+  }
+`;
+
+export const ExpandButton = styled.button<{ $isVertical: boolean }>`
+  all: unset;
+  height: ${({ $isVertical }) => ($isVertical ? "50%" : "30px")};
+  width: ${({ $isVertical }) => ($isVertical ? "30px" : "50%")};
+  cursor: pointer;
+  pointer-events: auto;
+  background-color: transparent;
+
+  &:hover {
+    background-color: color-mix(in oklab, var(--primary) 20%, transparent);
   }
 `;
 
@@ -113,7 +126,8 @@ export const ControlsWrapper = styled.div<{
     $isVertical ? "column-reverse" : "row"};
   ${({ $isVertical }) => ($isVertical ? "right: 0;" : "top: 0;")}
   background-color: color-mix(in oklab, var(--background) 60%, transparent);
-  ${({ $isVertical }) => ($isVertical ? "height: 100%;" : "width: 100%;")}
+  ${({ $isVertical }) =>
+    $isVertical ? "height: 100%;" : "width: 100%;"}/* border: blue solid 1px; */
 `;
 
 export const CutButton = styled.button<{
@@ -133,7 +147,7 @@ export const CutButton = styled.button<{
     color: var(--primary);
   }
   &:disabled {
-    opacity: 0.3;
+    opacity: 0;
   }
 `;
 

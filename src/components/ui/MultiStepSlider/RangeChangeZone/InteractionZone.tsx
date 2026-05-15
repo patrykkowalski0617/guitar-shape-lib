@@ -2,6 +2,11 @@ import * as React from "react";
 import * as S from "./parts";
 import type { InteractionZoneProps } from "../constants";
 
+interface ExtendedInteractionZoneProps extends InteractionZoneProps {
+  isInRange: boolean;
+  handleTrackPointerDown: (e: React.PointerEvent) => void;
+}
+
 export function InteractionZone({
   val,
   index,
@@ -10,17 +15,18 @@ export function InteractionZone({
   thumbSize,
   firstVal,
   lastVal,
+  isInRange,
   onBeforeValueChange,
   handleCutStart,
   handleCutEnd,
   setPreviewValue,
-}: InteractionZoneProps) {
-  const positionPercent = total > 1 ? (index / (total - 1)) * 100 : 50;
+  handleTrackPointerDown,
+}: ExtendedInteractionZoneProps) {
+  const positionPercent = (index / (total - 1)) * 100;
 
   const handleCut = (type: "start" | "end") => (e: React.MouseEvent) => {
     e.stopPropagation();
     setPreviewValue(null);
-
     if (type === "start") {
       handleCutStart(val);
     } else {
@@ -28,19 +34,10 @@ export function InteractionZone({
     }
   };
 
-  const isLastAndDisabled = val === lastVal;
-  const isFirstAndDisabled = val === firstVal;
-  const hasMultipleSteps = total > 1;
-
   const isEndDisabled =
-    isLastAndDisabled ||
-    !hasMultipleSteps ||
-    onBeforeValueChange?.([firstVal, val]) === false;
-
+    val === lastVal || onBeforeValueChange?.([firstVal, val]) === false;
   const isStartDisabled =
-    isFirstAndDisabled ||
-    !hasMultipleSteps ||
-    onBeforeValueChange?.([val, lastVal]) === false;
+    val === firstVal || onBeforeValueChange?.([val, lastVal]) === false;
 
   return (
     <S.InteractionZone
@@ -49,30 +46,39 @@ export function InteractionZone({
       $positionPercent={positionPercent}
       $numberOfSelectedTicks={total}
     >
-      <S.ControlsWrapper $isVertical={isVertical} $isDragging={false}>
-        <S.CutButton
-          data-cut-button="true"
-          data-cut-type="end"
-          data-value={val}
-          disabled={isEndDisabled}
-          onPointerDown={(e) => e.stopPropagation()}
-          onClick={handleCut("end")}
-          $isVertical={isVertical}
-        >
-          {isVertical ? "▼" : <S.IconWrapper>▼</S.IconWrapper>}
-        </S.CutButton>
-        <S.CutButton
-          data-cut-button="true"
-          data-cut-type="start"
-          data-value={val}
-          disabled={isStartDisabled}
-          onPointerDown={(e) => e.stopPropagation()}
-          onClick={handleCut("start")}
-          $isVertical={isVertical}
-        >
-          {isVertical ? "▲" : <S.IconWrapper>▲</S.IconWrapper>}
-        </S.CutButton>
-      </S.ControlsWrapper>
+      {isInRange ? (
+        <S.ControlsWrapper $isVertical={isVertical} $isDragging={false}>
+          <S.CutButton
+            data-cut-button="true"
+            data-cut-type="end"
+            data-value={val}
+            disabled={isEndDisabled}
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={handleCut("end")}
+            $isVertical={isVertical}
+          >
+            {isVertical ? "▼" : <S.IconWrapper>▼</S.IconWrapper>}
+          </S.CutButton>
+          <S.CutButton
+            data-cut-button="true"
+            data-cut-type="start"
+            data-value={val}
+            disabled={isStartDisabled}
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={handleCut("start")}
+            $isVertical={isVertical}
+          >
+            {isVertical ? "▲" : <S.IconWrapper>▲</S.IconWrapper>}
+          </S.CutButton>
+        </S.ControlsWrapper>
+      ) : (
+        <S.ControlsWrapper $isVertical={isVertical} $isDragging={false}>
+          <S.ExpandButton
+            onPointerDown={handleTrackPointerDown}
+            $isVertical={isVertical}
+          />
+        </S.ControlsWrapper>
+      )}
     </S.InteractionZone>
   );
 }

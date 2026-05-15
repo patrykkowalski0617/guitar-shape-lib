@@ -8,7 +8,6 @@ import { InteractionContainer } from "./RangeChangeZone/parts";
 export function MultiStepSlider(props: MultiStepSliderProps) {
   const {
     trackRef,
-    sortedValues,
     firstVal,
     lastVal,
     sliderRange,
@@ -32,6 +31,8 @@ export function MultiStepSlider(props: MultiStepSliderProps) {
     onBeforeValueChange,
   } = props;
   const limitValue = effectiveMax ?? max;
+
+  const isValueInRange = (val: number) => val >= firstVal && val <= lastVal;
 
   return (
     <S.SliderRoot
@@ -79,32 +80,34 @@ export function MultiStepSlider(props: MultiStepSliderProps) {
           $thumbSize={thumbSize}
           $isDragging={isDragging}
           $hasActivePreview={!!previewValue && !isDragging}
+        />
+
+        <InteractionContainer
+          $isVertical={isVertical}
+          $thumbSize={thumbSize}
+          $isDragging={isDragging}
         >
-          <InteractionContainer
-            $isVertical={isVertical}
-            $thumbSize={thumbSize}
-            $isDragging={isDragging}
-          >
-            {sortedValues.map((val, index) => (
-              <InteractionZone
-                key={val}
-                val={val}
-                index={index}
-                total={sortedValues.length}
-                {...{
-                  isVertical,
-                  thumbSize,
-                  firstVal,
-                  lastVal,
-                  onBeforeValueChange,
-                  handleCutStart,
-                  handleCutEnd,
-                  setPreviewValue,
-                }}
-              />
-            ))}
-          </InteractionContainer>
-        </S.SliderThumb>
+          {Array.from({ length: limitValue + 1 }, (_, i) => (
+            <InteractionZone
+              key={i}
+              val={i}
+              index={i}
+              total={limitValue + 1}
+              isInRange={isValueInRange(i)}
+              {...{
+                isVertical,
+                thumbSize,
+                firstVal,
+                lastVal,
+                onBeforeValueChange,
+                handleCutStart,
+                handleCutEnd,
+                setPreviewValue,
+                handleTrackPointerDown: handleTrackPointerDown(disabled),
+              }}
+            />
+          ))}
+        </InteractionContainer>
       </S.SliderTrack>
     </S.SliderRoot>
   );

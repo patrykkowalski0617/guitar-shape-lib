@@ -29,10 +29,10 @@ const Label = styled.p`
 
 export function MultiStepSliderTest() {
   const [rangeA, setSliderRangeA] = useState<number[]>([4, 6]);
-  const [rangeB, setSliderRangeB] = useState<number[]>([3, 5]);
+  const [rangeB, setSliderRangeB] = useState<number[]>([4, 4]);
 
   const configA = { min: 0, max: 12 };
-  const configB = { min: 0, max: 10 };
+  const configB = { min: 0, max: 4 };
 
   const masterLimits = useMemo(() => {
     return {
