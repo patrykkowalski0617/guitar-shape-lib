@@ -48,27 +48,22 @@ interface InteractionZoneProps {
 
 export const InteractionZone = styled.div.attrs<InteractionZoneProps>(
   ({ $isVertical, $positionPercent, $thumbSize, $numberOfSelectedTicks }) => {
-    const hasMultipleTicks = $numberOfSelectedTicks > 1;
     const fallbackSize = `${$thumbSize + 18}px`;
 
-    const horizontalPosition = $isVertical ? "100%" : `${$positionPercent}%`;
+    const horizontalPosition = $isVertical
+      ? `${$thumbSize}px`
+      : `${$positionPercent}%`;
     const verticalPosition = $isVertical ? `${$positionPercent}%` : "0";
     const transformation = $isVertical
       ? "translate(-50%, 50%)"
       : "translateX(-50%)";
 
     const zoneWidth = $isVertical
-      ? `${$thumbSize + 55}px`
-      : hasMultipleTicks
-        ? `calc(var(--zone-multiplier) * 1% / ${$numberOfSelectedTicks - 1})`
-        : `${$thumbSize + 28}px`;
-
+      ? `${$thumbSize + 20}px`
+      : `calc(var(--zone-multiplier) * 1% / ${$numberOfSelectedTicks - 1})`;
     const zoneHeight = $isVertical
-      ? hasMultipleTicks
-        ? `calc(var(--zone-multiplier) * 1% / ${$numberOfSelectedTicks - 1})`
-        : fallbackSize
+      ? `calc(var(--zone-multiplier) * 1% / ${$numberOfSelectedTicks - 1})`
       : fallbackSize;
-
     return {
       style: {
         left: horizontalPosition,
@@ -86,17 +81,12 @@ export const InteractionZone = styled.div.attrs<InteractionZoneProps>(
   justify-content: center;
   pointer-events: auto;
   z-index: 10;
-  /* border: red 1px solid; */
+  border: red 1px solid;
   &:hover + & {
     z-index: 20;
   }
-
   &:hover {
     z-index: 30;
-  }
-
-  &:hover > div {
-    /* opacity: 1; */
   }
 `;
 
@@ -119,15 +109,15 @@ export const ControlsWrapper = styled.div<{
 }>`
   position: absolute;
   display: flex;
-  opacity: 0;
+  /* opacity: 0; */
+  border: green 1px solid;
   pointer-events: none;
   gap: 1px;
   flex-direction: ${({ $isVertical }) =>
     $isVertical ? "column-reverse" : "row"};
   ${({ $isVertical }) => ($isVertical ? "right: 0;" : "top: 0;")}
-  background-color: color-mix(in oklab, var(--background) 60%, transparent);
-  ${({ $isVertical }) =>
-    $isVertical ? "height: 100%;" : "width: 100%;"}/* border: blue solid 1px; */
+  ${({ $isVertical }) => ($isVertical ? "height: 100%;" : "width: 100%;")}
+  border: blue solid 1px;
 `;
 
 export const CutButton = styled.button<{
@@ -146,12 +136,4 @@ export const CutButton = styled.button<{
   &:hover:not(:disabled) {
     color: var(--primary);
   }
-  &:disabled {
-    opacity: 0;
-  }
-`;
-
-export const IconWrapper = styled.span`
-  display: block;
-  transform: rotate(90deg);
 `;

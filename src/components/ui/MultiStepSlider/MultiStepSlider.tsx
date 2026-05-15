@@ -37,7 +37,7 @@ export function MultiStepSlider(props: MultiStepSliderProps) {
   return (
     <S.SliderRoot
       $isVertical={isVertical}
-      onPointerDown={handleTrackPointerDown(disabled || isDragging)}
+      // onPointerDown={handleTrackPointerDown(disabled || isDragging)} <-- USUŃ TO
       onPointerMove={handlePointerMove}
       onPointerLeave={() => setPreviewValue(null)}
     >

@@ -56,9 +56,7 @@ export function InteractionZone({
             onPointerDown={(e) => e.stopPropagation()}
             onClick={handleCut("end")}
             $isVertical={isVertical}
-          >
-            {isVertical ? "▼" : <S.IconWrapper>▼</S.IconWrapper>}
-          </S.CutButton>
+          ></S.CutButton>
           <S.CutButton
             data-cut-button="true"
             data-cut-type="start"
@@ -67,14 +65,17 @@ export function InteractionZone({
             onPointerDown={(e) => e.stopPropagation()}
             onClick={handleCut("start")}
             $isVertical={isVertical}
-          >
-            {isVertical ? "▲" : <S.IconWrapper>▲</S.IconWrapper>}
-          </S.CutButton>
+          ></S.CutButton>
         </S.ControlsWrapper>
       ) : (
         <S.ControlsWrapper $isVertical={isVertical} $isDragging={false}>
           <S.ExpandButton
-            onPointerDown={handleTrackPointerDown}
+            data-expand-button="true" // Ten atrybut pozwala na wykrycie w handlePointerMove
+            data-value={val} // Przekazujemy wartość do obliczeń podglądu
+            onPointerDown={(e) => {
+              e.stopPropagation();
+              handleTrackPointerDown(e);
+            }}
             $isVertical={isVertical}
           />
         </S.ControlsWrapper>

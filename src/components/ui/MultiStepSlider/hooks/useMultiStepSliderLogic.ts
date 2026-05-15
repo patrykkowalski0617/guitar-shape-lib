@@ -56,15 +56,14 @@ export function useMultiStepSliderLogic(props: MultiStepSliderProps) {
     };
     window.addEventListener("pointerup", stop);
   };
-
   const handlePointerMove = (e: React.PointerEvent) => {
     if (disabled || isDragging || e.pointerType === "touch") return;
 
     const target = e.target as HTMLElement;
+
     const cutButton = target.closest(
       '[data-cut-button="true"]',
     ) as HTMLElement | null;
-
     if (cutButton) {
       const type = cutButton.getAttribute("data-cut-type");
       const val = Number(cutButton.getAttribute("data-value"));
@@ -80,29 +79,29 @@ export function useMultiStepSliderLogic(props: MultiStepSliderProps) {
       return;
     }
 
-    const hoverVal = internalHandlers.calculateValueFromPos(
-      e.clientX,
-      e.clientY,
-    );
-    const isOutside =
-      hoverVal < internalHandlers.firstVal ||
-      hoverVal > internalHandlers.lastVal;
+    const expandButton = target.closest(
+      '[data-expand-button="true"]',
+    ) as HTMLElement | null;
+    if (expandButton) {
+      const hoverVal = Number(expandButton.getAttribute("data-value"));
 
-    if (isOutside) {
       const nextRange = getPotentialRange(
         hoverVal,
         hoverVal < internalHandlers.firstVal
           ? internalHandlers.lastVal
           : internalHandlers.firstVal,
       );
+
       const fullNext = getFullRange(nextRange);
       const shouldUpdate = onBeforeValueChange
         ? onBeforeValueChange(nextRange)
         : true;
       setPreviewValue(shouldUpdate ? fullNext : null);
-    } else {
-      setPreviewValue(null);
+      return;
     }
+
+    // Jeśli nie jesteśmy nad żadnym przyciskiem - czyścimy preview
+    setPreviewValue(null);
   };
 
   return {
