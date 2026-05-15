@@ -30,10 +30,21 @@ export const ControlsWrapper = styled.div<{
   $thumbSize: number;
   $numberOfTicks: number;
 }>`
-  border: 1px yellow solid;
-  display: flex;
-  height: 100%;
-  flex: 1;
+  ${({ $thumbSize, $numberOfTicks }) => {
+    return css`
+      border: 1px yellow solid;
+      display: flex;
+      height: 100%;
+      flex: 1;
+      &:hover + & {
+        z-index: 20;
+      }
+      &:hover {
+        transform: scaleX(2);
+        z-index: 30;
+      }
+    `;
+  }}
 `;
 
 export const ExpandButton = styled.button<{ $isVertical: boolean }>`
