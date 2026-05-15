@@ -13,3 +13,17 @@ export interface MultiStepSliderProps {
   onHighlightEnd?: () => void;
   onBeforeValueChange?: (nextValue: number[]) => boolean;
 }
+
+export interface InteractionZoneProps {
+  val: number;
+  index: number;
+  total: number;
+  isVertical: boolean;
+  thumbSize: number;
+  firstVal: number;
+  lastVal: number;
+  onBeforeValueChange?: (value: number[]) => boolean;
+  handleCutStart: (val: number) => void;
+  handleCutEnd: (val: number) => void;
+  setPreviewValue: (value: number[] | null) => void;
+}

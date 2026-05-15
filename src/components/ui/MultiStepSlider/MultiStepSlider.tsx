@@ -2,7 +2,8 @@ import * as S from "./parts";
 import { type MultiStepSliderProps } from "./constants";
 import { useMultiStepSliderLogic } from "./hooks/useMultiStepSliderLogic";
 import { calculatePercent } from "./utils";
-import { InteractionZone } from "./InteractionZone";
+import { InteractionZone } from "./RangeChangeZone/InteractionZone";
+import { InteractionContainer } from "./RangeChangeZone/parts";
 
 export function MultiStepSlider(props: MultiStepSliderProps) {
   const {
@@ -21,7 +22,7 @@ export function MultiStepSlider(props: MultiStepSliderProps) {
     handleCutStart,
     handleCutEnd,
   } = useMultiStepSliderLogic(props);
-  // const previewValue = [3, 4];
+
   const {
     max,
     min = 0,
@@ -79,7 +80,7 @@ export function MultiStepSlider(props: MultiStepSliderProps) {
           $isDragging={isDragging}
           $hasActivePreview={!!previewValue && !isDragging}
         >
-          <S.InteractionContainer
+          <InteractionContainer
             $isVertical={isVertical}
             $thumbSize={thumbSize}
             $isDragging={isDragging}
@@ -102,7 +103,7 @@ export function MultiStepSlider(props: MultiStepSliderProps) {
                 }}
               />
             ))}
-          </S.InteractionContainer>
+          </InteractionContainer>
         </S.SliderThumb>
       </S.SliderTrack>
     </S.SliderRoot>

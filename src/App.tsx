@@ -18,7 +18,7 @@ export default function App() {
       <SoundEngine />
       <Toaster position="top-center" />
       {/* <DataDebug /> */}
-      {/* <MultiStepSliderTest /> */}
+      <MultiStepSliderTest />
       <FullscreenButton />
       <KeyAndChordPicker />
       <ShapePicker />

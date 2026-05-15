@@ -1,19 +1,6 @@
 import * as React from "react";
 import * as S from "./parts";
-
-interface InteractionZoneProps {
-  val: number;
-  index: number;
-  total: number;
-  isVertical: boolean;
-  thumbSize: number;
-  firstVal: number;
-  lastVal: number;
-  onBeforeValueChange?: (value: number[]) => boolean;
-  handleCutStart: (val: number) => void;
-  handleCutEnd: (val: number) => void;
-  setPreviewValue: (value: number[] | null) => void;
-}
+import type { InteractionZoneProps } from "../constants";
 
 export function InteractionZone({
   val,
