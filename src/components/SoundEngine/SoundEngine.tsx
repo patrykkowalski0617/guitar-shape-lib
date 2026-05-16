@@ -44,17 +44,10 @@ export function SoundEngine() {
       }
     }
 
-    currentlyPlaying.current.forEach((noteId) => {
-      if (!notesThatShouldPlay.has(noteId)) {
-        synth.stop(noteId);
-      }
-    });
-
-    notesThatShouldPlay.forEach((noteId) => {
-      if (!currentlyPlaying.current.has(noteId)) {
-        synth.play(noteId);
-      }
-    });
+    currentlyPlaying.current.forEach((noteId) => synth.stop(noteId));
+    console.log("[SoundEngine] stopping", [...currentlyPlaying.current]);
+    console.log("[SoundEngine] starting", [...notesThatShouldPlay]);
+    notesThatShouldPlay.forEach((noteId) => synth.play(noteId));
 
     currentlyPlaying.current = notesThatShouldPlay;
   }, [
@@ -65,6 +58,5 @@ export function SoundEngine() {
     backgingtrackNoteIds,
     playBackingtrack,
   ]);
-
   return null;
 }

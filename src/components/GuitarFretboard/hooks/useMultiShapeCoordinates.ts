@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from "react";
 import { useDataKeyStore, useMusicStore } from "@/store";
 import { useShapeCoordinates } from "./useShapeCoordinates";
 import { useCAGED_ChordsShapes } from "./useCAGED_ChordsShapes";
@@ -16,9 +17,6 @@ export const useMultiShapeCoordinates = () => {
   const getCAGED_ChordsShapes = useCAGED_ChordsShapes();
   const getShapeCoordinates = useShapeCoordinates();
 
-  const multiShapeCoordinates: FretboardCoordinate[] = [];
-  const multiBaseChordCoordinates: FretboardCoordinate[] = [];
-
   const addUnique = (
     target: FretboardCoordinate[],
     source: FretboardCoordinate[],
@@ -34,35 +32,49 @@ export const useMultiShapeCoordinates = () => {
     });
   };
 
-  selectedShapesVariantDataKeys?.forEach((variantKey, i) => {
-    const shapeCoordinates = getShapeCoordinates(variantKey);
-    const CAGED_ChordsShapes = getCAGED_ChordsShapes();
+  const { shapeCoordinates, baseChordCoordinates, bassNoteId } = useMemo(() => {
+    const multiShapeCoordinates: FretboardCoordinate[] = [];
+    const multiBaseChordCoordinates: FretboardCoordinate[] = [];
+    let bassNoteId: string | null = null;
 
-    const baseChordMatch = findMatchingBaseChord({
-      CAGED_ChordsShapes,
-      shapeCoordinates,
+    selectedShapesVariantDataKeys?.forEach((variantKey, i) => {
+      const shapeCoordinates = getShapeCoordinates(variantKey);
+      const CAGED_ChordsShapes = getCAGED_ChordsShapes();
+
+      const baseChordMatch = findMatchingBaseChord({
+        CAGED_ChordsShapes,
+        shapeCoordinates,
+      });
+
+      if (!i) {
+        const firstCoordinate = baseChordMatch?.coordinates[0];
+        if (firstCoordinate) {
+          bassNoteId = getNoteIdFromFretboardCoordintes(firstCoordinate);
+        }
+      }
+
+      const baseChordCoordinates = baseChordMatch
+        ? baseChordMatch.coordinates
+        : [];
+
+      addUnique(multiShapeCoordinates, shapeCoordinates);
+      addUnique(multiBaseChordCoordinates, baseChordCoordinates);
     });
 
-    if (!i) {
-      const firstCoordinate = baseChordMatch?.coordinates[0];
+    return {
+      shapeCoordinates: multiShapeCoordinates,
+      baseChordCoordinates: multiBaseChordCoordinates,
+      bassNoteId,
+    };
+  }, [
+    selectedShapesVariantDataKeys,
+    getShapeCoordinates,
+    getCAGED_ChordsShapes,
+  ]);
 
-      if (firstCoordinate) {
-        const baseChordBassNoteId =
-          getNoteIdFromFretboardCoordintes(firstCoordinate);
-        setBaseChordBassNoteId(baseChordBassNoteId);
-      }
-    }
+  useEffect(() => {
+    setBaseChordBassNoteId(bassNoteId);
+  }, [bassNoteId, setBaseChordBassNoteId]);
 
-    const baseChordCoordinates = baseChordMatch
-      ? baseChordMatch.coordinates
-      : [];
-
-    addUnique(multiShapeCoordinates, shapeCoordinates);
-    addUnique(multiBaseChordCoordinates, baseChordCoordinates);
-  });
-
-  return {
-    shapeCoordinates: multiShapeCoordinates,
-    baseChordCoordinates: multiBaseChordCoordinates,
-  };
+  return { shapeCoordinates, baseChordCoordinates };
 };

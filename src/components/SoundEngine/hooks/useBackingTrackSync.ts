@@ -40,11 +40,11 @@ export const useBackingTrackSync = () => {
       : undefined;
 
   useEffect(() => {
-    if (!scaleTemplate) {
-      return;
-    }
+    if (!scaleTemplate) return;
+    if (!baseChordBassNoteId) return;
 
-    if (baseChordBassNoteId) {
+    // Dodaj timeout – poczekaj aż React skończy wszystkie aktualizacje stanu
+    const timeout = setTimeout(() => {
       const harmonyIds = harmonizeBassNote(
         baseChordBassNoteId,
         scaleTemplate,
@@ -56,7 +56,9 @@ export const useBackingTrackSync = () => {
       if (isDifferent) {
         setBackgingtrackNoteIds(harmonyIds);
       }
-    }
+    }, 0); // nawet 0ms wystarczy – odkłada wykonanie po wszystkich synchronicznych aktualizacjach
+
+    return () => clearTimeout(timeout);
   }, [
     shapeVariantDataKeys,
     unifiedMusicKeysDataKey,

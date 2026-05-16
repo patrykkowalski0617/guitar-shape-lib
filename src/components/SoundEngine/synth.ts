@@ -137,7 +137,11 @@ export const synth = {
   play: (pitch: string) => {
     const ctx = getAudioContext();
     if (ctx.state === "suspended") ctx.resume();
-    if (activeVoices.has(pitch) || !masterFilter) return;
+    if (activeVoices.has(pitch)) {
+      console.warn(`[Synth] play BLOCKED – ${pitch} still in activeVoices`);
+      return;
+    }
+    console.log(`[Synth] play → ${pitch}`);
 
     const [note, octaveStr] = pitch.split("-");
     const octave = parseInt(octaveStr, 10);
@@ -216,11 +220,17 @@ export const synth = {
 
   stop: (pitch: string) => {
     const voice = activeVoices.get(pitch);
-    if (!voice || !audioCtx) return;
+    if (!voice || !audioCtx) {
+      console.warn(`[Synth] stop MISSED – ${pitch} not found`);
+      return;
+    }
+    console.log(`[Synth] stop → ${pitch}`);
 
     const now = audioCtx.currentTime;
     voice.voiceMainGain.gain.cancelScheduledValues(now);
     voice.voiceMainGain.gain.setTargetAtTime(0, now, 0.05);
+
+    activeVoices.delete(pitch);
 
     setTimeout(() => {
       voice.oscSaw.stop();
@@ -229,7 +239,6 @@ export const synth = {
       voice.oscSaw.disconnect();
       voice.oscSqu.disconnect();
       voice.sub.disconnect();
-      activeVoices.delete(pitch);
     }, 250);
   },
 };
