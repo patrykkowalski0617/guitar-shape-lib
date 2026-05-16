@@ -14,6 +14,7 @@ export const FretboardNumericMarkers = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: row;
+  width: calc(1400px - 50px);
   background-image: linear-gradient(
     -90deg,
     ${appBgColor} 0%,

@@ -8,6 +8,7 @@ import type {
 } from "@/data";
 import { MultiStepSlider } from "../ui/MultiStepSlider/MultiStepSlider";
 import * as S from "./parts";
+import { SegmentedRangeSlider } from "../ui/MultiRangeSlider/SegmentedRangeSlider/SegmentedRangeSlider";
 
 interface ShapeMultiStepSliderExplorerProps {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;

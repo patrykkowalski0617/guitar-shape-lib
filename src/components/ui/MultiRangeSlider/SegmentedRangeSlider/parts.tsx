@@ -12,7 +12,7 @@ export const Track = styled.div`
 export const ActiveRange = styled.div`
   position: absolute;
   height: 100%;
-  background: #3b82f6;
+  background: #2d2d2d;
   display: flex;
 `;
 
