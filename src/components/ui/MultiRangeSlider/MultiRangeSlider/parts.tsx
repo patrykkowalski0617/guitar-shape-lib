@@ -12,7 +12,7 @@ export const Track = styled.div`
 export const ActiveRange = styled.div`
   position: absolute;
   height: 100%;
-  background: #2d2d2d;
+  background: #333;
   display: flex;
 `;
 
@@ -30,7 +30,7 @@ export const Grab = styled.div`
 `;
 
 export const Handle = styled.div`
-  width: 15px;
-  background: rgba(0, 0, 0, 0.2);
+  width: 10px;
+  background: rgba(0, 0, 0, 0.5);
   cursor: ew-resize;
 `;

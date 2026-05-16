@@ -92,7 +92,7 @@ const SegmentedRangeSlider = ({ values, range, onChange }) => {
   );
 };
 
-export default function App() {
+export default function Test() {
   const [ranges, setRanges] = useState({
     A: { start: 1, end: 3 },
     B: { start: 0, end: 2 },
@@ -163,7 +163,7 @@ const Track = styled.div`
 const ActiveRange = styled.div`
   position: absolute;
   height: 100%;
-  background: #3b82f6;
+  background: #333;
   display: flex;
 `;
 
@@ -181,7 +181,7 @@ const Grab = styled.div`
 `;
 
 const Handle = styled.div`
-  width: 15px;
-  background: rgba(0, 0, 0, 0.2);
+  width: 25px;
+  background: rgba(0, 0, 0, 0.5);
   cursor: ew-resize;
 `;

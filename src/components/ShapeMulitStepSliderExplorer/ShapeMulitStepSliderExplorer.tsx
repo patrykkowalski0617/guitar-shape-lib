@@ -6,9 +6,9 @@ import type {
   UnifiedMusicKeysDataKey,
   ShapeVariantDataKeys,
 } from "@/data";
-import { MultiStepSlider } from "../ui/MultiStepSlider/MultiStepSlider";
 import * as S from "./parts";
-import { SegmentedRangeSlider } from "../ui/MultiRangeSlider/SegmentedRangeSlider/SegmentedRangeSlider";
+import MultiRangeSlider from "../ui/MultiRangeSlider/MultiRangeSlider/MultiRangeSlider";
+import type { Range } from "../ui/MultiRangeSlider/MultiRangeSlider/useMultiRangeSlider";
 
 interface ShapeMultiStepSliderExplorerProps {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
@@ -33,7 +33,6 @@ export const ShapeMulitStepSliderExplorer = ({
   );
 
   const sliderKey = `${shapeDataKey}-${unifiedMusicKeysDataKey}-${semitoneOffsetFromMajorRoot}`;
-  const maxIdx = Math.max(0, orderedLocations.length - 1);
 
   useEffect(() => {
     const selectedShapesVariantDataKeys = orderedLocations.slice(
@@ -43,14 +42,22 @@ export const ShapeMulitStepSliderExplorer = ({
     setSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
   }, [sliderRange, orderedLocations, setSelectedShapesVariantDataKeys]);
 
+  const currentRange: Range = {
+    start: sliderRange[0],
+    end: sliderRange[1],
+  };
+
+  const handleSliderChange = (nextRange: Range) => {
+    onRangeChange([nextRange.start, nextRange.end]);
+  };
+
   return (
     <S.Wrapper>
-      <MultiStepSlider
+      <MultiRangeSlider
         key={sliderKey}
-        value={sliderRange}
-        onValueChange={onRangeChange}
-        min={0}
-        max={maxIdx}
+        values={orderedLocations}
+        range={currentRange}
+        onChange={handleSliderChange}
       />
     </S.Wrapper>
   );

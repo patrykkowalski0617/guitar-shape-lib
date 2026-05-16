@@ -10,8 +10,9 @@ import { ShapePlayer } from "./components/ShapePlayer/ShapePlayer";
 import { KeyAndChordPicker } from "@/components/KeyAndChordPicker/KeyAndChordPicker";
 import ShapePicker from "./components/ShapePicker/ShapePicker";
 import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
-import { MultiStepSliderTest } from "./components/ui/MultiStepSlider/MultiStepSliderTest";
-import MultiRangeSliderTest from "./components/ui/MultiRangeSlider/TestDashboard/TestDashboard";
+import Test from "./components/ui/MultiRangeSlider/MultiRangeSliderTest copy";
+import TestComponent from "./components/ui/MultiRangeSlider/TestComponent";
+import { GlobalMultiRangeController } from "./components/ShapeMulitStepSliderExplorer/GlobalMultiRangeController";
 
 export default function App() {
   return (
@@ -19,7 +20,8 @@ export default function App() {
       <SoundEngine />
       <Toaster position="top-center" />
       {/* <DataDebug /> */}
-      <MultiRangeSliderTest />
+      <Test />
+      <TestComponent />
       {/* <MultiStepSliderTest /> */}
       <FullscreenButton />
       <KeyAndChordPicker />
@@ -31,6 +33,7 @@ export default function App() {
         <Section>
           <Piano />
         </Section>
+        <GlobalMultiRangeController />
         <Section>
           <GuitarFretboard />
         </Section>
