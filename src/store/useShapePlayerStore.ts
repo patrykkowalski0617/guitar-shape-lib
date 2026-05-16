@@ -33,6 +33,7 @@ interface ShapePlayerState {
   clearShapePlayerBricks: () => void;
   restoreLastAction: () => void;
   reorderShapePlayerBricks: (oldIndex: number, newIndex: number) => void;
+  setBricks: (bricks: ShapePlayerBrick[]) => void;
 }
 
 export const useShapePlayerStore = create<ShapePlayerState>()(
@@ -153,5 +154,6 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
         ),
       }));
     },
+    setBricks: (shapePlayerBricks) => set({ shapePlayerBricks }),
   })),
 );

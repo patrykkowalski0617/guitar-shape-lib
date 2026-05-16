@@ -5,8 +5,8 @@ import {
   useShapePlayerBrickSelection,
 } from "./hooks";
 import { ShapeMulitStepSliderExplorer } from "@/components/ShapeMulitStepSliderExplorer/ShapeMulitStepSliderExplorer";
-import { Button } from "../ui/parts";
 import { usePlayingBricksData } from "../ShapePlayerList/hooks/usePlayingBricks";
+import { Button } from "../ui/parts";
 
 interface ShapePlayerBrickProps {
   id: string;
