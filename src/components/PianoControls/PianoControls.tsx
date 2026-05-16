@@ -20,7 +20,6 @@ export const PianoControls = () => {
   const handleChange = (key: keyof typeof synthConfig, val: number) => {
     synthConfig[key] = val;
     updateMasterParams();
-
     setTick((t) => t + 1);
   };
 
@@ -41,20 +40,20 @@ export const PianoControls = () => {
       />
 
       <Knob
-        label="Color"
-        value={synthConfig.oscMix}
-        min={0}
-        max={1}
+        label="Attack"
+        value={synthConfig.attackTime}
+        min={0.01}
+        max={0.4}
         step={0.01}
-        onChange={(v) => handleChange("oscMix", v)}
+        onChange={(v) => handleChange("attackTime", v)}
       />
 
       <Knob
         label="Freq"
         value={synthConfig.filterFreq}
-        min={50}
-        max={1000}
-        step={10}
+        min={200}
+        max={8000}
+        step={50}
         onChange={(v) => handleChange("filterFreq", v)}
       />
 
@@ -67,9 +66,38 @@ export const PianoControls = () => {
         onChange={(v) => handleChange("reverbMix", v)}
       />
 
+      <Knob
+        label="Dly Time"
+        value={synthConfig.delayTime}
+        min={0.05}
+        max={1.0}
+        step={0.005}
+        onChange={(v) => handleChange("delayTime", v)}
+      />
+
+      <Knob
+        label="Dly Fdbk"
+        value={synthConfig.delayFeedback}
+        min={0}
+        max={0.92}
+        step={0.01}
+        onChange={(v) => handleChange("delayFeedback", v)}
+      />
+
+      <Knob
+        label="Dly Mix"
+        value={synthConfig.delayMix}
+        min={0}
+        max={1}
+        step={0.01}
+        onChange={(v) => handleChange("delayMix", v)}
+      />
+
       <Switch
         label="Power"
-        isActive={isPianoOn || (playBackingtrack && isPlaying && bricks.length)}
+        isActive={
+          isPianoOn || (playBackingtrack && isPlaying && !!bricks.length)
+        }
         onClick={handleTogglePower}
         glowColor="var(--secondary)"
       />
