@@ -1,10 +1,15 @@
 import styled from "styled-components";
 
+const grabSize = 30;
+
+export const Wrapper = styled.div`
+  padding: 0 ${grabSize}px;
+  background: #eee;
+`;
 export const Track = styled.div`
   position: relative;
   width: 100%;
   height: 40px;
-  background: #eee;
   user-select: none;
   touch-action: none;
 `;
@@ -30,7 +35,15 @@ export const Grab = styled.div`
 `;
 
 export const Handle = styled.div`
-  width: 10px;
-  background: rgba(0, 0, 0, 0.5);
+  width: ${grabSize}px;
+  position: absolute;
+  height: 100%;
+  &:first-child {
+    left: -${grabSize}px;
+  }
+  &:last-child {
+    right: -${grabSize}px;
+  }
+  background: #000;
   cursor: ew-resize;
 `;

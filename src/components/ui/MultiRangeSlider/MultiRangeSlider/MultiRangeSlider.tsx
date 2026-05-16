@@ -1,18 +1,17 @@
-import React from "react";
-import { Track, ActiveRange, Grab, Handle } from "./parts";
+import * as S from "./parts";
 import { useMultiRangeSlider, type Range } from "./useMultiRangeSlider";
 
 interface MultiRangeSliderProps {
-  values: any[];
+  values: unknown[];
   range: Range;
   onChange: (range: Range) => void;
 }
 
-const MultiRangeSlider: React.FC<MultiRangeSliderProps> = ({
+const MultiRangeSlider = ({
   values,
   range,
   onChange,
-}) => {
+}: MultiRangeSliderProps) => {
   const totalSegments = values.length;
   const { trackRef, startDragging } = useMultiRangeSlider(
     totalSegments,
@@ -26,27 +25,29 @@ const MultiRangeSlider: React.FC<MultiRangeSliderProps> = ({
     (range.end - range.start + 1) * segmentWidthPercentage;
 
   return (
-    <Track ref={trackRef}>
-      <ActiveRange
-        style={{
-          left: `${activeRangeLeft}%`,
-          width: `${activeRangeWidth}%`,
-        }}
-      >
-        <Handle
-          onMouseDown={(e) => startDragging("left", e)}
-          onTouchStart={(e) => startDragging("left", e)}
-        />
-        <Grab
-          onMouseDown={(e) => startDragging("move", e)}
-          onTouchStart={(e) => startDragging("move", e)}
-        />
-        <Handle
-          onMouseDown={(e) => startDragging("right", e)}
-          onTouchStart={(e) => startDragging("right", e)}
-        />
-      </ActiveRange>
-    </Track>
+    <S.Wrapper>
+      <S.Track ref={trackRef}>
+        <S.ActiveRange
+          style={{
+            left: `${activeRangeLeft}%`,
+            width: `${activeRangeWidth}%`,
+          }}
+        >
+          <S.Handle
+            onMouseDown={(e) => startDragging("left", e)}
+            onTouchStart={(e) => startDragging("left", e)}
+          />
+          <S.Grab
+            onMouseDown={(e) => startDragging("move", e)}
+            onTouchStart={(e) => startDragging("move", e)}
+          />
+          <S.Handle
+            onMouseDown={(e) => startDragging("right", e)}
+            onTouchStart={(e) => startDragging("right", e)}
+          />
+        </S.ActiveRange>
+      </S.Track>
+    </S.Wrapper>
   );
 };
 

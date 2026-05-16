@@ -1,8 +1,8 @@
-import { useMultiRangeStore } from "@/store"; // dostosuj ścieżkę
+import { useMultiRangeStore } from "@/store";
 import { type Range } from "../MultiRangeSlider/useMultiRangeSlider";
 
 interface MasterConfig {
-  [key: string]: any[];
+  [key: string]: number[];
 }
 
 interface MasterRanges {
@@ -12,7 +12,6 @@ interface MasterRanges {
 export const useMasterMultiRangeSlider = (
   ranges: MasterRanges,
   configs: MasterConfig,
-  // Usuwamy onRangesChange z parametrów, bo będziemy używać akcji ze store
 ) => {
   const updateRangesFromMaster = useMultiRangeStore(
     (state) => state.updateRangesFromMaster,
@@ -28,7 +27,6 @@ export const useMasterMultiRangeSlider = (
   };
 
   const handleMasterChange = (nextMasterRange: Range) => {
-    // Wywołujemy logikę bezpośrednio w store
     updateRangesFromMaster(nextMasterRange, currentMasterRange, configs);
   };
 

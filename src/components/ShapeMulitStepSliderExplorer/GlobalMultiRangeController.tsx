@@ -1,12 +1,16 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useMultiRangeStore, useShapePlayerStore } from "@/store";
 import MasterMultiRangeSlider from "../ui/MultiRangeSlider/MasterMultiRangeSlider/MasterMultiRangeSlider";
-import type { ShapeVariantDataKeys } from "@/data";
+import type {
+  ShapeDataKey,
+  ShapeVariantDataKeys,
+  UnifiedMusicKeysDataKey,
+} from "@/data";
 
 interface ExplorerConfig {
   id: string;
-  shapeDataKey: any;
-  unifiedMusicKeysDataKey: any;
+  shapeDataKey: ShapeDataKey;
+  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
   semitoneOffsetFromMajorRoot: number;
   orderedLocations: ShapeVariantDataKeys[];
 }
@@ -22,10 +26,6 @@ export const GlobalMultiRangeController = ({
   );
   const prevIdsRef = useRef<string>("");
 
-  /**
-   * 1. INICJALIZACJA I SYNCHRONIZACJA LISTY
-   * Kiedy zmienia się liczba cegiełek lub ich kolejność, aktualizujemy MultiRangeStore
-   */
   useEffect(() => {
     const currentIds = configs.map((c) => c.id).join(",");
 
@@ -49,10 +49,6 @@ export const GlobalMultiRangeController = ({
     }
   }, [configs, initializeRanges]);
 
-  /**
-   * 2. SYNCHRONIZACJA: MASTER -> CEGIEŁKI
-   * Kiedy Master zmienia ranges (ruch Masterem), wypychamy dane do ShapePlayerStore
-   */
   useEffect(() => {
     Object.entries(ranges).forEach(([id, range]) => {
       const brick = useShapePlayerStore
@@ -70,10 +66,6 @@ export const GlobalMultiRangeController = ({
     });
   }, [ranges, updateBrickRange]);
 
-  /**
-   * 3. SYNCHRONIZACJA: CEGIEŁKI -> MASTER
-   * Kiedy suwak w cegiełce zostanie przesunięty ręcznie, aktualizujemy Mastera
-   */
   useEffect(() => {
     const unsub = useShapePlayerStore.subscribe(
       (state) => state.shapePlayerBricks,
@@ -104,7 +96,7 @@ export const GlobalMultiRangeController = ({
         acc[c.id] = c.orderedLocations;
         return acc;
       },
-      {} as Record<string, any[]>,
+      {} as Record<string, unknown[]>,
     );
   }, [configs]);
 
@@ -117,33 +109,11 @@ export const GlobalMultiRangeController = ({
   if (configs.length === 0) return null;
 
   return (
-    <div
-      style={{
-        padding: "16px",
-        background: "rgba(0, 0, 0, 0.03)",
-        borderRadius: "12px",
-        marginBottom: "24px",
-        border: "1px solid rgba(0, 0, 0, 0.1)",
-      }}
-    >
-      <div
-        style={{
-          fontSize: "12px",
-          fontWeight: "bold",
-          textTransform: "uppercase",
-          letterSpacing: "0.5px",
-          marginBottom: "12px",
-          opacity: 0.6,
-        }}
-      >
-        Global Multi-Range Master
-      </div>
-      <MasterMultiRangeSlider
-        masterValues={masterValues}
-        ranges={ranges}
-        configs={masterConfigs}
-        onRangesChange={() => {}}
-      />
-    </div>
+    <MasterMultiRangeSlider
+      masterValues={masterValues}
+      ranges={ranges}
+      configs={masterConfigs}
+      onRangesChange={() => {}}
+    />
   );
 };

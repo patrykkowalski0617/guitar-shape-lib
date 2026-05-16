@@ -2,19 +2,16 @@ import type { Range } from "@/components/ui/MultiRangeSlider/MultiRangeSlider/us
 import { create } from "zustand";
 
 interface MultiRangeState {
-  // Przechowuje zakresy wszystkich suwaków: { [id: string]: { start, end } }
   ranges: Record<string, Range>;
 
-  // Akcje
   setRange: (id: string, range: Range) => void;
   setAllRanges: (newRanges: Record<string, Range>) => void;
   initializeRanges: (initialRanges: Record<string, Range>) => void;
 
-  // Logika Mastera przeniesiona do store'a
   updateRangesFromMaster: (
     nextMasterRange: Range,
     currentMasterRange: Range,
-    configs: Record<string, any[]>,
+    configs: Record<string, unknown[]>,
   ) => void;
 }
 
