@@ -20,8 +20,8 @@ export default function App() {
       <SoundEngine />
       <Toaster position="top-center" />
       {/* <DataDebug /> */}
-      <Test />
-      <TestComponent />
+      {/* <Test /> */}
+      {/* <TestComponent /> */}
       {/* <MultiStepSliderTest /> */}
       <FullscreenButton />
       <KeyAndChordPicker />

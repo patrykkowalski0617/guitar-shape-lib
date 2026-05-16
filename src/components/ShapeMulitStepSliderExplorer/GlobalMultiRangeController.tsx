@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useMultiRangeStore, useShapePlayerStore } from "@/store";
 import MasterMultiRangeSlider from "../ui/MultiRangeSlider/MasterMultiRangeSlider/MasterMultiRangeSlider";
-import { ShapeMulitStepSliderExplorer } from "./ShapeMulitStepSliderExplorer";
 import type { ShapeVariantDataKeys } from "@/data";
 
 interface ExplorerConfig {
@@ -18,12 +17,86 @@ export const GlobalMultiRangeController = ({
   configs?: ExplorerConfig[];
 }) => {
   const { ranges, initializeRanges, setRange } = useMultiRangeStore();
-  const prevIdsRef = useRef<string>("");
-  const shapePlayerBricks = useShapePlayerStore(
-    (state) => state.shapePlayerBricks,
+  const updateBrickRange = useShapePlayerStore(
+    (state) => state.updateBrickRange,
   );
+  const prevIdsRef = useRef<string>("");
 
-  console.log(shapePlayerBricks);
+  /**
+   * 1. INICJALIZACJA I SYNCHRONIZACJA LISTY
+   * Kiedy zmienia się liczba cegiełek lub ich kolejność, aktualizujemy MultiRangeStore
+   */
+  useEffect(() => {
+    const currentIds = configs.map((c) => c.id).join(",");
+
+    if (currentIds !== prevIdsRef.current) {
+      const bricks = useShapePlayerStore.getState().shapePlayerBricks;
+      const updatedInitialRanges: Record<
+        string,
+        { start: number; end: number }
+      > = {};
+
+      configs.forEach((c) => {
+        const brick = bricks.find((b) => b.id === c.id);
+        updatedInitialRanges[c.id] = {
+          start: brick?.sliderRange?.[0] ?? 0,
+          end: brick?.sliderRange?.[1] ?? 0,
+        };
+      });
+
+      prevIdsRef.current = currentIds;
+      initializeRanges(updatedInitialRanges);
+    }
+  }, [configs, initializeRanges]);
+
+  /**
+   * 2. SYNCHRONIZACJA: MASTER -> CEGIEŁKI
+   * Kiedy Master zmienia ranges (ruch Masterem), wypychamy dane do ShapePlayerStore
+   */
+  useEffect(() => {
+    Object.entries(ranges).forEach(([id, range]) => {
+      const brick = useShapePlayerStore
+        .getState()
+        .shapePlayerBricks.find((b) => b.id === id);
+
+      const hasChanged =
+        brick &&
+        (brick.sliderRange?.[0] !== range.start ||
+          brick.sliderRange?.[1] !== range.end);
+
+      if (hasChanged) {
+        updateBrickRange(id, [range.start, range.end]);
+      }
+    });
+  }, [ranges, updateBrickRange]);
+
+  /**
+   * 3. SYNCHRONIZACJA: CEGIEŁKI -> MASTER
+   * Kiedy suwak w cegiełce zostanie przesunięty ręcznie, aktualizujemy Mastera
+   */
+  useEffect(() => {
+    const unsub = useShapePlayerStore.subscribe(
+      (state) => state.shapePlayerBricks,
+      (bricks) => {
+        bricks.forEach((brick) => {
+          const currentMasterRange = ranges[brick.id];
+          const newStart = brick.sliderRange?.[0] ?? 0;
+          const newEnd = brick.sliderRange?.[1] ?? 0;
+
+          const isOutOfSync =
+            currentMasterRange &&
+            (currentMasterRange.start !== newStart ||
+              currentMasterRange.end !== newEnd);
+
+          if (isOutOfSync) {
+            setRange(brick.id, { start: newStart, end: newEnd });
+          }
+        });
+      },
+    );
+
+    return () => unsub();
+  }, [ranges, setRange]);
 
   const masterConfigs = useMemo(() => {
     return configs.reduce(
@@ -35,87 +108,42 @@ export const GlobalMultiRangeController = ({
     );
   }, [configs]);
 
-  useEffect(() => {
-    const currentIds = configs.map((c) => c.id).join(",");
-
-    if (currentIds !== prevIdsRef.current) {
-      const updatedInitialRanges: Record<string, any> = {};
-
-      configs.forEach((c) => {
-        updatedInitialRanges[c.id] = ranges[c.id] ?? {
-          start: 0,
-          end: Math.min(2, c.orderedLocations.length - 1),
-        };
-      });
-
-      prevIdsRef.current = currentIds;
-      initializeRanges(updatedInitialRanges);
-    }
-  }, [configs, initializeRanges]);
-
   const masterValues = useMemo(() => {
     const lengths = configs.map((c) => c.orderedLocations.length);
     const maxPossibleLength = lengths.length > 0 ? Math.max(...lengths) : 0;
     return Array.from({ length: maxPossibleLength }, (_, i) => i);
   }, [configs]);
 
-  // Sekcja diagnostyczna renderowana zawsze, gdy komponent zostanie wywołany
-  const debugInfo = {
-    configsLength: configs.length,
-    configIds: configs.map((c) => c.id),
-    storeRangesKeys: Object.keys(ranges),
-    masterValuesCount: masterValues.length,
-  };
+  if (configs.length === 0) return null;
 
   return (
-    <div style={{ border: "1px solid red", padding: "10px", margin: "10px" }}>
-      <details open>
-        <summary>
-          <strong>MultiRange Diagnostic (Debug)</strong>
-        </summary>
-        <pre
-          style={{ fontSize: "10px", background: "#f4f4f4", padding: "5px" }}
-        >
-          {JSON.stringify(debugInfo, null, 2)}
-        </pre>
-      </details>
-
-      {configs.length === 0 ? (
-        <p style={{ color: "orange" }}>
-          Brak konfiguracji (configs.length === 0)
-        </p>
-      ) : (
-        <>
-          <div style={{ marginBottom: "30px" }}>
-            <h4>Master Control</h4>
-            <MasterMultiRangeSlider
-              masterValues={masterValues}
-              ranges={ranges}
-              configs={masterConfigs}
-              onRangesChange={() => {}}
-            />
-          </div>
-
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-          >
-            {configs.map((config) => (
-              <ShapeMulitStepSliderExplorer
-                key={config.id}
-                {...config}
-                sliderRange={[
-                  ranges[config.id]?.start ?? 0,
-                  ranges[config.id]?.end ?? 0,
-                ]}
-                onRangeChange={(arr) =>
-                  setRange(config.id, { start: arr[0], end: arr[1] })
-                }
-                baseChordDataKey={{} as any}
-              />
-            ))}
-          </div>
-        </>
-      )}
+    <div
+      style={{
+        padding: "16px",
+        background: "rgba(0, 0, 0, 0.03)",
+        borderRadius: "12px",
+        marginBottom: "24px",
+        border: "1px solid rgba(0, 0, 0, 0.1)",
+      }}
+    >
+      <div
+        style={{
+          fontSize: "12px",
+          fontWeight: "bold",
+          textTransform: "uppercase",
+          letterSpacing: "0.5px",
+          marginBottom: "12px",
+          opacity: 0.6,
+        }}
+      >
+        Global Multi-Range Master
+      </div>
+      <MasterMultiRangeSlider
+        masterValues={masterValues}
+        ranges={ranges}
+        configs={masterConfigs}
+        onRangesChange={() => {}}
+      />
     </div>
   );
 };

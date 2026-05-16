@@ -5,6 +5,8 @@ import type {
   ShapeDataKey,
   UnifiedMusicKeysDataKey,
 } from "@/data";
+import { getOrderedShapeVariantDataKeys } from "@/components/ShapeMulitStepSliderExplorer/helpers/getOrderedShapeVariantDataKeys";
+import { subscribeWithSelector } from "zustand/middleware";
 
 export interface ShapePlayerBrick {
   id: string;
@@ -33,105 +35,123 @@ interface ShapePlayerState {
   reorderShapePlayerBricks: (oldIndex: number, newIndex: number) => void;
 }
 
-export const useShapePlayerStore = create<ShapePlayerState>((set) => ({
-  shapePlayerBricks: [],
-  shapePlayerHistory: [],
+export const useShapePlayerStore = create<ShapePlayerState>()(
+  subscribeWithSelector((set) => ({
+    shapePlayerBricks: [],
+    shapePlayerHistory: [],
 
-  addShapePlayerBrick: (brickData) => {
-    const newBrick: ShapePlayerBrick = {
-      ...brickData,
-      id: crypto.randomUUID(),
-    };
+    addShapePlayerBrick: (brickData) => {
+      const locations = getOrderedShapeVariantDataKeys({
+        shapeDataKey: brickData.shapeDataKey,
+        unifiedMusicKeysDataKey: brickData.unifiedMusicKeysDataKey,
+        semitoneOffsetFromMajorRoot: brickData.semitoneOffsetFromMajorRoot,
+      });
 
-    set((state) => ({
-      shapePlayerBricks: [...state.shapePlayerBricks, newBrick],
-      shapePlayerHistory: [],
-    }));
-  },
+      const maxLocationIndex = Math.max(0, locations.length - 1);
+      const defaultRange: [number, number] = [0, maxLocationIndex];
 
-  removeShapePlayerBrick: (idToRemove) => {
-    set((state) => {
-      const brickIndex = state.shapePlayerBricks.findIndex(
-        (brick) => brick.id === idToRemove,
-      );
-
-      const targetBrick = state.shapePlayerBricks[brickIndex];
-      const hasBrick = brickIndex !== -1;
-
-      if (!hasBrick) return state;
-
-      const historyEntry: ShapePlayerHistoryEntry = {
-        bricks: [targetBrick],
-        type: "SINGLE_REMOVAL",
-        originalIndex: brickIndex,
+      const newBrick: ShapePlayerBrick = {
+        ...brickData,
+        id: crypto.randomUUID(),
+        sliderRange: brickData.sliderRange ?? defaultRange,
       };
 
-      const updatedBricks = state.shapePlayerBricks.filter(
-        (brick) => brick.id !== idToRemove,
-      );
+      set((state) => ({
+        shapePlayerBricks: [...state.shapePlayerBricks, newBrick],
+        shapePlayerHistory: [],
+      }));
+    },
 
-      return {
-        shapePlayerBricks: updatedBricks,
-        shapePlayerHistory: [...state.shapePlayerHistory, historyEntry],
-      };
-    });
-  },
+    removeShapePlayerBrick: (idToRemove) => {
+      set((state) => {
+        const brickIndex = state.shapePlayerBricks.findIndex(
+          (brick) => brick.id === idToRemove,
+        );
 
-  updateBrickRange: (id, sliderRange) => {
-    set((state) => ({
-      shapePlayerBricks: state.shapePlayerBricks.map((brick) =>
-        brick.id === id ? { ...brick, sliderRange } : brick,
-      ),
-    }));
-  },
+        const targetBrick = state.shapePlayerBricks[brickIndex];
+        const hasBrick = brickIndex !== -1;
 
-  clearShapePlayerBricks: () => {
-    set((state) => {
-      const isEmpty = state.shapePlayerBricks.length === 0;
-      if (isEmpty) return state;
+        if (!hasBrick) return state;
 
-      const historyEntry: ShapePlayerHistoryEntry = {
-        bricks: [...state.shapePlayerBricks],
-        type: "CLEAN_ALL",
-      };
+        const historyEntry: ShapePlayerHistoryEntry = {
+          bricks: [targetBrick],
+          type: "SINGLE_REMOVAL",
+          originalIndex: brickIndex,
+        };
 
-      return {
-        shapePlayerBricks: [],
-        shapePlayerHistory: [...state.shapePlayerHistory, historyEntry],
-      };
-    });
-  },
+        const updatedBricks = state.shapePlayerBricks.filter(
+          (brick) => brick.id !== idToRemove,
+        );
 
-  restoreLastAction: () => {
-    set((state) => {
-      const lastEntry = state.shapePlayerHistory.at(-1);
-      if (!lastEntry) return state;
-
-      const remainingHistory = state.shapePlayerHistory.slice(0, -1);
-
-      if (lastEntry.type === "CLEAN_ALL") {
         return {
-          shapePlayerBricks: lastEntry.bricks,
+          shapePlayerBricks: updatedBricks,
+          shapePlayerHistory: [...state.shapePlayerHistory, historyEntry],
+        };
+      });
+    },
+
+    updateBrickRange: (id, sliderRange) => {
+      set((state) => ({
+        shapePlayerBricks: state.shapePlayerBricks.map((brick) =>
+          brick.id === id ? { ...brick, sliderRange } : brick,
+        ),
+      }));
+    },
+
+    clearShapePlayerBricks: () => {
+      set((state) => {
+        const isEmpty = state.shapePlayerBricks.length === 0;
+
+        if (isEmpty) return state;
+
+        const historyEntry: ShapePlayerHistoryEntry = {
+          bricks: [...state.shapePlayerBricks],
+          type: "CLEAN_ALL",
+        };
+
+        return {
+          shapePlayerBricks: [],
+          shapePlayerHistory: [...state.shapePlayerHistory, historyEntry],
+        };
+      });
+    },
+
+    restoreLastAction: () => {
+      set((state) => {
+        const lastEntry = state.shapePlayerHistory.at(-1);
+
+        if (!lastEntry) return state;
+
+        const remainingHistory = state.shapePlayerHistory.slice(0, -1);
+
+        if (lastEntry.type === "CLEAN_ALL") {
+          return {
+            shapePlayerBricks: lastEntry.bricks,
+            shapePlayerHistory: remainingHistory,
+          };
+        }
+
+        const updatedBricks = [...state.shapePlayerBricks];
+        const [restoredBrick] = lastEntry.bricks;
+        const insertionIndex = lastEntry.originalIndex ?? 0;
+
+        updatedBricks.splice(insertionIndex, 0, restoredBrick);
+
+        return {
+          shapePlayerBricks: updatedBricks,
           shapePlayerHistory: remainingHistory,
         };
-      }
+      });
+    },
 
-      const updatedBricks = [...state.shapePlayerBricks];
-      const [restoredBrick] = lastEntry.bricks;
-      const insertionIndex = lastEntry.originalIndex ?? 0;
-
-      updatedBricks.splice(insertionIndex, 0, restoredBrick);
-
-      return {
-        shapePlayerBricks: updatedBricks,
-        shapePlayerHistory: remainingHistory,
-      };
-    });
-  },
-
-  reorderShapePlayerBricks: (oldIndex, newIndex) => {
-    set((state) => ({
-      shapePlayerBricks: arrayMove(state.shapePlayerBricks, oldIndex, newIndex),
-    }));
-  },
-}));
+    reorderShapePlayerBricks: (oldIndex, newIndex) => {
+      set((state) => ({
+        shapePlayerBricks: arrayMove(
+          state.shapePlayerBricks,
+          oldIndex,
+          newIndex,
+        ),
+      }));
+    },
+  })),
+);
