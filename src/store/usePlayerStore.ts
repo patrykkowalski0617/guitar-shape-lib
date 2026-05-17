@@ -1,10 +1,9 @@
 import { create } from "zustand";
-import { type Snapshot } from "@/components/Player/PlayerBrick/hooks/usePlayerSnapshot";
 
 export interface Brick {
   id: number;
   width: number;
-  snapshot: Snapshot;
+  snapshot: any;
 }
 
 export const BPM_LIMITS = {
@@ -23,10 +22,10 @@ interface PlayerState {
   countIn: number;
   isCountingIn: boolean;
 
-  addBrick: (initialSnapshot?: Snapshot | null) => void;
+  addBrick: (initialSnapshot?: null) => void;
   removeBrick: (id: number) => void;
   updateBrickWidth: (id: number, newWidth: number) => void;
-  updateBrickSnapshot: (id: number, snapshot: Snapshot) => void;
+  updateBrickSnapshot: (id: number, snapshot) => void;
   setEditableBrickId: (id: number | null) => void;
   setActiveBrickId: (id: number | null) => void;
   setBpm: (bpm: number) => void;

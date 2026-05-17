@@ -5,7 +5,7 @@ import {
   type ShapePlayerBrick,
 } from "@/store";
 import { useShapePlayerBrickSelection } from "../../ShapePlayerBrick/hooks";
-import { useMetronome } from "@/components/Player/hooks";
+import { useMetronome } from "../../hooks/useMetronome";
 
 interface ActiveBrickCalculation {
   brick: ShapePlayerBrick;
