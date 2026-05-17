@@ -5,13 +5,3 @@ export const ShapePlayerBrickWrapper = styled.div`
   align-items: center;
   padding: 10px;
 `;
-
-export const ShapePlayerBrickDragHandle = styled.button`
-  &:active {
-    cursor: grabbing;
-  }
-`;
-
-export const ShapePlayerBrickDeleteButton = styled.button`
-  color: #cc0000;
-`;

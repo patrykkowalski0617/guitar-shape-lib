@@ -1,6 +1,5 @@
 import { useControlsStore, useMusicStore } from "@/store";
 import { useEnharmonicNoteName } from "@/hooks";
-
 import {
   calculateMatrixData,
   getIsScaleNoteVisible,

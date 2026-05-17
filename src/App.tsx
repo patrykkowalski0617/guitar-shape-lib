@@ -8,11 +8,18 @@ import { KeyAndChordPicker } from "@/components/KeyAndChordPicker/KeyAndChordPic
 import ShapePicker from "./components/ShapePicker/ShapePicker";
 import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
 import { ShapePlayerHeader } from "./components/ShapePlayer/ShapePlayerHeader/ShapePlayerHeader";
+// import { ModularSynthBuilder } from "./components/SoundEngine/soudTesting/ModularSynthBuilder";
+// import Piano from "./components/Piano/Piano";
 
 export default function App() {
   return (
     <AppWrapper style={{ height: 700, minHeight: "unset" }}>
       <SoundEngine />
+
+      {/* <ModularSynthBuilder />
+      <Section>
+        <Piano />
+      </Section> */}
       <Toaster position="top-center" />
       <FullscreenButton />
       <KeyAndChordPicker />

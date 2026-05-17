@@ -73,13 +73,11 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
         orderedLocations={orderedLocations}
       />
 
-      <S.ShapePlayerBrickDeleteButton onClick={handleRemoveClick}>
-        Usuń
-      </S.ShapePlayerBrickDeleteButton>
+      <Button onClick={handleRemoveClick}>Usuń</Button>
 
-      <S.ShapePlayerBrickDragHandle {...attributes} {...listeners}>
+      <Button {...attributes} {...listeners}>
         ::
-      </S.ShapePlayerBrickDragHandle>
+      </Button>
     </S.ShapePlayerBrickWrapper>
   );
 };
