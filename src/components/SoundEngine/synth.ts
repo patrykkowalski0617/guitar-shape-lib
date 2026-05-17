@@ -247,9 +247,9 @@ export const synth = {
     if (activeVoices.has(pitch)) return;
     if (!masterFilter) return;
 
-    const [note, octaveStr] = pitch.split("-");
+    const [noteObject, octaveStr] = pitch.split("-");
     const octave = parseInt(octaveStr, 10);
-    const fundamentalFreq = NOTE_FREQUENCIES[note] * Math.pow(2, octave);
+    const fundamentalFreq = NOTE_FREQUENCIES[noteObject] * Math.pow(2, octave);
     const now = ctx.currentTime;
 
     const { decayTime } = internalConfig.envelope;

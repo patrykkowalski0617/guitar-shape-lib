@@ -20,11 +20,11 @@ interface MusicState {
     coordinates: FretboardCoordinate[],
   ) => void;
 
-  activeNoteId: string | null;
-  setActiveNoteId: (noteId: string | null) => void;
+  activeHoverNoteId: string | null;
+  setActiveHoverNoteId: (noteId: string | null) => void;
 
   activeLockedNoteIds: string[];
-  setActiveLockedNoteIds: (activeNote: string) => void;
+  setActiveLockedNoteIds: (activeHoverNote: string) => void;
   resetActiveLockedNoteIds: () => void;
 
   backgingtrackNoteIds: NoteId[];
@@ -50,7 +50,7 @@ interface MusicState {
 export const useMusicStore = create<MusicState>((set) => ({
   baseChordBassNoteId: null,
   shapeNoteIds: [],
-  activeNoteId: null,
+  activeHoverNoteId: null,
   activeLockedNoteIds: [],
   backgingtrackNoteIds: [],
   selectedTargetNotesNames: [],
@@ -65,12 +65,12 @@ export const useMusicStore = create<MusicState>((set) => ({
     const nextShapeNoteIds: NoteId[] = [];
 
     allNotes.forEach((row, stringIdx) => {
-      row.forEach((note, fretIdx) => {
+      row.forEach((noteObject, fretIdx) => {
         const isMatch = coordinates.some(
           ([s, f]) => s === stringIdx && f === fretIdx,
         );
         if (isMatch) {
-          nextShapeNoteIds.push(note.noteId);
+          nextShapeNoteIds.push(noteObject.noteId);
         }
       });
     });
@@ -78,7 +78,7 @@ export const useMusicStore = create<MusicState>((set) => ({
     set({ shapeNoteIds: nextShapeNoteIds });
   },
 
-  setActiveNoteId: (noteId) => {
+  setActiveHoverNoteId: (noteId) => {
     const playerState = useMetronomeStore.getState();
     const controlState = useControlsStore.getState();
     const isSmallScreen = window.innerWidth < 1024;
@@ -87,20 +87,23 @@ export const useMusicStore = create<MusicState>((set) => ({
 
     if (isPlayingOrHasShape || isSmallScreen) return;
 
-    set({ activeNoteId: noteId });
+    set({ activeHoverNoteId: noteId });
   },
 
-  setActiveLockedNoteIds: (activeNote) => {
+  setActiveLockedNoteIds: (activeHoverNote) => {
     const controlState = useControlsStore.getState();
     if (controlState.shapeDataKey !== null) return;
 
     set((state) => {
-      const isAlreadyActive = state.activeLockedNoteIds.includes(activeNote);
-      const nextActiveNotes = isAlreadyActive
-        ? state.activeLockedNoteIds.filter((note) => note !== activeNote)
-        : [...state.activeLockedNoteIds, activeNote];
+      const isAlreadyActive =
+        state.activeLockedNoteIds.includes(activeHoverNote);
+      const nextActiveHoverNotes = isAlreadyActive
+        ? state.activeLockedNoteIds.filter(
+            (noteObject) => noteObject !== activeHoverNote,
+          )
+        : [...state.activeLockedNoteIds, activeHoverNote];
 
-      return { activeLockedNoteIds: nextActiveNotes };
+      return { activeLockedNoteIds: nextActiveHoverNotes };
     });
   },
 
@@ -114,7 +117,9 @@ export const useMusicStore = create<MusicState>((set) => ({
       const isAlreadySelected =
         state.selectedTargetNotesNames.includes(noteName);
       const nextSelectedNotes = isAlreadySelected
-        ? state.selectedTargetNotesNames.filter((note) => note !== noteName)
+        ? state.selectedTargetNotesNames.filter(
+            (noteObject) => noteObject !== noteName,
+          )
         : [...state.selectedTargetNotesNames, noteName];
 
       return { selectedTargetNotesNames: nextSelectedNotes };

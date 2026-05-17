@@ -38,7 +38,7 @@ export const calculateMatrixData = (
   baseChordDataKey: keyof typeof BASE_CHORDS,
   shapeDataKey: keyof typeof SHAPES,
   shapeOffset: number,
-  getEnharmonicName: (note: NoteObject) => NoteName,
+  getEnharmonicName: (noteObject: NoteObject) => NoteName,
 ) => {
   const musicKey =
     UNIFIED_MUSIC_KEYS[

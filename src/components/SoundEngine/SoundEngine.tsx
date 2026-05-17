@@ -12,18 +12,18 @@ export function SoundEngine() {
   const backgingtrackNoteIds = useMusicStore(
     (state) => state.backgingtrackNoteIds,
   );
-  const activeNoteId = useMusicStore((state) => state.activeNoteId);
+  const activeHoverNoteId = useMusicStore((state) => state.activeHoverNoteId);
   const activeLockedNoteIds = useMusicStore(
     (state) => state.activeLockedNoteIds,
   );
-
+  const isPianoOn = useControlsStore((state) => state.isPianoOn);
   const currentlyPlaying = useRef<Set<string>>(new Set());
 
   useEffect(() => {
     const notesThatShouldPlay = new Set<string>();
 
     const isPlayerMode = isPlaying;
-    const isExplorationMode = !isPlaying;
+    const isExplorationMode = !isPlaying && isPianoOn;
 
     if (isCountingIn) return;
 
@@ -38,8 +38,8 @@ export function SoundEngine() {
       }
     } else if (isExplorationMode) {
       activeLockedNoteIds.forEach((noteId) => notesThatShouldPlay.add(noteId));
-      if (activeNoteId) {
-        notesThatShouldPlay.add(activeNoteId);
+      if (activeHoverNoteId) {
+        notesThatShouldPlay.add(activeHoverNoteId);
       }
     }
 
@@ -49,7 +49,7 @@ export function SoundEngine() {
 
     currentlyPlaying.current = notesThatShouldPlay;
   }, [
-    activeNoteId,
+    activeHoverNoteId,
     activeLockedNoteIds,
     isPlaying,
     isCountingIn,

@@ -24,12 +24,7 @@ export const MetronomeButton = () => {
   };
 
   return (
-    <S.PlayButton
-      $isPlaying={isPlaying}
-      $bpm={bpm}
-      variant={"playerSolid"}
-      onClick={handleClick}
-    >
+    <S.PlayButton $isPlaying={isPlaying} $bpm={bpm} onClick={handleClick}>
       {isCountingIn ? (
         countIn
       ) : (

@@ -8,11 +8,11 @@ import { useMusicStore } from "@/store/useMusicStore";
 import { BlacKeyJustifyContainer } from "./parts/blackKeys";
 
 interface PianoKeyProps {
-  note: NoteObject;
+  noteObject: NoteObject;
 }
 
-const PianoKey = ({ note }: PianoKeyProps) => {
-  const { visualState, interactivity } = usePianoKey({ note });
+const PianoKey = ({ noteObject }: PianoKeyProps) => {
+  const { visualState, interactivity } = usePianoKey({ noteObject });
   const getEnharmonicNoteName = useEnharmonicNoteName();
   const setActiveLockedNoteIds = useMusicStore(
     (state) => state.setActiveLockedNoteIds,
@@ -21,7 +21,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
   const { isWhitePianoKey, pianoKeyShape, isPushed, isShapeSelected } =
     visualState;
 
-  const noteLabel = getEnharmonicNoteName(note);
+  const noteLabel = getEnharmonicNoteName(noteObject);
 
   const label = noteLabel ? (
     <NoteLabel isVisible={isPushed} variant="piano" noteLabel={noteLabel} />
@@ -34,7 +34,7 @@ const PianoKey = ({ note }: PianoKeyProps) => {
       onMouseOver={interactivity.handleMouseEnter}
       onMouseLeave={interactivity.handleMouseLeave}
       onClick={() => {
-        setActiveLockedNoteIds(note.noteId);
+        setActiveLockedNoteIds(noteObject.noteId);
       }}
       data-piano-scroll-target={interactivity.isScrollTarget}
     >

@@ -2,16 +2,18 @@ import { useMusicStore } from "@/store";
 import type { NoteObject } from "@/utils";
 
 interface UseFretboardCellInteractionProps {
-  noteData: NoteObject;
+  noteObject: NoteObject;
 }
 
 export function useFretboardCellInteraction({
-  noteData,
+  noteObject,
 }: UseFretboardCellInteractionProps) {
-  const setActiveNoteId = useMusicStore((state) => state.setActiveNoteId);
+  const setActiveHoverNoteId = useMusicStore(
+    (state) => state.setActiveHoverNoteId,
+  );
 
-  const handleMouseEnter = () => setActiveNoteId(noteData.noteId);
-  const handleMouseLeave = () => setActiveNoteId(null);
+  const handleMouseEnter = () => setActiveHoverNoteId(noteObject.noteId);
+  const handleMouseLeave = () => setActiveHoverNoteId(null);
 
   return {
     handleMouseEnter,

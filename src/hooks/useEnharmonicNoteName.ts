@@ -8,7 +8,7 @@ export const useEnharmonicNoteName = () => {
   );
 
   return (
-    note: NoteObject,
+    noteObject: NoteObject,
     {
       unifiedMusicKeysDataKey: provided_unifiedMusicKeysDataKey,
     }: { unifiedMusicKeysDataKey?: UnifiedMusicKeysDataKey } = {},
@@ -20,7 +20,9 @@ export const useEnharmonicNoteName = () => {
 
     const isFlatTune = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].isFlatTune;
 
-    const noteName = isFlatTune ? note.flatNoteName : note.sharpNoteName;
+    const noteName = isFlatTune
+      ? noteObject.flatNoteName
+      : noteObject.sharpNoteName;
 
     return noteName;
   };

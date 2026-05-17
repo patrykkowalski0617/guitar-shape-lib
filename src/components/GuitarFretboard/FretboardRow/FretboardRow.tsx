@@ -26,7 +26,7 @@ export default function FretboardRow({
 
   return (
     <S.FretboardRow ref={scrollRef} $isVisibleString={isVisibleString}>
-      {rowNotes.map((noteData, fretIndex) => {
+      {rowNotes.map((noteObject, fretIndex) => {
         const isShapeCell = isShapeCellFn({
           shapeCoordinates,
           stringIndex,
@@ -40,7 +40,7 @@ export default function FretboardRow({
         return (
           <FretboardCell
             key={`${stringIndex}-${fretIndex}`}
-            noteData={noteData}
+            noteObject={noteObject}
             fretIndex={fretIndex}
             isVisibleString={isVisibleString}
             isShapeCell={isShapeCell}

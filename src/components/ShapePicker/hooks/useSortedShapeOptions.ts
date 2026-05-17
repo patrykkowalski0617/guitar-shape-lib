@@ -23,8 +23,8 @@ export const useSortedShapeOptions = () => {
     baseChordSemitoneOffset,
     baseChordSemitoneOffset + 12,
   );
-  const sortReferenceNotes = notesFromBaseChordRoot.map((note) =>
-    isFlatTune ? note.flatNoteName : note.sharpNoteName,
+  const sortReferenceNotes = notesFromBaseChordRoot.map((noteObject) =>
+    isFlatTune ? noteObject.flatNoteName : noteObject.sharpNoteName,
   );
 
   const sortedOptions = sortReferenceNotes.flatMap((referenceNote) =>

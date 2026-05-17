@@ -5,8 +5,8 @@ import type { NoteName } from "@/data";
 export const useRoleMarkers = (unifiedMusicKeysDataKey: NoteName) => {
   const getEnharmonicNoteName = useEnharmonicNoteName();
   const tuneNotes = getNotes({ firstNote: unifiedMusicKeysDataKey });
-  const enharmonicTuneNotesNames = tuneNotes.map((note) =>
-    getEnharmonicNoteName(note),
+  const enharmonicTuneNotesNames = tuneNotes.map((noteObject) =>
+    getEnharmonicNoteName(noteObject),
   );
   const roleMarkersMap = {
     major: {

@@ -20,8 +20,8 @@ export default function Piano(): JSX.Element {
           <S.PianoKeysLeftSideShadow />
           <S.PianoKeysRightSideShadow />
           <S.Piano $numberOfKeys={numberOfKeys}>
-            {pianoNotes.map((note) => (
-              <PianoKey key={note.noteId} note={note} />
+            {pianoNotes.map((noteObject) => (
+              <PianoKey key={noteObject.noteId} noteObject={noteObject} />
             ))}
           </S.Piano>
         </S.PianoWrapper>

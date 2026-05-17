@@ -22,32 +22,34 @@ describe("getNotes()", () => {
 
   it("should handle enharmonic notes correctly (e.g., C# vs Db)", () => {
     const notes = getNotes({ firstNote: "C#", length: 1 });
-    const note = notes[0];
+    const noteObject = notes[0];
 
-    expect(note.sharpNoteName).toBe("C#");
-    expect(note.flatNoteName).toBe("Db");
-    expect(note.isEnharmonic).toBe(true);
+    expect(noteObject.sharpNoteName).toBe("C#");
+    expect(noteObject.flatNoteName).toBe("Db");
+    expect(noteObject.isEnharmonic).toBe(true);
   });
 
   it("should identify non-enharmonic notes (e.g., C)", () => {
     const notes = getNotes({ firstNote: "C", length: 1 });
-    const note = notes[0];
+    const noteObject = notes[0];
 
-    expect(note.sharpNoteName).toBe("C");
-    expect(note.flatNoteName).toBe("C");
-    expect(note.isEnharmonic).toBe(false);
+    expect(noteObject.sharpNoteName).toBe("C");
+    expect(noteObject.flatNoteName).toBe("C");
+    expect(noteObject.isEnharmonic).toBe(false);
   });
 
-  it("should work correctly when starting from a flat note name", () => {
+  it("should work correctly when starting from a flat noteObject name", () => {
     const notes = getNotes({ firstNote: "Bb", length: 1 });
 
     expect(notes[0].sharpNoteName).toBe("A#");
     expect(notes[0].flatNoteName).toBe("Bb");
   });
 
-  it("should throw an error for an invalid note name", () => {
+  it("should throw an error for an invalid noteObject name", () => {
     // @ts-expect-error: It tests runtime validation for invalid input
-    expect(() => getNotes({ firstNote: "H" })).toThrowError('Note "H" is not a valid note.');
+    expect(() => getNotes({ firstNote: "H" })).toThrowError(
+      'Note "H" is not a valid noteObject.',
+    );
   });
 
   it("should return the exact requested number of notes", () => {

@@ -17,8 +17,8 @@ export const useShapeRootCoordinates = () => {
     const initialCoordinates: number[][] = [];
 
     const matchingFretIndexes = rowNotes.reduce(
-      (foundIndexes, note, fretIndex) => {
-        const isTargetNote = note.sharpNoteName === shapeRootSharpNote;
+      (foundIndexes, noteObject, fretIndex) => {
+        const isTargetNote = noteObject.sharpNoteName === shapeRootSharpNote;
 
         if (isTargetNote) {
           const coordinatePair = [stringIndex, fretIndex];

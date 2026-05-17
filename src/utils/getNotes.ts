@@ -29,7 +29,7 @@ export const getNotes = ({
       : (NOTES_FLAT as readonly string[]).indexOf(firstNote);
 
   if (startIndex === -1) {
-    throw new Error(`Note "${firstNote}" is not a valid note.`);
+    throw new Error(`Note "${firstNote}" is not a valid noteObject.`);
   }
 
   return Array.from({ length }, (_, i) => {

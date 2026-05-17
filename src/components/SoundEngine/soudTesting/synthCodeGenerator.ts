@@ -8,7 +8,13 @@ export const DEFAULT_CONFIG = {
       name: "Voice",
       icon: "waveform",
       params: {
-        voiceGain: { value: 0.18, min: 0.05, max: 0.5, step: 0.01, label: "Gain" },
+        voiceGain: {
+          value: 0.18,
+          min: 0.05,
+          max: 0.5,
+          step: 0.01,
+          label: "Gain",
+        },
         oscMix: { value: 0.55, min: 0, max: 1, step: 0.01, label: "Harmonics" },
       },
     },
@@ -18,12 +24,48 @@ export const DEFAULT_CONFIG = {
       name: "Envelope",
       icon: "chart-line",
       params: {
-        attackMin: { value: 0.001, min: 0.001, max: 0.05, step: 0.001, label: "Attack min" },
-        attackMax: { value: 0.95, min: 0.1, max: 2, step: 0.01, label: "Attack max" },
-        decayTime: { value: 0.2, min: 0.01, max: 1, step: 0.01, label: "Decay" },
-        sustainMin: { value: 0, min: 0, max: 1, step: 0.01, label: "Sustain min" },
-        sustainMax: { value: 15, min: 0.1, max: 20, step: 0.1, label: "Sustain max" },
-        releaseTimeConstant: { value: 0.15, min: 0.01, max: 1, step: 0.01, label: "Release" },
+        attackMin: {
+          value: 0.001,
+          min: 0.001,
+          max: 0.05,
+          step: 0.001,
+          label: "Attack min",
+        },
+        attackMax: {
+          value: 0.95,
+          min: 0.1,
+          max: 2,
+          step: 0.01,
+          label: "Attack max",
+        },
+        decayTime: {
+          value: 0.2,
+          min: 0.01,
+          max: 1,
+          step: 0.01,
+          label: "Decay",
+        },
+        sustainMin: {
+          value: 0,
+          min: 0,
+          max: 1,
+          step: 0.01,
+          label: "Sustain min",
+        },
+        sustainMax: {
+          value: 15,
+          min: 0.1,
+          max: 20,
+          step: 0.1,
+          label: "Sustain max",
+        },
+        releaseTimeConstant: {
+          value: 0.15,
+          min: 0.01,
+          max: 1,
+          step: 0.01,
+          label: "Release",
+        },
       },
     },
     {
@@ -32,7 +74,13 @@ export const DEFAULT_CONFIG = {
       name: "Saturator",
       icon: "wave-sine",
       params: {
-        saturationAmount: { value: 5, min: 0, max: 10, step: 0.1, label: "Amount" },
+        saturationAmount: {
+          value: 5,
+          min: 0,
+          max: 10,
+          step: 0.1,
+          label: "Amount",
+        },
       },
     },
     {
@@ -41,8 +89,20 @@ export const DEFAULT_CONFIG = {
       name: "Filter",
       icon: "filter",
       params: {
-        filterFreq: { value: 3200, min: 200, max: 12000, step: 50, label: "Frequency" },
-        filterReso: { value: 0.3, min: 0, max: 10, step: 0.1, label: "Resonance" },
+        filterFreq: {
+          value: 3200,
+          min: 200,
+          max: 12000,
+          step: 50,
+          label: "Frequency",
+        },
+        filterReso: {
+          value: 0.3,
+          min: 0,
+          max: 10,
+          step: 0.1,
+          label: "Resonance",
+        },
       },
     },
     {
@@ -51,7 +111,13 @@ export const DEFAULT_CONFIG = {
       name: "Tilt EQ",
       icon: "chart-dots",
       params: {
-        tiltFreq: { value: 3000, min: 1000, max: 8000, step: 100, label: "Frequency" },
+        tiltFreq: {
+          value: 3000,
+          min: 1000,
+          max: 8000,
+          step: 100,
+          label: "Frequency",
+        },
         tiltGain: { value: 3, min: -12, max: 12, step: 0.5, label: "Gain" },
       },
     },
@@ -61,10 +127,34 @@ export const DEFAULT_CONFIG = {
       name: "Reverb",
       icon: "ripple",
       params: {
-        reverbDuration: { value: 2.5, min: 0.5, max: 5, step: 0.1, label: "Duration" },
-        reverbDecayExponent: { value: 2, min: 1, max: 6, step: 0.1, label: "Decay exp" },
-        reverbAmplitude: { value: 0.25, min: 0.05, max: 1, step: 0.01, label: "Amplitude" },
-        reverbPreDelayMs: { value: 22, min: 0, max: 100, step: 1, label: "Pre-delay ms" },
+        reverbDuration: {
+          value: 2.5,
+          min: 0.5,
+          max: 5,
+          step: 0.1,
+          label: "Duration",
+        },
+        reverbDecayExponent: {
+          value: 2,
+          min: 1,
+          max: 6,
+          step: 0.1,
+          label: "Decay exp",
+        },
+        reverbAmplitude: {
+          value: 0.25,
+          min: 0.05,
+          max: 1,
+          step: 0.01,
+          label: "Amplitude",
+        },
+        reverbPreDelayMs: {
+          value: 22,
+          min: 0,
+          max: 100,
+          step: 1,
+          label: "Pre-delay ms",
+        },
         reverbMix: { value: 0.5, min: 0, max: 1, step: 0.01, label: "Mix" },
       },
     },
@@ -75,7 +165,13 @@ export const DEFAULT_CONFIG = {
       icon: "arrows-right",
       params: {
         delayTime: { value: 0.3, min: 0.01, max: 2, step: 0.01, label: "Time" },
-        delayMaxTime: { value: 2, min: 0.5, max: 5, step: 0.1, label: "Max time" },
+        delayMaxTime: {
+          value: 2,
+          min: 0.5,
+          max: 5,
+          step: 0.1,
+          label: "Max time",
+        },
         delayMix: { value: 0.15, min: 0, max: 1, step: 0.01, label: "Mix" },
       },
     },
@@ -85,7 +181,13 @@ export const DEFAULT_CONFIG = {
       name: "Feedback",
       icon: "repeat",
       params: {
-        delayFeedback: { value: 0.05, min: 0, max: 0.92, step: 0.01, label: "Amount" },
+        delayFeedback: {
+          value: 0.05,
+          min: 0,
+          max: 0.92,
+          step: 0.01,
+          label: "Amount",
+        },
       },
     },
     {
@@ -94,7 +196,13 @@ export const DEFAULT_CONFIG = {
       name: "Limiter",
       icon: "maximize",
       params: {
-        limiterThreshold: { value: -8, min: -24, max: 0, step: 1, label: "Threshold" },
+        limiterThreshold: {
+          value: -8,
+          min: -24,
+          max: 0,
+          step: 1,
+          label: "Threshold",
+        },
       },
     },
     {
@@ -104,7 +212,13 @@ export const DEFAULT_CONFIG = {
       icon: "volume",
       params: {
         gain: { value: 0.7, min: 0, max: 1, step: 0.01, label: "Gain" },
-        attackTime: { value: 0.4, min: 0.001, max: 1, step: 0.01, label: "Attack" },
+        attackTime: {
+          value: 0.4,
+          min: 0.001,
+          max: 1,
+          step: 0.01,
+          label: "Attack",
+        },
       },
     },
   ] as ModuleConfig[],
@@ -309,9 +423,9 @@ export const synth = {
     if (activeVoices.has(pitch)) return;
     if (!masterFilter) return;
 
-    const [note, octaveStr] = pitch.split("-");
+    const [noteObject, octaveStr] = pitch.split("-");
     const octave = parseInt(octaveStr, 10);
-    const fundamentalFreq = NOTE_FREQUENCIES[note] * Math.pow(2, octave);
+    const fundamentalFreq = NOTE_FREQUENCIES[noteObject] * Math.pow(2, octave);
     const now = ctx.currentTime;
 
     const { decayTime, releaseTimeConstant } = internalConfig.envelope;

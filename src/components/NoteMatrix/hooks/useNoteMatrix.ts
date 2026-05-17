@@ -34,9 +34,11 @@ export const useNoteMatrix = () => {
     shapeOffset !== null
   );
 
-  const getSafeEnharmonicName = (note: NoteObject): NoteName => {
-    const enharmonicName = getEnharmonicName(note, { unifiedMusicKeysDataKey });
-    const fallbackName = note.sharpNoteName as NoteName;
+  const getSafeEnharmonicName = (noteObject: NoteObject): NoteName => {
+    const enharmonicName = getEnharmonicName(noteObject, {
+      unifiedMusicKeysDataKey,
+    });
+    const fallbackName = noteObject.sharpNoteName as NoteName;
     return enharmonicName ?? fallbackName;
   };
 

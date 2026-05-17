@@ -20,7 +20,7 @@ describe("getShapeFretRange", () => {
     expect(getShapeFretRange(null)).toEqual({ min: 0, max: 0 });
   });
 
-  it("should handle a single note correctly", () => {
+  it("should handle a single noteObject correctly", () => {
     const coords = [[1, 12]];
     expect(getShapeFretRange(coords)).toEqual({ min: 12, max: 12 });
   });
