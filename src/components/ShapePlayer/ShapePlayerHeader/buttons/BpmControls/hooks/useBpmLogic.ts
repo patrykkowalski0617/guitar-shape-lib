@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
-import { BPM_LIMITS, usePlayerStore } from "@/store";
+import { BPM_RANGE, useMetronomeStore } from "@/store";
 
 export const useBpmLogic = () => {
-  const globalBpm = usePlayerStore((state) => state.bpm);
-  const setGlobalBpm = usePlayerStore((state) => state.setBpm);
+  const globalBpm = useMetronomeStore((state) => state.bpm);
+  const setGlobalBpm = useMetronomeStore((state) => state.setBpm);
 
   const [inputValue, setInputValue] = useState(globalBpm.toString());
   const [isDraggingState, setIsDraggingState] = useState(false);
@@ -24,8 +24,8 @@ export const useBpmLogic = () => {
 
     if (isValidNumber) {
       const clampedBpm = Math.max(
-        BPM_LIMITS.MIN,
-        Math.min(BPM_LIMITS.MAX, parsedValue),
+        BPM_RANGE.MIN,
+        Math.min(BPM_RANGE.MAX, parsedValue),
       );
       setGlobalBpm(clampedBpm);
       setInputValue(clampedBpm.toString());

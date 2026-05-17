@@ -3,7 +3,7 @@ export * from "./useDataKeyStore";
 export * from "./useMetronomeStore";
 export * from "./useMultiRangeStore";
 export * from "./useMusicStore";
-export * from "./usePlayerStore";
+export * from "./useShapePlayerStore";
 export * from "./useProgressStore";
 export * from "./useSettingsStore";
 export * from "./useShapePlayerStore";

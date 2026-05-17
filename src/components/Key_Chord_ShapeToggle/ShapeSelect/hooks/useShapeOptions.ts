@@ -1,5 +1,5 @@
 import { useControlsStore } from "@/store";
-import { SHAPES, type Shapes, UNIFIED_MUSIC_KEYS, type Note } from "@/data";
+import { SHAPES, type Shapes, UNIFIED_MUSIC_KEYS, type NoteName } from "@/data";
 import { getNotes } from "@/utils";
 import { getFilteredAndFormatedShapes } from "../helpers/getFilteredAndFormatedShapes";
 
@@ -15,7 +15,7 @@ export const useShapeOptions = () => {
   if (!musicKey) return null;
 
   const relativeScale = getNotes({
-    firstNote: unifiedMusicKeysDataKey as Note,
+    firstNote: unifiedMusicKeysDataKey as NoteName,
     length: 12,
   });
 

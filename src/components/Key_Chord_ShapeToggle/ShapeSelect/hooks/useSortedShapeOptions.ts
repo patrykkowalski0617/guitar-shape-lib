@@ -15,7 +15,7 @@ export const useSortedShapeOptions = () => {
   const baseChordSemitoneOffset =
     BASE_CHORDS[baseChordDataKey].semitoneOffsetFromMajorRoot;
 
-  const firstNote = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].majorName;
+  const firstNote = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].majorFirstNote;
   const isFlatTune = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].isFlatTune;
 
   const notesFromScaleRoot = getNotes({ firstNote, length: 24 });

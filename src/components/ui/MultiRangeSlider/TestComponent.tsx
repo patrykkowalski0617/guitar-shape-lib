@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import MultiRangeSlider from "./MultiRangeSlider/MultiRangeSlider";
 import MasterMultiRangeSlider from "./MasterMultiRangeSlider/MasterMultiRangeSlider";
 import { type Range } from "./MultiRangeSlider/useMultiRangeSlider";
@@ -25,7 +25,6 @@ const TestComponent = () => {
         masterValues={[0, 1, 2, 3, 4, 5]}
         ranges={ranges}
         configs={configs}
-        onRangesChange={setRanges}
       />
 
       <hr />

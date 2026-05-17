@@ -1,4 +1,4 @@
-import { useMusicStore, usePlayerStore } from "@/store";
+import { useMusicStore, useMetronomeStore } from "@/store";
 import { useEffect, type RefObject } from "react";
 import { getShapeFretRange } from "../helpers/getShapeFretRange";
 import { useShapeCoordinates } from "../FretboardCell/hooks";
@@ -6,7 +6,7 @@ import { useShapeCoordinates } from "../FretboardCell/hooks";
 export const useFretboardScroll = (
   containerRef: RefObject<HTMLDivElement | null>,
 ) => {
-  const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const isPlaying = useMetronomeStore((state) => state.isPlaying);
   const shapeVariantDataKeys_locked = useMusicStore(
     (state) => state.shapeVariantDataKeys_locked,
   );

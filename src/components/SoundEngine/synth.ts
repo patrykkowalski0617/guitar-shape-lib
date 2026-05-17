@@ -12,7 +12,6 @@ let delayFeedbackGain: GainNode | null = null;
 let delayWetGain: GainNode | null = null;
 let delayDryGain: GainNode | null = null;
 
-// Parametry dostępne w UI – sterowane przez użytkownika
 export const synthConfig = {
   gain: 0.7,
   attackTime: 0.4,
@@ -23,29 +22,21 @@ export const synthConfig = {
   delayTime: 0.3,
 };
 
-// Parametry wewnętrzne – konfiguracja dla programisty
 const internalConfig = {
-  // Filtr masterowy
   filterReso: 0.3,
 
-  // Limiter
   limiterThreshold: -8,
 
-  // Tilt EQ
   tiltFreq: 3000,
   tiltGain: 3,
 
-  // Saturator per-voice
-  // Działa przed sumowaniem – każda nuta nasycana osobno, brak charczenia przy akordach
-  saturationAmount: 5, // 0–1; 0.5 = ciepłe harmoniczne, bez agresji
+  saturationAmount: 5,
 
-  // Reverb
   reverbDuration: 2.5,
   reverbDecayExponent: 2,
   reverbAmplitude: 0.25,
-  reverbPreDelayMs: 22, // ms – atak "oddycha" zanim wpadnie w pogłos
+  reverbPreDelayMs: 22,
 
-  // Harmoniczne – addytywna synteza sinusami
   oscMix: 0.55,
   harmonics: [
     [1, 1.0],
@@ -57,35 +48,26 @@ const internalConfig = {
   ] as [number, number][],
   harmonicPan: [0, -0.2, 0.2, -0.15, 0.15, 0.05] as number[],
 
-  // Głośność głosu – niżej niż poprzednio, saturator per-voice nie dostaje za dużo
   voiceGain: 0.18,
 
-  // Envelope – wszystkie parametry w jednym miejscu
   envelope: {
-    // Granice gałki attackTime w UI
-    attackMin: 0.001, // s – funk, punchy
-    attackMax: 0.95, // s – pad, string
+    attackMin: 0.001,
+    attackMax: 0.95,
 
-    // Decay – stały czas opadania od peaku do sustain
-    decayTime: 0.2, // s
+    decayTime: 0.2,
 
-    // Sustain – interpolowany między min a max w zależności od attackTime
-    // Krzywa kwadratowa: pierwsze ~30% gałki = funk strefa
-    sustainMin: 0, // funk: opada do 22% i zostaje
-    sustainMax: 15, // pad: pełny sustain
+    sustainMin: 0,
+    sustainMax: 15,
 
-    // Release – czas zaniku przy stop() (setTargetAtTime time constant)
-    releaseTimeConstant: 0.15, // s – miękkie ale nie za długie
+    releaseTimeConstant: 0.15,
   },
 
-  // Delay
   delayMaxTime: 2.0,
   cleanupDelayMs: 400,
 };
 
-// Krzywa saturacji per-voice – łagodna, ciepła (harmoniczne parzyste)
 const createSaturationCurve = (amount: number) => {
-  const samples = 8192; // mniejszy bufor – mniej pamięci per-voice
+  const samples = 8192;
   const curve = new Float32Array(samples);
   const k = amount * 80;
   for (let i = 0; i < samples; ++i) {
@@ -95,7 +77,6 @@ const createSaturationCurve = (amount: number) => {
   return curve;
 };
 
-// Krzywa współdzielona między wszystkimi głosami
 const sharedSaturationCurve = createSaturationCurve(
   internalConfig.saturationAmount,
 );
@@ -145,7 +126,6 @@ const initAudioPath = (ctx: AudioContext) => {
 
   masterGain = ctx.createGain();
 
-  // Reverb z pre-delay – atak nie tonie natychmiast w pogłosie
   reverbPreDelay = ctx.createDelay(0.1);
   reverbPreDelay.delayTime.setValueAtTime(
     internalConfig.reverbPreDelayMs / 1000,
@@ -162,13 +142,6 @@ const initAudioPath = (ctx: AudioContext) => {
   delayWetGain = ctx.createGain();
   delayDryGain = ctx.createGain();
 
-  // Graf sygnału:
-  // voices → masterFilter → masterTilt → masterLimiter
-  //   → delayDryGain ──────────────────────────────────┐
-  //   → delayNode ⟲ feedbackGain                       ├→ dryGain ──┬→ masterGain → out
-  //   → delayWetGain ──────────────────────────────────┘            │
-  //                                        reverbPreDelay → reverb → wetGain ──┘
-
   masterFilter.connect(masterTilt);
   masterTilt.connect(masterLimiter);
 
@@ -182,7 +155,6 @@ const initAudioPath = (ctx: AudioContext) => {
   delayDryGain.connect(dryGain);
   delayWetGain.connect(dryGain);
 
-  // Pre-delay przed reverb
   dryGain.connect(reverbPreDelay);
   reverbPreDelay.connect(reverbNode);
   reverbNode.connect(wetGain);
@@ -280,7 +252,7 @@ export const synth = {
     const fundamentalFreq = NOTE_FREQUENCIES[note] * Math.pow(2, octave);
     const now = ctx.currentTime;
 
-    const { decayTime, releaseTimeConstant } = internalConfig.envelope;
+    const { decayTime } = internalConfig.envelope;
     const attackTime = Math.max(
       internalConfig.envelope.attackMin,
       Math.min(internalConfig.envelope.attackMax, synthConfig.attackTime),
@@ -297,8 +269,6 @@ export const synth = {
       now + attackTime,
       decayTime,
     );
-
-    // Saturator per-voice – każda nuta nasycana osobno
     const voiceSaturator = ctx.createWaveShaper();
     voiceSaturator.curve = sharedSaturationCurve;
     voiceSaturator.oversample = "4x";

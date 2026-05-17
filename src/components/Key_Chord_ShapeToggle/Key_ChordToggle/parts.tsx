@@ -4,7 +4,6 @@ import { ToggleGroup as ToggleG } from "@/components/ui/toggle-group";
 import { motion } from "framer-motion";
 import { buttonBarShadow } from "./constants";
 import { Label } from "@/parts";
-import { expandedListCommon } from "@/components/UpperControlsBar/constants";
 
 export const KeySelectButton = styled(Button)`
   ${buttonBarShadow}
@@ -27,7 +26,6 @@ export const StyledMotionDiv = styled(motion.div)`
   flex-direction: column;
   overflow: hidden;
   background: color-mix(in oklab, var(--background) 60%, var(--muted));
-  ${expandedListCommon}
 `;
 
 export const HeaderContainer = styled.div`

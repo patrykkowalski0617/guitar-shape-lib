@@ -11,10 +11,14 @@ export const BpmButton = styled(Button)`
   }
 `;
 
-export const BpmInput = styled.input`
+interface BpmInputProps {
+  $widthMultiplier?: number;
+}
+
+export const BpmInput = styled.input<BpmInputProps>`
+  ${elementBase}
   cursor: text;
   color: white;
-  ${elementBase}
   width: 100px;
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {

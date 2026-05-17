@@ -21,13 +21,11 @@ const PianoKey = ({ note }: PianoKeyProps) => {
   const { isWhitePianoKey, pianoKeyShape, isPushed, isShapeSelected } =
     visualState;
 
-  const label = (
-    <NoteLabel
-      isVisible={isPushed}
-      variant="piano"
-      noteLabel={getEnharmonicNoteName(note)}
-    />
-  );
+  const noteLabel = getEnharmonicNoteName(note);
+
+  const label = noteLabel ? (
+    <NoteLabel isVisible={isPushed} variant="piano" noteLabel={noteLabel} />
+  ) : null;
 
   return (
     <S.KeyWrapper

@@ -16,7 +16,7 @@ export const useEnharmonicNoteName = () => {
     const unifiedMusicKeysDataKey =
       provided_unifiedMusicKeysDataKey ?? store_unifiedMusicKeysDataKey;
 
-    if (!unifiedMusicKeysDataKey) return "";
+    if (!unifiedMusicKeysDataKey) return null;
 
     const isFlatTune = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].isFlatTune;
 

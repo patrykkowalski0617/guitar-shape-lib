@@ -6,7 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import * as S from "./parts";
-import { usePlayerStore } from "@/store";
+import { useMetronomeStore } from "@/store";
 
 interface MiniCarouselProps<T> {
   items: T[];
@@ -25,7 +25,7 @@ export function MiniCarousel<T>({
   renderItem,
   getItemId,
 }: MiniCarouselProps<T>) {
-  const isPlaying = usePlayerStore((state) => state.isPlaying);
+  const isPlaying = useMetronomeStore((state) => state.isPlaying);
   const carouselWrapperRef = useRef<HTMLDivElement>(null);
   const [visibleIndex, setVisibleIndex] = useState(0);
   const [isUserInteracting, setIsUserInteracting] = useState(false);

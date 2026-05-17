@@ -47,11 +47,13 @@ export default function FretboardCell({
         $isVisibleString={isVisibleString}
       >
         <S.Note $isVisible={isShapeCell} $isVisibleString={isVisibleString}>
-          <NoteLabel
-            isVisible={isShapeCell}
-            variant="fretboard"
-            noteLabel={noteLabel}
-          />
+          {noteLabel && (
+            <NoteLabel
+              isVisible={isShapeCell}
+              variant="fretboard"
+              noteLabel={noteLabel}
+            />
+          )}
         </S.Note>
       </S.Fret>
     </S.FretWrapper>

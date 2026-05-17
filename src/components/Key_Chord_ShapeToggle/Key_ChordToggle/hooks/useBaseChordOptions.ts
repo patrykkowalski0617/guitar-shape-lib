@@ -12,7 +12,7 @@ export const useBaseChordOptions = () => {
   ][];
 
   const optionsPerKey = keyEntries.map(([unifiedMusicKeysDataKey, keyData]) => {
-    const firstNote = keyData.majorName;
+    const firstNote = keyData.majorFirstNote;
     const notes = getNotes({ firstNote });
     const isFlatTune = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].isFlatTune;
     const chords = Object.entries(BASE_CHORDS).map(([chordId, chordData]) => {

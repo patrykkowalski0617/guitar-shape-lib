@@ -113,7 +113,6 @@ export const GlobalMultiRangeController = ({
       masterValues={masterValues}
       ranges={ranges}
       configs={masterConfigs}
-      onRangesChange={() => {}}
     />
   );
 };
