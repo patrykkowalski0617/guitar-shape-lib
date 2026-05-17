@@ -5,7 +5,7 @@ export const FretWrapper = styled.div`
   flex: 1 1 0;
   height: 32px;
   padding: 1px 7px;
-  &::before {
+  /* &::before {
     content: "";
     box-shadow: 4px 0px 5px 0px
       color-mix(in oklab, var(--background) 60%, transparent);
@@ -19,7 +19,7 @@ export const FretWrapper = styled.div`
     );
     position: absolute;
     right: -3px;
-  }
+  } */
 `;
 
 export const Fret = styled.div<{

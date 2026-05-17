@@ -1,17 +1,63 @@
 import { appBgColor } from "@/constants";
 import styled, { css } from "styled-components";
+import { FretWrapper } from "../FretboardCell/parts";
 
 export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
   display: flex;
   flex-direction: row;
   position: relative;
+
+  &:first-child {
+    ${FretWrapper} {
+      &::before {
+        content: "";
+        box-shadow:
+          4px 0px 5px 0px
+            color-mix(in oklab, var(--background) 60%, transparent),
+          -1px 0px 3px 1px
+            color-mix(in oklab, var(--background) 80%, transparent) inset;
+        height: 600%;
+        width: 5px;
+        background: linear-gradient(
+          0deg,
+          color-mix(in oklab, var(--background) 50%, var(--background)) 0%,
+          color-mix(in oklab, var(--foreground) 60%, var(--muted)) 70%,
+          color-mix(in oklab, var(--background) 100%, var(--muted)) 100%
+        );
+        position: absolute;
+        right: -3px;
+        filter: brightness(1.2);
+      }
+    }
+
+    /*
+      ważne:
+      resetujemy pseudo-element pierwszego childa tylko dla tego konkretnego przypadku,
+      żeby nie nadpisywał stylu z:
+      > :first-child::before
+    */
+    > :first-child {
+      &::before {
+        width: 16px;
+        right: -1.5px;
+        z-index: 20;
+        background-image: linear-gradient(
+          90deg,
+          var(--muted) 0%,
+          color-mix(in oklab, var(--foreground) 70%, var(--instrument)) 10%,
+          color-mix(in oklab, var(--foreground) 70%, var(--instrument)) 80%,
+          var(--background) 100%
+        );
+      }
+    }
+  }
+
   ${({ $isVisibleString }) =>
     $isVisibleString
       ? css`
           &::before {
             content: "";
             position: absolute;
-            height: 1px;
             left: 0px;
             right: -50px;
             top: 50%;
@@ -27,9 +73,23 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
           }
         `
       : ""}
-
+  &:nth-child(1), 
+  &:nth-child(2) {
+    &::before {
+      height: 0.5px;
+    }
+  }
+  &:nth-child(3) {
+    &::before {
+      height: 1px;
+    }
+  }
   &:nth-child(4),
-  &:nth-child(5),
+  &:nth-child(5) {
+    &::before {
+      height: 1.5px;
+    }
+  }
   &:nth-child(6) {
     &::before {
       height: 2px;
@@ -48,6 +108,7 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
       position: absolute;
     }
   }
+
   &:nth-child(1) {
     &::after {
       top: -15px;
@@ -77,13 +138,16 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
         var(--background) 100%
       );
     }
+
     &::before {
       bottom: 18px;
     }
+
     &::after {
       top: 18px;
     }
   }
+
   &:first-child > :first-child {
     &::before {
       height: 8px;
@@ -91,6 +155,7 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
       box-shadow: 0 2px 3px 1px var(--background) inset;
     }
   }
+
   &:nth-child(6) > :first-child {
     &::after {
       height: 8px;

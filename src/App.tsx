@@ -3,20 +3,16 @@ import { Toaster } from "@/components/ui/sonner";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
 import Footer from "./components/Footer/Footer";
 import { Player } from "./components/Player/Player";
-import Piano from "./components/Piano/Piano";
 import { SoundEngine } from "./components/SoundEngine/SoundEngine";
-import { PianoControls } from "./components/PianoControls/PianoControls";
 import { ShapePlayer } from "./components/ShapePlayer/ShapePlayer";
 import { KeyAndChordPicker } from "@/components/KeyAndChordPicker/KeyAndChordPicker";
 import ShapePicker from "./components/ShapePicker/ShapePicker";
 import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
-import Test from "./components/ui/MultiRangeSlider/MultiRangeSliderTest copy";
-import TestComponent from "./components/ui/MultiRangeSlider/TestComponent";
-import { GlobalMultiRangeController } from "./components/ShapeMulitStepSliderExplorer/GlobalMultiRangeController";
+import { ShapePlayerHeader } from "./components/ShapePlayer/ShapePlayerHeader/ShapePlayerHeader";
 
 export default function App() {
   return (
-    <AppWrapper style={{ maxHeight: 700, minHeight: "unset" }}>
+    <AppWrapper style={{ height: 700, minHeight: "unset" }}>
       <SoundEngine />
       <Toaster position="top-center" />
       {/* <DataDebug /> */}
@@ -27,13 +23,16 @@ export default function App() {
       <KeyAndChordPicker />
       <ShapePicker />
       <MainContent>
-        <Section>
+        {/* <Section>
           <PianoControls />
         </Section>
         <Section>
           <Piano />
+        </Section> */}
+        {/* <GlobalMultiRangeController /> */}
+        <Section>
+          <ShapePlayerHeader />
         </Section>
-        <GlobalMultiRangeController />
         <Section>
           <GuitarFretboard />
         </Section>
