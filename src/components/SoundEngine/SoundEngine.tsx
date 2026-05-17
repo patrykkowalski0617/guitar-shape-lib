@@ -1,11 +1,12 @@
 import { useEffect, useRef } from "react";
-import { useMusicStore, useMetronomeStore } from "@/store";
+import { useMusicStore, useMetronomeStore, useControlsStore } from "@/store";
 import { synth } from "./synth";
 import { useBackingTrackSync } from "./hooks/useBackingTrackSync";
 
 export function SoundEngine() {
   useBackingTrackSync();
 
+  const playback = useControlsStore((state) => state.playback);
   const isCountingIn = useMetronomeStore((state) => state.isCountingIn);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
   const backgingtrackNoteIds = useMusicStore(
@@ -15,8 +16,6 @@ export function SoundEngine() {
   const activeLockedNoteIds = useMusicStore(
     (state) => state.activeLockedNoteIds,
   );
-
-  const playBackingtrack = true;
 
   const currentlyPlaying = useRef<Set<string>>(new Set());
 
@@ -32,7 +31,7 @@ export function SoundEngine() {
       const hasNotesToPlay =
         backgingtrackNoteIds && backgingtrackNoteIds.length > 0;
 
-      if (hasNotesToPlay && playBackingtrack) {
+      if (hasNotesToPlay && playback) {
         backgingtrackNoteIds.forEach((noteId) => {
           notesThatShouldPlay.add(noteId);
         });
@@ -45,8 +44,7 @@ export function SoundEngine() {
     }
 
     currentlyPlaying.current.forEach((noteId) => synth.stop(noteId));
-    console.log("[SoundEngine] stopping", [...currentlyPlaying.current]);
-    console.log("[SoundEngine] starting", [...notesThatShouldPlay]);
+
     notesThatShouldPlay.forEach((noteId) => synth.play(noteId));
 
     currentlyPlaying.current = notesThatShouldPlay;
@@ -56,7 +54,7 @@ export function SoundEngine() {
     isPlaying,
     isCountingIn,
     backgingtrackNoteIds,
-    playBackingtrack,
+    playback,
   ]);
   return null;
 }

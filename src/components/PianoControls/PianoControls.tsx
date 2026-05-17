@@ -11,7 +11,7 @@ import { Knob } from "./Knob";
 export const PianoControls = () => {
   const togglePianoOn = useControlsStore((state) => state.togglePianoOn);
   const isPianoOn = useControlsStore((state) => state.isPianoOn);
-  const playBackingtrack = useControlsStore((state) => state.playBackingtrack);
+  const playback = useControlsStore((state) => state.playback);
   const isPlaying = usePlayerStore((state) => state.isPlaying);
   const bricks = usePlayerStore((state) => state.bricks);
 
@@ -95,9 +95,7 @@ export const PianoControls = () => {
 
       <Switch
         label="Power"
-        isActive={
-          isPianoOn || (playBackingtrack && isPlaying && !!bricks.length)
-        }
+        isActive={isPianoOn || (playback && isPlaying && !!bricks.length)}
         onClick={handleTogglePower}
         glowColor="var(--secondary)"
       />

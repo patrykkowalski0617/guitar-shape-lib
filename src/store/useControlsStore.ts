@@ -37,7 +37,7 @@ interface ControlsState {
   visibleStrings: StringIndexes;
   setVisibleStrings: (strings: StringIndexes) => void;
 
-  playBackingtrack: boolean;
+  playback: boolean;
   togglePlayBackingtrack: () => void;
 }
 
@@ -50,7 +50,7 @@ const initialState = {
   isShapeSliderHold: false,
   isPianoOn: false,
   visibleStrings: Array.from(STRINGS_CONFIG.keys()) as StringIndexes,
-  playBackingtrack: true,
+  playback: true,
 };
 
 export const useControlsStore = create<ControlsState>((set) => ({
@@ -77,6 +77,5 @@ export const useControlsStore = create<ControlsState>((set) => ({
 
   setVisibleStrings: (strings) => set({ visibleStrings: strings }),
 
-  togglePlayBackingtrack: () =>
-    set((state) => ({ playBackingtrack: !state.playBackingtrack })),
+  togglePlayBackingtrack: () => set((state) => ({ playback: !state.playback })),
 }));

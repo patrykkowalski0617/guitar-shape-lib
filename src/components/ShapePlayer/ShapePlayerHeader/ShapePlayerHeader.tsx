@@ -6,6 +6,9 @@ import {
   UndoButton,
   Save,
   Open,
+  TogglePlayback,
+  BpmInput,
+  BpmMultiplierButton,
 } from "./buttons";
 import * as S from "./parts";
 import { useMemo } from "react";
@@ -39,6 +42,9 @@ export const ShapePlayerHeader = () => {
         <MetronomeButton />
         <Save />
         <Open />
+        <TogglePlayback />
+        <BpmInput />
+        <BpmMultiplierButton />
       </S.ShapePlayerControls>
       <GlobalMultiRangeController configs={sliderConfigs} />
     </>
