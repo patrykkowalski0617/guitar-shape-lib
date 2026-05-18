@@ -7,7 +7,7 @@ import { useFretboardScroll, useMultiShapeCoordinates } from "./hooks";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
 import FretboardRow from "./FretboardRow/FretboardRow";
-import { StringMultiStepSlider } from "./StringMultiStepSlider/StringMultiStepSlider";
+import { StringMultiRangeSlider } from "./StringMultiRangeSlider/StringMultiRangeSlider";
 import { getAllFretboardNotes } from "./helpers/getAllFretboardNotes";
 
 export default function GuitarFretboard(): JSX.Element {
@@ -21,7 +21,7 @@ export default function GuitarFretboard(): JSX.Element {
   return (
     <S.FretboardNotScrollableWrapper>
       <S.StringSliderWrapper>
-        <StringMultiStepSlider />
+        <StringMultiRangeSlider />
       </S.StringSliderWrapper>
       <InstrumentScrollWrapper ref={scrollRef}>
         <FretboardNumericMarkers />

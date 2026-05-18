@@ -1,24 +1,52 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const grabSize = 30;
 
-export const Wrapper = styled.div`
-  padding: 0 ${grabSize}px;
+interface OrientedProps {
+  $vertical?: boolean;
+}
+
+export const Wrapper = styled.div<OrientedProps>`
+  ${({ $vertical }) =>
+    $vertical
+      ? css`
+          padding: ${grabSize}px 0;
+          height: 300px;
+        `
+      : css`
+          padding: 0 ${grabSize}px;
+        `}
   background: #eee;
 `;
-export const Track = styled.div`
+export const Track = styled.div<OrientedProps>`
   position: relative;
-  width: 100%;
-  height: 40px;
+  ${({ $vertical }) =>
+    $vertical
+      ? css`
+          width: 40px;
+          height: 100%;
+        `
+      : css`
+          width: 100%;
+          height: 40px;
+        `}
   user-select: none;
   touch-action: none;
 `;
 
-export const ActiveRange = styled.div`
+export const ActiveRange = styled.div<OrientedProps>`
   position: absolute;
-  height: 100%;
   background: #333;
   display: flex;
+  ${({ $vertical }) =>
+    $vertical
+      ? css`
+          width: 100%;
+          flex-direction: column;
+        `
+      : css`
+          height: 100%;
+        `}
 `;
 
 export const Grab = styled.div`
@@ -34,16 +62,31 @@ export const Grab = styled.div`
   }
 `;
 
-export const Handle = styled.div`
-  width: ${grabSize}px;
+export const Handle = styled.div<OrientedProps>`
   position: absolute;
-  height: 100%;
-  &:first-child {
-    left: -${grabSize}px;
-  }
-  &:last-child {
-    right: -${grabSize}px;
-  }
   background: #000;
-  cursor: ew-resize;
+  ${({ $vertical }) =>
+    $vertical
+      ? css`
+          width: 100%;
+          height: ${grabSize}px;
+          cursor: ns-resize;
+          &:first-child {
+            top: -${grabSize}px;
+          }
+          &:last-child {
+            bottom: -${grabSize}px;
+          }
+        `
+      : css`
+          width: ${grabSize}px;
+          height: 100%;
+          cursor: ew-resize;
+          &:first-child {
+            left: -${grabSize}px;
+          }
+          &:last-child {
+            right: -${grabSize}px;
+          }
+        `}
 `;

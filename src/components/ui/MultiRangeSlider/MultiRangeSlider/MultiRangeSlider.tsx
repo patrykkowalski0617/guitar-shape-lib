@@ -5,45 +5,50 @@ interface MultiRangeSliderProps {
   values: unknown[];
   range: Range;
   onChange: (range: Range) => void;
+  orientation?: "horizontal" | "vertical";
 }
 
 const MultiRangeSlider = ({
   values,
   range,
   onChange,
+  orientation = "horizontal",
 }: MultiRangeSliderProps) => {
   const totalSegments = values.length;
   const { trackRef, startDragging } = useMultiRangeSlider(
     totalSegments,
     range,
     onChange,
+    orientation,
   );
 
-  const segmentWidthPercentage = 100 / totalSegments;
-  const activeRangeLeft = range.start * segmentWidthPercentage;
-  const activeRangeWidth =
-    (range.end - range.start + 1) * segmentWidthPercentage;
+  const segmentSizePercentage = 100 / totalSegments;
+  const activeRangeStart = range.start * segmentSizePercentage;
+  const activeRangeSize = (range.end - range.start + 1) * segmentSizePercentage;
+
+  const isVertical = orientation === "vertical";
+
+  const activeRangeStyle = isVertical
+    ? { top: `${activeRangeStart}%`, height: `${activeRangeSize}%` }
+    : { left: `${activeRangeStart}%`, width: `${activeRangeSize}%` };
 
   return (
-    <S.Wrapper>
-      <S.Track ref={trackRef}>
-        <S.ActiveRange
-          style={{
-            left: `${activeRangeLeft}%`,
-            width: `${activeRangeWidth}%`,
-          }}
-        >
+    <S.Wrapper $vertical={isVertical}>
+      <S.Track ref={trackRef} $vertical={isVertical}>
+        <S.ActiveRange style={activeRangeStyle} $vertical={isVertical}>
           <S.Handle
-            onMouseDown={(e) => startDragging("left", e)}
-            onTouchStart={(e) => startDragging("left", e)}
+            $vertical={isVertical}
+            onMouseDown={(e) => startDragging("start", e)}
+            onTouchStart={(e) => startDragging("start", e)}
           />
           <S.Grab
             onMouseDown={(e) => startDragging("move", e)}
             onTouchStart={(e) => startDragging("move", e)}
           />
           <S.Handle
-            onMouseDown={(e) => startDragging("right", e)}
-            onTouchStart={(e) => startDragging("right", e)}
+            $vertical={isVertical}
+            onMouseDown={(e) => startDragging("end", e)}
+            onTouchStart={(e) => startDragging("end", e)}
           />
         </S.ActiveRange>
       </S.Track>

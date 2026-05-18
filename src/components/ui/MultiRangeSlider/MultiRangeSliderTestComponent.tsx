@@ -32,6 +32,13 @@ const MultiRangeSliderTestComponent = () => {
         range={ranges.B}
         onChange={(r) => updateSingleRange("B", r)}
       />
+      <p>B</p>
+      <MultiRangeSlider
+        values={configs.B}
+        range={ranges.B}
+        onChange={(r) => updateSingleRange("B", r)}
+        orientation={"vertical"}
+      />
     </div>
   );
 };
