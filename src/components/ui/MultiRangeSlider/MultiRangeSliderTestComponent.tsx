@@ -1,6 +1,5 @@
 import { useState } from "react";
 import MultiRangeSlider from "./MultiRangeSlider/MultiRangeSlider";
-import MasterMultiRangeSlider from "./MasterMultiRangeSlider/MasterMultiRangeSlider";
 import { type Range } from "./MultiRangeSlider/useMultiRangeSlider";
 
 const MultiRangeSliderTestComponent = () => {
@@ -20,15 +19,6 @@ const MultiRangeSliderTestComponent = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <p>Master</p>
-      <MasterMultiRangeSlider
-        masterValues={[0, 1, 2, 3, 4, 5]}
-        ranges={ranges}
-        configs={configs}
-      />
-
-      <hr />
-
       <p>A</p>
       <MultiRangeSlider
         values={configs.A}

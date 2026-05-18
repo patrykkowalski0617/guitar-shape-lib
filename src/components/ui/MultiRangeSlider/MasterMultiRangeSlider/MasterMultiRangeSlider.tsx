@@ -12,7 +12,6 @@ interface MasterMultiRangeSliderProps {
 const MasterMultiRangeSlider: React.FC<MasterMultiRangeSliderProps> = ({
   ranges,
   configs,
-
   masterValues,
 }) => {
   const { currentMasterRange, handleMasterChange } = useMasterMultiRangeSlider(

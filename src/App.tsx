@@ -10,13 +10,13 @@ import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
 import { ShapePlayerHeader } from "./components/ShapePlayer/ShapePlayerHeader/ShapePlayerHeader";
 // import { ModularSynthBuilder } from "./components/SoundEngine/soudTesting/ModularSynthBuilder";
 // import Piano from "./components/Piano/Piano";
-import TestComponent from "./components/ui/MultiRangeSlider/TestComponent";
+import MultiRangeSliderTestComponent from "./components/ui/MultiRangeSlider/MultiRangeSliderTestComponent";
 
 export default function App() {
   return (
     <AppWrapper style={{ height: 700, minHeight: "unset" }}>
       <SoundEngine />
-      <TestComponent />
+      <MultiRangeSliderTestComponent />
       {/* <ModularSynthBuilder />*/}
       {/* <Section>
         <Piano />
