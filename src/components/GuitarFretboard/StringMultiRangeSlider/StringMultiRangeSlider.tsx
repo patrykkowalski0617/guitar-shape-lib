@@ -38,6 +38,7 @@ export const StringMultiRangeSlider = () => {
       range={range}
       onChange={handleChange}
       orientation="vertical"
+      height={242}
     />
   );
 };

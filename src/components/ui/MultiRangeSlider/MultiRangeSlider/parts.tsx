@@ -11,7 +11,6 @@ export const Wrapper = styled.div<OrientedProps>`
     $vertical
       ? css`
           padding: ${grabSize}px 0;
-          height: 300px;
         `
       : css`
           padding: 0 ${grabSize}px;

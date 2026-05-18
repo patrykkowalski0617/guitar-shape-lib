@@ -15,7 +15,7 @@ export const StringSliderWrapper = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   width: 50px;
-  margin-top: 22px;
+  margin-top: 2px;
   height: 192px;
   position: relative;
   z-index: 100;

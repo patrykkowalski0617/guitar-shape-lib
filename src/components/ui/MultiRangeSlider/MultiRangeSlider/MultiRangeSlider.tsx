@@ -6,6 +6,7 @@ interface MultiRangeSliderProps {
   range: Range;
   onChange: (range: Range) => void;
   orientation?: "horizontal" | "vertical";
+  height?: number | string;
 }
 
 const MultiRangeSlider = ({
@@ -13,6 +14,7 @@ const MultiRangeSlider = ({
   range,
   onChange,
   orientation = "horizontal",
+  height,
 }: MultiRangeSliderProps) => {
   const totalSegments = values.length;
   const { trackRef, startDragging } = useMultiRangeSlider(
@@ -33,7 +35,10 @@ const MultiRangeSlider = ({
     : { left: `${activeRangeStart}%`, width: `${activeRangeSize}%` };
 
   return (
-    <S.Wrapper $vertical={isVertical}>
+    <S.Wrapper
+      $vertical={isVertical}
+      style={isVertical ? { height: height ?? 300 } : undefined}
+    >
       <S.Track ref={trackRef} $vertical={isVertical}>
         <S.ActiveRange style={activeRangeStyle} $vertical={isVertical}>
           <S.Handle
