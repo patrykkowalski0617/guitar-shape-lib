@@ -30,12 +30,6 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
       }
     }
 
-    /*
-      ważne:
-      resetujemy pseudo-element pierwszego childa tylko dla tego konkretnego przypadku,
-      żeby nie nadpisywał stylu z:
-      > :first-child::before
-    */
     > :first-child {
       &::before {
         width: 16px;

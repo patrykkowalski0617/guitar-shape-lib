@@ -9,17 +9,18 @@ import ShapePicker from "./components/ShapePicker/ShapePicker";
 import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
 import { ShapePlayerHeader } from "./components/ShapePlayer/ShapePlayerHeader/ShapePlayerHeader";
 // import { ModularSynthBuilder } from "./components/SoundEngine/soudTesting/ModularSynthBuilder";
-import Piano from "./components/Piano/Piano";
+// import Piano from "./components/Piano/Piano";
+import TestComponent from "./components/ui/MultiRangeSlider/TestComponent";
 
 export default function App() {
   return (
     <AppWrapper style={{ height: 700, minHeight: "unset" }}>
       <SoundEngine />
-
+      <TestComponent />
       {/* <ModularSynthBuilder />*/}
-      <Section>
+      {/* <Section>
         <Piano />
-      </Section>
+      </Section> */}
       <Toaster position="top-center" />
       <FullscreenButton />
       <KeyAndChordPicker />

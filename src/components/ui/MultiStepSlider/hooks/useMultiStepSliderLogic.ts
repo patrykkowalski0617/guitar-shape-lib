@@ -100,7 +100,6 @@ export function useMultiStepSliderLogic(props: MultiStepSliderProps) {
       return;
     }
 
-    // Jeśli nie jesteśmy nad żadnym przyciskiem - czyścimy preview
     setPreviewValue(null);
   };
 
