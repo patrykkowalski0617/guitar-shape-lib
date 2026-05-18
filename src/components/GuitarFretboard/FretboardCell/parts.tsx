@@ -1,16 +1,10 @@
 import styled, { css } from "styled-components";
 
-export const FretWrapper = styled.div<{ $isDevNote: boolean }>`
+export const FretWrapper = styled.div`
   position: relative;
   flex: 1 1 0;
   height: 32px;
   padding: 1px 7px;
-  ${({ $isDevNote }) =>
-    $isDevNote
-      ? css`
-          background-color: red;
-        `
-      : ""}
 `;
 
 export const Fret = styled.div<{
