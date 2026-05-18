@@ -1,10 +1,4 @@
-import {
-  useState,
-  useRef,
-  useEffect,
-  type MouseEvent,
-  type TouchEvent,
-} from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 export interface Range {
   start: number;
@@ -26,48 +20,71 @@ export const useMultiRangeSlider = (
 ) => {
   const trackRef = useRef<HTMLDivElement>(null);
   const [dragState, setDragState] = useState<DragState | null>(null);
-
-  const getIndex = (clientX: number) => {
-    const trackElement = trackRef.current;
-    if (!trackElement) return 0;
-
-    const rect = trackElement.getBoundingClientRect();
-    const position = (clientX - rect.left) / rect.width;
-    const clampedPosition = Math.max(0, Math.min(position, 0.999));
-    return Math.floor(clampedPosition * totalSegments);
-  };
+  const onChangeRef = useRef(onChange);
 
   useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
+
+  const getFractionalIndex = useCallback(
+    (clientX: number) => {
+      const trackElement = trackRef.current;
+      if (!trackElement) return 0;
+
+      const rect = trackElement.getBoundingClientRect();
+      const position = (clientX - rect.left) / rect.width;
+
+      return position * totalSegments;
+    },
+    [totalSegments],
+  );
+
+  useEffect(() => {
+    if (!dragState) return;
+
     const handleGlobalMove = (e: MouseEvent | TouchEvent | any) => {
-      if (!dragState) return;
-
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const currentIndex = getIndex(clientX);
-      const indexDiff = currentIndex - dragState.startIdx;
+      const currentFractionalIndex = getFractionalIndex(clientX);
 
-      if (dragState.type === "move") {
-        const nextStart = dragState.initialRange.start + indexDiff;
-        const nextEnd = dragState.initialRange.end + indexDiff;
-        const isWithinBounds = nextStart >= 0 && nextEnd < totalSegments;
+      const { type, startIdx, initialRange } = dragState;
 
-        if (isWithinBounds) {
-          onChange({ start: nextStart, end: nextEnd });
-        }
-      } else if (dragState.type === "left") {
-        onChange({ ...range, start: Math.min(currentIndex, range.end) });
-      } else if (dragState.type === "right") {
-        onChange({ ...range, end: Math.max(currentIndex, range.start) });
+      const indexDiff = Math.round(currentFractionalIndex - startIdx);
+      const lastIndex = totalSegments - 1;
+
+      let nextRange = { ...initialRange };
+
+      if (type === "move") {
+        const rangeWidth = initialRange.end - initialRange.start;
+        const nextStart = initialRange.start + indexDiff;
+        const maxStart = lastIndex - rangeWidth;
+
+        const clampedStart = Math.max(0, Math.min(nextStart, maxStart));
+        nextRange = {
+          start: clampedStart,
+          end: clampedStart + rangeWidth,
+        };
+      } else if (type === "left") {
+        const nextStart = initialRange.start + indexDiff;
+        nextRange.start = Math.max(0, Math.min(nextStart, initialRange.end));
+      } else if (type === "right") {
+        const nextEnd = initialRange.end + indexDiff;
+        nextRange.end = Math.max(
+          initialRange.start,
+          Math.min(nextEnd, lastIndex),
+        );
+      }
+
+      if (nextRange.start !== range.start || nextRange.end !== range.end) {
+        onChangeRef.current(nextRange);
       }
     };
 
     const handleGlobalUp = () => setDragState(null);
 
-    if (dragState) {
-      window.addEventListener("mousemove", handleGlobalMove);
-      window.addEventListener("mouseup", handleGlobalUp);
-      window.addEventListener("touchmove", handleGlobalMove);
-      window.addEventListener("touchend", handleGlobalUp);
-    }
+    window.addEventListener("mousemove", handleGlobalMove);
+    window.addEventListener("mouseup", handleGlobalUp);
+    window.addEventListener("touchmove", handleGlobalMove, { passive: false });
+    window.addEventListener("touchend", handleGlobalUp);
 
     return () => {
       window.removeEventListener("mousemove", handleGlobalMove);
@@ -75,13 +92,15 @@ export const useMultiRangeSlider = (
       window.removeEventListener("touchmove", handleGlobalMove);
       window.removeEventListener("touchend", handleGlobalUp);
     };
-  }, [dragState, range, totalSegments, onChange]);
+  }, [dragState, totalSegments, getFractionalIndex, range.start, range.end]);
 
-  const startDragging = (type: DragType, e: MouseEvent | TouchEvent | any) => {
+  const startDragging = (type: DragType, e: any) => {
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const currentFractionalIndex = getFractionalIndex(clientX);
+
     setDragState({
       type,
-      startIdx: getIndex(clientX),
+      startIdx: currentFractionalIndex,
       initialRange: { ...range },
     });
   };
