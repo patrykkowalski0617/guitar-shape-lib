@@ -2,7 +2,7 @@ interface Window {
   webkitAudioContext?: typeof AudioContext;
 }
 
-type ClickType = "brick-start" | "beat" | "sub-beat";
+type ClickType = "shapePlayerBrick-start" | "beat" | "sub-beat";
 
 export class Metronome {
   private audioContext: AudioContext | null = null;
@@ -30,13 +30,13 @@ export class Metronome {
     if (!this.audioContext || !this.isRunning) return;
 
     const frequencies: Record<ClickType, number> = {
-      "brick-start": 440,
+      "shapePlayerBrick-start": 440,
       beat: 330,
       "sub-beat": 220,
     };
 
     const noiseFrequencies: Record<ClickType, number> = {
-      "brick-start": 1600,
+      "shapePlayerBrick-start": 1600,
       beat: 1000,
       "sub-beat": 600,
     };
@@ -52,7 +52,7 @@ export class Metronome {
 
     oscGain.gain.setValueAtTime(0, time);
     const gainValue =
-      type === "brick-start" ? 0.9 : type === "beat" ? 0.6 : 0.3;
+      type === "shapePlayerBrick-start" ? 0.9 : type === "beat" ? 0.6 : 0.3;
     oscGain.gain.linearRampToValueAtTime(gainValue, time + 0.001);
     oscGain.gain.exponentialRampToValueAtTime(0.001, time + 0.04);
 
@@ -72,7 +72,10 @@ export class Metronome {
     noise.buffer = noiseBuffer;
     noiseFilter.type = "lowpass";
     noiseFilter.frequency.setValueAtTime(noiseFrequencies[type], time);
-    noiseGain.gain.setValueAtTime(type === "brick-start" ? 0.4 : 0.15, time);
+    noiseGain.gain.setValueAtTime(
+      type === "shapePlayerBrick-start" ? 0.4 : 0.15,
+      time,
+    );
     noiseGain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
 
     osc.connect(oscGain);
@@ -103,7 +106,7 @@ export class Metronome {
         let clickType: ClickType = "sub-beat";
 
         if (i === 0) {
-          clickType = isNewBrick ? "brick-start" : "beat";
+          clickType = isNewBrick ? "shapePlayerBrick-start" : "beat";
         }
 
         this.playClick(time, clickType);

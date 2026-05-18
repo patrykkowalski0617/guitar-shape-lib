@@ -8,7 +8,7 @@ import { useShapePlayerBrickSelection } from "../../ShapePlayerBrick/hooks";
 import { useMetronome } from "../../hooks/useMetronome";
 
 interface ActiveBrickCalculation {
-  brick: ShapePlayerBrick;
+  shapePlayerBrick: ShapePlayerBrick;
   isFirstBeatOfBrick: boolean;
   beatInsideBrick: number;
 }
@@ -22,15 +22,15 @@ const calculateActiveBrick = (
   if (shouldSkipCalculation) return null;
 
   let accumulatedSteps = 0;
-  for (const brick of shapePlayerBricks) {
+  for (const shapePlayerBrick of shapePlayerBricks) {
     const startOfBrick = accumulatedSteps;
-    const endOfBrick = accumulatedSteps + brick.playLength;
+    const endOfBrick = accumulatedSteps + shapePlayerBrick.playLength;
     const isStepInsideBrick =
       currentStep >= startOfBrick && currentStep < endOfBrick;
 
     if (isStepInsideBrick) {
       return {
-        brick,
+        shapePlayerBrick,
         isFirstBeatOfBrick: currentStep === startOfBrick,
         beatInsideBrick: currentStep - startOfBrick,
       };
@@ -76,7 +76,9 @@ export function usePlayingBricksData() {
     isCountingIn,
   );
 
-  const currentSelection = useShapePlayerBrickSelection(activeBrickInfo?.brick);
+  const currentSelection = useShapePlayerBrickSelection(
+    activeBrickInfo?.shapePlayerBrick,
+  );
   const firstBrickSelection = useShapePlayerBrickSelection(
     shapePlayerBricks[0],
   );
@@ -100,7 +102,7 @@ export function usePlayingBricksData() {
     currentStep,
     isPlaying,
     activeBrickInfo?.isFirstBeatOfBrick,
-    activeBrickInfo?.brick.id,
+    activeBrickInfo?.shapePlayerBrick.id,
     currentSelection,
   ]);
 
@@ -124,7 +126,7 @@ export function usePlayingBricksData() {
   }, [isPlaying, isCountingIn, shapePlayerBricks, firstBrickSelection]);
 
   return {
-    activeBrickId: activeBrickInfo?.brick.id,
+    activeBrickId: activeBrickInfo?.shapePlayerBrick.id,
     activeBeatIndex: activeBrickInfo?.beatInsideBrick,
   };
 }

@@ -19,8 +19,11 @@ export const ShapePlayerList = () => {
     <>
       <SortableContext items={brickIds} strategy={verticalListSortingStrategy}>
         <S.ShapePlayerBricksList>
-          {shapePlayerBricks.map((brick) => (
-            <ShapePlayerBrick key={brick.id} id={brick.id} />
+          {shapePlayerBricks.map((shapePlayerBrick) => (
+            <ShapePlayerBrick
+              key={shapePlayerBrick.id}
+              id={shapePlayerBrick.id}
+            />
           ))}
         </S.ShapePlayerBricksList>
       </SortableContext>

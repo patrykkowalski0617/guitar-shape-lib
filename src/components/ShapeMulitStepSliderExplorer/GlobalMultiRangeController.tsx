@@ -38,10 +38,10 @@ export const GlobalMultiRangeController = ({
       > = {};
 
       configs.forEach((c) => {
-        const brick = shapePlayerBricks.find((b) => b.id === c.id);
+        const shapePlayerBrick = shapePlayerBricks.find((b) => b.id === c.id);
         updatedInitialRanges[c.id] = {
-          start: brick?.sliderRange?.[0] ?? 0,
-          end: brick?.sliderRange?.[1] ?? 0,
+          start: shapePlayerBrick?.sliderRange?.[0] ?? 0,
+          end: shapePlayerBrick?.sliderRange?.[1] ?? 0,
         };
       });
 
@@ -52,14 +52,14 @@ export const GlobalMultiRangeController = ({
 
   useEffect(() => {
     Object.entries(ranges).forEach(([id, range]) => {
-      const brick = useShapePlayerStore
+      const shapePlayerBrick = useShapePlayerStore
         .getState()
         .shapePlayerBricks.find((b) => b.id === id);
 
       const hasChanged =
-        brick &&
-        (brick.sliderRange?.[0] !== range.start ||
-          brick.sliderRange?.[1] !== range.end);
+        shapePlayerBrick &&
+        (shapePlayerBrick.sliderRange?.[0] !== range.start ||
+          shapePlayerBrick.sliderRange?.[1] !== range.end);
 
       if (hasChanged) {
         updateBrickRange(id, [range.start, range.end]);
@@ -71,10 +71,10 @@ export const GlobalMultiRangeController = ({
     const unsub = useShapePlayerStore.subscribe(
       (state) => state.shapePlayerBricks,
       (shapePlayerBricks) => {
-        shapePlayerBricks.forEach((brick) => {
-          const currentMasterRange = ranges[brick.id];
-          const newStart = brick.sliderRange?.[0] ?? 0;
-          const newEnd = brick.sliderRange?.[1] ?? 0;
+        shapePlayerBricks.forEach((shapePlayerBrick) => {
+          const currentMasterRange = ranges[shapePlayerBrick.id];
+          const newStart = shapePlayerBrick.sliderRange?.[0] ?? 0;
+          const newEnd = shapePlayerBrick.sliderRange?.[1] ?? 0;
 
           const isOutOfSync =
             currentMasterRange &&
@@ -82,7 +82,7 @@ export const GlobalMultiRangeController = ({
               currentMasterRange.end !== newEnd);
 
           if (isOutOfSync) {
-            setRange(brick.id, { start: newStart, end: newEnd });
+            setRange(shapePlayerBrick.id, { start: newStart, end: newEnd });
           }
         });
       },

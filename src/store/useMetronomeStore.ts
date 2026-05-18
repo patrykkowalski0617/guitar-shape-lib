@@ -66,7 +66,10 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
   },
 
   getTotalSteps: (shapePlayerBricks) => {
-    return shapePlayerBricks.reduce((sum, brick) => sum + brick.playLength, 0);
+    return shapePlayerBricks.reduce(
+      (sum, shapePlayerBrick) => sum + shapePlayerBrick.playLength,
+      0,
+    );
   },
 
   nextStep: (shapePlayerBricks) => {
@@ -85,7 +88,7 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
     }
 
     const totalSteps = shapePlayerBricks.reduce(
-      (sum, brick) => sum + brick.playLength,
+      (sum, shapePlayerBrick) => sum + shapePlayerBrick.playLength,
       0,
     );
 
@@ -99,12 +102,12 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
     let accumulatedWidth = 0;
     let isNewBrick = false;
 
-    for (const brick of shapePlayerBricks) {
+    for (const shapePlayerBrick of shapePlayerBricks) {
       if (nextStepIndex === accumulatedWidth) {
         isNewBrick = true;
         break;
       }
-      accumulatedWidth += brick.playLength;
+      accumulatedWidth += shapePlayerBrick.playLength;
     }
 
     return {

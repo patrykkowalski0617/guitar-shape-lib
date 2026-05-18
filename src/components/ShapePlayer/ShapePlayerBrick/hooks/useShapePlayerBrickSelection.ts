@@ -4,7 +4,9 @@ import { getOrderedShapeVariantDataKeys } from "@/components/ShapeMulitStepSlide
 import type { ShapeVariantDataKeys } from "@/data";
 import type { ShapePlayerBrick } from "@/store";
 
-export const useShapePlayerBrickSelection = (brick?: ShapePlayerBrick) => {
+export const useShapePlayerBrickSelection = (
+  shapePlayerBrick?: ShapePlayerBrick,
+) => {
   const setBaseChordDataKey = useDataKeyStore(
     (state) => state.setBaseChordDataKey,
   );
@@ -23,25 +25,26 @@ export const useShapePlayerBrickSelection = (brick?: ShapePlayerBrick) => {
   );
 
   const currentSliderRange: [number, number] = useMemo(() => {
-    return brick?.sliderRange ?? [0, 0];
-  }, [brick?.sliderRange]);
+    return shapePlayerBrick?.sliderRange ?? [0, 0];
+  }, [shapePlayerBrick?.sliderRange]);
 
   const orderedLocations = useMemo(() => {
     const hasRequiredData =
-      brick?.shapeDataKey && brick?.unifiedMusicKeysDataKey;
+      shapePlayerBrick?.shapeDataKey &&
+      shapePlayerBrick?.unifiedMusicKeysDataKey;
 
     if (!hasRequiredData) {
       return [] as ShapeVariantDataKeys[];
     }
 
     const locations = getOrderedShapeVariantDataKeys({
-      shapeDataKey: brick.shapeDataKey,
-      unifiedMusicKeysDataKey: brick.unifiedMusicKeysDataKey,
-      semitoneOffsetFromMajorRoot: brick.semitoneOffsetFromMajorRoot,
+      shapeDataKey: shapePlayerBrick.shapeDataKey,
+      unifiedMusicKeysDataKey: shapePlayerBrick.unifiedMusicKeysDataKey,
+      semitoneOffsetFromMajorRoot: shapePlayerBrick.semitoneOffsetFromMajorRoot,
     });
 
     return locations as ShapeVariantDataKeys[];
-  }, [brick]);
+  }, [shapePlayerBrick]);
 
   const selectedShapesVariantDataKeys = useMemo(() => {
     const startIdx = currentSliderRange[0];
@@ -50,19 +53,21 @@ export const useShapePlayerBrickSelection = (brick?: ShapePlayerBrick) => {
   }, [orderedLocations, currentSliderRange]);
 
   const setSliderRange = (newRange: [number, number]) => {
-    if (brick?.id) {
-      updateBrickRange(brick.id, newRange);
+    if (shapePlayerBrick?.id) {
+      updateBrickRange(shapePlayerBrick.id, newRange);
     }
   };
 
   const restoreData = () => {
-    const canRestore = brick?.baseChordDataKey;
+    const canRestore = shapePlayerBrick?.baseChordDataKey;
 
     if (canRestore) {
-      setBaseChordDataKey(brick.baseChordDataKey);
+      setBaseChordDataKey(shapePlayerBrick.baseChordDataKey);
       setSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
-      setSemitoneOffsetFromMajorRoot(brick.semitoneOffsetFromMajorRoot);
-      setUnifiedMusicKeysDataKey(brick.unifiedMusicKeysDataKey);
+      setSemitoneOffsetFromMajorRoot(
+        shapePlayerBrick.semitoneOffsetFromMajorRoot,
+      );
+      setUnifiedMusicKeysDataKey(shapePlayerBrick.unifiedMusicKeysDataKey);
     }
   };
 

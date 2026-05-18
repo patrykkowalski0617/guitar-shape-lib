@@ -1,30 +1,32 @@
 import { useBaseChord, useShape, useUnifiedMusicKey } from "@/hooks";
 import type { ShapePlayerBrick } from "@/store";
 
-export const useShapePlayerBrickDisplay = (brick?: ShapePlayerBrick) => {
+export const useShapePlayerBrickDisplay = (
+  shapePlayerBrick?: ShapePlayerBrick,
+) => {
   const unifiedMusicKey = useUnifiedMusicKey({
-    unifiedMusicKeysDataKey: brick?.unifiedMusicKeysDataKey,
+    unifiedMusicKeysDataKey: shapePlayerBrick?.unifiedMusicKeysDataKey,
   });
 
   const { getBaseChordName } = useBaseChord({
-    baseChordDataKey: brick?.baseChordDataKey,
+    baseChordDataKey: shapePlayerBrick?.baseChordDataKey,
   });
 
   const { getShapeName } = useShape({
-    shapeDataKey: brick?.shapeDataKey,
+    shapeDataKey: shapePlayerBrick?.shapeDataKey,
   });
 
   const keyName = `${unifiedMusicKey?.majorName} / ${unifiedMusicKey?.relativeMinorName}`;
 
   const chordName = getBaseChordName({
-    unifiedMusicKeysDataKey: brick?.unifiedMusicKeysDataKey,
+    unifiedMusicKeysDataKey: shapePlayerBrick?.unifiedMusicKeysDataKey,
   });
 
-  if (!brick) return {};
+  if (!shapePlayerBrick) return {};
 
   const { shapeNoteName, shapeLabel, shapeType } = getShapeName({
-    semitoneOffsetFromMajorRoot: brick?.semitoneOffsetFromMajorRoot,
-    unifiedMusicKeysDataKey: brick?.unifiedMusicKeysDataKey,
+    semitoneOffsetFromMajorRoot: shapePlayerBrick?.semitoneOffsetFromMajorRoot,
+    unifiedMusicKeysDataKey: shapePlayerBrick?.unifiedMusicKeysDataKey,
   });
 
   const shapeName = `${shapeType !== "Set" ? shapeNoteName : ""}${shapeType === "Scale" ? " " : ""}${shapeLabel}`;

@@ -21,15 +21,16 @@ export const ShapePlayerHeader = () => {
     (state) => state.shapePlayerBricks,
   );
   const sliderConfigs = useMemo(() => {
-    return shapePlayerBricks.map((brick) => ({
-      id: brick.id,
-      shapeDataKey: brick.shapeDataKey,
-      unifiedMusicKeysDataKey: brick.unifiedMusicKeysDataKey,
-      semitoneOffsetFromMajorRoot: brick.semitoneOffsetFromMajorRoot,
+    return shapePlayerBricks.map((shapePlayerBrick) => ({
+      id: shapePlayerBrick.id,
+      shapeDataKey: shapePlayerBrick.shapeDataKey,
+      unifiedMusicKeysDataKey: shapePlayerBrick.unifiedMusicKeysDataKey,
+      semitoneOffsetFromMajorRoot: shapePlayerBrick.semitoneOffsetFromMajorRoot,
       orderedLocations: getOrderedShapeVariantDataKeys({
-        shapeDataKey: brick.shapeDataKey,
-        unifiedMusicKeysDataKey: brick.unifiedMusicKeysDataKey,
-        semitoneOffsetFromMajorRoot: brick.semitoneOffsetFromMajorRoot,
+        shapeDataKey: shapePlayerBrick.shapeDataKey,
+        unifiedMusicKeysDataKey: shapePlayerBrick.unifiedMusicKeysDataKey,
+        semitoneOffsetFromMajorRoot:
+          shapePlayerBrick.semitoneOffsetFromMajorRoot,
       }),
     }));
   }, [shapePlayerBricks]);

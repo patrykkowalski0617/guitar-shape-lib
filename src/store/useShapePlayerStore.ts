@@ -91,13 +91,13 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
       removeShapePlayerBrick: (idToRemove) => {
         set((state) => {
           const brickIndex = state.shapePlayerBricks.findIndex(
-            (brick) => brick.id === idToRemove,
+            (shapePlayerBrick) => shapePlayerBrick.id === idToRemove,
           );
 
           if (brickIndex === -1) return state;
 
           const updatedBricks = state.shapePlayerBricks.filter(
-            (brick) => brick.id !== idToRemove,
+            (shapePlayerBrick) => shapePlayerBrick.id !== idToRemove,
           );
 
           return {
@@ -182,8 +182,10 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
 
       updateBrickRange: (id, sliderRange) => {
         set((state) => ({
-          shapePlayerBricks: state.shapePlayerBricks.map((brick) =>
-            brick.id === id ? { ...brick, sliderRange } : brick,
+          shapePlayerBricks: state.shapePlayerBricks.map((shapePlayerBrick) =>
+            shapePlayerBrick.id === id
+              ? { ...shapePlayerBrick, sliderRange }
+              : shapePlayerBrick,
           ),
         }));
       },

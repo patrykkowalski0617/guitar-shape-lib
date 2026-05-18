@@ -19,18 +19,19 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     setNodeRef,
     draggingStyles,
     handleRemoveClick,
-    brick,
+    shapePlayerBrick,
   } = useShapePlayerBrick(id);
 
   const { activeBrickId, activeBeatIndex } = usePlayingBricksData();
-  const { keyName, chordName, shapeName } = useShapePlayerBrickDisplay(brick);
+  const { keyName, chordName, shapeName } =
+    useShapePlayerBrickDisplay(shapePlayerBrick);
   const { sliderRange, setSliderRange, orderedLocations, restoreData } =
-    useShapePlayerBrickSelection(brick);
+    useShapePlayerBrickSelection(shapePlayerBrick);
 
-  if (!brick) return null;
+  if (!shapePlayerBrick) return null;
 
   const isCurrentBrickPlayed = activeBrickId === id;
-  const playLength = brick.playLength;
+  const playLength = shapePlayerBrick.playLength;
 
   return (
     <S.ShapePlayerBrickWrapper
@@ -64,10 +65,12 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
       </div>
 
       <ShapeMulitStepSliderExplorer
-        unifiedMusicKeysDataKey={brick.unifiedMusicKeysDataKey}
-        baseChordDataKey={brick.baseChordDataKey}
-        shapeDataKey={brick.shapeDataKey}
-        semitoneOffsetFromMajorRoot={brick.semitoneOffsetFromMajorRoot}
+        unifiedMusicKeysDataKey={shapePlayerBrick.unifiedMusicKeysDataKey}
+        baseChordDataKey={shapePlayerBrick.baseChordDataKey}
+        shapeDataKey={shapePlayerBrick.shapeDataKey}
+        semitoneOffsetFromMajorRoot={
+          shapePlayerBrick.semitoneOffsetFromMajorRoot
+        }
         sliderRange={sliderRange}
         onRangeChange={setSliderRange}
         orderedLocations={orderedLocations}

@@ -22,7 +22,9 @@ export const useShapePlayerDrag = () => {
     const isTargetValid = over && active.id !== over.id;
 
     if (isTargetValid) {
-      const brickIds = shapePlayerBricks.map((brick) => brick.id);
+      const brickIds = shapePlayerBricks.map(
+        (shapePlayerBrick) => shapePlayerBrick.id,
+      );
       const oldIndex = brickIds.indexOf(active.id as string);
       const newIndex = brickIds.indexOf(over.id as string);
 
