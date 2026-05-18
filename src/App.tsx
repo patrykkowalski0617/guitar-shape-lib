@@ -9,12 +9,13 @@ import ShapePicker from "./components/ShapePicker/ShapePicker";
 import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
 import { ShapePlayerHeader } from "@/components/ShapePlayer/ShapePlayerHeader/ShapePlayerHeader";
 import { PianoControllers } from "@/components/PianoControllers/PianoControllers";
+// import { DataKeyStoreDebugComponent } from "./DevTools/DataKeyStoreDebugComponent/DataKeyStoreDebugComponent";
 
 export default function App() {
   return (
     <AppWrapper style={{ height: 700, minHeight: "unset" }}>
       <SoundEngine />
-
+      {/* <DataKeyStoreDebugComponent /> */}
       <Section>
         <PianoControllers />
       </Section>

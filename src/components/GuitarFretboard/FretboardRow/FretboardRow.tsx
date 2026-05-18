@@ -42,6 +42,7 @@ export default function FretboardRow({
             key={`${stringIndex}-${fretIndex}`}
             noteObject={noteObject}
             fretIndex={fretIndex}
+            stringIndex={stringIndex}
             isVisibleString={isVisibleString}
             isShapeCell={isShapeCell}
             isBaseChordCell={isBaseChordCell}

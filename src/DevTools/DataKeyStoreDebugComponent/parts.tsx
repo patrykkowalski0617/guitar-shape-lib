@@ -45,7 +45,12 @@ export const Label = styled.div`
 `;
 
 export const ValueBox = styled.div`
-  min-width: 100px;
+  width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &:hover {
+    width: unset;
+  }
 `;
 
 export const ValueHighlight = styled.span`

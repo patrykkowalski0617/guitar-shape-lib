@@ -305,6 +305,110 @@ export const SHAPES: Shapes = {
       },
     },
   },
+  m_M7: {
+    label: "m(M7)",
+    type: "Arpeggio",
+    intervals: [_1, _m3, _5, _M7],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord2: [_M2],
+      BaseChord3: [_M3],
+      BaseChord6: [_M6],
+    },
+    shapeVariants: {
+      strE: {
+        v1: {
+          // prettier-ignore
+          coordinates: [[0,-1],[0,0],[1,0],[2,-3],[2,0],[3,-3],[3,1],[4,-2],[5,-1],[5,0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[0,-1],[0,0],[1,0],[2,0],[3,1],[3,2],[4,-2],[4,2],[5,-1],[5,0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[0,0],[0,3],[1,0],[1,4],[2,0],[3,1],[3,2],[4,2],[5,0],[5,3]],
+        },
+      },
+      strA: {
+        v1: {
+          // prettier-ignore
+          coordinates: [[0,0],[1,-3],[1,-2],[1,1],[2,-3],[3,-2],[4,-1],[4,0],[5,0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[0,0],[1,1],[2,1],[2,2],[3,-2],[3,2],[4,0],[5,0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[0,0],[0,4],[1,1],[2,1],[2,2],[3,2],[4,0],[4,3],[5,0],[5,4]],
+        },
+      },
+      strD: {
+        v1: {
+          // prettier-ignore
+          coordinates: [[0,1],[1,2],[1,3],[2,2],[3,0],[3,3],[4,0],[4,4],[5,1]],
+        },
+      },
+    },
+  },
+  m_M6: {
+    label: "m(M6)",
+    type: "Arpeggio",
+    intervals: [_1, _m3, _5, _M6],
+    semitoneOffsetFromMajorRoot: {
+      BaseChord2: [_M2],
+      BaseChord6: [_M6],
+      BaseChord7: [_M2],
+    },
+    shapeVariants: {
+      strE: {
+        v1: {
+          // prettier-ignore
+          coordinates: [[0,-3],[0,0],[1,0],[2,-3],[2,0],[3,-3],[3,-1],[4,-2],[5,-3],[5,0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates: [[0,0],[1,0],[1,2],[2,0],[3,-1],[3,2],[4,-2],[4,2],[5,0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[0,0],[0,3],[1,0],[1,2],[2,0],[3,-1],[3,2],[4,2],[5,0],[5,3]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[0,0],[0,3],[1,0],[1,2],[2,0],[3,2],[4,2],[4,4],[5,0],[5,3]],
+        },
+      },
+      strA: {
+        v1: {
+          // prettier-ignore
+          coordinates: [[0,-4],[0,0],[1,-2],[2,-3],[2,-1],[3,-2],[4,-3],[4,0],[5,0]],
+        },
+        v2: {
+          // prettier-ignore
+          coordinates:  [[0,0],[1,-2],[1,1],[2,-3],[2,-1],[3,-2],[4,-3],[4,0],[5,0]],
+        },
+        v3: {
+          // prettier-ignore
+          coordinates: [[0,0],[1,1],[2,-1],[2,2],[3,-2],[3,2],[4,0],[5,0]],
+        },
+        v4: {
+          // prettier-ignore
+          coordinates: [[0,0],[0,2],[1,1],[2,-1],[2,2],[3,2],[4,0],[4,3],[5,0],[5,2]],
+        },
+        v5: {
+          // prettier-ignore
+          coordinates: [[0,0],[0,2],[1,1],[2,2],[3,2],[3,4],[4,0],[4,3],[5,0],[5,2]],
+        },
+      },
+      strD: {
+        v1: {
+          // prettier-ignore
+          coordinates: [[0,1],[1,0],[1,3],[2,2],[3,0],[3,3],[4,0],[4,2],[5,1]],
+        },
+      },
+    },
+  },
   m_add9: {
     label: "m(add9)",
     type: "Arpeggio",
