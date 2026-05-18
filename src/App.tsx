@@ -7,12 +7,8 @@ import { ShapePlayer } from "./components/ShapePlayer/ShapePlayer";
 import { KeyAndChordPicker } from "@/components/KeyAndChordPicker/KeyAndChordPicker";
 import ShapePicker from "./components/ShapePicker/ShapePicker";
 import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
-import { ShapePlayerHeader } from "./components/ShapePlayer/ShapePlayerHeader/ShapePlayerHeader";
-import Piano from "./components/Piano/Piano";
-import { PianoControls } from "./components/PianoControls/PianoControls";
-// import { ModularSynthBuilder } from "./components/SoundEngine/soudTesting/ModularSynthBuilder";
-// import Piano from "./components/Piano/Piano";
-// import MultiRangeSliderTestComponent from "./components/ui/MultiRangeSlider/MultiRangeSliderTestComponent";
+import { ShapePlayerHeader } from "@/components/ShapePlayer/ShapePlayerHeader/ShapePlayerHeader";
+import { PianoControllers } from "@/components/PianoControllers/PianoControllers";
 
 export default function App() {
   return (
@@ -20,12 +16,9 @@ export default function App() {
       <SoundEngine />
 
       <Section>
-        <PianoControls />
+        <PianoControllers />
       </Section>
 
-      <Section>
-        <Piano />
-      </Section>
       <Toaster position="top-center" />
       <FullscreenButton />
       <KeyAndChordPicker />

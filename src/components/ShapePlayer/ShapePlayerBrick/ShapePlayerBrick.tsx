@@ -41,7 +41,7 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     >
       <Button>{keyName}</Button>
       <Button>{chordName}</Button>
-      <Button>{shapeName}</Button>
+      <Button $widthMultiplier={4}>{shapeName}</Button>
       <Button>{playLength}</Button>
 
       <div style={{ display: "flex", gap: "4px", marginTop: "8px" }}>

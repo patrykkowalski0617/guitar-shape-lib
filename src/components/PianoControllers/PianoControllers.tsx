@@ -5,17 +5,17 @@ import {
   updateMasterParams,
 } from "@/components/SoundEngine/synth";
 import {
-  useControlsStore,
+  useControllersStore,
   useMetronomeStore,
   useShapePlayerStore,
 } from "@/store";
 import { Switch } from "./Switch";
 import { Knob } from "./Knob";
 
-export const PianoControls = () => {
-  const togglePianoOn = useControlsStore((state) => state.togglePianoOn);
-  const isPianoOn = useControlsStore((state) => state.isPianoOn);
-  const playback = useControlsStore((state) => state.playback);
+export const PianoControllers = () => {
+  const togglePianoOn = useControllersStore((state) => state.togglePianoOn);
+  const isPianoOn = useControllersStore((state) => state.isPianoOn);
+  const playback = useControllersStore((state) => state.playback);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
   const shapePlayerBricks = useShapePlayerStore(
     (state) => state.shapePlayerBricks,

@@ -1,12 +1,20 @@
 import * as React from "react";
-import { useControlsStore } from "@/store";
+import { useControllersStore } from "@/store";
 import { stringIndexes, type StringIndexes } from "../constants";
-import { getAllIndexesFromIndexRange } from "@/components/ui/MultiStepSlider/utils";
 import MultiRangeSlider from "@/components/ui/MultiRangeSlider/MultiRangeSlider/MultiRangeSlider";
 
+const getAllIndexesFromIndexRange = (range: number[]): number[] => {
+  if (range.length === 0) return [];
+
+  const start = Math.min(...range);
+  const end = Math.max(...range);
+
+  return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+};
+
 export const StringMultiRangeSlider = () => {
-  const visibleStrings = useControlsStore((state) => state.visibleStrings);
-  const setVisibleStrings = useControlsStore(
+  const visibleStrings = useControllersStore((state) => state.visibleStrings);
+  const setVisibleStrings = useControllersStore(
     (state) => state.setVisibleStrings,
   );
 

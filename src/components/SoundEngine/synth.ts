@@ -13,7 +13,7 @@ let delayWetGain: GainNode | null = null;
 let delayDryGain: GainNode | null = null;
 
 export const synthConfig = {
-  gain: 0.7,
+  gain: 0.5,
   attackTime: 0,
   filterFreq: 3200,
   reverbMix: 0.5,
@@ -51,13 +51,13 @@ const internalConfig = {
   voiceGain: 0.18,
 
   envelope: {
-    attackMin: 0.001,
+    attackMin: 0.1,
     attackMax: 0.95,
 
     decayTime: 0.2,
 
-    sustainMin: 5,
-    sustainMax: 15,
+    sustainMin: 1,
+    sustainMax: 1,
 
     releaseTimeConstant: 0.15,
   },

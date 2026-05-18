@@ -1,12 +1,12 @@
 import { Music } from "lucide-react";
-import { useControlsStore } from "@/store";
+import { useControllersStore } from "@/store";
 import * as S from "./parts";
 
 export const TogglePlayback = () => {
-  const togglePlayBackingtrack = useControlsStore(
+  const togglePlayBackingtrack = useControllersStore(
     (state) => state.togglePlayBackingtrack,
   );
-  const playback = useControlsStore((state) => state.playback);
+  const playback = useControllersStore((state) => state.playback);
 
   const handleClick = () => {
     togglePlayBackingtrack();

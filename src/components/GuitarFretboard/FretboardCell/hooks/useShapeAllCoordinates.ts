@@ -1,10 +1,10 @@
 import { SHAPES } from "@/data";
-import { useControlsStore } from "@/store";
+import { useControllersStore } from "@/store";
 import { useShapeRootCoordinates } from "./useShapeRootCoordinates";
 
 export const useShapeAllCoordinates = () => {
   const rootsCoordinates = useShapeRootCoordinates() || [];
-  const shapeDataKey = useControlsStore((state) => state.shapeDataKey);
+  const shapeDataKey = useControllersStore((state) => state.shapeDataKey);
 
   const isMissingRequiredData = !shapeDataKey || !rootsCoordinates.length;
   if (isMissingRequiredData) return [];

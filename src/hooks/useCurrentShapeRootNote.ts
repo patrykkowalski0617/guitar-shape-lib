@@ -1,12 +1,12 @@
-import { useControlsStore } from "@/store";
+import { useControllersStore } from "@/store";
 import { UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
 
 export function useCurrentShapeRootNote() {
-  const unifiedMusicKeysDataKey = useControlsStore(
+  const unifiedMusicKeysDataKey = useControllersStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
-  const semitoneOffsetFromMajorRoot = useControlsStore(
+  const semitoneOffsetFromMajorRoot = useControllersStore(
     (state) => state.semitoneOffsetFromMajorRoot,
   );
 

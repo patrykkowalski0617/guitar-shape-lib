@@ -1,3 +1,4 @@
+import { appBgColor } from "@/constants";
 import styled, { css } from "styled-components";
 
 const grabSize = 30;
@@ -15,19 +16,19 @@ export const Wrapper = styled.div<OrientedProps>`
       : css`
           padding: 0 ${grabSize}px;
         `}
-  background: #eee;
+  background: ${appBgColor};
 `;
 export const Track = styled.div<OrientedProps>`
   position: relative;
   ${({ $vertical }) =>
     $vertical
       ? css`
-          width: 40px;
+          width: 30px;
           height: 100%;
         `
       : css`
           width: 100%;
-          height: 40px;
+          height: 30px;
         `}
   user-select: none;
   touch-action: none;
@@ -35,7 +36,7 @@ export const Track = styled.div<OrientedProps>`
 
 export const ActiveRange = styled.div<OrientedProps>`
   position: absolute;
-  background: #333;
+  background: #1e1e1e;
   display: flex;
   ${({ $vertical }) =>
     $vertical

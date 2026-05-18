@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ShapePlayerControls = styled.div`
+export const ShapePlayerControllers = styled.div`
   display: flex;
 `;
 

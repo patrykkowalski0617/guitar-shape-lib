@@ -1,5 +1,5 @@
-export { BpmInput } from "./BpmControls/BpmInput";
-export { BpmMultiplierButton } from "./BpmControls/BpmMultiplierButton";
+export { BpmInput } from "./BpmControllers/BpmInput";
+export { BpmMultiplierButton } from "./BpmControllers/BpmMultiplierButton";
 export { AddButton } from "./AddButton/AddButton";
 export { ClearButton } from "./ClearButton/ClearButton";
 export { MetronomeButton } from "./MetronomeButton/MetronomeButton";

@@ -1,13 +1,15 @@
-import { useControlsStore } from "@/store";
+import { useControllersStore } from "@/store";
 import { useEffect, type RefObject } from "react";
 
 export const usePianoScroll = (
   containerRef: RefObject<HTMLDivElement | null>,
 ) => {
-  const unifiedMusicKeysDataKey = useControlsStore(
+  const unifiedMusicKeysDataKey = useControllersStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
-  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
+  const baseChordDataKey = useControllersStore(
+    (state) => state.baseChordDataKey,
+  );
 
   useEffect(() => {
     const container = containerRef.current;

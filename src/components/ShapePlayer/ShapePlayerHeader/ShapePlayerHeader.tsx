@@ -36,7 +36,7 @@ export const ShapePlayerHeader = () => {
 
   return (
     <>
-      <S.ShapePlayerControls>
+      <S.ShapePlayerControllers>
         <Open />
         <Save />
         <ExerciseTitle />
@@ -47,7 +47,7 @@ export const ShapePlayerHeader = () => {
         <MetronomeButton />
         <BpmInput />
         <BpmMultiplierButton />
-      </S.ShapePlayerControls>
+      </S.ShapePlayerControllers>
       <GlobalMultiRangeController configs={sliderConfigs} />
     </>
   );

@@ -1,9 +1,9 @@
 import { BASE_CHORDS } from "@/data";
-import { useControlsStore } from "@/store";
+import { useControllersStore } from "@/store";
 import { MiniCarousel } from "../ui/MiniCarousel/MiniCarousel";
 
 const RoleCarousel = () => {
-  const activeChordId = useControlsStore((state) => state.baseChordDataKey);
+  const activeChordId = useControllersStore((state) => state.baseChordDataKey);
   const chordKeys = Object.keys(BASE_CHORDS);
 
   return (

@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
-import { useMusicStore, useMetronomeStore, useControlsStore } from "@/store";
+import { useMusicStore, useMetronomeStore, useControllersStore } from "@/store";
 import { synth } from "./synth";
 import { useBackingTrackSync } from "./hooks/useBackingTrackSync";
 
 export function SoundEngine() {
   useBackingTrackSync();
 
-  const playback = useControlsStore((state) => state.playback);
+  const playback = useControllersStore((state) => state.playback);
   const isCountingIn = useMetronomeStore((state) => state.isCountingIn);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
   const backgingtrackNoteIds = useMusicStore(
@@ -16,7 +16,7 @@ export function SoundEngine() {
   const activeLockedNoteIds = useMusicStore(
     (state) => state.activeLockedNoteIds,
   );
-  const isPianoOn = useControlsStore((state) => state.isPianoOn);
+  const isPianoOn = useControllersStore((state) => state.isPianoOn);
   const currentlyPlaying = useRef<Set<string>>(new Set());
 
   useEffect(() => {

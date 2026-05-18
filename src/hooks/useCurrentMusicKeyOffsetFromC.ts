@@ -1,8 +1,8 @@
 import { UNIFIED_MUSIC_KEYS } from "@/data";
-import { useControlsStore } from "@/store";
+import { useControllersStore } from "@/store";
 
 export const useCurrentMusicKeyOffsetFromC = () => {
-  const unifiedMusicKeysDataKey = useControlsStore(
+  const unifiedMusicKeysDataKey = useControllersStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
   const semitonOffsetFromC =

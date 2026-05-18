@@ -1,9 +1,9 @@
-import { useControlsStore } from "@/store";
+import { useControllersStore } from "@/store";
 import { SCALE_SEMITONE_TEMPLATES, UNIFIED_MUSIC_KEYS } from "@/data";
 import { getNotes } from "@/utils";
 
 export const useInTuneSharpNoteNames = () => {
-  const unifiedMusicKeysDataKey = useControlsStore(
+  const unifiedMusicKeysDataKey = useControllersStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
   const firstNote = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].majorFirstNote;

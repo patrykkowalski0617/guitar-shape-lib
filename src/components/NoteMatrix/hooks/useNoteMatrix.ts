@@ -1,4 +1,4 @@
-import { useControlsStore, useMusicStore } from "@/store";
+import { useControllersStore, useMusicStore } from "@/store";
 import { useEnharmonicNoteName } from "@/hooks";
 import {
   calculateMatrixData,
@@ -9,12 +9,14 @@ import type { NoteObject } from "@/utils";
 import type { NoteName } from "@/data";
 
 export const useNoteMatrix = () => {
-  const unifiedMusicKeysDataKey = useControlsStore(
+  const unifiedMusicKeysDataKey = useControllersStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
-  const baseChordDataKey = useControlsStore((state) => state.baseChordDataKey);
-  const shapeDataKey = useControlsStore((state) => state.shapeDataKey);
-  const shapeOffset = useControlsStore(
+  const baseChordDataKey = useControllersStore(
+    (state) => state.baseChordDataKey,
+  );
+  const shapeDataKey = useControllersStore((state) => state.shapeDataKey);
+  const shapeOffset = useControllersStore(
     (state) => state.semitoneOffsetFromMajorRoot,
   );
 
