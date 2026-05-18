@@ -17,7 +17,9 @@ export const PianoControls = () => {
   const isPianoOn = useControlsStore((state) => state.isPianoOn);
   const playback = useControlsStore((state) => state.playback);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
-  const bricks = useShapePlayerStore((state) => state.shapePlayerBricks);
+  const shapePlayerBricks = useShapePlayerStore(
+    (state) => state.shapePlayerBricks,
+  );
 
   const [, setTick] = useState(0);
 
@@ -99,7 +101,9 @@ export const PianoControls = () => {
 
       <Switch
         label="Power"
-        isActive={isPianoOn || (playback && isPlaying && !!bricks.length)}
+        isActive={
+          isPianoOn || (playback && isPlaying && !!shapePlayerBricks.length)
+        }
         onClick={handleTogglePower}
         glowColor="var(--secondary)"
       />

@@ -25,8 +25,8 @@ interface MetronomeState {
   setBpm: (bpm: number) => void;
   setBpmMultiplier: (multiplier: number) => void;
   togglePlay: () => void;
-  nextStep: (bricks: MetronomeBrick[]) => StepResult;
-  getTotalSteps: (bricks: MetronomeBrick[]) => number;
+  nextStep: (shapePlayerBricks: MetronomeBrick[]) => StepResult;
+  getTotalSteps: (shapePlayerBricks: MetronomeBrick[]) => number;
 }
 
 export const useMetronomeStore = create<MetronomeState>((set, get) => ({
@@ -65,11 +65,11 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
     }
   },
 
-  getTotalSteps: (bricks) => {
-    return bricks.reduce((sum, brick) => sum + brick.playLength, 0);
+  getTotalSteps: (shapePlayerBricks) => {
+    return shapePlayerBricks.reduce((sum, brick) => sum + brick.playLength, 0);
   },
 
-  nextStep: (bricks) => {
+  nextStep: (shapePlayerBricks) => {
     const { currentStep, isCountingIn, countIn } = get();
 
     if (isCountingIn) {
@@ -84,7 +84,10 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
       return { isNewBrick: true, isFirstStepTotal: isLastCountInStep };
     }
 
-    const totalSteps = bricks.reduce((sum, brick) => sum + brick.playLength, 0);
+    const totalSteps = shapePlayerBricks.reduce(
+      (sum, brick) => sum + brick.playLength,
+      0,
+    );
 
     if (totalSteps === 0) {
       return { isNewBrick: false, isFirstStepTotal: false };
@@ -96,7 +99,7 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
     let accumulatedWidth = 0;
     let isNewBrick = false;
 
-    for (const brick of bricks) {
+    for (const brick of shapePlayerBricks) {
       if (nextStepIndex === accumulatedWidth) {
         isNewBrick = true;
         break;

@@ -12,6 +12,9 @@ export function useOpen() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const setBricks = useShapePlayerStore((state) => state.setBricks);
+  const setExerciseTitle = useShapePlayerStore(
+    (state) => state.setExerciseTitle,
+  );
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
 
   const setUnifiedMusicKeysDataKey = useControlsStore(
@@ -24,10 +27,17 @@ export function useOpen() {
     (state) => state.setShapeVariantDataKeys_locked,
   );
 
-  const applyImportedBricks = (bricks: ShapePlayerBrick[]) => {
-    setBricks(bricks);
+  const applyImportedBricks = (
+    shapePlayerBricks: ShapePlayerBrick[],
+    exerciseTitle: string | null,
+  ) => {
+    setBricks(shapePlayerBricks);
 
-    const firstBrick = bricks[0];
+    if (exerciseTitle) {
+      setExerciseTitle(exerciseTitle);
+    }
+
+    const firstBrick = shapePlayerBricks[0];
     if (firstBrick) {
       setUnifiedMusicKeysDataKey(firstBrick.unifiedMusicKeysDataKey);
     }

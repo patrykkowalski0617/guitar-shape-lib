@@ -9,11 +9,12 @@ import {
   TogglePlayback,
   BpmInput,
   BpmMultiplierButton,
-} from "./buttons";
+} from "./headerElements";
 import * as S from "./parts";
 import { useMemo } from "react";
 import { getOrderedShapeVariantDataKeys } from "@/components/ShapeMulitStepSliderExplorer/helpers/getOrderedShapeVariantDataKeys";
 import { useShapePlayerStore } from "@/store";
+import { ExerciseTitle } from "./headerElements/ExerciseTitle/ExerciseTitle";
 
 export const ShapePlayerHeader = () => {
   const shapePlayerBricks = useShapePlayerStore(
@@ -36,13 +37,14 @@ export const ShapePlayerHeader = () => {
   return (
     <>
       <S.ShapePlayerControls>
+        <Open />
+        <Save />
+        <ExerciseTitle />
         <AddButton />
         <ClearButton />
         <UndoButton />
-        <MetronomeButton />
-        <Save />
-        <Open />
         <TogglePlayback />
+        <MetronomeButton />
         <BpmInput />
         <BpmMultiplierButton />
       </S.ShapePlayerControls>

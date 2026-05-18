@@ -30,14 +30,15 @@ export const GlobalMultiRangeController = ({
     const currentIds = configs.map((c) => c.id).join(",");
 
     if (currentIds !== prevIdsRef.current) {
-      const bricks = useShapePlayerStore.getState().shapePlayerBricks;
+      const shapePlayerBricks =
+        useShapePlayerStore.getState().shapePlayerBricks;
       const updatedInitialRanges: Record<
         string,
         { start: number; end: number }
       > = {};
 
       configs.forEach((c) => {
-        const brick = bricks.find((b) => b.id === c.id);
+        const brick = shapePlayerBricks.find((b) => b.id === c.id);
         updatedInitialRanges[c.id] = {
           start: brick?.sliderRange?.[0] ?? 0,
           end: brick?.sliderRange?.[1] ?? 0,
@@ -69,8 +70,8 @@ export const GlobalMultiRangeController = ({
   useEffect(() => {
     const unsub = useShapePlayerStore.subscribe(
       (state) => state.shapePlayerBricks,
-      (bricks) => {
-        bricks.forEach((brick) => {
+      (shapePlayerBricks) => {
+        shapePlayerBricks.forEach((brick) => {
           const currentMasterRange = ranges[brick.id];
           const newStart = brick.sliderRange?.[0] ?? 0;
           const newEnd = brick.sliderRange?.[1] ?? 0;

@@ -8,9 +8,10 @@ export function Save() {
   const shapePlayerBricks = useShapePlayerStore(
     (state) => state.shapePlayerBricks,
   );
+  const exerciseTitle = useShapePlayerStore((state) => state.exerciseTitle);
 
   const handleExport = () => {
-    exportBricksToJson(shapePlayerBricks);
+    exportBricksToJson(shapePlayerBricks, exerciseTitle);
   };
 
   return (
