@@ -1,9 +1,9 @@
 import { SHAPES, type Shapes } from "@/data";
-import { useControllersStore } from "@/store";
+import { useDataKeyStore } from "@/store";
 import { MiniCarousel } from "../ui/MiniCarousel/MiniCarousel";
 
 const ShapeCarousel = () => {
-  const activeShapeDataKey = useControllersStore((state) => state.shapeDataKey);
+  const activeShapeDataKey = useDataKeyStore((state) => state.shapeDataKey);
   const shapeKeys = Object.keys(SHAPES) as (keyof Shapes)[];
 
   return (

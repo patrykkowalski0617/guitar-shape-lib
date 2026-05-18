@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import {
-  useControllersStore,
+  useDataKeyStore,
   useMetronomeStore,
   useMusicStore,
   useShapePlayerStore,
@@ -17,7 +17,7 @@ export function useOpen() {
   );
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
 
-  const setUnifiedMusicKeysDataKey = useControllersStore(
+  const setUnifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.setUnifiedMusicKeysDataKey,
   );
   const setShapeVariantDataKeys = useMusicStore(

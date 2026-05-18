@@ -1,4 +1,4 @@
-import { useControllersStore, useMusicStore } from "@/store";
+import { useDataKeyStore, useMusicStore } from "@/store";
 import { useEnharmonicNoteName } from "@/hooks";
 import {
   calculateMatrixData,
@@ -9,14 +9,12 @@ import type { NoteObject } from "@/utils";
 import type { NoteName } from "@/data";
 
 export const useNoteMatrix = () => {
-  const unifiedMusicKeysDataKey = useControllersStore(
+  const unifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
-  const baseChordDataKey = useControllersStore(
-    (state) => state.baseChordDataKey,
-  );
-  const shapeDataKey = useControllersStore((state) => state.shapeDataKey);
-  const shapeOffset = useControllersStore(
+  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
+  const shapeDataKey = useDataKeyStore((state) => state.shapeDataKey);
+  const shapeOffset = useDataKeyStore(
     (state) => state.semitoneOffsetFromMajorRoot,
   );
 
@@ -37,9 +35,7 @@ export const useNoteMatrix = () => {
   );
 
   const getSafeEnharmonicName = (noteObject: NoteObject): NoteName => {
-    const enharmonicName = getEnharmonicName(noteObject, {
-      unifiedMusicKeysDataKey,
-    });
+    const enharmonicName = getEnharmonicName(noteObject);
     const fallbackName = noteObject.sharpNoteName as NoteName;
     return enharmonicName ?? fallbackName;
   };

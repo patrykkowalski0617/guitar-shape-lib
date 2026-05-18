@@ -4,10 +4,10 @@ import type {
   ShapeVariantDataKeys,
 } from "@/data";
 import { create } from "zustand";
-import { useControllersStore } from "./useControllersStore";
 import type { NoteId, NoteObject } from "@/utils";
 import type { Exact } from "@/types";
 import { useMetronomeStore } from "./useMetronomeStore";
+import { useDataKeyStore } from "./useDataKeyStore";
 
 interface MusicState {
   baseChordBassNoteId: NoteId | null;
@@ -80,7 +80,7 @@ export const useMusicStore = create<MusicState>((set) => ({
 
   setActiveHoverNoteId: (noteId) => {
     const playerState = useMetronomeStore.getState();
-    const controlState = useControllersStore.getState();
+    const controlState = useDataKeyStore.getState();
     const isSmallScreen = window.innerWidth < 1024;
     const isPlayingOrHasShape =
       controlState.shapeDataKey !== null || playerState.isPlaying;
@@ -91,7 +91,7 @@ export const useMusicStore = create<MusicState>((set) => ({
   },
 
   setActiveLockedNoteIds: (activeHoverNote) => {
-    const controlState = useControllersStore.getState();
+    const controlState = useDataKeyStore.getState();
     if (controlState.shapeDataKey !== null) return;
 
     set((state) => {

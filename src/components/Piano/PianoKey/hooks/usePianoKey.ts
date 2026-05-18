@@ -1,6 +1,6 @@
 import { NOTES_SHARP, SCALE_SEMITONE_TEMPLATES } from "@/data";
 import { type NoteObject } from "@/utils";
-import { useControllersStore, useMusicStore } from "@/store";
+import { useDataKeyStore, useMusicStore } from "@/store";
 import { SHAPES_OF_PIANO_KEYS } from "../../constants";
 import { useIsNoteActive } from "@/hooks/useIsNoteActive";
 
@@ -12,7 +12,7 @@ export function usePianoKey({ noteObject }: UsePianoKeyParams) {
   const setActiveHoverNoteId = useMusicStore(
     (state) => state.setActiveHoverNoteId,
   );
-  const shapeDataKey = useControllersStore((state) => state.shapeDataKey);
+  const shapeDataKey = useDataKeyStore((state) => state.shapeDataKey);
 
   const isActiveNote = useIsNoteActive(noteObject.noteId);
 
