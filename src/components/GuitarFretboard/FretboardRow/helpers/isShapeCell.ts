@@ -1,23 +1,12 @@
 import type { FretboardCoordinate } from "@/data";
-
-interface IsShapeNoteParams {
-  guitarShapeCoordinates: FretboardCoordinate[];
-  stringIndex: number;
-  fretIndex: number;
-}
+import type { IsShapeCellParams } from "../types";
 
 export const isShapeCell = ({
   guitarShapeCoordinates,
   stringIndex,
   fretIndex,
-}: IsShapeNoteParams): boolean => {
-  const hasCoordinates = !!guitarShapeCoordinates;
-
-  return hasCoordinates
-    ? guitarShapeCoordinates.some(
-        ([guitarShapeStringIndex, guitarShapeFretIndex]) =>
-          guitarShapeStringIndex === stringIndex &&
-          guitarShapeFretIndex === fretIndex,
-      )
-    : false;
-};
+}: IsShapeCellParams): boolean =>
+  guitarShapeCoordinates.some(
+    ([shapeStringIndex, shapeFretIndex]: FretboardCoordinate) =>
+      shapeStringIndex === stringIndex && shapeFretIndex === fretIndex,
+  );
