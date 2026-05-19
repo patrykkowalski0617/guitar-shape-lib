@@ -1,6 +1,6 @@
 import { useShapePlayerStore } from "@/store";
 
-export const useUndoButton = () => {
+export const useUndo = () => {
   const restoreLastAction = useShapePlayerStore(
     (state) => state.restoreLastAction,
   );

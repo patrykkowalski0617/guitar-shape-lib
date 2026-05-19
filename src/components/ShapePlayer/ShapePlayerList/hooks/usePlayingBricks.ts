@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef } from "react";
 import {
+  useControllersStore,
   useMetronomeStore,
   useShapePlayerStore,
   type ShapePlayerBrick,
@@ -41,6 +42,9 @@ const calculateActiveBrick = (
   return null;
 };
 
+const getTotalSteps = (guitarShapePlayerBricks: ShapePlayerBrick[]): number =>
+  guitarShapePlayerBricks.reduce((acc, brick) => acc + brick.playLength, 0);
+
 export function usePlayingBricksEngine() {
   const bpm = useMetronomeStore((state) => state.bpm);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
@@ -62,6 +66,9 @@ export function usePlayingBricksEngine() {
 }
 
 export function usePlayingBricksData() {
+  const lookAheadBeatsAmount = useControllersStore(
+    (state) => state.lookAheadBeatsAmount,
+  );
   const currentStep = useMetronomeStore((state) => state.currentStep);
   const isCountingIn = useMetronomeStore((state) => state.isCountingIn);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
@@ -70,6 +77,7 @@ export function usePlayingBricksData() {
   );
 
   const lastProcessedStepRef = useRef<number | null>(null);
+  const lookaheadProcessedStepRef = useRef<number | null>(null);
 
   const activeBrickInfo = calculateActiveBrick(
     guitarShapePlayerBricks,
@@ -77,16 +85,28 @@ export function usePlayingBricksData() {
     isCountingIn,
   );
 
+  const totalSteps = getTotalSteps(guitarShapePlayerBricks);
+  const lookaheadStep =
+    totalSteps > 0
+      ? (currentStep + lookAheadBeatsAmount) % totalSteps
+      : currentStep + lookAheadBeatsAmount;
+
+  const lookaheadBrickInfo = calculateActiveBrick(
+    guitarShapePlayerBricks,
+    lookaheadStep,
+    isCountingIn,
+  );
+
   const currentSelection = useShapePlayerBrickSelection(
     activeBrickInfo?.guitarShapePlayerBrick,
+  );
+  const lookaheadSelection = useShapePlayerBrickSelection(
+    lookaheadBrickInfo?.guitarShapePlayerBrick,
   );
   const firstBrickSelection = useShapePlayerBrickSelection(
     guitarShapePlayerBricks[0],
   );
 
-  /**
-   * EFEKT 1: Przywracanie danych przy zmianie cegiełki (Restore)
-   */
   useEffect(() => {
     if (!isPlaying || !activeBrickInfo?.isFirstBeatOfBrick) {
       return;
@@ -107,14 +127,32 @@ export function usePlayingBricksData() {
     currentSelection,
   ]);
 
-  /**
-   * EFEKT 2: Przygotowanie pierwszej cegiełki podczas Count-in
-   */
+  useEffect(() => {
+    if (!isPlaying || !lookaheadBrickInfo?.isFirstBeatOfBrick) {
+      return;
+    }
+
+    if (lookaheadProcessedStepRef.current === lookaheadStep) {
+      return;
+    }
+
+    lookaheadSelection.restoreNextData();
+
+    lookaheadProcessedStepRef.current = lookaheadStep;
+  }, [
+    lookaheadStep,
+    isPlaying,
+    lookaheadBrickInfo?.isFirstBeatOfBrick,
+    lookaheadBrickInfo?.guitarShapePlayerBrick.id,
+    lookaheadSelection,
+  ]);
+
   const hasPreparedCountInRef = useRef(false);
   useEffect(() => {
     if (!isPlaying) {
       hasPreparedCountInRef.current = false;
       lastProcessedStepRef.current = null;
+      lookaheadProcessedStepRef.current = null;
       return;
     }
 

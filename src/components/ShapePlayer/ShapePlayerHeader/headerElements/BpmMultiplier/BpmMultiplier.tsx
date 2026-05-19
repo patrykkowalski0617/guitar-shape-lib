@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as S from "./parts";
 import { useMetronomeStore } from "@/store";
 
-export const BpmMultiplierButton = () => {
+export const BpmMultiplier = () => {
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
   const [count, setCount] = useState(1);
   const setBpmMultiplier = useMetronomeStore((state) => state.setBpmMultiplier);
@@ -14,8 +14,8 @@ export const BpmMultiplierButton = () => {
   };
 
   return (
-    <S.BpmButton disabled={isPlaying} onClick={handleClick}>
+    <S.Button disabled={isPlaying} onClick={handleClick}>
       /{count}
-    </S.BpmButton>
+    </S.Button>
   );
 };

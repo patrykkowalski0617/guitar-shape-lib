@@ -5,7 +5,7 @@ import {
   type VariantDataKey,
 } from "@/data";
 import { getAllFretboardNotes } from "@/components/GuitarFretboard/helpers/getAllFretboardNotes";
-import { getOrderedShapeVariantDataKeys } from "@/components/ShapeMulitStepSliderExplorer/helpers/getOrderedShapeVariantDataKeys";
+import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
 import { getShapeCoordinates } from "@/components/GuitarFretboard/helpers/getShapeCoordinates";
 import { getNotes } from "@/utils";
 

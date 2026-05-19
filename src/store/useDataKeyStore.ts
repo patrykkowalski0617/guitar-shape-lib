@@ -12,6 +12,11 @@ interface DataKeyValues {
   guitarShapeDataKey: GuitarShapeDataKey | null;
   semitoneOffsetFromMajorRoot: number | null;
   selectedShapesVariantDataKeys: ShapeVariantDataKeys[] | null;
+
+  nextUnifiedMusicKeysDataKey: UnifiedMusicKeysDataKey | null;
+  nextBaseChordDataKey: BaseChordDataKey | null;
+  nextSemitoneOffsetFromMajorRoot: number | null;
+  nextSelectedShapesVariantDataKeys: ShapeVariantDataKeys[] | null;
 }
 
 interface DataKeyActions {
@@ -24,6 +29,16 @@ interface DataKeyActions {
   setSelectedShapesVariantDataKeys: (
     selectedShapesVariantDataKeys: ShapeVariantDataKeys[] | null,
   ) => void;
+
+  setNextUnifiedMusicKeysDataKey: (id: UnifiedMusicKeysDataKey | null) => void;
+  setNextBaseChordDataKey: (id: BaseChordDataKey | null) => void;
+  setNextSemitoneOffsetFromMajorRoot: (
+    semitoneOffsetFromMajorRoot: number | null,
+  ) => void;
+  setNextSelectedShapesVariantDataKeys: (
+    selectedShapesVariantDataKeys: ShapeVariantDataKeys[] | null,
+  ) => void;
+
   resetDataKeys: () => void;
 }
 
@@ -35,6 +50,11 @@ const initialState: DataKeyValues = {
   guitarShapeDataKey: null,
   semitoneOffsetFromMajorRoot: null,
   selectedShapesVariantDataKeys: null,
+
+  nextUnifiedMusicKeysDataKey: null,
+  nextBaseChordDataKey: null,
+  nextSemitoneOffsetFromMajorRoot: null,
+  nextSelectedShapesVariantDataKeys: null,
 };
 
 export const useDataKeyStore = create<DataKeyState>((set) => ({
@@ -42,16 +62,21 @@ export const useDataKeyStore = create<DataKeyState>((set) => ({
 
   setUnifiedMusicKeysDataKey: (unifiedMusicKeysDataKey) =>
     set({ unifiedMusicKeysDataKey }),
-
   setBaseChordDataKey: (baseChordDataKey) => set({ baseChordDataKey }),
-
   setShapeDataKey: (guitarShapeDataKey) => set({ guitarShapeDataKey }),
-
   setSemitoneOffsetFromMajorRoot: (semitoneOffsetFromMajorRoot) =>
     set({ semitoneOffsetFromMajorRoot }),
-
   setSelectedShapesVariantDataKeys: (selectedShapesVariantDataKeys) =>
     set({ selectedShapesVariantDataKeys }),
+
+  setNextUnifiedMusicKeysDataKey: (nextUnifiedMusicKeysDataKey) =>
+    set({ nextUnifiedMusicKeysDataKey }),
+  setNextBaseChordDataKey: (nextBaseChordDataKey) =>
+    set({ nextBaseChordDataKey }),
+  setNextSemitoneOffsetFromMajorRoot: (nextSemitoneOffsetFromMajorRoot) =>
+    set({ nextSemitoneOffsetFromMajorRoot }),
+  setNextSelectedShapesVariantDataKeys: (nextSelectedShapesVariantDataKeys) =>
+    set({ nextSelectedShapesVariantDataKeys }),
 
   resetDataKeys: () => set({ ...initialState }),
 }));

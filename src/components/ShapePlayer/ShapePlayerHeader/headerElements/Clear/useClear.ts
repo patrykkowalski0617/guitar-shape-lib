@@ -1,6 +1,6 @@
 import { useDataKeyStore, useShapePlayerStore } from "@/store";
 
-export const useClearButton = () => {
+export const useClear = () => {
   const clearShapePlayerBricks = useShapePlayerStore(
     (state) => state.clearShapePlayerBricks,
   );

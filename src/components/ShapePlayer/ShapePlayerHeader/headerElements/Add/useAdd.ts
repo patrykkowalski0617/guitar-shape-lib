@@ -1,6 +1,6 @@
 import { useUiStore } from "@/store";
 
-export const useAddButton = () => {
+export const useAdd = () => {
   const setKeyAndChordPickerExpanded = useUiStore(
     (state) => state.setKeyAndChordPickerExpanded,
   );

@@ -1,4 +1,4 @@
-import { useMultiRangeStore } from "@/store";
+import { useShapeExplorerStore } from "@/store";
 import { type Range } from "../MultiRangeSlider/useMultiRangeSlider";
 
 interface MasterConfig {
@@ -13,7 +13,7 @@ export const useMasterMultiRangeSlider = (
   ranges: MasterRanges,
   configs: MasterConfig,
 ) => {
-  const updateRangesFromMaster = useMultiRangeStore(
+  const updateRangesFromMaster = useShapeExplorerStore(
     (state) => state.updateRangesFromMaster,
   );
 

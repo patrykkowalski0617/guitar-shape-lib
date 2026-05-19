@@ -1,8 +1,8 @@
 import { Button } from "../../../ui/parts";
-import { useClearButton } from "./useClearButton";
+import { useClear } from "./useClear";
 
-export const ClearButton = () => {
-  const { handleClear, isListEmpty } = useClearButton();
+export const Clear = () => {
+  const { handleClear, isListEmpty } = useClear();
   return (
     <Button onClick={handleClear} disabled={isListEmpty}>
       Clean

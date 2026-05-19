@@ -1,8 +1,8 @@
 import { Button } from "../../../ui/parts";
-import { useUndoButton } from "./useUndoButton";
+import { useUndo } from "./useUndo";
 
-export const UndoButton = () => {
-  const { restoreLastAction, isRestoreDisabled } = useUndoButton();
+export const Undo = () => {
+  const { restoreLastAction, isRestoreDisabled } = useUndo();
   return (
     <Button onClick={restoreLastAction} disabled={isRestoreDisabled}>
       Undo clean/delete

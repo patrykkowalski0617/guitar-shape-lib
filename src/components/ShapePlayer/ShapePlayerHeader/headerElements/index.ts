@@ -1,9 +1,10 @@
-export { BpmInput } from "./BpmControllers/BpmInput";
-export { BpmMultiplierButton } from "./BpmControllers/BpmMultiplierButton";
-export { AddButton } from "./AddButton/AddButton";
-export { ClearButton } from "./ClearButton/ClearButton";
-export { MetronomeButton } from "./MetronomeButton/MetronomeButton";
+export { BpmInput } from "./BpmInput/BpmInput";
+export { BpmMultiplier } from "./BpmMultiplier/BpmMultiplier";
+export { Add } from "./Add/Add";
+export { Clear } from "./Clear/Clear";
+export { Metronome } from "./Metronome/Metronome";
 export { Open } from "./Open/Open";
 export { Save } from "./Save/Save";
 export { TogglePlayback } from "./TogglePlayback/TogglePlayback";
-export { UndoButton } from "./UndoButton/UndoButton";
+export { Undo } from "./Undo/Undo";
+export { LookAhead } from "./LookAhead/LookAhead";

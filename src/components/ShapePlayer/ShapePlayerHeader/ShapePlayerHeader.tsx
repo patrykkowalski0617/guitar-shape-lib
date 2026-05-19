@@ -1,18 +1,19 @@
-import { GlobalMultiRangeController } from "@/components/ShapeMulitStepSliderExplorer/GlobalMultiRangeController";
+import { GlobalMultiRangeController } from "@/components/ShapeExplorer/GlobalMultiRangeController";
 import {
-  AddButton,
-  ClearButton,
-  MetronomeButton,
-  UndoButton,
+  Add,
+  Clear,
+  Metronome,
+  Undo,
   Save,
   Open,
   TogglePlayback,
   BpmInput,
-  BpmMultiplierButton,
+  BpmMultiplier,
+  LookAhead,
 } from "./headerElements";
 import * as S from "./parts";
 import { useMemo } from "react";
-import { getOrderedShapeVariantDataKeys } from "@/components/ShapeMulitStepSliderExplorer/helpers/getOrderedShapeVariantDataKeys";
+import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
 import { useShapePlayerStore } from "@/store";
 import { ExerciseTitle } from "./headerElements/ExerciseTitle/ExerciseTitle";
 
@@ -42,13 +43,14 @@ export const ShapePlayerHeader = () => {
         <Open />
         <Save />
         <ExerciseTitle />
-        <AddButton />
-        <ClearButton />
-        <UndoButton />
+        <Add />
+        <Clear />
+        <Undo />
         <TogglePlayback />
-        <MetronomeButton />
+        <Metronome />
         <BpmInput />
-        <BpmMultiplierButton />
+        <BpmMultiplier />
+        <LookAhead />
       </S.ShapePlayerControllers>
       <GlobalMultiRangeController configs={sliderConfigs} />
     </>

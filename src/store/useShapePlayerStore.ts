@@ -5,7 +5,7 @@ import type {
   GuitarShapeDataKey,
   UnifiedMusicKeysDataKey,
 } from "@/data";
-import { getOrderedShapeVariantDataKeys } from "@/components/ShapeMulitStepSliderExplorer/helpers/getOrderedShapeVariantDataKeys";
+import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
 import { subscribeWithSelector } from "zustand/middleware";
 
 export interface ShapePlayerBrick {

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useDataKeyStore, useShapePlayerStore } from "@/store";
-import { getOrderedShapeVariantDataKeys } from "@/components/ShapeMulitStepSliderExplorer/helpers/getOrderedShapeVariantDataKeys";
+import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
 import type { ShapeVariantDataKeys } from "@/data";
 import type { ShapePlayerBrick } from "@/store";
 
@@ -23,7 +23,18 @@ export const useShapePlayerBrickSelection = (
   const updateBrickRange = useShapePlayerStore(
     (state) => state.updateBrickRange,
   );
-
+  const setNextBaseChordDataKey = useDataKeyStore(
+    (state) => state.setNextBaseChordDataKey,
+  );
+  const setNextSelectedShapesVariantDataKeys = useDataKeyStore(
+    (state) => state.setNextSelectedShapesVariantDataKeys,
+  );
+  const setNextSemitoneOffsetFromMajorRoot = useDataKeyStore(
+    (state) => state.setNextSemitoneOffsetFromMajorRoot,
+  );
+  const setNextUnifiedMusicKeysDataKey = useDataKeyStore(
+    (state) => state.setNextUnifiedMusicKeysDataKey,
+  );
   const currentSliderRange: [number, number] = useMemo(() => {
     return guitarShapePlayerBrick?.sliderRange ?? [0, 0];
   }, [guitarShapePlayerBrick?.sliderRange]);
@@ -74,10 +85,26 @@ export const useShapePlayerBrickSelection = (
     }
   };
 
+  const restoreNextData = () => {
+    const canRestore = guitarShapePlayerBrick?.baseChordDataKey;
+
+    if (canRestore) {
+      setNextBaseChordDataKey(guitarShapePlayerBrick.baseChordDataKey);
+      setNextSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
+      setNextSemitoneOffsetFromMajorRoot(
+        guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
+      );
+      setNextUnifiedMusicKeysDataKey(
+        guitarShapePlayerBrick.unifiedMusicKeysDataKey,
+      );
+    }
+  };
+
   return {
     sliderRange: currentSliderRange,
     setSliderRange,
     orderedLocations,
     restoreData,
+    restoreNextData,
   };
 };

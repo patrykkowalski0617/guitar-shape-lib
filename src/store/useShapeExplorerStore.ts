@@ -15,7 +15,7 @@ interface MultiRangeState {
   ) => void;
 }
 
-export const useMultiRangeStore = create<MultiRangeState>((set) => ({
+export const useShapeExplorerStore = create<MultiRangeState>((set) => ({
   ranges: {},
 
   initializeRanges: (initialRanges) => set({ ranges: initialRanges }),

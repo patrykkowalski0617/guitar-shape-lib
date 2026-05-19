@@ -10,7 +10,7 @@ import * as S from "./parts";
 import MultiRangeSlider from "../ui/MultiRangeSlider/MultiRangeSlider/MultiRangeSlider";
 import type { Range } from "../ui/MultiRangeSlider/MultiRangeSlider/useMultiRangeSlider";
 
-interface ShapeMultiStepSliderExplorerProps {
+interface ShapeExplorerProps {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
   baseChordDataKey: BaseChordDataKey;
   guitarShapeDataKey: GuitarShapeDataKey;
@@ -20,14 +20,14 @@ interface ShapeMultiStepSliderExplorerProps {
   orderedLocations: ShapeVariantDataKeys[];
 }
 
-export const ShapeMulitStepSliderExplorer = ({
+export const ShapeExplorer = ({
   guitarShapeDataKey,
   unifiedMusicKeysDataKey,
   semitoneOffsetFromMajorRoot,
   sliderRange,
   onRangeChange,
   orderedLocations,
-}: ShapeMultiStepSliderExplorerProps) => {
+}: ShapeExplorerProps) => {
   const setSelectedShapesVariantDataKeys = useDataKeyStore(
     (state) => state.setSelectedShapesVariantDataKeys,
   );

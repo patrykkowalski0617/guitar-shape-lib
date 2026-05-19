@@ -4,7 +4,7 @@ import {
   useShapePlayerBrickDisplay,
   useShapePlayerBrickSelection,
 } from "./hooks";
-import { ShapeMulitStepSliderExplorer } from "@/components/ShapeMulitStepSliderExplorer/ShapeMulitStepSliderExplorer";
+import { ShapeExplorer } from "@/components/ShapeExplorer/ShapeExplorer";
 import { usePlayingBricksData } from "../ShapePlayerList/hooks/usePlayingBricks";
 import { Button } from "../ui/parts";
 
@@ -65,7 +65,7 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
         })}
       </div>
 
-      <ShapeMulitStepSliderExplorer
+      <ShapeExplorer
         unifiedMusicKeysDataKey={guitarShapePlayerBrick.unifiedMusicKeysDataKey}
         baseChordDataKey={guitarShapePlayerBrick.baseChordDataKey}
         guitarShapeDataKey={guitarShapePlayerBrick.guitarShapeDataKey}
@@ -77,7 +77,7 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
         orderedLocations={orderedLocations}
       />
 
-      <Button onClick={handleRemoveClick}>Usuń</Button>
+      <Button onClick={handleRemoveClick}>Delete</Button>
 
       <Button {...attributes} {...listeners}>
         ::

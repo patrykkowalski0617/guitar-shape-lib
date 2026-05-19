@@ -1,9 +1,18 @@
-import { CAGED_CHORDS_SHAPES } from "@/data";
+import {
+  CAGED_CHORDS_SHAPES,
+  type BaseChordDataKey,
+  type UnifiedMusicKeysDataKey,
+} from "@/data";
 import { useBaseChord, useUnifiedMusicKey } from "@/hooks";
 
-export const useCAGED_ChordsShapes = () => {
-  const baseChord = useBaseChord();
-  const unifiedMusicKey = useUnifiedMusicKey();
+interface CAGEDChordsShapesOptions {
+  baseChordDataKey?: BaseChordDataKey | null;
+  unifiedMusicKeysDataKey?: UnifiedMusicKeysDataKey | null;
+}
+
+export const useCAGED_ChordsShapes = (options?: CAGEDChordsShapesOptions) => {
+  const baseChord = useBaseChord(options?.baseChordDataKey);
+  const unifiedMusicKey = useUnifiedMusicKey(options?.unifiedMusicKeysDataKey);
 
   const getCAGED_ChordsShapes = () => {
     if (!baseChord || !unifiedMusicKey) return [];

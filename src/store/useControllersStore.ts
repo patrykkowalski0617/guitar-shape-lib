@@ -13,12 +13,16 @@ interface ControllersState {
 
   playback: boolean;
   togglePlayBackingtrack: () => void;
+
+  lookAheadBeatsAmount: number;
+  setLookAheadBeatsAmount: (lookAheadBeatsAmount: number) => void;
 }
 
 const initialState = {
   isPianoOn: false,
   visibleStrings: Array.from(STRINGS_CONFIG.keys()) as StringIndexes,
   playback: true,
+  lookAheadBeatsAmount: 0,
 };
 
 export const useControllersStore = create<ControllersState>((set) => ({
@@ -28,7 +32,10 @@ export const useControllersStore = create<ControllersState>((set) => ({
 
   resetControllers: () => set(initialState),
 
-  setVisibleStrings: (strings) => set({ visibleStrings: strings }),
+  setVisibleStrings: (visibleStrings) => set({ visibleStrings }),
 
   togglePlayBackingtrack: () => set((state) => ({ playback: !state.playback })),
+
+  setLookAheadBeatsAmount: (lookAheadBeatsAmount) =>
+    set({ lookAheadBeatsAmount }),
 }));

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { useMultiRangeStore, useShapePlayerStore } from "@/store";
+import { useShapeExplorerStore, useShapePlayerStore } from "@/store";
 import MasterMultiRangeSlider from "../ui/MultiRangeSlider/MasterMultiRangeSlider/MasterMultiRangeSlider";
 import type {
   GuitarShapeDataKey,
@@ -20,7 +20,7 @@ export const GlobalMultiRangeController = ({
 }: {
   configs?: ExplorerConfig[];
 }) => {
-  const { ranges, initializeRanges, setRange } = useMultiRangeStore();
+  const { ranges, initializeRanges, setRange } = useShapeExplorerStore();
   const updateBrickRange = useShapePlayerStore(
     (state) => state.updateBrickRange,
   );
