@@ -121,7 +121,6 @@ describe("FretboardRow", () => {
   });
 
   it("should mark cell as isShapeCell when coordinate matches", () => {
-    // stringIndex=1, fretIndex=2 → matches shapeCoords
     render(
       <FretboardRow
         stringIndex={1}
@@ -135,7 +134,6 @@ describe("FretboardRow", () => {
   });
 
   it("should mark cell as isBaseChordCell when coordinate matches baseChordCoords", () => {
-    // stringIndex=1, fretIndex=0 → matches baseChordCoords
     render(
       <FretboardRow
         stringIndex={1}
@@ -149,7 +147,6 @@ describe("FretboardRow", () => {
   });
 
   it("should pass isVisibleString=true when stringIndex is in visibleStrings", () => {
-    // mock returns visibleStrings: [1, 2, 3], stringIndex=1 → visible
     render(
       <FretboardRow
         stringIndex={1}
@@ -166,7 +163,6 @@ describe("FretboardRow", () => {
   });
 
   it("should pass isVisibleString=false when stringIndex is not in visibleStrings", () => {
-    // mock returns visibleStrings: [1, 2, 3], stringIndex=5 → not visible
     render(
       <FretboardRow
         stringIndex={5 as never}
