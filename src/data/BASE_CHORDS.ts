@@ -84,4 +84,4 @@ export const BASE_CHORDS = {
     modeExtendedName: "m7b5",
     CAGEDchordShape: "BaseChord7",
   },
-};
+} satisfies Record<string, BaseChord>;

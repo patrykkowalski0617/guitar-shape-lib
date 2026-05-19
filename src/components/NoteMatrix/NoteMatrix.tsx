@@ -1,88 +1,43 @@
 import * as S from "./parts";
 import { useNoteMatrix } from "./hooks/useNoteMatrix";
-import {
-  getIsScaleNoteVisible,
-  getIsShapeNoteVisible,
-  getIntervalName,
-} from "./utils";
+import { getIntervalName } from "./utils";
+import type { NoteMatrixProps } from "./types";
 
-export const NoteMatrix = () => {
-  const {
-    isStateReady,
-    data,
-    selectedNotes,
-    setSelectedNotes,
-    checkIsShared,
-    paddingArray,
-  } = useNoteMatrix();
+export const NoteMatrix = ({
+  unifiedMusicKeysDataKey,
+  baseChordDataKey,
+  guitarShapeOffset,
+  guitarShapeDataKey,
+}: NoteMatrixProps) => {
+  const { columns, setSelectedNotes } = useNoteMatrix({
+    unifiedMusicKeysDataKey,
+    baseChordDataKey,
+    guitarShapeOffset,
+    guitarShapeDataKey,
+  });
 
   return (
     <S.NoteMatrixSection>
-      <S.NoteMatrixSectionColumn>
-        <S.RowTitle $isStateReady={isStateReady}>
-          {isStateReady
-            ? `Chord: "${data?.baseChordDisplayTitle}"`
-            : "Chord notes:"}
-        </S.RowTitle>
-        <S.RowTitle $isStateReady={isStateReady}>
-          {isStateReady
-            ? `Solo GuitarShape: "${data?.guitarShapeLabel}"`
-            : "Solo GuitarShape notes:"}
-        </S.RowTitle>
-      </S.NoteMatrixSectionColumn>
-
-      <S.NoteMatrixSectionColumn>
-        <S.NotesRow>
-          {data?.visibleColumnsIndices.map((i) => {
-            const isVisible = getIsScaleNoteVisible(i, data.allScaleIndices);
-            const noteName = isVisible ? data.displayNoteNames[i] : "";
-            const isShared = checkIsShared(noteName);
-            // const isSelected = selectedNotes.includes(noteName);
-
-            return (
-              <S.NoteWrapper key={`base-wrapper-${i}`}>
-                <S.IntervalContainer>{getIntervalName(i)}</S.IntervalContainer>
-                <S.Note $isVisible={isVisible} $isSharedNote={isShared}>
-                  {noteName}
-                </S.Note>
-              </S.NoteWrapper>
-            );
-          })}
-          {paddingArray.map((_, idx) => (
-            <S.NoteWrapper key={`base-pad-${idx}`}>
-              <S.IntervalContainer />
-              <S.Note $isVisible={false} />
-            </S.NoteWrapper>
-          ))}
-        </S.NotesRow>
-
-        <S.NotesRow>
-          {data?.visibleColumnsIndices.map((i) => {
-            const isVisible = getIsShapeNoteVisible(i, data.guitarShapeIndices);
-            const noteName = isVisible ? data.displayNoteNames[i] : "";
-            const isShared = checkIsShared(noteName);
-            const isSelected =
-              noteName !== "" && selectedNotes.includes(noteName);
-
-            return (
+      {columns.map(({ index, noteName, isInScale, isShared, isSelected }) => (
+        <S.NoteWrapper key={`base-wrapper-${index}`}>
+          {isInScale && (
+            <>
+              <S.IntervalContainer>
+                {getIntervalName(index)}
+              </S.IntervalContainer>
               <S.Note
-                key={`guitarShape-${i}`}
-                $isVisible={isVisible}
                 $isSharedNote={isShared}
                 $isSelected={isSelected}
-                onClick={() =>
-                  isVisible && noteName && setSelectedNotes(noteName)
-                }
+                onClick={() => {
+                  if (isShared && noteName) setSelectedNotes(noteName);
+                }}
               >
                 {noteName}
               </S.Note>
-            );
-          })}
-          {paddingArray.map((_, idx) => (
-            <S.Note key={`guitarShape-pad-${idx}`} $isVisible={false} />
-          ))}
-        </S.NotesRow>
-      </S.NoteMatrixSectionColumn>
+            </>
+          )}
+        </S.NoteWrapper>
+      ))}
     </S.NoteMatrixSection>
   );
 };

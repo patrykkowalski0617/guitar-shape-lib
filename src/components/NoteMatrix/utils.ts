@@ -7,25 +7,28 @@ import {
 } from "@/data";
 import { getNotes } from "@/utils";
 import { getEnharmonicNoteName } from "@/hooks/enharmonicNoteName";
+import type {
+  UnifiedMusicKeysDataKey,
+  BaseChordDataKey,
+  GuitarShapeDataKey,
+  MatrixData,
+} from "./types";
 
 export const getIsScaleNoteVisible = (
   index: number,
   allScaleIndices: number[],
-) => {
+): boolean => {
   const positionInScale = allScaleIndices.indexOf(index);
-  const isInScale = positionInScale !== -1;
-  const isTertiarySelected = positionInScale % 2 === 0;
-  return isInScale && isTertiarySelected;
+
+  return positionInScale !== -1 && positionInScale % 2 === 0;
 };
 
 export const getIsShapeNoteVisible = (
   index: number,
   guitarShapeIndices: number[],
-) => {
-  return guitarShapeIndices.includes(index);
-};
+): boolean => guitarShapeIndices.includes(index);
 
-export const getIntervalName = (index: number) => {
+export const getIntervalName = (index: number): string | undefined => {
   const normalizedIndex = index % 24;
   const interval = INTERVAL_SEMITONES.find(
     (item) => Object.values(item)[0] === normalizedIndex,
@@ -33,16 +36,19 @@ export const getIntervalName = (index: number) => {
   return interval?.name;
 };
 
+const normalizeToOctave = (offset: number): number => ((offset % 12) + 12) % 12;
+
 export const calculateMatrixData = (
-  unifiedMusicKeysDataKey: keyof typeof UNIFIED_MUSIC_KEYS,
-  baseChordDataKey: keyof typeof BASE_CHORDS,
-  guitarShapeDataKey: keyof typeof GUITAR_SHAPES,
+  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey,
+  baseChordDataKey: BaseChordDataKey,
+  guitarShapeDataKey: GuitarShapeDataKey,
   guitarShapeOffset: number,
-) => {
+): MatrixData => {
   const musicKey = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey];
   const baseChord = BASE_CHORDS[baseChordDataKey];
   const guitarShape = GUITAR_SHAPES[guitarShapeDataKey];
-  const scaleTemplate = SCALE_SEMITONE_TEMPLATES[baseChord.baseScaleDataKey];
+  const scaleTemplate =
+    SCALE_SEMITONE_TEMPLATES[baseChord.baseScaleDataKey].template;
   const chordOffset = baseChord.semitoneOffsetFromMajorRoot;
 
   const allNotes = getNotes({});
@@ -62,9 +68,9 @@ export const calculateMatrixData = (
     .map((_, i) => i)
     .filter((i) => scaleTemplate.includes(i % 12));
 
-  const rawShapeRootIndex = guitarShapeOffset - chordOffset;
-  const guitarShapeRootIndex =
-    rawShapeRootIndex < 0 ? rawShapeRootIndex + 12 : rawShapeRootIndex;
+  const guitarShapeRootIndex = normalizeToOctave(
+    guitarShapeOffset - chordOffset,
+  );
   const guitarShapeRootName = displayNoteNames[guitarShapeRootIndex];
   const guitarShapeIndices = guitarShape.intervals.map(
     (i) => i + guitarShapeRootIndex,
@@ -72,11 +78,11 @@ export const calculateMatrixData = (
 
   const visibleColumnsIndices = chordNotesObjects
     .map((_, i) => i)
-    .filter((i) => {
-      const isVisibleInChord = getIsScaleNoteVisible(i, allScaleIndices);
-      const isVisibleInShape = getIsShapeNoteVisible(i, guitarShapeIndices);
-      return isVisibleInChord || isVisibleInShape;
-    });
+    .filter(
+      (i) =>
+        getIsScaleNoteVisible(i, allScaleIndices) ||
+        getIsShapeNoteVisible(i, guitarShapeIndices),
+    );
 
   return {
     displayNoteNames,

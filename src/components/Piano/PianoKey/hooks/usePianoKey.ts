@@ -20,7 +20,7 @@ export function usePianoKey({ noteObject }: UsePianoKeyParams) {
 
   const noteOctaveIndex = NOTES_SHARP.indexOf(noteObject.sharpNoteName);
   const isWhitePianoKey =
-    SCALE_SEMITONE_TEMPLATES.ionianScale.includes(noteOctaveIndex);
+    SCALE_SEMITONE_TEMPLATES.ionianScale.template.includes(noteOctaveIndex);
   const pianoKeyShape = SHAPES_OF_PIANO_KEYS[noteOctaveIndex];
 
   const isScrollTarget = false;

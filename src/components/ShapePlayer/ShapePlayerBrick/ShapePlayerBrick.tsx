@@ -7,6 +7,7 @@ import {
 import { ShapeExplorer } from "@/components/ShapeExplorer/ShapeExplorer";
 import { usePlayingBricksData } from "../ShapePlayerList/hooks/usePlayingBricks";
 import { Button } from "../ui/parts";
+import { NoteMatrix } from "@/components/NoteMatrix/NoteMatrix";
 
 interface ShapePlayerBrickProps {
   id: string;
@@ -45,7 +46,12 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
       <Button>{chordName}</Button>
       <Button $widthMultiplier={4}>{guitarShapeName}</Button>
       <Button>{playLength}</Button>
-
+      <NoteMatrix
+        unifiedMusicKeysDataKey={guitarShapePlayerBrick.unifiedMusicKeysDataKey}
+        baseChordDataKey={guitarShapePlayerBrick.baseChordDataKey}
+        guitarShapeOffset={guitarShapePlayerBrick.semitoneOffsetFromMajorRoot}
+        guitarShapeDataKey={guitarShapePlayerBrick.guitarShapeDataKey}
+      />
       <div style={{ display: "flex", gap: "4px", marginTop: "8px" }}>
         {Array.from({ length: playLength }).map((_, index) => {
           const isPartActive =
