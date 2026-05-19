@@ -1,5 +1,5 @@
 import {
-  SHAPES,
+  GUITAR_SHAPES,
   UNIFIED_MUSIC_KEYS,
   type ShapeDataKey,
   type UnifiedMusicKeysDataKey,
@@ -29,7 +29,7 @@ export const useShape = ({
   const shapeDataKey = provided_shapeDataKey
     ? provided_shapeDataKey
     : store_unifiedMusicKeysDataKey;
-  const shape = shapeDataKey && SHAPES[shapeDataKey];
+  const guitarShape = shapeDataKey && GUITAR_SHAPES[shapeDataKey];
 
   const getShapeName = ({
     semitoneOffsetFromMajorRoot,
@@ -44,14 +44,14 @@ export const useShape = ({
 
     if (!unifiedMusicKeysDataKey || !currentShapeDataKey) return {};
 
-    const shape = SHAPES[currentShapeDataKey];
+    const guitarShape = GUITAR_SHAPES[currentShapeDataKey];
     const musicKeyOffset =
       UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey].semitonOffsetFromC;
     const totalOffset = musicKeyOffset + semitoneOffsetFromMajorRoot;
     const notes = getNotes({ length: 24 });
 
-    const shapeType = shape?.type;
-    const shapeLabel = shape?.label;
+    const shapeType = guitarShape?.type;
+    const shapeLabel = guitarShape?.label;
 
     const shapeNoteName = getEnharmonicNoteName(notes[totalOffset], {
       unifiedMusicKeysDataKey,
@@ -61,7 +61,7 @@ export const useShape = ({
   };
 
   return {
-    shape,
+    guitarShape,
     getShapeName,
   };
 };

@@ -61,7 +61,7 @@ export const DataKeyStoreDebugComponent = () => {
           />
 
           <DebugRow
-            label="Shape"
+            label="GuitarShape"
             value={shapeDataKey}
             onSet={() => setShapeDataKey("M7")}
             onClear={() => setShapeDataKey(null)}
@@ -77,7 +77,7 @@ export const DataKeyStoreDebugComponent = () => {
           />
 
           <DebugRow
-            label="Shape Variants"
+            label="GuitarShape Variants"
             value={`${selectedShapesVariantDataKeys ? JSON.stringify(selectedShapesVariantDataKeys) : "null"}`}
             onSet={() =>
               setSelectedShapesVariantDataKeys([

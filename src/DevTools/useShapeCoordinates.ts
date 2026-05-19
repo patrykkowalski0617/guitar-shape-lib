@@ -22,7 +22,7 @@ export const useShapeCoordinates = create<ShapeCoordinatesStore>((set, get) => {
     window.addEventListener("keydown", (e) => {
       if (e.key === "r" || e.key === "R") {
         get().reset();
-        console.log("Shape coordinates reset");
+        console.log("GuitarShape coordinates reset");
       }
     });
   }

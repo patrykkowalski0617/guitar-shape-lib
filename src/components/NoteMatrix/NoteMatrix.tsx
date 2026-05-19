@@ -26,8 +26,8 @@ export const NoteMatrix = () => {
         </S.RowTitle>
         <S.RowTitle $isStateReady={isStateReady}>
           {isStateReady
-            ? `Solo Shape: "${data?.shapeLabel}"`
-            : "Solo Shape notes:"}
+            ? `Solo GuitarShape: "${data?.shapeLabel}"`
+            : "Solo GuitarShape notes:"}
         </S.RowTitle>
       </S.NoteMatrixSectionColumn>
 
@@ -66,7 +66,7 @@ export const NoteMatrix = () => {
 
             return (
               <S.Note
-                key={`shape-${i}`}
+                key={`guitarShape-${i}`}
                 $isVisible={isVisible}
                 $isSharedNote={isShared}
                 $isSelected={isSelected}
@@ -79,7 +79,7 @@ export const NoteMatrix = () => {
             );
           })}
           {paddingArray.map((_, idx) => (
-            <S.Note key={`shape-pad-${idx}`} $isVisible={false} />
+            <S.Note key={`guitarShape-pad-${idx}`} $isVisible={false} />
           ))}
         </S.NotesRow>
       </S.NoteMatrixSectionColumn>

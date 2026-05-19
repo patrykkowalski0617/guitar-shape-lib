@@ -1,7 +1,7 @@
 import {
   UNIFIED_MUSIC_KEYS,
   BASE_CHORDS,
-  SHAPES,
+  GUITAR_SHAPES,
   SCALE_SEMITONE_TEMPLATES,
   INTERVAL_SEMITONES,
   type NoteName,
@@ -36,7 +36,7 @@ export const getIntervalName = (index: number) => {
 export const calculateMatrixData = (
   unifiedMusicKeysDataKey: keyof typeof UNIFIED_MUSIC_KEYS,
   baseChordDataKey: keyof typeof BASE_CHORDS,
-  shapeDataKey: keyof typeof SHAPES,
+  shapeDataKey: keyof typeof GUITAR_SHAPES,
   shapeOffset: number,
   getEnharmonicName: (noteObject: NoteObject) => NoteName,
 ) => {
@@ -45,7 +45,7 @@ export const calculateMatrixData = (
       unifiedMusicKeysDataKey as keyof typeof UNIFIED_MUSIC_KEYS
     ];
   const baseChord = BASE_CHORDS[baseChordDataKey];
-  const shape = SHAPES[shapeDataKey];
+  const guitarShape = GUITAR_SHAPES[shapeDataKey];
   const scaleTemplate = SCALE_SEMITONE_TEMPLATES[baseChord.baseScaleDataKey];
   const chordOffset = baseChord.semitoneOffsetFromMajorRoot;
 
@@ -66,7 +66,7 @@ export const calculateMatrixData = (
   const shapeRootIndex =
     rawShapeRootIndex < 0 ? rawShapeRootIndex + 12 : rawShapeRootIndex;
   const shapeRootName = displayNoteNames[shapeRootIndex];
-  const shapeIndices = shape.intervals.map((i) => i + shapeRootIndex);
+  const shapeIndices = guitarShape.intervals.map((i) => i + shapeRootIndex);
 
   const visibleColumnsIndices = chordNotesObjects
     .map((_, i) => i)
@@ -82,6 +82,6 @@ export const calculateMatrixData = (
     shapeIndices,
     visibleColumnsIndices,
     baseChordDisplayTitle: `${chordRootName} (${baseChord.modeExtendedName})`,
-    shapeLabel: `${shapeRootName} ${shape.label}`,
+    shapeLabel: `${shapeRootName} ${guitarShape.label}`,
   };
 };

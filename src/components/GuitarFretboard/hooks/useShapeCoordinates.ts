@@ -1,5 +1,5 @@
 import {
-  SHAPES,
+  GUITAR_SHAPES,
   type FretboardCoordinate,
   type ShapeVariantDataKeys,
 } from "@/data";
@@ -12,7 +12,7 @@ export const useShapeCoordinates = () => {
 
     const { shapeDataKey, stringId, fretIndex, variantDataKey } =
       shapeVariantDataKeys || {};
-    const shapeData = shapeDataKey ? SHAPES[shapeDataKey] : null;
+    const shapeData = shapeDataKey ? GUITAR_SHAPES[shapeDataKey] : null;
 
     if (!shapeData || shapeVariantDataKeys === null) return [];
 

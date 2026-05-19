@@ -24,15 +24,17 @@ export const useCAGED_ChordsShapes = () => {
 
     return CAGED_CHORDS_SHAPES[
       currentBaseChordData.CAGEDchordShape as keyof typeof CAGED_CHORDS_SHAPES
-    ].flatMap((shape) => {
+    ].flatMap((guitarShape) => {
       const fretIndexAdjustment =
-        shape.baseFretIndex + musicKeyOffset + semitoneOffsetFromMajorRoot;
+        guitarShape.baseFretIndex +
+        musicKeyOffset +
+        semitoneOffsetFromMajorRoot;
 
       const octaveOffsets = [-24, -12, 0, 12, 24];
 
       return octaveOffsets
         .map((octaveOffset) => {
-          const adjustedCoordinates = shape.coordinates.map(
+          const adjustedCoordinates = guitarShape.coordinates.map(
             (coords: number[]) => {
               const finalFret = coords[1] + fretIndexAdjustment + octaveOffset;
               return [coords[0], finalFret] as [number, number];
@@ -40,7 +42,7 @@ export const useCAGED_ChordsShapes = () => {
           );
 
           return {
-            ...shape,
+            ...guitarShape,
             coordinates: adjustedCoordinates,
           };
         })

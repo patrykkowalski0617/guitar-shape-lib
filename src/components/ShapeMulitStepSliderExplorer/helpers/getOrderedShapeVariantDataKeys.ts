@@ -5,7 +5,7 @@ import {
   STRINGS_CONFIG,
 } from "@/components/GuitarFretboard/constants";
 import {
-  SHAPES,
+  GUITAR_SHAPES,
   type NoteName,
   type ShapeDataKey,
   type ShapeVariantDataKeys,
@@ -36,7 +36,7 @@ export const getOrderedShapeVariantDataKeys = ({
     rootNoteIndex !== null ? notes[rootNoteIndex].sharpNoteName : null;
 
   const locations: ShapeVariantDataKeys[] = [];
-  const shapeData = SHAPES[shapeDataKey as keyof typeof SHAPES];
+  const shapeData = GUITAR_SHAPES[shapeDataKey as keyof typeof GUITAR_SHAPES];
 
   for (let fIdx = 0; fIdx < numberOfFrets; fIdx++) {
     for (const sIdx of stringIndexes) {

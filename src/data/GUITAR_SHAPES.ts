@@ -37,7 +37,7 @@ export interface ShapeVariants {
   strD: StringVariants;
 }
 
-export interface Shape {
+export interface GuitarShape {
   label: string;
   type: ShapeType;
   intervals: number[];
@@ -45,11 +45,11 @@ export interface Shape {
   shapeVariants: ShapeVariants;
 }
 
-export interface Shapes {
-  [key: string]: Shape;
+export interface GuitarShapes {
+  [key: string]: GuitarShape;
 }
 
-export type ShapeDataKey = keyof typeof SHAPES;
+export type ShapeDataKey = keyof typeof GUITAR_SHAPES;
 
 export interface ShapeVariantDataKeys {
   shapeDataKey: ShapeDataKey;
@@ -58,7 +58,7 @@ export interface ShapeVariantDataKeys {
   variantDataKey: VariantDataKey;
 }
 
-export const SHAPES: Shapes = {
+export const GUITAR_SHAPES: GuitarShapes = {
   M7: {
     label: "M7",
     type: "Arpeggio",
