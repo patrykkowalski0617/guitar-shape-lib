@@ -1,7 +1,7 @@
 import { UNIFIED_MUSIC_KEYS, type UnifiedMusicKeysDataKey } from "@/data";
 import { GUITAR_SHAPES, type GuitarShapeDataKey } from "@/data/GUITAR_SHAPES";
 import { getNotes } from "@/utils";
-import { getEnharmonicNoteName } from "@/utils/getEnharmonicNoteName";
+import { getEnharmonicNoteName } from "@/hooks/enharmonicNoteName/utils/getEnharmonicNoteName";
 
 interface GetShapeNameProps {
   guitarShapeDataKey: GuitarShapeDataKey;

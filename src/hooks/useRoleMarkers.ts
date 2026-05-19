@@ -1,5 +1,5 @@
 import { getNotes } from "@/utils";
-import { useEnharmonicNoteName } from "./useEnharmonicNoteName";
+import { useEnharmonicNoteName } from "./enharmonicNoteName/useEnharmonicNoteName";
 import type { NoteName } from "@/data";
 
 export const useRoleMarkers = (unifiedMusicKeysDataKey: NoteName) => {
