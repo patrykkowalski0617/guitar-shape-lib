@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { arrayMove } from "@dnd-kit/sortable";
 import type {
   BaseChordDataKey,
-  ShapeDataKey,
+  GuitarShapeDataKey,
   UnifiedMusicKeysDataKey,
 } from "@/data";
 import { getOrderedShapeVariantDataKeys } from "@/components/ShapeMulitStepSliderExplorer/helpers/getOrderedShapeVariantDataKeys";
@@ -12,22 +12,22 @@ export interface ShapePlayerBrick {
   id: string;
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
   baseChordDataKey: BaseChordDataKey;
-  shapeDataKey: ShapeDataKey;
+  guitarShapeDataKey: GuitarShapeDataKey;
   semitoneOffsetFromMajorRoot: number;
   playLength: number;
   sliderRange?: [number, number];
 }
 
 interface ShapePlayerHistoryEntry {
-  shapePlayerBricks: ShapePlayerBrick[];
+  guitarShapePlayerBricks: ShapePlayerBrick[];
   type: "SINGLE_REMOVAL" | "CLEAN_ALL";
   originalIndex?: number;
 }
 
 interface ShapePlayerState {
   exerciseTitle: string | null;
-  shapePlayerBricks: ShapePlayerBrick[];
-  shapePlayerHistory: ShapePlayerHistoryEntry[];
+  guitarShapePlayerBricks: ShapePlayerBrick[];
+  guitarShapePlayerHistory: ShapePlayerHistoryEntry[];
   setExerciseTitle: (exerciseTitle: string) => void;
   addShapePlayerBrick: (brickData: Omit<ShapePlayerBrick, "id">) => void;
   removeShapePlayerBrick: (id: string) => void;
@@ -35,7 +35,7 @@ interface ShapePlayerState {
   clearShapePlayerBricks: () => void;
   restoreLastAction: () => void;
   reorderShapePlayerBricks: (oldIndex: number, newIndex: number) => void;
-  setBricks: (shapePlayerBricks: ShapePlayerBrick[]) => void;
+  setBricks: (guitarShapePlayerBricks: ShapePlayerBrick[]) => void;
 }
 
 export const useShapePlayerStore = create<ShapePlayerState>()(
@@ -57,14 +57,14 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
 
     return {
       exerciseTitle: null,
-      shapePlayerBricks: [],
-      shapePlayerHistory: [],
+      guitarShapePlayerBricks: [],
+      guitarShapePlayerHistory: [],
 
       setExerciseTitle: (exerciseTitle) => set({ exerciseTitle }),
 
       addShapePlayerBrick: (brickData) => {
         const locations = getOrderedShapeVariantDataKeys({
-          shapeDataKey: brickData.shapeDataKey,
+          guitarShapeDataKey: brickData.guitarShapeDataKey,
           unifiedMusicKeysDataKey: brickData.unifiedMusicKeysDataKey,
           semitoneOffsetFromMajorRoot: brickData.semitoneOffsetFromMajorRoot,
         });
@@ -79,34 +79,38 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
         };
 
         set((state) => {
-          const newBricks = [...state.shapePlayerBricks, newBrick];
+          const newBricks = [...state.guitarShapePlayerBricks, newBrick];
           return {
-            shapePlayerBricks: newBricks,
+            guitarShapePlayerBricks: newBricks,
             exerciseTitle: getUpdatedTitle(newBricks, state.exerciseTitle),
-            shapePlayerHistory: [],
+            guitarShapePlayerHistory: [],
           };
         });
       },
 
       removeShapePlayerBrick: (idToRemove) => {
         set((state) => {
-          const brickIndex = state.shapePlayerBricks.findIndex(
-            (shapePlayerBrick) => shapePlayerBrick.id === idToRemove,
+          const brickIndex = state.guitarShapePlayerBricks.findIndex(
+            (guitarShapePlayerBrick) =>
+              guitarShapePlayerBrick.id === idToRemove,
           );
 
           if (brickIndex === -1) return state;
 
-          const updatedBricks = state.shapePlayerBricks.filter(
-            (shapePlayerBrick) => shapePlayerBrick.id !== idToRemove,
+          const updatedBricks = state.guitarShapePlayerBricks.filter(
+            (guitarShapePlayerBrick) =>
+              guitarShapePlayerBrick.id !== idToRemove,
           );
 
           return {
-            shapePlayerBricks: updatedBricks,
+            guitarShapePlayerBricks: updatedBricks,
             exerciseTitle: getUpdatedTitle(updatedBricks, state.exerciseTitle),
-            shapePlayerHistory: [
-              ...state.shapePlayerHistory,
+            guitarShapePlayerHistory: [
+              ...state.guitarShapePlayerHistory,
               {
-                shapePlayerBricks: [state.shapePlayerBricks[brickIndex]],
+                guitarShapePlayerBricks: [
+                  state.guitarShapePlayerBricks[brickIndex],
+                ],
                 type: "SINGLE_REMOVAL",
                 originalIndex: brickIndex,
               },
@@ -117,15 +121,15 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
 
       clearShapePlayerBricks: () => {
         set((state) => {
-          if (state.shapePlayerBricks.length === 0) return state;
+          if (state.guitarShapePlayerBricks.length === 0) return state;
 
           return {
-            shapePlayerBricks: [],
+            guitarShapePlayerBricks: [],
             exerciseTitle: null,
-            shapePlayerHistory: [
-              ...state.shapePlayerHistory,
+            guitarShapePlayerHistory: [
+              ...state.guitarShapePlayerHistory,
               {
-                shapePlayerBricks: [...state.shapePlayerBricks],
+                guitarShapePlayerBricks: [...state.guitarShapePlayerBricks],
                 type: "CLEAN_ALL",
               },
             ],
@@ -135,24 +139,24 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
 
       restoreLastAction: () => {
         set((state) => {
-          const lastEntry = state.shapePlayerHistory.at(-1);
+          const lastEntry = state.guitarShapePlayerHistory.at(-1);
           if (!lastEntry) return state;
 
-          const remainingHistory = state.shapePlayerHistory.slice(0, -1);
-          let newBricks = [...state.shapePlayerBricks];
+          const remainingHistory = state.guitarShapePlayerHistory.slice(0, -1);
+          let newBricks = [...state.guitarShapePlayerBricks];
 
           if (lastEntry.type === "CLEAN_ALL") {
-            newBricks = lastEntry.shapePlayerBricks;
+            newBricks = lastEntry.guitarShapePlayerBricks;
           } else {
-            const [restoredBrick] = lastEntry.shapePlayerBricks;
+            const [restoredBrick] = lastEntry.guitarShapePlayerBricks;
             const insertionIndex = lastEntry.originalIndex ?? 0;
             newBricks.splice(insertionIndex, 0, restoredBrick);
           }
 
           return {
-            shapePlayerBricks: newBricks,
+            guitarShapePlayerBricks: newBricks,
             exerciseTitle: getUpdatedTitle(newBricks, state.exerciseTitle),
-            shapePlayerHistory: remainingHistory,
+            guitarShapePlayerHistory: remainingHistory,
           };
         });
       },
@@ -160,32 +164,33 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
       reorderShapePlayerBricks: (oldIndex, newIndex) => {
         set((state) => {
           const updatedBricks = arrayMove(
-            state.shapePlayerBricks,
+            state.guitarShapePlayerBricks,
             oldIndex,
             newIndex,
           );
           return {
-            shapePlayerBricks: updatedBricks,
+            guitarShapePlayerBricks: updatedBricks,
             exerciseTitle: getUpdatedTitle(updatedBricks, state.exerciseTitle),
           };
         });
       },
 
-      setBricks: (shapePlayerBricks) =>
+      setBricks: (guitarShapePlayerBricks) =>
         set((state) => ({
-          shapePlayerBricks,
+          guitarShapePlayerBricks,
           exerciseTitle: getUpdatedTitle(
-            shapePlayerBricks,
+            guitarShapePlayerBricks,
             state.exerciseTitle,
           ),
         })),
 
       updateBrickRange: (id, sliderRange) => {
         set((state) => ({
-          shapePlayerBricks: state.shapePlayerBricks.map((shapePlayerBrick) =>
-            shapePlayerBrick.id === id
-              ? { ...shapePlayerBrick, sliderRange }
-              : shapePlayerBrick,
+          guitarShapePlayerBricks: state.guitarShapePlayerBricks.map(
+            (guitarShapePlayerBrick) =>
+              guitarShapePlayerBrick.id === id
+                ? { ...guitarShapePlayerBrick, sliderRange }
+                : guitarShapePlayerBrick,
           ),
         }));
       },

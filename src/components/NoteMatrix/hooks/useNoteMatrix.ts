@@ -13,8 +13,10 @@ export const useNoteMatrix = () => {
     (state) => state.unifiedMusicKeysDataKey,
   );
   const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
-  const shapeDataKey = useDataKeyStore((state) => state.shapeDataKey);
-  const shapeOffset = useDataKeyStore(
+  const guitarShapeDataKey = useDataKeyStore(
+    (state) => state.guitarShapeDataKey,
+  );
+  const guitarShapeOffset = useDataKeyStore(
     (state) => state.semitoneOffsetFromMajorRoot,
   );
 
@@ -28,10 +30,10 @@ export const useNoteMatrix = () => {
   const getEnharmonicName = useEnharmonicNoteName();
 
   const isStateReady = !!(
-    shapeDataKey &&
+    guitarShapeDataKey &&
     unifiedMusicKeysDataKey &&
     baseChordDataKey &&
-    shapeOffset !== null
+    guitarShapeOffset !== null
   );
 
   const getSafeEnharmonicName = (noteObject: NoteObject): NoteName => {
@@ -44,8 +46,8 @@ export const useNoteMatrix = () => {
     ? calculateMatrixData(
         unifiedMusicKeysDataKey!,
         baseChordDataKey!,
-        shapeDataKey!,
-        shapeOffset!,
+        guitarShapeDataKey!,
+        guitarShapeOffset!,
         getSafeEnharmonicName,
       )
     : null;
@@ -60,7 +62,7 @@ export const useNoteMatrix = () => {
     });
 
     const inShape = data.visibleColumnsIndices.some((i) => {
-      const isShapeVisible = getIsShapeNoteVisible(i, data.shapeIndices);
+      const isShapeVisible = getIsShapeNoteVisible(i, data.guitarShapeIndices);
       const isNoteMatch = data.displayNoteNames[i] === noteName;
       return isShapeVisible && isNoteMatch;
     });

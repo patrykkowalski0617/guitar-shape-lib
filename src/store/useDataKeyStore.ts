@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type {
   BaseChordDataKey,
-  ShapeDataKey,
+  GuitarShapeDataKey,
   ShapeVariantDataKeys,
   UnifiedMusicKeysDataKey,
 } from "@/data";
@@ -9,7 +9,7 @@ import type {
 interface DataKeyValues {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey | null;
   baseChordDataKey: BaseChordDataKey | null;
-  shapeDataKey: ShapeDataKey | null;
+  guitarShapeDataKey: GuitarShapeDataKey | null;
   semitoneOffsetFromMajorRoot: number | null;
   selectedShapesVariantDataKeys: ShapeVariantDataKeys[] | null;
 }
@@ -17,7 +17,7 @@ interface DataKeyValues {
 interface DataKeyActions {
   setUnifiedMusicKeysDataKey: (id: UnifiedMusicKeysDataKey | null) => void;
   setBaseChordDataKey: (id: BaseChordDataKey | null) => void;
-  setShapeDataKey: (id: ShapeDataKey | null) => void;
+  setShapeDataKey: (id: GuitarShapeDataKey | null) => void;
   setSemitoneOffsetFromMajorRoot: (
     semitoneOffsetFromMajorRoot: number | null,
   ) => void;
@@ -32,7 +32,7 @@ type DataKeyState = DataKeyValues & DataKeyActions;
 const initialState: DataKeyValues = {
   unifiedMusicKeysDataKey: "C",
   baseChordDataKey: null,
-  shapeDataKey: null,
+  guitarShapeDataKey: null,
   semitoneOffsetFromMajorRoot: null,
   selectedShapesVariantDataKeys: null,
 };
@@ -45,7 +45,7 @@ export const useDataKeyStore = create<DataKeyState>((set) => ({
 
   setBaseChordDataKey: (baseChordDataKey) => set({ baseChordDataKey }),
 
-  setShapeDataKey: (shapeDataKey) => set({ shapeDataKey }),
+  setShapeDataKey: (guitarShapeDataKey) => set({ guitarShapeDataKey }),
 
   setSemitoneOffsetFromMajorRoot: (semitoneOffsetFromMajorRoot) =>
     set({ semitoneOffsetFromMajorRoot }),

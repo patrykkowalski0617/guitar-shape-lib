@@ -17,8 +17,8 @@ export const useBackingTrackSync = () => {
     (state) => state.backgingtrackNoteIds,
   );
 
-  const shapeVariantDataKeys = useMusicStore(
-    (state) => state.shapeVariantDataKeys,
+  const guitarShapeVariantDataKeys = useMusicStore(
+    (state) => state.guitarShapeVariantDataKeys,
   );
   const unifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
@@ -59,7 +59,7 @@ export const useBackingTrackSync = () => {
 
     return () => clearTimeout(timeout);
   }, [
-    shapeVariantDataKeys,
+    guitarShapeVariantDataKeys,
     unifiedMusicKeysDataKey,
     baseChordDataKey,
     baseChordSemitoneOffsetFromMajorRoot,

@@ -1,10 +1,10 @@
 import type { ShapePlayerBrick } from "@/store";
 
 export const exportBricksToJson = async (
-  shapePlayerBricks: ShapePlayerBrick[],
+  guitarShapePlayerBricks: ShapePlayerBrick[],
   exerciseTitle: string | null,
 ) => {
-  if (!shapePlayerBricks || shapePlayerBricks.length === 0) return;
+  if (!guitarShapePlayerBricks || guitarShapePlayerBricks.length === 0) return;
 
   const now = new Date();
   const datePart = now.toISOString().split("T")[0];
@@ -13,7 +13,7 @@ export const exportBricksToJson = async (
     "-" +
     now.getMinutes().toString().padStart(2, "0");
 
-  const firstShapePlayerBricks = shapePlayerBricks[0];
+  const firstShapePlayerBricks = guitarShapePlayerBricks[0];
   const keyInfo = firstShapePlayerBricks
     ? `Key-${firstShapePlayerBricks.unifiedMusicKeysDataKey}`
     : "Key-unknown";
@@ -26,7 +26,7 @@ export const exportBricksToJson = async (
 
   const exportData = {
     exerciseTitle,
-    shapePlayerBricks,
+    guitarShapePlayerBricks,
   };
 
   const dataString = JSON.stringify(exportData, null, 2);

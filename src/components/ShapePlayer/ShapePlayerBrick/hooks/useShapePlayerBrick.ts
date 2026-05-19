@@ -3,8 +3,8 @@ import { CSS } from "@dnd-kit/utilities";
 import { useShapePlayerStore } from "@/store";
 
 export const useShapePlayerBrick = (id: string) => {
-  const shapePlayerBrick = useShapePlayerStore((state) =>
-    state.shapePlayerBricks.find((b) => b.id === id),
+  const guitarShapePlayerBrick = useShapePlayerStore((state) =>
+    state.guitarShapePlayerBricks.find((b) => b.id === id),
   );
 
   const removeShapePlayerBrick = useShapePlayerStore(
@@ -29,6 +29,6 @@ export const useShapePlayerBrick = (id: string) => {
     setNodeRef,
     draggingStyles,
     handleRemoveClick,
-    shapePlayerBrick,
+    guitarShapePlayerBrick,
   };
 };

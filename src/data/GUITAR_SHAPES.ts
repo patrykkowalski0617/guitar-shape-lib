@@ -42,17 +42,17 @@ export interface GuitarShape {
   type: ShapeType;
   intervals: number[];
   semitoneOffsetFromMajorRoot: Partial<Record<BaseChordDataKey, number[]>>;
-  shapeVariants: ShapeVariants;
+  guitarShapeVariants: ShapeVariants;
 }
 
 export interface GuitarShapes {
   [key: string]: GuitarShape;
 }
 
-export type ShapeDataKey = keyof typeof GUITAR_SHAPES;
+export type GuitarShapeDataKey = keyof typeof GUITAR_SHAPES;
 
 export interface ShapeVariantDataKeys {
-  shapeDataKey: ShapeDataKey;
+  guitarShapeDataKey: GuitarShapeDataKey;
   stringId: BassStringDataKey;
   fretIndex: number;
   variantDataKey: VariantDataKey;
@@ -69,7 +69,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord4: [_4],
       BaseChord6: [_1],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -124,7 +124,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord4: [_4],
       BaseChord2: [_4],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -175,7 +175,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord4: [_4],
       BaseChord2: [_4],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -219,7 +219,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
     semitoneOffsetFromMajorRoot: {
       BaseChord1: [_1],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -268,7 +268,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord3: [_M3],
       BaseChord7: [_M2],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -314,7 +314,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord3: [_M3],
       BaseChord6: [_M6],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -360,7 +360,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord6: [_M6],
       BaseChord7: [_M2],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -418,7 +418,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord2: [_M2],
       BaseChord4: [_M6],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -464,7 +464,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord2: [_M2],
       BaseChord4: [_M6],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -509,7 +509,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord5: [_5, _m2],
       BaseChord3Ph: [_M3],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -570,7 +570,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord5: [_5, _m2],
       BaseChord3Ph: [_M3],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -628,7 +628,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord2: [_M7],
       BaseChord7: [_M7],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -685,7 +685,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord5: [_M7],
       BaseChord3Ph: [_M7],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -757,7 +757,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
     semitoneOffsetFromMajorRoot: {
       BaseChord5: [_5],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -826,7 +826,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord5: [_5, _M3],
       BaseChord3: [_M3],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -874,7 +874,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord2: [_4],
       BaseChord5: [_5],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -921,7 +921,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord4: [_4],
       BaseChord2: [_4],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -965,7 +965,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
     semitoneOffsetFromMajorRoot: {
       BaseChord1: [_1],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -1025,7 +1025,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
     semitoneOffsetFromMajorRoot: {
       BaseChord6: [_M6],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -1091,7 +1091,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord4: [_M2],
       BaseChord2: [_M2],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -1157,7 +1157,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord4: [_4],
       BaseChord2: [_4],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -1214,7 +1214,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       BaseChord5: [_5],
       BaseChord3Ph: [_M3],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore
@@ -1286,7 +1286,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
     semitoneOffsetFromMajorRoot: {
       BaseChord3Ph: [_M3],
     },
-    shapeVariants: {
+    guitarShapeVariants: {
       strE: {
         v1: {
           // prettier-ignore

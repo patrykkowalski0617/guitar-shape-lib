@@ -19,19 +19,20 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     setNodeRef,
     draggingStyles,
     handleRemoveClick,
-    shapePlayerBrick,
+    guitarShapePlayerBrick,
   } = useShapePlayerBrick(id);
 
   const { activeBrickId, activeBeatIndex } = usePlayingBricksData();
-  const { keyName, chordName, shapeName } =
-    useShapePlayerBrickDisplay(shapePlayerBrick);
+  const { keyName, chordName, guitarShapeName } = useShapePlayerBrickDisplay(
+    guitarShapePlayerBrick,
+  );
   const { sliderRange, setSliderRange, orderedLocations, restoreData } =
-    useShapePlayerBrickSelection(shapePlayerBrick);
+    useShapePlayerBrickSelection(guitarShapePlayerBrick);
 
-  if (!shapePlayerBrick) return null;
+  if (!guitarShapePlayerBrick) return null;
 
   const isCurrentBrickPlayed = activeBrickId === id;
-  const playLength = shapePlayerBrick.playLength;
+  const playLength = guitarShapePlayerBrick.playLength;
 
   return (
     <S.ShapePlayerBrickWrapper
@@ -42,7 +43,7 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     >
       <Button>{keyName}</Button>
       <Button>{chordName}</Button>
-      <Button $widthMultiplier={4}>{shapeName}</Button>
+      <Button $widthMultiplier={4}>{guitarShapeName}</Button>
       <Button>{playLength}</Button>
 
       <div style={{ display: "flex", gap: "4px", marginTop: "8px" }}>
@@ -65,11 +66,11 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
       </div>
 
       <ShapeMulitStepSliderExplorer
-        unifiedMusicKeysDataKey={shapePlayerBrick.unifiedMusicKeysDataKey}
-        baseChordDataKey={shapePlayerBrick.baseChordDataKey}
-        shapeDataKey={shapePlayerBrick.shapeDataKey}
+        unifiedMusicKeysDataKey={guitarShapePlayerBrick.unifiedMusicKeysDataKey}
+        baseChordDataKey={guitarShapePlayerBrick.baseChordDataKey}
+        guitarShapeDataKey={guitarShapePlayerBrick.guitarShapeDataKey}
         semitoneOffsetFromMajorRoot={
-          shapePlayerBrick.semitoneOffsetFromMajorRoot
+          guitarShapePlayerBrick.semitoneOffsetFromMajorRoot
         }
         sliderRange={sliderRange}
         onRangeChange={setSliderRange}

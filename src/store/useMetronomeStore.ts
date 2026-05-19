@@ -25,8 +25,8 @@ interface MetronomeState {
   setBpm: (bpm: number) => void;
   setBpmMultiplier: (multiplier: number) => void;
   togglePlay: () => void;
-  nextStep: (shapePlayerBricks: MetronomeBrick[]) => StepResult;
-  getTotalSteps: (shapePlayerBricks: MetronomeBrick[]) => number;
+  nextStep: (guitarShapePlayerBricks: MetronomeBrick[]) => StepResult;
+  getTotalSteps: (guitarShapePlayerBricks: MetronomeBrick[]) => number;
 }
 
 export const useMetronomeStore = create<MetronomeState>((set, get) => ({
@@ -65,14 +65,14 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
     }
   },
 
-  getTotalSteps: (shapePlayerBricks) => {
-    return shapePlayerBricks.reduce(
-      (sum, shapePlayerBrick) => sum + shapePlayerBrick.playLength,
+  getTotalSteps: (guitarShapePlayerBricks) => {
+    return guitarShapePlayerBricks.reduce(
+      (sum, guitarShapePlayerBrick) => sum + guitarShapePlayerBrick.playLength,
       0,
     );
   },
 
-  nextStep: (shapePlayerBricks) => {
+  nextStep: (guitarShapePlayerBricks) => {
     const { currentStep, isCountingIn, countIn } = get();
 
     if (isCountingIn) {
@@ -87,8 +87,8 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
       return { isNewBrick: true, isFirstStepTotal: isLastCountInStep };
     }
 
-    const totalSteps = shapePlayerBricks.reduce(
-      (sum, shapePlayerBrick) => sum + shapePlayerBrick.playLength,
+    const totalSteps = guitarShapePlayerBricks.reduce(
+      (sum, guitarShapePlayerBrick) => sum + guitarShapePlayerBrick.playLength,
       0,
     );
 
@@ -102,12 +102,12 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
     let accumulatedWidth = 0;
     let isNewBrick = false;
 
-    for (const shapePlayerBrick of shapePlayerBricks) {
+    for (const guitarShapePlayerBrick of guitarShapePlayerBricks) {
       if (nextStepIndex === accumulatedWidth) {
         isNewBrick = true;
         break;
       }
-      accumulatedWidth += shapePlayerBrick.playLength;
+      accumulatedWidth += guitarShapePlayerBrick.playLength;
     }
 
     return {

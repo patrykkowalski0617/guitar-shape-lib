@@ -8,10 +8,10 @@ import * as S from "./parts";
 import { usePlayingBricksEngine } from "./hooks/usePlayingBricks";
 
 export const ShapePlayerList = () => {
-  const shapePlayerBricks = useShapePlayerStore(
-    (state) => state.shapePlayerBricks,
+  const guitarShapePlayerBricks = useShapePlayerStore(
+    (state) => state.guitarShapePlayerBricks,
   );
-  const brickIds = shapePlayerBricks.map((b) => b.id);
+  const brickIds = guitarShapePlayerBricks.map((b) => b.id);
 
   usePlayingBricksEngine();
 
@@ -19,10 +19,10 @@ export const ShapePlayerList = () => {
     <>
       <SortableContext items={brickIds} strategy={verticalListSortingStrategy}>
         <S.ShapePlayerBricksList>
-          {shapePlayerBricks.map((shapePlayerBrick) => (
+          {guitarShapePlayerBricks.map((guitarShapePlayerBrick) => (
             <ShapePlayerBrick
-              key={shapePlayerBrick.id}
-              id={shapePlayerBrick.id}
+              key={guitarShapePlayerBrick.id}
+              id={guitarShapePlayerBrick.id}
             />
           ))}
         </S.ShapePlayerBricksList>

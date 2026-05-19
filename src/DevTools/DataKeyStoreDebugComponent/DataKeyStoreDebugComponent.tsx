@@ -10,7 +10,7 @@ export const DataKeyStoreDebugComponent = () => {
     setBaseChordDataKey,
     unifiedMusicKeysDataKey,
     setUnifiedMusicKeysDataKey,
-    shapeDataKey,
+    guitarShapeDataKey,
     setShapeDataKey,
     semitoneOffsetFromMajorRoot,
     setSemitoneOffsetFromMajorRoot,
@@ -27,7 +27,7 @@ export const DataKeyStoreDebugComponent = () => {
       const {
         unifiedMusicKeysDataKey: k,
         baseChordDataKey: c,
-        shapeDataKey: s,
+        guitarShapeDataKey: s,
         semitoneOffsetFromMajorRoot: o,
         selectedShapesVariantDataKeys: sv,
       } = state;
@@ -62,7 +62,7 @@ export const DataKeyStoreDebugComponent = () => {
 
           <DebugRow
             label="GuitarShape"
-            value={shapeDataKey}
+            value={guitarShapeDataKey}
             onSet={() => setShapeDataKey("M7")}
             onClear={() => setShapeDataKey(null)}
             setActionLabel="Set M7"
@@ -82,7 +82,7 @@ export const DataKeyStoreDebugComponent = () => {
             onSet={() =>
               setSelectedShapesVariantDataKeys([
                 {
-                  shapeDataKey: "M7",
+                  guitarShapeDataKey: "M7",
                   stringId: "strA",
                   fretIndex: 3,
                   variantDataKey: "v1",

@@ -32,49 +32,50 @@ export const useMultiShapeCoordinates = () => {
     });
   };
 
-  const { shapeCoordinates, baseChordCoordinates, bassNoteId } = useMemo(() => {
-    const multiShapeCoordinates: FretboardCoordinate[] = [];
-    const multiBaseChordCoordinates: FretboardCoordinate[] = [];
-    let bassNoteId: string | null = null;
+  const { guitarShapeCoordinates, baseChordCoordinates, bassNoteId } =
+    useMemo(() => {
+      const multiShapeCoordinates: FretboardCoordinate[] = [];
+      const multiBaseChordCoordinates: FretboardCoordinate[] = [];
+      let bassNoteId: string | null = null;
 
-    selectedShapesVariantDataKeys?.forEach((variantKey, i) => {
-      const shapeCoordinates = getShapeCoordinates(variantKey);
-      const CAGED_ChordsShapes = getCAGED_ChordsShapes();
+      selectedShapesVariantDataKeys?.forEach((variantKey, i) => {
+        const guitarShapeCoordinates = getShapeCoordinates(variantKey);
+        const CAGED_ChordsShapes = getCAGED_ChordsShapes();
 
-      const baseChordMatch = findMatchingBaseChord({
-        CAGED_ChordsShapes,
-        shapeCoordinates,
+        const baseChordMatch = findMatchingBaseChord({
+          CAGED_ChordsShapes,
+          guitarShapeCoordinates,
+        });
+
+        if (!i) {
+          const firstCoordinate = baseChordMatch?.coordinates[0];
+          if (firstCoordinate) {
+            bassNoteId = getNoteIdFromFretboardCoordintes(firstCoordinate);
+          }
+        }
+
+        const baseChordCoordinates = baseChordMatch
+          ? baseChordMatch.coordinates
+          : [];
+
+        addUnique(multiShapeCoordinates, guitarShapeCoordinates);
+        addUnique(multiBaseChordCoordinates, baseChordCoordinates);
       });
 
-      if (!i) {
-        const firstCoordinate = baseChordMatch?.coordinates[0];
-        if (firstCoordinate) {
-          bassNoteId = getNoteIdFromFretboardCoordintes(firstCoordinate);
-        }
-      }
-
-      const baseChordCoordinates = baseChordMatch
-        ? baseChordMatch.coordinates
-        : [];
-
-      addUnique(multiShapeCoordinates, shapeCoordinates);
-      addUnique(multiBaseChordCoordinates, baseChordCoordinates);
-    });
-
-    return {
-      shapeCoordinates: multiShapeCoordinates,
-      baseChordCoordinates: multiBaseChordCoordinates,
-      bassNoteId,
-    };
-  }, [
-    selectedShapesVariantDataKeys,
-    getShapeCoordinates,
-    getCAGED_ChordsShapes,
-  ]);
+      return {
+        guitarShapeCoordinates: multiShapeCoordinates,
+        baseChordCoordinates: multiBaseChordCoordinates,
+        bassNoteId,
+      };
+    }, [
+      selectedShapesVariantDataKeys,
+      getShapeCoordinates,
+      getCAGED_ChordsShapes,
+    ]);
 
   useEffect(() => {
     setBaseChordBassNoteId(bassNoteId);
   }, [bassNoteId, setBaseChordBassNoteId]);
 
-  return { shapeCoordinates, baseChordCoordinates };
+  return { guitarShapeCoordinates, baseChordCoordinates };
 };

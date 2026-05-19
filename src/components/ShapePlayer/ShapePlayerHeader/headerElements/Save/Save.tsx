@@ -5,19 +5,19 @@ import { exportBricksToJson } from "@/components/ShapePlayer/helpers/exportBrick
 
 export function Save() {
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
-  const shapePlayerBricks = useShapePlayerStore(
-    (state) => state.shapePlayerBricks,
+  const guitarShapePlayerBricks = useShapePlayerStore(
+    (state) => state.guitarShapePlayerBricks,
   );
   const exerciseTitle = useShapePlayerStore((state) => state.exerciseTitle);
 
   const handleExport = () => {
-    exportBricksToJson(shapePlayerBricks, exerciseTitle);
+    exportBricksToJson(guitarShapePlayerBricks, exerciseTitle);
   };
 
   return (
     <Button
       onClick={handleExport}
-      disabled={isPlaying || shapePlayerBricks.length === 0}
+      disabled={isPlaying || guitarShapePlayerBricks.length === 0}
     >
       <FileDown />
     </Button>

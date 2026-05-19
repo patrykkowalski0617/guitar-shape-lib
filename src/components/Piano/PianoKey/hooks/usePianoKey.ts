@@ -12,7 +12,9 @@ export function usePianoKey({ noteObject }: UsePianoKeyParams) {
   const setActiveHoverNoteId = useMusicStore(
     (state) => state.setActiveHoverNoteId,
   );
-  const shapeDataKey = useDataKeyStore((state) => state.shapeDataKey);
+  const guitarShapeDataKey = useDataKeyStore(
+    (state) => state.guitarShapeDataKey,
+  );
 
   const isActiveNote = useIsNoteActive(noteObject.noteId);
 
@@ -31,7 +33,7 @@ export function usePianoKey({ noteObject }: UsePianoKeyParams) {
       isWhitePianoKey,
       pianoKeyShape,
       isPushed: isActiveNote,
-      isShapeSelected: !!shapeDataKey,
+      isShapeSelected: !!guitarShapeDataKey,
     },
     interactivity: {
       isScrollTarget,

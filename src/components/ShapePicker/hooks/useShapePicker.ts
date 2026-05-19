@@ -28,17 +28,17 @@ export const useShapePicker = () => {
   const selectedChordLabel = useBaseChordName();
 
   const handleSelectShape = (value: string) => {
-    const [shapeDataKey, offsetStr] = value.split("|");
+    const [guitarShapeDataKey, offsetStr] = value.split("|");
     const semitoneOffsetFromMajorRoot = parseInt(offsetStr, 10);
 
-    setShapeDataKey(shapeDataKey);
+    setShapeDataKey(guitarShapeDataKey);
     setSemitoneOffsetFromMajorRoot(semitoneOffsetFromMajorRoot);
 
     if (unifiedMusicKeysDataKey && baseChordDataKey) {
       addShapePlayerBrick({
         unifiedMusicKeysDataKey,
         baseChordDataKey,
-        shapeDataKey,
+        guitarShapeDataKey,
         semitoneOffsetFromMajorRoot,
         playLength: 4,
       });

@@ -5,7 +5,7 @@ export const useUndoButton = () => {
     (state) => state.restoreLastAction,
   );
   const isRestoreDisabled = useShapePlayerStore(
-    (state) => state.shapePlayerHistory.length === 0,
+    (state) => state.guitarShapePlayerHistory.length === 0,
   );
 
   return { restoreLastAction, isRestoreDisabled };

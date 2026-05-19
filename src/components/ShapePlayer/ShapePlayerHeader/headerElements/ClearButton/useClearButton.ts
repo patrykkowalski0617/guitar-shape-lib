@@ -5,7 +5,7 @@ export const useClearButton = () => {
     (state) => state.clearShapePlayerBricks,
   );
   const isListEmpty = useShapePlayerStore(
-    (state) => state.shapePlayerBricks.length === 0,
+    (state) => state.guitarShapePlayerBricks.length === 0,
   );
   const resetDataKeys = useDataKeyStore((state) => state.resetDataKeys);
 

@@ -26,7 +26,7 @@ export const NoteMatrix = () => {
         </S.RowTitle>
         <S.RowTitle $isStateReady={isStateReady}>
           {isStateReady
-            ? `Solo GuitarShape: "${data?.shapeLabel}"`
+            ? `Solo GuitarShape: "${data?.guitarShapeLabel}"`
             : "Solo GuitarShape notes:"}
         </S.RowTitle>
       </S.NoteMatrixSectionColumn>
@@ -58,7 +58,7 @@ export const NoteMatrix = () => {
 
         <S.NotesRow>
           {data?.visibleColumnsIndices.map((i) => {
-            const isVisible = getIsShapeNoteVisible(i, data.shapeIndices);
+            const isVisible = getIsShapeNoteVisible(i, data.guitarShapeIndices);
             const noteName = isVisible ? data.displayNoteNames[i] : "";
             const isShared = checkIsShared(noteName);
             const isSelected =

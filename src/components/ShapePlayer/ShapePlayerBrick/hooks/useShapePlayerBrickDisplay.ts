@@ -1,37 +1,37 @@
-import { useUnifiedMusicKey, useShape } from "@/hooks";
+import { useUnifiedMusicKey } from "@/hooks";
 import { useBaseChordName } from "@/hooks/baseChord/useBaseChordName";
+import { getGuitarShapeName } from "@/hooks/guitarShapes/utils";
 import type { ShapePlayerBrick } from "@/store";
 
 export const useShapePlayerBrickDisplay = (
-  shapePlayerBrick?: ShapePlayerBrick,
+  guitarShapePlayerBrick?: ShapePlayerBrick,
 ) => {
   const unifiedMusicKey = useUnifiedMusicKey({
-    unifiedMusicKeysDataKey: shapePlayerBrick?.unifiedMusicKeysDataKey,
+    unifiedMusicKeysDataKey: guitarShapePlayerBrick?.unifiedMusicKeysDataKey,
   });
 
   const chordName = useBaseChordName({
-    baseChordDataKey: shapePlayerBrick?.baseChordDataKey,
-    unifiedMusicKeysDataKey: shapePlayerBrick?.unifiedMusicKeysDataKey,
-  });
-
-  const { getShapeName } = useShape({
-    shapeDataKey: shapePlayerBrick?.shapeDataKey,
+    baseChordDataKey: guitarShapePlayerBrick?.baseChordDataKey,
+    unifiedMusicKeysDataKey: guitarShapePlayerBrick?.unifiedMusicKeysDataKey,
   });
 
   const keyName = `${unifiedMusicKey?.majorName} / ${unifiedMusicKey?.relativeMinorName}`;
 
-  if (!shapePlayerBrick) return {};
+  if (!guitarShapePlayerBrick) return {};
 
-  const { shapeNoteName, shapeLabel, shapeType } = getShapeName({
-    semitoneOffsetFromMajorRoot: shapePlayerBrick?.semitoneOffsetFromMajorRoot,
-    unifiedMusicKeysDataKey: shapePlayerBrick?.unifiedMusicKeysDataKey,
-  });
+  const { guitarShapeNoteName, guitarShapeLabel, guitarShapeType } =
+    getGuitarShapeName({
+      guitarShapeDataKey: guitarShapePlayerBrick.guitarShapeDataKey,
+      unifiedMusicKeysDataKey: guitarShapePlayerBrick.unifiedMusicKeysDataKey,
+      semitoneOffsetFromMajorRoot:
+        guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
+    });
 
-  const shapeName = `${shapeType !== "Set" ? shapeNoteName : ""}${shapeType === "Scale" ? " " : ""}${shapeLabel}`;
+  const guitarShapeName = `${guitarShapeType !== "Set" ? guitarShapeNoteName : ""}${guitarShapeType === "Scale" ? " " : ""}${guitarShapeLabel}`;
 
   return {
     keyName,
     chordName,
-    shapeName,
+    guitarShapeName,
   };
 };

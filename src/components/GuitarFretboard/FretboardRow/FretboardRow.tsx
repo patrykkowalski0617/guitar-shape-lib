@@ -10,14 +10,14 @@ import { isShapeCell as isShapeCellFn } from "./helpers";
 interface FretboardRowProps {
   stringIndex: StringValidIndex;
   rowNotes: NoteObject[];
-  shapeCoordinates: FretboardCoordinate[];
+  guitarShapeCoordinates: FretboardCoordinate[];
   baseChordCoordinates: FretboardCoordinate[];
 }
 
 export default function FretboardRow({
   stringIndex,
   rowNotes,
-  shapeCoordinates,
+  guitarShapeCoordinates,
   baseChordCoordinates,
 }: FretboardRowProps): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -28,12 +28,12 @@ export default function FretboardRow({
     <S.FretboardRow ref={scrollRef} $isVisibleString={isVisibleString}>
       {rowNotes.map((noteObject, fretIndex) => {
         const isShapeCell = isShapeCellFn({
-          shapeCoordinates,
+          guitarShapeCoordinates,
           stringIndex,
           fretIndex,
         });
         const isBaseChordCell = isShapeCellFn({
-          shapeCoordinates: baseChordCoordinates,
+          guitarShapeCoordinates: baseChordCoordinates,
           stringIndex,
           fretIndex,
         });

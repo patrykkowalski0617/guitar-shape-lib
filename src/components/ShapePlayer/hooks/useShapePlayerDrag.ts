@@ -7,8 +7,8 @@ import {
 import { useShapePlayerStore } from "@/store";
 
 export const useShapePlayerDrag = () => {
-  const shapePlayerBricks = useShapePlayerStore(
-    (state) => state.shapePlayerBricks,
+  const guitarShapePlayerBricks = useShapePlayerStore(
+    (state) => state.guitarShapePlayerBricks,
   );
   const reorderShapePlayerBricks = useShapePlayerStore(
     (state) => state.reorderShapePlayerBricks,
@@ -22,8 +22,8 @@ export const useShapePlayerDrag = () => {
     const isTargetValid = over && active.id !== over.id;
 
     if (isTargetValid) {
-      const brickIds = shapePlayerBricks.map(
-        (shapePlayerBrick) => shapePlayerBrick.id,
+      const brickIds = guitarShapePlayerBricks.map(
+        (guitarShapePlayerBrick) => guitarShapePlayerBrick.id,
       );
       const oldIndex = brickIds.indexOf(active.id as string);
       const newIndex = brickIds.indexOf(over.id as string);

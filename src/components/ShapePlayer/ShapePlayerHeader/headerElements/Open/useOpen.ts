@@ -28,16 +28,16 @@ export function useOpen() {
   );
 
   const applyImportedBricks = (
-    shapePlayerBricks: ShapePlayerBrick[],
+    guitarShapePlayerBricks: ShapePlayerBrick[],
     exerciseTitle: string | null,
   ) => {
-    setBricks(shapePlayerBricks);
+    setBricks(guitarShapePlayerBricks);
 
     if (exerciseTitle) {
       setExerciseTitle(exerciseTitle);
     }
 
-    const firstBrick = shapePlayerBricks[0];
+    const firstBrick = guitarShapePlayerBricks[0];
     if (firstBrick) {
       setUnifiedMusicKeysDataKey(firstBrick.unifiedMusicKeysDataKey);
     }

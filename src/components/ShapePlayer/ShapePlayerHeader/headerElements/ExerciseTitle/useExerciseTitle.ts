@@ -9,7 +9,7 @@ export const useExerciseTitle = () => {
     (state) => state.setExerciseTitle,
   );
   const hasBricks = useShapePlayerStore(
-    (state) => state.shapePlayerBricks.length > 0,
+    (state) => state.guitarShapePlayerBricks.length > 0,
   );
 
   const [isEditing, setIsEditing] = useState(false);

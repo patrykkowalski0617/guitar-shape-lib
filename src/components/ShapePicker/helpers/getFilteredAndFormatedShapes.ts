@@ -5,7 +5,7 @@ import {
 } from "@/data";
 
 export type ShapeOption = {
-  shapeDataKey: keyof GuitarShapes;
+  guitarShapeDataKey: keyof GuitarShapes;
   semitoneOffsetFromMajorRoot: number;
 };
 
@@ -15,7 +15,7 @@ export const getFilteredAndFormatedShapes = (
   if (!baseChordDataKey) return [];
 
   const filteredAndFormatedShapes: ShapeOption[] = [];
-  Object.entries(GUITAR_SHAPES).forEach(([shapeDataKey, guitarShape]) => {
+  Object.entries(GUITAR_SHAPES).forEach(([guitarShapeDataKey, guitarShape]) => {
     if (!guitarShape.semitoneOffsetFromMajorRoot) return;
 
     const offsets = guitarShape.semitoneOffsetFromMajorRoot[baseChordDataKey];
@@ -24,7 +24,7 @@ export const getFilteredAndFormatedShapes = (
 
     offsets.forEach((semitoneOffsetFromMajorRoot) =>
       filteredAndFormatedShapes.push({
-        shapeDataKey: shapeDataKey as keyof GuitarShapes,
+        guitarShapeDataKey: guitarShapeDataKey as keyof GuitarShapes,
         semitoneOffsetFromMajorRoot,
       }),
     );

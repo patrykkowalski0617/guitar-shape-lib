@@ -24,9 +24,9 @@ export const importBricksFromJson = ({
       if (
         parsedData &&
         typeof parsedData === "object" &&
-        "shapePlayerBricks" in parsedData
+        "guitarShapePlayerBricks" in parsedData
       ) {
-        bricks = parsedData.shapePlayerBricks;
+        bricks = parsedData.guitarShapePlayerBricks;
         title = parsedData.exerciseTitle;
       } else if (Array.isArray(parsedData)) {
         bricks = parsedData;
@@ -35,7 +35,7 @@ export const importBricksFromJson = ({
       if (Array.isArray(bricks) && bricks.length > 0) {
         onSuccess(bricks, title);
       } else {
-        onError("Invalid file structure: Expected shapePlayerBricks.");
+        onError("Invalid file structure: Expected guitarShapePlayerBricks.");
       }
     } catch (e) {
       onError("Failed to parse JSON file." + e);

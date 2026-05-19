@@ -3,12 +3,14 @@ import { useDataKeyStore } from "@/store";
 import { MiniCarousel } from "../ui/MiniCarousel/MiniCarousel";
 
 const ShapeCarousel = () => {
-  const activeShapeDataKey = useDataKeyStore((state) => state.shapeDataKey);
-  const shapeKeys = Object.keys(GUITAR_SHAPES) as (keyof GuitarShapes)[];
+  const activeShapeDataKey = useDataKeyStore(
+    (state) => state.guitarShapeDataKey,
+  );
+  const guitarShapeKeys = Object.keys(GUITAR_SHAPES) as (keyof GuitarShapes)[];
 
   return (
     <MiniCarousel
-      items={shapeKeys}
+      items={guitarShapeKeys}
       activeId={activeShapeDataKey}
       label="GuitarShapes"
       activeLabel="Current guitarShape"

@@ -13,8 +13,8 @@ interface MusicState {
   baseChordBassNoteId: NoteId | null;
   setBaseChordBassNoteId: (noteId: NoteId | null) => void;
 
-  shapeNoteIds: NoteId[];
-  setShapeNoteIds: (shapeNoteIds: NoteId[]) => void;
+  guitarShapeNoteIds: NoteId[];
+  setShapeNoteIds: (guitarShapeNoteIds: NoteId[]) => void;
   updateShapeNotes: (
     allNotes: NoteObject[][],
     coordinates: FretboardCoordinate[],
@@ -34,13 +34,13 @@ interface MusicState {
   setSelectedTargetNotesNames: (noteName: NoteName) => void;
   resetSelectedTargetNotesNames: () => void;
 
-  shapeVariantDataKeys: ShapeVariantDataKeys | null;
+  guitarShapeVariantDataKeys: ShapeVariantDataKeys | null;
   setShapeVariantDataKeys: {
     <T>(data: Exact<ShapeVariantDataKeys, T>): void;
     (data: null): void;
   };
 
-  shapeVariantDataKeys_locked: ShapeVariantDataKeys | null;
+  guitarShapeVariantDataKeys_locked: ShapeVariantDataKeys | null;
   setShapeVariantDataKeys_locked: {
     <T>(data: Exact<ShapeVariantDataKeys, T>): void;
     (data: null): void;
@@ -49,17 +49,17 @@ interface MusicState {
 
 export const useMusicStore = create<MusicState>((set) => ({
   baseChordBassNoteId: null,
-  shapeNoteIds: [],
+  guitarShapeNoteIds: [],
   activeHoverNoteId: null,
   activeLockedNoteIds: [],
   backgingtrackNoteIds: [],
   selectedTargetNotesNames: [],
-  shapeVariantDataKeys: null,
-  shapeVariantDataKeys_locked: null,
+  guitarShapeVariantDataKeys: null,
+  guitarShapeVariantDataKeys_locked: null,
 
   setBaseChordBassNoteId: (baseChordBassNoteId) => set({ baseChordBassNoteId }),
 
-  setShapeNoteIds: (shapeNoteIds) => set({ shapeNoteIds }),
+  setShapeNoteIds: (guitarShapeNoteIds) => set({ guitarShapeNoteIds }),
 
   updateShapeNotes: (allNotes, coordinates) => {
     const nextShapeNoteIds: NoteId[] = [];
@@ -75,7 +75,7 @@ export const useMusicStore = create<MusicState>((set) => ({
       });
     });
 
-    set({ shapeNoteIds: nextShapeNoteIds });
+    set({ guitarShapeNoteIds: nextShapeNoteIds });
   },
 
   setActiveHoverNoteId: (noteId) => {
@@ -83,7 +83,7 @@ export const useMusicStore = create<MusicState>((set) => ({
     const controlState = useDataKeyStore.getState();
     const isSmallScreen = window.innerWidth < 1024;
     const isPlayingOrHasShape =
-      controlState.shapeDataKey !== null || playerState.isPlaying;
+      controlState.guitarShapeDataKey !== null || playerState.isPlaying;
 
     if (isPlayingOrHasShape || isSmallScreen) return;
 
@@ -92,7 +92,7 @@ export const useMusicStore = create<MusicState>((set) => ({
 
   setActiveLockedNoteIds: (activeHoverNote) => {
     const controlState = useDataKeyStore.getState();
-    if (controlState.shapeDataKey !== null) return;
+    if (controlState.guitarShapeDataKey !== null) return;
 
     set((state) => {
       const isAlreadyActive =
@@ -129,14 +129,14 @@ export const useMusicStore = create<MusicState>((set) => ({
   resetSelectedTargetNotesNames: () => set({ selectedTargetNotesNames: [] }),
 
   setShapeVariantDataKeys: (
-    shapeVariantDataKeys: ShapeVariantDataKeys | null,
+    guitarShapeVariantDataKeys: ShapeVariantDataKeys | null,
   ) => {
-    set({ shapeVariantDataKeys });
+    set({ guitarShapeVariantDataKeys });
   },
 
   setShapeVariantDataKeys_locked: (
-    shapeVariantDataKeys_locked: ShapeVariantDataKeys | null,
+    guitarShapeVariantDataKeys_locked: ShapeVariantDataKeys | null,
   ) => {
-    set({ shapeVariantDataKeys_locked });
+    set({ guitarShapeVariantDataKeys_locked });
   },
 }));

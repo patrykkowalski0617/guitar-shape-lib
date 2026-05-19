@@ -6,30 +6,32 @@ import {
 
 export const useShapeCoordinates = () => {
   const getShapeCoordinates = (
-    shapeVariantDataKeys: ShapeVariantDataKeys | null,
+    guitarShapeVariantDataKeys: ShapeVariantDataKeys | null,
   ): FretboardCoordinate[] => {
-    if (!shapeVariantDataKeys) return [];
+    if (!guitarShapeVariantDataKeys) return [];
 
-    const { shapeDataKey, stringId, fretIndex, variantDataKey } =
-      shapeVariantDataKeys || {};
-    const shapeData = shapeDataKey ? GUITAR_SHAPES[shapeDataKey] : null;
+    const { guitarShapeDataKey, stringId, fretIndex, variantDataKey } =
+      guitarShapeVariantDataKeys || {};
+    const guitarShapeData = guitarShapeDataKey
+      ? GUITAR_SHAPES[guitarShapeDataKey]
+      : null;
 
-    if (!shapeData || shapeVariantDataKeys === null) return [];
+    if (!guitarShapeData || guitarShapeVariantDataKeys === null) return [];
 
-    const { shapeVariants } = shapeData;
+    const { guitarShapeVariants } = guitarShapeData;
     if (!stringId || fretIndex === undefined || !variantDataKey) return [];
 
     const variantCoordinates =
-      shapeVariants?.[stringId as keyof typeof shapeVariants]?.[
-        variantDataKey as keyof (typeof shapeVariants)[keyof typeof shapeVariants]
+      guitarShapeVariants?.[stringId as keyof typeof guitarShapeVariants]?.[
+        variantDataKey as keyof (typeof guitarShapeVariants)[keyof typeof guitarShapeVariants]
       ];
 
-    const shapeCoordinates =
+    const guitarShapeCoordinates =
       variantCoordinates?.coordinates?.map(
         ([s, f]) => [s, f + fretIndex] as FretboardCoordinate,
       ) || [];
 
-    return shapeCoordinates;
+    return guitarShapeCoordinates;
   };
 
   return getShapeCoordinates;

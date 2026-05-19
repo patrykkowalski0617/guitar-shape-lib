@@ -8,29 +8,30 @@ import { useShapePlayerBrickSelection } from "../../ShapePlayerBrick/hooks";
 import { useMetronome } from "../../hooks/useMetronome";
 
 interface ActiveBrickCalculation {
-  shapePlayerBrick: ShapePlayerBrick;
+  guitarShapePlayerBrick: ShapePlayerBrick;
   isFirstBeatOfBrick: boolean;
   beatInsideBrick: number;
 }
 
 const calculateActiveBrick = (
-  shapePlayerBricks: ShapePlayerBrick[],
+  guitarShapePlayerBricks: ShapePlayerBrick[],
   currentStep: number,
   isCountingIn: boolean,
 ): ActiveBrickCalculation | null => {
-  const shouldSkipCalculation = isCountingIn || shapePlayerBricks.length === 0;
+  const shouldSkipCalculation =
+    isCountingIn || guitarShapePlayerBricks.length === 0;
   if (shouldSkipCalculation) return null;
 
   let accumulatedSteps = 0;
-  for (const shapePlayerBrick of shapePlayerBricks) {
+  for (const guitarShapePlayerBrick of guitarShapePlayerBricks) {
     const startOfBrick = accumulatedSteps;
-    const endOfBrick = accumulatedSteps + shapePlayerBrick.playLength;
+    const endOfBrick = accumulatedSteps + guitarShapePlayerBrick.playLength;
     const isStepInsideBrick =
       currentStep >= startOfBrick && currentStep < endOfBrick;
 
     if (isStepInsideBrick) {
       return {
-        shapePlayerBrick,
+        guitarShapePlayerBrick,
         isFirstBeatOfBrick: currentStep === startOfBrick,
         beatInsideBrick: currentStep - startOfBrick,
       };
@@ -43,14 +44,14 @@ const calculateActiveBrick = (
 export function usePlayingBricksEngine() {
   const bpm = useMetronomeStore((state) => state.bpm);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
-  const shapePlayerBricks = useShapePlayerStore(
-    (state) => state.shapePlayerBricks,
+  const guitarShapePlayerBricks = useShapePlayerStore(
+    (state) => state.guitarShapePlayerBricks,
   );
   const nextStep = useMetronomeStore((state) => state.nextStep);
 
   const handleTick = useCallback(() => {
-    return nextStep(shapePlayerBricks);
-  }, [nextStep, shapePlayerBricks]);
+    return nextStep(guitarShapePlayerBricks);
+  }, [nextStep, guitarShapePlayerBricks]);
 
   const { toggleMetronome } = useMetronome(bpm, handleTick);
 
@@ -64,23 +65,23 @@ export function usePlayingBricksData() {
   const currentStep = useMetronomeStore((state) => state.currentStep);
   const isCountingIn = useMetronomeStore((state) => state.isCountingIn);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
-  const shapePlayerBricks = useShapePlayerStore(
-    (state) => state.shapePlayerBricks,
+  const guitarShapePlayerBricks = useShapePlayerStore(
+    (state) => state.guitarShapePlayerBricks,
   );
 
   const lastProcessedStepRef = useRef<number | null>(null);
 
   const activeBrickInfo = calculateActiveBrick(
-    shapePlayerBricks,
+    guitarShapePlayerBricks,
     currentStep,
     isCountingIn,
   );
 
   const currentSelection = useShapePlayerBrickSelection(
-    activeBrickInfo?.shapePlayerBrick,
+    activeBrickInfo?.guitarShapePlayerBrick,
   );
   const firstBrickSelection = useShapePlayerBrickSelection(
-    shapePlayerBricks[0],
+    guitarShapePlayerBricks[0],
   );
 
   /**
@@ -102,7 +103,7 @@ export function usePlayingBricksData() {
     currentStep,
     isPlaying,
     activeBrickInfo?.isFirstBeatOfBrick,
-    activeBrickInfo?.shapePlayerBrick.id,
+    activeBrickInfo?.guitarShapePlayerBrick.id,
     currentSelection,
   ]);
 
@@ -118,15 +119,17 @@ export function usePlayingBricksData() {
     }
 
     const canPrepare =
-      isCountingIn && !hasPreparedCountInRef.current && shapePlayerBricks[0];
+      isCountingIn &&
+      !hasPreparedCountInRef.current &&
+      guitarShapePlayerBricks[0];
     if (canPrepare) {
       firstBrickSelection.restoreData();
       hasPreparedCountInRef.current = true;
     }
-  }, [isPlaying, isCountingIn, shapePlayerBricks, firstBrickSelection]);
+  }, [isPlaying, isCountingIn, guitarShapePlayerBricks, firstBrickSelection]);
 
   return {
-    activeBrickId: activeBrickInfo?.shapePlayerBrick.id,
+    activeBrickId: activeBrickInfo?.guitarShapePlayerBrick.id,
     activeBeatIndex: activeBrickInfo?.beatInsideBrick,
   };
 }

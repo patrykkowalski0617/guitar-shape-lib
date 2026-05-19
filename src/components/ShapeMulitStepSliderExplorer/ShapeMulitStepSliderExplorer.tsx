@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDataKeyStore } from "@/store";
 import type {
   BaseChordDataKey,
-  ShapeDataKey,
+  GuitarShapeDataKey,
   UnifiedMusicKeysDataKey,
   ShapeVariantDataKeys,
 } from "@/data";
@@ -13,7 +13,7 @@ import type { Range } from "../ui/MultiRangeSlider/MultiRangeSlider/useMultiRang
 interface ShapeMultiStepSliderExplorerProps {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
   baseChordDataKey: BaseChordDataKey;
-  shapeDataKey: ShapeDataKey;
+  guitarShapeDataKey: GuitarShapeDataKey;
   semitoneOffsetFromMajorRoot: number;
   sliderRange: [number, number];
   onRangeChange: (sliderRange: [number, number]) => void;
@@ -21,7 +21,7 @@ interface ShapeMultiStepSliderExplorerProps {
 }
 
 export const ShapeMulitStepSliderExplorer = ({
-  shapeDataKey,
+  guitarShapeDataKey,
   unifiedMusicKeysDataKey,
   semitoneOffsetFromMajorRoot,
   sliderRange,
@@ -32,7 +32,7 @@ export const ShapeMulitStepSliderExplorer = ({
     (state) => state.setSelectedShapesVariantDataKeys,
   );
 
-  const sliderKey = `${shapeDataKey}-${unifiedMusicKeysDataKey}-${semitoneOffsetFromMajorRoot}`;
+  const sliderKey = `${guitarShapeDataKey}-${unifiedMusicKeysDataKey}-${semitoneOffsetFromMajorRoot}`;
 
   useEffect(() => {
     const selectedShapesVariantDataKeys = orderedLocations.slice(

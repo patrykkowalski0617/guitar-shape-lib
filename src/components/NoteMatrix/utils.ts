@@ -20,9 +20,9 @@ export const getIsScaleNoteVisible = (
 
 export const getIsShapeNoteVisible = (
   index: number,
-  shapeIndices: number[],
+  guitarShapeIndices: number[],
 ) => {
-  return shapeIndices.includes(index);
+  return guitarShapeIndices.includes(index);
 };
 
 export const getIntervalName = (index: number) => {
@@ -36,8 +36,8 @@ export const getIntervalName = (index: number) => {
 export const calculateMatrixData = (
   unifiedMusicKeysDataKey: keyof typeof UNIFIED_MUSIC_KEYS,
   baseChordDataKey: keyof typeof BASE_CHORDS,
-  shapeDataKey: keyof typeof GUITAR_SHAPES,
-  shapeOffset: number,
+  guitarShapeDataKey: keyof typeof GUITAR_SHAPES,
+  guitarShapeOffset: number,
   getEnharmonicName: (noteObject: NoteObject) => NoteName,
 ) => {
   const musicKey =
@@ -45,7 +45,7 @@ export const calculateMatrixData = (
       unifiedMusicKeysDataKey as keyof typeof UNIFIED_MUSIC_KEYS
     ];
   const baseChord = BASE_CHORDS[baseChordDataKey];
-  const guitarShape = GUITAR_SHAPES[shapeDataKey];
+  const guitarShape = GUITAR_SHAPES[guitarShapeDataKey];
   const scaleTemplate = SCALE_SEMITONE_TEMPLATES[baseChord.baseScaleDataKey];
   const chordOffset = baseChord.semitoneOffsetFromMajorRoot;
 
@@ -62,26 +62,28 @@ export const calculateMatrixData = (
     .map((_, i) => i)
     .filter((i) => scaleTemplate.includes(i % 12));
 
-  const rawShapeRootIndex = shapeOffset - chordOffset;
-  const shapeRootIndex =
+  const rawShapeRootIndex = guitarShapeOffset - chordOffset;
+  const guitarShapeRootIndex =
     rawShapeRootIndex < 0 ? rawShapeRootIndex + 12 : rawShapeRootIndex;
-  const shapeRootName = displayNoteNames[shapeRootIndex];
-  const shapeIndices = guitarShape.intervals.map((i) => i + shapeRootIndex);
+  const guitarShapeRootName = displayNoteNames[guitarShapeRootIndex];
+  const guitarShapeIndices = guitarShape.intervals.map(
+    (i) => i + guitarShapeRootIndex,
+  );
 
   const visibleColumnsIndices = chordNotesObjects
     .map((_, i) => i)
     .filter((i) => {
       const isVisibleInChord = getIsScaleNoteVisible(i, allScaleIndices);
-      const isVisibleInShape = getIsShapeNoteVisible(i, shapeIndices);
+      const isVisibleInShape = getIsShapeNoteVisible(i, guitarShapeIndices);
       return isVisibleInChord || isVisibleInShape;
     });
 
   return {
     displayNoteNames,
     allScaleIndices,
-    shapeIndices,
+    guitarShapeIndices,
     visibleColumnsIndices,
     baseChordDisplayTitle: `${chordRootName} (${baseChord.modeExtendedName})`,
-    shapeLabel: `${shapeRootName} ${guitarShape.label}`,
+    guitarShapeLabel: `${guitarShapeRootName} ${guitarShape.label}`,
   };
 };

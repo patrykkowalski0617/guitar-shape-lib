@@ -2,15 +2,17 @@ import type { BaseChordShape, FretboardCoordinate } from "@/data";
 
 export interface MatcherParams {
   CAGED_ChordsShapes: BaseChordShape[];
-  shapeCoordinates: FretboardCoordinate[];
+  guitarShapeCoordinates: FretboardCoordinate[];
 }
 
 export const findMatchingBaseChord = ({
   CAGED_ChordsShapes,
-  shapeCoordinates,
+  guitarShapeCoordinates,
 }: MatcherParams): BaseChordShape | null => {
   const targetPointKeys = new Set(
-    shapeCoordinates.map(([stringIdx, fretIdx]) => `${stringIdx}-${fretIdx}`),
+    guitarShapeCoordinates.map(
+      ([stringIdx, fretIdx]) => `${stringIdx}-${fretIdx}`,
+    ),
   );
 
   let bestMatch: BaseChordShape | null = null;

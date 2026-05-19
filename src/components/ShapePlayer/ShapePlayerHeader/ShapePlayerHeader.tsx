@@ -17,23 +17,24 @@ import { useShapePlayerStore } from "@/store";
 import { ExerciseTitle } from "./headerElements/ExerciseTitle/ExerciseTitle";
 
 export const ShapePlayerHeader = () => {
-  const shapePlayerBricks = useShapePlayerStore(
-    (state) => state.shapePlayerBricks,
+  const guitarShapePlayerBricks = useShapePlayerStore(
+    (state) => state.guitarShapePlayerBricks,
   );
   const sliderConfigs = useMemo(() => {
-    return shapePlayerBricks.map((shapePlayerBrick) => ({
-      id: shapePlayerBrick.id,
-      shapeDataKey: shapePlayerBrick.shapeDataKey,
-      unifiedMusicKeysDataKey: shapePlayerBrick.unifiedMusicKeysDataKey,
-      semitoneOffsetFromMajorRoot: shapePlayerBrick.semitoneOffsetFromMajorRoot,
+    return guitarShapePlayerBricks.map((guitarShapePlayerBrick) => ({
+      id: guitarShapePlayerBrick.id,
+      guitarShapeDataKey: guitarShapePlayerBrick.guitarShapeDataKey,
+      unifiedMusicKeysDataKey: guitarShapePlayerBrick.unifiedMusicKeysDataKey,
+      semitoneOffsetFromMajorRoot:
+        guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
       orderedLocations: getOrderedShapeVariantDataKeys({
-        shapeDataKey: shapePlayerBrick.shapeDataKey,
-        unifiedMusicKeysDataKey: shapePlayerBrick.unifiedMusicKeysDataKey,
+        guitarShapeDataKey: guitarShapePlayerBrick.guitarShapeDataKey,
+        unifiedMusicKeysDataKey: guitarShapePlayerBrick.unifiedMusicKeysDataKey,
         semitoneOffsetFromMajorRoot:
-          shapePlayerBrick.semitoneOffsetFromMajorRoot,
+          guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
       }),
     }));
-  }, [shapePlayerBricks]);
+  }, [guitarShapePlayerBricks]);
 
   return (
     <>

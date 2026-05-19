@@ -7,7 +7,7 @@ import {
 import {
   GUITAR_SHAPES,
   type NoteName,
-  type ShapeDataKey,
+  type GuitarShapeDataKey,
   type ShapeVariantDataKeys,
   type UnifiedMusicKeysDataKey,
 } from "@/data";
@@ -15,17 +15,17 @@ import { getNotes } from "@/utils";
 import { getValidShapeVariants } from "./getValidShapeVariants";
 
 interface GetOrderedShapeVariantDataKeysParams {
-  shapeDataKey: ShapeDataKey;
+  guitarShapeDataKey: GuitarShapeDataKey;
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
   semitoneOffsetFromMajorRoot: number;
 }
 
 export const getOrderedShapeVariantDataKeys = ({
-  shapeDataKey,
+  guitarShapeDataKey,
   unifiedMusicKeysDataKey,
   semitoneOffsetFromMajorRoot,
 }: GetOrderedShapeVariantDataKeysParams) => {
-  if (!shapeDataKey) return [];
+  if (!guitarShapeDataKey) return [];
 
   const notes = getNotes({ firstNote: unifiedMusicKeysDataKey });
   const rootNoteIndex =
@@ -36,7 +36,8 @@ export const getOrderedShapeVariantDataKeys = ({
     rootNoteIndex !== null ? notes[rootNoteIndex].sharpNoteName : null;
 
   const locations: ShapeVariantDataKeys[] = [];
-  const shapeData = GUITAR_SHAPES[shapeDataKey as keyof typeof GUITAR_SHAPES];
+  const guitarShapeData =
+    GUITAR_SHAPES[guitarShapeDataKey as keyof typeof GUITAR_SHAPES];
 
   for (let fIdx = 0; fIdx < numberOfFrets; fIdx++) {
     for (const sIdx of stringIndexes) {
@@ -50,8 +51,8 @@ export const getOrderedShapeVariantDataKeys = ({
 
       if (noteAtFret.sharpNoteName === rootNoteName) {
         const variants =
-          shapeData.shapeVariants?.[
-            stringId as keyof typeof shapeData.shapeVariants
+          guitarShapeData.guitarShapeVariants?.[
+            stringId as keyof typeof guitarShapeData.guitarShapeVariants
           ];
 
         if (variants) {
@@ -59,7 +60,7 @@ export const getOrderedShapeVariantDataKeys = ({
 
           validEntries.forEach(([variantDataKey]) => {
             locations.push({
-              shapeDataKey,
+              guitarShapeDataKey,
               stringId,
               fretIndex: fIdx,
               variantDataKey,
