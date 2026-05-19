@@ -1,17 +1,7 @@
 import * as S from "./parts";
-import type { NoteObject } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
-import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
-import { useMusicStore } from "@/store";
-import { useEnharmonicNoteName, useGuitarShape } from "@/hooks";
-import { useIsNoteActive } from "@/hooks/useIsNoteActive";
-interface FretboardCellProps {
-  noteObject: NoteObject;
-  fretIndex: number;
-  isVisibleString: boolean;
-  isShapeCell: boolean;
-  isBaseChordCell: boolean;
-}
+import { useFretboardCell } from "./hooks/useFretboardCell";
+import type { FretboardCellProps } from "./types";
 
 export default function FretboardCell({
   noteObject,
@@ -20,32 +10,21 @@ export default function FretboardCell({
   isShapeCell,
   isBaseChordCell,
 }: FretboardCellProps) {
-  const { handleMouseEnter, handleMouseLeave } = useFretboardCellInteraction({
-    noteObject,
-  });
-  const getEnharmonicNoteName = useEnharmonicNoteName();
-  const noteLabel = getEnharmonicNoteName(noteObject);
-  const guitarShape = useGuitarShape();
-  const setActiveLockedNoteIds = useMusicStore(
-    (state) => state.setActiveLockedNoteIds,
-  );
-
-  const handleCellClick = () => {
-    if (!guitarShape) {
-      setActiveLockedNoteIds(noteObject.noteId);
-    }
-  };
-
-  const isActiveNote = useIsNoteActive(noteObject.noteId);
+  const {
+    handleMouseEnter,
+    handleMouseLeave,
+    handleClick,
+    noteLabel,
+    isActiveNote,
+  } = useFretboardCell({ noteObject, isShapeCell });
 
   return (
     <S.FretWrapper
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={handleCellClick}
+      onClick={handleClick}
     >
       <S.Fret
-        $isLockedNote={false}
         data-fret={fretIndex}
         $isBaseChordShapeNote={isBaseChordCell}
         $isVisibleString={isVisibleString}

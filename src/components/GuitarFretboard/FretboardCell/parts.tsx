@@ -8,7 +8,6 @@ export const FretWrapper = styled.div`
 `;
 
 export const Fret = styled.div<{
-  $isLockedNote: boolean;
   $isBaseChordShapeNote: boolean;
   $isVisibleString: boolean;
 }>`
@@ -50,15 +49,6 @@ export const Fret = styled.div<{
         border: 1px solid
           color-mix(in oklab, var(--foreground) 10%, transparent);
       }
-    `;
-  }}
-
-  ${({ $isLockedNote }) => {
-    if (!$isLockedNote) return null;
-
-    return css`
-      /* outline: 2px solid var(--secondary-foreground);
-      padding: 2px; */
     `;
   }}
 `;

@@ -1,1 +1,1 @@
-export * from "./useFretboardCellInteraction";
+export * from "./useFretboardCell";
