@@ -11,7 +11,8 @@ import {
   type ShapeVariantDataKeys,
   type UnifiedMusicKeysDataKey,
 } from "@/data";
-import { getValidVariants, getNotes } from "@/utils";
+import { getNotes } from "@/utils";
+import { getValidShapeVariants } from "./getValidShapeVariants";
 
 interface GetOrderedShapeVariantDataKeysParams {
   shapeDataKey: ShapeDataKey;
@@ -54,7 +55,7 @@ export const getOrderedShapeVariantDataKeys = ({
           ];
 
         if (variants) {
-          const validEntries = getValidVariants(fIdx, variants);
+          const validEntries = getValidShapeVariants(fIdx, variants);
 
           validEntries.forEach(([variantDataKey]) => {
             locations.push({

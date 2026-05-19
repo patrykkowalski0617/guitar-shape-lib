@@ -5,7 +5,7 @@ import {
   type FretboardCoordinate,
 } from "@/data";
 
-export const getValidVariants = (
+export const getValidShapeVariants = (
   rootFretIndex: number,
   allVariants: StringVariants,
 ): [VariantDataKey, { coordinates: FretboardCoordinate[] }][] => {
