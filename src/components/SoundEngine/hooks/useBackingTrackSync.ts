@@ -29,8 +29,8 @@ export const useBackingTrackSync = () => {
   const baseChordSemitoneOffsetFromMajorRoot =
     baseChord?.semitoneOffsetFromMajorRoot;
 
-  const unifiedMusicKey = useUnifiedMusicKey();
-  const unifiedMusicKeySemitonOffsetFromC = unifiedMusicKey?.semitonOffsetFromC;
+  const unifiedMusicKeySemitonOffsetFromC =
+    useUnifiedMusicKey()?.semitonOffsetFromC;
 
   const baseScaleDataKey = baseChord?.baseScaleDataKey;
 

@@ -6,9 +6,9 @@ import type { ShapePlayerBrick } from "@/store";
 export const useShapePlayerBrickDisplay = (
   guitarShapePlayerBrick?: ShapePlayerBrick,
 ) => {
-  const unifiedMusicKey = useUnifiedMusicKey({
-    unifiedMusicKeysDataKey: guitarShapePlayerBrick?.unifiedMusicKeysDataKey,
-  });
+  const unifiedMusicKey = useUnifiedMusicKey(
+    guitarShapePlayerBrick?.unifiedMusicKeysDataKey,
+  );
 
   const chordName = useBaseChordName({
     baseChordDataKey: guitarShapePlayerBrick?.baseChordDataKey,

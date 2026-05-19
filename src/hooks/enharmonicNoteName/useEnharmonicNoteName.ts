@@ -8,6 +8,9 @@ export const useEnharmonicNoteName = (
 ) => {
   const storeKey = useDataKeyStore((s) => s.unifiedMusicKeysDataKey);
   const key = providedKey ?? storeKey;
-  if (!key) return null;
-  return (noteObject: NoteObject) => getEnharmonicNoteName(noteObject, key);
+
+  return (noteObject: NoteObject) => {
+    if (!key) return null;
+    return getEnharmonicNoteName(noteObject, key);
+  };
 };
