@@ -3,9 +3,8 @@ import type { NoteObject } from "@/utils";
 import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { useFretboardCellInteraction } from "./hooks/useFretboardCellInteraction";
 import { useMusicStore } from "@/store";
-import { useEnharmonicNoteName } from "@/hooks";
+import { useEnharmonicNoteName, useGuitarShape } from "@/hooks";
 import { useIsNoteActive } from "@/hooks/useIsNoteActive";
-
 interface FretboardCellProps {
   noteObject: NoteObject;
   fretIndex: number;
@@ -26,12 +25,15 @@ export default function FretboardCell({
   });
   const getEnharmonicNoteName = useEnharmonicNoteName();
   const noteLabel = getEnharmonicNoteName(noteObject);
-
+  const guitarShape = useGuitarShape();
   const setActiveLockedNoteIds = useMusicStore(
     (state) => state.setActiveLockedNoteIds,
   );
+
   const handleCellClick = () => {
-    setActiveLockedNoteIds(noteObject.noteId);
+    if (!guitarShape) {
+      setActiveLockedNoteIds(noteObject.noteId);
+    }
   };
 
   const isActiveNote = useIsNoteActive(noteObject.noteId);

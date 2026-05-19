@@ -3,7 +3,11 @@ import * as S from "./parts";
 import { type StringValidIndex } from "./constants";
 import { useHorizontalScroll } from "@/hooks";
 import { InstrumentScrollWrapper } from "@/parts";
-import { useFretboardScroll, useMultiShapeCoordinates } from "./hooks";
+import {
+  useClaenLockedNotes,
+  useFretboardScroll,
+  useMultiShapeCoordinates,
+} from "./hooks";
 import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
 import FretboardRow from "./FretboardRow/FretboardRow";
@@ -18,6 +22,8 @@ export default function GuitarFretboard(): JSX.Element {
   const { guitarShapeCoordinates, baseChordCoordinates } =
     useMultiShapeCoordinates();
   const allFretboardNotes = getAllFretboardNotes();
+
+  useClaenLockedNotes();
 
   return (
     <S.FretboardNotScrollableWrapper>
