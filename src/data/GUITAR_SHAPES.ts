@@ -223,11 +223,11 @@ export const GUITAR_SHAPES: GuitarShapes = {
       strE: {
         v1: {
           // prettier-ignore
-          coordinates: [[5, -1],[5, 0],[4, -1],[3, -3],[3, -1],[2, -3],[1, -3],[1, 0],[0, -3],[0, 0]],
+          coordinates: [[5, -3],[5, 0],[4, -1],[3, -3],[3, -1],[2, -3],[1, -3],[1, 0],[0, -3],[0, 0]],
         },
         v2: {
           // prettier-ignore
-          coordinates: [[5, -1],[5, 0],[4, -1],[4, 2],[3, -1],[3, 2],[2, 1],[1, 0],[1, 2],[0, 0]],
+          coordinates: [[5, 0],[4, -1],[4, 2],[3, -1],[3, 2],[2, 1],[1, 0],[1, 2],[0, 0]],
         },
         v3: {
           // prettier-ignore
@@ -562,13 +562,13 @@ export const GUITAR_SHAPES: GuitarShapes = {
       },
     },
   },
-  m7b9: {
-    label: "m7b9",
+  "7b9": {
+    label: "7b9",
     type: "Arpeggio",
-    intervals: [_1, _m3, _T, _m7, _m9],
+    intervals: [_1, _M3, _5, _m7, _m9],
     semitoneOffsetFromMajorRoot: {
-      BaseChord5: [_5, _m2],
       BaseChord3Ph: [_M3],
+      BaseChord5: [_5, _m2],
     },
     guitarShapeVariants: {
       strE: {
@@ -777,7 +777,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
         },
         v5: {
           // prettier-ignore
-          coordinates: [[5, 0],[5, 1],[5, 3],[4, -1],[4, 1],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 1],[2, 3],[1, 1],[1, 3],[1, 4],[0, 1],[0, 3],[0, 4]],
+          coordinates: [[5, 0],[5, 1],[5, 3],[4, -1],[4, 1],[4, 3],[3, 0],[3, 2],[3, 3],[2, 0],[2, 1],[2, 3],[1, 1],[1, 3],[0, 1],[0, 3],[0, 4]],
         },
       },
       strA: {
@@ -1326,7 +1326,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
       strD: {
         v1: {
           // prettier-ignore
-          coordinates: [[5, -1],[5, 1],[5, 3],[4, 0],[4, 1],[4, 3],[3, 0],[3, 1],[3, 4],[2, 0],[2, 2],[2, 3],[1, 1],[1, 3],[1, 4],[0, 2],[0, 3],[0, 5]],
+          coordinates: [[5, -1],[5, 2],[5, 3],[4, 0],[4, 1],[4, 3],[3, 0],[3, 1],[3, 4],[2, 0],[2, 2],[2, 3],[1, 1],[1, 3],[1, 4],[0, 2],[0, 3],[0, 5]],
         },
       },
     },

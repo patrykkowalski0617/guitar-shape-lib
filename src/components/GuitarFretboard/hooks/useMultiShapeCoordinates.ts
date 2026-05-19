@@ -1,10 +1,10 @@
 import { useEffect, useMemo } from "react";
 import { useDataKeyStore, useMusicStore } from "@/store";
-import { useShapeCoordinates } from "./useShapeCoordinates";
 import { useCAGED_ChordsShapes } from "./useCAGED_ChordsShapes";
 import type { FretboardCoordinate } from "@/data";
 import { findMatchingBaseChord } from "../helpers/findMatchingBaseChord";
 import { getNoteIdFromFretboardCoordintes } from "../helpers/getNoteIdFromFretboardCoordintes";
+import { getShapeCoordinates } from "../helpers/getShapeCoordinates";
 
 export const useMultiShapeCoordinates = () => {
   const selectedShapesVariantDataKeys = useDataKeyStore(
@@ -15,7 +15,6 @@ export const useMultiShapeCoordinates = () => {
   );
 
   const getCAGED_ChordsShapes = useCAGED_ChordsShapes();
-  const getShapeCoordinates = useShapeCoordinates();
 
   const addUnique = (
     target: FretboardCoordinate[],
@@ -67,11 +66,7 @@ export const useMultiShapeCoordinates = () => {
         baseChordCoordinates: multiBaseChordCoordinates,
         bassNoteId,
       };
-    }, [
-      selectedShapesVariantDataKeys,
-      getShapeCoordinates,
-      getCAGED_ChordsShapes,
-    ]);
+    }, [selectedShapesVariantDataKeys, getCAGED_ChordsShapes]);
 
   useEffect(() => {
     setBaseChordBassNoteId(bassNoteId);

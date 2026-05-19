@@ -1,7 +1,7 @@
 import { useMusicStore, useMetronomeStore } from "@/store";
 import { useEffect, type RefObject } from "react";
 import { getShapeFretRange } from "../helpers/getShapeFretRange";
-import { useShapeCoordinates } from "./useShapeCoordinates";
+import { getShapeCoordinates } from "../helpers/getShapeCoordinates";
 
 export const useFretboardScroll = (
   containerRef: RefObject<HTMLDivElement | null>,
@@ -18,7 +18,6 @@ export const useFretboardScroll = (
     ? guitarShapeVariantDataKeys_locked
     : guitarShapeVariantDataKeys_regular;
 
-  const getShapeCoordinates = useShapeCoordinates();
   const { min, max } = getShapeFretRange(
     getShapeCoordinates(guitarShapeVariantDataKeys),
   );
