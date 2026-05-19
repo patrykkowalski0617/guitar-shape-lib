@@ -4,9 +4,9 @@ import {
   GUITAR_SHAPES,
   SCALE_SEMITONE_TEMPLATES,
   INTERVAL_SEMITONES,
-  type NoteName,
 } from "@/data";
-import { getNotes, type NoteObject } from "@/utils";
+import { getNotes } from "@/utils";
+import { getEnharmonicNoteName } from "@/hooks/enharmonicNoteName";
 
 export const getIsScaleNoteVisible = (
   index: number,
@@ -38,12 +38,8 @@ export const calculateMatrixData = (
   baseChordDataKey: keyof typeof BASE_CHORDS,
   guitarShapeDataKey: keyof typeof GUITAR_SHAPES,
   guitarShapeOffset: number,
-  getEnharmonicName: (noteObject: NoteObject) => NoteName,
 ) => {
-  const musicKey =
-    UNIFIED_MUSIC_KEYS[
-      unifiedMusicKeysDataKey as keyof typeof UNIFIED_MUSIC_KEYS
-    ];
+  const musicKey = UNIFIED_MUSIC_KEYS[unifiedMusicKeysDataKey];
   const baseChord = BASE_CHORDS[baseChordDataKey];
   const guitarShape = GUITAR_SHAPES[guitarShapeDataKey];
   const scaleTemplate = SCALE_SEMITONE_TEMPLATES[baseChord.baseScaleDataKey];
@@ -52,11 +48,15 @@ export const calculateMatrixData = (
   const allNotes = getNotes({});
   const rootNote = allNotes[musicKey.semitonOffsetFromC];
   const tuneScale = getNotes({ firstNote: rootNote.sharpNoteName });
-  const tuneEnharmonics = tuneScale.map(getEnharmonicName);
+  const tuneEnharmonics = tuneScale.map((note) =>
+    getEnharmonicNoteName(note, unifiedMusicKeysDataKey),
+  );
 
   const chordRootName = tuneEnharmonics[chordOffset];
   const chordNotesObjects = getNotes({ firstNote: chordRootName, length: 24 });
-  const displayNoteNames = chordNotesObjects.map(getEnharmonicName);
+  const displayNoteNames = chordNotesObjects.map((note) =>
+    getEnharmonicNoteName(note, unifiedMusicKeysDataKey),
+  );
 
   const allScaleIndices = chordNotesObjects
     .map((_, i) => i)

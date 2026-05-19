@@ -1,6 +1,6 @@
 import { useDataKeyStore } from "@/store";
 import { getFilteredAndFormatedShapes } from "../helpers/getFilteredAndFormatedShapes";
-import { getGuitarShapeName } from "@/hooks/guitarShapes/utils";
+import { getGuitarShapeName } from "@/hooks/guitarShapes";
 
 export const useShapeOptions = () => {
   const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);

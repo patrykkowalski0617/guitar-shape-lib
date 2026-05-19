@@ -10,7 +10,7 @@ import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
 import { ShapePlayerHeader } from "@/components/ShapePlayer/ShapePlayerHeader/ShapePlayerHeader";
 import { PianoControllers } from "@/components/PianoControllers/PianoControllers";
 import { testingShapes } from "./DevTools/testingShapes";
-import { DataKeyStoreDebugComponent } from "./DevTools/DataKeyStoreDebugComponent/DataKeyStoreDebugComponent";
+// import { DataKeyStoreDebugComponent } from "./DevTools/DataKeyStoreDebugComponent/DataKeyStoreDebugComponent";
 
 export default function App() {
   testingShapes();
@@ -18,7 +18,7 @@ export default function App() {
   return (
     <AppWrapper style={{ height: 700, minHeight: "unset" }}>
       <SoundEngine />
-      <DataKeyStoreDebugComponent />
+      {/* <DataKeyStoreDebugComponent /> */}
       <Section>
         <PianoControllers />
       </Section>

@@ -1,6 +1,6 @@
 import { type GuitarShapeDataKey, type UnifiedMusicKeysDataKey } from "@/data";
 import { useDataKeyStore } from "@/store";
-import { getGuitarShapeName } from "./utils";
+import { getGuitarShapeName } from ".";
 
 interface UseShapeNameProps {
   guitarShapeDataKey?: GuitarShapeDataKey | null;

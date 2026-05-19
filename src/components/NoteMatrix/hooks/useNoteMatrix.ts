@@ -1,11 +1,9 @@
 import { useDataKeyStore, useMusicStore } from "@/store";
-import { useEnharmonicNoteName } from "@/hooks";
 import {
   calculateMatrixData,
   getIsScaleNoteVisible,
   getIsShapeNoteVisible,
 } from "../utils";
-import type { NoteObject } from "@/utils";
 import type { NoteName } from "@/data";
 
 export const useNoteMatrix = () => {
@@ -27,8 +25,6 @@ export const useNoteMatrix = () => {
     (state) => state.setSelectedTargetNotesNames,
   );
 
-  const getEnharmonicName = useEnharmonicNoteName();
-
   const isStateReady = !!(
     guitarShapeDataKey &&
     unifiedMusicKeysDataKey &&
@@ -36,19 +32,12 @@ export const useNoteMatrix = () => {
     guitarShapeOffset !== null
   );
 
-  const getSafeEnharmonicName = (noteObject: NoteObject): NoteName => {
-    const enharmonicName = getEnharmonicName(noteObject);
-    const fallbackName = noteObject.sharpNoteName as NoteName;
-    return enharmonicName ?? fallbackName;
-  };
-
   const data = isStateReady
     ? calculateMatrixData(
         unifiedMusicKeysDataKey!,
         baseChordDataKey!,
         guitarShapeDataKey!,
         guitarShapeOffset!,
-        getSafeEnharmonicName,
       )
     : null;
 

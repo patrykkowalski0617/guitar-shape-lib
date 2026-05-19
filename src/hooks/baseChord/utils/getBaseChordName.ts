@@ -4,7 +4,8 @@ import {
   type BaseChordDataKey,
   type UnifiedMusicKeysDataKey,
 } from "@/data";
-import { getEnharmonicNoteName, getNotes } from "@/utils";
+import { getEnharmonicNoteName } from "@/hooks/enharmonicNoteName";
+import { getNotes } from "@/utils";
 
 interface GetBaseChordNameProps {
   baseChordDataKey: BaseChordDataKey;
