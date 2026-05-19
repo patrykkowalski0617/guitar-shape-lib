@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useDataKeyStore, useMusicStore } from "@/store";
-import { BASE_CHORDS, SCALE_SEMITONE_TEMPLATES } from "@/data";
-import { useBaseChord, useUnifiedMusicKey } from "@/hooks";
+import { SCALE_SEMITONE_TEMPLATES } from "@/data";
+import { useUnifiedMusicKey } from "@/hooks";
 import { harmonizeBassNote } from "../utils/harmonizeBassNote";
 import type { NoteId } from "@/utils";
+import { useBaseChord } from "@/hooks/baseChord/useBaseChord";
 
 export const useBackingTrackSync = () => {
   const baseChordBassNoteId = useMusicStore(
@@ -23,17 +24,16 @@ export const useBackingTrackSync = () => {
     (state) => state.unifiedMusicKeysDataKey,
   );
   const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
-  const baseChord = useBaseChord().baseChord;
+
+  const baseChord = useBaseChord(baseChordDataKey);
   const baseChordSemitoneOffsetFromMajorRoot =
     baseChord?.semitoneOffsetFromMajorRoot;
 
   const unifiedMusicKey = useUnifiedMusicKey();
   const unifiedMusicKeySemitonOffsetFromC = unifiedMusicKey?.semitonOffsetFromC;
 
-  const baseScaleDataKey =
-    baseChordDataKey != null
-      ? BASE_CHORDS[baseChordDataKey].baseScaleDataKey
-      : undefined;
+  const baseScaleDataKey = baseChord?.baseScaleDataKey;
+
   const scaleTemplate =
     baseScaleDataKey != null
       ? SCALE_SEMITONE_TEMPLATES[baseScaleDataKey]

@@ -1,4 +1,5 @@
-import { useBaseChord, useShape, useUnifiedMusicKey } from "@/hooks";
+import { useUnifiedMusicKey, useShape } from "@/hooks";
+import { useBaseChordName } from "@/hooks/baseChord/useBaseChordName";
 import type { ShapePlayerBrick } from "@/store";
 
 export const useShapePlayerBrickDisplay = (
@@ -8,8 +9,9 @@ export const useShapePlayerBrickDisplay = (
     unifiedMusicKeysDataKey: shapePlayerBrick?.unifiedMusicKeysDataKey,
   });
 
-  const { getBaseChordName } = useBaseChord({
+  const chordName = useBaseChordName({
     baseChordDataKey: shapePlayerBrick?.baseChordDataKey,
+    unifiedMusicKeysDataKey: shapePlayerBrick?.unifiedMusicKeysDataKey,
   });
 
   const { getShapeName } = useShape({
@@ -17,10 +19,6 @@ export const useShapePlayerBrickDisplay = (
   });
 
   const keyName = `${unifiedMusicKey?.majorName} / ${unifiedMusicKey?.relativeMinorName}`;
-
-  const chordName = getBaseChordName({
-    unifiedMusicKeysDataKey: shapePlayerBrick?.unifiedMusicKeysDataKey,
-  });
 
   if (!shapePlayerBrick) return {};
 

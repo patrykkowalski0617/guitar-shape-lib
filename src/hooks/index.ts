@@ -1,6 +1,5 @@
-export * from "./useBaseChord";
+export * from "./baseChord/useBaseChord";
 export * from "./useEnharmonicNoteName";
-export * from "./useCurrentBaseChordName";
 export * from "./useDelayedRender";
 export * from "./useHorizontalScroll";
 export * from "./usePersistentBoolean";

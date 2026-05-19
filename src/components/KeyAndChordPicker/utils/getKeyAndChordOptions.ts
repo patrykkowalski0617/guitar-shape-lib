@@ -6,11 +6,9 @@ import {
   type UnifiedMusicKeysDataKeyRecord,
   type NoteName,
 } from "@/data";
-import { useBaseChord } from "@/hooks/useBaseChord";
+import { getBaseChordName } from "@/hooks/baseChord/utils";
 
-export function useKeyAndChordOptions() {
-  const { getBaseChordName } = useBaseChord();
-
+export function getKeyAndChordOptions() {
   const keyEntries = Object.entries(UNIFIED_MUSIC_KEYS) as [
     UnifiedMusicKeysDataKey,
     UnifiedMusicKeysDataKeyRecord,
