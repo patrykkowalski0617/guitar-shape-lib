@@ -16,7 +16,7 @@ export const Note = styled.div`
 export const NoteWrapper = styled.div<{
   $isVisible: boolean;
   $variant: Variant;
-  $isTargetNote: boolean;
+  $isTargetNote?: boolean;
 }>`
   ${({ $isVisible }) => css`
     opacity: ${$isVisible ? "1" : "0"};

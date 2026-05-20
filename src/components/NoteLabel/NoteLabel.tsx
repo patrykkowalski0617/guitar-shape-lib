@@ -8,7 +8,7 @@ interface NoteLabelProps {
   isVisible?: boolean;
   variant: Variant;
   noteLabel: NoteName;
-  isTargetNote: boolean;
+  isTargetNote?: boolean;
 }
 
 export default function NoteLabel({
