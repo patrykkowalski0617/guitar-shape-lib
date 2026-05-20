@@ -9,7 +9,8 @@ const initialState = {
   isPianoOn: false,
   visibleStrings: Array.from(STRINGS_CONFIG.keys()) as StringIndexes,
   playback: true,
-  lookAheadBeatsAmount: 0,
+  lookAheadShapeBeatsAmount: 0,
+  lookAheadTargetNoteBeatsAmount: 0,
 };
 
 export const useControllersStore = create<ControllersState>((set) => ({
@@ -23,6 +24,9 @@ export const useControllersStore = create<ControllersState>((set) => ({
 
   togglePlayBackingtrack: () => set((state) => ({ playback: !state.playback })),
 
-  setLookAheadBeatsAmount: (lookAheadBeatsAmount) =>
-    set({ lookAheadBeatsAmount }),
+  setLookAheadShapeBeatsAmount: (lookAheadShapeBeatsAmount) =>
+    set({ lookAheadShapeBeatsAmount }),
+
+  setLookAheadTargetNoteBeatsAmount: (lookAheadTargetNoteBeatsAmount) =>
+    set({ lookAheadTargetNoteBeatsAmount }),
 }));

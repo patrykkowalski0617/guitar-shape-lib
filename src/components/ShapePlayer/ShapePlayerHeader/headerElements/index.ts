@@ -1,10 +1,12 @@
+export { Add } from "./Add/Add";
 export { BpmInput } from "./BpmInput/BpmInput";
 export { BpmMultiplier } from "./BpmMultiplier/BpmMultiplier";
-export { Add } from "./Add/Add";
 export { Clear } from "./Clear/Clear";
+export { ExerciseTitle } from "./ExerciseTitle/ExerciseTitle";
+export { LookAheadShape } from "./LookAheadShape/LookAheadShape";
+export { LookAheadTargetNote } from "./LookAheadTargetNote/LookAheadTargetNote";
 export { Metronome } from "./Metronome/Metronome";
 export { Open } from "./Open/Open";
 export { Save } from "./Save/Save";
 export { TogglePlayback } from "./TogglePlayback/TogglePlayback";
 export { Undo } from "./Undo/Undo";
-export { LookAhead } from "./LookAhead/LookAhead";

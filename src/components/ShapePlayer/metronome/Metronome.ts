@@ -8,7 +8,7 @@ export class Metronome {
   private audioContext: AudioContext | null = null;
   private nextTickTime: number = 0;
   private worker: Worker | null = null;
-  private scheduleAheadTime = 0.1;
+  private scheduleAheadShapeTime = 0.1;
   private bpm: number = 120;
   private multiplier: number = 1;
   private volume: number = 2.5;
@@ -99,9 +99,10 @@ export class Metronome {
 
   private scheduler = () => {
     if (!this.audioContext || !this.isRunning) return;
-    const lookAhead = this.audioContext.currentTime + this.scheduleAheadTime;
+    const lookAheadShape =
+      this.audioContext.currentTime + this.scheduleAheadShapeTime;
 
-    while (this.nextTickTime < lookAhead) {
+    while (this.nextTickTime < lookAheadShape) {
       const { isNewBrick } = this.onTick();
       const subInterval = 60.0 / this.bpm / this.multiplier;
 

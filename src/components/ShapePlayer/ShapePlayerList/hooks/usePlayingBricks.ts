@@ -66,8 +66,8 @@ export function usePlayingBricksEngine() {
 }
 
 export function usePlayingBricksData() {
-  const lookAheadBeatsAmount = useControllersStore(
-    (state) => state.lookAheadBeatsAmount,
+  const lookAheadShapeBeatsAmount = useControllersStore(
+    (state) => state.lookAheadShapeBeatsAmount,
   );
   const currentStep = useMetronomeStore((state) => state.currentStep);
   const isCountingIn = useMetronomeStore((state) => state.isCountingIn);
@@ -77,7 +77,7 @@ export function usePlayingBricksData() {
   );
 
   const lastProcessedStepRef = useRef<number | null>(null);
-  const lookaheadProcessedStepRef = useRef<number | null>(null);
+  const lookAheadShapeProcessedStepRef = useRef<number | null>(null);
 
   const activeBrickInfo = calculateActiveBrick(
     guitarShapePlayerBricks,
@@ -86,22 +86,22 @@ export function usePlayingBricksData() {
   );
 
   const totalSteps = getTotalSteps(guitarShapePlayerBricks);
-  const lookaheadStep =
+  const lookAheadShapeStep =
     totalSteps > 0
-      ? (currentStep + lookAheadBeatsAmount) % totalSteps
-      : currentStep + lookAheadBeatsAmount;
+      ? (currentStep + lookAheadShapeBeatsAmount) % totalSteps
+      : currentStep + lookAheadShapeBeatsAmount;
 
-  const lookaheadBrickInfo = calculateActiveBrick(
+  const lookAheadShapeBrickInfo = calculateActiveBrick(
     guitarShapePlayerBricks,
-    lookaheadStep,
+    lookAheadShapeStep,
     isCountingIn,
   );
 
   const currentSelection = useShapePlayerBrickSelection(
     activeBrickInfo?.guitarShapePlayerBrick,
   );
-  const lookaheadSelection = useShapePlayerBrickSelection(
-    lookaheadBrickInfo?.guitarShapePlayerBrick,
+  const lookAheadShapeSelection = useShapePlayerBrickSelection(
+    lookAheadShapeBrickInfo?.guitarShapePlayerBrick,
   );
   const firstBrickSelection = useShapePlayerBrickSelection(
     guitarShapePlayerBricks[0],
@@ -128,23 +128,23 @@ export function usePlayingBricksData() {
   ]);
 
   useEffect(() => {
-    if (!isPlaying || !lookaheadBrickInfo?.isFirstBeatOfBrick) {
+    if (!isPlaying || !lookAheadShapeBrickInfo?.isFirstBeatOfBrick) {
       return;
     }
 
-    if (lookaheadProcessedStepRef.current === lookaheadStep) {
+    if (lookAheadShapeProcessedStepRef.current === lookAheadShapeStep) {
       return;
     }
 
-    lookaheadSelection.restoreNextData();
+    lookAheadShapeSelection.restoreNextData();
 
-    lookaheadProcessedStepRef.current = lookaheadStep;
+    lookAheadShapeProcessedStepRef.current = lookAheadShapeStep;
   }, [
-    lookaheadStep,
+    lookAheadShapeStep,
     isPlaying,
-    lookaheadBrickInfo?.isFirstBeatOfBrick,
-    lookaheadBrickInfo?.guitarShapePlayerBrick.id,
-    lookaheadSelection,
+    lookAheadShapeBrickInfo?.isFirstBeatOfBrick,
+    lookAheadShapeBrickInfo?.guitarShapePlayerBrick.id,
+    lookAheadShapeSelection,
   ]);
 
   const hasPreparedCountInRef = useRef(false);
@@ -152,7 +152,7 @@ export function usePlayingBricksData() {
     if (!isPlaying) {
       hasPreparedCountInRef.current = false;
       lastProcessedStepRef.current = null;
-      lookaheadProcessedStepRef.current = null;
+      lookAheadShapeProcessedStepRef.current = null;
       return;
     }
 
