@@ -15,6 +15,8 @@ export interface NoteMatrixProps {
   baseChordDataKey: BaseChordDataKey;
   guitarShapeOffset: number;
   guitarShapeDataKey: GuitarShapeDataKey;
+  targetSharpNoteNames: SharpNoteName[];
+  onToggleNote: (sharpNoteName: SharpNoteName) => void;
 }
 
 export interface MatrixData {
@@ -39,8 +41,6 @@ export interface NoteColumnInfo {
 
 export interface UseNoteMatrixReturn {
   data: MatrixData | null;
-  selectedNotes: SharpNoteName[];
-  setSelectedNotes: (note: SharpNoteName) => void;
   checkIsShared: (sharpNoteName: SharpNoteName) => boolean;
   columns: NoteColumnInfo[];
 }

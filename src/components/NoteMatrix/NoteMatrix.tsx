@@ -8,12 +8,16 @@ export const NoteMatrix = ({
   baseChordDataKey,
   guitarShapeOffset,
   guitarShapeDataKey,
+  targetSharpNoteNames,
+  onToggleNote,
 }: NoteMatrixProps) => {
-  const { columns, setSelectedNotes } = useNoteMatrix({
+  const { columns } = useNoteMatrix({
     unifiedMusicKeysDataKey,
     baseChordDataKey,
     guitarShapeOffset,
     guitarShapeDataKey,
+    targetSharpNoteNames,
+    onToggleNote,
   });
 
   return (
@@ -37,8 +41,9 @@ export const NoteMatrix = ({
                   $isSharedNote={isShared}
                   $isTargetNote={isTargetNote}
                   onClick={() => {
-                    if (isShared && sharpNoteName)
-                      setSelectedNotes(sharpNoteName);
+                    if (isShared && sharpNoteName) {
+                      onToggleNote(sharpNoteName);
+                    }
                   }}
                 >
                   {noteName}

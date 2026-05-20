@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { useMusicStore } from "@/store";
 import {
   calculateMatrixData,
   getIsScaleNoteVisible,
@@ -18,12 +17,8 @@ export const useNoteMatrix = ({
   baseChordDataKey,
   guitarShapeOffset,
   guitarShapeDataKey,
+  targetSharpNoteNames,
 }: NoteMatrixProps): UseNoteMatrixReturn => {
-  const selectedNotes = useMusicStore((state) => state.targetSharpNoteNames);
-  const setSelectedNotes = useMusicStore(
-    (state) => state.setTargetSharpNoteNames,
-  );
-
   const isStateReady =
     !!guitarShapeDataKey &&
     !!unifiedMusicKeysDataKey &&
@@ -71,7 +66,7 @@ export const useNoteMatrix = ({
       const sharpNoteName = isInScale ? data.sharpNoteNames[i] : null;
       const isShared = isInScale && isInShape;
       const isTargetNote =
-        sharpNoteName !== null && selectedNotes.includes(sharpNoteName);
+        sharpNoteName !== null && targetSharpNoteNames.includes(sharpNoteName);
 
       return {
         index: i,
@@ -83,7 +78,7 @@ export const useNoteMatrix = ({
         isTargetNote,
       };
     });
-  }, [data, selectedNotes]);
+  }, [data, targetSharpNoteNames]);
 
-  return { data, selectedNotes, setSelectedNotes, checkIsShared, columns };
+  return { data, checkIsShared, columns };
 };

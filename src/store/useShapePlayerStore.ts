@@ -3,6 +3,7 @@ import { arrayMove } from "@dnd-kit/sortable";
 import type {
   BaseChordDataKey,
   GuitarShapeDataKey,
+  SharpNoteName,
   UnifiedMusicKeysDataKey,
 } from "@/data";
 import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
@@ -16,6 +17,7 @@ export interface ShapePlayerBrick {
   semitoneOffsetFromMajorRoot: number;
   playLength: number;
   sliderRange?: [number, number];
+  targetSharpNoteNames: SharpNoteName[];
 }
 
 interface ShapePlayerHistoryEntry {
@@ -32,6 +34,10 @@ interface ShapePlayerState {
   addShapePlayerBrick: (brickData: Omit<ShapePlayerBrick, "id">) => void;
   removeShapePlayerBrick: (id: string) => void;
   updateBrickRange: (id: string, sliderRange: [number, number]) => void;
+  updateBrickTargetNotes: (
+    id: string,
+    targetSharpNoteNames: SharpNoteName[],
+  ) => void;
   clearShapePlayerBricks: () => void;
   restoreLastAction: () => void;
   reorderShapePlayerBricks: (oldIndex: number, newIndex: number) => void;
@@ -76,6 +82,7 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
           ...brickData,
           id: crypto.randomUUID(),
           sliderRange: brickData.sliderRange ?? defaultRange,
+          targetSharpNoteNames: brickData.targetSharpNoteNames ?? [],
         };
 
         set((state) => {
@@ -190,6 +197,17 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
             (guitarShapePlayerBrick) =>
               guitarShapePlayerBrick.id === id
                 ? { ...guitarShapePlayerBrick, sliderRange }
+                : guitarShapePlayerBrick,
+          ),
+        }));
+      },
+
+      updateBrickTargetNotes: (id, targetSharpNoteNames) => {
+        set((state) => ({
+          guitarShapePlayerBricks: state.guitarShapePlayerBricks.map(
+            (guitarShapePlayerBrick) =>
+              guitarShapePlayerBrick.id === id
+                ? { ...guitarShapePlayerBrick, targetSharpNoteNames }
                 : guitarShapePlayerBrick,
           ),
         }));

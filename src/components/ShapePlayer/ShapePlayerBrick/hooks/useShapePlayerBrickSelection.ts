@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 import { useDataKeyStore, useShapePlayerStore } from "@/store";
+import { useMusicStore } from "@/store";
 import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
-import type { ShapeVariantDataKeys } from "@/data";
+import type { ShapeVariantDataKeys, SharpNoteName } from "@/data";
 import type { ShapePlayerBrick } from "@/store";
 
 export const useShapePlayerBrickSelection = (
@@ -23,6 +24,10 @@ export const useShapePlayerBrickSelection = (
   const updateBrickRange = useShapePlayerStore(
     (state) => state.updateBrickRange,
   );
+  const updateBrickTargetNotes = useShapePlayerStore(
+    (state) => state.updateBrickTargetNotes,
+  );
+
   const setNextBaseChordDataKey = useDataKeyStore(
     (state) => state.setNextBaseChordDataKey,
   );
@@ -35,6 +40,11 @@ export const useShapePlayerBrickSelection = (
   const setNextUnifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.setNextUnifiedMusicKeysDataKey,
   );
+
+  const replaceTargetSharpNoteNames = useMusicStore(
+    (state) => state.replaceTargetSharpNoteNames,
+  );
+
   const currentSliderRange: [number, number] = useMemo(() => {
     return guitarShapePlayerBrick?.sliderRange ?? [0, 0];
   }, [guitarShapePlayerBrick?.sliderRange]);
@@ -70,6 +80,19 @@ export const useShapePlayerBrickSelection = (
     }
   };
 
+  const toggleTargetNote = (sharpNoteName: SharpNoteName) => {
+    if (!guitarShapePlayerBrick?.id) return;
+
+    const currentNotes = guitarShapePlayerBrick.targetSharpNoteNames ?? [];
+    const isAlreadySelected = currentNotes.includes(sharpNoteName);
+    const nextNotes = isAlreadySelected
+      ? currentNotes.filter((n) => n !== sharpNoteName)
+      : [...currentNotes, sharpNoteName];
+
+    updateBrickTargetNotes(guitarShapePlayerBrick.id, nextNotes);
+    replaceTargetSharpNoteNames(nextNotes);
+  };
+
   const restoreData = () => {
     const canRestore = guitarShapePlayerBrick?.baseChordDataKey;
 
@@ -81,6 +104,9 @@ export const useShapePlayerBrickSelection = (
       );
       setUnifiedMusicKeysDataKey(
         guitarShapePlayerBrick.unifiedMusicKeysDataKey,
+      );
+      replaceTargetSharpNoteNames(
+        guitarShapePlayerBrick.targetSharpNoteNames ?? [],
       );
     }
   };
@@ -106,5 +132,7 @@ export const useShapePlayerBrickSelection = (
     orderedLocations,
     restoreData,
     restoreNextData,
+    targetSharpNoteNames: guitarShapePlayerBrick?.targetSharpNoteNames ?? [],
+    toggleTargetNote,
   };
 };

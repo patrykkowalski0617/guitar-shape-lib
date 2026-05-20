@@ -8,10 +8,8 @@
       "semitoneOffsetFromMajorRoot": 2,
       "playLength": 4,
       "id": "fd909615-4447-4761-9c6d-7284946a76c9",
-      "sliderRange": [
-        4,
-        4
-      ]
+      "sliderRange": [4, 4],
+      "targetSharpNoteNames": []
     },
     {
       "unifiedMusicKeysDataKey": "Db",
@@ -20,10 +18,8 @@
       "semitoneOffsetFromMajorRoot": 0,
       "playLength": 4,
       "id": "f5d62f2e-b425-4bf7-9397-02b3b400e4ad",
-      "sliderRange": [
-        4,
-        4
-      ]
+      "sliderRange": [4, 4],
+      "targetSharpNoteNames": []
     },
     {
       "unifiedMusicKeysDataKey": "Db",
@@ -32,10 +28,8 @@
       "semitoneOffsetFromMajorRoot": 9,
       "playLength": 4,
       "id": "d7d5c192-0850-4def-9517-91a9fbb86ba3",
-      "sliderRange": [
-        4,
-        4
-      ]
+      "sliderRange": [4, 4],
+      "targetSharpNoteNames": []
     },
     {
       "unifiedMusicKeysDataKey": "Db",
@@ -44,10 +38,8 @@
       "semitoneOffsetFromMajorRoot": 4,
       "playLength": 4,
       "id": "d1859e26-dc42-4f5e-bb4c-7a0b826755bf",
-      "sliderRange": [
-        6,
-        6
-      ]
+      "sliderRange": [6, 6],
+      "targetSharpNoteNames": []
     }
   ]
 }

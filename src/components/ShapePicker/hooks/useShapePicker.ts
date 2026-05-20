@@ -41,6 +41,7 @@ export const useShapePicker = () => {
         guitarShapeDataKey,
         semitoneOffsetFromMajorRoot,
         playLength: 4,
+        targetSharpNoteNames: [],
       });
     }
 

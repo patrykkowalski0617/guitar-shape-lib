@@ -32,6 +32,7 @@ interface MusicState {
 
   targetSharpNoteNames: SharpNoteName[];
   setTargetSharpNoteNames: (sharpNoteName: SharpNoteName) => void;
+  replaceTargetSharpNoteNames: (sharpNoteNames: SharpNoteName[]) => void;
   resetTargetSharpNoteNames: () => void;
 
   guitarShapeVariantDataKeys: ShapeVariantDataKeys | null;
@@ -124,6 +125,9 @@ export const useMusicStore = create<MusicState>((set) => ({
       return { targetSharpNoteNames: nextSelectedNotes };
     });
   },
+
+  replaceTargetSharpNoteNames: (sharpNoteNames) =>
+    set({ targetSharpNoteNames: sharpNoteNames }),
 
   resetTargetSharpNoteNames: () => set({ targetSharpNoteNames: [] }),
 
