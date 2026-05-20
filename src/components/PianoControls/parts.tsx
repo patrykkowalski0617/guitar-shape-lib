@@ -9,6 +9,8 @@ export const PanelContainer = styled.div`
   position: relative;
   z-index: 1;
   width: 100%;
+  max-width: 800px;
+  margin-left: auto;
 `;
 
 export const ControlWrapper = styled.div`
