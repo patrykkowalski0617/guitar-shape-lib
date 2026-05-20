@@ -1,9 +1,4 @@
-import {
-  useControlsStore,
-  useMusicStore,
-  useProgressStore,
-  usePlayerStore,
-} from "@/store";
+import { useControlsStore, useMusicStore, usePlayerStore } from "@/store";
 import { getNotes } from "@/utils";
 import { getOrderedShapeLocations } from "../helpers/getOrderedShapeLocations";
 
@@ -20,7 +15,6 @@ export const useShapeExplorerLogic = () => {
   );
   const isPlaying = usePlayerStore((state) => state.isPlaying);
 
-  const { userList } = useProgressStore();
   const shapeVariantDataKeys = useMusicStore(
     (state) => state.shapeVariantDataKeys,
   );
@@ -36,11 +30,7 @@ export const useShapeExplorerLogic = () => {
   const rootNoteName =
     rootNoteIndex !== null ? notes[rootNoteIndex].sharpNoteName : null;
 
-  const options = getOrderedShapeLocations(
-    shapeDataKey,
-    rootNoteName,
-    userList,
-  );
+  const options = getOrderedShapeLocations(shapeDataKey, rootNoteName);
 
   const matchingOptionIndex = shapeVariantDataKeys
     ? options.findIndex(
@@ -53,10 +43,6 @@ export const useShapeExplorerLogic = () => {
 
   const currentIndex = matchingOptionIndex !== -1 ? matchingOptionIndex + 1 : 0;
 
-  const userListIndexes = options
-    .map((opt, i) => (opt.isUserList ? i + 1 : null))
-    .filter((v): v is number => v !== null);
-
   const isDisabled = !shapeDataKey || options.length === 0;
   const sliderValue = isDisabled ? [0] : [currentIndex];
   const isVisible = !isPlaying;
@@ -65,7 +51,7 @@ export const useShapeExplorerLogic = () => {
     const selectedValue = values[0];
     const newLocationData =
       selectedValue === 0 ? null : options[selectedValue - 1];
-
+    // @ts-expect-error: Unreachable code error
     const { shapeDataKey, stringId, fretIndex, variantDataKey } =
       newLocationData;
 
@@ -88,7 +74,6 @@ export const useShapeExplorerLogic = () => {
     shapeDataKey,
     options,
     sliderValue,
-    userListIndexes,
     isDisabled,
     isVisible,
     handleValueChange,

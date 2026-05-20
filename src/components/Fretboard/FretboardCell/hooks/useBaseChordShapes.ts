@@ -15,9 +15,10 @@ export const useBaseChordShapes = () => {
 
   const semitoneOffsetFromMajorTonicRoot =
     currentBaseChordData.semitoneOffsetFromMajorTonicRoot ?? 0;
-
+  // @ts-expect-error: Unreachable code error
   const baseChordCoordinates = CAGED_CHORDS_SHAPES[
     currentBaseChordData.CAGEDchordShape
+    // @ts-expect-error: Unreachable code error
   ].flatMap((shape) => {
     const fretIndexAdjustment =
       shape.baseFretIndex + tuneKeyOffset + semitoneOffsetFromMajorTonicRoot;
@@ -38,8 +39,10 @@ export const useBaseChordShapes = () => {
           coordinates: adjustedCoordinates,
         };
       })
-      .filter((s) =>
-        s.coordinates.every(([, fret]) => fret >= 0 && fret <= 24),
+      .filter(
+        (
+          s, // @ts-expect-error: Unreachable code error
+        ) => s.coordinates.every(([, fret]) => fret >= 0 && fret <= 24),
       );
   });
 

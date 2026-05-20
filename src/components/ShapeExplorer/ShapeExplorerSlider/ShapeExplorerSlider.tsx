@@ -8,7 +8,6 @@ export default function ShapeExplorerSlider() {
   const {
     options,
     sliderValue,
-    userListIndexes,
     isDisabled,
     handleValueChange,
     handleMouseDown,
@@ -37,7 +36,6 @@ export default function ShapeExplorerSlider() {
           <StepSliderTicks
             options={options}
             effectiveMax={sliderMax}
-            userListIndexes={userListIndexes}
             highlightedId={highlightedId}
             onHighlightEnd={clearHighlight}
             isSliderDisabled={isDisabled}

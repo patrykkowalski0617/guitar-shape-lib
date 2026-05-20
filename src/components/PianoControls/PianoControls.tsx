@@ -4,16 +4,13 @@ import {
   synthConfig,
   updateMasterParams,
 } from "@/components/SoundEngine/synth";
-import { useControlsStore, usePlayerStore } from "@/store";
+import { useControlsStore } from "@/store";
 import { Switch } from "./Switch";
 import { Knob } from "./Knob";
 
 export const PianoControls = () => {
   const togglePianoOn = useControlsStore((state) => state.togglePianoOn);
   const isPianoOn = useControlsStore((state) => state.isPianoOn);
-  const playBackingtrack = useControlsStore((state) => state.playBackingtrack);
-  const isPlaying = usePlayerStore((state) => state.isPlaying);
-  const bricks = usePlayerStore((state) => state.bricks);
 
   const [, setTick] = useState(0);
 
@@ -69,7 +66,7 @@ export const PianoControls = () => {
 
       <Switch
         label="Power"
-        isActive={isPianoOn || (playBackingtrack && isPlaying && bricks.length)}
+        isActive={isPianoOn}
         onClick={handleTogglePower}
         glowColor="var(--secondary)"
       />

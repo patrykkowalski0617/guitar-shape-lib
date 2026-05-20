@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Tick } from "./parts";
+import type { ShapeVariantDataKeys } from "@/data";
 
 interface StepSliderTicksProps {
   effectiveMax: number;
-  options?: { id: string | number }[];
+  options?: ShapeVariantDataKeys[];
   userListIndexes?: number[];
   highlightedId?: string | number | null;
   onHighlightEnd?: () => void;
@@ -12,10 +13,8 @@ interface StepSliderTicksProps {
 }
 
 export function StepSliderTicks({
-  options,
   effectiveMax,
   userListIndexes = [],
-  highlightedId = null,
   onHighlightEnd,
   isSliderDisabled = false,
   orientation = "horizontal",
@@ -42,9 +41,7 @@ export function StepSliderTicks({
     <>
       {tickIndexes.map((stepNumber) => {
         const isUserStep = userListIndexes.includes(stepNumber);
-        const currentOption = options?.[stepNumber - 1];
-        const isVisible =
-          highlightedId !== null && currentOption?.id === highlightedId;
+        const isVisible = false;
 
         const tickStyle: React.CSSProperties = isVertical
           ? {

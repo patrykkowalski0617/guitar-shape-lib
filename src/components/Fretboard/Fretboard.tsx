@@ -10,7 +10,6 @@ import { useMusicStore } from "@/store";
 import { useShapeCoordinates } from "./FretboardCell/hooks";
 import type { FretboardCoordinate, NoteName } from "@/data";
 import { getNotes } from "@/utils";
-import HiddenShapeExplorerSlider from "../ShapeExplorer/HiddenShapeExplorerSlider/HiddenShapeExplorerSlider";
 import { StringSlider } from "./StringsSlider/StringsSlider";
 import FretboardRow from "./FretboardRow/FretboardRow";
 import { StringSelector } from "./StringSelector/StringSelector";
@@ -69,7 +68,6 @@ export default function Fretboard(): JSX.Element {
               />
             ))}
             <S.FretboardShadow />
-            <HiddenShapeExplorerSlider />
             <FretboardDotMarkers />
           </S.Fretboard>
         </S.FretboardWrapper>

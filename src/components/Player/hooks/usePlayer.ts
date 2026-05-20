@@ -52,9 +52,6 @@ export function usePlayer() {
     if (!firstBrick?.snapshot) return;
 
     setShapeVariantDataKeys(null);
-    setShapeVariantDataKeys_locked(firstBrick.snapshot.shapeVariantDataKeys);
-    setUnifiedMusicKeysDataKeys(firstBrick.snapshot.unifiedMusicKeysDataKey);
-    setBaseChordDataKey(firstBrick.snapshot.baseChordDataKey);
     hasPreparedCountInRef.current = true;
   }, [
     isPlaying,

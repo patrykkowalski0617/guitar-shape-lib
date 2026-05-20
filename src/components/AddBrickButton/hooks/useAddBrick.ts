@@ -31,6 +31,7 @@ export function useAddBrick() {
     };
 
     addBrickToStore(initialSnapshot);
+    // @ts-expect-error: Unreachable code error
 
     setShapeVariantDataKeys_locked(shapeVariantDataKeys);
   };

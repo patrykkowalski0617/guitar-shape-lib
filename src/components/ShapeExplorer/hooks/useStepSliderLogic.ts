@@ -28,12 +28,6 @@ export function useStepSliderLogic({
     const isValueEmpty = currentValue === 0;
     if (isValueEmpty) return;
 
-    const currentOption = options[currentValue - 1];
-    if (!currentOption?.id) {
-      toast(USER_LIST_MESSAGES.SELECT_PROMPT);
-      return;
-    }
-
     const compositeId = shapeVariantDataKeys
       ? `${shapeVariantDataKeys.shapeDataKey}-${shapeVariantDataKeys.stringId}-${shapeVariantDataKeys.variantDataKey}`
       : null;
@@ -42,7 +36,6 @@ export function useStepSliderLogic({
 
     const isFavorite = userList.includes(compositeId);
     toggleUserList(compositeId);
-    setHighlightedId(currentOption.id);
 
     const notification = isFavorite
       ? USER_LIST_MESSAGES.REMOVED

@@ -6,7 +6,6 @@ import { Toaster } from "@/components/ui/sonner";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
 import UpperControlsBar from "./components/UpperControlsBar/UpperControlsBar";
 import Footer from "./components/Footer/Footer";
-import { Player } from "./components/Player/Player";
 import Piano from "./components/Piano/Piano";
 import { SoundEngine } from "./components/SoundEngine/SoundEngine";
 import { usePersistentBoolean } from "@/hooks/usePersistentBoolean";
@@ -54,17 +53,6 @@ export default function App() {
           {shouldShowPiano && (
             <MotionSection key="piano-bar" {...standardAnimation}>
               <Piano />
-            </MotionSection>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {isPlayerUnlocked && (
-            <MotionSection key="player-bar" {...standardAnimation}>
-              <Player>
-                <Player.Bricks />
-                <Player.Controls />
-              </Player>
             </MotionSection>
           )}
         </AnimatePresence>
