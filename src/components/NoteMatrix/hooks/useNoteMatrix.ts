@@ -5,16 +5,13 @@ import {
   getIsScaleNoteVisible,
   getIsShapeNoteVisible,
 } from "../utils";
-import type { NoteName } from "@/data";
-import type { NoteMatrixProps, MatrixData, NoteColumnInfo } from "../types";
-
-interface UseNoteMatrixReturn {
-  data: MatrixData | null;
-  selectedNotes: NoteName[];
-  setSelectedNotes: (note: NoteName) => void;
-  checkIsShared: (noteName: NoteName) => boolean;
-  columns: NoteColumnInfo[];
-}
+import type {
+  NoteMatrixProps,
+  MatrixData,
+  NoteColumnInfo,
+  UseNoteMatrixReturn,
+} from "../types";
+import type { SharpNoteName } from "@/data";
 
 export const useNoteMatrix = ({
   unifiedMusicKeysDataKey,
@@ -22,11 +19,9 @@ export const useNoteMatrix = ({
   guitarShapeOffset,
   guitarShapeDataKey,
 }: NoteMatrixProps): UseNoteMatrixReturn => {
-  const selectedNotes = useMusicStore(
-    (state) => state.selectedTargetNotesNames,
-  );
+  const selectedNotes = useMusicStore((state) => state.targetSharpNoteName);
   const setSelectedNotes = useMusicStore(
-    (state) => state.setSelectedTargetNotesNames,
+    (state) => state.setTargetSharpNoteName,
   );
 
   const isStateReady =
@@ -54,11 +49,11 @@ export const useNoteMatrix = ({
     ],
   );
 
-  const checkIsShared = (noteName: NoteName | ""): boolean => {
-    if (!data || noteName === "") return false;
+  const checkIsShared = (sharpNoteName: SharpNoteName): boolean => {
+    if (!data || sharpNoteName !== null) return false;
 
     return data.visibleColumnsIndices.some((i) => {
-      if (data.displayNoteNames[i] !== noteName) return false;
+      if (data.sharpNoteNames[i] !== sharpNoteName) return false;
       return (
         getIsScaleNoteVisible(i, data.allScaleIndices) &&
         getIsShapeNoteVisible(i, data.guitarShapeIndices)
@@ -72,11 +67,21 @@ export const useNoteMatrix = ({
     return data.visibleColumnsIndices.map((i) => {
       const isInScale = getIsScaleNoteVisible(i, data.allScaleIndices);
       const isInShape = getIsShapeNoteVisible(i, data.guitarShapeIndices);
-      const noteName = isInScale ? data.displayNoteNames[i] : "";
+      const noteName = isInScale ? data.noteNames[i] : "";
+      const sharpNoteName = isInScale ? data.sharpNoteNames[i] : null;
       const isShared = isInScale && isInShape;
-      const isSelected = noteName !== "" && selectedNotes.includes(noteName);
+      const isTargetNote =
+        sharpNoteName !== null && selectedNotes.includes(sharpNoteName);
 
-      return { index: i, noteName, isInScale, isInShape, isShared, isSelected };
+      return {
+        index: i,
+        sharpNoteName,
+        noteName,
+        isInScale,
+        isInShape,
+        isShared,
+        isTargetNote,
+      };
     });
   }, [data, selectedNotes]);
 

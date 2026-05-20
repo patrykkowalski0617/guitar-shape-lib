@@ -1,7 +1,7 @@
 import type {
   FretboardCoordinate,
-  NoteName,
   ShapeVariantDataKeys,
+  SharpNoteName,
 } from "@/data";
 import { create } from "zustand";
 import type { NoteId, NoteObject } from "@/utils";
@@ -30,9 +30,9 @@ interface MusicState {
   backgingtrackNoteIds: NoteId[];
   setBackgingtrackNoteIds: (noteId: NoteId[]) => void;
 
-  selectedTargetNotesNames: NoteName[];
-  setSelectedTargetNotesNames: (noteName: NoteName) => void;
-  resetSelectedTargetNotesNames: () => void;
+  targetSharpNoteName: SharpNoteName[];
+  setTargetSharpNoteName: (sharpNoteName: SharpNoteName) => void;
+  resetTargetSharpNoteName: () => void;
 
   guitarShapeVariantDataKeys: ShapeVariantDataKeys | null;
   setShapeVariantDataKeys: {
@@ -53,7 +53,7 @@ export const useMusicStore = create<MusicState>((set) => ({
   activeHoverNoteId: null,
   activeLockedNoteIds: [],
   backgingtrackNoteIds: [],
-  selectedTargetNotesNames: [],
+  targetSharpNoteName: [],
   guitarShapeVariantDataKeys: null,
   guitarShapeVariantDataKeys_locked: null,
 
@@ -112,21 +112,20 @@ export const useMusicStore = create<MusicState>((set) => ({
   setBackgingtrackNoteIds: (backgingtrackNoteIds) =>
     set({ backgingtrackNoteIds }),
 
-  setSelectedTargetNotesNames: (noteName) => {
+  setTargetSharpNoteName: (noteName) => {
     set((state) => {
-      const isAlreadySelected =
-        state.selectedTargetNotesNames.includes(noteName);
+      const isAlreadySelected = state.targetSharpNoteName.includes(noteName);
       const nextSelectedNotes = isAlreadySelected
-        ? state.selectedTargetNotesNames.filter(
+        ? state.targetSharpNoteName.filter(
             (noteObject) => noteObject !== noteName,
           )
-        : [...state.selectedTargetNotesNames, noteName];
+        : [...state.targetSharpNoteName, noteName];
 
-      return { selectedTargetNotesNames: nextSelectedNotes };
+      return { targetSharpNoteName: nextSelectedNotes };
     });
   },
 
-  resetSelectedTargetNotesNames: () => set({ selectedTargetNotesNames: [] }),
+  resetTargetSharpNoteName: () => set({ targetSharpNoteName: [] }),
 
   setShapeVariantDataKeys: (
     guitarShapeVariantDataKeys: ShapeVariantDataKeys | null,

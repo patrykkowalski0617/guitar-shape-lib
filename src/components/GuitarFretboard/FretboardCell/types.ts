@@ -19,5 +19,6 @@ export interface FretboardCellHandlers {
   handleMouseLeave: () => void;
   handleClick: () => void;
   noteLabel: NoteName | null;
+  isTargetNote: boolean;
   isActiveNote: boolean;
 }

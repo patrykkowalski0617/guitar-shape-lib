@@ -1,4 +1,9 @@
-import type { UNIFIED_MUSIC_KEYS, BASE_CHORDS, GUITAR_SHAPES } from "@/data";
+import type {
+  UNIFIED_MUSIC_KEYS,
+  BASE_CHORDS,
+  GUITAR_SHAPES,
+  SharpNoteName,
+} from "@/data";
 import type { NoteName } from "@/data";
 
 export type UnifiedMusicKeysDataKey = keyof typeof UNIFIED_MUSIC_KEYS;
@@ -13,7 +18,8 @@ export interface NoteMatrixProps {
 }
 
 export interface MatrixData {
-  displayNoteNames: NoteName[];
+  noteNames: NoteName[];
+  sharpNoteNames: SharpNoteName[];
   allScaleIndices: number[];
   guitarShapeIndices: number[];
   visibleColumnsIndices: number[];
@@ -24,8 +30,17 @@ export interface MatrixData {
 export interface NoteColumnInfo {
   index: number;
   noteName: NoteName | "";
+  sharpNoteName: SharpNoteName | null;
   isInScale: boolean;
   isInShape: boolean;
   isShared: boolean;
-  isSelected: boolean;
+  isTargetNote: boolean;
+}
+
+export interface UseNoteMatrixReturn {
+  data: MatrixData | null;
+  selectedNotes: SharpNoteName[];
+  setSelectedNotes: (note: SharpNoteName) => void;
+  checkIsShared: (sharpNoteName: SharpNoteName) => boolean;
+  columns: NoteColumnInfo[];
 }

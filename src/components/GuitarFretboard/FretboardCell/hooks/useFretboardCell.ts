@@ -13,16 +13,26 @@ export function useFretboardCell({
   const setActiveLockedNoteIds = useMusicStore(
     (state) => state.setActiveLockedNoteIds,
   );
+  const setSelectedNotes = useMusicStore(
+    (state) => state.setTargetSharpNoteName,
+  );
+  const sharpNoteName = noteObject.sharpNoteName;
+  const isTargetNote = useMusicStore(
+    (state) =>
+      sharpNoteName !== null &&
+      state.targetSharpNoteName.includes(sharpNoteName),
+  );
 
+  const noteId = noteObject.noteId;
   const guitarShape = useGuitarShape();
   const getEnharmonicNoteName = useEnharmonicNoteName();
-  const isActiveNote = useIsNoteActive(noteObject.noteId);
+  const isActiveNote = useIsNoteActive(noteId);
 
   const noteLabel = getEnharmonicNoteName(noteObject);
 
   const handleMouseEnter = useCallback(
-    () => setActiveHoverNoteId(noteObject.noteId),
-    [noteObject.noteId, setActiveHoverNoteId],
+    () => setActiveHoverNoteId(noteId),
+    [noteId, setActiveHoverNoteId],
   );
 
   const handleMouseLeave = useCallback(
@@ -32,15 +42,24 @@ export function useFretboardCell({
 
   const handleClick = useCallback(() => {
     if (!guitarShape) {
-      setActiveLockedNoteIds(noteObject.noteId);
+      setActiveLockedNoteIds(noteId);
+    } else {
+      setSelectedNotes(sharpNoteName);
     }
-  }, [guitarShape, noteObject.noteId, setActiveLockedNoteIds]);
+  }, [
+    guitarShape,
+    noteId,
+    setActiveLockedNoteIds,
+    setSelectedNotes,
+    sharpNoteName,
+  ]);
 
   return {
     handleMouseEnter,
     handleMouseLeave,
     handleClick,
     noteLabel,
+    isTargetNote,
     isActiveNote,
   };
 }

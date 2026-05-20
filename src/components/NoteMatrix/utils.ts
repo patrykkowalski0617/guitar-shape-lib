@@ -60,9 +60,10 @@ export const calculateMatrixData = (
 
   const chordRootName = tuneEnharmonics[chordOffset];
   const chordNotesObjects = getNotes({ firstNote: chordRootName, length: 24 });
-  const displayNoteNames = chordNotesObjects.map((note) =>
+  const noteNames = chordNotesObjects.map((note) =>
     getEnharmonicNoteName(note, unifiedMusicKeysDataKey),
   );
+  const sharpNoteNames = chordNotesObjects.map((note) => note.sharpNoteName);
 
   const allScaleIndices = chordNotesObjects
     .map((_, i) => i)
@@ -71,7 +72,7 @@ export const calculateMatrixData = (
   const guitarShapeRootIndex = normalizeToOctave(
     guitarShapeOffset - chordOffset,
   );
-  const guitarShapeRootName = displayNoteNames[guitarShapeRootIndex];
+  const guitarShapeRootName = noteNames[guitarShapeRootIndex];
   const guitarShapeIndices = guitarShape.intervals.map(
     (i) => i + guitarShapeRootIndex,
   );
@@ -85,7 +86,8 @@ export const calculateMatrixData = (
     );
 
   return {
-    displayNoteNames,
+    noteNames,
+    sharpNoteNames,
     allScaleIndices,
     guitarShapeIndices,
     visibleColumnsIndices,

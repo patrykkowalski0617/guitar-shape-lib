@@ -1,4 +1,4 @@
-import type { NoteSharpName } from "@/data";
+import type { SharpNoteName } from "@/data";
 import { getNotes, type NoteId, type NoteObject } from "./getNotes";
 
 interface GetNotesFromNoteIdProps {
@@ -23,7 +23,7 @@ export const getNotesFromNoteId = ({
   }
 
   return getNotes({
-    firstNote: noteName as NoteSharpName,
+    firstNote: noteName as SharpNoteName,
     firstOctave: octave,
     length,
   });

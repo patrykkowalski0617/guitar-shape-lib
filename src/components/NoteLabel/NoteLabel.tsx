@@ -1,5 +1,4 @@
 import { type JSX } from "react";
-import { useMusicStore } from "@/store";
 import * as S from "./parts";
 import type { NoteName } from "@/data";
 
@@ -9,22 +8,20 @@ interface NoteLabelProps {
   isVisible?: boolean;
   variant: Variant;
   noteLabel: NoteName;
+  isTargetNote: boolean;
 }
 
 export default function NoteLabel({
   isVisible = false,
   variant,
   noteLabel,
+  isTargetNote,
 }: NoteLabelProps): JSX.Element {
-  const isSelected = useMusicStore((state) =>
-    state.selectedTargetNotesNames.includes(noteLabel),
-  );
-
   return (
     <S.NoteWrapper
       $isVisible={isVisible}
       $variant={variant}
-      $isSelected={isSelected}
+      $isTargetNote={isTargetNote}
     >
       <S.Note>{noteLabel}</S.Note>
     </S.NoteWrapper>

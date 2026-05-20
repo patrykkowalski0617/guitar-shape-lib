@@ -21,7 +21,7 @@ export const NoteMatrixSection = styled.div`
 
 export const Note = styled.div<{
   $isSharedNote?: boolean;
-  $isSelected?: boolean;
+  $isTargetNote?: boolean;
 }>`
   ${noteCommon}
   opacity: 0.5;

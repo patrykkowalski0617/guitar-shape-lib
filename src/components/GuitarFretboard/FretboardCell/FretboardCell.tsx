@@ -15,6 +15,7 @@ export default function FretboardCell({
     handleMouseLeave,
     handleClick,
     noteLabel,
+    isTargetNote,
     isActiveNote,
   } = useFretboardCell({ noteObject, isShapeCell });
 
@@ -35,6 +36,7 @@ export default function FretboardCell({
               isVisible={isShapeCell || isActiveNote}
               variant="fretboard"
               noteLabel={noteLabel}
+              isTargetNote={isTargetNote}
             />
           )}
         </S.Note>

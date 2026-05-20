@@ -18,26 +18,36 @@ export const NoteMatrix = ({
 
   return (
     <S.NoteMatrixSection>
-      {columns.map(({ index, noteName, isInScale, isShared, isSelected }) => (
-        <S.NoteWrapper key={`base-wrapper-${index}`}>
-          {isInScale && (
-            <>
-              <S.IntervalContainer>
-                {getIntervalName(index)}
-              </S.IntervalContainer>
-              <S.Note
-                $isSharedNote={isShared}
-                $isSelected={isSelected}
-                onClick={() => {
-                  if (isShared && noteName) setSelectedNotes(noteName);
-                }}
-              >
-                {noteName}
-              </S.Note>
-            </>
-          )}
-        </S.NoteWrapper>
-      ))}
+      {columns.map(
+        ({
+          index,
+          noteName,
+          sharpNoteName,
+          isInScale,
+          isShared,
+          isTargetNote,
+        }) => (
+          <S.NoteWrapper key={`base-wrapper-${index}`}>
+            {isInScale && (
+              <>
+                <S.IntervalContainer>
+                  {getIntervalName(index)}
+                </S.IntervalContainer>
+                <S.Note
+                  $isSharedNote={isShared}
+                  $isTargetNote={isTargetNote}
+                  onClick={() => {
+                    if (isShared && sharpNoteName)
+                      setSelectedNotes(sharpNoteName);
+                  }}
+                >
+                  {noteName}
+                </S.Note>
+              </>
+            )}
+          </S.NoteWrapper>
+        ),
+      )}
     </S.NoteMatrixSection>
   );
 };

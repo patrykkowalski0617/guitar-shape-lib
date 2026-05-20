@@ -28,6 +28,6 @@ export const NOTES_FLAT = [
   "B",
 ] as const;
 
-export type NoteSharpName = (typeof NOTES_SHARP)[number];
-export type NoteFlatName = (typeof NOTES_FLAT)[number];
-export type NoteName = NoteSharpName | NoteFlatName;
+export type SharpNoteName = (typeof NOTES_SHARP)[number];
+export type FlatNoteName = (typeof NOTES_FLAT)[number];
+export type NoteName = SharpNoteName | FlatNoteName;
