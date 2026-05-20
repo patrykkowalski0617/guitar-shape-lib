@@ -6,7 +6,6 @@ export const FretboardNumericMarkers = styled.div`
   padding-right: ${fretboardRPadding};
   padding-left: 55px;
   position: relative;
-  margin-bottom: 2px;
   opacity: 0.6;
   border-radius: 20px;
   height: 22px;

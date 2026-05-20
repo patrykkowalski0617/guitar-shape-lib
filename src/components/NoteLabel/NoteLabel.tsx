@@ -8,7 +8,7 @@ interface NoteLabelProps {
   isVisible?: boolean;
   variant: Variant;
   noteLabel: NoteName;
-  isTargetNote?: boolean;
+  isTargetNote: boolean;
 }
 
 export default function NoteLabel({
@@ -18,12 +18,10 @@ export default function NoteLabel({
   isTargetNote,
 }: NoteLabelProps): JSX.Element {
   return (
-    <S.NoteWrapper
-      $isVisible={isVisible}
-      $variant={variant}
-      $isTargetNote={isTargetNote}
-    >
-      <S.Note>{noteLabel}</S.Note>
+    <S.NoteWrapper $isTargetNote={isTargetNote}>
+      <S.Note $isVisible={isVisible} $variant={variant}>
+        {noteLabel}
+      </S.Note>
     </S.NoteWrapper>
   );
 }
