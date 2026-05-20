@@ -1,69 +1,11 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   useControllersStore,
   useMetronomeStore,
   useShapePlayerStore,
-  type ShapePlayerBrick,
 } from "@/store";
 import { useShapePlayerBrickSelection } from "../../ShapePlayerBrick/hooks";
-import { useMetronome } from "../../hooks/useMetronome";
-
-interface ActiveBrickCalculation {
-  guitarShapePlayerBrick: ShapePlayerBrick;
-  isFirstBeatOfBrick: boolean;
-  beatInsideBrick: number;
-}
-
-const calculateActiveBrick = (
-  guitarShapePlayerBricks: ShapePlayerBrick[],
-  currentStep: number,
-  isCountingIn: boolean,
-): ActiveBrickCalculation | null => {
-  const shouldSkipCalculation =
-    isCountingIn || guitarShapePlayerBricks.length === 0;
-  if (shouldSkipCalculation) return null;
-
-  let accumulatedSteps = 0;
-  for (const guitarShapePlayerBrick of guitarShapePlayerBricks) {
-    const startOfBrick = accumulatedSteps;
-    const endOfBrick = accumulatedSteps + guitarShapePlayerBrick.playLength;
-    const isStepInsideBrick =
-      currentStep >= startOfBrick && currentStep < endOfBrick;
-
-    if (isStepInsideBrick) {
-      return {
-        guitarShapePlayerBrick,
-        isFirstBeatOfBrick: currentStep === startOfBrick,
-        beatInsideBrick: currentStep - startOfBrick,
-      };
-    }
-    accumulatedSteps = endOfBrick;
-  }
-  return null;
-};
-
-const getTotalSteps = (guitarShapePlayerBricks: ShapePlayerBrick[]): number =>
-  guitarShapePlayerBricks.reduce((acc, brick) => acc + brick.playLength, 0);
-
-export function usePlayingBricksEngine() {
-  const bpm = useMetronomeStore((state) => state.bpm);
-  const isPlaying = useMetronomeStore((state) => state.isPlaying);
-  const guitarShapePlayerBricks = useShapePlayerStore(
-    (state) => state.guitarShapePlayerBricks,
-  );
-  const nextStep = useMetronomeStore((state) => state.nextStep);
-
-  const handleTick = useCallback(() => {
-    return nextStep(guitarShapePlayerBricks);
-  }, [nextStep, guitarShapePlayerBricks]);
-
-  const { toggleMetronome } = useMetronome(bpm, handleTick);
-
-  useEffect(() => {
-    toggleMetronome(isPlaying);
-    return () => toggleMetronome(false);
-  }, [isPlaying, toggleMetronome]);
-}
+import { calculateActiveBrick, getTotalSteps } from "./utils";
 
 export function usePlayingBricksData() {
   const lookAheadShapeBeatsAmount = useControllersStore(

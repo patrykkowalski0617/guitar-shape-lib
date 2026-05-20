@@ -5,7 +5,7 @@ import {
 import { useShapePlayerStore } from "@/store";
 import { ShapePlayerBrick } from "../ShapePlayerBrick/ShapePlayerBrick";
 import * as S from "./parts";
-import { usePlayingBricksEngine } from "./hooks/usePlayingBricks";
+import { usePlayingBricksEngine } from "./hooks/usePlayingBricksEngine";
 
 export const ShapePlayerList = () => {
   const guitarShapePlayerBricks = useShapePlayerStore(
