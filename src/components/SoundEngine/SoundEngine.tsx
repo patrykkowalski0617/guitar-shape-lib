@@ -55,6 +55,7 @@ export function SoundEngine() {
     isCountingIn,
     backgingtrackNoteIds,
     playback,
+    isPianoOn,
   ]);
   return null;
 }

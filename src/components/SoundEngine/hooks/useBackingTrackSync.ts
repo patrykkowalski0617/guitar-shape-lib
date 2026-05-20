@@ -36,7 +36,7 @@ export const useBackingTrackSync = () => {
 
   const scaleTemplate =
     baseScaleDataKey != null
-      ? SCALE_SEMITONE_TEMPLATES[baseScaleDataKey]
+      ? SCALE_SEMITONE_TEMPLATES[baseScaleDataKey].template
       : undefined;
 
   useEffect(() => {
