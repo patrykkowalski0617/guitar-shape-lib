@@ -4,7 +4,7 @@ import NoteLabel from "@/components/NoteLabel/NoteLabel";
 import { usePianoKey } from "./hooks/usePianoKey";
 import { useEnharmonicNoteName } from "@/hooks";
 import { WhiteKeyJustifyContainer } from "./parts/whiteKeys";
-import { useMusicStore } from "@/store/useMusicStore";
+import { useMusicStore } from "@/store/useMusicStore/useMusicStore";
 import { BlacKeyJustifyContainer } from "./parts/blackKeys";
 
 interface PianoKeyProps {

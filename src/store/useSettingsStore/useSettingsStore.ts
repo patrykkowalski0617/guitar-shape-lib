@@ -1,13 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-interface SettingsState {
-  isFullscreen: boolean;
-  setIsFullscreen: (val: boolean) => void;
-  isRotated: boolean;
-  setIsRotated: (val: boolean) => void;
-  resetToDefaults: () => void;
-}
+import type { SettingsState } from "./types";
 
 const initialState = {
   isFullscreen: false,

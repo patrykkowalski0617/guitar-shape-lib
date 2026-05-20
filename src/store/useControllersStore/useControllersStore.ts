@@ -3,20 +3,7 @@ import {
   STRINGS_CONFIG,
   type StringIndexes,
 } from "@/components/GuitarFretboard/constants";
-
-interface ControllersState {
-  isPianoOn: boolean;
-  togglePianoOn: () => void;
-
-  visibleStrings: StringIndexes;
-  setVisibleStrings: (strings: StringIndexes) => void;
-
-  playback: boolean;
-  togglePlayBackingtrack: () => void;
-
-  lookAheadBeatsAmount: number;
-  setLookAheadBeatsAmount: (lookAheadBeatsAmount: number) => void;
-}
+import type { ControllersState } from "./types";
 
 const initialState = {
   isPianoOn: false,

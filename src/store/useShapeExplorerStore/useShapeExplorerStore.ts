@@ -1,19 +1,5 @@
-import type { Range } from "@/components/ui/MultiRangeSlider/MultiRangeSlider/useMultiRangeSlider";
 import { create } from "zustand";
-
-interface MultiRangeState {
-  ranges: Record<string, Range>;
-
-  setRange: (id: string, range: Range) => void;
-  setAllRanges: (newRanges: Record<string, Range>) => void;
-  initializeRanges: (initialRanges: Record<string, Range>) => void;
-
-  updateRangesFromMaster: (
-    nextMasterRange: Range,
-    currentMasterRange: Range,
-    configs: Record<string, unknown[]>,
-  ) => void;
-}
+import type { MultiRangeState } from "./types";
 
 export const useShapeExplorerStore = create<MultiRangeState>((set) => ({
   ranges: {},

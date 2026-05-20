@@ -1,33 +1,10 @@
 import { create } from "zustand";
+import type { MetronomeState } from "./types";
 
 export const BPM_RANGE = {
   MIN: 20,
   MAX: 220,
 } as const;
-
-interface StepResult {
-  isNewBrick: boolean;
-  isFirstStepTotal: boolean;
-}
-
-interface MetronomeBrick {
-  playLength: number;
-}
-
-interface MetronomeState {
-  bpm: number;
-  bpmMultiplier: number;
-  isPlaying: boolean;
-  currentStep: number;
-  countIn: number;
-  isCountingIn: boolean;
-
-  setBpm: (bpm: number) => void;
-  setBpmMultiplier: (multiplier: number) => void;
-  togglePlay: () => void;
-  nextStep: (guitarShapePlayerBricks: MetronomeBrick[]) => StepResult;
-  getTotalSteps: (guitarShapePlayerBricks: MetronomeBrick[]) => number;
-}
 
 export const useMetronomeStore = create<MetronomeState>((set, get) => ({
   bpm: 70,
