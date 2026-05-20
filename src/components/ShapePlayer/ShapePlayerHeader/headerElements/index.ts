@@ -3,7 +3,6 @@ export { BpmInput } from "./BpmInput/BpmInput";
 export { BpmMultiplier } from "./BpmMultiplier/BpmMultiplier";
 export { Clear } from "./Clear/Clear";
 export { ExerciseTitle } from "./ExerciseTitle/ExerciseTitle";
-export { LookAheadTargetNote } from "./LookAheadTargetNote/LookAheadTargetNote";
 export { Metronome } from "./Metronome/Metronome";
 export { Open } from "./Open/Open";
 export { Save } from "./Save/Save";

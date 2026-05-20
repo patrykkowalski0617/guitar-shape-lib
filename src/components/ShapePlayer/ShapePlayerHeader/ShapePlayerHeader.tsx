@@ -9,7 +9,6 @@ import {
   TogglePlayback,
   BpmInput,
   BpmMultiplier,
-  LookAheadTargetNote,
 } from "./headerElements";
 import * as S from "./parts";
 import { useMemo } from "react";
@@ -50,7 +49,6 @@ export const ShapePlayerHeader = () => {
         <Metronome />
         <BpmInput />
         <BpmMultiplier />
-        <LookAheadTargetNote />
       </S.ShapePlayerControllers>
       <GlobalMultiRangeController configs={sliderConfigs} />
     </>

@@ -28,8 +28,3 @@ export const calculateActiveBrick = (
   }
   return null;
 };
-
-export const getTotalSteps = (
-  guitarShapePlayerBricks: ShapePlayerBrick[],
-): number =>
-  guitarShapePlayerBricks.reduce((acc, brick) => acc + brick.playLength, 0);

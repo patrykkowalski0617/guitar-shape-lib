@@ -9,7 +9,6 @@ const initialState = {
   isPianoOn: false,
   visibleStrings: Array.from(STRINGS_CONFIG.keys()) as StringIndexes,
   playback: true,
-  lookAheadTargetNoteBeatsAmount: 0,
 };
 
 export const useControllersStore = create<ControllersState>((set) => ({
@@ -22,7 +21,4 @@ export const useControllersStore = create<ControllersState>((set) => ({
   setVisibleStrings: (visibleStrings) => set({ visibleStrings }),
 
   togglePlayBackingtrack: () => set((state) => ({ playback: !state.playback })),
-
-  setLookAheadTargetNoteBeatsAmount: (lookAheadTargetNoteBeatsAmount) =>
-    set({ lookAheadTargetNoteBeatsAmount }),
 }));
