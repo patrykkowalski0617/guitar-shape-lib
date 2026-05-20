@@ -30,9 +30,9 @@ interface MusicState {
   backgingtrackNoteIds: NoteId[];
   setBackgingtrackNoteIds: (noteId: NoteId[]) => void;
 
-  targetSharpNoteName: SharpNoteName[];
-  setTargetSharpNoteName: (sharpNoteName: SharpNoteName) => void;
-  resetTargetSharpNoteName: () => void;
+  targetSharpNoteNames: SharpNoteName[];
+  setTargetSharpNoteNames: (sharpNoteName: SharpNoteName) => void;
+  resetTargetSharpNoteNames: () => void;
 
   guitarShapeVariantDataKeys: ShapeVariantDataKeys | null;
   setShapeVariantDataKeys: {
@@ -53,7 +53,7 @@ export const useMusicStore = create<MusicState>((set) => ({
   activeHoverNoteId: null,
   activeLockedNoteIds: [],
   backgingtrackNoteIds: [],
-  targetSharpNoteName: [],
+  targetSharpNoteNames: [],
   guitarShapeVariantDataKeys: null,
   guitarShapeVariantDataKeys_locked: null,
 
@@ -112,20 +112,20 @@ export const useMusicStore = create<MusicState>((set) => ({
   setBackgingtrackNoteIds: (backgingtrackNoteIds) =>
     set({ backgingtrackNoteIds }),
 
-  setTargetSharpNoteName: (noteName) => {
+  setTargetSharpNoteNames: (noteName) => {
     set((state) => {
-      const isAlreadySelected = state.targetSharpNoteName.includes(noteName);
+      const isAlreadySelected = state.targetSharpNoteNames.includes(noteName);
       const nextSelectedNotes = isAlreadySelected
-        ? state.targetSharpNoteName.filter(
+        ? state.targetSharpNoteNames.filter(
             (noteObject) => noteObject !== noteName,
           )
-        : [...state.targetSharpNoteName, noteName];
+        : [...state.targetSharpNoteNames, noteName];
 
-      return { targetSharpNoteName: nextSelectedNotes };
+      return { targetSharpNoteNames: nextSelectedNotes };
     });
   },
 
-  resetTargetSharpNoteName: () => set({ targetSharpNoteName: [] }),
+  resetTargetSharpNoteNames: () => set({ targetSharpNoteNames: [] }),
 
   setShapeVariantDataKeys: (
     guitarShapeVariantDataKeys: ShapeVariantDataKeys | null,

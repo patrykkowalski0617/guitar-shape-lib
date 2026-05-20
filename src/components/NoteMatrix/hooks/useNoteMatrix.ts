@@ -19,9 +19,9 @@ export const useNoteMatrix = ({
   guitarShapeOffset,
   guitarShapeDataKey,
 }: NoteMatrixProps): UseNoteMatrixReturn => {
-  const selectedNotes = useMusicStore((state) => state.targetSharpNoteName);
+  const selectedNotes = useMusicStore((state) => state.targetSharpNoteNames);
   const setSelectedNotes = useMusicStore(
-    (state) => state.setTargetSharpNoteName,
+    (state) => state.setTargetSharpNoteNames,
   );
 
   const isStateReady =

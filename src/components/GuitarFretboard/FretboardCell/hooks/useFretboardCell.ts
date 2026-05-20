@@ -13,14 +13,14 @@ export function useFretboardCell({
   const setActiveLockedNoteIds = useMusicStore(
     (state) => state.setActiveLockedNoteIds,
   );
-  const setSelectedNotes = useMusicStore(
-    (state) => state.setTargetSharpNoteName,
-  );
+  // const setSelectedNotes = useMusicStore(
+  //   (state) => state.setTargetSharpNoteName,
+  // );
   const sharpNoteName = noteObject.sharpNoteName;
   const isTargetNote = useMusicStore(
     (state) =>
       sharpNoteName !== null &&
-      state.targetSharpNoteName.includes(sharpNoteName),
+      state.targetSharpNoteNames.includes(sharpNoteName),
   );
 
   const noteId = noteObject.noteId;
@@ -43,15 +43,16 @@ export function useFretboardCell({
   const handleClick = useCallback(() => {
     if (!guitarShape) {
       setActiveLockedNoteIds(noteId);
-    } else {
-      setSelectedNotes(sharpNoteName);
     }
+    // else {
+    //   setSelectedNotes(sharpNoteName);
+    // }
   }, [
     guitarShape,
     noteId,
     setActiveLockedNoteIds,
-    setSelectedNotes,
-    sharpNoteName,
+    // setSelectedNotes,
+    // sharpNoteName,
   ]);
 
   return {
