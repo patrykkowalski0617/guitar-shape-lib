@@ -19,8 +19,11 @@ export default function GuitarFretboard(): JSX.Element {
   useHorizontalScroll(scrollRef);
   useFretboardScroll(scrollRef);
 
-  const { guitarShapeCoordinates, baseChordCoordinates } =
-    useMultiShapeCoordinates();
+  const {
+    guitarShapeCoordinates,
+    baseChordCoordinates,
+    nextTargetShapeCoordinates,
+  } = useMultiShapeCoordinates();
   const allFretboardNotes = getAllFretboardNotes();
 
   useClaenLockedNotes();
@@ -41,6 +44,7 @@ export default function GuitarFretboard(): JSX.Element {
                 rowNotes={rowNotes}
                 guitarShapeCoordinates={guitarShapeCoordinates}
                 baseChordCoordinates={baseChordCoordinates}
+                nextTargetShapeCoordinates={nextTargetShapeCoordinates}
               />
             ))}
             <S.FretboardShadow />

@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useMusicStore } from "@/store";
 import { useEnharmonicNoteName, useGuitarShape } from "@/hooks";
 import { useIsNoteActive } from "@/hooks/useIsNoteActive";
@@ -6,6 +6,9 @@ import type { UseFretboardCellProps, FretboardCellHandlers } from "../types";
 
 export function useFretboardCell({
   noteObject,
+  stringIndex,
+  fretIndex,
+  nextTargetShapeCoordinates,
 }: UseFretboardCellProps): FretboardCellHandlers {
   const setActiveHoverNoteId = useMusicStore(
     (state) => state.setActiveHoverNoteId,
@@ -13,15 +16,25 @@ export function useFretboardCell({
   const setActiveLockedNoteIds = useMusicStore(
     (state) => state.setActiveLockedNoteIds,
   );
-  // const setSelectedNotes = useMusicStore(
-  //   (state) => state.setTargetSharpNoteName,
-  // );
+
   const sharpNoteName = noteObject.sharpNoteName;
-  const isTargetNote = useMusicStore(
-    (state) =>
-      sharpNoteName !== null &&
-      state.targetSharpNoteNames.includes(sharpNoteName),
+  const targetSharpNoteNames = useMusicStore(
+    (state) => state.targetSharpNoteNames,
   );
+
+  // Sprawdź czy ta pozycja jest w next target shape
+  const isInNextTargetShape = useMemo(() => {
+    return nextTargetShapeCoordinates.some(
+      ([s, f]) => s === stringIndex && f === fretIndex,
+    );
+  }, [nextTargetShapeCoordinates, stringIndex, fretIndex]);
+
+  // Target note = nota w targetSharpNoteNames AND w next target shape
+  const isTargetNote = useMemo(() => {
+    if (sharpNoteName === null) return false;
+    const isInTargetList = targetSharpNoteNames.includes(sharpNoteName);
+    return isInTargetList && isInNextTargetShape;
+  }, [sharpNoteName, targetSharpNoteNames, isInNextTargetShape]);
 
   const noteId = noteObject.noteId;
   const guitarShape = useGuitarShape();
@@ -44,16 +57,7 @@ export function useFretboardCell({
     if (!guitarShape) {
       setActiveLockedNoteIds(noteId);
     }
-    // else {
-    //   setSelectedNotes(sharpNoteName);
-    // }
-  }, [
-    guitarShape,
-    noteId,
-    setActiveLockedNoteIds,
-    // setSelectedNotes,
-    // sharpNoteName,
-  ]);
+  }, [guitarShape, noteId, setActiveLockedNoteIds]);
 
   return {
     handleMouseEnter,

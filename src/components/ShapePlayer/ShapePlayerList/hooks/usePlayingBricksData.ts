@@ -9,9 +9,6 @@ import { useShapePlayerBrickSelection } from "../../ShapePlayerBrick/hooks";
 import { calculateActiveBrick, getTotalSteps } from "./utils";
 
 export function usePlayingBricksData() {
-  const lookAheadShapeBeatsAmount = useControllersStore(
-    (state) => state.lookAheadShapeBeatsAmount,
-  );
   const lookAheadTargetNoteBeatsAmount = useControllersStore(
     (state) => state.lookAheadTargetNoteBeatsAmount,
   );
@@ -26,7 +23,6 @@ export function usePlayingBricksData() {
   );
 
   const lastProcessedStepRef = useRef<number | null>(null);
-  const lookAheadShapeProcessedStepRef = useRef<number | null>(null);
   const lookAheadTargetNoteProcessedStepRef = useRef<number | null>(null);
 
   const activeBrickInfo = calculateActiveBrick(
@@ -37,21 +33,10 @@ export function usePlayingBricksData() {
 
   const totalSteps = getTotalSteps(guitarShapePlayerBricks);
 
-  const lookAheadShapeStep =
-    totalSteps > 0
-      ? (currentStep + lookAheadShapeBeatsAmount) % totalSteps
-      : currentStep + lookAheadShapeBeatsAmount;
-
   const lookAheadTargetNoteStep =
     totalSteps > 0
       ? (currentStep + lookAheadTargetNoteBeatsAmount) % totalSteps
       : currentStep + lookAheadTargetNoteBeatsAmount;
-
-  const lookAheadShapeBrickInfo = calculateActiveBrick(
-    guitarShapePlayerBricks,
-    lookAheadShapeStep,
-    isCountingIn,
-  );
 
   const lookAheadTargetNoteBrickInfo = calculateActiveBrick(
     guitarShapePlayerBricks,
@@ -62,14 +47,14 @@ export function usePlayingBricksData() {
   const currentSelection = useShapePlayerBrickSelection(
     activeBrickInfo?.guitarShapePlayerBrick,
   );
-  const lookAheadShapeSelection = useShapePlayerBrickSelection(
-    lookAheadShapeBrickInfo?.guitarShapePlayerBrick,
+  const lookAheadTargetNoteSelection = useShapePlayerBrickSelection(
+    lookAheadTargetNoteBrickInfo?.guitarShapePlayerBrick,
   );
   const firstBrickSelection = useShapePlayerBrickSelection(
     guitarShapePlayerBricks[0],
   );
 
-  // Efekt dla current (bez offsetu)
+  // Efekt dla current (bez offsetu) - visual + sound
   useEffect(() => {
     if (!isPlaying || !activeBrickInfo?.isFirstBeatOfBrick) {
       return;
@@ -90,28 +75,7 @@ export function usePlayingBricksData() {
     currentSelection,
   ]);
 
-  // Efekt dla shape lookahead
-  useEffect(() => {
-    if (!isPlaying || !lookAheadShapeBrickInfo?.isFirstBeatOfBrick) {
-      return;
-    }
-
-    if (lookAheadShapeProcessedStepRef.current === lookAheadShapeStep) {
-      return;
-    }
-
-    lookAheadShapeSelection.restoreNextData();
-
-    lookAheadShapeProcessedStepRef.current = lookAheadShapeStep;
-  }, [
-    lookAheadShapeStep,
-    isPlaying,
-    lookAheadShapeBrickInfo?.isFirstBeatOfBrick,
-    lookAheadShapeBrickInfo?.guitarShapePlayerBrick.id,
-    lookAheadShapeSelection,
-  ]);
-
-  // Efekt dla target note lookahead
+  // Efekt dla target note + target shape lookahead
   useEffect(() => {
     if (!isPlaying || !lookAheadTargetNoteBrickInfo?.isFirstBeatOfBrick) {
       return;
@@ -128,6 +92,9 @@ export function usePlayingBricksData() {
         .targetSharpNoteNames ?? [];
     replaceTargetSharpNoteNames(targetNotes);
 
+    // Ustawiamy next* klucze dla target shape validation
+    lookAheadTargetNoteSelection.restoreNextData();
+
     lookAheadTargetNoteProcessedStepRef.current = lookAheadTargetNoteStep;
   }, [
     lookAheadTargetNoteStep,
@@ -136,6 +103,7 @@ export function usePlayingBricksData() {
     lookAheadTargetNoteBrickInfo?.guitarShapePlayerBrick.id,
     lookAheadTargetNoteBrickInfo?.guitarShapePlayerBrick.targetSharpNoteNames,
     replaceTargetSharpNoteNames,
+    lookAheadTargetNoteSelection,
   ]);
 
   const hasPreparedCountInRef = useRef(false);
@@ -143,7 +111,6 @@ export function usePlayingBricksData() {
     if (!isPlaying) {
       hasPreparedCountInRef.current = false;
       lastProcessedStepRef.current = null;
-      lookAheadShapeProcessedStepRef.current = null;
       lookAheadTargetNoteProcessedStepRef.current = null;
       return;
     }

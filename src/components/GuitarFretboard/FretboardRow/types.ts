@@ -7,6 +7,7 @@ export interface FretboardRowProps {
   rowNotes: NoteObject[];
   guitarShapeCoordinates: FretboardCoordinate[];
   baseChordCoordinates: FretboardCoordinate[];
+  nextTargetShapeCoordinates: FretboardCoordinate[];
 }
 
 export interface IsShapeCellParams {

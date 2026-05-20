@@ -6,9 +6,11 @@ import type { FretboardCellProps } from "./types";
 export default function FretboardCell({
   noteObject,
   fretIndex,
+  stringIndex,
   isVisibleString,
   isShapeCell,
   isBaseChordCell,
+  nextTargetShapeCoordinates,
 }: FretboardCellProps) {
   const {
     handleMouseEnter,
@@ -17,7 +19,13 @@ export default function FretboardCell({
     noteLabel,
     isTargetNote,
     isActiveNote,
-  } = useFretboardCell({ noteObject, isShapeCell });
+  } = useFretboardCell({
+    noteObject,
+    isShapeCell,
+    stringIndex,
+    fretIndex,
+    nextTargetShapeCoordinates,
+  });
 
   return (
     <S.FretWrapper

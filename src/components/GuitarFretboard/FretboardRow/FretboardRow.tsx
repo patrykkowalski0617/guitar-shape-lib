@@ -10,6 +10,7 @@ export default function FretboardRow({
   rowNotes,
   guitarShapeCoordinates,
   baseChordCoordinates,
+  nextTargetShapeCoordinates,
 }: FretboardRowProps): JSX.Element {
   const visibleStrings = useControllersStore((state) => state.visibleStrings);
   const isVisibleString = visibleStrings.includes(stringIndex);
@@ -21,6 +22,7 @@ export default function FretboardRow({
           key={`${stringIndex}-${fretIndex}`}
           noteObject={noteObject}
           fretIndex={fretIndex}
+          stringIndex={stringIndex}
           isVisibleString={isVisibleString}
           isShapeCell={isShapeCellFn({
             guitarShapeCoordinates,
@@ -32,6 +34,7 @@ export default function FretboardRow({
             stringIndex,
             fretIndex,
           })}
+          nextTargetShapeCoordinates={nextTargetShapeCoordinates}
         />
       ))}
     </S.FretboardRow>

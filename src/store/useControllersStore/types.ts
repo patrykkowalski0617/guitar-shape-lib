@@ -10,9 +10,6 @@ export interface ControllersState {
   playback: boolean;
   togglePlayBackingtrack: () => void;
 
-  lookAheadShapeBeatsAmount: number;
-  setLookAheadShapeBeatsAmount: (lookAheadShapeBeatsAmount: number) => void;
-
   lookAheadTargetNoteBeatsAmount: number;
   setLookAheadTargetNoteBeatsAmount: (
     lookAheadShapeBeatsAmount: number,
