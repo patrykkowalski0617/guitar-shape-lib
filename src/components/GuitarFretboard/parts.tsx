@@ -77,7 +77,7 @@ export const Fretboard = styled.div`
     left: 10px;
     background-color: color-mix(
       in oklab,
-      color-mix(in oklab, var(--instrument) 15%, var(--muted)) 70%,
+      color-mix(in oklab, var(--instrument) 20%, var(--muted)) 70%,
       var(--foreground)
     );
     background-image:
@@ -92,6 +92,6 @@ export const Fretboard = styled.div`
     background-size: cover;
     background-blend-mode: overlay;
     box-shadow: 30px 0px 30px 20px
-      color-mix(in oklab, var(--background) 70%, transparent) inset;
+      color-mix(in oklab, var(--background) 80%, transparent) inset;
   }
 `;

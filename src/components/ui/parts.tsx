@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { elementBase } from "./constants";
+import { elementBase } from "../ui/constants";
 
 export const Button = styled.button<{ $widthMultiplier?: number }>`
   ${elementBase}

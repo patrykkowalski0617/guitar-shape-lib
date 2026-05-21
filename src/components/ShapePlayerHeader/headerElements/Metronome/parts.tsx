@@ -1,4 +1,4 @@
-import { Button } from "@/components/ShapePlayer/ui/parts";
+import { Button } from "@/components/ui/parts";
 import styled, { css, keyframes } from "styled-components";
 
 const pulse = keyframes`

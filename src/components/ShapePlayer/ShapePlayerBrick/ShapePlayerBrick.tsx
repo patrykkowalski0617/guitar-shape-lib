@@ -6,7 +6,7 @@ import {
 } from "./hooks";
 import { ShapeExplorer } from "@/components/ShapeExplorer/ShapeExplorer";
 import { usePlayingBricksData } from "../ShapePlayerList/hooks/usePlayingBricksData";
-import { Button } from "../ui/parts";
+import { Button } from "@/components/ui/parts";
 import { NoteMatrix } from "@/components/NoteMatrix/NoteMatrix";
 
 interface ShapePlayerBrickProps {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { elementBase } from "@/components/ShapePlayer/ui/constants";
+import { elementBase } from "@/components/ui/constants";
 interface BpmInputProps {
   $widthMultiplier?: number;
 }

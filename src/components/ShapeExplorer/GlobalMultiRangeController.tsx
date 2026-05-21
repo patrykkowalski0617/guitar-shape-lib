@@ -1,25 +1,28 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useShapeExplorerStore, useShapePlayerStore } from "@/store";
 import MasterMultiRangeSlider from "../ui/MultiRangeSlider/MasterMultiRangeSlider/MasterMultiRangeSlider";
-import type {
-  GuitarShapeDataKey,
-  ShapeVariantDataKeys,
-  UnifiedMusicKeysDataKey,
-} from "@/data";
+import { getOrderedShapeVariantDataKeys } from "./helpers/getOrderedShapeVariantDataKeys";
 
-interface ExplorerConfig {
-  id: string;
-  guitarShapeDataKey: GuitarShapeDataKey;
-  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
-  semitoneOffsetFromMajorRoot: number;
-  orderedLocations: ShapeVariantDataKeys[];
-}
+export const GlobalMultiRangeController = () => {
+  const guitarShapePlayerBricks = useShapePlayerStore(
+    (state) => state.guitarShapePlayerBricks,
+  );
+  const sliderConfigs = useMemo(() => {
+    return guitarShapePlayerBricks.map((guitarShapePlayerBrick) => ({
+      id: guitarShapePlayerBrick.id,
+      guitarShapeDataKey: guitarShapePlayerBrick.guitarShapeDataKey,
+      unifiedMusicKeysDataKey: guitarShapePlayerBrick.unifiedMusicKeysDataKey,
+      semitoneOffsetFromMajorRoot:
+        guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
+      orderedLocations: getOrderedShapeVariantDataKeys({
+        guitarShapeDataKey: guitarShapePlayerBrick.guitarShapeDataKey,
+        unifiedMusicKeysDataKey: guitarShapePlayerBrick.unifiedMusicKeysDataKey,
+        semitoneOffsetFromMajorRoot:
+          guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
+      }),
+    }));
+  }, [guitarShapePlayerBricks]);
 
-export const GlobalMultiRangeController = ({
-  configs = [],
-}: {
-  configs?: ExplorerConfig[];
-}) => {
   const { ranges, initializeRanges, setRange } = useShapeExplorerStore();
   const updateBrickRange = useShapePlayerStore(
     (state) => state.updateBrickRange,
@@ -27,7 +30,7 @@ export const GlobalMultiRangeController = ({
   const prevIdsRef = useRef<string>("");
 
   useEffect(() => {
-    const currentIds = configs.map((c) => c.id).join(",");
+    const currentIds = sliderConfigs.map((c) => c.id).join(",");
 
     if (currentIds !== prevIdsRef.current) {
       const guitarShapePlayerBricks =
@@ -37,7 +40,7 @@ export const GlobalMultiRangeController = ({
         { start: number; end: number }
       > = {};
 
-      configs.forEach((c) => {
+      sliderConfigs.forEach((c) => {
         const guitarShapePlayerBrick = guitarShapePlayerBricks.find(
           (b) => b.id === c.id,
         );
@@ -50,7 +53,7 @@ export const GlobalMultiRangeController = ({
       prevIdsRef.current = currentIds;
       initializeRanges(updatedInitialRanges);
     }
-  }, [configs, initializeRanges]);
+  }, [sliderConfigs, initializeRanges]);
 
   useEffect(() => {
     Object.entries(ranges).forEach(([id, range]) => {
@@ -97,22 +100,22 @@ export const GlobalMultiRangeController = ({
   }, [ranges, setRange]);
 
   const masterConfigs = useMemo(() => {
-    return configs.reduce(
+    return sliderConfigs.reduce(
       (acc, c) => {
         acc[c.id] = c.orderedLocations;
         return acc;
       },
       {} as Record<string, unknown[]>,
     );
-  }, [configs]);
+  }, [sliderConfigs]);
 
   const masterValues = useMemo(() => {
-    const lengths = configs.map((c) => c.orderedLocations.length);
+    const lengths = sliderConfigs.map((c) => c.orderedLocations.length);
     const maxPossibleLength = lengths.length > 0 ? Math.max(...lengths) : 0;
     return Array.from({ length: maxPossibleLength }, (_, i) => i);
-  }, [configs]);
+  }, [sliderConfigs]);
 
-  if (configs.length === 0) return null;
+  if (sliderConfigs.length === 0) return null;
 
   return (
     <MasterMultiRangeSlider

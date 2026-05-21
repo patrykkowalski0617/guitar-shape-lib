@@ -31,7 +31,7 @@ export default function FretboardCell({
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
     >
-      {isNutCell && <S.Nut></S.Nut>}
+      {isNutCell && <S.NutShadow></S.NutShadow>}
       <S.Fret
         data-fret={fretIndex}
         $isBaseChordShapeNote={isBaseChordCell}

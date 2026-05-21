@@ -73,7 +73,7 @@ export const Note = styled.div<{
   z-index: 52;
 `;
 
-export const Nut = styled.div`
+export const NutShadow = styled.div`
   width: 16px;
   position: absolute;
   border-radius: 4px;

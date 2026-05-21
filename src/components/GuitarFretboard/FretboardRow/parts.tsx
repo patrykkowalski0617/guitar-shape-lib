@@ -72,17 +72,20 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
     &::before {
       height: 0.5px;
       right: -25px;
+      left: 5px;
     }
   }
   &:nth-child(2) {
     &::before {
       height: 0.5px;
       right: -28px;
+      left: 3px;
     }
   }
   &:nth-child(3) {
     &::before {
-      height: 1px;
+      height: 1.5px;
+      background: color-mix(in oklab, var(--foreground) 5%, var(--muted));
     }
   }
   &:nth-child(4) {
@@ -94,6 +97,7 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
     &::before {
       height: 1.5px;
       right: -27px;
+      left: 4px;
     }
   }
   &:nth-child(6) {
@@ -101,6 +105,7 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
       height: 2px;
       background: color-mix(in oklab, var(--foreground) 5%, var(--muted));
       right: -25px;
+      left: 5px;
     }
   }
 
