@@ -9,7 +9,6 @@ export function FullscreenButton() {
 
   return (
     <S.FullscreenButton
-      variant={"default"}
       onClick={() => toggleFullscreen(true)}
       title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
     >
