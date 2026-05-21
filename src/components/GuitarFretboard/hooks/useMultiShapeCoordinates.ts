@@ -1,12 +1,13 @@
 import { useEffect, useMemo } from "react";
 import { useDataKeyStore, useMetronomeStore, useMusicStore } from "@/store";
-import { useCAGED_ChordsShapes } from "./useCAGED_ChordsShapes";
 import type { FretboardCoordinate, CAGED_System } from "@/data";
-import { findMatchingBaseChord } from "../helpers/findMatchingBaseChord";
-import { findMatchingCAGEDSystem } from "../helpers/findMatchingCAGEDSystem";
-import { getNoteIdFromFretboardCoordintes } from "../helpers/getNoteIdFromFretboardCoordintes";
-import { getShapeCoordinates } from "../helpers/getShapeCoordinates";
-import { useCAGED_System } from "./useCAGED_System";
+import {
+  findMatchingCAGEDSystem,
+  findMatchingBaseChord,
+  getShapeCoordinates,
+  getNoteIdFromFretboardCoordintes,
+} from "../helpers";
+import { useCAGED_System, useBaseChordsShapes } from "./";
 import type { NoteId } from "@/utils";
 
 export const useMultiShapeCoordinates = () => {
@@ -27,7 +28,7 @@ export const useMultiShapeCoordinates = () => {
     (state) => state.setBaseChordBassNoteId,
   );
 
-  const getCAGED_ChordsShapesForVisualAndSound = useCAGED_ChordsShapes({
+  const getCAGED_ChordsShapesForVisualAndSound = useBaseChordsShapes({
     baseChordDataKey: currentBaseChordDataKey,
     unifiedMusicKeysDataKey: currentUnifiedMusicKeysDataKey,
   });

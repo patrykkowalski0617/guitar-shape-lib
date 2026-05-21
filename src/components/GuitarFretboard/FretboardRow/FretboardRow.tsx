@@ -1,7 +1,7 @@
 import * as S from "./parts";
 import { type JSX } from "react";
 import FretboardCell from "../FretboardCell/FretboardCell";
-import { useControllersStore } from "@/store";
+import { useControllersStore, useMetronomeStore } from "@/store";
 import { isShapeCell as isShapeCellFn } from "./helpers";
 import type { FretboardRowProps } from "./types";
 
@@ -13,6 +13,7 @@ export default function FretboardRow({
   nextTargetShapeCoordinates,
 }: FretboardRowProps): JSX.Element {
   const visibleStrings = useControllersStore((state) => state.visibleStrings);
+  const isPlaying = useMetronomeStore((state) => state.isPlaying);
   const isVisibleString = visibleStrings.includes(stringIndex);
 
   return (
@@ -22,7 +23,6 @@ export default function FretboardRow({
           key={`${stringIndex}-${fretIndex}`}
           noteObject={noteObject}
           fretIndex={fretIndex}
-          stringIndex={stringIndex}
           isVisibleString={isVisibleString}
           isShapeCell={isShapeCellFn({
             guitarShapeCoordinates,
@@ -34,7 +34,14 @@ export default function FretboardRow({
             stringIndex,
             fretIndex,
           })}
-          nextTargetShapeCoordinates={nextTargetShapeCoordinates}
+          isInNextTargetShape={
+            isPlaying &&
+            isShapeCellFn({
+              guitarShapeCoordinates: nextTargetShapeCoordinates,
+              stringIndex,
+              fretIndex,
+            })
+          }
         />
       ))}
     </S.FretboardRow>

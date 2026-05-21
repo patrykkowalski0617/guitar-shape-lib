@@ -10,7 +10,7 @@ interface CAGEDChordsShapesOptions {
   unifiedMusicKeysDataKey?: UnifiedMusicKeysDataKey | null;
 }
 
-export const useCAGED_ChordsShapes = (options?: CAGEDChordsShapesOptions) => {
+export const useBaseChordsShapes = (options?: CAGEDChordsShapesOptions) => {
   const baseChord = useBaseChord(options?.baseChordDataKey);
   const unifiedMusicKey = useUnifiedMusicKey(options?.unifiedMusicKeysDataKey);
 

@@ -1,5 +1,5 @@
 import { useUnifiedMusicKey } from "@/hooks/unifiedMusicKey/useUnifiedMusicKey";
-import type { CAGEDChordsShapesOptions } from "./useCAGED_ChordsShapes";
+import type { CAGEDChordsShapesOptions } from "./useBaseChordsShapes";
 import { CAGED_SYSTEM } from "@/data";
 
 export const useCAGED_System = (options?: CAGEDChordsShapesOptions) => {

@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useDataKeyStore, useMetronomeStore, useMusicStore } from "@/store";
-import { useCAGED_ChordsShapes } from "./useCAGED_ChordsShapes";
+import { useBaseChordsShapes } from "./useBaseChordsShapes";
 import type { FretboardCoordinate } from "@/data";
 import { findMatchingBaseChord } from "../helpers/findMatchingBaseChord";
 import { getNoteIdFromFretboardCoordintes } from "../helpers/getNoteIdFromFretboardCoordintes";
@@ -27,7 +27,7 @@ export const useMultiShapeCoordinates = () => {
     (state) => state.setBaseChordBassNoteId,
   );
 
-  const getCAGED_ChordsShapesForVisualAndSound = useCAGED_ChordsShapes({
+  const getCAGED_ChordsShapesForVisualAndSound = useBaseChordsShapes({
     baseChordDataKey: currentBaseChordDataKey,
     unifiedMusicKeysDataKey: currentUnifiedMusicKeysDataKey,
   });
