@@ -5,7 +5,6 @@ import type { FretboardCoordinate } from "@/data";
 import { findMatchingBaseChord } from "../helpers/findMatchingBaseChord";
 import { getNoteIdFromFretboardCoordintes } from "../helpers/getNoteIdFromFretboardCoordintes";
 import { getShapeCoordinates } from "../helpers/getShapeCoordinates";
-import { useCAGED_Ranges } from "./useCAGED_Ranges";
 
 export const useMultiShapeCoordinates = () => {
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
@@ -33,11 +32,6 @@ export const useMultiShapeCoordinates = () => {
     unifiedMusicKeysDataKey: currentUnifiedMusicKeysDataKey,
   });
 
-  const getCAGED_Ranges = useCAGED_Ranges({
-    baseChordDataKey: currentBaseChordDataKey,
-    unifiedMusicKeysDataKey: currentUnifiedMusicKeysDataKey,
-  });
-
   const addUnique = (
     target: FretboardCoordinate[],
     source: FretboardCoordinate[],
@@ -60,8 +54,6 @@ export const useMultiShapeCoordinates = () => {
     currentSelectedShapesVariantDataKeys?.forEach((variantKey) => {
       const guitarShapeCoordinates = getShapeCoordinates(variantKey);
       const CAGED_ChordsShapes = getCAGED_ChordsShapesForVisualAndSound();
-      const CAGED_Ranges = getCAGED_Ranges();
-      console.log(CAGED_Ranges);
 
       const baseChordMatch = findMatchingBaseChord({
         CAGED_ChordsShapes,
@@ -83,7 +75,6 @@ export const useMultiShapeCoordinates = () => {
   }, [
     currentSelectedShapesVariantDataKeys,
     getCAGED_ChordsShapesForVisualAndSound,
-    getCAGED_Ranges,
   ]);
 
   const nextTargetShapeCoordinates = useMemo(() => {

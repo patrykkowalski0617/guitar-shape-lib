@@ -1,6 +1,6 @@
 export * from "./BASE_CHORDS";
 export * from "./CAGED_BASE_CHORDS_SHAPES";
-export * from "./CAGED_RANGES";
+export * from "./CAGED_SYSTEM";
 export * from "./GUITAR_SHAPES";
 export * from "./INTERVAL_SEMITONES";
 export * from "./NOTE_NAMES";
