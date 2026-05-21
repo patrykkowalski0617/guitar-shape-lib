@@ -3,7 +3,11 @@ import type { FretboardCoordinate } from "@/data";
 export const resolveAbsoluteFrets = <T>(
   items: T[],
   getCoords: (item: T) => FretboardCoordinate[],
-  setCoords: (item: T, coords: FretboardCoordinate[]) => T,
+  setCoords: (
+    item: T,
+    coords: FretboardCoordinate[],
+    octaveOffset: number,
+  ) => T,
   getBaseFret: (item: T) => number,
   absoluteOffset: number,
   octaveOffsets: number[],
@@ -22,9 +26,14 @@ export const resolveAbsoluteFrets = <T>(
               coords[1] + baseFret + octaveOffset,
             ] as FretboardCoordinate,
         );
-        return setCoords(item, adjusted);
+        return {
+          item: setCoords(item, adjusted, octaveOffset),
+          adjustedBase: baseFret + octaveOffset,
+        };
       })
-      .filter((s) =>
-        getCoords(s).every(([, fret]) => fret >= fretMin && fret <= fretMax),
-      );
+      .filter(
+        ({ adjustedBase }) =>
+          adjustedBase >= fretMin && adjustedBase <= fretMax,
+      )
+      .map(({ item }) => item);
   });

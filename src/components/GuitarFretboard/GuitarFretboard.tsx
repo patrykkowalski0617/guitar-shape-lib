@@ -23,6 +23,8 @@ export default function GuitarFretboard(): JSX.Element {
     guitarShapeCoordinates,
     baseChordCoordinates,
     nextTargetShapeCoordinates,
+    allCAGED_System,
+    bestMatchCAGED_Systems,
   } = useMultiShapeCoordinates();
   const allFretboardNotes = getAllFretboardNotes();
 
@@ -34,7 +36,10 @@ export default function GuitarFretboard(): JSX.Element {
         <StringMultiRangeSlider />
       </S.StringSliderWrapper>
       <InstrumentScrollWrapper ref={scrollRef}>
-        <FretboardNumericMarkers />
+        <FretboardNumericMarkers
+          allCAGED_System={allCAGED_System}
+          bestMatchCAGED_Systems={bestMatchCAGED_Systems}
+        />
         <S.FretboardWrapper>
           <S.Fretboard>
             {allFretboardNotes.map((rowNotes, index) => (

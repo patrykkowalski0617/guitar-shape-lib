@@ -1,12 +1,12 @@
 import type { FretboardCoordinate } from "./GUITAR_SHAPES";
 
-export interface CAGEDRange {
+export interface CAGED_System {
   CAGED_NAME: string;
   baseFretIndex: number;
   coordinates: FretboardCoordinate[];
 }
 
-export const CAGED_SYSTEM: CAGEDRange[] = [
+export const CAGED_SYSTEM: CAGED_System[] = [
   // prettier-ignore
   { CAGED_NAME: "C", baseFretIndex: 8, coordinates: [[0,0],[0,2],[1,0],[1,2],[2,-1],[2,2],[3,-1],[3,2],[4,0],[4,2],[5,0],[5,2]] },
   // prettier-ignore
