@@ -22,7 +22,7 @@ export const StringSliderWrapper = styled.div`
 `;
 
 export const FretboardWrapper = styled.div`
-  padding-bottom: 20px;
+  padding: 8px 0 20px;
   position: relative;
   margin: auto;
   overflow: hidden;

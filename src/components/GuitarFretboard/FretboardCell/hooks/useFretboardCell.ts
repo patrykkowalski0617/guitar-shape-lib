@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { useMusicStore } from "@/store";
+import { useMetronomeStore, useMusicStore } from "@/store";
 import { useEnharmonicNoteName, useGuitarShape } from "@/hooks";
 import { useIsNoteActive } from "@/hooks/useIsNoteActive";
 import type { UseFretboardCellProps, FretboardCellHandlers } from "../types";
@@ -8,6 +8,7 @@ export function useFretboardCell({
   noteObject,
   stringIndex,
   fretIndex,
+  isShapeCell,
   nextTargetShapeCoordinates,
 }: UseFretboardCellProps): FretboardCellHandlers {
   const setActiveHoverNoteId = useMusicStore(
@@ -16,7 +17,7 @@ export function useFretboardCell({
   const setActiveLockedNoteIds = useMusicStore(
     (state) => state.setActiveLockedNoteIds,
   );
-
+  const isPlaying = useMetronomeStore((s) => s.isPlaying);
   const sharpNoteName = noteObject.sharpNoteName;
   const targetSharpNoteNames = useMusicStore(
     (state) => state.targetSharpNoteNames,
@@ -31,8 +32,16 @@ export function useFretboardCell({
   const isTargetNote = useMemo(() => {
     if (sharpNoteName === null) return false;
     const isInTargetList = targetSharpNoteNames.includes(sharpNoteName);
-    return isInTargetList && isInNextTargetShape;
-  }, [sharpNoteName, targetSharpNoteNames, isInNextTargetShape]);
+    return isPlaying
+      ? isInTargetList && isInNextTargetShape
+      : isInTargetList && isShapeCell;
+  }, [
+    isPlaying,
+    sharpNoteName,
+    targetSharpNoteNames,
+    isInNextTargetShape,
+    isShapeCell,
+  ]);
 
   const noteId = noteObject.noteId;
   const guitarShape = useGuitarShape();
