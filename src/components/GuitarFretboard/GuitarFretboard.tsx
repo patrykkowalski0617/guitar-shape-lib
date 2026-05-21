@@ -8,7 +8,7 @@ import {
   useFretboardScroll,
   useMultiShapeCoordinates,
 } from "./hooks";
-import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
+import CAGED_SystemMarkers from "./CAGED_SystemMarkers/CAGED_SystemMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
 import FretboardRow from "./FretboardRow/FretboardRow";
 import { StringMultiRangeSlider } from "./StringMultiRangeSlider/StringMultiRangeSlider";
@@ -36,10 +36,6 @@ export default function GuitarFretboard(): JSX.Element {
         <StringMultiRangeSlider />
       </S.StringSliderWrapper>
       <InstrumentScrollWrapper ref={scrollRef}>
-        <FretboardNumericMarkers
-          allCAGED_System={allCAGED_System}
-          bestMatchCAGED_Systems={bestMatchCAGED_Systems}
-        />
         <S.FretboardWrapper>
           <S.Fretboard>
             {allFretboardNotes.map((rowNotes, index) => (
@@ -55,7 +51,11 @@ export default function GuitarFretboard(): JSX.Element {
             <S.FretboardShadow />
             <FretboardDotMarkers />
           </S.Fretboard>
-        </S.FretboardWrapper>
+        </S.FretboardWrapper>{" "}
+        <CAGED_SystemMarkers
+          allCAGED_System={allCAGED_System}
+          bestMatchCAGED_Systems={bestMatchCAGED_Systems}
+        />
       </InstrumentScrollWrapper>
     </S.FretboardNotScrollableWrapper>
   );

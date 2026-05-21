@@ -7,6 +7,7 @@ import { findMatchingCAGEDSystem } from "../helpers/findMatchingCAGEDSystem";
 import { getNoteIdFromFretboardCoordintes } from "../helpers/getNoteIdFromFretboardCoordintes";
 import { getShapeCoordinates } from "../helpers/getShapeCoordinates";
 import { useCAGED_System } from "./useCAGED_System";
+import type { NoteId } from "@/utils";
 
 export const useMultiShapeCoordinates = () => {
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
@@ -77,7 +78,7 @@ export const useMultiShapeCoordinates = () => {
 
       const bestMatch = findMatchingCAGEDSystem(
         CAGED_System,
-        guitarShapeCoordinates,
+        baseChordCoordinates,
       );
       if (
         bestMatch &&
@@ -118,7 +119,7 @@ export const useMultiShapeCoordinates = () => {
   }, [nextSelectedShapesVariantDataKeys, isPlaying]);
 
   const bassNoteId = useMemo(() => {
-    let resultBassNoteId: string | null = null;
+    let resultBassNoteId: NoteId | null = null;
     currentSelectedShapesVariantDataKeys?.forEach((variantKey, i) => {
       if (i !== 0) return;
       const guitarShapeCoordinates = getShapeCoordinates(variantKey);
@@ -128,6 +129,7 @@ export const useMultiShapeCoordinates = () => {
         guitarShapeCoordinates,
       });
       const firstCoordinate = baseChordMatch?.coordinates[0];
+
       if (firstCoordinate) {
         resultBassNoteId = getNoteIdFromFretboardCoordintes(firstCoordinate);
       }

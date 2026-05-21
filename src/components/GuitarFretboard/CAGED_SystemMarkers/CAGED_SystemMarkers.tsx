@@ -2,15 +2,15 @@ import * as S from "./parts";
 import { numberOfFrets } from "../constants";
 import type { CAGED_System } from "@/data";
 
-interface FretboardNumericMarkersProps {
+interface CAGED_SystemMarkersProps {
   allCAGED_System: CAGED_System[];
   bestMatchCAGED_Systems: CAGED_System[];
 }
 
-export default function FretboardNumericMarkers({
+export default function CAGED_SystemMarkers({
   allCAGED_System,
   bestMatchCAGED_Systems,
-}: FretboardNumericMarkersProps) {
+}: CAGED_SystemMarkersProps) {
   const infoCells = Array.from({ length: numberOfFrets });
 
   const fretToCAGED = new Map<number, string>();
@@ -28,7 +28,7 @@ export default function FretboardNumericMarkers({
   });
 
   return (
-    <S.FretboardNumericMarkers>
+    <S.CAGED_SystemMarkers>
       {infoCells.map((_, index) => {
         const isBestMatch = bestMatchFrets.has(index);
         const cagedName =
@@ -40,6 +40,6 @@ export default function FretboardNumericMarkers({
           </S.Marker>
         );
       })}
-    </S.FretboardNumericMarkers>
+    </S.CAGED_SystemMarkers>
   );
 }

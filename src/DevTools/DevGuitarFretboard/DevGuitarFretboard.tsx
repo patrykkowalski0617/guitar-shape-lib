@@ -8,7 +8,6 @@ import {
   useFretboardScroll,
   useMultiShapeCoordinates,
 } from "./hooks";
-import FretboardNumericMarkers from "./FretboardNumericMarkers/FretboardNumericMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
 import FretboardRow from "./FretboardRow/FretboardRow";
 import { StringMultiRangeSlider } from "./StringMultiRangeSlider/StringMultiRangeSlider";
@@ -34,7 +33,6 @@ export default function DevGuitarFretboard(): JSX.Element {
         <StringMultiRangeSlider />
       </S.StringSliderWrapper>
       <InstrumentScrollWrapper ref={scrollRef}>
-        <FretboardNumericMarkers />
         <S.FretboardWrapper>
           <S.Fretboard>
             {allFretboardNotes.map((rowNotes, index) => (

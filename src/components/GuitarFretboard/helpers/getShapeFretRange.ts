@@ -1,4 +1,8 @@
-export const getShapeFretRange = (notesInShapeCoordinates: number[][]) => {
+import type { FretboardCoordinate } from "@/data";
+
+export const getShapeFretRange = (
+  notesInShapeCoordinates: FretboardCoordinate[],
+) => {
   if (!notesInShapeCoordinates || notesInShapeCoordinates.length === 0) {
     return { min: 0, max: 0 };
   }
