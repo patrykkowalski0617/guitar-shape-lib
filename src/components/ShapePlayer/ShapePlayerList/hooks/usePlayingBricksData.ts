@@ -45,7 +45,6 @@ export function usePlayingBricksData() {
 
   const nextBrickSelection = useShapePlayerBrickSelection(nextBrick);
 
-  // Define this at the top level as well
   const firstNextBrick =
     guitarShapePlayerBricks[1] || guitarShapePlayerBricks[0];
   const firstNextSelection = useShapePlayerBrickSelection(firstNextBrick);

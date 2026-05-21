@@ -1,11 +1,12 @@
 import {
-  CAGED_CHORDS_SHAPES,
+  CAGED_BASE_CHORDS_SHAPES,
   type BaseChordDataKey,
   type UnifiedMusicKeysDataKey,
 } from "@/data";
 import { useBaseChord, useUnifiedMusicKey } from "@/hooks";
+import { resolveAbsoluteFrets } from "../helpers/resolveAbsoluteFrets";
 
-interface CAGEDChordsShapesOptions {
+export interface CAGEDChordsShapesOptions {
   baseChordDataKey?: BaseChordDataKey | null;
   unifiedMusicKeysDataKey?: UnifiedMusicKeysDataKey | null;
 }
@@ -17,35 +18,25 @@ export const useCAGED_ChordsShapes = (options?: CAGEDChordsShapesOptions) => {
   const getCAGED_ChordsShapes = () => {
     if (!baseChord || !unifiedMusicKey) return [];
 
-    const musicKeyOffset = unifiedMusicKey.semitonOffsetFromC;
-    const semitoneOffsetFromMajorRoot =
-      baseChord.semitoneOffsetFromMajorRoot ?? 0;
+    const absoluteOffset =
+      unifiedMusicKey.semitonOffsetFromC +
+      (baseChord.semitoneOffsetFromMajorRoot ?? 0);
 
-    return CAGED_CHORDS_SHAPES[
-      baseChord.CAGEDchordShape as keyof typeof CAGED_CHORDS_SHAPES
-    ].flatMap((guitarShape) => {
-      const fretIndexAdjustment =
-        guitarShape.baseFretIndex +
-        musicKeyOffset +
-        semitoneOffsetFromMajorRoot;
+    const shapes =
+      CAGED_BASE_CHORDS_SHAPES[
+        baseChord.CAGEDchordShape as keyof typeof CAGED_BASE_CHORDS_SHAPES
+      ];
 
-      const octaveOffsets = [-24, -12, 0, 12, 24];
-
-      return octaveOffsets
-        .map((octaveOffset) => {
-          const adjustedCoordinates = guitarShape.coordinates.map(
-            (coords: number[]) => {
-              const finalFret = coords[1] + fretIndexAdjustment + octaveOffset;
-              return [coords[0], finalFret] as [number, number];
-            },
-          );
-
-          return { ...guitarShape, coordinates: adjustedCoordinates };
-        })
-        .filter((s) =>
-          s.coordinates.every(([, fret]) => fret >= 0 && fret <= 24),
-        );
-    });
+    return resolveAbsoluteFrets(
+      shapes,
+      (s) => s.coordinates,
+      (s, coords) => ({ ...s, coordinates: coords }),
+      (s) => s.baseFretIndex,
+      absoluteOffset,
+      [-24, -12, 0, 12, 24],
+      0,
+      24,
+    );
   };
 
   return getCAGED_ChordsShapes;

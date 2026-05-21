@@ -22,14 +22,12 @@ export function useFretboardCell({
     (state) => state.targetSharpNoteNames,
   );
 
-  // Sprawdź czy ta pozycja jest w next target shape
   const isInNextTargetShape = useMemo(() => {
     return nextTargetShapeCoordinates.some(
       ([s, f]) => s === stringIndex && f === fretIndex,
     );
   }, [nextTargetShapeCoordinates, stringIndex, fretIndex]);
 
-  // Target note = nota w targetSharpNoteNames AND w next target shape
   const isTargetNote = useMemo(() => {
     if (sharpNoteName === null) return false;
     const isInTargetList = targetSharpNoteNames.includes(sharpNoteName);
