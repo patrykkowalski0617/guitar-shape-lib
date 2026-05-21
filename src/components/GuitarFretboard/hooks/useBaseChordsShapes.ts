@@ -4,7 +4,7 @@ import {
   type UnifiedMusicKeysDataKey,
 } from "@/data";
 import { useBaseChord, useUnifiedMusicKey } from "@/hooks";
-import { resolveAbsoluteFrets } from "../helpers/resolveAbsoluteFrets";
+import { resolveAbsoluteFrets } from "../helpers";
 
 export interface CAGEDChordsShapesOptions {
   baseChordDataKey?: BaseChordDataKey | null;
@@ -15,7 +15,7 @@ export const useBaseChordsShapes = (options?: CAGEDChordsShapesOptions) => {
   const baseChord = useBaseChord(options?.baseChordDataKey);
   const unifiedMusicKey = useUnifiedMusicKey(options?.unifiedMusicKeysDataKey);
 
-  const getCAGED_ChordsShapes = () => {
+  const getBaseChordsShapes = () => {
     if (!baseChord || !unifiedMusicKey) return [];
 
     const absoluteOffset =
@@ -39,5 +39,5 @@ export const useBaseChordsShapes = (options?: CAGEDChordsShapesOptions) => {
     );
   };
 
-  return getCAGED_ChordsShapes;
+  return getBaseChordsShapes;
 };

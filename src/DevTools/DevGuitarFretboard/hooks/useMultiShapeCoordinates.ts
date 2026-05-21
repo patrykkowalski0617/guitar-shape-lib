@@ -1,10 +1,10 @@
 import { useEffect, useMemo } from "react";
 import { useDataKeyStore, useMetronomeStore, useMusicStore } from "@/store";
-import { useBaseChordsShapes } from "./useBaseChordsShapes";
 import type { FretboardCoordinate } from "@/data";
 import { findMatchingBaseChord } from "../helpers/findMatchingBaseChord";
 import { getNoteIdFromFretboardCoordintes } from "../helpers/getNoteIdFromFretboardCoordintes";
 import { getShapeCoordinates } from "../helpers/getShapeCoordinates";
+import { useBaseChordsShapes } from "./useCAGED_ChordsShapes";
 
 export const useMultiShapeCoordinates = () => {
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
@@ -27,12 +27,12 @@ export const useMultiShapeCoordinates = () => {
     (state) => state.setBaseChordBassNoteId,
   );
 
-  const getCAGED_ChordsShapesForVisualAndSound = useBaseChordsShapes({
+  const getBaseChordsShapesForVisualAndSound = useBaseChordsShapes({
     baseChordDataKey: currentBaseChordDataKey,
     unifiedMusicKeysDataKey: currentUnifiedMusicKeysDataKey,
   });
 
-  const addUnique = (
+  const addUniqueCoordinates = (
     target: FretboardCoordinate[],
     source: FretboardCoordinate[],
   ) => {
@@ -53,10 +53,10 @@ export const useMultiShapeCoordinates = () => {
 
     currentSelectedShapesVariantDataKeys?.forEach((variantKey) => {
       const guitarShapeCoordinates = getShapeCoordinates(variantKey);
-      const CAGED_ChordsShapes = getCAGED_ChordsShapesForVisualAndSound();
+      const BaseChordsShapes = getBaseChordsShapesForVisualAndSound();
 
       const baseChordMatch = findMatchingBaseChord({
-        CAGED_ChordsShapes,
+        BaseChordsShapes,
         guitarShapeCoordinates,
       });
 
@@ -64,8 +64,8 @@ export const useMultiShapeCoordinates = () => {
         ? baseChordMatch.coordinates
         : [];
 
-      addUnique(multiShapeCoordinates, guitarShapeCoordinates);
-      addUnique(multiBaseChordCoordinates, baseChordCoordinates);
+      addUniqueCoordinates(multiShapeCoordinates, guitarShapeCoordinates);
+      addUniqueCoordinates(multiBaseChordCoordinates, baseChordCoordinates);
     });
 
     return {
@@ -74,7 +74,7 @@ export const useMultiShapeCoordinates = () => {
     };
   }, [
     currentSelectedShapesVariantDataKeys,
-    getCAGED_ChordsShapesForVisualAndSound,
+    getBaseChordsShapesForVisualAndSound,
   ]);
 
   const nextTargetShapeCoordinates = useMemo(() => {
@@ -84,7 +84,7 @@ export const useMultiShapeCoordinates = () => {
 
     nextSelectedShapesVariantDataKeys?.forEach((variantKey) => {
       const guitarShapeCoordinates = getShapeCoordinates(variantKey);
-      addUnique(coords, guitarShapeCoordinates);
+      addUniqueCoordinates(coords, guitarShapeCoordinates);
     });
 
     return coords;
@@ -97,10 +97,10 @@ export const useMultiShapeCoordinates = () => {
       if (i !== 0) return;
 
       const guitarShapeCoordinates = getShapeCoordinates(variantKey);
-      const CAGED_ChordsShapes = getCAGED_ChordsShapesForVisualAndSound();
+      const BaseChordsShapes = getBaseChordsShapesForVisualAndSound();
 
       const baseChordMatch = findMatchingBaseChord({
-        CAGED_ChordsShapes,
+        BaseChordsShapes,
         guitarShapeCoordinates,
       });
 
@@ -113,7 +113,7 @@ export const useMultiShapeCoordinates = () => {
     return resultBassNoteId;
   }, [
     currentSelectedShapesVariantDataKeys,
-    getCAGED_ChordsShapesForVisualAndSound,
+    getBaseChordsShapesForVisualAndSound,
   ]);
 
   useEffect(() => {

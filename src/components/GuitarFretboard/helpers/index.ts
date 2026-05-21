@@ -1,3 +1,4 @@
+export * from "./addUniqueCoordinates";
 export * from "./findMatchingBaseChord";
 export * from "./findMatchingCAGEDSystem";
 export * from "./findMatchingShape";

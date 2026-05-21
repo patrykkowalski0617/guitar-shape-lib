@@ -1,7 +1,7 @@
 import type { BaseChordShape, FretboardCoordinate } from "@/data";
 
 export interface MatcherParams {
-  CAGED_ChordsShapes: BaseChordShape[];
+  BaseChordsShapes: BaseChordShape[];
   guitarShapeCoordinates: FretboardCoordinate[];
 }
 
@@ -25,7 +25,7 @@ const fretOverlapScore = (a: FretRange, b: FretRange): number => {
 };
 
 export const findMatchingBaseChord = ({
-  CAGED_ChordsShapes,
+  BaseChordsShapes,
   guitarShapeCoordinates,
 }: MatcherParams): BaseChordShape | null => {
   const targetRange = getFretRange(guitarShapeCoordinates);
@@ -34,7 +34,7 @@ export const findMatchingBaseChord = ({
   let bestMatch: BaseChordShape | null = null;
   let highestScore = -1;
 
-  for (const candidate of CAGED_ChordsShapes) {
+  for (const candidate of BaseChordsShapes) {
     const candidateRange = getFretRange(candidate.coordinates);
     if (!candidateRange) continue;
 

@@ -2,16 +2,16 @@ import type { BaseChordShape, FretboardCoordinate } from "@/data";
 import { findMatchingShape } from "./findMatchingShape";
 
 export interface MatcherParams {
-  CAGED_ChordsShapes: BaseChordShape[];
+  BaseChordsShapes: BaseChordShape[];
   guitarShapeCoordinates: FretboardCoordinate[];
 }
 
 export const findMatchingBaseChord = ({
-  CAGED_ChordsShapes,
+  BaseChordsShapes,
   guitarShapeCoordinates,
 }: MatcherParams): BaseChordShape | null =>
   findMatchingShape(
-    CAGED_ChordsShapes,
+    BaseChordsShapes,
     (s) => s.coordinates,
     guitarShapeCoordinates,
   );
