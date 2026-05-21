@@ -8,7 +8,7 @@ import { KeyAndChordPicker } from "@/components/KeyAndChordPicker/KeyAndChordPic
 import ShapePicker from "./components/ShapePicker/ShapePicker";
 import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
 import { PianoControllers } from "@/components/PianoControllers/PianoControllers";
-import { ShapePlayerHeader } from "./components/ShapePlayerHeader/ShapePlayerHeader";
+import { HeaderControllers } from "./components/HeaderControllers/HeaderControllers";
 import { GlobalMultiRangeController } from "./components/ShapeExplorer/GlobalMultiRangeController";
 // import { DataKeyStoreDebugComponent } from "./DevTools/DataKeyStoreDebugComponent/DataKeyStoreDebugComponent";
 
@@ -27,7 +27,7 @@ export default function App() {
       <ShapePicker />
       <MainContent>
         <Section>
-          <ShapePlayerHeader />
+          <HeaderControllers />
         </Section>
         <Section>
           <GuitarFretboard />

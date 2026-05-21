@@ -51,7 +51,7 @@ export const NoteWrapper = styled.div<{ $isTargetNote?: boolean }>`
   ${({ $isTargetNote }) =>
     $isTargetNote
       ? css`
-          box-shadow: 0px 0px 8px 6px
+          box-shadow: 0px 0px 2px 5px
             color-mix(in oklab, var(--warn) 80%, transparent);
           background-color: color-mix(in oklab, var(--warn) 80%, transparent);
         `

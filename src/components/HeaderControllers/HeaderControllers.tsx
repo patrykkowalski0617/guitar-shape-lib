@@ -12,7 +12,7 @@ import {
 import * as S from "./parts";
 import { ExerciseTitle } from "./headerElements/ExerciseTitle/ExerciseTitle";
 
-export const ShapePlayerHeader = () => {
+export const HeaderControllers = () => {
   return (
     <>
       <S.ShapePlayerControllers>
