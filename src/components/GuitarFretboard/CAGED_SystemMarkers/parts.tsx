@@ -15,7 +15,8 @@ export const CAGED_SystemMarkers = styled.div`
   background-image: linear-gradient(
     -90deg,
     ${appBgColor} 0%,
-    color-mix(in oklab, var(--muted) 35%, var(--background)),
+    color-mix(in oklab, var(--muted) 40%, var(--background)) 15%,
+    color-mix(in oklab, var(--muted) 40%, var(--background)) 85%,
     ${appBgColor} 100%
   );
 `;

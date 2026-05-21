@@ -37,7 +37,7 @@ const MultiRangeSlider = ({
   return (
     <S.Wrapper
       $vertical={isVertical}
-      style={isVertical ? { height: height ?? 300 } : undefined}
+      style={isVertical ? { height: height ?? "100%" } : undefined}
     >
       <S.Track ref={trackRef} $vertical={isVertical}>
         <S.ActiveRange style={activeRangeStyle} $vertical={isVertical}>

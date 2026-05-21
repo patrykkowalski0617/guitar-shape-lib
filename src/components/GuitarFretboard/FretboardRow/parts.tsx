@@ -17,7 +17,8 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
           -1px 0px 3px 1px
             color-mix(in oklab, var(--background) 80%, transparent) inset;
         height: 600%;
-        width: 5px;
+        width: 6px;
+        border-radius: 2px;
         background: linear-gradient(
           0deg,
           color-mix(in oklab, var(--background) 50%, var(--background)) 0%,
@@ -53,7 +54,7 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
             content: "";
             position: absolute;
             left: 0px;
-            right: -50px;
+            right: -30px;
             top: 50%;
             transform: translateY(-50%);
             display: block;
@@ -67,10 +68,16 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
           }
         `
       : ""}
-  &:nth-child(1), 
+  &:nth-child(1) {
+    &::before {
+      height: 0.5px;
+      right: -25px;
+    }
+  }
   &:nth-child(2) {
     &::before {
       height: 0.5px;
+      right: -28px;
     }
   }
   &:nth-child(3) {
@@ -78,15 +85,22 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
       height: 1px;
     }
   }
-  &:nth-child(4),
+  &:nth-child(4) {
+    &::before {
+      height: 1.5px;
+    }
+  }
   &:nth-child(5) {
     &::before {
       height: 1.5px;
+      right: -27px;
     }
   }
   &:nth-child(6) {
     &::before {
       height: 2px;
+      background: color-mix(in oklab, var(--foreground) 5%, var(--muted));
+      right: -25px;
     }
   }
 
@@ -112,6 +126,13 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
   &:nth-child(6) {
     &::after {
       bottom: -21px;
+    }
+  }
+  &:nth-child(6) > :first-child {
+    &::after {
+      height: 8px;
+      border-radius: 0 0 3px 3px;
+      box-shadow: 0 -2px 3px 1px var(--background) inset;
     }
   }
 
@@ -147,14 +168,6 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
       height: 8px;
       border-radius: 3px 3px 0 0;
       box-shadow: 0 2px 3px 1px var(--background) inset;
-    }
-  }
-
-  &:nth-child(6) > :first-child {
-    &::after {
-      height: 8px;
-      border-radius: 0 0 3px 3px;
-      box-shadow: 0 -2px 3px 1px var(--background) inset;
     }
   }
 `;

@@ -2,17 +2,16 @@ import { type JSX, useRef } from "react";
 import * as S from "./parts";
 import { type StringValidIndex } from "./constants";
 import { useHorizontalScroll } from "@/hooks";
-import { InstrumentScrollWrapper } from "@/parts";
 import {
   useClaenLockedNotes,
   useFretboardScroll,
   useMultiShapeCoordinates,
 } from "./hooks";
+import { getAllFretboardNotes } from "./helpers";
 import CAGED_SystemMarkers from "./CAGED_SystemMarkers/CAGED_SystemMarkers";
 import FretboardDotMarkers from "./FretboardDotMarkers/FretboardDotMarkers";
 import FretboardRow from "./FretboardRow/FretboardRow";
 import { StringMultiRangeSlider } from "./StringMultiRangeSlider/StringMultiRangeSlider";
-import { getAllFretboardNotes } from "./helpers/getAllFretboardNotes";
 
 export default function GuitarFretboard(): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -35,7 +34,7 @@ export default function GuitarFretboard(): JSX.Element {
       <S.StringSliderWrapper>
         <StringMultiRangeSlider />
       </S.StringSliderWrapper>
-      <InstrumentScrollWrapper ref={scrollRef}>
+      <S.InstrumentScrollWrapper ref={scrollRef}>
         <S.FretboardWrapper>
           <S.Fretboard>
             {allFretboardNotes.map((rowNotes, index) => (
@@ -56,7 +55,7 @@ export default function GuitarFretboard(): JSX.Element {
           allCAGED_System={allCAGED_System}
           bestMatchCAGED_Systems={bestMatchCAGED_Systems}
         />
-      </InstrumentScrollWrapper>
+      </S.InstrumentScrollWrapper>
     </S.FretboardNotScrollableWrapper>
   );
 }

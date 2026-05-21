@@ -72,3 +72,20 @@ export const Note = styled.div<{
   position: relative;
   z-index: 52;
 `;
+
+export const Nut = styled.div`
+  width: 16px;
+  position: absolute;
+  border-radius: 4px;
+  right: -1.5px;
+  top: 8px;
+  height: calc(600% - 14px);
+  background-image: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--instrument) 20%, var(--background)) 0%,
+    color-mix(in oklab, var(--foreground) 0%, transparent) 40%,
+    color-mix(in oklab, var(--instrument) 20%, var(--background)) 100%
+  );
+  opacity: 0.8;
+  z-index: 21;
+`;

@@ -8,6 +8,7 @@ export interface FretboardCellProps {
   isShapeCell: boolean;
   isBaseChordCell: boolean;
   isInNextTargetShape: boolean;
+  isNutCell: boolean;
 }
 
 export interface UseFretboardCellProps {

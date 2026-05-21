@@ -1,7 +1,23 @@
 import styled from "styled-components";
 import WoodImage from "@/assets/wood.jpg";
 
-export const fretboardRPadding = "30px";
+export const fretboardRPadding = "40px";
+
+export const InstrumentScrollWrapper = styled.div`
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: relative;
+  z-index: 2;
+  @media (max-width: 1400px) {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      var(--background) 10px,
+      var(--background) calc(100% - 10px),
+      transparent
+    );
+  }
+`;
 
 export const FretboardNotScrollableWrapper = styled.div`
   margin-bottom: -20px;
@@ -15,8 +31,8 @@ export const StringSliderWrapper = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   width: 50px;
-  margin-top: 2px;
-  height: 192px;
+  margin-top: -12px;
+  height: 237px;
   position: relative;
   z-index: 100;
 `;
@@ -31,7 +47,7 @@ export const FretboardWrapper = styled.div`
 
 export const FretboardShadow = styled.div`
   left: 10px;
-  right: 15px;
+  right: calc(${fretboardRPadding} - 15px);
   height: 179px;
   position: absolute;
   z-index: 16;

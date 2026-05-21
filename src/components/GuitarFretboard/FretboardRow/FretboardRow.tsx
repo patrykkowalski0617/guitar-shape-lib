@@ -23,6 +23,7 @@ export default function FretboardRow({
           key={`${stringIndex}-${fretIndex}`}
           noteObject={noteObject}
           fretIndex={fretIndex}
+          isNutCell={stringIndex === 0 && fretIndex === 0}
           isVisibleString={isVisibleString}
           isShapeCell={isShapeCellFn({
             guitarShapeCoordinates,
