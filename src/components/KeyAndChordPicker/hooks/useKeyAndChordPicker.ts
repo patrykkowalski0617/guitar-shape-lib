@@ -12,6 +12,7 @@ export function useKeyAndChordPicker() {
   const setShapePickerExpanded = useUiStore(
     (state) => state.setShapePickerExpanded,
   );
+  const editingBrickId = useUiStore((state) => state.editingBrickId);
 
   const setBaseChordDataKey = useDataKeyStore(
     (state) => state.setBaseChordDataKey,
@@ -38,6 +39,7 @@ export function useKeyAndChordPicker() {
 
   return {
     isKeyAndChordPickerExpanded,
+    editingBrickId,
     optionsPerKey,
     unifiedMusicKeysDataKey,
     handleChordSelection,

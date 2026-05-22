@@ -55,18 +55,24 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
         });
       },
 
+      updateBrick: (id, partialBrick) => {
+        set((state) => ({
+          guitarShapePlayerBricks: state.guitarShapePlayerBricks.map((brick) =>
+            brick.id === id ? { ...brick, ...partialBrick } : brick,
+          ),
+        }));
+      },
+
       removeShapePlayerBrick: (idToRemove) => {
         set((state) => {
           const brickIndex = state.guitarShapePlayerBricks.findIndex(
-            (guitarShapePlayerBrick) =>
-              guitarShapePlayerBrick.id === idToRemove,
+            (brick) => brick.id === idToRemove,
           );
 
           if (brickIndex === -1) return state;
 
           const updatedBricks = state.guitarShapePlayerBricks.filter(
-            (guitarShapePlayerBrick) =>
-              guitarShapePlayerBrick.id !== idToRemove,
+            (brick) => brick.id !== idToRemove,
           );
 
           return {
@@ -150,28 +156,6 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
             state.exerciseTitle,
           ),
         })),
-
-      updateBrickRange: (id, sliderRange) => {
-        set((state) => ({
-          guitarShapePlayerBricks: state.guitarShapePlayerBricks.map(
-            (guitarShapePlayerBrick) =>
-              guitarShapePlayerBrick.id === id
-                ? { ...guitarShapePlayerBrick, sliderRange }
-                : guitarShapePlayerBrick,
-          ),
-        }));
-      },
-
-      updateBrickTargetNotes: (id, targetSharpNoteNames) => {
-        set((state) => ({
-          guitarShapePlayerBricks: state.guitarShapePlayerBricks.map(
-            (guitarShapePlayerBrick) =>
-              guitarShapePlayerBrick.id === id
-                ? { ...guitarShapePlayerBrick, targetSharpNoteNames }
-                : guitarShapePlayerBrick,
-          ),
-        }));
-      },
     };
   }),
 );

@@ -5,4 +5,6 @@ export interface UiState {
   setShapePickerExpanded: (isExpanded: boolean) => void;
   toggleKeyAndChordPicker: () => void;
   toggleShapePicker: () => void;
+  editingBrickId: string | null;
+  setEditingBrickId: (id: string | null) => void;
 }

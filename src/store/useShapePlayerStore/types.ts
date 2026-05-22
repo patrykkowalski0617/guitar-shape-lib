@@ -29,11 +29,7 @@ export interface ShapePlayerState {
   setExerciseTitle: (exerciseTitle: string) => void;
   addShapePlayerBrick: (brickData: Omit<ShapePlayerBrick, "id">) => void;
   removeShapePlayerBrick: (id: string) => void;
-  updateBrickRange: (id: string, sliderRange: [number, number]) => void;
-  updateBrickTargetNotes: (
-    id: string,
-    targetSharpNoteNames: SharpNoteName[],
-  ) => void;
+  updateBrick: (id: string, partialBrick: Partial<ShapePlayerBrick>) => void;
   clearShapePlayerBricks: () => void;
   restoreLastAction: () => void;
   reorderShapePlayerBricks: (oldIndex: number, newIndex: number) => void;

@@ -1,17 +1,13 @@
-import { type ShapePlayerBrick, useShapePlayerStore } from "@/store";
+import { type ShapePlayerBrick } from "@/store";
 import {
   useDataKeySelectors,
   useShapePlayerLocations,
-  useShapePlayerTargetNotes,
+  useShapePlayerBrickUpdates,
 } from "./";
 
 export const useShapePlayerBrickSelection = (
   guitarShapePlayerBrick?: ShapePlayerBrick,
 ) => {
-  const updateBrickRange = useShapePlayerStore(
-    (state) => state.updateBrickRange,
-  );
-
   const {
     setBaseChordDataKey,
     setSelectedShapesVariantDataKeys,
@@ -26,15 +22,8 @@ export const useShapePlayerBrickSelection = (
   const { sliderRange, orderedLocations, selectedShapesVariantDataKeys } =
     useShapePlayerLocations(guitarShapePlayerBrick);
 
-  const { targetSharpNoteNames, toggleTargetNote } = useShapePlayerTargetNotes(
-    guitarShapePlayerBrick,
-  );
-
-  const setSliderRange = (newRange: [number, number]) => {
-    if (guitarShapePlayerBrick?.id) {
-      updateBrickRange(guitarShapePlayerBrick.id, newRange);
-    }
-  };
+  const { setSliderRange, toggleTargetNote, targetSharpNoteNames } =
+    useShapePlayerBrickUpdates(guitarShapePlayerBrick);
 
   const restoreData = () => {
     if (guitarShapePlayerBrick?.baseChordDataKey) {

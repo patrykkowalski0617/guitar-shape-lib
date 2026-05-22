@@ -1,6 +1,7 @@
 import { useDataKeyStore, useUiStore, useShapePlayerStore } from "@/store";
 import { useBaseChordName } from "@/hooks/baseChord/useBaseChordName";
 import { useSortedShapeOptions } from "./useSortedShapeOptions";
+import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
 
 export const useShapePicker = () => {
   const unifiedMusicKeysDataKey = useDataKeyStore(
@@ -19,10 +20,13 @@ export const useShapePicker = () => {
   const setShapePickerExpanded = useUiStore(
     (state) => state.setShapePickerExpanded,
   );
+  const editingBrickId = useUiStore((state) => state.editingBrickId);
+  const setEditingBrickId = useUiStore((state) => state.setEditingBrickId);
 
   const addShapePlayerBrick = useShapePlayerStore(
     (state) => state.addShapePlayerBrick,
   );
+  const updateBrick = useShapePlayerStore((state) => state.updateBrick);
 
   const options = useSortedShapeOptions();
   const selectedChordLabel = useBaseChordName();
@@ -35,14 +39,35 @@ export const useShapePicker = () => {
     setSemitoneOffsetFromMajorRoot(semitoneOffsetFromMajorRoot);
 
     if (unifiedMusicKeysDataKey && baseChordDataKey) {
-      addShapePlayerBrick({
-        unifiedMusicKeysDataKey,
-        baseChordDataKey,
-        guitarShapeDataKey,
-        semitoneOffsetFromMajorRoot,
-        playLength: 4,
-        targetSharpNoteNames: [],
-      });
+      if (editingBrickId) {
+        const locations = getOrderedShapeVariantDataKeys({
+          guitarShapeDataKey,
+          unifiedMusicKeysDataKey,
+          semitoneOffsetFromMajorRoot,
+        });
+        const maxLocationIndex = Math.max(0, locations.length - 1);
+        const defaultRange: [number, number] = [0, maxLocationIndex];
+
+        updateBrick(editingBrickId, {
+          unifiedMusicKeysDataKey,
+          baseChordDataKey,
+          guitarShapeDataKey,
+          semitoneOffsetFromMajorRoot,
+          sliderRange: defaultRange,
+          targetSharpNoteNames: [],
+        });
+
+        setEditingBrickId(null);
+      } else {
+        addShapePlayerBrick({
+          unifiedMusicKeysDataKey,
+          baseChordDataKey,
+          guitarShapeDataKey,
+          semitoneOffsetFromMajorRoot,
+          playLength: 4,
+          targetSharpNoteNames: [],
+        });
+      }
     }
 
     setShapePickerExpanded(false);

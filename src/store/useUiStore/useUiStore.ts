@@ -4,6 +4,7 @@ import type { UiState } from "./types";
 export const useUiStore = create<UiState>((set) => ({
   isKeyAndChordPickerExpanded: false,
   isShapePickerExpanded: false,
+  editingBrickId: null,
 
   setKeyAndChordPickerExpanded: (isKeyAndChordPickerExpanded) =>
     set({ isKeyAndChordPickerExpanded }),
@@ -20,4 +21,6 @@ export const useUiStore = create<UiState>((set) => ({
     set((state) => ({
       isShapePickerExpanded: !state.isShapePickerExpanded,
     })),
+
+  setEditingBrickId: (editingBrickId) => set({ editingBrickId }),
 }));
