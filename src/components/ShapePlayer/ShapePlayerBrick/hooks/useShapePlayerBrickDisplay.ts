@@ -1,6 +1,8 @@
-import { useUnifiedMusicKey } from "@/hooks";
-import { useBaseChordName } from "@/hooks/baseChord/useBaseChordName";
-import { getGuitarShapeName } from "@/hooks/guitarShapes";
+import {
+  useUnifiedMusicKey,
+  useBaseChordName,
+  getGuitarShapeName,
+} from "@/hooks";
 import type { ShapePlayerBrick } from "@/store";
 
 export const useShapePlayerBrickDisplay = (
