@@ -86,25 +86,29 @@ export const ActiveRange = styled.div<OrientedProps>`
       ? `
           linear-gradient(
             90deg,
-            #303030 0%,
-            #1c1c1c 50%,
-            #2b2b2b 100%
+            #2f3132 0%,
+            #242627 22%,
+            #1f2021 50%,
+            #242627 78%,
+            #2c2e2f 100%
           )
         `
       : `
           linear-gradient(
             180deg,
-            #303030 0%,
-            #1c1c1c 50%,
-            #2b2b2b 100%
+            #2f3132 0%,
+            #242627 22%,
+            #1f2021 50%,
+            #242627 78%,
+            #2c2e2f 100%
           )
         `};
 
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 -2px 3px rgba(0, 0, 0, 0.45),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
-    0 2px 8px rgba(0, 0, 0, 0.22);
+    inset 0 1px 0 rgba(255, 255, 255, 0.045),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.025),
+    0 1px 3px rgba(0, 0, 0, 0.12);
 
   &::before {
     content: "";
@@ -117,17 +121,21 @@ export const ActiveRange = styled.div<OrientedProps>`
         ? `
             linear-gradient(
               90deg,
-              transparent,
-              rgba(255,255,255,0.04),
-              transparent
+              transparent 0%,
+              rgba(255,255,255,0.018) 30%,
+              rgba(255,255,255,0.035) 50%,
+              rgba(255,255,255,0.018) 70%,
+              transparent 100%
             )
           `
         : `
             linear-gradient(
               180deg,
-              transparent,
-              rgba(255,255,255,0.04),
-              transparent
+              transparent 0%,
+              rgba(255,255,255,0.018) 30%,
+              rgba(255,255,255,0.035) 50%,
+              rgba(255,255,255,0.018) 70%,
+              transparent 100%
             )
           `};
 
@@ -169,7 +177,6 @@ export const Grab = styled.div`
     filter: brightness(1.04);
   }
 
-  /* grip texture */
   &::before {
     content: "";
 
@@ -202,17 +209,18 @@ export const Handle = styled.div<OrientedProps>`
   background:
     linear-gradient(
       180deg,
-      rgba(255, 255, 255, 0.08),
-      rgba(255, 255, 255, 0.02) 15%,
-      rgba(0, 0, 0, 0.14) 55%,
-      rgba(255, 255, 255, 0.03)
+      rgba(255, 255, 255, 0.045) 0%,
+      rgba(255, 255, 255, 0.015) 14%,
+      rgba(0, 0, 0, 0.06) 52%,
+      rgba(255, 255, 255, 0.02) 100%
     ),
-    linear-gradient(135deg, #363636, #121212);
+    linear-gradient(135deg, #4a4c4d 0%, #353738 34%, #262728 68%, #303233 100%);
 
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.55),
-    0 2px 8px rgba(0, 0, 0, 0.4);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.18),
+    0 1px 3px rgba(0, 0, 0, 0.18),
+    0 6px 10px rgba(0, 0, 0, 0.08);
 
   transition:
     filter 0.12s ease,
@@ -255,25 +263,54 @@ export const Handle = styled.div<OrientedProps>`
         `}
 
   &:hover {
-    filter: brightness(1.08);
+    filter: brightness(1.03);
 
     background:
       linear-gradient(
         180deg,
-        rgba(255, 255, 255, 0.1),
-        rgba(255, 255, 255, 0.03) 15%,
-        rgba(0, 0, 0, 0.12) 55%,
-        rgba(255, 255, 255, 0.04)
+        rgba(255, 255, 255, 0.06) 0%,
+        rgba(255, 255, 255, 0.02) 14%,
+        rgba(0, 0, 0, 0.05) 52%,
+        rgba(255, 255, 255, 0.025) 100%
       ),
-      linear-gradient(135deg, #414141, #181818);
+      linear-gradient(
+        135deg,
+        #555758 0%,
+        #404243 34%,
+        #303233 68%,
+        #3a3c3d 100%
+      );
 
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      inset 0 -2px 4px rgba(0, 0, 0, 0.55),
-      0 4px 12px rgba(0, 0, 0, 0.5);
+      inset 0 1px 0 rgba(255, 255, 255, 0.11),
+      inset 0 -1px 2px rgba(0, 0, 0, 0.18),
+      0 2px 5px rgba(0, 0, 0, 0.18),
+      0 10px 16px rgba(0, 0, 0, 0.1);
   }
 
   &:active {
-    filter: brightness(0.96);
+    filter: brightness(0.985);
+  }
+
+  &::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    opacity: 0.08;
+
+    border-radius: inherit;
+
+    background: repeating-linear-gradient(
+      ${({ $vertical }) => ($vertical ? "0deg" : "90deg")},
+      rgba(255, 255, 255, 0.22) 0px,
+      rgba(255, 255, 255, 0.22) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+
+    pointer-events: none;
   }
 `;
