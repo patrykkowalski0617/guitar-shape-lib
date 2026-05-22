@@ -75,7 +75,7 @@ const results = Object.keys(GUITAR_SHAPES).map((guitarShapeDataKey) => {
   };
 });
 
-describe("GUITAR_SHAPES", () => {
+describe("GUITAR_SHAPES - check if coordinates point the same notes that intervals", () => {
   it("should contain at least one shape", () => {
     expect(results.length).toBeGreaterThan(0);
   });
@@ -96,7 +96,9 @@ describe("GUITAR_SHAPES", () => {
           }) => {
             const { stringId, variantDataKey, fretIndex } = variantDataKeys;
 
-            it(`${stringId} / ${variantDataKey} / fret ${fretIndex} — coord notes [${[...new Set(coordinateNoteNames)].join(", ")}] should match interval notes [${[...new Set(intervalNoteNames)].join(", ")}]`, () => {
+            it(`${stringId} / ${variantDataKey} / fret ${fretIndex} 
+              — coord notes [${[...new Set(coordinateNoteNames)].join(", ")}] 
+              should match interval notes [${[...new Set(intervalNoteNames)].join(", ")}]`, () => {
               expect(isValid).toBe(true);
             });
           },
