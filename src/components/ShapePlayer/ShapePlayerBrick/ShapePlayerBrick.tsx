@@ -8,6 +8,7 @@ import { ShapeExplorer } from "@/components/ShapeExplorer/ShapeExplorer";
 import { usePlayingBricksData } from "../ShapePlayerList/hooks/usePlayingBricksData";
 import { Button } from "@/components/ui/parts";
 import { NoteMatrix } from "@/components/NoteMatrix/NoteMatrix";
+import { Counter } from "./brickElements/Counter/Counter";
 
 interface ShapePlayerBrickProps {
   id: string;
@@ -24,9 +25,8 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
   } = useShapePlayerBrick(id);
 
   const { activeBrickId, activeBeatIndex } = usePlayingBricksData();
-  const { keyName, chordName, guitarShapeName } = useShapePlayerBrickDisplay(
-    guitarShapePlayerBrick,
-  );
+  const { keyName, baseChordName, guitarShapeName } =
+    useShapePlayerBrickDisplay(guitarShapePlayerBrick);
   const {
     sliderRange,
     setSliderRange,
@@ -49,9 +49,10 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
       onMouseUp={restoreData}
     >
       <Button>{keyName}</Button>
-      <Button>{chordName}</Button>
+      <Button>{baseChordName}</Button>
       <Button $widthMultiplier={4}>{guitarShapeName}</Button>
       <Button>{playLength}</Button>
+
       <NoteMatrix
         unifiedMusicKeysDataKey={guitarShapePlayerBrick.unifiedMusicKeysDataKey}
         baseChordDataKey={guitarShapePlayerBrick.baseChordDataKey}
@@ -60,24 +61,12 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
         targetSharpNoteNames={targetSharpNoteNames}
         onToggleNote={toggleTargetNote}
       />
-      <div style={{ display: "flex", gap: "4px", marginTop: "8px" }}>
-        {Array.from({ length: playLength }).map((_, index) => {
-          const isPartActive =
-            isCurrentBrickPlayed && activeBeatIndex === index;
-          return (
-            <div
-              key={index}
-              style={{
-                width: "20px",
-                height: "10px",
-                backgroundColor: isPartActive ? "#4caf50" : "#e0e0e0",
-                borderRadius: "2px",
-                transition: "background-color 0.1s",
-              }}
-            />
-          );
-        })}
-      </div>
+
+      <Counter
+        playLength={playLength}
+        isCurrentBrickPlayed={isCurrentBrickPlayed}
+        activeBeatIndex={activeBeatIndex}
+      />
 
       <ShapeExplorer
         unifiedMusicKeysDataKey={guitarShapePlayerBrick.unifiedMusicKeysDataKey}

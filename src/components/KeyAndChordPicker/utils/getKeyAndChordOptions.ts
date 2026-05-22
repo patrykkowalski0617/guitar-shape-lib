@@ -17,7 +17,7 @@ export function getKeyAndChordOptions() {
   const optionsPerKey = keyEntries.map(([currentUnifiedKey, keyData]) => {
     const chords = (Object.keys(BASE_CHORDS) as BaseChordDataKey[]).map(
       (baseChordKey) => {
-        const chordName = getBaseChordName({
+        const baseChordName = getBaseChordName({
           baseChordDataKey: baseChordKey,
           unifiedMusicKeysDataKey: currentUnifiedKey,
           isExtendedName: false,
@@ -26,7 +26,7 @@ export function getKeyAndChordOptions() {
         return {
           baseChordDataKey: baseChordKey,
           combinedId: `${currentUnifiedKey}|${baseChordKey}`,
-          chordName,
+          baseChordName,
         };
       },
     );

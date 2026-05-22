@@ -10,7 +10,7 @@ export const useShapePlayerBrickDisplay = (
     guitarShapePlayerBrick?.unifiedMusicKeysDataKey,
   );
 
-  const chordName = useBaseChordName({
+  const baseChordName = useBaseChordName({
     baseChordDataKey: guitarShapePlayerBrick?.baseChordDataKey,
     unifiedMusicKeysDataKey: guitarShapePlayerBrick?.unifiedMusicKeysDataKey,
   });
@@ -31,7 +31,7 @@ export const useShapePlayerBrickDisplay = (
 
   return {
     keyName,
-    chordName,
+    baseChordName,
     guitarShapeName,
   };
 };

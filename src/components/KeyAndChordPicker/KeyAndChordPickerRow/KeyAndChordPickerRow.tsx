@@ -9,7 +9,7 @@ import * as S from "./parts";
 interface ChordOption {
   baseChordDataKey: BaseChordDataKey;
   combinedId: string;
-  chordName: NoteName;
+  baseChordName: NoteName;
 }
 
 interface KeyGroup {
@@ -41,7 +41,7 @@ export function KeyAndChordPickerRow({
       </S.Item>
       {group.chords.map((item, index) => {
         const modeName = chordsConfig[index].modeExtendedName;
-        const fullLabel = `${item.chordName}${modeName}`;
+        const fullLabel = `${item.baseChordName}${modeName}`;
 
         const handleChordClick = () => {
           onSelectChord(group.unifiedMusicKeyDataKey, item.baseChordDataKey);
