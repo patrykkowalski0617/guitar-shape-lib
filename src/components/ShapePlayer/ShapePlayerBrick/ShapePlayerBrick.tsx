@@ -4,13 +4,13 @@ import {
   useShapePlayerBrickDisplay,
   useShapePlayerBrickSelection,
 } from "./hooks";
+import { useDataKeyStore, useUiStore } from "@/store";
 import { ShapeExplorer } from "@/components/ShapeExplorer/ShapeExplorer";
 import { usePlayingBricksData } from "../ShapePlayerList/hooks/usePlayingBricksData";
 import { Button } from "@/components/ui/parts";
 import { NoteMatrix } from "@/components/NoteMatrix/NoteMatrix";
 import { Counter } from "./brickElements/Counter/Counter";
-import { useUiStore } from "@/store";
-import { useDataKeyStore } from "@/store";
+import { Trash2 } from "lucide-react";
 
 interface ShapePlayerBrickProps {
   id: string;
@@ -61,7 +61,6 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
   const isCurrentBrickPlayed = activeBrickId === id;
   const playLength = guitarShapePlayerBrick.playLength;
 
-  // Otwiera picker 1 (key + chord) z presetem danych tej cegły
   const handleEditKeyAndChord = () => {
     setEditingBrickId(id);
     setUnifiedMusicKeysDataKey(guitarShapePlayerBrick.unifiedMusicKeysDataKey);
@@ -70,7 +69,6 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     setShapePickerExpanded(false);
   };
 
-  // Otwiera picker 2 (shape) z presetem danych tej cegły — pomija picker 1
   const handleEditShape = () => {
     setEditingBrickId(id);
     setUnifiedMusicKeysDataKey(guitarShapePlayerBrick.unifiedMusicKeysDataKey);
@@ -95,7 +93,12 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
       <Button $widthMultiplier={4} onClick={handleEditShape}>
         {guitarShapeName}
       </Button>
-      <Button>{playLength}</Button>
+
+      <Counter
+        playLength={playLength}
+        isCurrentBrickPlayed={isCurrentBrickPlayed}
+        activeBeatIndex={activeBeatIndex}
+      />
 
       <NoteMatrix
         unifiedMusicKeysDataKey={guitarShapePlayerBrick.unifiedMusicKeysDataKey}
@@ -104,12 +107,6 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
         guitarShapeDataKey={guitarShapePlayerBrick.guitarShapeDataKey}
         targetSharpNoteNames={targetSharpNoteNames}
         onToggleNote={toggleTargetNote}
-      />
-
-      <Counter
-        playLength={playLength}
-        isCurrentBrickPlayed={isCurrentBrickPlayed}
-        activeBeatIndex={activeBeatIndex}
       />
 
       <ShapeExplorer
@@ -124,9 +121,11 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
         orderedLocations={orderedLocations}
       />
 
-      <Button onClick={handleRemoveClick}>Delete</Button>
+      <Button onClick={handleRemoveClick} $widthMultiplier={1}>
+        <Trash2 />
+      </Button>
 
-      <Button {...attributes} {...listeners}>
+      <Button {...attributes} {...listeners} $widthMultiplier={1}>
         ::
       </Button>
     </S.ShapePlayerBrickWrapper>

@@ -14,7 +14,7 @@ export default function ShapePicker() {
   return (
     <S.Wrapper>
       <S.InfoText>
-        Choose a guitarShape to solo over the {selectedChordLabel} chord
+        Choose a shape to solo over the {selectedChordLabel} chord
       </S.InfoText>
       <S.List>
         {options?.map((option) => (

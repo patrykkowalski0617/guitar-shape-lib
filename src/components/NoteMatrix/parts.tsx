@@ -1,19 +1,12 @@
 import { noteCommon } from "@/components/NoteLabel/constants";
-import { instrumentElBRadius } from "@/components/Piano/constants";
-import { glassEffectShadow } from "@/constants";
 import styled, { css } from "styled-components";
 
 export const NoteMatrixSection = styled.div`
   display: flex;
   flex-direction: row;
   font-size: 14px;
-  border: 1px solid color-mix(in oklab, var(--instrument) 20%, transparent);
-  border-radius: calc(${instrumentElBRadius} + 2px);
-  padding: 8px;
-  gap: var(--spacing);
+  gap: 6px;
   position: relative;
-  background-color: color-mix(in oklab, var(--foreground) 5%, transparent);
-  ${glassEffectShadow}
   justify-content: space-between;
   width: fit-content;
   margin: 0 5px;
@@ -24,7 +17,7 @@ export const Note = styled.div<{
   $isTargetNote?: boolean;
 }>`
   ${noteCommon}
-  opacity: 0.5;
+  opacity: 0.25;
 
   ${({ $isSharedNote }) =>
     $isSharedNote &&
@@ -45,10 +38,9 @@ export const NoteWrapper = styled.div`
 `;
 
 export const IntervalContainer = styled.div`
-  font-size: 12px;
+  font-size: 11px;
   text-align: center;
   position: absolute;
   width: 100%;
-  top: -28px;
-  opacity: 0.7;
+  top: -22px;
 `;

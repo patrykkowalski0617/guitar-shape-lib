@@ -1,5 +1,4 @@
 import { AppWrapper, MainContent, Section } from "@/parts";
-import { Toaster } from "@/components/ui/sonner";
 import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
 import Footer from "./components/Footer/Footer";
 import { SoundEngine } from "./components/SoundEngine/SoundEngine";
@@ -21,7 +20,6 @@ export default function App() {
         <PianoControllers />
       </Section>
 
-      <Toaster position="top-center" />
       <FullscreenButton />
       <KeyAndChordPicker />
       <ShapePicker />
