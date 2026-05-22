@@ -20,7 +20,9 @@ export const useMultiRangeSlider = (
   orientation: "horizontal" | "vertical" = "horizontal",
 ) => {
   const trackRef = useRef<HTMLDivElement>(null);
+
   const [dragState, setDragState] = useState<DragState | null>(null);
+
   const onChangeRef = useRef(onChange);
 
   useEffect(() => {
@@ -30,9 +32,11 @@ export const useMultiRangeSlider = (
   const getFractionalIndex = useCallback(
     (clientX: number, clientY: number) => {
       const trackElement = trackRef.current;
+
       if (!trackElement) return 0;
 
       const rect = trackElement.getBoundingClientRect();
+
       const position =
         orientation === "vertical"
           ? (clientY - rect.top) / rect.height
@@ -46,33 +50,53 @@ export const useMultiRangeSlider = (
   useEffect(() => {
     if (!dragState) return;
 
+    document.body.style.cursor =
+      dragState.type === "move"
+        ? "grabbing"
+        : orientation === "vertical"
+          ? "ns-resize"
+          : "ew-resize";
+
+    document.body.classList.add("multi-range-slider--dragging");
+
     const handleGlobalMove = (e: MouseEvent | TouchEvent | any) => {
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
       const currentFractionalIndex = getFractionalIndex(clientX, clientY);
 
       const { type, startIdx, initialRange } = dragState;
 
       const indexDiff = Math.round(currentFractionalIndex - startIdx);
+
       const lastIndex = totalSegments - 1;
 
       let nextRange = { ...initialRange };
 
       if (type === "move") {
         const rangeWidth = initialRange.end - initialRange.start;
+
         const nextStart = initialRange.start + indexDiff;
+
         const maxStart = lastIndex - rangeWidth;
 
         const clampedStart = Math.max(0, Math.min(nextStart, maxStart));
+
         nextRange = {
           start: clampedStart,
           end: clampedStart + rangeWidth,
         };
       } else if (type === "start") {
         const nextStart = initialRange.start + indexDiff;
+
         nextRange.start = Math.max(0, Math.min(nextStart, initialRange.end));
       } else if (type === "end") {
         const nextEnd = initialRange.end + indexDiff;
+
         nextRange.end = Math.max(
           initialRange.start,
           Math.min(nextEnd, lastIndex),
@@ -84,24 +108,52 @@ export const useMultiRangeSlider = (
       }
     };
 
-    const handleGlobalUp = () => setDragState(null);
+    const handleGlobalUp = () => {
+      document.body.style.cursor = "";
+      document.body.classList.remove("multi-range-slider--dragging");
+
+      setDragState(null);
+    };
 
     window.addEventListener("mousemove", handleGlobalMove);
     window.addEventListener("mouseup", handleGlobalUp);
-    window.addEventListener("touchmove", handleGlobalMove, { passive: false });
+
+    window.addEventListener("touchmove", handleGlobalMove, {
+      passive: false,
+    });
+
     window.addEventListener("touchend", handleGlobalUp);
 
     return () => {
+      document.body.style.cursor = "";
+      document.body.classList.remove("multi-range-slider--dragging");
+
       window.removeEventListener("mousemove", handleGlobalMove);
+
       window.removeEventListener("mouseup", handleGlobalUp);
+
       window.removeEventListener("touchmove", handleGlobalMove);
+
       window.removeEventListener("touchend", handleGlobalUp);
     };
-  }, [dragState, totalSegments, getFractionalIndex, range.start, range.end]);
+  }, [
+    dragState,
+    totalSegments,
+    getFractionalIndex,
+    range.start,
+    range.end,
+    orientation,
+  ]);
 
   const startDragging = (type: DragType, e: any) => {
+    if (e.cancelable) {
+      e.preventDefault();
+    }
+
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
     const currentFractionalIndex = getFractionalIndex(clientX, clientY);
 
     setDragState({
@@ -111,5 +163,9 @@ export const useMultiRangeSlider = (
     });
   };
 
-  return { trackRef, startDragging };
+  return {
+    trackRef,
+    startDragging,
+    isDragging: !!dragState,
+  };
 };
