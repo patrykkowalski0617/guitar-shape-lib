@@ -1,6 +1,9 @@
 import type { NoteId } from "@/utils";
 
-export const decrementOctaveOfNoteId = (noteId: NoteId): NoteId => {
+export const decrementOctaveOfNoteId = (
+  noteId: NoteId,
+  byOctaveNo: number = 1,
+): NoteId => {
   const match = noteId.match(/([A-G]#?)-?(\d+)$/);
 
   if (!match) {
@@ -14,6 +17,6 @@ export const decrementOctaveOfNoteId = (noteId: NoteId): NoteId => {
     return noteId;
   }
 
-  const newOctave = octave - 1;
+  const newOctave = octave - byOctaveNo;
   return `${note}-${newOctave}` as NoteId;
 };

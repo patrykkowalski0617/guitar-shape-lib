@@ -3,7 +3,6 @@ import * as S from "./parts";
 import { useMetronomeStore } from "@/store";
 
 export const BpmMultiplier = () => {
-  const isPlaying = useMetronomeStore((state) => state.isPlaying);
   const setBpmMultiplier = useMetronomeStore((state) => state.setBpmMultiplier);
   const bpmMultiplier = useMetronomeStore((state) => state.bpmMultiplier);
   const [count, setCount] = useState(bpmMultiplier);
@@ -14,9 +13,5 @@ export const BpmMultiplier = () => {
     setBpmMultiplier(nextCount);
   };
 
-  return (
-    <S.Button disabled={isPlaying} onClick={handleClick}>
-      /{count}
-    </S.Button>
-  );
+  return <S.Button onClick={handleClick}>/{count}</S.Button>;
 };

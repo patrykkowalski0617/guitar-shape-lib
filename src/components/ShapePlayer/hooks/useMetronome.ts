@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from "react";
 import { useMetronomeStore } from "@/store";
-import { metronomeInstance } from "../metronome/metronomeInstance";
+import { metronomeInstance } from "../../metronome/metronomeInstance";
 
 export const useMetronome = (
   bpm: number,
