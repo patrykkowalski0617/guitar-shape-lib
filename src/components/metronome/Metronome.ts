@@ -15,7 +15,47 @@ export class Metronome {
   private onTick: () => { isNewBrick: boolean };
   private scheduledNodes: AudioNode[] = [];
   private isRunning: boolean = false;
+  private bassNoteFrequency: number | null = null;
+  private playBassNote(time: number) {
+    if (
+      !this.audioContext ||
+      !this.isRunning ||
+      this.bassNoteFrequency === null
+    )
+      return;
 
+    const mainGain = this.audioContext.createGain();
+    mainGain.gain.setValueAtTime(0, time);
+    mainGain.gain.linearRampToValueAtTime(this.volume * 0.1, time + 0.01);
+    const noteDuration = (60.0 / this.bpm) * 0.9;
+    mainGain.gain.setValueAtTime(this.volume * 0.005, time + 0.0005);
+    mainGain.gain.exponentialRampToValueAtTime(0.0001, time + noteDuration);
+
+    const osc = this.audioContext.createOscillator();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(this.bassNoteFrequency, time);
+    osc.connect(mainGain);
+
+    const subOsc = this.audioContext.createOscillator();
+    const subGain = this.audioContext.createGain();
+    subOsc.type = "sine";
+    subOsc.frequency.setValueAtTime(this.bassNoteFrequency / 2, time);
+    subGain.gain.setValueAtTime(0.2, time);
+    subOsc.connect(subGain);
+    subGain.connect(mainGain);
+
+    mainGain.connect(this.audioContext.destination);
+
+    osc.start(time);
+    osc.stop(time + noteDuration + 0.05);
+    subOsc.start(time);
+    subOsc.stop(time + noteDuration + 0.05);
+
+    this.scheduledNodes.push(osc, subOsc);
+  }
+  public updateBassNote(frequency: number | null) {
+    this.bassNoteFrequency = frequency;
+  }
   constructor(onTick: () => { isNewBrick: boolean }) {
     this.onTick = onTick;
     this.worker = new Worker(new URL("./metronome.worker.ts", import.meta.url));

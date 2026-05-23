@@ -1,6 +1,6 @@
 import type { NoteId } from "@/utils";
 
-export const decrementOctaveOfNoteId = (
+export const changeOctaveOfNoteId = (
   noteId: NoteId,
   byOctaveNo: number = 1,
 ): NoteId => {

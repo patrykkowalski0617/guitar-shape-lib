@@ -13,6 +13,7 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
   currentStep: 0,
   countIn: 0,
   isCountingIn: false,
+  isMetronomeWithBass: true,
 
   setBpm: (bpm) => {
     const validatedBpm = Math.max(BPM_RANGE.MIN, Math.min(BPM_RANGE.MAX, bpm));

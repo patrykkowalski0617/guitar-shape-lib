@@ -14,6 +14,7 @@ export interface MetronomeState {
   currentStep: number;
   countIn: number;
   isCountingIn: boolean;
+  isMetronomeWithBass: boolean;
 
   setBpm: (bpm: number) => void;
   setBpmMultiplier: (multiplier: number) => void;

@@ -4,7 +4,7 @@ import { SCALE_SEMITONE_TEMPLATES } from "@/data";
 import { useUnifiedMusicKey } from "@/hooks";
 import { harmonizeBassNote } from "../utils/harmonizeBassNote";
 import { useBaseChord } from "@/hooks/baseChord/useBaseChord";
-import { decrementOctaveOfNoteId } from "@/utils";
+import { changeOctaveOfNoteId } from "@/utils";
 
 export const useBackingTrackSync = () => {
   const baseChordBassNoteId = useMusicStore(
@@ -48,7 +48,7 @@ export const useBackingTrackSync = () => {
         baseChordBassNoteId,
         scaleTemplate,
       );
-      const bassNoteNoteId = decrementOctaveOfNoteId(baseChordBassNoteId);
+      const bassNoteNoteId = changeOctaveOfNoteId(baseChordBassNoteId);
       const allHarmonyNoteIds = [bassNoteNoteId, ...harmonyNoteIds];
       const isDifferent =
         JSON.stringify(currentBackingtrackIds) !==

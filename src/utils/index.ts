@@ -1,3 +1,4 @@
-export * from "./decrementOctaveOfNoteId";
+export * from "./changeOctaveOfNoteId";
 export * from "./getNotes";
 export * from "./getNotesFromNoteId";
+export * from "./noteIdToFrequency";
