@@ -7,6 +7,7 @@ export const GlobalMultiRangeController = () => {
   const guitarShapePlayerBricks = useShapePlayerStore(
     (state) => state.guitarShapePlayerBricks,
   );
+
   const sliderConfigs = useMemo(() => {
     return guitarShapePlayerBricks.map((guitarShapePlayerBrick) => ({
       id: guitarShapePlayerBrick.id,
@@ -24,14 +25,12 @@ export const GlobalMultiRangeController = () => {
   }, [guitarShapePlayerBricks]);
 
   const { ranges, initializeRanges, setRange } = useShapeExplorerStore();
-  const updateBrickRange = useShapePlayerStore(
-    (state) => state.updateBrickRange,
-  );
+  const updateBrick = useShapePlayerStore((state) => state.updateBrick);
+
   const prevIdsRef = useRef<string>("");
 
   useEffect(() => {
     const currentIds = sliderConfigs.map((c) => c.id).join(",");
-
     if (currentIds !== prevIdsRef.current) {
       const guitarShapePlayerBricks =
         useShapePlayerStore.getState().guitarShapePlayerBricks;
@@ -39,7 +38,6 @@ export const GlobalMultiRangeController = () => {
         string,
         { start: number; end: number }
       > = {};
-
       sliderConfigs.forEach((c) => {
         const guitarShapePlayerBrick = guitarShapePlayerBricks.find(
           (b) => b.id === c.id,
@@ -49,7 +47,6 @@ export const GlobalMultiRangeController = () => {
           end: guitarShapePlayerBrick?.sliderRange?.[1] ?? 0,
         };
       });
-
       prevIdsRef.current = currentIds;
       initializeRanges(updatedInitialRanges);
     }
@@ -60,17 +57,15 @@ export const GlobalMultiRangeController = () => {
       const guitarShapePlayerBrick = useShapePlayerStore
         .getState()
         .guitarShapePlayerBricks.find((b) => b.id === id);
-
       const hasChanged =
         guitarShapePlayerBrick &&
         (guitarShapePlayerBrick.sliderRange?.[0] !== range.start ||
           guitarShapePlayerBrick.sliderRange?.[1] !== range.end);
-
       if (hasChanged) {
-        updateBrickRange(id, [range.start, range.end]);
+        updateBrick(id, { sliderRange: [range.start, range.end] });
       }
     });
-  }, [ranges, updateBrickRange]);
+  }, [ranges, updateBrick]);
 
   useEffect(() => {
     const unsub = useShapePlayerStore.subscribe(
@@ -80,12 +75,10 @@ export const GlobalMultiRangeController = () => {
           const currentMasterRange = ranges[guitarShapePlayerBrick.id];
           const newStart = guitarShapePlayerBrick.sliderRange?.[0] ?? 0;
           const newEnd = guitarShapePlayerBrick.sliderRange?.[1] ?? 0;
-
           const isOutOfSync =
             currentMasterRange &&
             (currentMasterRange.start !== newStart ||
               currentMasterRange.end !== newEnd);
-
           if (isOutOfSync) {
             setRange(guitarShapePlayerBrick.id, {
               start: newStart,
@@ -95,7 +88,6 @@ export const GlobalMultiRangeController = () => {
         });
       },
     );
-
     return () => unsub();
   }, [ranges, setRange]);
 

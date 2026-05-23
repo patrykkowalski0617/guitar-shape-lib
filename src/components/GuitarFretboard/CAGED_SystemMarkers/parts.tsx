@@ -19,6 +19,7 @@ export const CAGED_SystemMarkers = styled.div`
     color-mix(in oklab, var(--muted) 40%, var(--background)) 85%,
     ${appBgColor} 100%
   );
+  box-shadow: 0 0 8px 3px ${appBgColor} inset;
 `;
 
 export const Marker = styled.div<{ $isBestMatch: boolean }>`
