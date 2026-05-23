@@ -1,63 +1,28 @@
-interface Window {
-  webkitAudioContext?: typeof AudioContext;
-}
-
-type ClickType = "guitarShapePlayerBrick-start" | "beat" | "sub-beat";
+// metronome.ts
+import { AudioContextManager } from "./audio-context-manager";
+import { ClickSoundGenerator } from "./click-sound-generator";
+import { BassNoteGenerator } from "./bass-note-generator";
+import { ScheduledNodesManager } from "./scheduled-nodes-manager";
+import { MetronomeTimer } from "./metronome-timer";
+import { type TickCallback } from "./types";
 
 export class Metronome {
-  private audioContext: AudioContext | null = null;
-  private nextTickTime: number = 0;
+  private audioManager = new AudioContextManager();
+  private clickGenerator = new ClickSoundGenerator();
+  private bassGenerator = new BassNoteGenerator();
+  private nodesManager = new ScheduledNodesManager();
+  private timer: MetronomeTimer;
+
   private worker: Worker | null = null;
-  private scheduleAheadShapeTime = 0.1;
-  private bpm: number = 120;
-  private multiplier: number = 1;
   private volume: number = 2.5;
-  private onTick: () => { isNewBrick: boolean };
-  private scheduledNodes: AudioNode[] = [];
   private isRunning: boolean = false;
   private bassNoteFrequency: number | null = null;
-  private playBassNote(time: number) {
-    if (
-      !this.audioContext ||
-      !this.isRunning ||
-      this.bassNoteFrequency === null
-    )
-      return;
+  private onTick: TickCallback;
 
-    const mainGain = this.audioContext.createGain();
-    mainGain.gain.setValueAtTime(0, time);
-    mainGain.gain.linearRampToValueAtTime(this.volume * 0.1, time + 0.01);
-    const noteDuration = (60.0 / this.bpm) * 0.9;
-    mainGain.gain.setValueAtTime(this.volume * 0.005, time + 0.0005);
-    mainGain.gain.exponentialRampToValueAtTime(0.0001, time + noteDuration);
-
-    const osc = this.audioContext.createOscillator();
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(this.bassNoteFrequency, time);
-    osc.connect(mainGain);
-
-    const subOsc = this.audioContext.createOscillator();
-    const subGain = this.audioContext.createGain();
-    subOsc.type = "sine";
-    subOsc.frequency.setValueAtTime(this.bassNoteFrequency / 2, time);
-    subGain.gain.setValueAtTime(0.2, time);
-    subOsc.connect(subGain);
-    subGain.connect(mainGain);
-
-    mainGain.connect(this.audioContext.destination);
-
-    osc.start(time);
-    osc.stop(time + noteDuration + 0.05);
-    subOsc.start(time);
-    subOsc.stop(time + noteDuration + 0.05);
-
-    this.scheduledNodes.push(osc, subOsc);
-  }
-  public updateBassNote(frequency: number | null) {
-    this.bassNoteFrequency = frequency;
-  }
-  constructor(onTick: () => { isNewBrick: boolean }) {
+  constructor(onTick: TickCallback) {
     this.onTick = onTick;
+    this.timer = new MetronomeTimer(120, 1);
+
     this.worker = new Worker(new URL("./metronome.worker.ts", import.meta.url));
     this.worker.onmessage = (e) => {
       if (e.data === "tick") {
@@ -66,118 +31,63 @@ export class Metronome {
     };
   }
 
-  private playClick(time: number, type: ClickType) {
-    if (!this.audioContext || !this.isRunning) return;
+  private playBassNote(time: number) {
+    const context = this.audioManager.getCurrentContext();
+    if (!context || !this.isRunning || this.bassNoteFrequency === null) return;
 
-    const frequencies: Record<ClickType, number> = {
-      "guitarShapePlayerBrick-start": 440,
-      beat: 330,
-      "sub-beat": 220,
-    };
-
-    const noiseFrequencies: Record<ClickType, number> = {
-      "guitarShapePlayerBrick-start": 1600,
-      beat: 1000,
-      "sub-beat": 600,
-    };
-
-    const mainGain = this.audioContext.createGain();
-    mainGain.gain.setValueAtTime(this.volume, time);
-
-    const osc = this.audioContext.createOscillator();
-    const oscGain = this.audioContext.createGain();
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(frequencies[type], time);
-    osc.frequency.exponentialRampToValueAtTime(10, time + 0.04);
-
-    oscGain.gain.setValueAtTime(0, time);
-    const gainValue =
-      type === "guitarShapePlayerBrick-start"
-        ? 0.9
-        : type === "beat"
-          ? 0.6
-          : 0.3;
-    oscGain.gain.linearRampToValueAtTime(gainValue, time + 0.001);
-    oscGain.gain.exponentialRampToValueAtTime(0.001, time + 0.04);
-
-    const noiseBuffer = this.audioContext.createBuffer(
-      1,
-      this.audioContext.sampleRate * 0.05,
-      this.audioContext.sampleRate,
-    );
-    const output = noiseBuffer.getChannelData(0);
-    for (let i = 0; i < noiseBuffer.length; i++) {
-      output[i] = Math.random() * 2 - 1;
-    }
-
-    const noise = this.audioContext.createBufferSource();
-    const noiseGain = this.audioContext.createGain();
-    const noiseFilter = this.audioContext.createBiquadFilter();
-    noise.buffer = noiseBuffer;
-    noiseFilter.type = "lowpass";
-    noiseFilter.frequency.setValueAtTime(noiseFrequencies[type], time);
-    noiseGain.gain.setValueAtTime(
-      type === "guitarShapePlayerBrick-start" ? 0.4 : 0.15,
+    const nodes = this.bassGenerator.createBassNote(
+      context,
       time,
+      this.bassNoteFrequency,
+      this.volume,
+      this.timer["bpm"],
     );
-    noiseGain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
-
-    osc.connect(oscGain);
-    oscGain.connect(mainGain);
-    noise.connect(noiseFilter);
-    noiseFilter.connect(noiseGain);
-    noiseGain.connect(mainGain);
-    mainGain.connect(this.audioContext.destination);
-
-    osc.start(time);
-    osc.stop(time + 0.05);
-    noise.start(time);
-    noise.stop(time + 0.05);
-
-    this.scheduledNodes.push(osc, noise);
+    this.nodesManager.add(...nodes);
   }
 
-  private scheduler = () => {
-    if (!this.audioContext || !this.isRunning) return;
-    const lookAheadShape =
-      this.audioContext.currentTime + this.scheduleAheadShapeTime;
+  public updateBassNote(frequency: number | null) {
+    this.bassNoteFrequency = frequency;
+  }
 
-    while (this.nextTickTime < lookAheadShape) {
+  private playClick(time: number, type: import("./types").ClickType) {
+    const context = this.audioManager.getCurrentContext();
+    if (!context || !this.isRunning) return;
+
+    const nodes = this.clickGenerator.createClickSound(
+      context,
+      time,
+      type,
+      this.volume,
+    );
+    this.nodesManager.add(...nodes);
+  }
+
+  private scheduler = async () => {
+    const context = this.audioManager.getCurrentContext();
+    if (!context || !this.isRunning) return;
+
+    const lookAheadTime = context.currentTime + 0.1;
+
+    while (this.timer.shouldScheduleTick(lookAheadTime)) {
       const { isNewBrick } = this.onTick();
-      const subInterval = 60.0 / this.bpm / this.multiplier;
+      const subInterval = this.timer.getSubInterval();
 
-      for (let i = 0; i < this.multiplier; i++) {
-        const time = this.nextTickTime + i * subInterval;
-        let clickType: ClickType = "sub-beat";
-
-        if (i === 0) {
-          clickType = isNewBrick ? "guitarShapePlayerBrick-start" : "beat";
-        }
-
+      for (let i = 0; i < this.timer["multiplier"]; i++) {
+        const time = this.timer.getNextTickTime() + i * subInterval;
+        const clickType = this.timer.calculateClickType(i, isNewBrick);
         this.playClick(time, clickType);
       }
-      this.advanceTimer();
+      this.timer.advanceTimer();
     }
-  };
-
-  private advanceTimer = () => {
-    this.nextTickTime += 60.0 / this.bpm;
   };
 
   public async start(initialBpm: number, initialMultiplier: number = 1) {
     this.isRunning = true;
-    if (!this.audioContext) {
-      this.audioContext = new (
-        window.AudioContext || (window as Window).webkitAudioContext
-      )();
-    }
-    if (this.audioContext.state === "suspended") {
-      await this.audioContext.resume();
-    }
+    const context = await this.audioManager.getContext();
 
-    this.bpm = initialBpm;
-    this.multiplier = initialMultiplier;
-    this.nextTickTime = this.audioContext.currentTime;
+    this.timer.updateBpm(initialBpm);
+    this.timer.updateMultiplier(initialMultiplier);
+    this.timer.initialize(context.currentTime);
 
     this.worker?.postMessage("start");
   }
@@ -185,40 +95,29 @@ export class Metronome {
   public stop() {
     this.isRunning = false;
     this.worker?.postMessage("stop");
-    this.cancelScheduledNodes();
+    this.nodesManager.cancelAll();
   }
 
   public updateBpm(newBpm: number) {
-    this.bpm = newBpm;
+    this.timer.updateBpm(newBpm);
   }
 
   public updateMultiplier(newMultiplier: number) {
-    this.multiplier = newMultiplier;
+    this.timer.updateMultiplier(newMultiplier);
   }
 
   public updateVolume(newVolume: number) {
     this.volume = newVolume;
   }
 
-  public replaceCallback(newCallback: () => { isNewBrick: boolean }) {
+  public replaceCallback(newCallback: TickCallback) {
     this.onTick = newCallback;
   }
 
   public cleanup() {
     this.stop();
     this.worker?.terminate();
-  }
-
-  private stopNode(node: AudioScheduledSourceNode) {
-    try {
-      node.stop(0);
-    } catch (_e) {}
-  }
-
-  private cancelScheduledNodes() {
-    this.scheduledNodes.forEach((node) =>
-      this.stopNode(node as AudioScheduledSourceNode),
-    );
-    this.scheduledNodes = [];
+    this.audioManager.close();
+    this.nodesManager.clear();
   }
 }
