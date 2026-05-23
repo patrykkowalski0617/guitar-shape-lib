@@ -9,3 +9,5 @@ export const elementBase = css<{ $widthMultiplier?: number }>`
     margin: 0 2px;
   `}
 `;
+
+export const apearingTransition = `1s`;

@@ -1,4 +1,4 @@
-import { useDataKeyStore, useUiStore } from "@/store";
+import { useDataKeyStore, useMusicStore, useUiStore } from "@/store";
 import { type BaseChordDataKey, type UnifiedMusicKeysDataKey } from "@/data";
 import { getKeyAndChordOptions } from "../utils/getKeyAndChordOptions";
 
@@ -25,7 +25,9 @@ export function useKeyAndChordPicker() {
     (state) => state.unifiedMusicKeysDataKey,
   );
 
-  const { optionsPerKey } = getKeyAndChordOptions();
+  const isMajorMode = useMusicStore((s) => s.isMajorMode);
+
+  const { optionsPerKey } = getKeyAndChordOptions(isMajorMode);
 
   const handleChordSelection = (
     newUnifiedKey: UnifiedMusicKeysDataKey,

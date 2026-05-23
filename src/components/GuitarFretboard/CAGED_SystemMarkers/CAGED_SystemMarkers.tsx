@@ -2,6 +2,7 @@ import * as S from "./parts";
 import { numberOfFrets } from "../constants";
 import type { CAGED_System } from "@/data";
 import { getContinuousRangeIndices } from "./helpers/getContinuousRangeIndices";
+import { usePersistentBoolean } from "@/hooks";
 
 interface CAGED_SystemMarkersProps {
   allCAGED_System: CAGED_System[];
@@ -16,6 +17,7 @@ export default function CAGED_SystemMarkers({
     ({ baseFretIndex }) => baseFretIndex,
   );
   const bestMatchFrets = getContinuousRangeIndices(originalIndices);
+  const isDisabled = usePersistentBoolean(!bestMatchFrets.size);
 
   const fretToCAGED = new Map<number, string>();
   allCAGED_System.forEach(({ CAGED_NAME, baseFretIndex }) => {
@@ -30,7 +32,7 @@ export default function CAGED_SystemMarkers({
   });
 
   return (
-    <S.CAGED_SystemMarkers>
+    <S.CAGED_SystemMarkers $isDisabled={isDisabled}>
       {Array.from({ length: numberOfFrets }).map((_, index) => {
         const isBestMatch = bestMatchFrets.has(index);
         const cagedName =

@@ -8,15 +8,19 @@ import {
 } from "@/data";
 import { getBaseChordName } from "@/hooks/baseChord";
 
-export function getKeyAndChordOptions() {
+export function getKeyAndChordOptions(isMajorMode: boolean) {
   const keyEntries = Object.entries(UNIFIED_MUSIC_KEYS) as [
     UnifiedMusicKeysDataKey,
     UnifiedMusicKeysDataKeyRecord,
   ][];
-
   const optionsPerKey = keyEntries.map(([currentUnifiedKey, keyData]) => {
-    const chords = (Object.keys(BASE_CHORDS) as BaseChordDataKey[]).map(
-      (baseChordKey) => {
+    const chords = (Object.keys(BASE_CHORDS) as BaseChordDataKey[])
+      .filter((baseChordKey) =>
+        isMajorMode
+          ? baseChordKey !== "BaseChord3Ph"
+          : baseChordKey !== "BaseChord3",
+      )
+      .map((baseChordKey) => {
         const baseChordName = getBaseChordName({
           baseChordDataKey: baseChordKey,
           unifiedMusicKeysDataKey: currentUnifiedKey,
@@ -28,8 +32,7 @@ export function getKeyAndChordOptions() {
           combinedId: `${currentUnifiedKey}|${baseChordKey}`,
           baseChordName,
         };
-      },
-    );
+      });
 
     return {
       unifiedMusicKeyDataKey: currentUnifiedKey,

@@ -1,1 +1,1 @@
-export { Track, ActiveRange, Grab, Handle } from "../MultiRangeSlider/parts";
+export { Track, ActiveRange, Grab } from "../MultiRangeSlider/parts";

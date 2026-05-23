@@ -32,15 +32,13 @@ export function KeyAndChordPickerRow({
   isCurrentKey,
   onSelectChord,
 }: Props) {
-  const chordsConfig = Object.values(BASE_CHORDS);
-
   return (
     <S.Row $isCurrent={isCurrentKey}>
       <S.Item>
         <S.Key>{group.label}</S.Key>
       </S.Item>
-      {group.chords.map((item, index) => {
-        const modeName = chordsConfig[index].modeExtendedName;
+      {group.chords.map((item) => {
+        const modeName = BASE_CHORDS[item.baseChordDataKey].modeExtendedName;
         const fullLabel = `${item.baseChordName}${modeName}`;
 
         const handleChordClick = () => {

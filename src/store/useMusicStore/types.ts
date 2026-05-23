@@ -43,4 +43,7 @@ export interface MusicState {
     <T>(data: Exact<ShapeVariantDataKeys, T>): void;
     (data: null): void;
   };
+
+  isMajorMode: boolean;
+  setIsMajorMode: (isMajorMode: boolean) => void;
 }

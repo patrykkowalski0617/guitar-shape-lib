@@ -1,5 +1,6 @@
 import { useShapeExplorerStore } from "@/store";
 import { type Range } from "../MultiRangeSlider/useMultiRangeSlider";
+import { usePersistentBoolean } from "@/hooks";
 
 interface MasterConfig {
   [key: string]: number[];
@@ -17,6 +18,8 @@ export const useMasterMultiRangeSlider = (
     (state) => state.updateRangesFromMaster,
   );
 
+  const isDisabled = usePersistentBoolean(Object.keys(ranges).length <= 1);
+
   const rangeValues = Object.values(ranges);
 
   const currentMasterRange: Range = {
@@ -33,5 +36,6 @@ export const useMasterMultiRangeSlider = (
   return {
     currentMasterRange,
     handleMasterChange,
+    isDisabled,
   };
 };

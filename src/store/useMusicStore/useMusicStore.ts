@@ -14,6 +14,7 @@ export const useMusicStore = create<MusicState>((set) => ({
   targetSharpNoteNames: [],
   guitarShapeVariantDataKeys: null,
   guitarShapeVariantDataKeys_locked: null,
+  isMajorMode: true,
 
   setBaseChordBassNoteId: (baseChordBassNoteId) => set({ baseChordBassNoteId }),
 
@@ -99,4 +100,5 @@ export const useMusicStore = create<MusicState>((set) => ({
   ) => {
     set({ guitarShapeVariantDataKeys_locked });
   },
+  setIsMajorMode: (isMajorMode) => set({ isMajorMode }),
 }));

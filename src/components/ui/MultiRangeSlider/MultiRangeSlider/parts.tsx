@@ -1,19 +1,30 @@
 import { appBgColor } from "@/constants";
 import styled, { css } from "styled-components";
+import { apearingTransition } from "../../constants";
 
 export const grabSize = 50;
-export interface OrientedProps {
-  $vertical?: boolean;
-}
 
-export const Wrapper = styled.div<OrientedProps>`
+export const Wrapper = styled.div<{
+  $vertical?: boolean;
+  $isDisabled: boolean;
+}>`
   position: relative;
   overflow: visible;
   padding: ${({ $vertical }) =>
     $vertical ? `${grabSize}px 0` : `0 ${grabSize}px`};
+  transition: opacity ${apearingTransition};
+  ${({ $isDisabled }) =>
+    $isDisabled
+      ? css`
+          opacity: 0;
+          pointer-events: none;
+        `
+      : css``};
 `;
 
-export const Track = styled.div<OrientedProps>`
+export const Track = styled.div<{
+  $vertical?: boolean;
+}>`
   position: relative;
   user-select: none;
   touch-action: none;
@@ -30,7 +41,9 @@ export const Track = styled.div<OrientedProps>`
         `}
 `;
 
-export const ActiveRange = styled.div<OrientedProps>`
+export const ActiveRange = styled.div<{
+  $vertical?: boolean;
+}>`
   position: absolute;
   display: flex;
   align-items: center;
@@ -58,10 +71,12 @@ export const ActiveRange = styled.div<OrientedProps>`
         `
       : css`
           height: 100%;
-        `}
+        `};
 `;
 
-export const Grab = styled.div<OrientedProps>`
+export const Grab = styled.div<{
+  $vertical?: boolean;
+}>`
   flex: none;
   position: relative;
   cursor: grab;

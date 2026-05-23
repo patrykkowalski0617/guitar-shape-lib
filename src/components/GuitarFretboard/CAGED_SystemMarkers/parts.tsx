@@ -1,8 +1,9 @@
 import styled, { css } from "styled-components";
 import { fretboardRPadding } from "../parts";
 import { appBgColor } from "@/constants";
+import { apearingTransition } from "@/components/ui/constants";
 
-export const CAGED_SystemMarkers = styled.div`
+export const CAGED_SystemMarkers = styled.div<{ $isDisabled: boolean }>`
   padding-right: ${fretboardRPadding};
   position: relative;
   border-radius: 20px;
@@ -20,6 +21,13 @@ export const CAGED_SystemMarkers = styled.div`
     ${appBgColor} 100%
   );
   box-shadow: 0 0 8px 3px ${appBgColor} inset;
+  transition: opacity ${apearingTransition};
+  ${({ $isDisabled }) =>
+    $isDisabled
+      ? css`
+          opacity: 0;
+        `
+      : css``}
 `;
 
 export const Marker = styled.div<{ $isBestMatch: boolean }>`

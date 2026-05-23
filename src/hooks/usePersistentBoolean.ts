@@ -1,11 +1,16 @@
 import { useState } from "react";
 
 export function usePersistentBoolean(condition: boolean) {
-  const [hasBeenMet, setHasBeenMet] = useState(condition);
+  const [initialValue] = useState(condition);
+  const [hasChanged, setHasChanged] = useState(false);
 
-  if (!hasBeenMet && condition) {
-    setHasBeenMet(true);
+  if (!hasChanged && condition !== initialValue) {
+    setHasChanged(true);
   }
 
-  return hasBeenMet;
+  if (hasChanged) {
+    return !initialValue;
+  }
+
+  return condition;
 }

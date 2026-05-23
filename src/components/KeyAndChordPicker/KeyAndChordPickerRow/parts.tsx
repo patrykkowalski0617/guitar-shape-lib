@@ -12,6 +12,9 @@ export const Row = styled.div<{ $isCurrent?: boolean }>`
 export const Item = styled.div`
   padding: 4px 8px;
   width: 75px;
+  &:first-child {
+    background-color: black;
+  }
 `;
 export const Chord = styled.div``;
 export const Key = styled.div``;

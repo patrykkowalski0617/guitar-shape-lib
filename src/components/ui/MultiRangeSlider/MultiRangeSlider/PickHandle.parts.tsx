@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import { grabSize, type OrientedProps } from "./parts";
+import { grabSize } from "./parts";
 
 const LIGHT_DIR = { x: -1, y: -1 } as const;
 
@@ -102,7 +102,9 @@ const glowEffect = css`
   animation: ${glowPulse} 6s ease-in-out forwards;
 `;
 
-export const PickHandle = styled.div<OrientedProps>`
+export const PickHandle = styled.div<{
+  $vertical?: boolean;
+}>`
   position: absolute;
   z-index: 9;
   user-select: none;

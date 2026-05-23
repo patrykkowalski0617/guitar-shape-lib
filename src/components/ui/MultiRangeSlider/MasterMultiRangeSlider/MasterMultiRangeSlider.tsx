@@ -14,16 +14,15 @@ const MasterMultiRangeSlider: React.FC<MasterMultiRangeSliderProps> = ({
   configs,
   masterValues,
 }) => {
-  const { currentMasterRange, handleMasterChange } = useMasterMultiRangeSlider(
-    ranges,
-    configs,
-  );
+  const { currentMasterRange, handleMasterChange, isDisabled } =
+    useMasterMultiRangeSlider(ranges, configs);
 
   return (
     <MultiRangeSlider
       values={masterValues}
       range={currentMasterRange}
       onChange={handleMasterChange}
+      isDisabled={isDisabled}
     />
   );
 };

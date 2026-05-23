@@ -1,4 +1,5 @@
-import { PickHandle } from "./PickHandle.parts";
+import React from "react";
+import { PickHandle } from "./PickHandle.parts.tsx";
 import * as S from "./parts";
 import { useMultiRangeSlider, type Range } from "./useMultiRangeSlider";
 
@@ -8,6 +9,7 @@ interface MultiRangeSliderProps {
   onChange: (range: Range) => void;
   orientation?: "horizontal" | "vertical";
   height?: number | string;
+  isDisabled?: boolean;
 }
 
 const MultiRangeSlider = ({
@@ -16,6 +18,7 @@ const MultiRangeSlider = ({
   onChange,
   orientation = "horizontal",
   height,
+  isDisabled = false,
 }: MultiRangeSliderProps) => {
   const totalSegments = values.length;
   const { trackRef, startDragging } = useMultiRangeSlider(
@@ -39,23 +42,24 @@ const MultiRangeSlider = ({
     <S.Wrapper
       $vertical={isVertical}
       style={isVertical ? { height: height ?? "100%" } : undefined}
+      $isDisabled={isDisabled}
     >
       <S.Track ref={trackRef} $vertical={isVertical}>
         <S.ActiveRange style={activeRangeStyle} $vertical={isVertical}>
           <PickHandle
             $vertical={isVertical}
-            onMouseDown={(e) => startDragging("start", e)}
-            onTouchStart={(e) => startDragging("start", e)}
+            onMouseDown={(e: React.MouseEvent) => startDragging("start", e)}
+            onTouchStart={(e: React.TouchEvent) => startDragging("start", e)}
           />
           <S.Grab
             $vertical={isVertical}
-            onMouseDown={(e) => startDragging("move", e)}
-            onTouchStart={(e) => startDragging("move", e)}
+            onMouseDown={(e: React.MouseEvent) => startDragging("move", e)}
+            onTouchStart={(e: React.TouchEvent) => startDragging("move", e)}
           />
           <PickHandle
             $vertical={isVertical}
-            onMouseDown={(e) => startDragging("end", e)}
-            onTouchStart={(e) => startDragging("end", e)}
+            onMouseDown={(e: React.MouseEvent) => startDragging("end", e)}
+            onTouchStart={(e: React.TouchEvent) => startDragging("end", e)}
           />
         </S.ActiveRange>
       </S.Track>

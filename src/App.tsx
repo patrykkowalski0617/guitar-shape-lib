@@ -16,9 +16,9 @@ export default function App() {
     <AppWrapper style={{ height: 700, minHeight: "unset" }}>
       <SoundEngine />
       {/* <DataKeyStoreDebugComponent /> */}
-      {/* <Section>
+      <Section>
         <PianoControllers />
-      </Section> */}
+      </Section>
 
       <FullscreenButton />
       <KeyAndChordPicker />
