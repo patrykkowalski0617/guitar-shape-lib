@@ -8,9 +8,7 @@ import type { SharpNoteName } from "@/data";
 export const useShapePlayerTargetNotes = (
   guitarShapePlayerBrick?: ShapePlayerBrick,
 ) => {
-  const updateBrickTargetNotes = useShapePlayerStore(
-    (state) => state.updateBrickTargetNotes,
-  );
+  const updateBrick = useShapePlayerStore((state) => state.updateBrick);
   const replaceTargetSharpNoteNames = useMusicStore(
     (state) => state.replaceTargetSharpNoteNames,
   );
@@ -24,7 +22,7 @@ export const useShapePlayerTargetNotes = (
       ? currentNotes.filter((n) => n !== sharpNoteName)
       : [...currentNotes, sharpNoteName];
 
-    updateBrickTargetNotes(guitarShapePlayerBrick.id, nextNotes);
+    updateBrick(guitarShapePlayerBrick.id, { targetSharpNoteNames: nextNotes });
     replaceTargetSharpNoteNames(nextNotes);
   };
 

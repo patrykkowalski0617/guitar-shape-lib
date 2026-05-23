@@ -1,4 +1,4 @@
-import { type ShapePlayerBrick } from "@/store";
+import { useMusicStore, type ShapePlayerBrick } from "@/store";
 import {
   useDataKeySelectors,
   useShapePlayerLocations,
@@ -19,6 +19,10 @@ export const useShapePlayerBrickSelection = (
     setNextUnifiedMusicKeysDataKey,
   } = useDataKeySelectors();
 
+  const replaceTargetSharpNoteNames = useMusicStore(
+    (s) => s.replaceTargetSharpNoteNames,
+  );
+
   const { sliderRange, orderedLocations, selectedShapesVariantDataKeys } =
     useShapePlayerLocations(guitarShapePlayerBrick);
 
@@ -34,6 +38,9 @@ export const useShapePlayerBrickSelection = (
       );
       setUnifiedMusicKeysDataKey(
         guitarShapePlayerBrick.unifiedMusicKeysDataKey,
+      );
+      replaceTargetSharpNoteNames(
+        guitarShapePlayerBrick.targetSharpNoteNames ?? [],
       );
     }
   };
