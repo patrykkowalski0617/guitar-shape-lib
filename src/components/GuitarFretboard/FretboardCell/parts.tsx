@@ -44,8 +44,11 @@ export const Fret = styled.div<{
         opacity: 1;
         transform: scale(1);
         background: color-mix(in oklab, var(--muted) 80%, var(--background));
-        box-shadow: 3px 3px 3px 0px
-          color-mix(in oklab, var(--background) 70%, transparent);
+        box-shadow:
+          3px 3px 3px 0px
+            color-mix(in oklab, var(--background) 70%, transparent),
+          inset 0 1px 0 rgba(255, 255, 255, 0.35),
+          inset 0 -1px 2px rgba(0, 0, 0, 0.22);
         border: 1px solid
           color-mix(in oklab, var(--foreground) 10%, transparent);
       }

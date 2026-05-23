@@ -85,31 +85,26 @@ const glowPulse = keyframes`
       brightness(1.0) saturate(1.1)
       drop-shadow(0px 0px 8px  rgba(220, 74, 55, 0.69))
       drop-shadow(0px 0px 18px rgba(195, 55, 35, 0.26));
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.35),
-      inset 0 -1px 2px rgba(0, 0, 0, 0.22);
+
   }
   100% {
     filter:
       brightness(1.11) saturate(1.28)
       drop-shadow(0px 0px 16px rgb(234, 69, 44))
       drop-shadow(0px 0px 30px rgba(200, 48, 28, 0.40));
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.35),
-      inset 0 -1px 2px rgba(0, 0, 0, 0.22);
+
   }
 `;
 
 const glowEffect = css`
   color: #ffe0c8;
-  z-index: 99999;
   outline: #c5301c solid 1px;
   animation: ${glowPulse} 6s ease-in-out forwards;
 `;
 
-export const Handle = styled.div<OrientedProps>`
+export const PickHandle = styled.div<OrientedProps>`
   position: absolute;
-  z-index: 999;
+  z-index: 9;
   user-select: none;
   touch-action: none;
   background: radial-gradient(rgb(32, 32, 32) 0%, rgb(50, 50, 50) 100%);

@@ -1,4 +1,4 @@
-import { Handle } from "./Handle.parts";
+import { PickHandle } from "./PickHandle.parts";
 import * as S from "./parts";
 import { useMultiRangeSlider, type Range } from "./useMultiRangeSlider";
 
@@ -42,7 +42,7 @@ const MultiRangeSlider = ({
     >
       <S.Track ref={trackRef} $vertical={isVertical}>
         <S.ActiveRange style={activeRangeStyle} $vertical={isVertical}>
-          <Handle
+          <PickHandle
             $vertical={isVertical}
             onMouseDown={(e) => startDragging("start", e)}
             onTouchStart={(e) => startDragging("start", e)}
@@ -52,7 +52,7 @@ const MultiRangeSlider = ({
             onMouseDown={(e) => startDragging("move", e)}
             onTouchStart={(e) => startDragging("move", e)}
           />
-          <Handle
+          <PickHandle
             $vertical={isVertical}
             onMouseDown={(e) => startDragging("end", e)}
             onTouchStart={(e) => startDragging("end", e)}

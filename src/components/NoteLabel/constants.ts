@@ -7,7 +7,7 @@ export const noteCommon = css<{ $isTargetNote?: boolean }>`
     var(--instrument) 25%,
     var(--foreground)
   );
-  border: 2px solid var(--border);
+  border: 1px solid var(--secondary);
   color: var(--background);
   border-radius: ${instrumentElBRadius};
   width: 22px;
