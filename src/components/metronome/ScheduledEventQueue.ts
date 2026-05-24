@@ -5,6 +5,7 @@ export interface ScheduledEvent {
   isNewBrick: boolean;
   isFirstStepTotal: boolean;
   isCountingIn: boolean;
+  bassNoteFrequency: number | null;
 }
 
 export class ScheduledEventQueue {

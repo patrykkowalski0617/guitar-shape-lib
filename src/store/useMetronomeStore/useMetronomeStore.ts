@@ -1,6 +1,9 @@
 import { create } from "zustand";
-import type { MetronomeState, MetronomeBrick } from "./types";
+import type { MetronomeState } from "./types";
 import type { ScheduledEvent } from "@/components/metronome/ScheduledEventQueue";
+import type { ShapePlayerBrick } from "../useShapePlayerStore/types";
+import { brickToBackingtrackNoteIds } from "@/utils/brickToBackingtrackNoteIds";
+import { noteIdToFrequency } from "@/utils";
 
 export const BPM_RANGE = {
   MIN: 20,
@@ -53,7 +56,7 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
     return guitarShapePlayerBricks.reduce((sum, b) => sum + b.playLength, 0);
   },
 
-  peekNextStep: (guitarShapePlayerBricks: MetronomeBrick[]) => {
+  peekNextStep: (guitarShapePlayerBricks: ShapePlayerBrick[]) => {
     const { currentStep, isCountingIn, countInInternal, isFirstPlaybackTick } =
       get();
 
@@ -65,6 +68,7 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
         isCountingIn: true,
         countIn: countInInternal,
         currentStep: currentStep,
+        bassNoteFrequency: null,
       };
     }
 
@@ -80,6 +84,7 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
         isCountingIn: false,
         countIn: 0,
         currentStep: currentStep,
+        bassNoteFrequency: null,
       };
     }
 
@@ -89,12 +94,24 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
 
     let accumulatedWidth = 0;
     let isNewBrick = false;
+    let activeBrick: ShapePlayerBrick | undefined;
+
     for (const brick of guitarShapePlayerBricks) {
       if (nextStepIndex === accumulatedWidth) {
         isNewBrick = true;
+        activeBrick = brick;
         break;
       }
       accumulatedWidth += brick.playLength;
+    }
+
+    let bassNoteFrequency: number | null = null;
+    if (isNewBrick && activeBrick) {
+      const noteIds = brickToBackingtrackNoteIds(activeBrick);
+      const bassNoteId = noteIds[0];
+      if (bassNoteId) {
+        bassNoteFrequency = noteIdToFrequency(bassNoteId);
+      }
     }
 
     return {
@@ -103,6 +120,7 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
       isCountingIn: false,
       countIn: 0,
       currentStep: nextStepIndex,
+      bassNoteFrequency,
     };
   },
 

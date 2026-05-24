@@ -1,6 +1,6 @@
 import { AudioContextManager } from "./audio-context-manager";
 import { ClickSoundGenerator } from "./click-sound-generator";
-
+import { BassNoteGenerator } from "./bass-note-generator";
 import { ScheduledNodesManager } from "./scheduled-nodes-manager";
 import { MetronomeTimer } from "./metronome-timer";
 import { type TickCallback } from "./types";
@@ -13,7 +13,7 @@ import { MetronomeUISync } from "./MetronomeUISync";
 export class Metronome {
   private audioManager = new AudioContextManager();
   private clickGenerator = new ClickSoundGenerator();
-
+  private bassGenerator = new BassNoteGenerator();
   private nodesManager = new ScheduledNodesManager();
   private timer: MetronomeTimer;
   private eventQueue = new ScheduledEventQueue();
@@ -22,6 +22,7 @@ export class Metronome {
   private worker: Worker | null = null;
   private volume: number = 2.5;
   private isRunning: boolean = false;
+  private currentBassFrequency: number | null = null;
 
   private onTick: TickCallback;
   private onUIEvent: ((event: ScheduledEvent) => void) | null = null;
@@ -61,6 +62,20 @@ export class Metronome {
     this.nodesManager.add(...nodes);
   }
 
+  private playBassNote(time: number, frequency: number) {
+    const context = this.audioManager.getCurrentContext();
+    if (!context || !this.isRunning) return;
+
+    const nodes = this.bassGenerator.createBassNote(
+      context,
+      time,
+      frequency,
+      this.volume,
+      this.timer["bpm"],
+    );
+    this.nodesManager.add(...nodes);
+  }
+
   private scheduler = async () => {
     const context = this.audioManager.getCurrentContext();
     if (!context || !this.isRunning) return;
@@ -75,6 +90,7 @@ export class Metronome {
         isCountingIn,
         countIn,
         currentStep,
+        bassNoteFrequency,
       } = tickResult;
 
       const subInterval = this.timer.getSubInterval();
@@ -86,6 +102,14 @@ export class Metronome {
         this.playClick(time, clickType);
       }
 
+      if (isNewBrick && bassNoteFrequency !== null) {
+        this.currentBassFrequency = bassNoteFrequency;
+      }
+
+      if (!isCountingIn && this.currentBassFrequency !== null) {
+        this.playBassNote(scheduledTime, this.currentBassFrequency);
+      }
+
       this.eventQueue.enqueue({
         scheduledTime,
         countIn: isCountingIn ? countIn : null,
@@ -93,6 +117,7 @@ export class Metronome {
         isNewBrick,
         isFirstStepTotal,
         isCountingIn,
+        bassNoteFrequency,
       });
 
       this.timer.advanceTimer();
@@ -113,6 +138,7 @@ export class Metronome {
 
   public stop() {
     this.isRunning = false;
+    this.currentBassFrequency = null;
     this.worker?.postMessage("stop");
     this.nodesManager.cancelAll();
     this.uiSync.stop();

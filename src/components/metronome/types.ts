@@ -6,6 +6,7 @@ export interface TickResult {
   isCountingIn: boolean;
   countIn: number;
   currentStep: number;
+  bassNoteFrequency: number | null;
 }
 
 export interface TickCallback {
