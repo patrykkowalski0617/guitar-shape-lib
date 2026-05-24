@@ -1,3 +1,6 @@
+import { useMetronomeStore } from "@/store";
+import * as S from "./parts";
+
 export interface CounterProps {
   playLength: number;
   isCurrentBrickPlayed: boolean;
@@ -9,22 +12,15 @@ export const Counter = ({
   isCurrentBrickPlayed,
   activeBeatIndex,
 }: CounterProps) => {
+  const isPlaying = useMetronomeStore((s) => s.isPlaying);
   return (
-    <div style={{ display: "flex", gap: "4px", marginTop: "8px" }}>
+    <S.CounterWrapper>
       {Array.from({ length: playLength }).map((_, index) => {
-        const isPartActive = isCurrentBrickPlayed && activeBeatIndex === index;
-        return (
-          <div
-            key={index}
-            style={{
-              width: "20px",
-              height: "10px",
-              backgroundColor: isPartActive ? "#4caf50" : "#e0e0e0",
-              borderRadius: "2px",
-            }}
-          />
-        );
+        const isPartActive =
+          isCurrentBrickPlayed && activeBeatIndex === index && isPlaying;
+
+        return <S.BeatIndicator key={index} $isActive={isPartActive} />;
       })}
-    </div>
+    </S.CounterWrapper>
   );
 };

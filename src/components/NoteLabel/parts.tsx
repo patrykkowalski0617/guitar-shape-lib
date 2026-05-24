@@ -3,7 +3,6 @@ import type { Variant } from "./NoteLabel";
 import { noteCommon } from "./constants";
 
 const glowEffect = css`
-  color: #ffe0c8;
   z-index: 99999;
   background: #c5301c;
   filter: brightness(1.11) saturate(1.28)

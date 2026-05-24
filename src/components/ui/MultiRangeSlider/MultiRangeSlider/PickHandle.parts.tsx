@@ -90,14 +90,13 @@ const glowPulse = keyframes`
   100% {
     filter:
       brightness(1.11) saturate(1.28)
-      drop-shadow(0px 0px 16px rgb(234, 69, 44))
-      drop-shadow(0px 0px 30px rgba(200, 48, 28, 0.40));
+      drop-shadow(0px 20px 30px rgb(255, 34, 0))
+      drop-shadow(0px 10px 45px rgba(200, 48, 28, 0.40));
 
   }
 `;
 
 const glowEffect = css`
-  color: #ffe0c8;
   outline: #c5301c solid 1px;
   animation: ${glowPulse} 6s ease-in-out forwards;
 `;
@@ -118,6 +117,7 @@ export const PickHandle = styled.div<{
   &:hover:not(.is-dragging):not(.range-dragging *),
   &:active,
   &.is-dragging {
+    transition: none !important;
     ${glowEffect}
   }
 
