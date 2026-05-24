@@ -1,24 +1,11 @@
-import { useMusicStore, type ShapePlayerBrick } from "@/store";
-import {
-  useDataKeySelectors,
-  useShapePlayerLocations,
-  useShapePlayerBrickUpdates,
-} from "./";
+import { useDataKeyStore, useMusicStore, type ShapePlayerBrick } from "@/store";
+import { useShapePlayerLocations, useShapePlayerBrickUpdates } from "./";
 
 export const useShapePlayerBrickSelection = (
   guitarShapePlayerBrick?: ShapePlayerBrick,
 ) => {
-  const {
-    setBaseChordDataKey,
-    setSelectedShapesVariantDataKeys,
-    setSemitoneOffsetFromMajorRoot,
-    setUnifiedMusicKeysDataKey,
-    setNextBaseChordDataKey,
-    setNextSelectedShapesVariantDataKeys,
-    setNextSemitoneOffsetFromMajorRoot,
-    setNextUnifiedMusicKeysDataKey,
-  } = useDataKeySelectors();
-
+  const restoreCurrentBrick = useDataKeyStore((s) => s.restoreCurrentBrick);
+  const restoreNextBrick = useDataKeyStore((s) => s.restoreNextBrick);
   const replaceTargetSharpNoteNames = useMusicStore(
     (s) => s.replaceTargetSharpNoteNames,
   );
@@ -31,14 +18,13 @@ export const useShapePlayerBrickSelection = (
 
   const restoreData = () => {
     if (guitarShapePlayerBrick?.baseChordDataKey) {
-      setBaseChordDataKey(guitarShapePlayerBrick.baseChordDataKey);
-      setSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
-      setSemitoneOffsetFromMajorRoot(
-        guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
-      );
-      setUnifiedMusicKeysDataKey(
-        guitarShapePlayerBrick.unifiedMusicKeysDataKey,
-      );
+      restoreCurrentBrick({
+        baseChordDataKey: guitarShapePlayerBrick.baseChordDataKey,
+        unifiedMusicKeysDataKey: guitarShapePlayerBrick.unifiedMusicKeysDataKey,
+        semitoneOffsetFromMajorRoot:
+          guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
+        selectedShapesVariantDataKeys: selectedShapesVariantDataKeys,
+      });
       replaceTargetSharpNoteNames(
         guitarShapePlayerBrick.targetSharpNoteNames ?? [],
       );
@@ -47,14 +33,14 @@ export const useShapePlayerBrickSelection = (
 
   const restoreNextData = () => {
     if (guitarShapePlayerBrick?.baseChordDataKey) {
-      setNextBaseChordDataKey(guitarShapePlayerBrick.baseChordDataKey);
-      setNextSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
-      setNextSemitoneOffsetFromMajorRoot(
-        guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
-      );
-      setNextUnifiedMusicKeysDataKey(
-        guitarShapePlayerBrick.unifiedMusicKeysDataKey,
-      );
+      restoreNextBrick({
+        nextBaseChordDataKey: guitarShapePlayerBrick.baseChordDataKey,
+        nextUnifiedMusicKeysDataKey:
+          guitarShapePlayerBrick.unifiedMusicKeysDataKey,
+        nextSemitoneOffsetFromMajorRoot:
+          guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
+        nextSelectedShapesVariantDataKeys: selectedShapesVariantDataKeys,
+      });
     }
   };
 

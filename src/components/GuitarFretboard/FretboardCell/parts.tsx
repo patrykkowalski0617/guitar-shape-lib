@@ -28,9 +28,6 @@ export const Fret = styled.div<{
             z-index: 32;
             position: absolute;
             inset: 0;
-            transition:
-              opacity 0.1s ease-out,
-              transform 0.1s ease-out;
             border-radius: 12px;
             opacity: 0;
           }

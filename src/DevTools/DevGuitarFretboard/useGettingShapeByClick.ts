@@ -30,7 +30,6 @@ export const useGettingShapeByClick = create<ShapeCoordinatesStore>(
       window.addEventListener("keydown", (e) => {
         if (e.key === "r" || e.key === "R") {
           get().reset();
-          console.log("GuitarShape coordinates reset");
         }
       });
     }
@@ -53,7 +52,6 @@ export const useGettingShapeByClick = create<ShapeCoordinatesStore>(
           const relative = toRelative(updated);
           const formatted = JSON.stringify(relative).replace(/\],\[/g, "],[");
 
-          console.log(formatted);
           navigator.clipboard.writeText(formatted).catch(console.error);
 
           return { coordinates: updated };

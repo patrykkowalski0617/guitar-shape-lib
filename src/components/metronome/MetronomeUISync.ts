@@ -37,16 +37,6 @@ export class MetronomeUISync {
     const context = this.audioManager.getCurrentContext();
     if (context) {
       const due = this.queue.flush(context.currentTime);
-      if (due.length > 0) {
-        console.log(
-          JSON.stringify({
-            event: "RAF_flush",
-            currentTime: context.currentTime,
-            dueCount: due.length,
-            firstScheduledTime: due[0].scheduledTime,
-          }),
-        );
-      }
       for (const event of due) {
         this.onEvent(event);
       }

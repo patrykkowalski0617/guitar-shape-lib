@@ -1,6 +1,6 @@
 import { AudioContextManager } from "./audio-context-manager";
 import { ClickSoundGenerator } from "./click-sound-generator";
-// import { BassNoteGenerator } from "./bass-note-generator";
+
 import { ScheduledNodesManager } from "./scheduled-nodes-manager";
 import { MetronomeTimer } from "./metronome-timer";
 import { type TickCallback } from "./types";
@@ -13,7 +13,7 @@ import { MetronomeUISync } from "./MetronomeUISync";
 export class Metronome {
   private audioManager = new AudioContextManager();
   private clickGenerator = new ClickSoundGenerator();
-  // private bassGenerator = new BassNoteGenerator();
+
   private nodesManager = new ScheduledNodesManager();
   private timer: MetronomeTimer;
   private eventQueue = new ScheduledEventQueue();
@@ -22,7 +22,7 @@ export class Metronome {
   private worker: Worker | null = null;
   private volume: number = 2.5;
   private isRunning: boolean = false;
-  // private bassNoteFrequency: number | null = null;
+
   private onTick: TickCallback;
   private onUIEvent: ((event: ScheduledEvent) => void) | null = null;
 
@@ -44,28 +44,9 @@ export class Metronome {
     };
   }
 
-  // Register the callback that will update Zustand store at the right moment
   public setUIEventCallback(callback: (event: ScheduledEvent) => void) {
     this.onUIEvent = callback;
   }
-
-  // private playBassNote(time: number) {
-  //   const context = this.audioManager.getCurrentContext();
-  //   if (!context || !this.isRunning || this.bassNoteFrequency === null) return;
-
-  //   const nodes = this.bassGenerator.createBassNote(
-  //     context,
-  //     time,
-  //     this.bassNoteFrequency,
-  //     this.volume,
-  //     this.timer["bpm"],
-  //   );
-  //   this.nodesManager.add(...nodes);
-  // }
-
-  // public updateBassNote(frequency: number | null) {
-  //   this.bassNoteFrequency = frequency;
-  // }
 
   private playClick(time: number, type: import("./types").ClickType) {
     const context = this.audioManager.getCurrentContext();
@@ -87,8 +68,6 @@ export class Metronome {
     const lookAheadTime = context.currentTime + 0.1;
 
     while (this.timer.shouldScheduleTick(lookAheadTime)) {
-      // 1. Get logical state from store (countIn, currentStep etc.)
-      //    onTick now only READS state and returns what will happen - it does NOT mutate store
       const tickResult = this.onTick();
       const {
         isNewBrick,
@@ -101,14 +80,12 @@ export class Metronome {
       const subInterval = this.timer.getSubInterval();
       const scheduledTime = this.timer.getNextTickTime();
 
-      // 2. Schedule audio clicks
       for (let i = 0; i < this.timer["multiplier"]; i++) {
         const time = scheduledTime + i * subInterval;
         const clickType = this.timer.calculateClickType(i, isNewBrick);
         this.playClick(time, clickType);
       }
 
-      // 3. Enqueue UI event at the exact time the sound will play
       this.eventQueue.enqueue({
         scheduledTime,
         countIn: isCountingIn ? countIn : null,

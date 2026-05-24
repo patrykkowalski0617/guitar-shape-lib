@@ -45,7 +45,6 @@ export class ClickSoundGenerator {
     const mainGain = context.createGain();
     mainGain.gain.setValueAtTime(volume, time);
 
-    // Tone generator (sine wave with pitch drop)
     const osc = context.createOscillator();
     const oscGain = context.createGain();
     osc.type = "sine";
@@ -56,7 +55,6 @@ export class ClickSoundGenerator {
     oscGain.gain.linearRampToValueAtTime(config.gain, time + 0.001);
     oscGain.gain.exponentialRampToValueAtTime(0.001, time + 0.04);
 
-    // Noise generator (for attack/click sound)
     const noiseBuffer = this.generateNoiseBuffer(context, 0.05);
     const noise = context.createBufferSource();
     const noiseGain = context.createGain();
@@ -68,7 +66,6 @@ export class ClickSoundGenerator {
     noiseGain.gain.setValueAtTime(config.noiseGain, time);
     noiseGain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
 
-    // Connect everything
     osc.connect(oscGain);
     oscGain.connect(mainGain);
     noise.connect(noiseFilter);
@@ -76,7 +73,6 @@ export class ClickSoundGenerator {
     noiseGain.connect(mainGain);
     mainGain.connect(context.destination);
 
-    // Schedule playback
     osc.start(time);
     osc.stop(time + 0.05);
     noise.start(time);

@@ -1,11 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useMusicStore, useMetronomeStore, useControllersStore } from "@/store";
 import { synth } from "./synth";
-import { useBackingTrackSync } from "./hooks/useBackingTrackSync";
 
 export function SoundEngine() {
-  useBackingTrackSync();
-
   const playback = useControllersStore((state) => state.playback);
   const isCountingIn = useMetronomeStore((state) => state.isCountingIn);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
@@ -20,9 +17,6 @@ export function SoundEngine() {
   const currentlyPlaying = useRef<Set<string>>(new Set());
 
   useEffect(() => {
-    const t2 = performance.now();
-    console.log(JSON.stringify({ point: "T2_SoundEngine", t: t2 }));
-
     const notesThatShouldPlay = new Set<string>();
 
     const isPlayerMode = isPlaying;

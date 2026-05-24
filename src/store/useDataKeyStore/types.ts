@@ -18,6 +18,20 @@ export interface DataKeyValues {
   nextSelectedShapesVariantDataKeys: ShapeVariantDataKeys[] | null;
 }
 
+export interface RestoreCurrentBrickPayload {
+  baseChordDataKey: BaseChordDataKey;
+  unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
+  semitoneOffsetFromMajorRoot: number | null;
+  selectedShapesVariantDataKeys: ShapeVariantDataKeys[] | null;
+}
+
+export interface RestoreNextBrickPayload {
+  nextBaseChordDataKey: BaseChordDataKey;
+  nextUnifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
+  nextSemitoneOffsetFromMajorRoot: number | null;
+  nextSelectedShapesVariantDataKeys: ShapeVariantDataKeys[] | null;
+}
+
 export interface DataKeyActions {
   setUnifiedMusicKeysDataKey: (id: UnifiedMusicKeysDataKey | null) => void;
   setBaseChordDataKey: (id: BaseChordDataKey | null) => void;
@@ -39,6 +53,9 @@ export interface DataKeyActions {
   ) => void;
 
   resetDataKeys: () => void;
+
+  restoreCurrentBrick: (payload: RestoreCurrentBrickPayload) => void;
+  restoreNextBrick: (payload: RestoreNextBrickPayload) => void;
 }
 
 export type DataKeyState = DataKeyValues & DataKeyActions;

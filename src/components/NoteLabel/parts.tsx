@@ -28,7 +28,6 @@ export const Note = styled.div<{
   position: relative;
   ${({ $isVisible }) => css`
     opacity: ${$isVisible ? "1" : "0"};
-    transition: opacity 0.1s ease-out;
   `}
   ${({ $variant }) =>
     $variant === "fretboard" &&
@@ -56,7 +55,6 @@ export const Note = styled.div<{
       transform: translateX(-50%);
       box-shadow: 1px 2px 3px 2px var(--background);
     `};
-  /* opacity: 0; */
 `;
 
 export const NoteWrapper = styled.div<{ $isTargetNote?: boolean }>`

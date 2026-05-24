@@ -83,8 +83,6 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
       };
     }
 
-    // First playback tick after countIn: stay at step 0
-    // All subsequent ticks: advance normally
     const nextStepIndex = isFirstPlaybackTick
       ? 0
       : (currentStep + 1) % totalSteps;
@@ -109,23 +107,13 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
   },
 
   applyStep: (event: ScheduledEvent) => {
-    const t1 = performance.now();
-    console.log(
-      JSON.stringify({
-        point: "T1_applyStep",
-        t: t1,
-        step: event.currentStep,
-        isCountingIn: event.isCountingIn,
-      }),
-    );
-
     if (event.isCountingIn) {
       const nextInternal = (event.countIn ?? 1) - 1;
       const isLastCountInBeat = nextInternal === 0;
       set({
         countIn: event.countIn ?? 0,
         countInInternal: nextInternal,
-        // Mark that next playback tick is the first one
+
         ...(isLastCountInBeat ? { isFirstPlaybackTick: true } : {}),
       });
     } else {
@@ -134,7 +122,7 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
         countIn: 0,
         countInInternal: 0,
         currentStep: event.currentStep ?? 0,
-        isFirstPlaybackTick: false, // consumed - back to normal advancement
+        isFirstPlaybackTick: false,
       });
     }
   },

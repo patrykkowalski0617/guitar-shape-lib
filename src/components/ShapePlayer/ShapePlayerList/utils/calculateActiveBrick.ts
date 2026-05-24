@@ -1,5 +1,5 @@
 import type { ShapePlayerBrick } from "@/store";
-import type { ActiveBrickCalculation } from "./types";
+import type { ActiveBrickCalculation } from "../hooks/types";
 
 export const calculateActiveBrick = (
   guitarShapePlayerBricks: ShapePlayerBrick[],

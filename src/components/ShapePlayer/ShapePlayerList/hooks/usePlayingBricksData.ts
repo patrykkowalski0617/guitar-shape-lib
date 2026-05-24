@@ -1,7 +1,41 @@
 import { useEffect, useRef } from "react";
-import { useMetronomeStore, useShapePlayerStore, useMusicStore } from "@/store";
-import { useShapePlayerBrickSelection } from "../../ShapePlayerBrick/hooks";
-import { calculateActiveBrick } from "./utils";
+import { useMetronomeStore, useShapePlayerStore } from "@/store";
+import { calculateActiveBrick } from "../utils";
+import { brickToBackingtrackNoteIds } from "@/utils/brickToBackingtrackNoteIds";
+import { brickToSelectedShapes } from "@/utils/brickToSelectedShapes";
+import { useMusicStore, useDataKeyStore } from "@/store";
+import type { ShapePlayerBrick } from "@/store";
+
+const applyBrickChange = (
+  brick: ShapePlayerBrick,
+  nextBrick: ShapePlayerBrick | undefined,
+) => {
+  const { restoreCurrentBrick, restoreNextBrick } = useDataKeyStore.getState();
+  const { setBackingtrackNoteIds, replaceTargetSharpNoteNames } =
+    useMusicStore.getState();
+
+  restoreCurrentBrick({
+    baseChordDataKey: brick.baseChordDataKey,
+    unifiedMusicKeysDataKey: brick.unifiedMusicKeysDataKey,
+    semitoneOffsetFromMajorRoot: brick.semitoneOffsetFromMajorRoot,
+    selectedShapesVariantDataKeys: brickToSelectedShapes(brick),
+  });
+
+  const noteIds = brickToBackingtrackNoteIds(brick);
+  if (noteIds.length > 0) {
+    setBackingtrackNoteIds(noteIds);
+  }
+
+  if (nextBrick) {
+    restoreNextBrick({
+      nextBaseChordDataKey: nextBrick.baseChordDataKey,
+      nextUnifiedMusicKeysDataKey: nextBrick.unifiedMusicKeysDataKey,
+      nextSemitoneOffsetFromMajorRoot: nextBrick.semitoneOffsetFromMajorRoot,
+      nextSelectedShapesVariantDataKeys: brickToSelectedShapes(nextBrick),
+    });
+    replaceTargetSharpNoteNames(nextBrick.targetSharpNoteNames ?? []);
+  }
+};
 
 export function usePlayingBricksData() {
   const currentStep = useMetronomeStore((state) => state.currentStep);
@@ -10,11 +44,8 @@ export function usePlayingBricksData() {
   const guitarShapePlayerBricks = useShapePlayerStore(
     (state) => state.guitarShapePlayerBricks,
   );
-  const replaceTargetSharpNoteNames = useMusicStore(
-    (state) => state.replaceTargetSharpNoteNames,
-  );
 
-  const lastProcessedStepRef = useRef<number | null>(null);
+  const hasPreparedCountInRef = useRef(false);
 
   const activeBrickInfo = calculateActiveBrick(
     guitarShapePlayerBricks,
@@ -22,91 +53,24 @@ export function usePlayingBricksData() {
     isCountingIn,
   );
 
-  const currentSelection = useShapePlayerBrickSelection(
-    activeBrickInfo?.guitarShapePlayerBrick,
-  );
-  const firstBrickSelection = useShapePlayerBrickSelection(
-    guitarShapePlayerBricks[0],
-  );
-
-  const nextBrick = (() => {
-    if (!activeBrickInfo || guitarShapePlayerBricks.length === 0)
-      return undefined;
-
-    const currentIndex = guitarShapePlayerBricks.findIndex(
-      (brick) => brick.id === activeBrickInfo.guitarShapePlayerBrick.id,
-    );
-
-    if (currentIndex === -1) return undefined;
-
-    const nextIndex = (currentIndex + 1) % guitarShapePlayerBricks.length;
-    return guitarShapePlayerBricks[nextIndex];
-  })();
-
-  const nextBrickSelection = useShapePlayerBrickSelection(nextBrick);
-
-  const firstNextBrick =
-    guitarShapePlayerBricks[1] || guitarShapePlayerBricks[0];
-  const firstNextSelection = useShapePlayerBrickSelection(firstNextBrick);
-
-  useEffect(() => {
-    if (!isPlaying || !activeBrickInfo?.isFirstBeatOfBrick) {
-      return;
-    }
-
-    if (lastProcessedStepRef.current === currentStep) {
-      return;
-    }
-
-    currentSelection.restoreData();
-
-    if (nextBrick) {
-      nextBrickSelection.restoreNextData();
-      const targetNotes = nextBrick.targetSharpNoteNames ?? [];
-      replaceTargetSharpNoteNames(targetNotes);
-    }
-
-    lastProcessedStepRef.current = currentStep;
-  }, [
-    currentStep,
-    isPlaying,
-    activeBrickInfo?.isFirstBeatOfBrick,
-    activeBrickInfo?.guitarShapePlayerBrick.id,
-    currentSelection,
-    nextBrickSelection,
-    nextBrick,
-    replaceTargetSharpNoteNames,
-  ]);
-
-  const hasPreparedCountInRef = useRef(false);
   useEffect(() => {
     if (!isPlaying) {
       hasPreparedCountInRef.current = false;
-      lastProcessedStepRef.current = null;
       return;
     }
 
-    const canPrepare =
+    if (
       isCountingIn &&
       !hasPreparedCountInRef.current &&
-      guitarShapePlayerBricks[0];
-    if (canPrepare) {
-      firstBrickSelection.restoreData();
-      firstNextSelection.restoreNextData();
-      const targetNotes = firstNextBrick.targetSharpNoteNames ?? [];
-      replaceTargetSharpNoteNames(targetNotes);
-
+      guitarShapePlayerBricks[0]
+    ) {
+      const firstBrick = guitarShapePlayerBricks[0];
+      const secondBrick =
+        guitarShapePlayerBricks[1] ?? guitarShapePlayerBricks[0];
+      applyBrickChange(firstBrick, secondBrick);
       hasPreparedCountInRef.current = true;
     }
-  }, [
-    isPlaying,
-    isCountingIn,
-    guitarShapePlayerBricks,
-    firstBrickSelection,
-    firstNextSelection,
-    firstNextBrick,
-    replaceTargetSharpNoteNames,
-  ]);
+  }, [isPlaying, isCountingIn, guitarShapePlayerBricks]);
 
   return {
     activeBrickId: activeBrickInfo?.guitarShapePlayerBrick.id,

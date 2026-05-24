@@ -21,7 +21,6 @@ export const Counter = ({
               height: "10px",
               backgroundColor: isPartActive ? "#4caf50" : "#e0e0e0",
               borderRadius: "2px",
-              transition: "background-color 0.1s",
             }}
           />
         );

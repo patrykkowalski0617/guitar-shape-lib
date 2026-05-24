@@ -36,4 +36,30 @@ export const useDataKeyStore = create<DataKeyState>((set) => ({
     set({ nextSelectedShapesVariantDataKeys }),
 
   resetDataKeys: () => set({ ...initialState }),
+
+  restoreCurrentBrick: ({
+    baseChordDataKey,
+    unifiedMusicKeysDataKey,
+    semitoneOffsetFromMajorRoot,
+    selectedShapesVariantDataKeys,
+  }) =>
+    set({
+      baseChordDataKey,
+      unifiedMusicKeysDataKey,
+      semitoneOffsetFromMajorRoot,
+      selectedShapesVariantDataKeys,
+    }),
+
+  restoreNextBrick: ({
+    nextBaseChordDataKey,
+    nextUnifiedMusicKeysDataKey,
+    nextSemitoneOffsetFromMajorRoot,
+    nextSelectedShapesVariantDataKeys,
+  }) =>
+    set({
+      nextBaseChordDataKey,
+      nextUnifiedMusicKeysDataKey,
+      nextSemitoneOffsetFromMajorRoot,
+      nextSelectedShapesVariantDataKeys,
+    }),
 }));

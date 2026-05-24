@@ -19,13 +19,6 @@ export default function FretboardRow({
 
   useEffect(() => {
     if (stringIndex !== 0) return;
-    console.log(
-      JSON.stringify({
-        point: "T3_FretboardRow",
-        t: performance.now(),
-        step: currentStep,
-      }),
-    );
   }, [currentStep, stringIndex]);
 
   return (

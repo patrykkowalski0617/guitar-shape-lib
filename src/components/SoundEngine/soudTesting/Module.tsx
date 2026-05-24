@@ -28,7 +28,6 @@ export const Module = ({
         padding: "12px",
         cursor: "grab",
         opacity: isDragging ? 0.5 : 1,
-        transition: "opacity 0.15s",
       }}
     >
       <div

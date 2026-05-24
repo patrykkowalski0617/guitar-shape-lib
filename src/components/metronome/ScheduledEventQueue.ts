@@ -1,7 +1,7 @@
 export interface ScheduledEvent {
-  scheduledTime: number; // AudioContext time when sound plays
-  countIn: number | null; // null = not counting in
-  currentStep: number | null; // null = counting in
+  scheduledTime: number;
+  countIn: number | null;
+  currentStep: number | null;
   isNewBrick: boolean;
   isFirstStepTotal: boolean;
   isCountingIn: boolean;
@@ -14,7 +14,6 @@ export class ScheduledEventQueue {
     this.queue.push(event);
   }
 
-  // Returns all events whose scheduledTime <= currentTime, removes them from queue
   flush(currentTime: number): ScheduledEvent[] {
     const due: ScheduledEvent[] = [];
     const remaining: ScheduledEvent[] = [];
