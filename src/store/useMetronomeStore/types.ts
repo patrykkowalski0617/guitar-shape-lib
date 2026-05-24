@@ -1,6 +1,11 @@
+import type { ScheduledEvent } from "@/components/metronome/ScheduledEventQueue";
+
 export interface StepResult {
   isNewBrick: boolean;
   isFirstStepTotal: boolean;
+  isCountingIn: boolean;
+  countIn: number;
+  currentStep: number;
 }
 
 export interface MetronomeBrick {
@@ -13,12 +18,15 @@ export interface MetronomeState {
   isPlaying: boolean;
   currentStep: number;
   countIn: number;
+  countInInternal: number;
   isCountingIn: boolean;
+  isFirstPlaybackTick: boolean;
   isMetronomeWithBass: boolean;
 
   setBpm: (bpm: number) => void;
   setBpmMultiplier: (multiplier: number) => void;
   togglePlay: () => void;
-  nextStep: (guitarShapePlayerBricks: MetronomeBrick[]) => StepResult;
   getTotalSteps: (guitarShapePlayerBricks: MetronomeBrick[]) => number;
+  peekNextStep: (guitarShapePlayerBricks: MetronomeBrick[]) => StepResult;
+  applyStep: (event: ScheduledEvent) => void;
 }

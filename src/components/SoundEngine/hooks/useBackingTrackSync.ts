@@ -10,11 +10,8 @@ export const useBackingTrackSync = () => {
   const baseChordBassNoteId = useMusicStore(
     (state) => state.baseChordBassNoteId,
   );
-  const setBackgingtrackNoteIds = useMusicStore(
-    (state) => state.setBackgingtrackNoteIds,
-  );
-  const currentBackingtrackIds = useMusicStore(
-    (state) => state.backgingtrackNoteIds,
+  const setBackingtrackNoteIds = useMusicStore(
+    (state) => state.setBackingtrackNoteIds,
   );
 
   const guitarShapeVariantDataKeys = useMusicStore(
@@ -43,23 +40,13 @@ export const useBackingTrackSync = () => {
     if (!scaleTemplate) return;
     if (!baseChordBassNoteId) return;
 
-    const timeout = setTimeout(() => {
-      const harmonyNoteIds = harmonizeBassNote(
-        baseChordBassNoteId,
-        scaleTemplate,
-      );
-      const bassNoteNoteId = changeOctaveOfNoteId(baseChordBassNoteId);
-      const allHarmonyNoteIds = [bassNoteNoteId, ...harmonyNoteIds];
-      const isDifferent =
-        JSON.stringify(currentBackingtrackIds) !==
-        JSON.stringify(allHarmonyNoteIds);
-
-      if (isDifferent) {
-        setBackgingtrackNoteIds(allHarmonyNoteIds);
-      }
-    }, 0);
-
-    return () => clearTimeout(timeout);
+    const harmonyNoteIds = harmonizeBassNote(
+      baseChordBassNoteId,
+      scaleTemplate,
+    );
+    const bassNoteNoteId = changeOctaveOfNoteId(baseChordBassNoteId);
+    const allHarmonyNoteIds = [bassNoteNoteId, ...harmonyNoteIds];
+    setBackingtrackNoteIds(allHarmonyNoteIds);
   }, [
     guitarShapeVariantDataKeys,
     unifiedMusicKeysDataKey,
@@ -67,8 +54,7 @@ export const useBackingTrackSync = () => {
     baseChordSemitoneOffsetFromMajorRoot,
     unifiedMusicKeySemitonOffsetFromC,
     scaleTemplate,
-    setBackgingtrackNoteIds,
-    currentBackingtrackIds,
+    setBackingtrackNoteIds,
     baseChordBassNoteId,
   ]);
 };

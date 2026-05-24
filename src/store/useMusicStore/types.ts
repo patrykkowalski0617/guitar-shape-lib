@@ -24,8 +24,8 @@ export interface MusicState {
   setActiveLockedNoteIds: (activeHoverNote: string) => void;
   resetActiveLockedNoteIds: () => void;
 
-  backgingtrackNoteIds: NoteId[];
-  setBackgingtrackNoteIds: (noteId: NoteId[]) => void;
+  backingtrackNoteIds: NoteId[];
+  setBackingtrackNoteIds: (noteId: NoteId[]) => void;
 
   targetSharpNoteNames: SharpNoteName[];
   setTargetSharpNoteNames: (sharpNoteName: SharpNoteName) => void;

@@ -10,7 +10,7 @@ export const useMusicStore = create<MusicState>((set) => ({
   guitarShapeNoteIds: [],
   activeHoverNoteId: null,
   activeLockedNoteIds: [],
-  backgingtrackNoteIds: [],
+  backingtrackNoteIds: [],
   targetSharpNoteNames: [],
   guitarShapeVariantDataKeys: null,
   guitarShapeVariantDataKeys_locked: null,
@@ -68,8 +68,14 @@ export const useMusicStore = create<MusicState>((set) => ({
 
   resetActiveLockedNoteIds: () => set({ activeLockedNoteIds: [] }),
 
-  setBackgingtrackNoteIds: (backgingtrackNoteIds) =>
-    set({ backgingtrackNoteIds }),
+  setBackingtrackNoteIds: (newIds) => {
+    set((state) => {
+      const isDifferent =
+        JSON.stringify(state.backingtrackNoteIds) !== JSON.stringify(newIds);
+      if (!isDifferent) return state;
+      return { backingtrackNoteIds: newIds };
+    });
+  },
 
   setTargetSharpNoteNames: (noteName) => {
     set((state) => {

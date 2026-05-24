@@ -2,7 +2,6 @@ export class MetronomeTimer {
   private nextTickTime: number = 0;
   private bpm: number = 120;
   private multiplier: number = 1;
-  private scheduleAheadTime: number = 0.1;
 
   constructor(bpm: number, multiplier: number) {
     this.bpm = bpm;

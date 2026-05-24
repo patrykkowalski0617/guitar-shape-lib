@@ -1,5 +1,5 @@
 import * as S from "./parts";
-import { type JSX } from "react";
+import { useEffect, type JSX } from "react";
 import FretboardCell from "../FretboardCell/FretboardCell";
 import { useControllersStore, useMetronomeStore } from "@/store";
 import { isShapeCell as isShapeCellFn } from "./helpers";
@@ -15,6 +15,18 @@ export default function FretboardRow({
   const visibleStrings = useControllersStore((state) => state.visibleStrings);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
   const isVisibleString = visibleStrings.includes(stringIndex);
+  const currentStep = useMetronomeStore((state) => state.currentStep);
+
+  useEffect(() => {
+    if (stringIndex !== 0) return;
+    console.log(
+      JSON.stringify({
+        point: "T3_FretboardRow",
+        t: performance.now(),
+        step: currentStep,
+      }),
+    );
+  }, [currentStep, stringIndex]);
 
   return (
     <S.FretboardRow $isVisibleString={isVisibleString}>

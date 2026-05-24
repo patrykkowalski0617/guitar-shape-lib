@@ -1,11 +1,9 @@
 import { useEffect, useCallback } from "react";
 import { useMetronomeStore } from "@/store";
 import { metronomeInstance } from "../../metronome/metronomeInstance";
+import type { TickCallback } from "../../metronome/types";
 
-export const useMetronome = (
-  bpm: number,
-  onTick: () => { isNewBrick: boolean },
-) => {
+export const useMetronome = (bpm: number, onTick: TickCallback) => {
   const multiplier = useMetronomeStore((state) => state.bpmMultiplier);
 
   useEffect(() => {

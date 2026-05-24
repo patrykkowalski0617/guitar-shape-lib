@@ -1,5 +1,7 @@
 import { useCallback, useEffect } from "react";
 import { useMetronomeStore, useShapePlayerStore } from "@/store";
+import { metronomeInstance } from "@/components/metronome/metronomeInstance";
+import type { ScheduledEvent } from "@/components/metronome/ScheduledEventQueue";
 import { useMetronome } from "../../hooks/useMetronome";
 
 export function usePlayingBricksEngine() {
@@ -8,11 +10,27 @@ export function usePlayingBricksEngine() {
   const guitarShapePlayerBricks = useShapePlayerStore(
     (state) => state.guitarShapePlayerBricks,
   );
-  const nextStep = useMetronomeStore((state) => state.nextStep);
+  const peekNextStep = useMetronomeStore((state) => state.peekNextStep);
+  const applyStep = useMetronomeStore((state) => state.applyStep);
 
+  // Called by audio scheduler ~0.1s ahead of time
+  // Only reads state, does NOT mutate store
   const handleTick = useCallback(() => {
-    return nextStep(guitarShapePlayerBricks);
-  }, [nextStep, guitarShapePlayerBricks]);
+    return peekNextStep(guitarShapePlayerBricks);
+  }, [peekNextStep, guitarShapePlayerBricks]);
+
+  // Called by RAF loop exactly when sound plays
+  // Mutates store → triggers React re-render in sync with audio
+  const handleUIEvent = useCallback(
+    (event: ScheduledEvent) => {
+      applyStep(event);
+    },
+    [applyStep],
+  );
+
+  useEffect(() => {
+    metronomeInstance.setUIEventCallback(handleUIEvent);
+  }, [handleUIEvent]);
 
   const { toggleMetronome } = useMetronome(bpm, handleTick);
 

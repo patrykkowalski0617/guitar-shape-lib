@@ -9,8 +9,8 @@ export function SoundEngine() {
   const playback = useControllersStore((state) => state.playback);
   const isCountingIn = useMetronomeStore((state) => state.isCountingIn);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
-  const backgingtrackNoteIds = useMusicStore(
-    (state) => state.backgingtrackNoteIds,
+  const backingtrackNoteIds = useMusicStore(
+    (state) => state.backingtrackNoteIds,
   );
   const activeHoverNoteId = useMusicStore((state) => state.activeHoverNoteId);
   const activeLockedNoteIds = useMusicStore(
@@ -20,6 +20,9 @@ export function SoundEngine() {
   const currentlyPlaying = useRef<Set<string>>(new Set());
 
   useEffect(() => {
+    const t2 = performance.now();
+    console.log(JSON.stringify({ point: "T2_SoundEngine", t: t2 }));
+
     const notesThatShouldPlay = new Set<string>();
 
     const isPlayerMode = isPlaying;
@@ -29,10 +32,10 @@ export function SoundEngine() {
 
     if (isPlayerMode) {
       const hasNotesToPlay =
-        backgingtrackNoteIds && backgingtrackNoteIds.length > 0;
+        backingtrackNoteIds && backingtrackNoteIds.length > 0;
 
       if (hasNotesToPlay && playback) {
-        backgingtrackNoteIds.forEach((noteId) => {
+        backingtrackNoteIds.forEach((noteId) => {
           notesThatShouldPlay.add(noteId);
         });
       }
@@ -53,7 +56,7 @@ export function SoundEngine() {
     activeLockedNoteIds,
     isPlaying,
     isCountingIn,
-    backgingtrackNoteIds,
+    backingtrackNoteIds,
     playback,
     isPianoOn,
   ]);
