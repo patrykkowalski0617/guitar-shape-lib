@@ -7,10 +7,6 @@ export const useShapePlayerBrick = (id: string) => {
     state.guitarShapePlayerBricks.find((b) => b.id === id),
   );
 
-  const removeShapePlayerBrick = useShapePlayerStore(
-    (state) => state.removeShapePlayerBrick,
-  );
-
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
 
@@ -19,16 +15,11 @@ export const useShapePlayerBrick = (id: string) => {
     transition,
   };
 
-  const handleRemoveClick = () => {
-    removeShapePlayerBrick(id);
-  };
-
   return {
     attributes,
     listeners,
     setNodeRef,
     draggingStyles,
-    handleRemoveClick,
     guitarShapePlayerBrick,
   };
 };

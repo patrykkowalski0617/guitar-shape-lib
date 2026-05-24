@@ -1,16 +1,15 @@
 import * as S from "./parts";
-import {
-  useShapePlayerBrick,
-  useShapePlayerBrickDisplay,
-  useShapePlayerBrickSelection,
-} from "./hooks";
-import { useDataKeyStore, useUiStore } from "@/store";
+import { useShapePlayerBrick, useShapePlayerBrickSelection } from "./hooks";
 import { ShapeExplorer } from "@/components/ShapeExplorer/ShapeExplorer";
 import { usePlayingBricksData } from "../ShapePlayerList/hooks/usePlayingBricksData";
-import { Button } from "@/components/ui/parts";
 import { NoteMatrix } from "@/components/NoteMatrix/NoteMatrix";
-import { Counter } from "./brickElements/Counter/Counter";
-import { Trash2 } from "lucide-react";
+import {
+  Counter,
+  EditKeyAndChordButton,
+  EditShapeButton,
+  RemoveBrickButton,
+  DragHandleButton,
+} from "./brickElements";
 
 interface ShapePlayerBrickProps {
   id: string;
@@ -22,13 +21,11 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     listeners,
     setNodeRef,
     draggingStyles,
-    handleRemoveClick,
     guitarShapePlayerBrick,
   } = useShapePlayerBrick(id);
 
   const { activeBrickId, activeBeatIndex } = usePlayingBricksData();
-  const { keyName, baseChordName, guitarShapeName } =
-    useShapePlayerBrickDisplay(guitarShapePlayerBrick);
+
   const {
     sliderRange,
     setSliderRange,
@@ -38,48 +35,10 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     toggleTargetNote,
   } = useShapePlayerBrickSelection(guitarShapePlayerBrick);
 
-  const setEditingBrickId = useUiStore((state) => state.setEditingBrickId);
-  const setKeyAndChordPickerExpanded = useUiStore(
-    (state) => state.setKeyAndChordPickerExpanded,
-  );
-  const setShapePickerExpanded = useUiStore(
-    (state) => state.setShapePickerExpanded,
-  );
-  const setBaseChordDataKey = useDataKeyStore(
-    (state) => state.setBaseChordDataKey,
-  );
-  const setUnifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.setUnifiedMusicKeysDataKey,
-  );
-  const setShapeDataKey = useDataKeyStore((state) => state.setShapeDataKey);
-  const setSemitoneOffsetFromMajorRoot = useDataKeyStore(
-    (state) => state.setSemitoneOffsetFromMajorRoot,
-  );
-
   if (!guitarShapePlayerBrick) return null;
 
   const isCurrentBrickPlayed = activeBrickId === id;
   const playLength = guitarShapePlayerBrick.playLength;
-
-  const handleEditKeyAndChord = () => {
-    setEditingBrickId(id);
-    setUnifiedMusicKeysDataKey(guitarShapePlayerBrick.unifiedMusicKeysDataKey);
-    setBaseChordDataKey(guitarShapePlayerBrick.baseChordDataKey);
-    setKeyAndChordPickerExpanded(true);
-    setShapePickerExpanded(false);
-  };
-
-  const handleEditShape = () => {
-    setEditingBrickId(id);
-    setUnifiedMusicKeysDataKey(guitarShapePlayerBrick.unifiedMusicKeysDataKey);
-    setBaseChordDataKey(guitarShapePlayerBrick.baseChordDataKey);
-    setShapeDataKey(guitarShapePlayerBrick.guitarShapeDataKey);
-    setSemitoneOffsetFromMajorRoot(
-      guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
-    );
-    setShapePickerExpanded(true);
-    setKeyAndChordPickerExpanded(false);
-  };
 
   return (
     <S.ShapePlayerBrickWrapper
@@ -88,11 +47,9 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
       onMouseDown={restoreData}
       onMouseUp={restoreData}
     >
-      <Button onClick={handleEditKeyAndChord}>{keyName}</Button>
-      <Button onClick={handleEditKeyAndChord}>{baseChordName}</Button>
-      <Button $widthMultiplier={4} onClick={handleEditShape}>
-        {guitarShapeName}
-      </Button>
+      <EditKeyAndChordButton id={id} displayMode="key" />
+      <EditKeyAndChordButton id={id} displayMode="chord" />
+      <EditShapeButton id={id} />
 
       <Counter
         playLength={playLength}
@@ -121,13 +78,9 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
         orderedLocations={orderedLocations}
       />
 
-      <Button onClick={handleRemoveClick} $widthMultiplier={1}>
-        <Trash2 />
-      </Button>
+      <RemoveBrickButton id={id} />
 
-      <Button {...attributes} {...listeners} $widthMultiplier={1}>
-        ::
-      </Button>
+      <DragHandleButton attributes={attributes} listeners={listeners} />
     </S.ShapePlayerBrickWrapper>
   );
 };
