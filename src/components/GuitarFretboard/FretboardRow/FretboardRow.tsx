@@ -18,33 +18,38 @@ export default function FretboardRow({
 
   return (
     <S.FretboardRow $isVisibleString={isVisibleString}>
-      {rowNotes.map((noteObject, fretIndex) => (
-        <FretboardCell
-          key={`${stringIndex}-${fretIndex}`}
-          noteObject={noteObject}
-          fretIndex={fretIndex}
-          isNutCell={stringIndex === 0 && fretIndex === 0}
-          isVisibleString={isVisibleString}
-          isShapeCell={isShapeCellFn({
-            guitarShapeCoordinates,
+      {rowNotes.map((noteObject, fretIndex) => {
+        const isShapeCell = isShapeCellFn({
+          guitarShapeCoordinates,
+          stringIndex,
+          fretIndex,
+        });
+        const isBaseChordCell = isShapeCellFn({
+          guitarShapeCoordinates: baseChordCoordinates,
+          stringIndex,
+          fretIndex,
+        });
+        const isInNextTargetShape =
+          isPlaying &&
+          isShapeCellFn({
+            guitarShapeCoordinates: nextTargetShapeCoordinates,
             stringIndex,
             fretIndex,
-          })}
-          isBaseChordCell={isShapeCellFn({
-            guitarShapeCoordinates: baseChordCoordinates,
-            stringIndex,
-            fretIndex,
-          })}
-          isInNextTargetShape={
-            isPlaying &&
-            isShapeCellFn({
-              guitarShapeCoordinates: nextTargetShapeCoordinates,
-              stringIndex,
-              fretIndex,
-            })
-          }
-        />
-      ))}
+          });
+
+        return (
+          <FretboardCell
+            key={`${stringIndex}-${fretIndex}`}
+            noteObject={noteObject}
+            fretIndex={fretIndex}
+            isNutCell={stringIndex === 0 && fretIndex === 0}
+            isVisibleString={isVisibleString}
+            isShapeCell={isShapeCell}
+            isBaseChordCell={isBaseChordCell}
+            isInNextTargetShape={isInNextTargetShape}
+          />
+        );
+      })}
     </S.FretboardRow>
   );
 }
