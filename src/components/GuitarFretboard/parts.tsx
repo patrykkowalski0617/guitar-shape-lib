@@ -40,9 +40,9 @@ export const StringSliderWrapper = styled.div`
 export const FretboardWrapper = styled.div`
   padding: 8px 0 20px;
   position: relative;
-  margin: auto;
+  margin-left: auto;
   overflow: hidden;
-  width: calc(1400px - 50px);
+  width: calc(1400px - 70px);
 `;
 
 export const FretboardShadow = styled.div`

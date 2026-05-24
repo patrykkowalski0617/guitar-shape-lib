@@ -86,6 +86,6 @@ export const NutShadow = styled.div`
     color-mix(in oklab, var(--foreground) 0%, transparent) 40%,
     color-mix(in oklab, var(--instrument) 20%, var(--background)) 100%
   );
-  opacity: 0.8;
+  opacity: 0.6;
   z-index: 21;
 `;
