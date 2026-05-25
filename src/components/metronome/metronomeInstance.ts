@@ -6,4 +6,5 @@ export const metronomeInstance = new Metronome(() => ({
   isCountingIn: false,
   countIn: 0,
   currentStep: 0,
+  bassNoteFrequency: null,
 }));
