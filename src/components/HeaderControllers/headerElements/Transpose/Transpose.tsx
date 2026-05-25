@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/parts";
-import { useShapePlayerStore, useDataKeyStore, useMusicStore } from "@/store";
-import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
-import { resolveTargetSharpNoteNames } from "@/utils";
+import { useShapePlayerStore, useDataKeyStore } from "@/store";
+import { useRestoreBrick } from "@/hooks";
 
 export function Transpose() {
   const transposeShapePlayerBricks = useShapePlayerStore(
@@ -10,12 +9,7 @@ export function Transpose() {
   const hasBricks = useShapePlayerStore(
     (state) => state.guitarShapePlayerBricks.length > 0,
   );
-  const restoreCurrentBrick = useDataKeyStore(
-    (state) => state.restoreCurrentBrick,
-  );
-  const replaceTargetSharpNoteNames = useMusicStore(
-    (state) => state.replaceTargetSharpNoteNames,
-  );
+  const { restore } = useRestoreBrick();
 
   const handleTranspose = (semitones: 1 | -1) => {
     const currentDataKeyState = useDataKeyStore.getState();
@@ -41,38 +35,7 @@ export function Transpose() {
 
     if (!currentBrick) return;
 
-    const orderedLocations = getOrderedShapeVariantDataKeys({
-      guitarShapeDataKey: currentBrick.guitarShapeDataKey,
-      unifiedMusicKeysDataKey: currentBrick.unifiedMusicKeysDataKey,
-      semitoneOffsetFromMajorRoot: currentBrick.semitoneOffsetFromMajorRoot,
-    });
-
-    const sliderRange = currentBrick.sliderRange ?? [
-      0,
-      Math.max(0, orderedLocations.length - 1),
-    ];
-
-    const selectedShapesVariantDataKeys = orderedLocations.slice(
-      sliderRange[0],
-      sliderRange[1] + 1,
-    );
-
-    restoreCurrentBrick({
-      baseChordDataKey: currentBrick.baseChordDataKey,
-      unifiedMusicKeysDataKey: currentBrick.unifiedMusicKeysDataKey,
-      semitoneOffsetFromMajorRoot: currentBrick.semitoneOffsetFromMajorRoot,
-      selectedShapesVariantDataKeys,
-    });
-
-    const sharpNoteNames = resolveTargetSharpNoteNames(
-      currentBrick.unifiedMusicKeysDataKey,
-      currentBrick.baseChordDataKey,
-      currentBrick.guitarShapeDataKey,
-      currentBrick.semitoneOffsetFromMajorRoot,
-      currentBrick.targetNoteIndices ?? [1],
-    );
-
-    replaceTargetSharpNoteNames(sharpNoteNames);
+    restore(currentBrick);
   };
 
   return (

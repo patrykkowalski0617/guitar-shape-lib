@@ -1,14 +1,12 @@
 import { useRef } from "react";
 import {
-  useDataKeyStore,
   useMetronomeStore,
   useMusicStore,
   useShapePlayerStore,
   type ShapePlayerBrick,
 } from "@/store";
 import { importBricksFromJson } from "@/components/ShapePlayer/helpers/importBricksFromJson";
-import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
-import { resolveTargetSharpNoteNames } from "@/utils";
+import { useRestoreBrick } from "@/hooks";
 
 export function useOpen() {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -19,18 +17,13 @@ export function useOpen() {
   );
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
 
-  const restoreCurrentBrick = useDataKeyStore(
-    (state) => state.restoreCurrentBrick,
-  );
   const setShapeVariantDataKeys = useMusicStore(
     (state) => state.setShapeVariantDataKeys,
   );
   const setShapeVariantDataKeys_locked = useMusicStore(
     (state) => state.setShapeVariantDataKeys_locked,
   );
-  const replaceTargetSharpNoteNames = useMusicStore(
-    (state) => state.replaceTargetSharpNoteNames,
-  );
+  const { restore } = useRestoreBrick();
 
   const applyImportedBricks = (
     guitarShapePlayerBricks: ShapePlayerBrick[],
@@ -44,38 +37,7 @@ export function useOpen() {
 
     const firstBrick = guitarShapePlayerBricks[0];
     if (firstBrick) {
-      const orderedLocations = getOrderedShapeVariantDataKeys({
-        guitarShapeDataKey: firstBrick.guitarShapeDataKey,
-        unifiedMusicKeysDataKey: firstBrick.unifiedMusicKeysDataKey,
-        semitoneOffsetFromMajorRoot: firstBrick.semitoneOffsetFromMajorRoot,
-      });
-
-      const sliderRange = firstBrick.sliderRange ?? [
-        0,
-        Math.max(0, orderedLocations.length - 1),
-      ];
-
-      const selectedShapesVariantDataKeys = orderedLocations.slice(
-        sliderRange[0],
-        sliderRange[1] + 1,
-      );
-
-      restoreCurrentBrick({
-        baseChordDataKey: firstBrick.baseChordDataKey,
-        unifiedMusicKeysDataKey: firstBrick.unifiedMusicKeysDataKey,
-        semitoneOffsetFromMajorRoot: firstBrick.semitoneOffsetFromMajorRoot,
-        selectedShapesVariantDataKeys,
-      });
-
-      const sharpNoteNames = resolveTargetSharpNoteNames(
-        firstBrick.unifiedMusicKeysDataKey,
-        firstBrick.baseChordDataKey,
-        firstBrick.guitarShapeDataKey,
-        firstBrick.semitoneOffsetFromMajorRoot,
-        firstBrick.targetNoteIndices ?? [1],
-      );
-
-      replaceTargetSharpNoteNames(sharpNoteNames);
+      restore(firstBrick);
     }
 
     setShapeVariantDataKeys(null);
