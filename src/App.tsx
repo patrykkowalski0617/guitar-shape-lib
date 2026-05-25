@@ -8,7 +8,7 @@ import ShapePicker from "./components/ShapePicker/ShapePicker";
 import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
 import { PianoControllers } from "@/components/PianoControllers/PianoControllers";
 import { HeaderControllers } from "./components/HeaderControllers/HeaderControllers";
-import { MasterMultiRangeController } from "./components/ShapeExplorer/MasterMultiRangeController";
+import { MasterShapeExplorer } from "./components/ShapeExplorer/MasterShapeExplorer";
 // import { DataKeyStoreDebugComponent } from "./DevTools/DataKeyStoreDebugComponent/DataKeyStoreDebugComponent";
 
 export default function App() {
@@ -32,7 +32,7 @@ export default function App() {
         </Section>
 
         <Section>
-          <MasterMultiRangeController />
+          <MasterShapeExplorer />
         </Section>
 
         <Section>

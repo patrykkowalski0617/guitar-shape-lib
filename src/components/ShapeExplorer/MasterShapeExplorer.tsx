@@ -2,8 +2,9 @@ import { useEffect, useMemo, useRef } from "react";
 import { useMasterShapeExplorerStore, useShapePlayerStore } from "@/store";
 import MasterMultiRangeSlider from "../ui/MultiRangeSlider/MasterMultiRangeSlider/MasterMultiRangeSlider";
 import { getOrderedShapeVariantDataKeys } from "./helpers/getOrderedShapeVariantDataKeys";
+import { useRestoreBrick } from "@/hooks";
 
-export const MasterMultiRangeController = () => {
+export const MasterShapeExplorer = () => {
   const guitarShapePlayerBricks = useShapePlayerStore(
     (state) => state.guitarShapePlayerBricks,
   );
@@ -26,27 +27,35 @@ export const MasterMultiRangeController = () => {
 
   const { ranges, initializeRanges, setRange } = useMasterShapeExplorerStore();
   const updateBrick = useShapePlayerStore((state) => state.updateBrick);
+  const { restore } = useRestoreBrick();
 
   const prevIdsRef = useRef<string>("");
 
   useEffect(() => {
     const currentIds = sliderConfigs.map((c) => c.id).join(",");
-    if (currentIds !== prevIdsRef.current) {
-      const guitarShapePlayerBricks =
+    const hasIdsChanged = currentIds !== prevIdsRef.current;
+
+    if (hasIdsChanged) {
+      const currentBricks =
         useShapePlayerStore.getState().guitarShapePlayerBricks;
       const updatedInitialRanges: Record<
         string,
         { start: number; end: number }
       > = {};
-      sliderConfigs.forEach((c) => {
-        const guitarShapePlayerBrick = guitarShapePlayerBricks.find(
-          (b) => b.id === c.id,
+
+      sliderConfigs.forEach((config) => {
+        const matchingBrick = currentBricks.find(
+          (brick) => brick.id === config.id,
         );
-        updatedInitialRanges[c.id] = {
-          start: guitarShapePlayerBrick?.sliderRange?.[0] ?? 0,
-          end: guitarShapePlayerBrick?.sliderRange?.[1] ?? 0,
+        const initialStart = matchingBrick?.sliderRange?.[0] ?? 0;
+        const initialEnd = matchingBrick?.sliderRange?.[1] ?? 0;
+
+        updatedInitialRanges[config.id] = {
+          start: initialStart,
+          end: initialEnd,
         };
       });
+
       prevIdsRef.current = currentIds;
       initializeRanges(updatedInitialRanges);
     }
@@ -54,18 +63,33 @@ export const MasterMultiRangeController = () => {
 
   useEffect(() => {
     Object.entries(ranges).forEach(([id, range]) => {
-      const guitarShapePlayerBrick = useShapePlayerStore
-        .getState()
-        .guitarShapePlayerBricks.find((b) => b.id === id);
-      const hasChanged =
-        guitarShapePlayerBrick &&
-        (guitarShapePlayerBrick.sliderRange?.[0] !== range.start ||
-          guitarShapePlayerBrick.sliderRange?.[1] !== range.end);
-      if (hasChanged) {
-        updateBrick(id, { sliderRange: [range.start, range.end] });
+      const currentBricks =
+        useShapePlayerStore.getState().guitarShapePlayerBricks;
+      const targetBrick = currentBricks.find((brick) => brick.id === id);
+
+      if (!targetBrick) return;
+
+      const isStartChanged = targetBrick.sliderRange?.[0] !== range.start;
+      const isEndChanged = targetBrick.sliderRange?.[1] !== range.end;
+      const hasRangeChanged = isStartChanged || isEndChanged;
+
+      if (hasRangeChanged) {
+        const newSliderRange: [number, number] = [range.start, range.end];
+        updateBrick(id, { sliderRange: newSliderRange });
+
+        const activeBrickId = useShapePlayerStore.getState().activeBrickId;
+        const isModifyingActiveBrick = id === activeBrickId;
+
+        if (isModifyingActiveBrick) {
+          const updatedBrick = {
+            ...targetBrick,
+            sliderRange: newSliderRange,
+          };
+          restore(updatedBrick);
+        }
       }
     });
-  }, [ranges, updateBrick]);
+  }, [ranges, updateBrick, restore]);
 
   useEffect(() => {
     const unsub = useShapePlayerStore.subscribe(
@@ -75,10 +99,12 @@ export const MasterMultiRangeController = () => {
           const currentMasterRange = ranges[guitarShapePlayerBrick.id];
           const newStart = guitarShapePlayerBrick.sliderRange?.[0] ?? 0;
           const newEnd = guitarShapePlayerBrick.sliderRange?.[1] ?? 0;
+
           const isOutOfSync =
             currentMasterRange &&
             (currentMasterRange.start !== newStart ||
               currentMasterRange.end !== newEnd);
+
           if (isOutOfSync) {
             setRange(guitarShapePlayerBrick.id, {
               start: newStart,
@@ -103,11 +129,15 @@ export const MasterMultiRangeController = () => {
 
   const masterValues = useMemo(() => {
     const lengths = sliderConfigs.map((c) => c.orderedLocations.length);
-    const maxPossibleLength = lengths.length > 0 ? Math.max(...lengths) : 0;
-    return Array.from({ length: maxPossibleLength }, (_, i) => i);
+    const hasLength = lengths.length > 0;
+    const maxPossibleLength = hasLength ? Math.max(...lengths) : 0;
+    const createValueArray = (_: unknown, i: number) => i;
+
+    return Array.from({ length: maxPossibleLength }, createValueArray);
   }, [sliderConfigs]);
 
-  if (sliderConfigs.length === 0) return null;
+  const hasNoConfigs = sliderConfigs.length === 0;
+  if (hasNoConfigs) return null;
 
   return (
     <MasterMultiRangeSlider
