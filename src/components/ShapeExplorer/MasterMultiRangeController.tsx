@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { useShapeExplorerStore, useShapePlayerStore } from "@/store";
+import { useMasterShapeExplorerStore, useShapePlayerStore } from "@/store";
 import MasterMultiRangeSlider from "../ui/MultiRangeSlider/MasterMultiRangeSlider/MasterMultiRangeSlider";
 import { getOrderedShapeVariantDataKeys } from "./helpers/getOrderedShapeVariantDataKeys";
 
@@ -24,7 +24,7 @@ export const MasterMultiRangeController = () => {
     }));
   }, [guitarShapePlayerBricks]);
 
-  const { ranges, initializeRanges, setRange } = useShapeExplorerStore();
+  const { ranges, initializeRanges, setRange } = useMasterShapeExplorerStore();
   const updateBrick = useShapePlayerStore((state) => state.updateBrick);
 
   const prevIdsRef = useRef<string>("");

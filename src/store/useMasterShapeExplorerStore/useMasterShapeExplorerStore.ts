@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import type { MultiRangeState } from "./types";
 
-export const useShapeExplorerStore = create<MultiRangeState>((set) => ({
+export const useMasterShapeExplorerStore = create<MultiRangeState>((set) => ({
   ranges: {},
 
   initializeRanges: (initialRanges) => set({ ranges: initialRanges }),

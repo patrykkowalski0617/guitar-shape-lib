@@ -1,4 +1,4 @@
-import { useShapeExplorerStore } from "@/store";
+import { useMasterShapeExplorerStore } from "@/store";
 import { type Range } from "../MultiRangeSlider/useMultiRangeSlider";
 import { usePersistentBoolean } from "@/hooks";
 
@@ -14,7 +14,7 @@ export const useMasterMultiRangeSlider = (
   ranges: MasterRanges,
   configs: MasterConfig,
 ) => {
-  const updateRangesFromMaster = useShapeExplorerStore(
+  const updateRangesFromMaster = useMasterShapeExplorerStore(
     (state) => state.updateRangesFromMaster,
   );
 

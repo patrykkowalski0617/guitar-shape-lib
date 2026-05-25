@@ -11,22 +11,22 @@ import {
 } from "./headerElements";
 import * as S from "./parts";
 import { ExerciseTitle } from "./headerElements/ExerciseTitle/ExerciseTitle";
+import { MasterNoteMatrix } from "../NoteMatrix/MasterNoteMatrix";
 
 export const HeaderControllers = () => {
   return (
-    <>
-      <S.ShapePlayerControllers>
-        <Open />
-        <Save />
-        <ExerciseTitle />
-        <Add />
-        <Clear />
-        <Undo />
-        <TogglePlayback />
-        <Metronome />
-        <BpmInput />
-        <BpmMultiplier />
-      </S.ShapePlayerControllers>
-    </>
+    <S.ShapePlayerControllers>
+      <Open />
+      <Save />
+      <ExerciseTitle />
+      <Add />
+      <Clear />
+      <Undo />
+      <TogglePlayback />
+      <Metronome />
+      <BpmInput />
+      <BpmMultiplier />
+      <MasterNoteMatrix />
+    </S.ShapePlayerControllers>
   );
 };
