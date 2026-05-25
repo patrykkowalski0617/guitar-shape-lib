@@ -3,7 +3,7 @@ import { useShapeExplorerStore, useShapePlayerStore } from "@/store";
 import MasterMultiRangeSlider from "../ui/MultiRangeSlider/MasterMultiRangeSlider/MasterMultiRangeSlider";
 import { getOrderedShapeVariantDataKeys } from "./helpers/getOrderedShapeVariantDataKeys";
 
-export const GlobalMultiRangeController = () => {
+export const MasterMultiRangeController = () => {
   const guitarShapePlayerBricks = useShapePlayerStore(
     (state) => state.guitarShapePlayerBricks,
   );
