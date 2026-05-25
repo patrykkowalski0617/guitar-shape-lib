@@ -54,7 +54,6 @@ export const useShapePicker = () => {
           guitarShapeDataKey,
           semitoneOffsetFromMajorRoot,
           sliderRange: defaultRange,
-          targetSharpNoteNames: [],
         });
 
         setEditingBrickId(null);
@@ -65,7 +64,6 @@ export const useShapePicker = () => {
           guitarShapeDataKey,
           semitoneOffsetFromMajorRoot,
           playLength: 4,
-          targetSharpNoteNames: [],
         });
       }
     }

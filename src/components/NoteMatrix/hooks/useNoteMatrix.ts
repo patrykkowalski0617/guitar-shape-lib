@@ -1,9 +1,5 @@
 import { useMemo } from "react";
-import {
-  calculateMatrixData,
-  getIsScaleNoteVisible,
-  getIsShapeNoteVisible,
-} from "../utils";
+import { calculateMatrixData } from "../utils";
 import type {
   NoteMatrixProps,
   MatrixData,
@@ -17,7 +13,7 @@ export const useNoteMatrix = ({
   baseChordDataKey,
   guitarShapeOffset,
   guitarShapeDataKey,
-  targetSharpNoteNames,
+  targetNoteIndices,
 }: NoteMatrixProps): UseNoteMatrixReturn => {
   const isStateReady =
     !!guitarShapeDataKey &&
@@ -45,40 +41,46 @@ export const useNoteMatrix = ({
   );
 
   const checkIsShared = (sharpNoteName: SharpNoteName): boolean => {
-    if (!data || sharpNoteName !== null) return false;
+    if (!data || sharpNoteName === null) return false;
 
-    return data.visibleColumnsIndices.some((i) => {
-      if (data.sharpNoteNames[i] !== sharpNoteName) return false;
-      return (
-        getIsScaleNoteVisible(i, data.allScaleIndices) &&
-        getIsShapeNoteVisible(i, data.guitarShapeIndices)
-      );
-    });
+    const isInChord = data.chordNoteIndices.some(
+      (i) => data.sharpNoteNames[i] === sharpNoteName,
+    );
+    const isInShape = data.guitarShapeIndices.some(
+      (i) => data.sharpNoteNames[i] === sharpNoteName,
+    );
+    return isInChord && isInShape;
   };
 
   const columns = useMemo<NoteColumnInfo[]>(() => {
     if (!data) return [];
 
+    const guitarShapeSharpNoteNames = new Set(
+      data.guitarShapeIndices.map((i) => data.sharpNoteNames[i]),
+    );
+
     return data.visibleColumnsIndices.map((i) => {
-      const isInScale = getIsScaleNoteVisible(i, data.allScaleIndices);
-      const isInShape = getIsShapeNoteVisible(i, data.guitarShapeIndices);
-      const noteName = isInScale ? data.noteNames[i] : "";
-      const sharpNoteName = isInScale ? data.sharpNoteNames[i] : null;
-      const isShared = isInScale && isInShape;
+      const sharpNoteName = data.sharpNoteNames[i] ?? null;
+      const noteName = data.noteNames[i] ?? "";
+      const isInChord = data.chordNoteIndices.includes(i);
+      const isInShape = guitarShapeSharpNoteNames.has(sharpNoteName ?? "");
+      const isShared = isInChord && isInShape;
+      const positionInChord = data.chordNoteIndices.indexOf(i);
       const isTargetNote =
-        sharpNoteName !== null && targetSharpNoteNames.includes(sharpNoteName);
+        isInChord && targetNoteIndices.includes(positionInChord);
 
       return {
         index: i,
+        positionInChord,
         sharpNoteName,
         noteName,
-        isInScale,
+        isInScale: isInChord,
         isInShape,
         isShared,
         isTargetNote,
       };
     });
-  }, [data, targetSharpNoteNames]);
+  }, [data, targetNoteIndices]);
 
   return { data, checkIsShared, columns };
 };

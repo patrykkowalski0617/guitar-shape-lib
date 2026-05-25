@@ -42,7 +42,7 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
           ...brickData,
           id: crypto.randomUUID(),
           sliderRange: brickData.sliderRange ?? defaultRange,
-          targetSharpNoteNames: brickData.targetSharpNoteNames ?? [],
+          targetNoteIndices: brickData.targetNoteIndices ?? [1],
         };
 
         set((state) => {

@@ -7,14 +7,9 @@
       "guitarShapeDataKey": "7b9",
       "semitoneOffsetFromMajorRoot": 4,
       "playLength": 4,
-      "targetSharpNoteNames": [
-        "G"
-      ],
+      "targetNoteIndices": [1],
       "id": "b9be614b-2093-40ea-a2a2-0b088d07eb05",
-      "sliderRange": [
-        3,
-        3
-      ]
+      "sliderRange": [3, 3]
     },
     {
       "unifiedMusicKeysDataKey": "B",
@@ -22,14 +17,9 @@
       "guitarShapeDataKey": "M7",
       "semitoneOffsetFromMajorRoot": 5,
       "playLength": 4,
-      "targetSharpNoteNames": [
-        "G#"
-      ],
+      "targetNoteIndices": [1],
       "id": "4f9f0fbb-895e-40e3-b0aa-1d1c552542a5",
-      "sliderRange": [
-        3,
-        3
-      ]
+      "sliderRange": [3, 3]
     }
   ]
 }

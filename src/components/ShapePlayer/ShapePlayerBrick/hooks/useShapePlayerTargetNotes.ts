@@ -3,7 +3,7 @@ import {
   useShapePlayerStore,
   useMusicStore,
 } from "@/store";
-import type { SharpNoteName } from "@/data";
+import { resolveTargetSharpNoteNames } from "@/utils/resolveTargetSharpNoteNames";
 
 export const useShapePlayerTargetNotes = (
   guitarShapePlayerBrick?: ShapePlayerBrick,
@@ -13,21 +13,28 @@ export const useShapePlayerTargetNotes = (
     (state) => state.replaceTargetSharpNoteNames,
   );
 
-  const toggleTargetNote = (sharpNoteName: SharpNoteName) => {
+  const toggleTargetNote = (index: number) => {
     if (!guitarShapePlayerBrick?.id) return;
 
-    const currentNotes = guitarShapePlayerBrick.targetSharpNoteNames ?? [];
-    const isAlreadySelected = currentNotes.includes(sharpNoteName);
-    const nextNotes = isAlreadySelected
-      ? currentNotes.filter((n) => n !== sharpNoteName)
-      : [...currentNotes, sharpNoteName];
+    const current = guitarShapePlayerBrick.targetNoteIndices ?? [1];
+    const next = current.includes(index)
+      ? current.filter((i) => i !== index)
+      : [...current, index];
 
-    updateBrick(guitarShapePlayerBrick.id, { targetSharpNoteNames: nextNotes });
-    replaceTargetSharpNoteNames(nextNotes);
+    updateBrick(guitarShapePlayerBrick.id, { targetNoteIndices: next });
+
+    const sharpNoteNames = resolveTargetSharpNoteNames(
+      guitarShapePlayerBrick.unifiedMusicKeysDataKey,
+      guitarShapePlayerBrick.baseChordDataKey,
+      guitarShapePlayerBrick.guitarShapeDataKey,
+      guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
+      next,
+    );
+    replaceTargetSharpNoteNames(sharpNoteNames);
   };
 
   return {
-    targetSharpNoteNames: guitarShapePlayerBrick?.targetSharpNoteNames ?? [],
+    targetNoteIndices: guitarShapePlayerBrick?.targetNoteIndices ?? [1],
     toggleTargetNote,
   };
 };

@@ -1,5 +1,6 @@
 import { useDataKeyStore, useMusicStore, type ShapePlayerBrick } from "@/store";
 import { useShapePlayerLocations, useShapePlayerBrickUpdates } from "./";
+import { resolveTargetSharpNoteNames } from "@/utils";
 
 export const useShapePlayerBrickSelection = (
   guitarShapePlayerBrick?: ShapePlayerBrick,
@@ -13,8 +14,7 @@ export const useShapePlayerBrickSelection = (
   const { sliderRange, orderedLocations, selectedShapesVariantDataKeys } =
     useShapePlayerLocations(guitarShapePlayerBrick);
 
-  const { setSliderRange, toggleTargetNote, targetSharpNoteNames } =
-    useShapePlayerBrickUpdates(guitarShapePlayerBrick);
+  const { setSliderRange } = useShapePlayerBrickUpdates(guitarShapePlayerBrick);
 
   const restoreData = () => {
     if (guitarShapePlayerBrick?.baseChordDataKey) {
@@ -25,9 +25,15 @@ export const useShapePlayerBrickSelection = (
           guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
         selectedShapesVariantDataKeys: selectedShapesVariantDataKeys,
       });
-      replaceTargetSharpNoteNames(
-        guitarShapePlayerBrick.targetSharpNoteNames ?? [],
+
+      const sharpNoteNames = resolveTargetSharpNoteNames(
+        guitarShapePlayerBrick.unifiedMusicKeysDataKey,
+        guitarShapePlayerBrick.baseChordDataKey,
+        guitarShapePlayerBrick.guitarShapeDataKey,
+        guitarShapePlayerBrick.semitoneOffsetFromMajorRoot,
+        guitarShapePlayerBrick.targetNoteIndices ?? [1],
       );
+      replaceTargetSharpNoteNames(sharpNoteNames);
     }
   };
 
@@ -50,7 +56,5 @@ export const useShapePlayerBrickSelection = (
     orderedLocations,
     restoreData,
     restoreNextData,
-    targetSharpNoteNames,
-    toggleTargetNote,
   };
 };

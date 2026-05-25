@@ -15,22 +15,23 @@ export interface NoteMatrixProps {
   baseChordDataKey: BaseChordDataKey;
   guitarShapeOffset: number;
   guitarShapeDataKey: GuitarShapeDataKey;
-  targetSharpNoteNames: SharpNoteName[];
-  onToggleNote: (sharpNoteName: SharpNoteName) => void;
+  targetNoteIndices: number[];
+  brickId: string;
 }
 
 export interface MatrixData {
   noteNames: NoteName[];
   sharpNoteNames: SharpNoteName[];
   allScaleIndices: number[];
+  chordNoteIndices: number[];
   guitarShapeIndices: number[];
   visibleColumnsIndices: number[];
   baseChordDisplayTitle: string;
   guitarShapeLabel: string;
 }
-
 export interface NoteColumnInfo {
   index: number;
+  positionInChord: number;
   noteName: NoteName | "";
   sharpNoteName: SharpNoteName | null;
   isInScale: boolean;

@@ -14,20 +14,6 @@ import type {
   MatrixData,
 } from "./types";
 
-export const getIsScaleNoteVisible = (
-  index: number,
-  allScaleIndices: number[],
-): boolean => {
-  const positionInScale = allScaleIndices.indexOf(index);
-
-  return positionInScale !== -1 && positionInScale % 2 === 0;
-};
-
-export const getIsShapeNoteVisible = (
-  index: number,
-  guitarShapeIndices: number[],
-): boolean => guitarShapeIndices.includes(index);
-
 export const getIntervalName = (index: number): string | undefined => {
   const normalizedIndex = index % 24;
   const interval = INTERVAL_SEMITONES.find(
@@ -69,6 +55,11 @@ export const calculateMatrixData = (
     .map((_, i) => i)
     .filter((i) => scaleTemplate.includes(i % 12));
 
+  const chordNoteIndices = allScaleIndices.filter((_, pos) => pos % 2 === 0);
+  const chordSharpNoteNames = new Set(
+    chordNoteIndices.map((i) => sharpNoteNames[i]),
+  );
+
   const guitarShapeRootIndex = normalizeToOctave(
     guitarShapeOffset - chordOffset,
   );
@@ -76,19 +67,32 @@ export const calculateMatrixData = (
   const guitarShapeIndices = guitarShape.intervals.map(
     (i) => i + guitarShapeRootIndex,
   );
+  const guitarShapeSharpNoteNames = new Set(
+    guitarShapeIndices.map((i) => sharpNoteNames[i]).filter(Boolean),
+  );
 
-  const visibleColumnsIndices = chordNotesObjects
+  const seenSharpNames = new Set<string>();
+  const alterationIndices = chordNotesObjects
     .map((_, i) => i)
-    .filter(
-      (i) =>
-        getIsScaleNoteVisible(i, allScaleIndices) ||
-        getIsShapeNoteVisible(i, guitarShapeIndices),
-    );
+    .filter((i) => {
+      const name = sharpNoteNames[i];
+      if (!guitarShapeSharpNoteNames.has(name)) return false;
+      if (chordSharpNoteNames.has(name)) return false;
+      if (seenSharpNames.has(name)) return false;
+      seenSharpNames.add(name);
+      return true;
+    });
+
+  const visibleColumnsIndices = [
+    ...chordNoteIndices,
+    ...alterationIndices,
+  ].sort((a, b) => a - b);
 
   return {
     noteNames,
     sharpNoteNames,
     allScaleIndices,
+    chordNoteIndices,
     guitarShapeIndices,
     visibleColumnsIndices,
     baseChordDisplayTitle: `${chordRootName} (${baseChord.modeExtendedName})`,

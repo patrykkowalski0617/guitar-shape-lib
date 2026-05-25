@@ -26,14 +26,8 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
 
   const { activeBrickId, activeBeatIndex } = usePlayingBricksData();
 
-  const {
-    sliderRange,
-    setSliderRange,
-    orderedLocations,
-    restoreData,
-    targetSharpNoteNames,
-    toggleTargetNote,
-  } = useShapePlayerBrickSelection(guitarShapePlayerBrick);
+  const { sliderRange, setSliderRange, orderedLocations, restoreData } =
+    useShapePlayerBrickSelection(guitarShapePlayerBrick);
 
   if (!guitarShapePlayerBrick) return null;
 
@@ -63,8 +57,8 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
         baseChordDataKey={guitarShapePlayerBrick.baseChordDataKey}
         guitarShapeOffset={guitarShapePlayerBrick.semitoneOffsetFromMajorRoot}
         guitarShapeDataKey={guitarShapePlayerBrick.guitarShapeDataKey}
-        targetSharpNoteNames={targetSharpNoteNames}
-        onToggleNote={toggleTargetNote}
+        targetNoteIndices={guitarShapePlayerBrick.targetNoteIndices ?? [1]}
+        brickId={id}
       />
 
       <ShapeExplorer

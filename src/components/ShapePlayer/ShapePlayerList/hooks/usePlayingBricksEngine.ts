@@ -7,12 +7,13 @@ import { brickToSelectedShapes } from "@/utils/brickToSelectedShapes";
 import { useMusicStore, useDataKeyStore } from "@/store";
 import type { ScheduledEvent } from "@/components/metronome/ScheduledEventQueue";
 import type { ShapePlayerBrick } from "@/store";
+import { resolveTargetSharpNoteNames } from "@/utils";
 
 const applyBrickChange = (
   brick: ShapePlayerBrick,
   nextBrick: ShapePlayerBrick | undefined,
 ) => {
-  const { restoreCurrentBrick, restoreNextBrick } = useDataKeyStore.getState();
+  const { restoreCurrentBrick } = useDataKeyStore.getState();
   const { setBackingtrackNoteIds, replaceTargetSharpNoteNames } =
     useMusicStore.getState();
 
@@ -29,13 +30,14 @@ const applyBrickChange = (
   }
 
   if (nextBrick) {
-    restoreNextBrick({
-      nextBaseChordDataKey: nextBrick.baseChordDataKey,
-      nextUnifiedMusicKeysDataKey: nextBrick.unifiedMusicKeysDataKey,
-      nextSemitoneOffsetFromMajorRoot: nextBrick.semitoneOffsetFromMajorRoot,
-      nextSelectedShapesVariantDataKeys: brickToSelectedShapes(nextBrick),
-    });
-    replaceTargetSharpNoteNames(nextBrick.targetSharpNoteNames ?? []);
+    const sharpNoteNames = resolveTargetSharpNoteNames(
+      nextBrick.unifiedMusicKeysDataKey,
+      nextBrick.baseChordDataKey,
+      nextBrick.guitarShapeDataKey,
+      nextBrick.semitoneOffsetFromMajorRoot,
+      nextBrick.targetNoteIndices ?? [1],
+    );
+    replaceTargetSharpNoteNames(sharpNoteNames);
   }
 };
 

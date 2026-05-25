@@ -9,7 +9,7 @@
       "playLength": 4,
       "id": "4c3b4290-3861-4e25-af1a-5e84bce35670",
       "sliderRange": [1, 1],
-      "targetSharpNoteNames": []
+      "targetNoteIndices": [1]
     },
     {
       "unifiedMusicKeysDataKey": "Eb",
@@ -19,7 +19,7 @@
       "playLength": 4,
       "id": "8f0277b3-ba3c-4bb9-a17c-64ec85e9e303",
       "sliderRange": [2, 2],
-      "targetSharpNoteNames": []
+      "targetNoteIndices": [1]
     },
     {
       "unifiedMusicKeysDataKey": "Eb",
@@ -29,7 +29,7 @@
       "playLength": 4,
       "id": "ab4bafde-7a23-4ac5-8d6e-647a0f352d4f",
       "sliderRange": [1, 1],
-      "targetSharpNoteNames": []
+      "targetNoteIndices": [1]
     },
     {
       "unifiedMusicKeysDataKey": "Eb",
@@ -39,7 +39,7 @@
       "playLength": 4,
       "id": "4e7480d7-8176-49ab-8ae5-e64d77eac01f",
       "sliderRange": [2, 3],
-      "targetSharpNoteNames": []
+      "targetNoteIndices": [1]
     }
   ]
 }

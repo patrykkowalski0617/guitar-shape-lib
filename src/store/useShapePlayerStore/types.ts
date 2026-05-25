@@ -1,7 +1,6 @@
 import type {
   BaseChordDataKey,
   GuitarShapeDataKey,
-  SharpNoteName,
   UnifiedMusicKeysDataKey,
 } from "@/data";
 
@@ -13,7 +12,7 @@ export interface ShapePlayerBrick {
   semitoneOffsetFromMajorRoot: number;
   playLength: number;
   sliderRange?: [number, number];
-  targetSharpNoteNames: SharpNoteName[];
+  targetNoteIndices?: number[];
 }
 
 interface ShapePlayerHistoryEntry {
