@@ -24,14 +24,18 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
     guitarShapePlayerBrick,
   } = useShapePlayerBrick(id);
 
-  const { activeBrickId, activeBeatIndex } = usePlayingBricksData();
+  const { isCurrentBrickPlayed, activeBeatIndex } = usePlayingBricksData(id);
 
-  const { sliderRange, setSliderRange, orderedLocations, restoreData } =
-    useShapePlayerBrickSelection(guitarShapePlayerBrick);
+  const {
+    sliderRange,
+    setSliderRange,
+    orderedLocations,
+    restoreData,
+    isCurrentDataBrick,
+  } = useShapePlayerBrickSelection(guitarShapePlayerBrick);
 
   if (!guitarShapePlayerBrick) return null;
 
-  const isCurrentBrickPlayed = activeBrickId === id;
   const playLength = guitarShapePlayerBrick.playLength;
 
   return (
@@ -40,6 +44,7 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
       style={draggingStyles}
       onMouseDown={restoreData}
       onMouseUp={restoreData}
+      $isActiveBrick={isCurrentDataBrick || isCurrentBrickPlayed}
     >
       <EditKeyAndChordButton id={id} displayMode="key" />
       <EditKeyAndChordButton id={id} displayMode="chord" />

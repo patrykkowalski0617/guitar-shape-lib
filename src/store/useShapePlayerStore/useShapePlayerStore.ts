@@ -26,8 +26,11 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
       exerciseTitle: null,
       guitarShapePlayerBricks: [],
       guitarShapePlayerHistory: [],
+      activeBrickId: null,
 
       setExerciseTitle: (exerciseTitle) => set({ exerciseTitle }),
+
+      setActiveBrickId: (activeBrickId) => set({ activeBrickId }),
 
       addShapePlayerBrick: (brickData) => {
         const locations = getOrderedShapeVariantDataKeys({
@@ -76,8 +79,11 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
             (brick) => brick.id !== idToRemove,
           );
 
+          const wasActiveRemoved = state.activeBrickId === idToRemove;
+
           return {
             guitarShapePlayerBricks: updatedBricks,
+            activeBrickId: wasActiveRemoved ? null : state.activeBrickId,
             exerciseTitle: getUpdatedTitle(updatedBricks, state.exerciseTitle),
             guitarShapePlayerHistory: [
               ...state.guitarShapePlayerHistory,
@@ -99,6 +105,7 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
 
           return {
             guitarShapePlayerBricks: [],
+            activeBrickId: null,
             exerciseTitle: null,
             guitarShapePlayerHistory: [
               ...state.guitarShapePlayerHistory,

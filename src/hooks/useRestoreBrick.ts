@@ -1,4 +1,4 @@
-import { useDataKeyStore, useMusicStore } from "@/store";
+import { useDataKeyStore, useMusicStore, useShapePlayerStore } from "@/store";
 import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
 import { resolveTargetSharpNoteNames } from "@/utils";
 import type { ShapePlayerBrick } from "@/store";
@@ -9,6 +9,9 @@ export function useRestoreBrick() {
   );
   const replaceTargetSharpNoteNames = useMusicStore(
     (state) => state.replaceTargetSharpNoteNames,
+  );
+  const setActiveBrickId = useShapePlayerStore(
+    (state) => state.setActiveBrickId,
   );
 
   const restore = (brick: ShapePlayerBrick) => {
@@ -34,6 +37,8 @@ export function useRestoreBrick() {
       semitoneOffsetFromMajorRoot: brick.semitoneOffsetFromMajorRoot,
       selectedShapesVariantDataKeys,
     });
+
+    setActiveBrickId(brick.id ?? null);
 
     const sharpNoteNames = resolveTargetSharpNoteNames(
       brick.unifiedMusicKeysDataKey,

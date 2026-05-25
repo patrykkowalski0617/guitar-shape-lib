@@ -25,7 +25,9 @@ export interface ShapePlayerState {
   exerciseTitle: string | null;
   guitarShapePlayerBricks: ShapePlayerBrick[];
   guitarShapePlayerHistory: ShapePlayerHistoryEntry[];
-  setExerciseTitle: (exerciseTitle: string) => void;
+  activeBrickId: null | string;
+  setExerciseTitle: (setActiveBrickId: string) => void;
+  setActiveBrickId: (activeBrickId: string) => void;
   addShapePlayerBrick: (brickData: Omit<ShapePlayerBrick, "id">) => void;
   removeShapePlayerBrick: (id: string) => void;
   updateBrick: (id: string, partialBrick: Partial<ShapePlayerBrick>) => void;

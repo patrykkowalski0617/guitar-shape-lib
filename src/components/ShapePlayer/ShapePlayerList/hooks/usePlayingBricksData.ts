@@ -3,7 +3,7 @@ import { useMetronomeStore, useShapePlayerStore } from "@/store";
 import { calculateActiveBrick } from "../utils";
 import { applyBrickChange } from "../utils/applyBrickChange";
 
-export function usePlayingBricksData() {
+export function usePlayingBricksData(id: string) {
   const currentStep = useMetronomeStore((state) => state.currentStep);
   const isCountingIn = useMetronomeStore((state) => state.isCountingIn);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
@@ -18,6 +18,9 @@ export function usePlayingBricksData() {
     currentStep,
     isCountingIn,
   );
+
+  const isCurrentBrickPlayed =
+    activeBrickInfo?.guitarShapePlayerBrick.id === id && isPlaying;
 
   useEffect(() => {
     if (!isPlaying) {
@@ -39,7 +42,7 @@ export function usePlayingBricksData() {
   }, [isPlaying, isCountingIn, guitarShapePlayerBricks]);
 
   return {
-    activeBrickId: activeBrickInfo?.guitarShapePlayerBrick.id,
+    isCurrentBrickPlayed,
     activeBeatIndex: activeBrickInfo?.beatInsideBrick,
   };
 }
