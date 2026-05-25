@@ -28,7 +28,6 @@ export interface MusicState {
   setBackingtrackNoteIds: (noteId: NoteId[]) => void;
 
   targetSharpNoteNames: SharpNoteName[];
-  setTargetSharpNoteNames: (sharpNoteName: SharpNoteName) => void;
   replaceTargetSharpNoteNames: (sharpNoteNames: SharpNoteName[]) => void;
   resetTargetSharpNoteNames: () => void;
 

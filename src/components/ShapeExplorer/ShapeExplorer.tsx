@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useDataKeyStore } from "@/store";
 import type {
   GuitarShapeDataKey,
@@ -32,14 +31,6 @@ export const ShapeExplorer = ({
 
   const sliderKey = `${guitarShapeDataKey}-${unifiedMusicKeysDataKey}-${semitoneOffsetFromMajorRoot}`;
 
-  useEffect(() => {
-    const selectedShapesVariantDataKeys = orderedLocations.slice(
-      sliderRange[0],
-      sliderRange[1] + 1,
-    );
-    setSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
-  }, [sliderRange, orderedLocations, setSelectedShapesVariantDataKeys]);
-
   const currentRange: Range = {
     start: sliderRange[0],
     end: sliderRange[1],
@@ -47,6 +38,12 @@ export const ShapeExplorer = ({
 
   const handleSliderChange = (nextRange: Range) => {
     onRangeChange([nextRange.start, nextRange.end]);
+
+    const selectedShapesVariantDataKeys = orderedLocations.slice(
+      nextRange.start,
+      nextRange.end + 1,
+    );
+    setSelectedShapesVariantDataKeys(selectedShapesVariantDataKeys);
   };
 
   return (

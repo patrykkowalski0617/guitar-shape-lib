@@ -8,6 +8,7 @@ import {
 } from "@/store";
 import { importBricksFromJson } from "@/components/ShapePlayer/helpers/importBricksFromJson";
 import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
+import { resolveTargetSharpNoteNames } from "@/utils";
 
 export function useOpen() {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -26,6 +27,9 @@ export function useOpen() {
   );
   const setShapeVariantDataKeys_locked = useMusicStore(
     (state) => state.setShapeVariantDataKeys_locked,
+  );
+  const replaceTargetSharpNoteNames = useMusicStore(
+    (state) => state.replaceTargetSharpNoteNames,
   );
 
   const applyImportedBricks = (
@@ -62,6 +66,16 @@ export function useOpen() {
         semitoneOffsetFromMajorRoot: firstBrick.semitoneOffsetFromMajorRoot,
         selectedShapesVariantDataKeys,
       });
+
+      const sharpNoteNames = resolveTargetSharpNoteNames(
+        firstBrick.unifiedMusicKeysDataKey,
+        firstBrick.baseChordDataKey,
+        firstBrick.guitarShapeDataKey,
+        firstBrick.semitoneOffsetFromMajorRoot,
+        firstBrick.targetNoteIndices ?? [1],
+      );
+
+      replaceTargetSharpNoteNames(sharpNoteNames);
     }
 
     setShapeVariantDataKeys(null);

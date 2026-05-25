@@ -77,19 +77,6 @@ export const useMusicStore = create<MusicState>((set) => ({
     });
   },
 
-  setTargetSharpNoteNames: (noteName) => {
-    set((state) => {
-      const isAlreadySelected = state.targetSharpNoteNames.includes(noteName);
-      const nextSelectedNotes = isAlreadySelected
-        ? state.targetSharpNoteNames.filter(
-            (noteObject) => noteObject !== noteName,
-          )
-        : [...state.targetSharpNoteNames, noteName];
-
-      return { targetSharpNoteNames: nextSelectedNotes };
-    });
-  },
-
   replaceTargetSharpNoteNames: (sharpNoteNames) =>
     set({ targetSharpNoteNames: sharpNoteNames }),
 
