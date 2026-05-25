@@ -52,6 +52,7 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
       <EditShapeButton id={id} />
 
       <Counter
+        id={id}
         playLength={playLength}
         isCurrentBrickPlayed={isCurrentBrickPlayed}
         activeBeatIndex={activeBeatIndex}

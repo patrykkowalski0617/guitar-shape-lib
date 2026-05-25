@@ -13,6 +13,36 @@ export const CounterWrapper = styled.div`
   box-sizing: border-box;
 `;
 
+export const ControlButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: rgba(197, 48, 28, 0.6);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 2px;
+  height: 100%;
+  transition: color 0.2s;
+
+  &:hover:not(:disabled) {
+    color: #ffe0c8;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+`;
+
+export const BeatsContainer = styled.div`
+  display: flex;
+  flex: 1;
+  height: 100%;
+  gap: 4px;
+`;
+
 interface BeatIndicatorProps {
   $isActive: boolean;
 }
