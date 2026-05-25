@@ -63,7 +63,6 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
 
       <ShapeExplorer
         unifiedMusicKeysDataKey={guitarShapePlayerBrick.unifiedMusicKeysDataKey}
-        baseChordDataKey={guitarShapePlayerBrick.baseChordDataKey}
         guitarShapeDataKey={guitarShapePlayerBrick.guitarShapeDataKey}
         semitoneOffsetFromMajorRoot={
           guitarShapePlayerBrick.semitoneOffsetFromMajorRoot

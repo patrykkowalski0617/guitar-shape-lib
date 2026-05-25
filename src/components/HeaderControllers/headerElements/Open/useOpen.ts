@@ -7,6 +7,7 @@ import {
   type ShapePlayerBrick,
 } from "@/store";
 import { importBricksFromJson } from "@/components/ShapePlayer/helpers/importBricksFromJson";
+import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
 
 export function useOpen() {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -17,8 +18,8 @@ export function useOpen() {
   );
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
 
-  const setUnifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.setUnifiedMusicKeysDataKey,
+  const restoreCurrentBrick = useDataKeyStore(
+    (state) => state.restoreCurrentBrick,
   );
   const setShapeVariantDataKeys = useMusicStore(
     (state) => state.setShapeVariantDataKeys,
@@ -39,7 +40,28 @@ export function useOpen() {
 
     const firstBrick = guitarShapePlayerBricks[0];
     if (firstBrick) {
-      setUnifiedMusicKeysDataKey(firstBrick.unifiedMusicKeysDataKey);
+      const orderedLocations = getOrderedShapeVariantDataKeys({
+        guitarShapeDataKey: firstBrick.guitarShapeDataKey,
+        unifiedMusicKeysDataKey: firstBrick.unifiedMusicKeysDataKey,
+        semitoneOffsetFromMajorRoot: firstBrick.semitoneOffsetFromMajorRoot,
+      });
+
+      const sliderRange = firstBrick.sliderRange ?? [
+        0,
+        Math.max(0, orderedLocations.length - 1),
+      ];
+
+      const selectedShapesVariantDataKeys = orderedLocations.slice(
+        sliderRange[0],
+        sliderRange[1] + 1,
+      );
+
+      restoreCurrentBrick({
+        baseChordDataKey: firstBrick.baseChordDataKey,
+        unifiedMusicKeysDataKey: firstBrick.unifiedMusicKeysDataKey,
+        semitoneOffsetFromMajorRoot: firstBrick.semitoneOffsetFromMajorRoot,
+        selectedShapesVariantDataKeys,
+      });
     }
 
     setShapeVariantDataKeys(null);

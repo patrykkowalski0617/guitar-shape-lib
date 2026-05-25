@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { arrayMove } from "@dnd-kit/sortable";
 import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
 import { subscribeWithSelector } from "zustand/middleware";
+import { transposeKey } from "./helpers/transposeKey";
 import type { ShapePlayerBrick, ShapePlayerState } from "./types";
 
 export const useShapePlayerStore = create<ShapePlayerState>()(
@@ -156,6 +157,30 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
             state.exerciseTitle,
           ),
         })),
+
+      transposeShapePlayerBricks: (semitones) => {
+        set((state) => {
+          if (state.guitarShapePlayerBricks.length === 0) return state;
+
+          const transposedBricks = state.guitarShapePlayerBricks.map(
+            (brick) => ({
+              ...brick,
+              unifiedMusicKeysDataKey: transposeKey(
+                brick.unifiedMusicKeysDataKey,
+                semitones,
+              ),
+            }),
+          );
+
+          return {
+            guitarShapePlayerBricks: transposedBricks,
+            exerciseTitle: getUpdatedTitle(
+              transposedBricks,
+              state.exerciseTitle,
+            ),
+          };
+        });
+      },
     };
   }),
 );

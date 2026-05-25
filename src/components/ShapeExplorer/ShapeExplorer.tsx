@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDataKeyStore } from "@/store";
 import type {
-  BaseChordDataKey,
   GuitarShapeDataKey,
   UnifiedMusicKeysDataKey,
   ShapeVariantDataKeys,
@@ -12,7 +11,6 @@ import type { Range } from "../ui/MultiRangeSlider/MultiRangeSlider/useMultiRang
 
 interface ShapeExplorerProps {
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
-  baseChordDataKey: BaseChordDataKey;
   guitarShapeDataKey: GuitarShapeDataKey;
   semitoneOffsetFromMajorRoot: number;
   sliderRange: [number, number];

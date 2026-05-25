@@ -33,4 +33,5 @@ export interface ShapePlayerState {
   restoreLastAction: () => void;
   reorderShapePlayerBricks: (oldIndex: number, newIndex: number) => void;
   setBricks: (guitarShapePlayerBricks: ShapePlayerBrick[]) => void;
+  transposeShapePlayerBricks: (semitones: 1 | -1) => void;
 }

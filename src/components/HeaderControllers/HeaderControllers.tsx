@@ -12,6 +12,7 @@ import {
 import * as S from "./parts";
 import { ExerciseTitle } from "./headerElements/ExerciseTitle/ExerciseTitle";
 import { MasterNoteMatrix } from "../NoteMatrix/MasterNoteMatrix";
+import { Transpose } from "./headerElements/Transpose/Transpose";
 
 export const HeaderControllers = () => {
   return (
@@ -27,6 +28,7 @@ export const HeaderControllers = () => {
       <BpmInput />
       <BpmMultiplier />
       <MasterNoteMatrix />
+      <Transpose />
     </S.ShapePlayerControllers>
   );
 };

@@ -3,11 +3,10 @@ import type { Variant } from "./NoteLabel";
 import { noteCommon } from "./constants";
 
 const glowEffect = css`
-  z-index: 99999;
   background: #c5301c;
   filter: brightness(1.11) saturate(1.28)
-    drop-shadow(0px 0px 4px rgb(234, 69, 44))
-    drop-shadow(0px 0px 4px rgba(200, 48, 28, 0.4));
+    drop-shadow(0px 0px 2px rgb(234, 69, 44))
+    drop-shadow(0px 0px 2px rgba(200, 48, 28, 0.4));
   height: 31px;
   width: 31px;
   padding: 3px;
