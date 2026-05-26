@@ -122,7 +122,8 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
 
   &:nth-child(6) {
     &::after {
-      bottom: -21px;
+      bottom: -2px;
+      height: 5px;
     }
   }
   &:nth-child(6) > :first-child {

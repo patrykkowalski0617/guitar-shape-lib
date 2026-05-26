@@ -2,6 +2,7 @@ import styled from "styled-components";
 import WoodImage from "@/assets/wood.jpg";
 
 export const fretboardRPadding = "40px";
+export const fretboardLPadding = "70px";
 
 export const InstrumentScrollWrapper = styled.div`
   overflow-x: auto;
@@ -42,7 +43,7 @@ export const FretboardWrapper = styled.div`
   position: relative;
   margin-left: auto;
   overflow: hidden;
-  width: calc(1400px - 70px);
+  width: calc(1400px - ${fretboardLPadding});
 `;
 
 export const FretboardShadow = styled.div`

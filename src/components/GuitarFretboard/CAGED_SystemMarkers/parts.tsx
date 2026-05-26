@@ -1,6 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import { fretboardRPadding } from "../parts";
-import { appBgColor } from "@/constants";
+import { fretboardLPadding, fretboardRPadding } from "../parts";
 import { apearingTransition } from "@/components/ui/constants";
 
 const glowPulse = keyframes`
@@ -18,21 +17,14 @@ const glowPulse = keyframes`
 export const CAGED_SystemMarkers = styled.div`
   padding-right: ${fretboardRPadding};
   position: relative;
+  top: -10px;
   border-radius: 20px;
   height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  width: calc(1400px - 50px);
-  background-image: linear-gradient(
-    -90deg,
-    transparent 0%,
-    color-mix(in oklab, var(--muted) 40%, var(--background)) 15%,
-    color-mix(in oklab, var(--muted) 40%, var(--background)) 85%,
-    transparent 100%
-  );
-  box-shadow: 0 0 8px 3px ${appBgColor} inset;
+  width: calc(1400px - ${fretboardLPadding});
   transition: opacity ${apearingTransition};
 `;
 
