@@ -1,5 +1,5 @@
-import { MasterNoteMatrix } from "../NoteMatrix/MasterNoteMatrix";
 import { MasterShapeExplorer } from "../ShapeExplorer/MasterShapeExplorer";
+import { MasterTargetNotesSelect } from "../TargetNotesSelect/MasterTargetNotesSelect";
 import { Add, Clear, Transpose } from "./headerElements";
 import * as S from "./parts";
 
@@ -7,7 +7,7 @@ export const PlayerHeader = () => {
   return (
     <S.PlayerHeaderWrapper>
       <Transpose />
-      <MasterNoteMatrix />
+      <MasterTargetNotesSelect />
       <div style={{ width: 500 }}>
         <MasterShapeExplorer />
       </div>

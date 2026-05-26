@@ -2,7 +2,6 @@ import * as S from "./parts";
 import { useShapePlayerBrick, useShapePlayerBrickSelection } from "./hooks";
 import { ShapeExplorer } from "@/components/ShapeExplorer/ShapeExplorer";
 import { usePlayingBricksData } from "../ShapePlayerList/hooks/usePlayingBricksData";
-import { NoteMatrix } from "@/components/NoteMatrix/NoteMatrix";
 import {
   Counter,
   EditKeyAndChordButton,
@@ -11,6 +10,7 @@ import {
   RemoveBrickButton,
   DragHandleButton,
 } from "./brickElements";
+import { TargetNotesSelect } from "@/components/TargetNotesSelect/TargetNotesSelect";
 
 interface ShapePlayerBrickProps {
   id: string;
@@ -62,7 +62,7 @@ export const ShapePlayerBrick = ({
       <EditKeyAndChordButton id={id} />
       <EditShapeButton id={id} />
 
-      <NoteMatrix
+      <TargetNotesSelect
         unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
         baseChordDataKey={baseChordDataKey}
         guitarShapeOffset={semitoneOffsetFromMajorRoot}
@@ -70,14 +70,12 @@ export const ShapePlayerBrick = ({
         targetNoteIndices={targetNoteIndices ?? [1]}
         brickId={id}
       />
-
       <Counter
         id={id}
         playLength={playLength}
         isCurrentBrickPlayed={isCurrentBrickPlayed}
         activeBeatIndex={activeBeatIndex}
       />
-
       <ShapeExplorer
         unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
         guitarShapeDataKey={guitarShapeDataKey}
@@ -86,9 +84,7 @@ export const ShapePlayerBrick = ({
         onRangeChange={setSliderRange}
         orderedLocations={orderedLocations}
       />
-
       <RemoveBrickButton id={id} />
-
       <DragHandleButton attributes={attributes} listeners={listeners} />
     </S.ShapePlayerBrickWrapper>
   );
