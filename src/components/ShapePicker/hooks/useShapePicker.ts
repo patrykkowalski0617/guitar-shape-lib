@@ -3,6 +3,7 @@ import { useBaseChordName } from "@/hooks/baseChord/useBaseChordName";
 import { useSortedShapeOptions } from "./useSortedShapeOptions";
 import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
 import { useRestoreBrick } from "@/hooks";
+import { useMusicStore } from "@/store";
 
 export const useShapePicker = () => {
   const unifiedMusicKeysDataKey = useDataKeyStore(
@@ -28,6 +29,8 @@ export const useShapePicker = () => {
     (state) => state.addShapePlayerBrick,
   );
   const updateBrick = useShapePlayerStore((state) => state.updateBrick);
+
+  const isMajorMode = useMusicStore((s) => s.isMajorMode);
 
   const options = useSortedShapeOptions();
   const selectedChordLabel = useBaseChordName();
@@ -56,6 +59,7 @@ export const useShapePicker = () => {
           semitoneOffsetFromMajorRoot,
           sliderRange: defaultRange,
           targetNoteIndices: [1],
+          isMajorMode,
         });
 
         setEditingBrickId(null);
@@ -73,6 +77,7 @@ export const useShapePicker = () => {
           semitoneOffsetFromMajorRoot,
           playLength: 4,
           targetNoteIndices: [1],
+          isMajorMode,
         });
 
         const bricks = useShapePlayerStore.getState().guitarShapePlayerBricks;
@@ -84,6 +89,7 @@ export const useShapePicker = () => {
 
     setShapePickerExpanded(false);
   };
+
   return {
     options,
     selectedChordLabel,

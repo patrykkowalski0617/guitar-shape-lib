@@ -16,6 +16,7 @@ const makeBricks = (lengths: number[]) =>
     baseChordDataKey: "major" as BaseChordDataKey,
     guitarShapeDataKey: "pentatonic" as GuitarShapeDataKey,
     semitoneOffsetFromMajorRoot: 0,
+    isMajorMode: true,
     sliderRange: [0, 0] as [number, number],
     targetSharpNoteNames: [],
   }));

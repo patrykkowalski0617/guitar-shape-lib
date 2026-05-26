@@ -2,7 +2,7 @@ import type { ScaleSemitoneTemplateDataKey } from "./SCALE_SEMITONE_TEMPLATES";
 
 export type BaseChordDataKey = keyof typeof BASE_CHORDS;
 
-export type majorRoleNumName =
+export type MajorRoleNumName =
   | "I"
   | "ii"
   | "iii"
@@ -11,7 +11,7 @@ export type majorRoleNumName =
   | "vi"
   | "vii"
   | "viio";
-export type minorRoleNumName =
+export type MinorRoleNumName =
   | "III"
   | "iv"
   | "V"
@@ -21,15 +21,15 @@ export type minorRoleNumName =
   | "ii"
   | "iio";
 
-export type RoleNumName = majorRoleNumName | minorRoleNumName;
+export type RoleNumName = MajorRoleNumName | MinorRoleNumName;
 export interface BaseChord {
   baseScaleName: string;
   baseScaleDataKey: ScaleSemitoneTemplateDataKey;
   semitoneOffsetFromMajorRoot: number;
   modeExtendedName: string;
   CAGEDchordShape: string;
-  majorRoleNumName?: majorRoleNumName;
-  minorRoleNumName?: minorRoleNumName;
+  majorRoleNumName?: MajorRoleNumName;
+  minorRoleNumName?: MinorRoleNumName;
 }
 
 export const BASE_CHORDS = {

@@ -9,6 +9,7 @@ export interface ShapePlayerBrick {
   id: string;
   unifiedMusicKeysDataKey: UnifiedMusicKeysDataKey;
   baseChordDataKey: BaseChordDataKey;
+  isMajorMode: boolean;
   guitarShapeDataKey: GuitarShapeDataKey;
   semitoneOffsetFromMajorRoot: number;
   playLength: number;
