@@ -27,6 +27,9 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
       guitarShapePlayerBricks: [],
       guitarShapePlayerHistory: [],
       activeBrickId: null,
+      playbackRange: null,
+
+      setPlaybackRange: (playbackRange) => set({ playbackRange }),
 
       setExerciseTitle: (exerciseTitle) => set({ exerciseTitle }),
 
@@ -107,6 +110,7 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
             guitarShapePlayerBricks: [],
             activeBrickId: null,
             exerciseTitle: null,
+            playbackRange: null,
             guitarShapePlayerHistory: [
               ...state.guitarShapePlayerHistory,
               {
@@ -159,6 +163,7 @@ export const useShapePlayerStore = create<ShapePlayerState>()(
       setBricks: (guitarShapePlayerBricks) =>
         set((state) => ({
           guitarShapePlayerBricks,
+          playbackRange: null,
           exerciseTitle: getUpdatedTitle(
             guitarShapePlayerBricks,
             state.exerciseTitle,

@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useMetronomeStore, useShapePlayerStore } from "@/store";
 import { useMetronome } from "../../hooks/useMetronome";
 import { metronomeInstance } from "@/components/metronome/metronomeInstance";
@@ -6,42 +6,62 @@ import type { ScheduledEvent } from "@/components/metronome/ScheduledEventQueue"
 import type { ShapePlayerBrick } from "@/store";
 import { applyBrickChange } from "../utils/applyBrickChange";
 
-export function usePlayingBricksEngine() {
+export const usePlayingBricksEngine = () => {
   const bpm = useMetronomeStore((state) => state.bpm);
   const isPlaying = useMetronomeStore((state) => state.isPlaying);
   const guitarShapePlayerBricks = useShapePlayerStore(
     (state) => state.guitarShapePlayerBricks,
   );
+  const playbackRange = useShapePlayerStore((state) => state.playbackRange);
   const peekNextStep = useMetronomeStore((state) => state.peekNextStep);
   const applyStep = useMetronomeStore((state) => state.applyStep);
 
+  const playableBricks = useMemo(() => {
+    if (!playbackRange) return guitarShapePlayerBricks;
+    const sliceStart = playbackRange.start;
+    const sliceEnd = playbackRange.end + 1;
+    return guitarShapePlayerBricks.slice(sliceStart, sliceEnd);
+  }, [guitarShapePlayerBricks, playbackRange]);
+
   const handleTick = useCallback(() => {
-    return peekNextStep(guitarShapePlayerBricks);
-  }, [peekNextStep, guitarShapePlayerBricks]);
+    return peekNextStep(playableBricks);
+  }, [peekNextStep, playableBricks]);
 
   const handleUIEvent = useCallback(
     (event: ScheduledEvent) => {
       applyStep(event);
 
       if (!event.isCountingIn && event.isNewBrick) {
-        const bricks = useShapePlayerStore.getState().guitarShapePlayerBricks;
+        const storeState = useShapePlayerStore.getState();
+        const allBricks = storeState.guitarShapePlayerBricks;
+        const currentPlaybackRange = storeState.playbackRange;
+
+        const activePlayableBricks = currentPlaybackRange
+          ? allBricks.slice(
+              currentPlaybackRange.start,
+              currentPlaybackRange.end + 1,
+            )
+          : allBricks;
+
         const currentStep = event.currentStep ?? 0;
 
         let accumulated = 0;
         let activeBrick: ShapePlayerBrick | undefined;
         let activeBrickIndex = -1;
 
-        for (let i = 0; i < bricks.length; i++) {
+        for (let i = 0; i < activePlayableBricks.length; i++) {
           if (currentStep === accumulated) {
-            activeBrick = bricks[i];
+            activeBrick = activePlayableBricks[i];
             activeBrickIndex = i;
             break;
           }
-          accumulated += bricks[i].playLength;
+          accumulated += activePlayableBricks[i].playLength;
         }
 
         if (activeBrick) {
-          const nextBrick = bricks[(activeBrickIndex + 1) % bricks.length];
+          const nextBrickIndex =
+            (activeBrickIndex + 1) % activePlayableBricks.length;
+          const nextBrick = activePlayableBricks[nextBrickIndex];
           applyBrickChange(activeBrick, nextBrick);
         }
       }
@@ -59,4 +79,4 @@ export function usePlayingBricksEngine() {
     toggleMetronome(isPlaying);
     return () => toggleMetronome(false);
   }, [isPlaying, toggleMetronome]);
-}
+};

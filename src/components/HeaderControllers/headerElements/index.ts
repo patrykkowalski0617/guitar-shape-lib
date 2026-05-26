@@ -1,7 +1,5 @@
-export { Add } from "./Add/Add";
 export { BpmInput } from "./BpmInput/BpmInput";
 export { BpmMultiplier } from "./BpmMultiplier/BpmMultiplier";
-export { Clear } from "./Clear/Clear";
 export { ExerciseTitle } from "./ExerciseTitle/ExerciseTitle";
 export { Metronome } from "./Metronome/Metronome";
 export { Open } from "./Open/Open";

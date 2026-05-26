@@ -13,9 +13,9 @@ let delayWetGain: GainNode | null = null;
 let delayDryGain: GainNode | null = null;
 
 export const synthConfig = {
-  gain: 0.5,
+  gain: 0.25,
   attackTime: 0,
-  filterFreq: 3200,
+  filterFreq: 1200,
   reverbMix: 0.5,
   delayMix: 0.15,
   delayFeedback: 0.05,

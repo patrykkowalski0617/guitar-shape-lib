@@ -1,10 +1,7 @@
 import { useShapePlayerStore, useUiStore, useDataKeyStore } from "@/store";
 import { useShapePlayerBrickDisplay } from "../../hooks";
 
-export const useEditKeyAndChordButton = (
-  id: string,
-  displayMode: "key" | "chord",
-) => {
+export const useEditKeyAndChordButton = (id: string) => {
   const guitarShapePlayerBrick = useShapePlayerStore((state) =>
     state.guitarShapePlayerBricks.find((b) => b.id === id),
   );
@@ -38,7 +35,7 @@ export const useEditKeyAndChordButton = (
     setShapePickerExpanded(false);
   };
 
-  const buttonText = displayMode === "key" ? keyName : baseChordName;
+  const buttonText = `${keyName} ${baseChordName}`;
 
   return { buttonText, handleEditKeyAndChord };
 };

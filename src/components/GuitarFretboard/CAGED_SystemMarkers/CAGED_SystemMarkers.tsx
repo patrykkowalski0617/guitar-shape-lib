@@ -3,6 +3,7 @@ import { numberOfFrets } from "../constants";
 import type { CAGED_System } from "@/data";
 import { getContinuousRangeIndices } from "./helpers/getContinuousRangeIndices";
 import { usePersistentBoolean } from "@/hooks";
+import { disabledCagedNames } from "./constants";
 
 interface CAGED_SystemMarkersProps {
   allCAGED_System: CAGED_System[];
@@ -32,7 +33,7 @@ export default function CAGED_SystemMarkers({
   });
 
   return (
-    <S.CAGED_SystemMarkers $isDisabled={isDisabled}>
+    <S.CAGED_SystemMarkers>
       {Array.from({ length: numberOfFrets }).map((_, index) => {
         const isBestMatch = bestMatchFrets.has(index);
         const cagedName =
@@ -40,7 +41,7 @@ export default function CAGED_SystemMarkers({
 
         return (
           <S.Marker key={`info-${index}`} $isBestMatch={isBestMatch}>
-            {cagedName}
+            {isDisabled ? disabledCagedNames[index] : cagedName}
           </S.Marker>
         );
       })}

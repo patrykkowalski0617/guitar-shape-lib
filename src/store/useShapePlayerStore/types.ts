@@ -1,3 +1,4 @@
+import type { Range } from "@/components/ui/MultiRangeSlider/MultiRangeSlider/useMultiRangeSlider";
 import type {
   BaseChordDataKey,
   GuitarShapeDataKey,
@@ -36,4 +37,6 @@ export interface ShapePlayerState {
   reorderShapePlayerBricks: (oldIndex: number, newIndex: number) => void;
   setBricks: (guitarShapePlayerBricks: ShapePlayerBrick[]) => void;
   transposeShapePlayerBricks: (semitones: 1 | -1) => void;
+  playbackRange: Range | null;
+  setPlaybackRange: (playbackRange: Range | null) => void;
 }

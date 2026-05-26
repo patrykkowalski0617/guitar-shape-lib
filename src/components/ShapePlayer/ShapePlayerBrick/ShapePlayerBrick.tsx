@@ -7,15 +7,20 @@ import {
   Counter,
   EditKeyAndChordButton,
   EditShapeButton,
+  RangeArmed,
   RemoveBrickButton,
   DragHandleButton,
 } from "./brickElements";
 
 interface ShapePlayerBrickProps {
   id: string;
+  isWithinRange: boolean;
 }
 
-export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
+export const ShapePlayerBrick = ({
+  id,
+  isWithinRange,
+}: ShapePlayerBrickProps) => {
   const {
     attributes,
     listeners,
@@ -36,7 +41,14 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
 
   if (!guitarShapePlayerBrick) return null;
 
-  const playLength = guitarShapePlayerBrick.playLength;
+  const {
+    playLength,
+    unifiedMusicKeysDataKey,
+    baseChordDataKey,
+    semitoneOffsetFromMajorRoot,
+    guitarShapeDataKey,
+    targetNoteIndices,
+  } = guitarShapePlayerBrick;
 
   return (
     <S.ShapePlayerBrickWrapper
@@ -46,9 +58,18 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
       onMouseUp={restoreData}
       $isActiveBrick={isCurrentDataBrick || isCurrentBrickPlayed}
     >
-      <EditKeyAndChordButton id={id} displayMode="key" />
-      <EditKeyAndChordButton id={id} displayMode="chord" />
+      <RangeArmed isWithinRange={isWithinRange} />
+      <EditKeyAndChordButton id={id} />
       <EditShapeButton id={id} />
+
+      <NoteMatrix
+        unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
+        baseChordDataKey={baseChordDataKey}
+        guitarShapeOffset={semitoneOffsetFromMajorRoot}
+        guitarShapeDataKey={guitarShapeDataKey}
+        targetNoteIndices={targetNoteIndices ?? [1]}
+        brickId={id}
+      />
 
       <Counter
         id={id}
@@ -57,21 +78,10 @@ export const ShapePlayerBrick = ({ id }: ShapePlayerBrickProps) => {
         activeBeatIndex={activeBeatIndex}
       />
 
-      <NoteMatrix
-        unifiedMusicKeysDataKey={guitarShapePlayerBrick.unifiedMusicKeysDataKey}
-        baseChordDataKey={guitarShapePlayerBrick.baseChordDataKey}
-        guitarShapeOffset={guitarShapePlayerBrick.semitoneOffsetFromMajorRoot}
-        guitarShapeDataKey={guitarShapePlayerBrick.guitarShapeDataKey}
-        targetNoteIndices={guitarShapePlayerBrick.targetNoteIndices ?? [1]}
-        brickId={id}
-      />
-
       <ShapeExplorer
-        unifiedMusicKeysDataKey={guitarShapePlayerBrick.unifiedMusicKeysDataKey}
-        guitarShapeDataKey={guitarShapePlayerBrick.guitarShapeDataKey}
-        semitoneOffsetFromMajorRoot={
-          guitarShapePlayerBrick.semitoneOffsetFromMajorRoot
-        }
+        unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
+        guitarShapeDataKey={guitarShapeDataKey}
+        semitoneOffsetFromMajorRoot={semitoneOffsetFromMajorRoot}
         sliderRange={sliderRange}
         onRangeChange={setSliderRange}
         orderedLocations={orderedLocations}

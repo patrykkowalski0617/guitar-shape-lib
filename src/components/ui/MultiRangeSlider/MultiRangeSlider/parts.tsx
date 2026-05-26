@@ -1,4 +1,3 @@
-import { appBgColor } from "@/constants";
 import styled, { css } from "styled-components";
 import { apearingTransition } from "../../constants";
 
@@ -48,20 +47,11 @@ export const ActiveRange = styled.div<{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image:
-    linear-gradient(
-      ${({ $vertical }) => ($vertical ? "0deg" : "90deg")},
-      ${appBgColor} 0%,
-      color-mix(in oklab, var(--muted) 10%, transparent) 10%,
-      color-mix(in oklab, var(--muted) 10%, transparent) 90%,
-      ${appBgColor} 100%
-    ),
-    radial-gradient(
-      color-mix(in oklab, var(--muted) 20%, transparent) 0%,
-      ${appBgColor} 50%,
-      ${appBgColor} 100%
-    );
-  box-shadow: 0 0 12px 12px ${appBgColor} inset;
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--muted) 10%, transparent) 0%,
+    transparent 50%,
+    transparent 100%
+  );
   ${({ $vertical }) =>
     $vertical
       ? css`

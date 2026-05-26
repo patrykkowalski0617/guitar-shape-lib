@@ -6,9 +6,9 @@ import { ShapePlayer } from "./components/ShapePlayer/ShapePlayer";
 import { KeyAndChordPicker } from "@/components/KeyAndChordPicker/KeyAndChordPicker";
 import ShapePicker from "./components/ShapePicker/ShapePicker";
 import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";
-import { PianoControllers } from "@/components/PianoControllers/PianoControllers";
+// import { PianoControllers } from "@/components/PianoControllers/PianoControllers";
 import { HeaderControllers } from "./components/HeaderControllers/HeaderControllers";
-import { MasterShapeExplorer } from "./components/ShapeExplorer/MasterShapeExplorer";
+import { PlayerHeader } from "./components/PlayerHeader/PlayerHeader";
 // import { DataKeyStoreDebugComponent } from "./DevTools/DataKeyStoreDebugComponent/DataKeyStoreDebugComponent";
 
 export default function App() {
@@ -16,9 +16,9 @@ export default function App() {
     <AppWrapper style={{ height: 700, minHeight: "unset" }}>
       <SoundEngine />
       {/* <DataKeyStoreDebugComponent /> */}
-      <Section>
+      {/* <Section>
         <PianoControllers />
-      </Section>
+      </Section> */}
 
       <FullscreenButton />
       <KeyAndChordPicker />
@@ -32,10 +32,7 @@ export default function App() {
         </Section>
 
         <Section>
-          <MasterShapeExplorer />
-        </Section>
-
-        <Section>
+          <PlayerHeader />
           <ShapePlayer />
         </Section>
 

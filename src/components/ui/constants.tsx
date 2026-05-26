@@ -7,6 +7,7 @@ export const elementBase = css<{ $widthMultiplier?: number }>`
     border: 1px solid;
     border-radius: 4px;
     margin: 0 2px;
+    white-space: nowrap;
   `}
 `;
 

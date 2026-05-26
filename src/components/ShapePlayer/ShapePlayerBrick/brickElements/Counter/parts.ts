@@ -1,3 +1,4 @@
+import { appBgColor } from "@/constants";
 import styled, { css } from "styled-components";
 
 export const CounterWrapper = styled.div`
@@ -11,6 +12,7 @@ export const CounterWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 6px;
   box-sizing: border-box;
+  background-color: ${appBgColor};
 `;
 
 export const ControlButton = styled.button`

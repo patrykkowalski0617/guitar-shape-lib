@@ -3,17 +3,14 @@ import { useEditKeyAndChordButton } from "./useEditKeyAndChordButton";
 
 interface EditKeyAndChordButtonProps {
   id: string;
-  displayMode: "key" | "chord";
 }
 
-export const EditKeyAndChordButton = ({
-  id,
-  displayMode,
-}: EditKeyAndChordButtonProps) => {
-  const { buttonText, handleEditKeyAndChord } = useEditKeyAndChordButton(
-    id,
-    displayMode,
-  );
+export const EditKeyAndChordButton = ({ id }: EditKeyAndChordButtonProps) => {
+  const { buttonText, handleEditKeyAndChord } = useEditKeyAndChordButton(id);
 
-  return <Button onClick={handleEditKeyAndChord}>{buttonText}</Button>;
+  return (
+    <Button onClick={handleEditKeyAndChord} $widthMultiplier={4}>
+      {buttonText}
+    </Button>
+  );
 };
