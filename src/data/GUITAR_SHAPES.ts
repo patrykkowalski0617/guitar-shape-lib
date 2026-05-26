@@ -684,6 +684,7 @@ export const GUITAR_SHAPES: GuitarShapes = {
     semitoneOffsetFromMajorRoot: {
       BaseChord5: [_M7],
       BaseChord3Ph: [_M7],
+      BaseChord7dim: [_M7],
     },
     guitarShapeVariants: {
       strE: {

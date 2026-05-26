@@ -1,2 +1,20 @@
-export const roleNumNameMajor = ["I", "II", "III", "IV", "V", "VI", "VII"];
-export const roleNumNameMinor = ["iii", "iv", "v", "vi", "vii", "i", "ii"];
+export const roleNumNameMajor = [
+  "I",
+  "ii",
+  "iii",
+  "IV",
+  "V",
+  "vi",
+  "vii",
+  "viio",
+];
+export const roleNumNameMinor = [
+  "III",
+  "iv",
+  "V",
+  "VI",
+  "VII",
+  "i",
+  "ii",
+  "iio",
+];

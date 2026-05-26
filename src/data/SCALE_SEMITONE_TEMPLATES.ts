@@ -78,6 +78,13 @@ export const SCALE_SEMITONE_TEMPLATES = {
     color: [_4, _T, _m6],
     avoidNotes: [_m2],
   },
+  locrianScalePh: {
+    template: [_1, _m2, _m3, _4, _T, _M6, _m7],
+    perfectConsonances: [_1],
+    guideTones: [_m3, _m7],
+    color: [_4, _T, _M6],
+    avoidNotes: [_m2],
+  },
 } as const satisfies Record<string, SemitoneScale>;
 
 export type ScaleSemitoneTemplateDataKey =

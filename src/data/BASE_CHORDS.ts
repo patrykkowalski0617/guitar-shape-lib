@@ -2,23 +2,38 @@ import type { ScaleSemitoneTemplateDataKey } from "./SCALE_SEMITONE_TEMPLATES";
 
 export type BaseChordDataKey = keyof typeof BASE_CHORDS;
 
-export type RoleNumName = "I" | "II" | "III" | "IV" | "V" | "VI" | "VII";
+export type majorRoleNumName =
+  | "I"
+  | "ii"
+  | "iii"
+  | "IV"
+  | "V"
+  | "vi"
+  | "vii"
+  | "viio";
+export type minorRoleNumName =
+  | "III"
+  | "iv"
+  | "V"
+  | "VI"
+  | "VII"
+  | "i"
+  | "ii"
+  | "iio";
+
+export type RoleNumName = majorRoleNumName | minorRoleNumName;
 export interface BaseChord {
-  roleName: string;
-  roleShortName: string;
   baseScaleName: string;
   baseScaleDataKey: ScaleSemitoneTemplateDataKey;
   semitoneOffsetFromMajorRoot: number;
   modeExtendedName: string;
   CAGEDchordShape: string;
-  majorRoleNumName: RoleNumName;
-  minorRoleNumName: RoleNumName;
+  majorRoleNumName?: majorRoleNumName;
+  minorRoleNumName?: minorRoleNumName;
 }
 
 export const BASE_CHORDS = {
   BaseChord1: {
-    roleName: "Major Tonic",
-    roleShortName: "T",
     baseScaleName: "Ionian",
     baseScaleDataKey: "ionianScale",
     semitoneOffsetFromMajorRoot: 0,
@@ -28,41 +43,31 @@ export const BASE_CHORDS = {
     minorRoleNumName: "III",
   },
   BaseChord2: {
-    roleName: "Minor Dominant",
-    roleShortName: "s",
     baseScaleName: "Dorian",
     baseScaleDataKey: "dorianScale",
     semitoneOffsetFromMajorRoot: 2,
     modeExtendedName: "m7",
     CAGEDchordShape: "minor",
-    majorRoleNumName: "II",
-    minorRoleNumName: "IV",
+    majorRoleNumName: "ii",
+    minorRoleNumName: "iv",
   },
   BaseChord3: {
-    roleName: "Mediant",
-    roleShortName: "m",
     baseScaleName: "Phrygian",
     baseScaleDataKey: "phrygianScale",
     semitoneOffsetFromMajorRoot: 4,
     modeExtendedName: "m7",
     CAGEDchordShape: "minor",
-    majorRoleNumName: "III",
-    minorRoleNumName: "V",
+    majorRoleNumName: "iii",
   },
   BaseChord3Ph: {
-    roleName: "Dominant (Phrygian)",
-    roleShortName: "DPh",
     baseScaleName: "Phrygian Dominant",
     baseScaleDataKey: "phrygianDominantScale",
     semitoneOffsetFromMajorRoot: 4,
     modeExtendedName: "7",
     CAGEDchordShape: "major",
-    majorRoleNumName: "V",
     minorRoleNumName: "V",
   },
   BaseChord4: {
-    roleName: "Major Dominant",
-    roleShortName: "S",
     baseScaleName: "Lydian",
     baseScaleDataKey: "lydianScale",
     semitoneOffsetFromMajorRoot: 5,
@@ -72,8 +77,6 @@ export const BASE_CHORDS = {
     minorRoleNumName: "VI",
   },
   BaseChord5: {
-    roleName: "Dominant",
-    roleShortName: "D",
     baseScaleName: "Mixolydian",
     baseScaleDataKey: "mixolydianScale",
     semitoneOffsetFromMajorRoot: 7,
@@ -83,25 +86,30 @@ export const BASE_CHORDS = {
     minorRoleNumName: "VII",
   },
   BaseChord6: {
-    roleName: "Minor Tonic",
-    roleShortName: "t",
     baseScaleName: "Aeolian",
     baseScaleDataKey: "aeolianScale",
     semitoneOffsetFromMajorRoot: 9,
     modeExtendedName: "m7",
     CAGEDchordShape: "minor",
-    majorRoleNumName: "VI",
-    minorRoleNumName: "VI",
+    majorRoleNumName: "vi",
+    minorRoleNumName: "i",
   },
   BaseChord7: {
-    roleName: "Minor Sub. (Half Dim.)",
-    roleShortName: "h-dim",
     baseScaleName: "Locrian",
     baseScaleDataKey: "locrianScale",
     semitoneOffsetFromMajorRoot: 11,
     modeExtendedName: "m7b5",
     CAGEDchordShape: "BaseChord7",
-    majorRoleNumName: "VII",
-    minorRoleNumName: "II",
+    majorRoleNumName: "vii",
+    minorRoleNumName: "ii",
+  },
+  BaseChord7dim: {
+    baseScaleName: "Locrian",
+    baseScaleDataKey: "locrianScalePh",
+    semitoneOffsetFromMajorRoot: 11,
+    modeExtendedName: "dim",
+    CAGEDchordShape: "BaseChord7dim",
+    majorRoleNumName: "viio",
+    minorRoleNumName: "iio",
   },
 } satisfies Record<string, BaseChord>;
