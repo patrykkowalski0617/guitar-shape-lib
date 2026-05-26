@@ -2,13 +2,14 @@ import { useDataKeyStore, useUiStore, useShapePlayerStore } from "@/store";
 import { useBaseChordName } from "@/hooks/baseChord/useBaseChordName";
 import { useSortedShapeOptions } from "./useSortedShapeOptions";
 import { getOrderedShapeVariantDataKeys } from "@/components/ShapeExplorer/helpers/getOrderedShapeVariantDataKeys";
+import { useRestoreBrick } from "@/hooks";
 
 export const useShapePicker = () => {
   const unifiedMusicKeysDataKey = useDataKeyStore(
     (state) => state.unifiedMusicKeysDataKey,
   );
   const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
-
+  const { restore } = useRestoreBrick();
   const setShapeDataKey = useDataKeyStore((state) => state.setShapeDataKey);
   const setSemitoneOffsetFromMajorRoot = useDataKeyStore(
     (state) => state.setSemitoneOffsetFromMajorRoot,
@@ -54,9 +55,16 @@ export const useShapePicker = () => {
           guitarShapeDataKey,
           semitoneOffsetFromMajorRoot,
           sliderRange: defaultRange,
+          targetNoteIndices: [1],
         });
 
         setEditingBrickId(null);
+
+        const updatedBrick = useShapePlayerStore
+          .getState()
+          .guitarShapePlayerBricks.find((b) => b.id === editingBrickId);
+
+        if (updatedBrick) restore({ ...updatedBrick, targetNoteIndices: [1] });
       } else {
         addShapePlayerBrick({
           unifiedMusicKeysDataKey,
@@ -64,13 +72,18 @@ export const useShapePicker = () => {
           guitarShapeDataKey,
           semitoneOffsetFromMajorRoot,
           playLength: 4,
+          targetNoteIndices: [1],
         });
+
+        const bricks = useShapePlayerStore.getState().guitarShapePlayerBricks;
+        const newBrick = bricks[bricks.length - 1];
+
+        if (newBrick) restore({ ...newBrick, targetNoteIndices: [1] });
       }
     }
 
     setShapePickerExpanded(false);
   };
-
   return {
     options,
     selectedChordLabel,
