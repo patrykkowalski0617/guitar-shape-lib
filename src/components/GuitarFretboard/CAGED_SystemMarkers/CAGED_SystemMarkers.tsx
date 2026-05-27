@@ -40,7 +40,10 @@ export default function CAGED_SystemMarkers({
           bestMatchFretToCAGED.get(index) ?? fretToCAGED.get(index);
 
         return (
-          <S.Marker key={`info-${index}`} $isBestMatch={isBestMatch}>
+          <S.Marker
+            key={`${JSON.stringify(originalIndices)}-${index}`}
+            $isBestMatch={isBestMatch}
+          >
             {isDisabled ? disabledCagedNames[index] : cagedName}
           </S.Marker>
         );
