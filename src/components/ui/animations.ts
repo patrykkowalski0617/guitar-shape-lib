@@ -52,6 +52,44 @@ export const hoverGlow = css`
   }
 `;
 
+export const hoverGlowBorder = css`
+  border: 1px solid transparent;
+  box-shadow: none;
+  transition:
+    border-color ${duration.crawl} ease,
+    box-shadow ${duration.crawl} ease;
+
+  &:hover:not(:disabled) {
+    transition: none;
+    border-color: ${color.borderHover};
+    animation: ${glowPulse} 2.5s ease-in-out forwards;
+  }
+
+  &:focus-visible {
+    border: 1px solid ${color.borderHover};
+    transition: none;
+  }
+
+  &:focus:not(:focus-visible):not(:hover) {
+    border: 1px solid transparent;
+  }
+
+  &:hover:not(:disabled):focus-visible {
+    transition: none;
+    border-color: ${color.borderHover};
+    animation: ${glowPulse} 2.5s ease-in-out forwards;
+  }
+
+  &:active:not(:disabled) {
+    transition: none;
+    border-color: ${color.borderHover};
+    animation: none;
+    box-shadow:
+      0 0 7px color-mix(in oklab, ${color.borderHover} 65%, transparent),
+      0 0 18px color-mix(in oklab, ${color.borderHover} 28%, transparent);
+  }
+`;
+
 export const ledPulse = keyframes`
   0%, 100% {
     box-shadow:

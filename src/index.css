@@ -6,6 +6,7 @@
   --radius-lg: 16px;
 
   --void: hsl(0, 0%, 2%);
+  --voidHigh: hsl(0, 0%, 5%);
   --background: hsl(0, 0%, 24%);
   --foreground: hsl(0, 0%, 80%);
 

@@ -17,7 +17,8 @@ export function KeyAndChordPicker() {
   const setIsMajorMode = useMusicStore((s) => s.setIsMajorMode);
   const roleNumName = isMajorMode ? roleNumNameMajor : roleNumNameMinor;
 
-  if (!isKeyAndChordPickerExpanded) return null;
+  // if (!isKeyAndChordPickerExpanded) return null;
+
   return (
     <S.Wrapper>
       <Row>
@@ -27,6 +28,7 @@ export function KeyAndChordPicker() {
           }}
         >
           {isMajorMode ? "Major" : "minor"}
+          {":"}
         </Item>
         {roleNumName.map((roleName, i) => (
           <Item key={i}>{roleName}</Item>
