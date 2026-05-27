@@ -75,13 +75,13 @@ export const Fretboard = styled.div`
     inset: 0;
     right: calc(${fretboardRPadding} - 15px);
     left: 10px;
-    background-color: color-mix(in oklab, var(--instrument) 25%, #777);
+    background-color: #4a2f1b77;
     background-image:
       linear-gradient(
         0deg,
-        color-mix(in oklab, hsl(0, 0%, 15%) 100%, transparent) 0%,
-        color-mix(in oklab, hsl(0, 0%, 15%) 20%, transparent) 60%,
-        color-mix(in oklab, hsl(0, 0%, 15%) 80%, transparent) 100%
+        color-mix(in oklab, hsl(0, 0%, 30%) 100%, transparent) 0%,
+        color-mix(in oklab, hsl(0, 0%, 30%) 20%, transparent) 60%,
+        color-mix(in oklab, hsl(0, 0%, 30%) 80%, transparent) 100%
       ),
       url(${WoodImage});
 

@@ -11,5 +11,7 @@ export const DragHandleButton = ({
   attributes,
   listeners,
 }: DragHandleButtonProps) => {
-  return <S.Button {...attributes} {...listeners} $w={1} $variant={"ghost"} />;
+  return (
+    <S.Button {...attributes} {...listeners} $w={1} $variant={"outline"} />
+  );
 };

@@ -1,11 +1,12 @@
-import { Button } from "../../../ui/parts";
+import { Trash2 } from "lucide-react";
+import { Button } from "@/components/ui";
 import { useClear } from "./useClear";
 
 export const Clear = () => {
   const { handleClear, isListEmpty } = useClear();
   return (
-    <Button onClick={handleClear} disabled={isListEmpty}>
-      Clean
+    <Button $variant={"warn"} onClick={handleClear} disabled={isListEmpty}>
+      <Trash2 />
     </Button>
   );
 };

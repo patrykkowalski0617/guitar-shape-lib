@@ -8,12 +8,16 @@ export const useCounter = (id: string, currentPlayLength: number) => {
 
   const handleIncrement = () => {
     const nextLength = Math.min(currentPlayLength + 1, maxLength);
-    updateBrick(id, { playLength: nextLength });
+    const updatePayload = { playLength: nextLength };
+
+    updateBrick(id, updatePayload);
   };
 
   const handleDecrement = () => {
     const nextLength = Math.max(currentPlayLength - 1, minLength);
-    updateBrick(id, { playLength: nextLength });
+    const updatePayload = { playLength: nextLength };
+
+    updateBrick(id, updatePayload);
   };
 
   const isDecrementDisabled = currentPlayLength <= minLength;

@@ -16,7 +16,7 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
           -1px 0px 3px 1px color-mix(in oklab, hsl(0, 0%, 2%) 80%, transparent)
             inset;
         height: 600%;
-        width: 6px;
+        width: 5px;
         border-radius: 2px;
         background: linear-gradient(
           0deg,

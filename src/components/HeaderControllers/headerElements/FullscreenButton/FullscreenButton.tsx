@@ -1,17 +1,17 @@
 import { Maximize, Minimize } from "lucide-react";
 import { useFullscreen } from "./hooks/useFullscreen";
-import { Button } from "@/components/ui";
+import * as S from "./parts";
 
 export function FullscreenButton() {
   const { isFullscreen, toggleFullscreen } = useFullscreen();
 
   return (
-    <Button
+    <S.Button
       $variant="outline"
       onClick={() => toggleFullscreen(true)}
       title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
     >
       {isFullscreen ? <Minimize /> : <Maximize />}
-    </Button>
+    </S.Button>
   );
 }

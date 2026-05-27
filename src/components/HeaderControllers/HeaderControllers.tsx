@@ -19,11 +19,12 @@ export const HeaderControllers = () => {
       <Open />
       <Save />
 
-      <TogglePlayback />
-      <ToggleBass />
       <Metronome />
       <BpmInput />
       <BpmMultiplier />
+
+      <TogglePlayback />
+      <ToggleBass />
 
       <FullscreenButton />
     </S.ShapePlayerControllers>

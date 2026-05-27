@@ -1,4 +1,22 @@
-import { css } from "styled-components";
+import { css, type RuleSet } from "styled-components";
+
+export const breakPoint = {
+  mobileOnly: (styles: RuleSet<object>) => css`
+    @media (max-width: 767px) {
+      ${styles}
+    }
+  `,
+  tablet: (styles: RuleSet<object>) => css`
+    @media (min-width: 768px) {
+      ${styles}
+    }
+  `,
+  desktop: (styles: RuleSet<object>) => css`
+    @media (min-width: 1024px) {
+      ${styles}
+    }
+  `,
+};
 
 export const color = {
   void: "var(--void)",
@@ -82,6 +100,9 @@ export const elementBase = css<{ $w?: number }>`
   line-height: 1;
   border-radius: ${radius.sm};
   border: 1px solid ${color.border};
+  ${breakPoint.mobileOnly(css`
+    border: 1px solid color-mix(in oklab, ${color.border} 60%, ${color.primary});
+  `)}
   cursor: pointer;
   user-select: none;
   outline: none;

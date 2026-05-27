@@ -9,7 +9,9 @@ export const Item = styled.button<{ $w?: number }>`
   border-radius: 0;
   position: relative;
   color: ${color.void};
-  ${hoverGlowBorder}
+  ${hoverGlowBorder({ color: color.secondary })}
+  letter-spacing: 0.5px;
+
   &:hover {
     z-index: 1;
   }
@@ -54,9 +56,9 @@ export const Row = styled.div<{ $isCurrent?: boolean }>`
       }
     }
     > :first-child {
-      transition: background ${duration.base};
+      transition: ${duration.base};
       &:hover {
-        background-color: ${color.bg} !important;
+        letter-spacing: 2px;
       }
     }
     position: sticky;

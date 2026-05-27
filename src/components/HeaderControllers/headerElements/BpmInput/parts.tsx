@@ -6,4 +6,5 @@ export const NumberInput = styled(_NumberInput)<{ $isDraggingState: boolean }>`
   user-select: ${({ $isDraggingState }) =>
     $isDraggingState ? "none" : "auto"};
   touch-action: none;
+  width: 75px;
 `;

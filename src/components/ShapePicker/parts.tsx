@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { hoverGlowBorder, color } from "../ui";
 
 export const InfoText = styled.div`
   text-align: center;
@@ -20,9 +21,7 @@ export const ListItem = styled.li`
   font-size: 0.875rem;
   cursor: pointer;
   transition: background-color 0.2s;
-  &:hover {
-    background-color: hsl(var(--accent));
-  }
+  ${hoverGlowBorder({ color: color.secondary })}
 `;
 
 export const RootNote = styled.span`

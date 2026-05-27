@@ -7,7 +7,9 @@ export const PlayerHeader = () => {
   return (
     <S.PlayerHeaderWrapper>
       <Transpose />
-      <MasterTargetNotesSelect />
+      <div style={{ width: 100 }}>
+        <MasterTargetNotesSelect />
+      </div>
       <div style={{ width: 500 }}>
         <MasterShapeExplorer />
       </div>
