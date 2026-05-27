@@ -89,7 +89,7 @@ export const elementBase = css<{ $w?: number }>`
   & > svg {
     width: auto;
     height: 60%;
-    stroke-width: 0.5px;
+    stroke-width: 1px;
     flex-shrink: 0;
   }
 `;

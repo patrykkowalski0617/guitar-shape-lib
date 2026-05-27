@@ -106,14 +106,14 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
     }
 
     let bassNoteFrequency: number | null = null;
-    if (isNewBrick && activeBrick) {
+    const { isMetronomeWithBass } = get();
+    if (isNewBrick && activeBrick && isMetronomeWithBass) {
       const noteIds = brickToBackingtrackNoteIds(activeBrick);
       const bassNoteId = noteIds[0];
       if (bassNoteId) {
         bassNoteFrequency = noteIdToFrequency(bassNoteId);
       }
     }
-
     return {
       isNewBrick,
       isFirstStepTotal: nextStepIndex === 0,
