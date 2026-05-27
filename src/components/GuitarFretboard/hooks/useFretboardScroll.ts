@@ -7,7 +7,7 @@ export const useFretboardScroll = (
   containerRef: RefObject<HTMLDivElement | null>,
 ) => {
   const guitarShapeVariantDataKeys = useMusicStore(
-    (state) => state.guitarShapeVariantDataKeys,
+    (s) => s.guitarShapeVariantDataKeys,
   );
 
   const { min, max } = getShapeFretRange(

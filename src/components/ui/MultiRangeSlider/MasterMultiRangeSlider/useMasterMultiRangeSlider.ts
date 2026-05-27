@@ -15,7 +15,7 @@ export const useMasterMultiRangeSlider = (
   configs: MasterConfig,
 ) => {
   const updateRangesFromMaster = useMasterShapeExplorerStore(
-    (state) => state.updateRangesFromMaster,
+    (s) => s.updateRangesFromMaster,
   );
 
   const isDisabled = usePersistentBoolean(Object.keys(ranges).length <= 1);

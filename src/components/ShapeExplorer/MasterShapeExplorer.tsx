@@ -6,7 +6,7 @@ import { useRestoreBrick } from "@/hooks";
 
 export const MasterShapeExplorer = () => {
   const guitarShapePlayerBricks = useShapePlayerStore(
-    (state) => state.guitarShapePlayerBricks,
+    (s) => s.guitarShapePlayerBricks,
   );
 
   const sliderConfigs = useMemo(() => {
@@ -26,7 +26,7 @@ export const MasterShapeExplorer = () => {
   }, [guitarShapePlayerBricks]);
 
   const { ranges, initializeRanges, setRange } = useMasterShapeExplorerStore();
-  const updateBrick = useShapePlayerStore((state) => state.updateBrick);
+  const updateBrick = useShapePlayerStore((s) => s.updateBrick);
   const { restore } = useRestoreBrick();
 
   const prevIdsRef = useRef<string>("");
@@ -93,7 +93,7 @@ export const MasterShapeExplorer = () => {
 
   useEffect(() => {
     const unsub = useShapePlayerStore.subscribe(
-      (state) => state.guitarShapePlayerBricks,
+      (s) => s.guitarShapePlayerBricks,
       (guitarShapePlayerBricks) => {
         guitarShapePlayerBricks.forEach((guitarShapePlayerBrick) => {
           const currentMasterRange = ranges[guitarShapePlayerBrick.id];

@@ -14,9 +14,7 @@ interface PianoKeyProps {
 const PianoKey = ({ noteObject }: PianoKeyProps) => {
   const { visualState, interactivity } = usePianoKey({ noteObject });
   const getEnharmonicNoteName = useEnharmonicNoteName();
-  const setActiveLockedNoteIds = useMusicStore(
-    (state) => state.setActiveLockedNoteIds,
-  );
+  const setActiveLockedNoteIds = useMusicStore((s) => s.setActiveLockedNoteIds);
 
   const { isWhitePianoKey, pianoKeyShape, isPushed, isShapeSelected } =
     visualState;

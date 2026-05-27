@@ -8,10 +8,10 @@ import { useShapePlayerStore } from "@/store";
 
 export const useShapePlayerDrag = () => {
   const guitarShapePlayerBricks = useShapePlayerStore(
-    (state) => state.guitarShapePlayerBricks,
+    (s) => s.guitarShapePlayerBricks,
   );
   const reorderShapePlayerBricks = useShapePlayerStore(
-    (state) => state.reorderShapePlayerBricks,
+    (s) => s.reorderShapePlayerBricks,
   );
 
   const sensors = useSensors(useSensor(PointerSensor));

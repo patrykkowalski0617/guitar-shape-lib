@@ -5,9 +5,9 @@ export const usePianoScroll = (
   containerRef: RefObject<HTMLDivElement | null>,
 ) => {
   const unifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.unifiedMusicKeysDataKey,
+    (s) => s.unifiedMusicKeysDataKey,
   );
-  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
+  const baseChordDataKey = useDataKeyStore((s) => s.baseChordDataKey);
 
   useEffect(() => {
     const container = containerRef.current;

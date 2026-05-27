@@ -1,7 +1,7 @@
 import { useShapePlayerStore } from "@/store";
 
 export const useCounter = (id: string, currentPlayLength: number) => {
-  const updateBrick = useShapePlayerStore((state) => state.updateBrick);
+  const updateBrick = useShapePlayerStore((s) => s.updateBrick);
 
   const minLength = 1;
   const maxLength = 8;

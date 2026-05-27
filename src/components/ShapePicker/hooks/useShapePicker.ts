@@ -7,28 +7,22 @@ import { useMusicStore } from "@/store";
 
 export const useShapePicker = () => {
   const unifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.unifiedMusicKeysDataKey,
+    (s) => s.unifiedMusicKeysDataKey,
   );
-  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
+  const baseChordDataKey = useDataKeyStore((s) => s.baseChordDataKey);
   const { restore } = useRestoreBrick();
-  const setShapeDataKey = useDataKeyStore((state) => state.setShapeDataKey);
+  const setShapeDataKey = useDataKeyStore((s) => s.setShapeDataKey);
   const setSemitoneOffsetFromMajorRoot = useDataKeyStore(
-    (state) => state.setSemitoneOffsetFromMajorRoot,
+    (s) => s.setSemitoneOffsetFromMajorRoot,
   );
 
-  const isShapePickerExpanded = useUiStore(
-    (state) => state.isShapePickerExpanded,
-  );
-  const setShapePickerExpanded = useUiStore(
-    (state) => state.setShapePickerExpanded,
-  );
-  const editingBrickId = useUiStore((state) => state.editingBrickId);
-  const setEditingBrickId = useUiStore((state) => state.setEditingBrickId);
+  const isShapePickerExpanded = useUiStore((s) => s.isShapePickerExpanded);
+  const setShapePickerExpanded = useUiStore((s) => s.setShapePickerExpanded);
+  const editingBrickId = useUiStore((s) => s.editingBrickId);
+  const setEditingBrickId = useUiStore((s) => s.setEditingBrickId);
 
-  const addShapePlayerBrick = useShapePlayerStore(
-    (state) => state.addShapePlayerBrick,
-  );
-  const updateBrick = useShapePlayerStore((state) => state.updateBrick);
+  const addShapePlayerBrick = useShapePlayerStore((s) => s.addShapePlayerBrick);
+  const updateBrick = useShapePlayerStore((s) => s.updateBrick);
 
   const isMajorMode = useMusicStore((s) => s.isMajorMode);
 

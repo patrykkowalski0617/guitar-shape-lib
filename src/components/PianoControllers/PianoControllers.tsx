@@ -13,12 +13,12 @@ import { Switch } from "./Switch";
 import { Knob } from "./Knob";
 
 export const PianoControllers = () => {
-  const togglePianoOn = useControllersStore((state) => state.togglePianoOn);
-  const isPianoOn = useControllersStore((state) => state.isPianoOn);
-  const playback = useControllersStore((state) => state.playback);
-  const isPlaying = useMetronomeStore((state) => state.isPlaying);
+  const togglePianoOn = useControllersStore((s) => s.togglePianoOn);
+  const isPianoOn = useControllersStore((s) => s.isPianoOn);
+  const playback = useControllersStore((s) => s.playback);
+  const isPlaying = useMetronomeStore((s) => s.isPlaying);
   const guitarShapePlayerBricks = useShapePlayerStore(
-    (state) => state.guitarShapePlayerBricks,
+    (s) => s.guitarShapePlayerBricks,
   );
 
   const [, setTick] = useState(0);

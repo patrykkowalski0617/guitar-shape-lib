@@ -10,17 +10,11 @@ export function useFretboardCell({
   fretIndex,
   nextTargetShapeCoordinates,
 }: UseFretboardCellProps): FretboardCellHandlers {
-  const setActiveHoverNoteId = useMusicStore(
-    (state) => state.setActiveHoverNoteId,
-  );
-  const setActiveLockedNoteIds = useMusicStore(
-    (state) => state.setActiveLockedNoteIds,
-  );
+  const setActiveHoverNoteId = useMusicStore((s) => s.setActiveHoverNoteId);
+  const setActiveLockedNoteIds = useMusicStore((s) => s.setActiveLockedNoteIds);
 
   const sharpNoteName = noteObject.sharpNoteName;
-  const targetSharpNoteNames = useMusicStore(
-    (state) => state.targetSharpNoteNames,
-  );
+  const targetSharpNoteNames = useMusicStore((s) => s.targetSharpNoteNames);
 
   const isInNextTargetShape = useMemo(() => {
     return nextTargetShapeCoordinates.some(

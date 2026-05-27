@@ -2,12 +2,12 @@ import { useDataKeyStore, useShapePlayerStore } from "@/store";
 
 export const useClear = () => {
   const clearShapePlayerBricks = useShapePlayerStore(
-    (state) => state.clearShapePlayerBricks,
+    (s) => s.clearShapePlayerBricks,
   );
   const isListEmpty = useShapePlayerStore(
-    (state) => state.guitarShapePlayerBricks.length === 0,
+    (s) => s.guitarShapePlayerBricks.length === 0,
   );
-  const resetDataKeys = useDataKeyStore((state) => state.resetDataKeys);
+  const resetDataKeys = useDataKeyStore((s) => s.resetDataKeys);
 
   const handleClear = () => {
     clearShapePlayerBricks();

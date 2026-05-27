@@ -4,7 +4,7 @@ import { metronomeInstance } from "../../metronome/metronomeInstance";
 import type { TickCallback } from "../../metronome/types";
 
 export const useMetronome = (bpm: number, onTick: TickCallback) => {
-  const multiplier = useMetronomeStore((state) => state.bpmMultiplier);
+  const multiplier = useMetronomeStore((s) => s.bpmMultiplier);
 
   useEffect(() => {
     metronomeInstance.replaceCallback(onTick);

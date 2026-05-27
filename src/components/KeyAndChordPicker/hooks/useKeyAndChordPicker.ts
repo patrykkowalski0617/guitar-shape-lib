@@ -4,25 +4,21 @@ import { getKeyAndChordOptions } from "../utils/getKeyAndChordOptions";
 
 export function useKeyAndChordPicker() {
   const isKeyAndChordPickerExpanded = useUiStore(
-    (state) => state.isKeyAndChordPickerExpanded,
+    (s) => s.isKeyAndChordPickerExpanded,
   );
   const setKeyAndChordPickerExpanded = useUiStore(
-    (state) => state.setKeyAndChordPickerExpanded,
+    (s) => s.setKeyAndChordPickerExpanded,
   );
-  const setShapePickerExpanded = useUiStore(
-    (state) => state.setShapePickerExpanded,
-  );
-  const editingBrickId = useUiStore((state) => state.editingBrickId);
+  const setShapePickerExpanded = useUiStore((s) => s.setShapePickerExpanded);
+  const editingBrickId = useUiStore((s) => s.editingBrickId);
 
-  const setBaseChordDataKey = useDataKeyStore(
-    (state) => state.setBaseChordDataKey,
-  );
+  const setBaseChordDataKey = useDataKeyStore((s) => s.setBaseChordDataKey);
   const setUnifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.setUnifiedMusicKeysDataKey,
+    (s) => s.setUnifiedMusicKeysDataKey,
   );
 
   const unifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.unifiedMusicKeysDataKey,
+    (s) => s.unifiedMusicKeysDataKey,
   );
 
   const isMajorMode = useMusicStore((s) => s.isMajorMode);

@@ -9,12 +9,8 @@ interface UsePianoKeyParams {
 }
 
 export function usePianoKey({ noteObject }: UsePianoKeyParams) {
-  const setActiveHoverNoteId = useMusicStore(
-    (state) => state.setActiveHoverNoteId,
-  );
-  const guitarShapeDataKey = useDataKeyStore(
-    (state) => state.guitarShapeDataKey,
-  );
+  const setActiveHoverNoteId = useMusicStore((s) => s.setActiveHoverNoteId);
+  const guitarShapeDataKey = useDataKeyStore((s) => s.guitarShapeDataKey);
 
   const isActiveNote = useIsNoteActive(noteObject.noteId);
 

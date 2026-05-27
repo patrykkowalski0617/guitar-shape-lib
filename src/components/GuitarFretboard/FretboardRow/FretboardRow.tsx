@@ -12,10 +12,10 @@ export default function FretboardRow({
   baseChordCoordinates,
   nextTargetShapeCoordinates,
 }: FretboardRowProps): JSX.Element {
-  const visibleStrings = useControllersStore((state) => state.visibleStrings);
-  const isPlaying = useMetronomeStore((state) => state.isPlaying);
+  const visibleStrings = useControllersStore((s) => s.visibleStrings);
+  const isPlaying = useMetronomeStore((s) => s.isPlaying);
   const isVisibleString = visibleStrings.includes(stringIndex);
-  const currentStep = useMetronomeStore((state) => state.currentStep);
+  const currentStep = useMetronomeStore((s) => s.currentStep);
 
   useEffect(() => {
     if (stringIndex !== 0) return;

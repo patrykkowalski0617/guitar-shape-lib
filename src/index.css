@@ -17,8 +17,8 @@
   --secondary: hsl(185, 45%, 38%);
   --warn: hsl(0, 100%, 50%);
 
-  --hover-glow: rgb(197, 48, 28);
-  --led: hsl(14, 100%, 55%);
+  --hover-glow: hsl(7 75% 44%);
+  --led: hsl(14, 100%, 80%);
 
   --font: "IBM Plex Sans", sans-serif;
 }

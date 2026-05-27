@@ -5,9 +5,9 @@ import { useShapeOptions } from "./useShapeOptions";
 
 export const useSortedShapeOptions = () => {
   const unifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.unifiedMusicKeysDataKey,
+    (s) => s.unifiedMusicKeysDataKey,
   );
-  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
+  const baseChordDataKey = useDataKeyStore((s) => s.baseChordDataKey);
   const options = useShapeOptions();
 
   if (!baseChordDataKey || !options || !unifiedMusicKeysDataKey) return;

@@ -4,10 +4,10 @@ import { useRestoreBrick } from "@/hooks";
 
 export function Transpose() {
   const transposeShapePlayerBricks = useShapePlayerStore(
-    (state) => state.transposeShapePlayerBricks,
+    (s) => s.transposeShapePlayerBricks,
   );
   const hasBricks = useShapePlayerStore(
-    (state) => state.guitarShapePlayerBricks.length > 0,
+    (s) => s.guitarShapePlayerBricks.length > 0,
   );
   const { restore } = useRestoreBrick();
 

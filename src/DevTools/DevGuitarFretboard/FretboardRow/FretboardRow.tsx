@@ -12,7 +12,7 @@ export default function FretboardRow({
   baseChordCoordinates,
   nextTargetShapeCoordinates,
 }: FretboardRowProps): JSX.Element {
-  const visibleStrings = useControllersStore((state) => state.visibleStrings);
+  const visibleStrings = useControllersStore((s) => s.visibleStrings);
   const isVisibleString = visibleStrings.includes(stringIndex);
 
   return (

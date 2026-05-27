@@ -7,20 +7,16 @@ import { useBaseChord } from "@/hooks/baseChord/useBaseChord";
 import { changeOctaveOfNoteId } from "@/utils";
 
 export const useBackingTrackSync = () => {
-  const baseChordBassNoteId = useMusicStore(
-    (state) => state.baseChordBassNoteId,
-  );
-  const setBackingtrackNoteIds = useMusicStore(
-    (state) => state.setBackingtrackNoteIds,
-  );
+  const baseChordBassNoteId = useMusicStore((s) => s.baseChordBassNoteId);
+  const setBackingtrackNoteIds = useMusicStore((s) => s.setBackingtrackNoteIds);
 
   const guitarShapeVariantDataKeys = useMusicStore(
-    (state) => state.guitarShapeVariantDataKeys,
+    (s) => s.guitarShapeVariantDataKeys,
   );
   const unifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.unifiedMusicKeysDataKey,
+    (s) => s.unifiedMusicKeysDataKey,
   );
-  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
+  const baseChordDataKey = useDataKeyStore((s) => s.baseChordDataKey);
 
   const baseChord = useBaseChord(baseChordDataKey);
   const baseChordSemitoneOffsetFromMajorRoot =

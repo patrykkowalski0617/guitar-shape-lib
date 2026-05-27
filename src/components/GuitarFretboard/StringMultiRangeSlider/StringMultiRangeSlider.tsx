@@ -6,10 +6,8 @@ import { getIndexRangeArray, getRangeFromVisibleStrings } from "./helpers";
 import type { RangeValue } from "./types";
 
 export const StringMultiRangeSlider = () => {
-  const visibleStrings = useControllersStore((state) => state.visibleStrings);
-  const setVisibleStrings = useControllersStore(
-    (state) => state.setVisibleStrings,
-  );
+  const visibleStrings = useControllersStore((s) => s.visibleStrings);
+  const setVisibleStrings = useControllersStore((s) => s.setVisibleStrings);
 
   const range = useMemo(
     () => getRangeFromVisibleStrings(visibleStrings),

@@ -25,7 +25,7 @@ export function MiniCarousel<T>({
   renderItem,
   getItemId,
 }: MiniCarouselProps<T>) {
-  const isPlaying = useMetronomeStore((state) => state.isPlaying);
+  const isPlaying = useMetronomeStore((s) => s.isPlaying);
   const carouselWrapperRef = useRef<HTMLDivElement>(null);
   const [visibleIndex, setVisibleIndex] = useState(0);
   const [isUserInteracting, setIsUserInteracting] = useState(false);

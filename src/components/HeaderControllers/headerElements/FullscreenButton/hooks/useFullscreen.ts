@@ -16,10 +16,10 @@ interface ScreenOrientationWithLock extends ScreenOrientation {
 }
 
 export function useFullscreen() {
-  const isFullscreen = useSettingsStore((state) => state.isFullscreen);
-  const setIsFullscreen = useSettingsStore((state) => state.setIsFullscreen);
-  const isRotated = useSettingsStore((state) => state.isRotated);
-  const setIsRotated = useSettingsStore((state) => state.setIsRotated);
+  const isFullscreen = useSettingsStore((s) => s.isFullscreen);
+  const setIsFullscreen = useSettingsStore((s) => s.setIsFullscreen);
+  const isRotated = useSettingsStore((s) => s.isRotated);
+  const setIsRotated = useSettingsStore((s) => s.setIsRotated);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -33,7 +33,8 @@ export function useFullscreen() {
     };
 
     document.addEventListener("fullscreenchange", handleFullscreenChange);
-    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    return () =>
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
   }, [setIsFullscreen, setIsRotated]);
 
   const toggleFullscreen = useCallback(
@@ -51,7 +52,9 @@ export function useFullscreen() {
             if ("orientation" in screen && "lock" in screen.orientation) {
               await (screen.orientation as ScreenOrientationWithLock)
                 .lock("landscape")
-                .catch((err) => console.warn("Orientation lock rejected (DevTools):", err));
+                .catch((err) =>
+                  console.warn("Orientation lock rejected (DevTools):", err),
+                );
             }
           }
         } else {
@@ -62,7 +65,9 @@ export function useFullscreen() {
           } else {
             setIsRotated(true);
             if ("orientation" in screen && "lock" in screen.orientation) {
-              await (screen.orientation as ScreenOrientationWithLock).lock("landscape").catch(() => {});
+              await (screen.orientation as ScreenOrientationWithLock)
+                .lock("landscape")
+                .catch(() => {});
             }
           }
         }

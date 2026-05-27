@@ -3,17 +3,13 @@ import { useMusicStore, useMetronomeStore, useControllersStore } from "@/store";
 import { synth } from "./synth";
 
 export function SoundEngine() {
-  const playback = useControllersStore((state) => state.playback);
-  const isCountingIn = useMetronomeStore((state) => state.isCountingIn);
-  const isPlaying = useMetronomeStore((state) => state.isPlaying);
-  const backingtrackNoteIds = useMusicStore(
-    (state) => state.backingtrackNoteIds,
-  );
-  const activeHoverNoteId = useMusicStore((state) => state.activeHoverNoteId);
-  const activeLockedNoteIds = useMusicStore(
-    (state) => state.activeLockedNoteIds,
-  );
-  const isPianoOn = useControllersStore((state) => state.isPianoOn);
+  const playback = useControllersStore((s) => s.playback);
+  const isCountingIn = useMetronomeStore((s) => s.isCountingIn);
+  const isPlaying = useMetronomeStore((s) => s.isPlaying);
+  const backingtrackNoteIds = useMusicStore((s) => s.backingtrackNoteIds);
+  const activeHoverNoteId = useMusicStore((s) => s.activeHoverNoteId);
+  const activeLockedNoteIds = useMusicStore((s) => s.activeLockedNoteIds);
+  const isPianoOn = useControllersStore((s) => s.isPianoOn);
   const currentlyPlaying = useRef<Set<string>>(new Set());
 
   useEffect(() => {

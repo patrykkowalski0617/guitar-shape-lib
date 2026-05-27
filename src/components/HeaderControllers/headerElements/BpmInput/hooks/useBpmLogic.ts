@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { BPM_RANGE, useMetronomeStore } from "@/store";
 
 export const useBpmLogic = () => {
-  const globalBpm = useMetronomeStore((state) => state.bpm);
-  const setGlobalBpm = useMetronomeStore((state) => state.setBpm);
+  const globalBpm = useMetronomeStore((s) => s.bpm);
+  const setGlobalBpm = useMetronomeStore((s) => s.setBpm);
 
   const [inputValue, setInputValue] = useState(globalBpm.toString());
   const [isDraggingState, setIsDraggingState] = useState(false);

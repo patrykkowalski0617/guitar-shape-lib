@@ -7,25 +7,21 @@ import { getShapeCoordinates } from "../helpers/getShapeCoordinates";
 import { useBaseChordsShapes } from "./useCAGED_ChordsShapes";
 
 export const useMultiShapeCoordinates = () => {
-  const isPlaying = useMetronomeStore((state) => state.isPlaying);
+  const isPlaying = useMetronomeStore((s) => s.isPlaying);
 
   const currentSelectedShapesVariantDataKeys = useDataKeyStore(
-    (state) => state.selectedShapesVariantDataKeys,
+    (s) => s.selectedShapesVariantDataKeys,
   );
-  const currentBaseChordDataKey = useDataKeyStore(
-    (state) => state.baseChordDataKey,
-  );
+  const currentBaseChordDataKey = useDataKeyStore((s) => s.baseChordDataKey);
   const currentUnifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.unifiedMusicKeysDataKey,
+    (s) => s.unifiedMusicKeysDataKey,
   );
 
   const nextSelectedShapesVariantDataKeys = useDataKeyStore(
-    (state) => state.nextSelectedShapesVariantDataKeys,
+    (s) => s.nextSelectedShapesVariantDataKeys,
   );
 
-  const setBaseChordBassNoteId = useMusicStore(
-    (state) => state.setBaseChordBassNoteId,
-  );
+  const setBaseChordBassNoteId = useMusicStore((s) => s.setBaseChordBassNoteId);
 
   const getBaseChordsShapesForVisualAndSound = useBaseChordsShapes({
     baseChordDataKey: currentBaseChordDataKey,

@@ -17,9 +17,7 @@ export const useBassNoteId = ({
   selectedShapesVariantDataKeys,
   getBaseChordsShapes,
 }: UseBassNoteIdParams) => {
-  const setBaseChordBassNoteId = useMusicStore(
-    (state) => state.setBaseChordBassNoteId,
-  );
+  const setBaseChordBassNoteId = useMusicStore((s) => s.setBaseChordBassNoteId);
 
   const bassNoteId = useMemo((): NoteId | null => {
     const firstKey = selectedShapesVariantDataKeys?.[0];

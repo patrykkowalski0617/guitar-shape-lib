@@ -2,28 +2,26 @@ import { useDataKeyStore } from "@/store";
 
 export const useDataKeySelectors = () => {
   return {
-    setBaseChordDataKey: useDataKeyStore((state) => state.setBaseChordDataKey),
+    setBaseChordDataKey: useDataKeyStore((s) => s.setBaseChordDataKey),
     setSelectedShapesVariantDataKeys: useDataKeyStore(
-      (state) => state.setSelectedShapesVariantDataKeys,
+      (s) => s.setSelectedShapesVariantDataKeys,
     ),
     setSemitoneOffsetFromMajorRoot: useDataKeyStore(
-      (state) => state.setSemitoneOffsetFromMajorRoot,
+      (s) => s.setSemitoneOffsetFromMajorRoot,
     ),
     setUnifiedMusicKeysDataKey: useDataKeyStore(
-      (state) => state.setUnifiedMusicKeysDataKey,
+      (s) => s.setUnifiedMusicKeysDataKey,
     ),
 
-    setNextBaseChordDataKey: useDataKeyStore(
-      (state) => state.setNextBaseChordDataKey,
-    ),
+    setNextBaseChordDataKey: useDataKeyStore((s) => s.setNextBaseChordDataKey),
     setNextSelectedShapesVariantDataKeys: useDataKeyStore(
-      (state) => state.setNextSelectedShapesVariantDataKeys,
+      (s) => s.setNextSelectedShapesVariantDataKeys,
     ),
     setNextSemitoneOffsetFromMajorRoot: useDataKeyStore(
-      (state) => state.setNextSemitoneOffsetFromMajorRoot,
+      (s) => s.setNextSemitoneOffsetFromMajorRoot,
     ),
     setNextUnifiedMusicKeysDataKey: useDataKeyStore(
-      (state) => state.setNextUnifiedMusicKeysDataKey,
+      (s) => s.setNextUnifiedMusicKeysDataKey,
     ),
   };
 };

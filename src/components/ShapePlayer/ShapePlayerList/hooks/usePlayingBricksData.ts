@@ -4,14 +4,14 @@ import { calculateActiveBrick } from "../utils";
 import { applyBrickChange } from "../utils/applyBrickChange";
 
 export function usePlayingBricksData(id: string) {
-  const currentStep = useMetronomeStore((state) => state.currentStep);
-  const isCountingIn = useMetronomeStore((state) => state.isCountingIn);
-  const isPlaying = useMetronomeStore((state) => state.isPlaying);
+  const currentStep = useMetronomeStore((s) => s.currentStep);
+  const isCountingIn = useMetronomeStore((s) => s.isCountingIn);
+  const isPlaying = useMetronomeStore((s) => s.isPlaying);
 
   const guitarShapePlayerBricks = useShapePlayerStore(
-    (state) => state.guitarShapePlayerBricks,
+    (s) => s.guitarShapePlayerBricks,
   );
-  const playbackRange = useShapePlayerStore((state) => state.playbackRange);
+  const playbackRange = useShapePlayerStore((s) => s.playbackRange);
 
   const hasPreparedCountInRef = useRef(false);
 

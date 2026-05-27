@@ -4,15 +4,11 @@ import { resolveTargetSharpNoteNames } from "@/utils";
 import type { ShapePlayerBrick } from "@/store";
 
 export function useRestoreBrick() {
-  const restoreCurrentBrick = useDataKeyStore(
-    (state) => state.restoreCurrentBrick,
-  );
+  const restoreCurrentBrick = useDataKeyStore((s) => s.restoreCurrentBrick);
   const replaceTargetSharpNoteNames = useMusicStore(
-    (state) => state.replaceTargetSharpNoteNames,
+    (s) => s.replaceTargetSharpNoteNames,
   );
-  const setActiveBrickId = useShapePlayerStore(
-    (state) => state.setActiveBrickId,
-  );
+  const setActiveBrickId = useShapePlayerStore((s) => s.setActiveBrickId);
 
   const restore = (brick: ShapePlayerBrick) => {
     const orderedLocations = getOrderedShapeVariantDataKeys({

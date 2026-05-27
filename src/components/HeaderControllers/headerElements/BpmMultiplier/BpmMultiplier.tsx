@@ -3,8 +3,8 @@ import { useMetronomeStore } from "@/store";
 import { Button } from "@/components/ui";
 
 export const BpmMultiplier = () => {
-  const setBpmMultiplier = useMetronomeStore((state) => state.setBpmMultiplier);
-  const bpmMultiplier = useMetronomeStore((state) => state.bpmMultiplier);
+  const setBpmMultiplier = useMetronomeStore((s) => s.setBpmMultiplier);
+  const bpmMultiplier = useMetronomeStore((s) => s.bpmMultiplier);
   const [count, setCount] = useState(bpmMultiplier);
 
   const handleClick = () => {

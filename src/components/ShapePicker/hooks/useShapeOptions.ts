@@ -3,9 +3,9 @@ import { getFilteredAndFormatedShapes } from "../helpers/getFilteredAndFormatedS
 import { getGuitarShapeName } from "@/hooks/guitarShapes";
 
 export const useShapeOptions = () => {
-  const baseChordDataKey = useDataKeyStore((state) => state.baseChordDataKey);
+  const baseChordDataKey = useDataKeyStore((s) => s.baseChordDataKey);
   const unifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.unifiedMusicKeysDataKey,
+    (s) => s.unifiedMusicKeysDataKey,
   );
 
   const filteredAndFormatedShapes =

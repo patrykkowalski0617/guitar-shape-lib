@@ -7,14 +7,14 @@ import type { ShapePlayerBrick } from "@/store";
 import { applyBrickChange } from "../utils/applyBrickChange";
 
 export const usePlayingBricksEngine = () => {
-  const bpm = useMetronomeStore((state) => state.bpm);
-  const isPlaying = useMetronomeStore((state) => state.isPlaying);
+  const bpm = useMetronomeStore((s) => s.bpm);
+  const isPlaying = useMetronomeStore((s) => s.isPlaying);
   const guitarShapePlayerBricks = useShapePlayerStore(
-    (state) => state.guitarShapePlayerBricks,
+    (s) => s.guitarShapePlayerBricks,
   );
-  const playbackRange = useShapePlayerStore((state) => state.playbackRange);
-  const peekNextStep = useMetronomeStore((state) => state.peekNextStep);
-  const applyStep = useMetronomeStore((state) => state.applyStep);
+  const playbackRange = useShapePlayerStore((s) => s.playbackRange);
+  const peekNextStep = useMetronomeStore((s) => s.peekNextStep);
+  const applyStep = useMetronomeStore((s) => s.applyStep);
 
   const playableBricks = useMemo(() => {
     if (!playbackRange) return guitarShapePlayerBricks;

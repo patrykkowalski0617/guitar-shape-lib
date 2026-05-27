@@ -11,17 +11,15 @@ import { useRestoreBrick } from "@/hooks";
 export function useOpen() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const setBricks = useShapePlayerStore((state) => state.setBricks);
-  const setExerciseTitle = useShapePlayerStore(
-    (state) => state.setExerciseTitle,
-  );
-  const isPlaying = useMetronomeStore((state) => state.isPlaying);
+  const setBricks = useShapePlayerStore((s) => s.setBricks);
+  const setExerciseTitle = useShapePlayerStore((s) => s.setExerciseTitle);
+  const isPlaying = useMetronomeStore((s) => s.isPlaying);
 
   const setShapeVariantDataKeys = useMusicStore(
-    (state) => state.setShapeVariantDataKeys,
+    (s) => s.setShapeVariantDataKeys,
   );
   const setShapeVariantDataKeys_locked = useMusicStore(
-    (state) => state.setShapeVariantDataKeys_locked,
+    (s) => s.setShapeVariantDataKeys_locked,
   );
   const { restore } = useRestoreBrick();
 

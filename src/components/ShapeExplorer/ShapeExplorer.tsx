@@ -26,7 +26,7 @@ export const ShapeExplorer = ({
   orderedLocations,
 }: ShapeExplorerProps) => {
   const setSelectedShapesVariantDataKeys = useDataKeyStore(
-    (state) => state.setSelectedShapesVariantDataKeys,
+    (s) => s.setSelectedShapesVariantDataKeys,
   );
 
   const sliderKey = `${guitarShapeDataKey}-${unifiedMusicKeysDataKey}-${semitoneOffsetFromMajorRoot}`;

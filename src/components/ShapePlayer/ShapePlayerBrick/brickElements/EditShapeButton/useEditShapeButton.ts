@@ -10,23 +10,19 @@ export const useEditShapeButton = (id: string) => {
     guitarShapePlayerBrick,
   );
 
-  const setEditingBrickId = useUiStore((state) => state.setEditingBrickId);
+  const setEditingBrickId = useUiStore((s) => s.setEditingBrickId);
   const setKeyAndChordPickerExpanded = useUiStore(
-    (state) => state.setKeyAndChordPickerExpanded,
+    (s) => s.setKeyAndChordPickerExpanded,
   );
-  const setShapePickerExpanded = useUiStore(
-    (state) => state.setShapePickerExpanded,
-  );
+  const setShapePickerExpanded = useUiStore((s) => s.setShapePickerExpanded);
 
-  const setBaseChordDataKey = useDataKeyStore(
-    (state) => state.setBaseChordDataKey,
-  );
+  const setBaseChordDataKey = useDataKeyStore((s) => s.setBaseChordDataKey);
   const setUnifiedMusicKeysDataKey = useDataKeyStore(
-    (state) => state.setUnifiedMusicKeysDataKey,
+    (s) => s.setUnifiedMusicKeysDataKey,
   );
-  const setShapeDataKey = useDataKeyStore((state) => state.setShapeDataKey);
+  const setShapeDataKey = useDataKeyStore((s) => s.setShapeDataKey);
   const setSemitoneOffsetFromMajorRoot = useDataKeyStore(
-    (state) => state.setSemitoneOffsetFromMajorRoot,
+    (s) => s.setSemitoneOffsetFromMajorRoot,
   );
 
   const handleEditShape = () => {

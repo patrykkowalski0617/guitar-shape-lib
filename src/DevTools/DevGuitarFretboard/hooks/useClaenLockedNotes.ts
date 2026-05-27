@@ -4,7 +4,7 @@ import { useMusicStore } from "@/store";
 
 export const useClaenLockedNotes = () => {
   const resetActiveLockedNoteIds = useMusicStore(
-    (state) => state.resetActiveLockedNoteIds,
+    (s) => s.resetActiveLockedNoteIds,
   );
 
   const guitarShape = useGuitarShape();

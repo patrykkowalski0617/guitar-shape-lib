@@ -5,11 +5,11 @@ import { useMetronomeStore } from "@/store";
 import { useWakeLock } from "@/hooks";
 
 export const Metronome = () => {
-  const isPlaying = useMetronomeStore((state) => state.isPlaying);
-  const isCountingIn = useMetronomeStore((state) => state.isCountingIn);
-  const countIn = useMetronomeStore((state) => state.countIn);
-  const togglePlay = useMetronomeStore((state) => state.togglePlay);
-  const bpm = useMetronomeStore((state) => state.bpm);
+  const isPlaying = useMetronomeStore((s) => s.isPlaying);
+  const isCountingIn = useMetronomeStore((s) => s.isCountingIn);
+  const countIn = useMetronomeStore((s) => s.countIn);
+  const togglePlay = useMetronomeStore((s) => s.togglePlay);
+  const bpm = useMetronomeStore((s) => s.bpm);
 
   const { toggleWakeLock, isActive } = useWakeLock();
 

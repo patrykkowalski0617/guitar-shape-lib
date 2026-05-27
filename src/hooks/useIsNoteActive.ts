@@ -2,11 +2,9 @@ import { useMusicStore } from "@/store";
 import type { NoteId } from "@/utils";
 
 export function useIsNoteActive(noteId: NoteId) {
-  const activeHoverNoteId = useMusicStore((state) => state.activeHoverNoteId);
-  const activeLockedNoteIds = useMusicStore(
-    (state) => state.activeLockedNoteIds,
-  );
-  const guitarShapeNoteIds = useMusicStore((state) => state.guitarShapeNoteIds);
+  const activeHoverNoteId = useMusicStore((s) => s.activeHoverNoteId);
+  const activeLockedNoteIds = useMusicStore((s) => s.activeLockedNoteIds);
+  const guitarShapeNoteIds = useMusicStore((s) => s.guitarShapeNoteIds);
 
   const isHovered = noteId === activeHoverNoteId;
   const isLocked = activeLockedNoteIds.includes(noteId);

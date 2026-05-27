@@ -8,7 +8,7 @@ export const Led = styled.div<{ $active: boolean }>`
   border-radius: 50%;
   flex-shrink: 0;
   border: 1px solid color-mix(in oklab, var(--led) 15%, transparent);
-  background-color: var(--background);
+  background-color: hsl(12 71% 7% / 0.6);
   box-shadow: none;
   transition:
     background-color 0ms,
@@ -22,8 +22,8 @@ export const Led = styled.div<{ $active: boolean }>`
         background-color 0ms,
         border-color 0ms,
         box-shadow 0ms;
-      background-color: color-mix(in oklab, var(--led) 85%, white);
-      border-color: var(--led);
+      background-color: var(--led);
+      border-color: var(--hover-glow);
       box-shadow:
         0 0 4px color-mix(in oklab, var(--led) 80%, transparent),
         0 0 10px color-mix(in oklab, var(--led) 40%, transparent),

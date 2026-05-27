@@ -9,20 +9,14 @@ export function useFretboardCell({
   isShapeCell,
   isInNextTargetShape,
 }: UseFretboardCellProps): FretboardCellHandlers {
-  const setActiveHoverNoteId = useMusicStore(
-    (state) => state.setActiveHoverNoteId,
-  );
-  const setActiveLockedNoteIds = useMusicStore(
-    (state) => state.setActiveLockedNoteIds,
-  );
+  const setActiveHoverNoteId = useMusicStore((s) => s.setActiveHoverNoteId);
+  const setActiveLockedNoteIds = useMusicStore((s) => s.setActiveLockedNoteIds);
   const guitarShapePlayerBricks = useShapePlayerStore(
     (s) => s.guitarShapePlayerBricks,
   );
 
   const sharpNoteName = noteObject.sharpNoteName;
-  const targetSharpNoteNames = useMusicStore(
-    (state) => state.targetSharpNoteNames,
-  );
+  const targetSharpNoteNames = useMusicStore((s) => s.targetSharpNoteNames);
 
   const isTargetNote = useMemo(() => {
     if (sharpNoteName === null) return false;

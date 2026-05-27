@@ -2,14 +2,10 @@ import { useState, useRef, type ChangeEvent, type KeyboardEvent } from "react";
 import { useShapePlayerStore } from "@/store";
 
 export const useExerciseTitle = () => {
-  const store_exerciseTitle = useShapePlayerStore(
-    (state) => state.exerciseTitle,
-  );
-  const setExerciseTitle = useShapePlayerStore(
-    (state) => state.setExerciseTitle,
-  );
+  const store_exerciseTitle = useShapePlayerStore((s) => s.exerciseTitle);
+  const setExerciseTitle = useShapePlayerStore((s) => s.setExerciseTitle);
   const hasBricks = useShapePlayerStore(
-    (state) => state.guitarShapePlayerBricks.length > 0,
+    (s) => s.guitarShapePlayerBricks.length > 0,
   );
 
   const [localValue, setLocalValue] = useState<string | null>(null);

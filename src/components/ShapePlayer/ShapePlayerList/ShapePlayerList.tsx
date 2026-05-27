@@ -10,10 +10,10 @@ import { BricksMultiRangeSlider } from "../BricksMultiRangeSlider/BricksMultiRan
 
 export const ShapePlayerList = () => {
   const guitarShapePlayerBricks = useShapePlayerStore(
-    (state) => state.guitarShapePlayerBricks,
+    (s) => s.guitarShapePlayerBricks,
   );
   const brickIds = guitarShapePlayerBricks.map((b) => b.id);
-  const playbackRange = useShapePlayerStore((state) => state.playbackRange);
+  const playbackRange = useShapePlayerStore((s) => s.playbackRange);
 
   usePlayingBricksEngine();
 

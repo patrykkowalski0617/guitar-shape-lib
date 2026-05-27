@@ -4,11 +4,11 @@ import { Button } from "@/components/ui";
 import { exportBricksToJson } from "@/components/ShapePlayer/helpers/exportBricksToJson";
 
 export function Save() {
-  const isPlaying = useMetronomeStore((state) => state.isPlaying);
+  const isPlaying = useMetronomeStore((s) => s.isPlaying);
   const guitarShapePlayerBricks = useShapePlayerStore(
-    (state) => state.guitarShapePlayerBricks,
+    (s) => s.guitarShapePlayerBricks,
   );
-  const exerciseTitle = useShapePlayerStore((state) => state.exerciseTitle);
+  const exerciseTitle = useShapePlayerStore((s) => s.exerciseTitle);
 
   const handleExport = () => {
     exportBricksToJson(guitarShapePlayerBricks, exerciseTitle);

@@ -9,12 +9,10 @@ interface RangeValue {
 
 export const BricksMultiRangeSlider = () => {
   const guitarShapePlayerBricks = useShapePlayerStore(
-    (state) => state.guitarShapePlayerBricks,
+    (s) => s.guitarShapePlayerBricks,
   );
-  const playbackRange = useShapePlayerStore((state) => state.playbackRange);
-  const setPlaybackRange = useShapePlayerStore(
-    (state) => state.setPlaybackRange,
-  );
+  const playbackRange = useShapePlayerStore((s) => s.playbackRange);
+  const setPlaybackRange = useShapePlayerStore((s) => s.setPlaybackRange);
 
   const totalBricksCount = guitarShapePlayerBricks.length;
 

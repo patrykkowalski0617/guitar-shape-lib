@@ -8,9 +8,9 @@ import { resolveTargetSharpNoteNames } from "@/utils/resolveTargetSharpNoteNames
 export const useShapePlayerTargetNotes = (
   guitarShapePlayerBrick?: ShapePlayerBrick,
 ) => {
-  const updateBrick = useShapePlayerStore((state) => state.updateBrick);
+  const updateBrick = useShapePlayerStore((s) => s.updateBrick);
   const replaceTargetSharpNoteNames = useMusicStore(
-    (state) => state.replaceTargetSharpNoteNames,
+    (s) => s.replaceTargetSharpNoteNames,
   );
 
   const toggleTargetNote = (index: number) => {
