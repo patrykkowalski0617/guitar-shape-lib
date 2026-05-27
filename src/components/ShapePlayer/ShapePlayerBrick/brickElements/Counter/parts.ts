@@ -1,14 +1,12 @@
-import { color, duration } from "@/components/ui";
+import { color, duration, element } from "@/components/ui";
 import styled, { css, keyframes } from "styled-components";
 
 export const CounterWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 120px;
-  height: 30px;
+  height: ${element.heightSm};
   gap: 4px;
-  padding: 4px;
   border-radius: 6px;
   box-sizing: border-box;
 `;
@@ -19,7 +17,6 @@ export const ControlButton = styled.button`
   justify-content: center;
   border: none;
   color: rgba(197, 48, 28, 0.6);
-  font-size: 22px;
   cursor: pointer;
   padding: 0 2px;
   height: 100%;
@@ -42,6 +39,7 @@ export const BeatsContainer = styled.div`
   flex: 1;
   height: 100%;
   gap: 4px;
+  width: 150px;
 `;
 
 interface BeatIndicatorProps {
@@ -64,19 +62,15 @@ export const BeatIndicator = styled.div<BeatIndicatorProps>`
   flex: 1;
   height: 100%;
   border-radius: 2px;
-
   background-color: rgba(30, 10, 5, 0.6);
-
   border: 1px solid rgba(197, 48, 28, 0.1);
-
   box-shadow:
     0px 0px 0px rgba(220, 74, 55, 0),
     0px 0px 0px rgba(195, 55, 35, 0);
-
   transition:
     box-shadow 0.3s ease-out,
     border 4s ease-out;
-
+  font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;

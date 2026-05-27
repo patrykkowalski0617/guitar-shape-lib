@@ -1,5 +1,5 @@
 import { AppWrapper, MainContent, Section } from "@/parts";
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/Sign/Sign";
 import { SoundEngine } from "./components/SoundEngine/SoundEngine";
 import { ShapePlayer } from "./components/ShapePlayer/ShapePlayer";
 import GuitarFretboard from "./components/GuitarFretboard/GuitarFretboard";

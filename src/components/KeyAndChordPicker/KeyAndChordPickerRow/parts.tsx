@@ -1,5 +1,5 @@
 import { color, duration, elementBase, hoverGlowBorder } from "@/components/ui";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Item = styled.button<{ $w?: number }>`
   ${elementBase}
@@ -34,7 +34,16 @@ export const Row = styled.div<{ $isCurrent?: boolean }>`
   flex-direction: row;
   width: 100%;
   align-items: center;
-
+  ${({ $isCurrent }) =>
+    $isCurrent &&
+    css`
+      ${Item} {
+        background-color: ${color.surfaceHigh};
+        &:first-child {
+          background-color: var(--voidHigh);
+        }
+      }
+    `}
   &:hover {
     ${Item} {
       background-color: ${color.surfaceHigh};

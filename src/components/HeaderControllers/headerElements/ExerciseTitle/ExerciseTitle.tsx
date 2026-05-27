@@ -14,17 +14,21 @@ export const ExerciseTitle = () => {
   } = useExerciseTitle();
 
   return (
-    <S.EditableText
-      ref={inputRef}
-      value={currentValue}
-      onChange={handleInputChange}
-      onBlur={saveTitle}
-      onKeyDown={handleKeyDown}
-      onFocus={() => {
-        enableEditing();
-        handleFocus();
-      }}
-      disabled={isDisabled}
-    />
+    <S.Wrapper>
+      <S.HiddenText>{currentValue || " "}</S.HiddenText>
+
+      <S.EditableText
+        ref={inputRef}
+        value={currentValue}
+        onChange={handleInputChange}
+        onBlur={saveTitle}
+        onKeyDown={handleKeyDown}
+        onFocus={() => {
+          enableEditing();
+          handleFocus();
+        }}
+        disabled={isDisabled}
+      />
+    </S.Wrapper>
   );
 };

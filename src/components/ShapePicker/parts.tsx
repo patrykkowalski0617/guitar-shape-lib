@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { hoverGlowBorder, color } from "../ui";
+import { hoverGlowBorder, color, space } from "../ui";
+
+export const ShapePicker = styled.div`
+  padding: ${space._3};
+`;
 
 export const InfoText = styled.div`
   text-align: center;
@@ -11,9 +15,7 @@ export const InfoText = styled.div`
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
-  border: 1px solid hsl(var(--border));
-  border-radius: var(--radius);
-  overflow: hidden;
+  list-style: none;
 `;
 
 export const ListItem = styled.li`

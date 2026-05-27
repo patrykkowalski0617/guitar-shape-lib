@@ -5,7 +5,7 @@ export default function ShapePicker() {
   const { options, selectedChordLabel, handleSelectShape } = useShapePicker();
 
   return (
-    <>
+    <S.ShapePicker>
       <S.InfoText>
         Choose a shape to solo over the {selectedChordLabel} chord
       </S.InfoText>
@@ -20,6 +20,6 @@ export default function ShapePicker() {
           </S.ListItem>
         ))}
       </S.List>
-    </>
+    </S.ShapePicker>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useMetronomeStore } from "@/store";
 import * as S from "./parts";
 import { useCounter } from "./useCounter";
+import { Minus, Plus } from "lucide-react";
 
 export interface CounterProps {
   id: string;
@@ -61,7 +62,7 @@ export const Counter = ({
   return (
     <S.CounterWrapper>
       <S.ControlButton onClick={handleDecrement} disabled={isDecrementDisabled}>
-        -
+        <Minus />
       </S.ControlButton>
 
       <S.BeatsContainer>
@@ -69,7 +70,7 @@ export const Counter = ({
       </S.BeatsContainer>
 
       <S.ControlButton onClick={handleIncrement} disabled={isIncrementDisabled}>
-        +
+        <Plus />
       </S.ControlButton>
     </S.CounterWrapper>
   );
