@@ -60,7 +60,7 @@ export const blackKeysWrapperStyles: Partial<
 
 export const blackKeyCommon = css`
   ${commonStyleForKeyBase}
-  background-color: var(--background);
+  background-color: hsl(0, 0%, 2%);
   height: calc(${blackKeyH}px - 1px);
   z-index: 10;
   flex: 0 0 0;
@@ -68,21 +68,21 @@ export const blackKeyCommon = css`
     ${pseudoElKeyBase}
     ${transition}
     box-shadow: 3px 3px 6px 3px
-    color-mix(in oklab, var(--background) 90%, transparent);
+    color-mix(in oklab, hsl(0, 0%, 2%) 90%, transparent);
     width: ${blackKeyW}px;
     height: 100%;
-    background-color: var(--background);
+    background-color: hsl(0, 0%, 2%);
     top: 0px;
     z-index: 9;
     border-right-color: color-mix(
       in oklab,
       var(--muted) 90%,
-      var(--background)
+      hsl(0, 0%, 2%)
     ) !important;
     border-left-color: color-mix(
       in oklab,
       var(--instrument) 100%,
-      var(--background)
+      hsl(0, 0%, 2%)
     );
     border-left-width: 2px;
   }

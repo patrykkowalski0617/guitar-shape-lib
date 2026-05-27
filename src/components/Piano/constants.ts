@@ -35,8 +35,8 @@ export const SHAPES_OF_PIANO_KEYS: Record<number, KeyTypes> = {
   11: "B",
 };
 
-export const instrumentElBRadius = "var(--radius-sm)";
-export const instrumentBRadius = "var(--radius-2xl)";
+export const instrumentElBRadius = "4px";
+export const instrumentBRadius = "16px";
 
 export const keyBorderWidth = 1;
 export const whiteKeyH = 140;
@@ -45,7 +45,7 @@ export const blackKeyW = 23;
 export const keysGap = 1;
 export const tripleBlackKeysOffset = blackKeyW / 4 + 2;
 export const doubleBlackKeysOffset = tripleBlackKeysOffset - 3;
-export const pianoBgColor = `color-mix(in oklab, var(--muted) 15%, var(--background))`;
+export const pianoBgColor = `color-mix(in oklab, var(--muted) 15%, hsl(0, 0%, 2%))`;
 
 export const baseCutCalc = `${blackKeyW}px / 2 + ${keysGap}px + 1px`;
 export const wideCutWidth = css`calc(${baseCutCalc} + ${doubleBlackKeysOffset}px + 1px) `;

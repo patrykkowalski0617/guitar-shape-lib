@@ -40,10 +40,9 @@ export const Fret = styled.div<{
       &::before {
         opacity: 1;
         transform: scale(1);
-        background: color-mix(in oklab, var(--muted) 30%, var(--background));
+        background: var(--muted);
         box-shadow:
-          3px 3px 3px 0px
-            color-mix(in oklab, var(--background) 70%, transparent),
+          3px 3px 3px 0px color-mix(in oklab, hsl(0, 0%, 2%) 70%, transparent),
           inset 0.5px 0.5px 1px rgba(255, 255, 255, 0.35),
           inset -1px -1px 2px rgba(0, 0, 0, 0.22);
         border: 1px solid
@@ -82,9 +81,9 @@ export const NutShadow = styled.div`
   height: calc(600% - 14px);
   background-image: linear-gradient(
     180deg,
-    color-mix(in oklab, var(--instrument) 20%, var(--background)) 0%,
+    color-mix(in oklab, var(--instrument) 20%, hsl(0, 0%, 2%)) 0%,
     color-mix(in oklab, var(--foreground) 0%, transparent) 40%,
-    color-mix(in oklab, var(--instrument) 20%, var(--background)) 100%
+    color-mix(in oklab, var(--instrument) 20%, hsl(0, 0%, 2%)) 100%
   );
   opacity: 0.6;
   z-index: 21;

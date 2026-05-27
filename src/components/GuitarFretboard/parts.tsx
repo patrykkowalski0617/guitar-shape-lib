@@ -13,8 +13,8 @@ export const InstrumentScrollWrapper = styled.div`
     mask-image: linear-gradient(
       to right,
       transparent,
-      var(--background) 10px,
-      var(--background) calc(100% - 10px),
+      hsl(0, 0%, 2%) 10px,
+      hsl(0, 0%, 2%) calc(100% - 10px),
       transparent
     );
   }
@@ -55,11 +55,10 @@ export const FretboardShadow = styled.div`
   top: 10px;
   background-size: 1400px;
   box-shadow:
-    4px 10px 15px 0px color-mix(in oklab, var(--background) 80%, transparent),
-    0px 0px 5px 0px
-      color-mix(in oklab, var(--instrument) 10%, var(--background));
+    4px 10px 15px 0px hsla(0, 0%, 2%, 0.8),
+    0px 0px 5px 0px color-mix(in oklab, var(--instrument) 10%, hsl(0, 0%, 2%));
   border-radius: 12px;
-  border-bottom: 5px solid var(--background);
+  border-bottom: 5px solid hsl(0, 0%, 2%);
 `;
 
 export const Fretboard = styled.div`
@@ -76,23 +75,19 @@ export const Fretboard = styled.div`
     inset: 0;
     right: calc(${fretboardRPadding} - 15px);
     left: 10px;
-    background-color: color-mix(
-      in oklab,
-      color-mix(in oklab, var(--instrument) 20%, var(--muted)) 70%,
-      var(--foreground)
-    );
+    background-color: color-mix(in oklab, var(--instrument) 40%, #717171);
     background-image:
       linear-gradient(
         0deg,
-        color-mix(in oklab, var(--background) 100%, transparent) 0%,
-        color-mix(in oklab, var(--background) 20%, transparent) 60%,
-        color-mix(in oklab, var(--background) 80%, transparent) 100%
+        color-mix(in oklab, hsl(0, 0%, 2%) 100%, transparent) 0%,
+        color-mix(in oklab, hsl(0, 0%, 2%) 20%, transparent) 60%,
+        color-mix(in oklab, hsl(0, 0%, 2%) 80%, transparent) 100%
       ),
       url(${WoodImage});
 
     background-size: cover;
     background-blend-mode: overlay;
     box-shadow: 30px 0px 30px 20px
-      color-mix(in oklab, var(--background) 80%, transparent) inset;
+      color-mix(in oklab, hsl(0, 0%, 2%) 80%, transparent) inset;
   }
 `;

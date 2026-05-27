@@ -30,15 +30,15 @@ export const getKeyPushEffect = ({
   pianoKeyShape,
 }: KeyPushedProps) => {
   const whiteKeyShadowSize = 5;
-  const boxShadowColor = `color-mix(in oklab, var(--background) 100%, transparent)`;
-  const regularBorderColor = `color-mix(in oklab, var(--instrument) 70%, var(--background))`;
+  const boxShadowColor = `color-mix(in oklab, hsl(0, 0%, 2%) 100%, transparent)`;
+  const regularBorderColor = `color-mix(in oklab, var(--instrument) 70%, hsl(0, 0%, 2%))`;
   const whiteKeyShadow = `inset 0 0 ${whiteKeyShadowSize}px 0 ${boxShadowColor}`;
 
   const blackKeyPushedStyle = css`
     &::before {
       transform: scale(0.99) translateY(-1px);
       box-shadow: 1px 1px 3px 1px
-        color-mix(in oklab, var(--background) 100%, transparent) !important;
+        color-mix(in oklab, hsl(0, 0%, 2%) 100%, transparent) !important;
 
       border-color: color-mix(
         in oklab,

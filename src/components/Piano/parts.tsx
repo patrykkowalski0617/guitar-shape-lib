@@ -11,7 +11,7 @@ export const PianoKeysLeftSideShadow = styled.div`
   position: absolute;
   width: 20px;
   box-shadow: 13px 0px 11px 0px
-    color-mix(in oklab, var(--background) 100%, transparent);
+    color-mix(in oklab, hsl(0, 0%, 2%) 100%, transparent);
   z-index: 11;
   left: -30px;
   transform: skew(-6deg, 0deg);
@@ -22,7 +22,7 @@ export const PianoKeysRightSideShadow = styled.div`
   position: absolute;
   width: 20px;
   box-shadow: -7px 0px 11px 0px
-    color-mix(in oklab, var(--background) 100%, transparent);
+    color-mix(in oklab, hsl(0, 0%, 2%) 100%, transparent);
   z-index: 11;
   right: -30px;
   transform: skew(10deg, 0deg);
@@ -30,7 +30,7 @@ export const PianoKeysRightSideShadow = styled.div`
 
 export const PianoKeysTopShadow = styled.div`
   box-shadow: 0px 10px 20px 8px
-    color-mix(in oklab, var(--background) 100%, transparent);
+    color-mix(in oklab, hsl(0, 0%, 2%) 100%, transparent);
   position: absolute;
   top: -20px;
   left: -4px;
@@ -44,7 +44,7 @@ export const PianoShadow = styled.div`
   border-radius: ${instrumentBRadius} ${instrumentBRadius}
     ${instrumentElBRadius} ${instrumentElBRadius};
   box-shadow:
-    10px 10px 20px 4px color-mix(in oklab, var(--background) 100%, transparent),
+    10px 10px 20px 4px color-mix(in oklab, hsl(0, 0%, 2%) 100%, transparent),
     0px -15px 30px 8px color-mix(in oklab, var(--foreground) 25%, transparent);
   top: 0;
   left: 1px;
@@ -54,7 +54,7 @@ export const PianoShadow = styled.div`
 `;
 
 export const PianoWrapper = styled.div`
-  background-color: color-mix(in oklab, var(--background) 90%, transparent);
+  background-color: color-mix(in oklab, hsl(0, 0%, 2%) 90%, transparent);
   border-radius: ${instrumentBRadius} ${instrumentBRadius}
     ${instrumentElBRadius} ${instrumentElBRadius};
   position: relative;

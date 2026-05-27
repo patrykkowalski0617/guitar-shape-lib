@@ -1,6 +1,6 @@
 import { FolderOpen } from "lucide-react";
 import { useOpen } from "./useOpen";
-import { Button } from "@/components/ui/parts";
+import { Button } from "@/components/ui";
 
 export function Open() {
   const { fileInputRef, isPlaying, handleFileChange, handleClick } = useOpen();

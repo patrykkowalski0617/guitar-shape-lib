@@ -19,7 +19,11 @@ export default function NoteLabel({
 }: NoteLabelProps): JSX.Element {
   return (
     <S.NoteWrapper $isTargetNote={isTargetNote}>
-      <S.Note $isVisible={isVisible} $variant={variant}>
+      <S.Note
+        $isTargetNote={isTargetNote}
+        $isVisible={isVisible}
+        $variant={variant}
+      >
         {noteLabel}
       </S.Note>
     </S.NoteWrapper>

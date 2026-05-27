@@ -1,6 +1,6 @@
 import { FileDown } from "lucide-react";
 import { useMetronomeStore, useShapePlayerStore } from "@/store";
-import { Button } from "../../../ui/parts";
+import { Button } from "@/components/ui";
 import { exportBricksToJson } from "@/components/ShapePlayer/helpers/exportBricksToJson";
 
 export function Save() {
