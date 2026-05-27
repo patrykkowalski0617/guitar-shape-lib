@@ -1,18 +1,9 @@
 import styled from "styled-components";
-import { elementBase } from "@/components/ui/constants";
-interface BpmInputProps {
-  $widthMultiplier?: number;
-}
+import { NumberInput as _NumberInput } from "@/components/ui";
 
-export const BpmInput = styled.input<BpmInputProps>`
-  ${elementBase}
-  cursor: text;
-  color: white;
-  width: 100px;
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  -moz-appearance: textfield;
+export const NumberInput = styled(_NumberInput)<{ $isDraggingState: boolean }>`
+  cursor: ns-resize;
+  user-select: ${({ $isDraggingState }) =>
+    $isDraggingState ? "none" : "auto"};
+  touch-action: none;
 `;

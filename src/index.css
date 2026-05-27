@@ -7,7 +7,7 @@
 
   --void: hsl(0, 0%, 2%);
   --background: hsl(0, 0%, 24%);
-  --foreground: hsl(0, 0%, 96%);
+  --foreground: hsl(0, 0%, 80%);
 
   --muted: hsl(0, 0%, 38%);
   --muted-foreground: hsl(0, 0%, 55%);
@@ -18,7 +18,7 @@
   --warn: hsl(0, 100%, 50%);
 
   --hover-glow: rgb(197, 48, 28);
-  --led: hsl(14, 90%, 62%);
+  --led: hsl(14, 100%, 55%);
 
   --font: "IBM Plex Sans", sans-serif;
 }

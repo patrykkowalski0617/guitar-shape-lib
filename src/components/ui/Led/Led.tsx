@@ -3,8 +3,8 @@ import { duration } from "../tokens";
 import { ledPulse } from "../animations";
 
 export const Led = styled.div<{ $active: boolean }>`
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   flex-shrink: 0;
   border: 1px solid color-mix(in oklab, var(--led) 15%, transparent);

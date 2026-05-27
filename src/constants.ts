@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 
-export const appBgColor = `color-mix(in oklab, var(--muted) 50%, var(--background))`;
+export const appBgColor = `var(--background)`;
 
 export const insetShadow = css`
   box-shadow:

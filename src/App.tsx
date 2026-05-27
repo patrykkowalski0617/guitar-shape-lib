@@ -1,5 +1,4 @@
 import { AppWrapper, MainContent, Section } from "@/parts";
-import { FullscreenButton } from "./components/FullscreenButton/FullscreenButton";
 import Footer from "./components/Footer/Footer";
 import { SoundEngine } from "./components/SoundEngine/SoundEngine";
 import { ShapePlayer } from "./components/ShapePlayer/ShapePlayer";
@@ -20,7 +19,6 @@ export default function App() {
         <PianoControllers />
       </Section> */}
 
-      <FullscreenButton />
       <KeyAndChordPicker />
       <ShapePicker />
       <MainContent>

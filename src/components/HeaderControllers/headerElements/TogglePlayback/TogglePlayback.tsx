@@ -23,7 +23,7 @@ export const TogglePlayback = () => {
   const playback = useControllersStore((s) => s.playback);
 
   return (
-    <PlaybackButton onClick={togglePlayBackingtrack} $w={2}>
+    <PlaybackButton onClick={togglePlayBackingtrack} $w={2.5}>
       <LedSlot>
         <Led $active={playback} />
       </LedSlot>

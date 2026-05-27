@@ -23,7 +23,7 @@ export const ToggleBass = () => {
   const isMetronomeWithBass = useMetronomeStore((s) => s.isMetronomeWithBass);
 
   return (
-    <PlaybackButton onClick={toggleIsMetronomeWithBass} $w={2}>
+    <PlaybackButton onClick={toggleIsMetronomeWithBass} $w={2.5}>
       <LedSlot>
         <Led $active={isMetronomeWithBass} />
       </LedSlot>

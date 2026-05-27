@@ -75,7 +75,7 @@ export const Fretboard = styled.div`
     inset: 0;
     right: calc(${fretboardRPadding} - 15px);
     left: 10px;
-    background-color: color-mix(in oklab, var(--instrument) 40%, #717171);
+    background-color: color-mix(in oklab, var(--instrument) 25%, #9f9e9e);
     background-image:
       linear-gradient(
         0deg,

@@ -7,6 +7,7 @@ export const useBpmLogic = () => {
 
   const [inputValue, setInputValue] = useState(globalBpm.toString());
   const [isDraggingState, setIsDraggingState] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   const isDraggingRef = useRef(false);
   const hasMovedRef = useRef(false);
@@ -19,6 +20,7 @@ export const useBpmLogic = () => {
   }, [globalBpm]);
 
   const handleCommit = () => {
+    setIsFocused(false);
     const parsedValue = parseInt(inputValue);
     const isValidNumber = !isNaN(parsedValue);
 
@@ -106,14 +108,22 @@ export const useBpmLogic = () => {
     }
   };
 
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    e.target.select();
+  const handleFocus = () => {
+    setIsFocused(true);
+    const currentBpmText = globalBpm.toString();
+    setInputValue(currentBpmText);
+
+    const executeSelection = () => {
+      inputRef.current?.select();
+    };
+    setTimeout(executeSelection, 0);
   };
 
   return {
     inputValue,
     setInputValue,
     isDraggingState,
+    isFocused,
     inputRef,
     handleCommit,
     handleKeyDown,

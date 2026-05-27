@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type KeyboardEvent } from "react";
+import { useState, useRef, type ChangeEvent, type KeyboardEvent } from "react";
 import { useShapePlayerStore } from "@/store";
 
 export const useExerciseTitle = () => {
@@ -13,6 +13,7 @@ export const useExerciseTitle = () => {
   );
 
   const [localValue, setLocalValue] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const currentValue =
     localValue !== null ? localValue : (store_exerciseTitle ?? "");
@@ -43,13 +44,21 @@ export const useExerciseTitle = () => {
     if (e.key === "Escape") cancelEditing();
   };
 
+  const handleFocus = () => {
+    setTimeout(() => {
+      inputRef.current?.select();
+    }, 0);
+  };
+
   return {
     currentValue,
     isDisabled: !hasBricks,
+    inputRef,
     enableEditing,
     saveTitle,
     cancelEditing,
     handleInputChange,
     handleKeyDown,
+    handleFocus,
   };
 };

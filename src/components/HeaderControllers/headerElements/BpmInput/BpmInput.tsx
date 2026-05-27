@@ -6,6 +6,7 @@ export const BpmInput = () => {
     inputValue,
     setInputValue,
     isDraggingState,
+    isFocused,
     inputRef,
     handleCommit,
     handleKeyDown,
@@ -13,22 +14,26 @@ export const BpmInput = () => {
     handleFocus,
   } = useBpmLogic();
 
+  const rawValue = inputValue;
+  const formattedValue = `${inputValue} bpm`;
+  const displayValue = isFocused ? rawValue : formattedValue;
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
   return (
-    <S.BpmInput
+    <S.NumberInput
       ref={inputRef}
       type="text"
-      value={inputValue}
-      onChange={(e) => setInputValue(e.target.value)}
+      value={displayValue}
+      onChange={handleInputChange}
       onBlur={handleCommit}
       onFocus={handleFocus}
       onKeyDown={handleKeyDown}
       onMouseDown={onStart}
       onTouchStart={onStart}
-      style={{
-        cursor: "ns-resize",
-        userSelect: isDraggingState ? "none" : "auto",
-        touchAction: "none",
-      }}
+      $isDraggingState={isDraggingState}
     />
   );
 };

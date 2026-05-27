@@ -5,19 +5,25 @@ export const ExerciseTitle = () => {
   const {
     currentValue,
     isDisabled,
+    inputRef,
     enableEditing,
     saveTitle,
     handleKeyDown,
     handleInputChange,
+    handleFocus,
   } = useExerciseTitle();
 
   return (
     <EditableText
+      ref={inputRef}
       value={currentValue}
       onChange={handleInputChange}
       onBlur={saveTitle}
       onKeyDown={handleKeyDown}
-      onFocus={enableEditing}
+      onFocus={() => {
+        enableEditing();
+        handleFocus();
+      }}
       disabled={isDisabled}
     />
   );

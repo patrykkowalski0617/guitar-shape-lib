@@ -2,6 +2,7 @@ import {
   BpmInput,
   BpmMultiplier,
   ExerciseTitle,
+  FullscreenButton,
   Metronome,
   TogglePlayback,
   Open,
@@ -17,11 +18,14 @@ export const HeaderControllers = () => {
       <Open />
       <Save />
       <ExerciseTitle />
+
       <TogglePlayback />
       <ToggleBass />
       <Metronome />
       <BpmInput />
       <BpmMultiplier />
+
+      <FullscreenButton />
     </S.ShapePlayerControllers>
   );
 };

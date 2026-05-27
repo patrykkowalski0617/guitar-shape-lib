@@ -3,8 +3,8 @@ import { css } from "styled-components";
 export const color = {
   void: "var(--void)",
   bg: "var(--background)",
-  surface: "color-mix(in oklab, var(--foreground) 8%, var(--background))",
-  surfaceHigh: "color-mix(in oklab, var(--foreground) 14%, var(--background))",
+  surface: "color-mix(in oklab, var(--foreground) 14%, var(--background))",
+  surfaceHigh: "color-mix(in oklab, var(--foreground) 24%, var(--background))",
 
   fg: "var(--foreground)",
   fgMuted: "var(--muted-foreground)",
@@ -21,12 +21,12 @@ export const color = {
 } as const;
 
 export const space = {
-  "1": "4px",
-  "2": "8px",
-  "3": "12px",
-  "4": "16px",
-  "6": "24px",
-  "8": "32px",
+  _1: "4px",
+  _2: "8px",
+  _3: "12px",
+  _4: "16px",
+  _6: "24px",
+  _8: "32px",
 } as const;
 
 export const font = {
@@ -70,9 +70,9 @@ export const elementBase = css<{ $w?: number }>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: ${space["2"]};
+  gap: ${space._2};
   height: ${element.heightLg};
-  padding: 0 ${space["3"]};
+  padding: 0 ${space._3};
   min-width: ${({ $w }) =>
     $w !== undefined ? `calc(${element.buttonUnit} * ${$w})` : "50px"};
   white-space: nowrap;
@@ -85,6 +85,7 @@ export const elementBase = css<{ $w?: number }>`
   cursor: pointer;
   user-select: none;
   outline: none;
+  color: var(--foreground);
 
   & > svg {
     width: auto;

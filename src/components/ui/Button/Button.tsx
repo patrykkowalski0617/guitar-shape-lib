@@ -2,15 +2,24 @@ import styled, { css } from "styled-components";
 import { color, elementBase, disabledState } from "../tokens";
 import { hoverGlow } from "../animations";
 
-type Variant = "default" | "ghost" | "active";
+type Variant = "default" | "outline" | "ghost" | "active";
 
 const variantStyles = {
   default: css`
     background: ${color.surface};
     color: ${color.fg};
   `,
+  outline: css`
+    background: transparent !important;
+    color: ${color.fgMuted};
+
+    &:hover:not(:disabled) {
+      color: ${color.fg};
+      background: ${color.surface};
+    }
+  `,
   ghost: css`
-    background: transparent;
+    background: transparent !important;
     border-color: transparent;
     color: ${color.fgMuted};
 

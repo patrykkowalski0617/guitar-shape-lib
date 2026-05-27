@@ -1,6 +1,6 @@
 import { useState } from "react";
-import * as S from "./parts";
 import { useMetronomeStore } from "@/store";
+import { Button } from "@/components/ui";
 
 export const BpmMultiplier = () => {
   const setBpmMultiplier = useMetronomeStore((state) => state.setBpmMultiplier);
@@ -8,10 +8,10 @@ export const BpmMultiplier = () => {
   const [count, setCount] = useState(bpmMultiplier);
 
   const handleClick = () => {
-    const nextCount = count >= 4 ? 1 : count + 1;
+    const nextCount = count >= 5 ? 1 : count + 1;
     setCount(nextCount);
     setBpmMultiplier(nextCount);
   };
 
-  return <S.Button onClick={handleClick}>/{count}</S.Button>;
+  return <Button onClick={handleClick}>/{count}</Button>;
 };
