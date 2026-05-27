@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { color, elementBase } from "../tokens";
+import { color, elementBase, disabledState } from "../tokens";
 import { hoverGlow } from "../animations";
 
 type Variant = "default" | "ghost" | "active";
@@ -31,15 +31,7 @@ export const Button = styled.button<{ $variant?: Variant; $w?: number }>`
   ${({ $variant = "default" }) => variantStyles[$variant]}
   ${hoverGlow}
 
-  &:focus-visible {
-    outline: 2px solid ${color.primary};
-    outline-offset: 2px;
-  }
-
-  &:disabled {
-    opacity: 0.38;
-    pointer-events: none;
-  }
+  ${disabledState}
 `;
 
 Button.defaultProps = {

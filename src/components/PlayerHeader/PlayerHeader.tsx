@@ -1,6 +1,6 @@
 import { MasterShapeExplorer } from "../ShapeExplorer/MasterShapeExplorer";
 import { MasterTargetNotesSelect } from "../TargetNotesSelect/MasterTargetNotesSelect";
-import { Add, Clear, Transpose } from "./headerElements";
+import { Add, Clear, Transpose, Undo } from "./headerElements";
 import * as S from "./parts";
 
 export const PlayerHeader = () => {
@@ -11,6 +11,7 @@ export const PlayerHeader = () => {
       <div style={{ width: 500 }}>
         <MasterShapeExplorer />
       </div>
+      <Undo />
       <Clear />
       <Add />
     </S.PlayerHeaderWrapper>

@@ -6,7 +6,7 @@ import {
   TogglePlayback,
   Open,
   Save,
-  Undo,
+  ToggleBass,
 } from "./headerElements";
 
 import * as S from "./parts";
@@ -17,8 +17,8 @@ export const HeaderControllers = () => {
       <Open />
       <Save />
       <ExerciseTitle />
-      <Undo />
       <TogglePlayback />
+      <ToggleBass />
       <Metronome />
       <BpmInput />
       <BpmMultiplier />

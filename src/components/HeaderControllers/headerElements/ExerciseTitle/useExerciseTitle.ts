@@ -12,8 +12,6 @@ export const useExerciseTitle = () => {
     (state) => state.guitarShapePlayerBricks.length > 0,
   );
 
-  const [isEditing, setIsEditing] = useState(false);
-
   const [localValue, setLocalValue] = useState<string | null>(null);
 
   const currentValue =
@@ -22,7 +20,6 @@ export const useExerciseTitle = () => {
   const enableEditing = () => {
     if (hasBricks) {
       setLocalValue(store_exerciseTitle ?? "");
-      setIsEditing(true);
     }
   };
 
@@ -30,12 +27,10 @@ export const useExerciseTitle = () => {
     if (localValue !== null) {
       setExerciseTitle(localValue);
     }
-    setIsEditing(false);
     setLocalValue(null);
   };
 
   const cancelEditing = () => {
-    setIsEditing(false);
     setLocalValue(null);
   };
 
@@ -49,10 +44,8 @@ export const useExerciseTitle = () => {
   };
 
   return {
-    exerciseTitle: store_exerciseTitle ?? "",
     currentValue,
-    isEditing,
-    isEditable: hasBricks,
+    isDisabled: !hasBricks,
     enableEditing,
     saveTitle,
     cancelEditing,

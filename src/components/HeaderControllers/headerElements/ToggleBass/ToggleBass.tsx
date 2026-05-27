@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useControllersStore } from "@/store";
+import { useMetronomeStore } from "@/store";
 import { Button, Led } from "@/components/ui";
 
 const PlaybackButton = styled(Button)`
@@ -16,18 +16,18 @@ const LedSlot = styled.div`
   align-items: center;
 `;
 
-export const TogglePlayback = () => {
-  const togglePlayBackingtrack = useControllersStore(
-    (s) => s.togglePlayBackingtrack,
+export const ToggleBass = () => {
+  const toggleIsMetronomeWithBass = useMetronomeStore(
+    (s) => s.toggleIsMetronomeWithBass,
   );
-  const playback = useControllersStore((s) => s.playback);
+  const isMetronomeWithBass = useMetronomeStore((s) => s.isMetronomeWithBass);
 
   return (
-    <PlaybackButton onClick={togglePlayBackingtrack} $w={2}>
+    <PlaybackButton onClick={toggleIsMetronomeWithBass} $w={2}>
       <LedSlot>
-        <Led $active={playback} />
+        <Led $active={isMetronomeWithBass} />
       </LedSlot>
-      Play chords
+      Play bass
     </PlaybackButton>
   );
 };

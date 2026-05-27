@@ -4,5 +4,5 @@ export { ExerciseTitle } from "./ExerciseTitle/ExerciseTitle";
 export { Metronome } from "./Metronome/Metronome";
 export { Open } from "./Open/Open";
 export { Save } from "./Save/Save";
+export { ToggleBass } from "./ToggleBass/ToggleBass";
 export { TogglePlayback } from "./TogglePlayback/TogglePlayback";
-export { Undo } from "./Undo/Undo";

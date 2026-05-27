@@ -31,4 +31,5 @@ export interface MetronomeState {
   getTotalSteps: (guitarShapePlayerBricks: MetronomeBrick[]) => number;
   peekNextStep: (guitarShapePlayerBricks: ShapePlayerBrick[]) => StepResult;
   applyStep: (event: ScheduledEvent) => void;
+  toggleIsMetronomeWithBass: () => void;
 }

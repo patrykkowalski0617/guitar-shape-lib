@@ -144,4 +144,7 @@ export const useMetronomeStore = create<MetronomeState>((set, get) => ({
       });
     }
   },
+
+  toggleIsMetronomeWithBass: () =>
+    set((state) => ({ isMetronomeWithBass: !state.isMetronomeWithBass })),
 }));

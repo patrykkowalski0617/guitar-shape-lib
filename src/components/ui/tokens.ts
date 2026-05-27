@@ -16,6 +16,8 @@ export const color = {
   secondary: "var(--secondary)",
   warn: "var(--warn)",
   instrument: "var(--instrument)",
+
+  led: "var(--led)",
 } as const;
 
 export const space = {
@@ -87,7 +89,14 @@ export const elementBase = css<{ $w?: number }>`
   & > svg {
     width: auto;
     height: 60%;
-    stroke-width: 2px;
+    stroke-width: 0.5px;
     flex-shrink: 0;
+  }
+`;
+
+export const disabledState = css`
+  &:disabled {
+    opacity: 0.38;
+    pointer-events: none;
   }
 `;
