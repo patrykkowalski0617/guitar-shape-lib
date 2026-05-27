@@ -101,3 +101,48 @@ export const disabledState = css`
     pointer-events: none;
   }
 `;
+
+export const grabStyle = css`
+  &:active {
+    cursor: grabbing;
+  }
+  cursor: grab;
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    border-radius: 99px;
+    overflow: hidden;
+    background-size: 4px 4px;
+    pointer-events: none;
+    transition: opacity ${duration.crawl} ease;
+    width: 40px;
+    height: 25px;
+  }
+
+  &::before {
+    background-image: radial-gradient(
+      rgba(255, 255, 255, 1) 0.7px,
+      transparent 0.7px
+    );
+    opacity: 0.3;
+  }
+
+  &::after {
+    background-image: radial-gradient(rgb(255, 88, 16) 1px, transparent 1px);
+    opacity: 0;
+  }
+
+  &:hover:not(.is-dragging):not(.range-dragging *),
+  &:active,
+  &.is-dragging {
+    &::before {
+      opacity: 0;
+      transition: opacity 0s;
+    }
+    &::after {
+      opacity: 0.75;
+      transition: opacity 0s;
+    }
+  }
+`;

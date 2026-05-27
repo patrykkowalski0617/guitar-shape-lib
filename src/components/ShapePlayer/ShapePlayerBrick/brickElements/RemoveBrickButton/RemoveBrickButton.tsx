@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/parts";
 import { Trash2 } from "lucide-react";
 import { useRemoveBrickButton } from "./useRemoveBrickButton";
+import { Button } from "@/components/ui";
 
 interface RemoveBrickButtonProps {
   id: string;
@@ -10,7 +10,7 @@ export const RemoveBrickButton = ({ id }: RemoveBrickButtonProps) => {
   const { handleRemoveClick } = useRemoveBrickButton(id);
 
   return (
-    <Button onClick={handleRemoveClick} $widthMultiplier={1}>
+    <Button onClick={handleRemoveClick} $variant={"warn"} $w={1}>
       <Trash2 />
     </Button>
   );

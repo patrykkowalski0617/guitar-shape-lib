@@ -46,8 +46,8 @@ export function KeyAndChordPickerRow({
         };
 
         return (
-          <S.Item key={item.combinedId}>
-            <S.Chord onClick={handleChordClick}>{fullLabel}</S.Chord>
+          <S.Item key={item.combinedId} onClick={handleChordClick}>
+            <S.Chord>{fullLabel}</S.Chord>
           </S.Item>
         );
       })}

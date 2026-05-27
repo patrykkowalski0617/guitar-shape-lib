@@ -88,6 +88,7 @@ export const useShapePicker = () => {
     options,
     selectedChordLabel,
     isShapePickerExpanded,
+    setShapePickerExpanded,
     handleSelectShape,
   };
 };

@@ -1,11 +1,5 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`;
-
 export const InfoText = styled.div`
   text-align: center;
   padding: 0.25rem 0;
@@ -26,7 +20,6 @@ export const ListItem = styled.li`
   font-size: 0.875rem;
   cursor: pointer;
   transition: background-color 0.2s;
-
   &:hover {
     background-color: hsl(var(--accent));
   }

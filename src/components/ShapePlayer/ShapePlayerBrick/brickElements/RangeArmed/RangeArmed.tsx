@@ -1,9 +1,9 @@
-import * as S from "./parts";
+import { Led } from "@/components/ui";
 
 export interface RangeArmedProps {
   isWithinRange: boolean;
 }
 
 export const RangeArmed = ({ isWithinRange }: RangeArmedProps) => {
-  return <S.RangeArmed $isWithinRange={isWithinRange}></S.RangeArmed>;
+  return <Led $active={isWithinRange}></Led>;
 };

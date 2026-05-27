@@ -6,27 +6,17 @@ import { roleNumNameMajor, roleNumNameMinor } from "./constants";
 import { useMusicStore } from "@/store";
 
 export function KeyAndChordPicker() {
-  const {
-    isKeyAndChordPickerExpanded,
-    optionsPerKey,
-    unifiedMusicKeysDataKey,
-    handleChordSelection,
-  } = useKeyAndChordPicker();
+  const { optionsPerKey, unifiedMusicKeysDataKey, handleChordSelection } =
+    useKeyAndChordPicker();
 
   const isMajorMode = useMusicStore((s) => s.isMajorMode);
   const setIsMajorMode = useMusicStore((s) => s.setIsMajorMode);
   const roleNumName = isMajorMode ? roleNumNameMajor : roleNumNameMinor;
 
-  // if (!isKeyAndChordPickerExpanded) return null;
-
   return (
     <S.Wrapper>
       <Row>
-        <Item
-          onClick={() => {
-            setIsMajorMode(!isMajorMode);
-          }}
-        >
+        <Item onClick={() => setIsMajorMode(!isMajorMode)}>
           {isMajorMode ? "Major" : "minor"}
           {":"}
         </Item>

@@ -15,9 +15,9 @@ import * as S from "./parts";
 export const HeaderControllers = () => {
   return (
     <S.ShapePlayerControllers>
+      <ExerciseTitle />
       <Open />
       <Save />
-      <ExerciseTitle />
 
       <TogglePlayback />
       <ToggleBass />

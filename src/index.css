@@ -16,7 +16,7 @@
   --instrument: hsl(41, 100%, 50%);
   --primary: hsl(14, 70%, 44%);
   --secondary: hsl(185, 45%, 38%);
-  --warn: hsl(0, 100%, 50%);
+  --warn: hsl(0, 100%, 35%);
 
   --hover-glow: hsl(7 75% 44%);
   --led: hsl(14, 100%, 80%);

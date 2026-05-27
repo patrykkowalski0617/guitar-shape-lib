@@ -1,7 +1,7 @@
 import { color, duration, elementBase, hoverGlowBorder } from "@/components/ui";
 import styled from "styled-components";
 
-export const Item = styled.button<{ $w: number }>`
+export const Item = styled.button<{ $w?: number }>`
   ${elementBase}
   min-width: 75px;
   width: 75px;

@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { color, elementBase, disabledState } from "../tokens";
 import { hoverGlow } from "../animations";
 
-type Variant = "default" | "outline" | "ghost" | "active";
+type Variant = "default" | "outline" | "ghost" | "active" | "warn";
 
 const variantStyles = {
   default: css`
@@ -32,6 +32,11 @@ const variantStyles = {
     background: color-mix(in oklab, ${color.primary} 12%, ${color.surface});
     border-color: color-mix(in oklab, ${color.primary} 45%, transparent);
     color: ${color.primary};
+  `,
+  warn: css`
+    background: color-mix(in oklab, ${color.warn} 20%, ${color.surfaceHigh});
+    border-color: color-mix(in oklab, ${color.warn} 100%, transparent);
+    color: ${color.void};
   `,
 };
 

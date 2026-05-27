@@ -4,8 +4,7 @@ import { space } from "../ui";
 export const ShapePlayerControllers = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: ${space._2};
-  justify-content: center;
+  gap: ${space._3};
 `;
 
 export const Section = styled.div`

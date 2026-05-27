@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { apearingTransition } from "../../constants";
+import { grabStyle } from "../../tokens";
 
 export const grabSize = 50;
 
@@ -67,9 +68,7 @@ export const ActiveRange = styled.div<{
 export const Grab = styled.div<{
   $vertical?: boolean;
 }>`
-  flex: none;
   position: relative;
-  cursor: grab;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,7 +77,6 @@ export const Grab = styled.div<{
   letter-spacing: 0.35px;
   user-select: none;
   z-index: 4;
-  border: transparent solid 1px;
 
   ${({ $vertical }) =>
     $vertical
@@ -92,15 +90,9 @@ export const Grab = styled.div<{
           height: 100%;
           align-self: center;
         `}
-
-  &:active {
-    cursor: grabbing;
-  }
-
+  ${grabStyle}
   &::before,
   &::after {
-    content: "";
-    position: absolute;
     ${({ $vertical }) =>
       $vertical
         ? css`
@@ -111,36 +103,5 @@ export const Grab = styled.div<{
             width: 80%;
             height: 30%;
           `}
-    border-radius: 99px;
-    overflow: hidden;
-    background-size: 4px 4px;
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-  }
-
-  &::before {
-    background-image: radial-gradient(
-      rgba(255, 255, 255, 1) 0.7px,
-      transparent 0.7px
-    );
-    opacity: 0.3;
-  }
-
-  &::after {
-    background-image: radial-gradient(rgb(255, 88, 16) 1px, transparent 1px);
-    opacity: 0;
-  }
-
-  &:hover:not(.is-dragging):not(.range-dragging *),
-  &:active,
-  &.is-dragging {
-    &::before {
-      opacity: 0;
-      transition: opacity 0s;
-    }
-    &::after {
-      opacity: 0.75;
-      transition: opacity 0s;
-    }
   }
 `;

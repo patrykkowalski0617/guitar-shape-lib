@@ -33,10 +33,12 @@ export function useKeyAndChordPicker() {
     setUnifiedMusicKeysDataKey(newUnifiedKey);
     setKeyAndChordPickerExpanded(false);
     setShapePickerExpanded(true);
+    setShapePickerExpanded(true);
   };
 
   return {
     isKeyAndChordPickerExpanded,
+    setKeyAndChordPickerExpanded,
     editingBrickId,
     optionsPerKey,
     unifiedMusicKeysDataKey,

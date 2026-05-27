@@ -19,7 +19,7 @@ export const Note = styled.div<{
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: bold;
   z-index: 40;
   position: relative;

@@ -1,12 +1,11 @@
+import { space } from "@/components/ui";
 import { appBgColor } from "@/constants";
 import styled, { css } from "styled-components";
 
 export const ShapePlayerBrickWrapper = styled.div<{ $isActiveBrick: boolean }>`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  padding: 10px;
-  gap: 4px;
+  gap: ${space._3};
   ${({ $isActiveBrick }) =>
     $isActiveBrick &&
     css`

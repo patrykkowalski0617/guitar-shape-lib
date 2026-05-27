@@ -1,4 +1,4 @@
-import { EditableText } from "@/components/ui";
+import * as S from "./parts";
 import { useExerciseTitle } from "./useExerciseTitle";
 
 export const ExerciseTitle = () => {
@@ -14,7 +14,7 @@ export const ExerciseTitle = () => {
   } = useExerciseTitle();
 
   return (
-    <EditableText
+    <S.EditableText
       ref={inputRef}
       value={currentValue}
       onChange={handleInputChange}

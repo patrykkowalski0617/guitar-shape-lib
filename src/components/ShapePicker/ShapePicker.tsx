@@ -2,17 +2,10 @@ import { useShapePicker } from "./hooks/useShapePicker";
 import * as S from "./parts";
 
 export default function ShapePicker() {
-  const {
-    options,
-    selectedChordLabel,
-    isShapePickerExpanded,
-    handleSelectShape,
-  } = useShapePicker();
-
-  if (!isShapePickerExpanded) return null;
+  const { options, selectedChordLabel, handleSelectShape } = useShapePicker();
 
   return (
-    <S.Wrapper>
+    <>
       <S.InfoText>
         Choose a shape to solo over the {selectedChordLabel} chord
       </S.InfoText>
@@ -27,6 +20,6 @@ export default function ShapePicker() {
           </S.ListItem>
         ))}
       </S.List>
-    </S.Wrapper>
+    </>
   );
 }
