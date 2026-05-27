@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
-import { useMusicStore } from "@/store";
-import { useEnharmonicNoteName, useGuitarShape } from "@/hooks";
+import { useMusicStore, useShapePlayerStore } from "@/store";
+import { useEnharmonicNoteName } from "@/hooks";
 import { useIsNoteActive } from "@/hooks/useIsNoteActive";
 import type { UseFretboardCellProps, FretboardCellHandlers } from "../types";
 
@@ -15,6 +15,9 @@ export function useFretboardCell({
   const setActiveLockedNoteIds = useMusicStore(
     (state) => state.setActiveLockedNoteIds,
   );
+  const guitarShapePlayerBricks = useShapePlayerStore(
+    (s) => s.guitarShapePlayerBricks,
+  );
 
   const sharpNoteName = noteObject.sharpNoteName;
   const targetSharpNoteNames = useMusicStore(
@@ -28,7 +31,6 @@ export function useFretboardCell({
   }, [sharpNoteName, targetSharpNoteNames, isInNextTargetShape, isShapeCell]);
 
   const noteId = noteObject.noteId;
-  const guitarShape = useGuitarShape();
   const getEnharmonicNoteName = useEnharmonicNoteName();
   const isActiveNote = useIsNoteActive(noteId);
   const noteLabel = getEnharmonicNoteName(noteObject);
@@ -42,8 +44,8 @@ export function useFretboardCell({
     [setActiveHoverNoteId],
   );
   const handleClick = useCallback(() => {
-    if (!guitarShape) setActiveLockedNoteIds(noteId);
-  }, [guitarShape, noteId, setActiveLockedNoteIds]);
+    if (!guitarShapePlayerBricks.length) setActiveLockedNoteIds(noteId);
+  }, [guitarShapePlayerBricks, noteId, setActiveLockedNoteIds]);
 
   return {
     handleMouseEnter,

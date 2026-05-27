@@ -1,17 +1,18 @@
 import { useEffect } from "react";
-import { useGuitarShape } from "@/hooks";
-import { useMusicStore } from "@/store";
+import { useMusicStore, useShapePlayerStore } from "@/store";
 
 export const useClaenLockedNotes = () => {
   const resetActiveLockedNoteIds = useMusicStore(
     (state) => state.resetActiveLockedNoteIds,
   );
 
-  const guitarShape = useGuitarShape();
+  const guitarShapePlayerBricks = useShapePlayerStore(
+    (s) => s.guitarShapePlayerBricks,
+  );
 
   useEffect(() => {
-    if (guitarShape) {
+    if (guitarShapePlayerBricks.length) {
       resetActiveLockedNoteIds();
     }
-  }, [guitarShape, resetActiveLockedNoteIds]);
+  }, [guitarShapePlayerBricks, resetActiveLockedNoteIds]);
 };
