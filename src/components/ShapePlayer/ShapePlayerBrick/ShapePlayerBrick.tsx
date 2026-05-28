@@ -11,6 +11,7 @@ import {
   DragHandleButton,
 } from "./brickElements";
 import { TargetNotesSelect } from "@/components/TargetNotesSelect/TargetNotesSelect";
+import { useUiStore } from "@/store";
 
 interface ShapePlayerBrickProps {
   id: string;
@@ -28,7 +29,7 @@ export const ShapePlayerBrick = ({
     draggingStyles,
     guitarShapePlayerBrick,
   } = useShapePlayerBrick(id);
-
+  const isEditShapeView = useUiStore((s) => s.isEditShapeView);
   const { isCurrentBrickPlayed, activeBeatIndex } = usePlayingBricksData(id);
 
   const {
@@ -60,16 +61,21 @@ export const ShapePlayerBrick = ({
     >
       <RangeArmed isWithinRange={isWithinRange} />
       <EditKeyAndChordButton id={id} />
-      <EditShapeButton id={id} />
 
-      <TargetNotesSelect
-        unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
-        baseChordDataKey={baseChordDataKey}
-        guitarShapeOffset={semitoneOffsetFromMajorRoot}
-        guitarShapeDataKey={guitarShapeDataKey}
-        targetNoteIndices={targetNoteIndices ?? [1]}
-        brickId={id}
-      />
+      {isEditShapeView && (
+        <>
+          <EditShapeButton id={id} />
+          <TargetNotesSelect
+            unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
+            baseChordDataKey={baseChordDataKey}
+            guitarShapeOffset={semitoneOffsetFromMajorRoot}
+            guitarShapeDataKey={guitarShapeDataKey}
+            targetNoteIndices={targetNoteIndices ?? [1]}
+            brickId={id}
+          />
+        </>
+      )}
+
       <Counter
         id={id}
         playLength={playLength}

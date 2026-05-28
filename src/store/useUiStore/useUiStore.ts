@@ -4,6 +4,7 @@ import type { UiState } from "./types";
 export const useUiStore = create<UiState>((set) => ({
   isKeyAndChordPickerExpanded: false,
   isShapePickerExpanded: false,
+  isEditShapeView: false,
   editingBrickId: null,
 
   setKeyAndChordPickerExpanded: (isKeyAndChordPickerExpanded) =>
@@ -11,6 +12,11 @@ export const useUiStore = create<UiState>((set) => ({
 
   setShapePickerExpanded: (isShapePickerExpanded) =>
     set({ isShapePickerExpanded }),
+
+  toggleIsEditShapeView: () =>
+    set((state) => ({
+      isEditShapeView: !state.isEditShapeView,
+    })),
 
   toggleKeyAndChordPicker: () =>
     set((state) => ({

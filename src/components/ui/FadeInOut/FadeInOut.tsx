@@ -74,7 +74,6 @@ export const FadeInOut = ({
           initial={animationConfig.initial}
           animate={animationConfig.animate}
           exit={animationConfig.exit}
-          style={{ overflow: "hidden", whiteSpace: "nowrap" }}
         >
           {children}
         </motion.div>

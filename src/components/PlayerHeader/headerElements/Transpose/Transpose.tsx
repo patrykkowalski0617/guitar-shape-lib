@@ -1,6 +1,6 @@
 import { useShapePlayerStore, useDataKeyStore } from "@/store";
 import { useRestoreBrick } from "@/hooks";
-import { Button, FadeInOut } from "@/components/ui";
+import { Button } from "@/components/ui";
 import { Minus, Plus } from "lucide-react";
 
 export function Transpose() {
@@ -41,13 +41,14 @@ export function Transpose() {
   };
 
   return (
-    <FadeInOut isVisible={hasBricks} isPersistent>
+    <>
       <Button onClick={() => handleTranspose(-1)} disabled={!hasBricks}>
         <Minus />
       </Button>
+      Transpose
       <Button onClick={() => handleTranspose(1)} disabled={!hasBricks}>
         <Plus />
       </Button>
-    </FadeInOut>
+    </>
   );
 }

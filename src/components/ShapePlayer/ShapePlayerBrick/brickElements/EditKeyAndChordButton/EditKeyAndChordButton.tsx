@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/parts";
+import { Button } from "@/components/ui";
 import { useEditKeyAndChordButton } from "./useEditKeyAndChordButton";
 
 interface EditKeyAndChordButtonProps {
@@ -9,7 +9,7 @@ export const EditKeyAndChordButton = ({ id }: EditKeyAndChordButtonProps) => {
   const { buttonText, handleEditKeyAndChord } = useEditKeyAndChordButton(id);
 
   return (
-    <Button onClick={handleEditKeyAndChord} $widthMultiplier={4}>
+    <Button onClick={handleEditKeyAndChord} $w={4} $variant="ghost">
       {buttonText}
     </Button>
   );

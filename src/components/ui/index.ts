@@ -2,6 +2,8 @@ export * from "./Button/Button";
 export * from "./EditableText/EditableText";
 export * from "./FadeInOut/FadeInOut";
 export * from "./Led/Led";
+export * from "./MultiSelect/MultiSelect";
+export * from "./MultiSelect/parts";
 export * from "./NumberInput/NumberInput";
 export * from "./animations";
 export * from "./tokens";

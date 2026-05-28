@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/parts";
+import { Button } from "@/components/ui";
 import { useEditShapeButton } from "./useEditShapeButton";
 
 interface EditShapeButtonProps {
@@ -9,8 +9,9 @@ export const EditShapeButton = ({ id }: EditShapeButtonProps) => {
   const { guitarShapeName, handleEditShape } = useEditShapeButton(id);
 
   return (
-    <Button $widthMultiplier={4} onClick={handleEditShape}>
-      {guitarShapeName}
+    <Button $variant="ghost" $w={3} onClick={handleEditShape}>
+      Solo:
+      <br /> {guitarShapeName}
     </Button>
   );
 };

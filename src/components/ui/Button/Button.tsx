@@ -42,9 +42,9 @@ const variantStyles = {
     ${hoverGlow()}
   `,
   warn: css`
-    background: color-mix(in oklab, ${color.warn} 0%, ${color.bg});
+    background: color-mix(in oklab, ${color.warn} 10%, ${color.bg});
     border-color: color-mix(in oklab, ${color.warn} 100%, transparent);
-    color: color-mix(in oklab, ${color.warn} 100%, transparent);
+    color: color-mix(in oklab, ${color.fg} 100%, transparent);
     ${hoverGlow()} &:hover:not(:disabled) {
       filter: saturate(1.5);
     }

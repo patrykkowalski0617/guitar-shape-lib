@@ -4,11 +4,10 @@ import {
   ExerciseTitle,
   FullscreenButton,
   Metronome,
-  TogglePlayback,
   Open,
   Save,
-  ToggleBass,
 } from "./headerElements";
+import { PlaybackSelect } from "./headerElements/PlaybackSelect/PlaybackSelect";
 
 import * as S from "./parts";
 
@@ -23,8 +22,7 @@ export const HeaderControllers = () => {
       <BpmInput />
       <BpmMultiplier />
 
-      <TogglePlayback />
-      <ToggleBass />
+      <PlaybackSelect />
 
       <FullscreenButton />
     </S.ShapePlayerControllers>

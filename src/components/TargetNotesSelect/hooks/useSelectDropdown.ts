@@ -1,4 +1,3 @@
-// hooks/useSelectDropdown.ts
 import { useState, useRef, useEffect } from "react";
 
 export const useSelectDropdown = () => {
