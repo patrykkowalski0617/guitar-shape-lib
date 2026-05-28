@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import { grabSize } from "./parts";
+import { breakPoint } from "../../tokens";
 
 const LIGHT_DIR = { x: -1, y: -1 } as const;
 
@@ -121,16 +122,22 @@ export const PickHandle = styled.div<{
     ${glowEffect}
   }
 
-  border-top-left-radius: 70%;
-  border-top-right-radius: 55% 100%;
-  border-bottom-right-radius: calc(${grabSize}px / 4);
-  border-bottom-left-radius: 100% 55%;
-
+  border-radius: 100%;
+  ${breakPoint.desktopLarge(css`
+    border-top-left-radius: 70%;
+    border-top-right-radius: 55% 100%;
+    border-bottom-right-radius: calc(${grabSize}px / 4);
+    border-bottom-left-radius: 100% 55%;
+  `)}
+  width: 30px;
+  height: 30px;
   ${({ $vertical }) =>
     $vertical
       ? css`
-          width: 100%;
-          height: ${grabSize}px;
+          ${breakPoint.desktopLarge(css`
+            width: 100%;
+            height: ${grabSize}px;
+          `)}
           cursor: ns-resize;
 
           &:first-child {
@@ -146,8 +153,10 @@ export const PickHandle = styled.div<{
           }
         `
       : css`
-          width: ${grabSize}px;
-          height: 100%;
+          ${breakPoint.desktopLarge(css`
+            width: ${grabSize}px;
+            height: 100%;
+          `)}
           cursor: ew-resize;
 
           &:first-child {

@@ -1,5 +1,4 @@
 import * as Popover from "@radix-ui/react-popover";
-import { MoreVertical } from "lucide-react";
 import { useControllersStore, useMetronomeStore } from "@/store";
 import { Chevron, Led, NoteName, Option } from "@/components/ui";
 import * as S from "./parts";
@@ -27,7 +26,6 @@ export const PlaybackSelect = () => {
         <span className="trigger-label">
           {getTriggerLabel(playback, isMetronomeWithBass)}
         </span>
-        <MoreVertical className="trigger-icon" size={16} />
         <Chevron className="trigger-chevron" />
       </S.Trigger>
 

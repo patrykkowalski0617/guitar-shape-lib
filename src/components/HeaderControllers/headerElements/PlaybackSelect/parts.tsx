@@ -15,33 +15,17 @@ export const Trigger = styled(Popover.Trigger)<{ $w?: number }>`
   background:      ${color.surface};
   color: ${color.fg};
   justify-content: space-between;
-
-  @media (max-width: 1023px) {
-    min-width: auto;
-    width: auto;
-    padding: 0 8px;
-
-    .trigger-label {
-      display: none;
-    }
-    .trigger-icon {
-      display: flex;
-    }
-    .trigger-chevron {
-      display: none;
-    }
+  min-width: auto;
+  width: auto;
+  padding: 0 8px;
+  .trigger-icon {
+    display: flex;
   }
-
-  @media (min-width: 1024px) {
-    .trigger-label {
-      display: block;
-    }
-    .trigger-icon {
-      display: none;
-    }
-    .trigger-chevron {
-      display: flex;
-    }
+  .trigger-label {
+    display: block;
+  }
+  .trigger-chevron {
+    display: flex;
   }
 `;
 

@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import {
   BpmInput,
   BpmMultiplier,
@@ -11,19 +12,28 @@ import { PlaybackSelect } from "./headerElements/PlaybackSelect/PlaybackSelect";
 import * as S from "./parts";
 
 export const HeaderControllers = () => {
+  const isMobileLayout = useMediaQuery("(max-width: 1400px)");
+
   return (
-    <S.ShapePlayerControllers>
-      <ExerciseTitle />
-      <Open />
-      <Save />
+    <>
+      {isMobileLayout && (
+        <S.ExerciseTitleMobileWrapper>
+          <ExerciseTitle />
+        </S.ExerciseTitleMobileWrapper>
+      )}
+      <S.ShapePlayerControllers>
+        {!isMobileLayout && <ExerciseTitle />}
+        <Open />
+        <Save />
 
-      <Metronome />
-      <BpmInput />
-      <BpmMultiplier />
+        <Metronome />
+        <BpmInput />
+        <BpmMultiplier />
 
-      <PlaybackSelect />
+        <PlaybackSelect />
 
-      <FullscreenButton />
-    </S.ShapePlayerControllers>
+        <FullscreenButton />
+      </S.ShapePlayerControllers>
+    </>
   );
 };

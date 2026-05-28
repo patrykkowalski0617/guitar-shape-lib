@@ -5,7 +5,10 @@ export const NumberInput = styled(_NumberInput)<{ $isDraggingState: boolean }>`
   cursor: ns-resize;
   user-select: ${({ $isDraggingState }) =>
     $isDraggingState ? "none" : "auto"};
-  touch-action: none;
+  touch-action: pan-x;
   width: 100px;
   background: color-mix(in oklab, var(--contrast) 10%, var(--background));
+  min-width: 100px;
+  flex-shrink: 0;
+  display: block;
 `;

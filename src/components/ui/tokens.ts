@@ -16,6 +16,11 @@ export const breakPoint = {
       ${styles}
     }
   `,
+  desktopLarge: (styles: RuleSet<object>) => css`
+    @media (min-width: 1400px) {
+      ${styles}
+    }
+  `,
 };
 
 export const color = {

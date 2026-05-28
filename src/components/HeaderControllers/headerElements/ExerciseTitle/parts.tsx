@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   position: relative;
   display: inline-grid;
   align-items: center;
-  margin: 0 ${space._8};
+  padding: 0 ${space._8};
   width: 100%;
   ${breakPoint.desktop(css`
     width: unset;
@@ -27,10 +27,10 @@ export const HiddenText = styled.span`
   font: inherit;
   letter-spacing: inherit;
   min-width: 200px;
+  width: 100%;
 `;
 
 export const EditableText = styled(_EditableText)`
   width: 100%;
   min-width: 200px;
-  min-width: 80px;
 `;
