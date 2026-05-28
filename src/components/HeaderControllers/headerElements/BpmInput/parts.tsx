@@ -6,5 +6,6 @@ export const NumberInput = styled(_NumberInput)<{ $isDraggingState: boolean }>`
   user-select: ${({ $isDraggingState }) =>
     $isDraggingState ? "none" : "auto"};
   touch-action: none;
-  width: 75px;
+  width: 100px;
+  background: color-mix(in oklab, var(--contrast) 10%, var(--background));
 `;

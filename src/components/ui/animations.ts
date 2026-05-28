@@ -101,17 +101,17 @@ export const hoverGlowBorder = ({
   `;
 };
 
-export const ledPulse = keyframes`
+export const createLedPulse = (ledColor: string) => keyframes`
   0%, 100% {
     box-shadow:
-      0 0 3px  color-mix(in oklab, var(--led) 80%, transparent),
-      0 0 8px  color-mix(in oklab, var(--led) 40%, transparent),
-      0 0 16px color-mix(in oklab, var(--led) 20%, transparent);
+      0 0 3px  color-mix(in oklab, ${ledColor} 80%, transparent),
+      0 0 8px  color-mix(in oklab, ${ledColor} 40%, transparent),
+      0 0 16px color-mix(in oklab, ${ledColor} 20%, transparent);
   }
   50% {
     box-shadow:
-      0 0 5px  color-mix(in oklab, var(--led) 90%, transparent),
-      0 0 12px color-mix(in oklab, var(--led) 50%, transparent),
-      0 0 22px color-mix(in oklab, var(--led) 25%, transparent);
+      0 0 5px  color-mix(in oklab, ${ledColor} 90%, transparent),
+      0 0 12px color-mix(in oklab, ${ledColor} 50%, transparent),
+      0 0 22px color-mix(in oklab, ${ledColor} 25%, transparent);
   }
 `;

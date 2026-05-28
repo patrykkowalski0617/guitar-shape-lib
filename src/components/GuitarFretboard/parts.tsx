@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import WoodImage from "@/assets/wood.jpg";
+import WoodImage from "@/assets/wood.png";
 
 export const fretboardRPadding = "40px";
 export const fretboardLPadding = "70px";
@@ -75,13 +75,13 @@ export const Fretboard = styled.div`
     inset: 0;
     right: calc(${fretboardRPadding} - 15px);
     left: 10px;
-    background-color: #4a2f1b77;
+    background-color: #4a2f1bc0;
     background-image:
       linear-gradient(
         0deg,
-        color-mix(in oklab, hsl(0, 0%, 30%) 100%, transparent) 0%,
+        color-mix(in oklab, hsl(0, 0%, 20%) 100%, transparent) 0%,
         color-mix(in oklab, hsl(0, 0%, 30%) 20%, transparent) 60%,
-        color-mix(in oklab, hsl(0, 0%, 30%) 80%, transparent) 100%
+        color-mix(in oklab, hsl(0, 0%, 20%) 80%, transparent) 100%
       ),
       url(${WoodImage});
 

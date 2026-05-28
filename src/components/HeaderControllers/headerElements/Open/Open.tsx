@@ -15,7 +15,8 @@ export function Open() {
         style={{ display: "none" }}
       />
       <Button onClick={handleClick} disabled={isPlaying}>
-        <FolderOpen />
+        {/* <FolderOpen /> */}
+        Open
       </Button>
     </>
   );

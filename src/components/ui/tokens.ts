@@ -34,6 +34,7 @@ export const color = {
   secondary: "var(--secondary)",
   warn: "var(--warn)",
   instrument: "var(--instrument)",
+  contrast: "var(--conntrast)",
 
   led: "var(--led)",
 } as const;
@@ -132,7 +133,6 @@ export const grabStyle = css`
   &::after {
     content: "";
     position: absolute;
-    border-radius: 99px;
     overflow: hidden;
     background-size: 4px 4px;
     pointer-events: none;

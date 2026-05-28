@@ -18,12 +18,7 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
         height: 600%;
         width: 5px;
         border-radius: 2px;
-        background: linear-gradient(
-          0deg,
-          color-mix(in oklab, hsl(0, 0%, 2%) 50%, hsl(0, 0%, 2%)) 0%,
-          color-mix(in oklab, var(--foreground) 60%, var(--muted)) 70%,
-          color-mix(in oklab, hsl(0, 0%, 2%) 100%, var(--muted)) 100%
-        );
+        background: linear-gradient(0deg, #000 0%, #b3b3b3 70%, #000 100%);
         position: absolute;
         right: -3px;
         filter: brightness(1.2);
@@ -62,7 +57,7 @@ export const FretboardRow = styled.div<{ $isVisibleString: boolean }>`
               var(--foreground) 20%,
               var(--muted)
             );
-            box-shadow: 0px 3px 2px 0px hsl(0, 0%, 2%);
+            box-shadow: 0px 5px 3px 1px hsl(0, 0%, 2%);
             z-index: 17;
           }
         `

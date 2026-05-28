@@ -11,7 +11,12 @@ export function FullscreenButton() {
       onClick={() => toggleFullscreen(true)}
       title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
     >
-      {isFullscreen ? <Minimize /> : <Maximize />}
+      {/* {isFullscreen ? <Minimize /> : <Maximize />} */}
+      {isFullscreen
+        ? `
+      Close Fullscreen
+      `
+        : "Fullscreen"}
     </S.Button>
   );
 }

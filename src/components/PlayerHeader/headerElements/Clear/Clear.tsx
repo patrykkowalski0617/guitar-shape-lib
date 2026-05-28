@@ -5,8 +5,16 @@ import { useClear } from "./useClear";
 export const Clear = () => {
   const { handleClear, isListEmpty } = useClear();
   return (
-    <Button $variant={"warn"} onClick={handleClear} disabled={isListEmpty}>
-      <Trash2 />
+    <Button
+      $variant={"warn"}
+      onClick={handleClear}
+      disabled={isListEmpty}
+      style={{ width: 50 }}
+    >
+      {/* <Trash2 /> */}
+      Clear
+      <br />
+      All
     </Button>
   );
 };

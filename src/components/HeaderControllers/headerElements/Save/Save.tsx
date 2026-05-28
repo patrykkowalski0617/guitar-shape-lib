@@ -19,7 +19,8 @@ export function Save() {
       onClick={handleExport}
       disabled={isPlaying || guitarShapePlayerBricks.length === 0}
     >
-      <FileDown />
+      {/* <FileDown /> */}
+      Save
     </Button>
   );
 }

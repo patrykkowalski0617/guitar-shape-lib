@@ -108,7 +108,7 @@ export const PickHandle = styled.div<{
   z-index: 9;
   user-select: none;
   touch-action: none;
-  background: radial-gradient(rgb(32, 32, 32) 0%, rgb(50, 50, 50) 100%);
+  background: radial-gradient(rgb(128, 128, 128) 0%, rgb(183, 183, 183) 100%);
   transition: 3s ease;
   outline: transparent solid 1px;
   &.is-dragging {

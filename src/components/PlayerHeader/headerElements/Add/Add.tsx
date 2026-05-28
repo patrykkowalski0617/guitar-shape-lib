@@ -6,7 +6,8 @@ export const Add = () => {
   const { handleAdd } = useAdd();
   return (
     <Button $variant={"secondary"} onClick={handleAdd}>
-      <Plus />
+      {/* <Plus /> */}
+      Add
     </Button>
   );
 };

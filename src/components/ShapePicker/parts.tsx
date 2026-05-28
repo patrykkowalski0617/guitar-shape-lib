@@ -15,6 +15,7 @@ export const InfoText = styled.div`
 export const List = styled.ul`
   display: flex;
   flex-direction: column;
+  gap: ${space._1};
   list-style: none;
 `;
 

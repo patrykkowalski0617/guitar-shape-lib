@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import WoodImage from "@/assets/wood.jpg";
+import WoodImage from "@/assets/wood.png";
 
 export const fretboardRPadding = "30px";
 

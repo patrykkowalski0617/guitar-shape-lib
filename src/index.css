@@ -7,7 +7,7 @@
 
   --void: hsl(0, 0%, 2%);
   --voidHigh: hsl(0, 0%, 5%);
-  --background: hsl(0, 0%, 24%);
+  --background: hsl(0, 0%, 20%);
   --foreground: hsl(0, 0%, 80%);
 
   --muted: hsl(0, 0%, 38%);
@@ -16,10 +16,12 @@
   --instrument: hsl(41, 100%, 50%);
   --primary: hsl(14, 70%, 44%);
   --secondary: hsl(185, 45%, 38%);
-  --warn: hsl(0, 100%, 35%);
+  --warn: hsl(0, 50%, 50%);
 
   --hover-glow: hsl(7 75% 44%);
-  --led: hsl(14, 100%, 80%);
+  --led: hsl(32, 100%, 80%);
+
+  --contrast: hsl(272, 42%, 46%);
 
   --font: "IBM Plex Sans", sans-serif;
 }
