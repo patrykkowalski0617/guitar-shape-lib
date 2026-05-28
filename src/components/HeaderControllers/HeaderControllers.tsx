@@ -8,7 +8,6 @@ import {
   Save,
 } from "./headerElements";
 import { PlaybackSelect } from "./headerElements/PlaybackSelect/PlaybackSelect";
-
 import * as S from "./parts";
 
 export const HeaderControllers = () => {

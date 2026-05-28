@@ -7,14 +7,9 @@ export const Clear = () => {
 
   return (
     <FadeInOut isVisible={!isListEmpty} isPersistent>
-      <Button
-        $variant={"warn"}
-        onClick={handleClear}
-        disabled={isListEmpty}
-        style={{ width: 50 }}
-      >
+      <Button $variant={"warn"} onClick={handleClear} disabled={isListEmpty}>
         {/* <Trash2 /> */}
-        Clear
+        Delete
         <br />
         All
       </Button>

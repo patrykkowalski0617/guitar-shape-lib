@@ -1,4 +1,4 @@
-import { Trash2 } from "lucide-react";
+// import { Trash2 } from "lucide-react";
 import { useRemoveBrickButton } from "./useRemoveBrickButton";
 import { Button } from "@/components/ui";
 

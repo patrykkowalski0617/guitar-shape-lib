@@ -1,14 +1,17 @@
 import { useShapePlayerStore, useUiStore, useDataKeyStore } from "@/store";
 import { useShapePlayerBrickDisplay } from "../../hooks";
 import { getBaseChordRoleNumName } from "@/hooks/baseChord/useBaseChordRoleNumName";
+import { useUnifiedMusicKey } from "@/hooks";
 
 export const useEditKeyAndChordButton = (id: string) => {
   const guitarShapePlayerBrick = useShapePlayerStore((state) =>
     state.guitarShapePlayerBricks.find((b) => b.id === id),
   );
 
-  const { keyName, baseChordName } = useShapePlayerBrickDisplay(
-    guitarShapePlayerBrick,
+  const { baseChordName } = useShapePlayerBrickDisplay(guitarShapePlayerBrick);
+
+  const unifiedMusicKey = useUnifiedMusicKey(
+    guitarShapePlayerBrick?.unifiedMusicKeysDataKey,
   );
 
   const setEditingBrickId = useUiStore((s) => s.setEditingBrickId);
@@ -32,14 +35,26 @@ export const useEditKeyAndChordButton = (id: string) => {
     setShapePickerExpanded(false);
   };
 
+  const isMajorMode = guitarShapePlayerBrick?.isMajorMode ?? true;
+
   const roleNumName = guitarShapePlayerBrick
     ? getBaseChordRoleNumName(
         guitarShapePlayerBrick.baseChordDataKey,
-        guitarShapePlayerBrick.isMajorMode,
+        isMajorMode,
       )
     : "";
 
-  const buttonText = `${roleNumName ? `${roleNumName} ` : ""}${keyName} ${baseChordName}`;
+  const majorName = unifiedMusicKey?.majorName ?? "";
+  const relativeMinorName = unifiedMusicKey?.relativeMinorName ?? "";
 
-  return { buttonText, handleEditKeyAndChord };
+  return {
+    buttonParts: {
+      majorName,
+      relativeMinorName,
+      roleNumName,
+      baseChordName: baseChordName ?? "",
+      isMajorMode,
+    },
+    handleEditKeyAndChord,
+  };
 };

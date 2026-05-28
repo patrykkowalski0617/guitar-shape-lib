@@ -1,4 +1,4 @@
-import { FileDown } from "lucide-react";
+// import { FileDown } from "lucide-react";
 import { useMetronomeStore, useShapePlayerStore } from "@/store";
 import { Button } from "@/components/ui";
 import { exportBricksToJson } from "@/components/ShapePlayer/helpers/exportBricksToJson";

@@ -5,13 +5,25 @@ export const ShapePlayerBrickWrapper = styled.div<{ $isActiveBrick: boolean }>`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+  justify-content: space-between;
   gap: ${space._3};
   height: 70px;
   border-bottom: 1px transparent solid;
-
+  padding-left: 30px;
+  position: relative;
   ${({ $isActiveBrick }) =>
     $isActiveBrick &&
     css`
       border-bottom: 1px ${color.secondary} solid;
     `}
+`;
+
+export const RangeArmedWrapper = styled.div`
+  position: absolute;
+  left: 10px;
+`;
+
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  gap: ${space._3};
 `;

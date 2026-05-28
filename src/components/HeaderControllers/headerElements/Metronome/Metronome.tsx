@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Metronome as MetronomeIcon } from "lucide-react";
+// import { Metronome as MetronomeIcon } from "lucide-react";
 import { useMetronomeStore } from "@/store";
 import { useWakeLock } from "@/hooks";
 import { PlayButton } from "./parts";

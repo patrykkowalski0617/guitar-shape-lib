@@ -10,6 +10,7 @@ export const PlayerHeader = () => {
   const isListEmpty = useShapePlayerStore(
     (s) => s.guitarShapePlayerBricks.length === 0,
   );
+
   return (
     <S.PlayerHeaderWrapper $isListEmpty={isListEmpty}>
       {isEditShapeView && (
@@ -19,7 +20,9 @@ export const PlayerHeader = () => {
         </>
       )}
 
-      {!isListEmpty && <Edit />}
+      {!isListEmpty && <Edit $w={4} />}
+
+      {!isListEmpty && <S.CounterPlaceHolder />}
 
       {!isEditShapeView && !isListEmpty && (
         <S.SliderWrapper>

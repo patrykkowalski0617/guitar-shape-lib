@@ -54,6 +54,7 @@ export const font = {
   sm: "0.8rem",
   md: "0.875rem",
   lg: "1rem",
+  xl: "2rem",
   light: "300",
   normal: "400",
   bold: "600",

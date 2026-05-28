@@ -16,7 +16,6 @@ interface MultiSelectProps {
   onToggle: (key: string) => void;
   placeholder?: string;
   $w?: number;
-  $variant: string;
   triggerPrefix?: (count: number) => string;
 }
 

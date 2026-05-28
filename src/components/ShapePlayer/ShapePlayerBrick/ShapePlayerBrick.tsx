@@ -59,7 +59,9 @@ export const ShapePlayerBrick = ({
       onMouseUp={restoreData}
       $isActiveBrick={isCurrentDataBrick || isCurrentBrickPlayed}
     >
-      <RangeArmed isWithinRange={isWithinRange} />
+      <S.RangeArmedWrapper>
+        <RangeArmed isWithinRange={isWithinRange} />
+      </S.RangeArmedWrapper>
       <EditKeyAndChordButton id={id} />
 
       {isEditShapeView && (
@@ -90,8 +92,11 @@ export const ShapePlayerBrick = ({
         onRangeChange={setSliderRange}
         orderedLocations={orderedLocations}
       />
-      <RemoveBrickButton id={id} />
-      <DragHandleButton attributes={attributes} listeners={listeners} />
+
+      <S.ButtonsWrapper>
+        <RemoveBrickButton id={id} />
+        <DragHandleButton attributes={attributes} listeners={listeners} />
+      </S.ButtonsWrapper>
     </S.ShapePlayerBrickWrapper>
   );
 };

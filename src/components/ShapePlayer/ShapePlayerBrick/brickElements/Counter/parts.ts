@@ -1,4 +1,4 @@
-import { color, duration, element } from "@/components/ui";
+import { color, duration, element, space } from "@/components/ui";
 import styled, { css, keyframes } from "styled-components";
 
 export const CounterWrapper = styled.div`
@@ -9,6 +9,8 @@ export const CounterWrapper = styled.div`
   gap: 4px;
   border-radius: 6px;
   box-sizing: border-box;
+  min-width: 250px;
+  padding: 0 ${space._3};
 `;
 
 export const ControlButton = styled.button`

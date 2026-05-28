@@ -1,6 +1,7 @@
 import { useMemo, useCallback, useEffect } from "react";
 import { useShapePlayerStore } from "@/store";
 import MultiRangeSlider from "@/components/ui/MultiRangeSlider/MultiRangeSlider/MultiRangeSlider";
+import * as S from "./parts";
 
 interface RangeValue {
   start: number;
@@ -8,6 +9,9 @@ interface RangeValue {
 }
 
 export const BricksMultiRangeSlider = () => {
+  const isListHasOneElement = useShapePlayerStore(
+    (s) => s.guitarShapePlayerBricks.length < 2,
+  );
   const guitarShapePlayerBricks = useShapePlayerStore(
     (s) => s.guitarShapePlayerBricks,
   );
@@ -54,11 +58,13 @@ export const BricksMultiRangeSlider = () => {
   const activeRange = playbackRange ?? { start: 0, end: totalBricksCount - 1 };
 
   return (
-    <MultiRangeSlider
-      values={brickIndexes}
-      range={activeRange}
-      onChange={handleChange}
-      orientation="vertical"
-    />
+    <S.MultiRangeSliderWrapper $isDisbled={isListHasOneElement}>
+      <MultiRangeSlider
+        values={brickIndexes}
+        range={activeRange}
+        onChange={handleChange}
+        orientation="vertical"
+      />
+    </S.MultiRangeSliderWrapper>
   );
 };

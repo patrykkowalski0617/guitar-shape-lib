@@ -1,16 +1,28 @@
-import { Button } from "@/components/ui";
 import { useEditKeyAndChordButton } from "./useEditKeyAndChordButton";
-
+import * as S from "./parts";
 interface EditKeyAndChordButtonProps {
   id: string;
 }
 
 export const EditKeyAndChordButton = ({ id }: EditKeyAndChordButtonProps) => {
-  const { buttonText, handleEditKeyAndChord } = useEditKeyAndChordButton(id);
+  const { buttonParts, handleEditKeyAndChord } = useEditKeyAndChordButton(id);
+  const {
+    majorName,
+    relativeMinorName,
+    roleNumName,
+    baseChordName,
+    isMajorMode,
+  } = buttonParts;
 
   return (
-    <Button onClick={handleEditKeyAndChord} $w={4} $variant="ghost">
-      {buttonText}
-    </Button>
+    <S.Button onClick={handleEditKeyAndChord} $w={4} $variant="ghost">
+      <S.KeyName>
+        <S.KeyNamePart $bold={isMajorMode}>{majorName}</S.KeyNamePart>
+        {" / "}
+        <S.KeyNamePart $bold={!isMajorMode}>{relativeMinorName}</S.KeyNamePart>
+      </S.KeyName>
+      {roleNumName && <S.RoleNumName>{` ${roleNumName}`}</S.RoleNumName>}
+      <S.BaseChordName>{` ${baseChordName}`}</S.BaseChordName>
+    </S.Button>
   );
 };

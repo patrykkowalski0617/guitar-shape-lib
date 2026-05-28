@@ -1,4 +1,4 @@
-import { Button, color } from "@/components/ui";
+import { Button } from "@/components/ui";
 import styled, { css, keyframes } from "styled-components";
 
 const pulse = keyframes`

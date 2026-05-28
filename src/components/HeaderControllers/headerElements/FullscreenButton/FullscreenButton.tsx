@@ -1,4 +1,4 @@
-import { Maximize, Minimize } from "lucide-react";
+// import { Maximize, Minimize } from "lucide-react";
 import { useFullscreen } from "./hooks/useFullscreen";
 import * as S from "./parts";
 
