@@ -41,7 +41,10 @@ export const TargetNotesSelect = ({
 
   return (
     <MultiSelect
-      $w={3}
+      triggerPrefix={(count) =>
+        count === 1 ? "Target note:" : "Target notes:"
+      }
+      $w={5}
       options={options}
       onToggle={(key) => {
         const opt = options.find((o) => o.key === key);

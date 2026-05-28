@@ -13,16 +13,18 @@ export const PlayerHeader = () => {
 
   return (
     <S.PlayerHeaderWrapper $isListEmpty={isListEmpty}>
+      {!isListEmpty && <Edit $w={4} />}
+
       {isEditShapeView && (
         <>
           <Transpose />
-          <MasterTargetNotesSelect />
+          <S.MasterTargetNotesSelectWrapper>
+            <MasterTargetNotesSelect />
+          </S.MasterTargetNotesSelectWrapper>
         </>
       )}
 
-      {!isListEmpty && <Edit $w={4} />}
-
-      {!isListEmpty && <S.CounterPlaceHolder />}
+      {!isEditShapeView && !isListEmpty && <S.CounterPlaceHolder />}
 
       {!isEditShapeView && !isListEmpty && (
         <S.SliderWrapper>

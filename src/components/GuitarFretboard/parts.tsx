@@ -7,6 +7,7 @@ export const fretboardLPadding = "70px";
 
 export const FretboardNotScrollableWrapper = styled.div`
   background-color: ${color.bg};
+  box-shadow: 0 0 10px 15px ${color.bg};
   margin-bottom: -20px;
   display: flex;
   flex-direction: row;

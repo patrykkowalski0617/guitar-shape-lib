@@ -1,7 +1,8 @@
 import { useShapePlayerStore, useDataKeyStore } from "@/store";
 import { useRestoreBrick } from "@/hooks";
-import { Button } from "@/components/ui";
+import { Button, Text } from "@/components/ui";
 import { Minus, Plus } from "lucide-react";
+import * as S from "./parts";
 
 export function Transpose() {
   const transposeShapePlayerBricks = useShapePlayerStore(
@@ -41,14 +42,14 @@ export function Transpose() {
   };
 
   return (
-    <>
+    <S.Wrapper>
       <Button onClick={() => handleTranspose(-1)} disabled={!hasBricks}>
         <Minus />
       </Button>
-      Transpose
+      <Text>Transpose</Text>
       <Button onClick={() => handleTranspose(1)} disabled={!hasBricks}>
         <Plus />
       </Button>
-    </>
+    </S.Wrapper>
   );
 }

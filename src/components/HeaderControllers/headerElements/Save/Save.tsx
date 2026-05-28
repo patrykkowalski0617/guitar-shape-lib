@@ -16,6 +16,7 @@ export function Save() {
 
   return (
     <Button
+      $w={2}
       onClick={handleExport}
       disabled={isPlaying || guitarShapePlayerBricks.length === 0}
     >

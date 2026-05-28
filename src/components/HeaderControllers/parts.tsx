@@ -4,9 +4,10 @@ import { breakPoint, space } from "../ui";
 export const ShapePlayerControllers = styled.div`
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: ${space._3};
   ${breakPoint.desktop(css`
-    padding-left: 60px;
+    padding-left
   `)}
 `;
 

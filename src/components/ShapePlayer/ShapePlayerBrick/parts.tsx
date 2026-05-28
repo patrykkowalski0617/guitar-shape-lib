@@ -9,7 +9,7 @@ export const ShapePlayerBrickWrapper = styled.div<{ $isActiveBrick: boolean }>`
   gap: ${space._3};
   height: 70px;
   border-bottom: 1px transparent solid;
-  padding-left: 30px;
+  padding: 0 50px 0 60px;
   position: relative;
   ${({ $isActiveBrick }) =>
     $isActiveBrick &&

@@ -3,12 +3,13 @@ import { space } from "../ui";
 
 export const PlayerHeaderWrapper = styled.div<{ $isListEmpty: boolean }>`
   ${({ $isListEmpty }) => css`
-    padding-left: 90px;
+    padding: 0 50px 0 120px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: ${$isListEmpty ? "center" : "space-between"};
     gap: ${space._3};
+    height: 50px;
   `}
 `;
 
@@ -24,4 +25,8 @@ export const SliderWrapper = styled.div`
 
 export const CounterPlaceHolder = styled.div`
   min-width: 250px;
+`;
+
+export const MasterTargetNotesSelectWrapper = styled.div`
+  width: auto;
 `;

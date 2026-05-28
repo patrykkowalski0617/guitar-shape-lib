@@ -14,5 +14,9 @@ export const BpmMultiplier = () => {
   };
 
   // return <S.Button onClick={handleClick}>/{count}</S.Button>;
-  return <S.Button onClick={handleClick}>Devide by {count}</S.Button>;
+  return (
+    <S.Button $w={2} onClick={handleClick}>
+      Division: {count}
+    </S.Button>
+  );
 };

@@ -18,7 +18,7 @@ export const Metronome = () => {
   }, [isPlaying, isActive, toggleWakeLock]);
 
   return (
-    <PlayButton $isPlaying={isPlaying} $bpm={bpm} onClick={togglePlay}>
+    <PlayButton $w={2} $isPlaying={isPlaying} $bpm={bpm} onClick={togglePlay}>
       {/* {isCountingIn ? countIn : <MetronomeIcon />} */}
       {isCountingIn ? countIn : isPlaying ? "Stop" : `Play`}
     </PlayButton>

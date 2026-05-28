@@ -14,7 +14,7 @@ export function Open() {
         accept=".json"
         style={{ display: "none" }}
       />
-      <Button onClick={handleClick} disabled={isPlaying}>
+      <Button $w={2} onClick={handleClick} disabled={isPlaying}>
         {/* <FolderOpen /> */}
         Open
       </Button>

@@ -26,7 +26,7 @@ export const HiddenText = styled.span`
   border: inherit;
   font: inherit;
   letter-spacing: inherit;
-  min-width: 100px;
+  min-width: 200px;
 `;
 
 export const EditableText = styled(_EditableText)`

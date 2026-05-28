@@ -1,5 +1,6 @@
 import { useEditKeyAndChordButton } from "./useEditKeyAndChordButton";
 import * as S from "./parts";
+import { useUiStore } from "@/store";
 interface EditKeyAndChordButtonProps {
   id: string;
   isDuplicateKey: boolean;
@@ -18,8 +19,14 @@ export const EditKeyAndChordButton = ({
     isMajorMode,
   } = buttonParts;
 
+  const isEditShapeView = useUiStore((s) => s.isEditShapeView);
+
   return (
-    <S.Button onClick={handleEditKeyAndChord} $w={4} $variant="ghost">
+    <S.Button
+      onClick={handleEditKeyAndChord}
+      $w={4}
+      $variant={isEditShapeView ? "default" : "ghost"}
+    >
       <S.KeyName $isDuplicateKey={isDuplicateKey}>
         <S.KeyNamePart $bold={isMajorMode}>{majorName}</S.KeyNamePart>
         {" / "}

@@ -80,22 +80,24 @@ export const ShapePlayerBrick = ({
           />
         </>
       )}
-
-      <Counter
-        id={id}
-        playLength={playLength}
-        isCurrentBrickPlayed={isCurrentBrickPlayed}
-        activeBeatIndex={activeBeatIndex}
-      />
-      <ShapeExplorer
-        unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
-        guitarShapeDataKey={guitarShapeDataKey}
-        semitoneOffsetFromMajorRoot={semitoneOffsetFromMajorRoot}
-        sliderRange={sliderRange}
-        onRangeChange={setSliderRange}
-        orderedLocations={orderedLocations}
-      />
-
+      {!isEditShapeView && (
+        <>
+          <Counter
+            id={id}
+            playLength={playLength}
+            isCurrentBrickPlayed={isCurrentBrickPlayed}
+            activeBeatIndex={activeBeatIndex}
+          />
+          <ShapeExplorer
+            unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
+            guitarShapeDataKey={guitarShapeDataKey}
+            semitoneOffsetFromMajorRoot={semitoneOffsetFromMajorRoot}
+            sliderRange={sliderRange}
+            onRangeChange={setSliderRange}
+            orderedLocations={orderedLocations}
+          />
+        </>
+      )}
       <S.ButtonsWrapper>
         <RemoveBrickButton id={id} />
         <DragHandleButton attributes={attributes} listeners={listeners} />

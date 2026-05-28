@@ -10,6 +10,7 @@ export const MasterTargetNotesSelect = () => {
 
   return (
     <MultiSelect
+      $w={5}
       options={options.map(
         ({ positionInChord, label, isShared, isTargetNote }) => ({
           key: `master-option-${positionInChord}`,

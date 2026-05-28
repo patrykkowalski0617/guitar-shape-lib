@@ -27,7 +27,6 @@ export default function App() {
         <Section $stickyTop={0}>
           <HeaderControllers />
         </Section>
-
         <Section $stickyTop={50}>
           <GuitarFretboard />
         </Section>

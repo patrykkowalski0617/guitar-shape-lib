@@ -5,5 +5,6 @@ export * from "./Led/Led";
 export * from "./MultiSelect/MultiSelect";
 export * from "./MultiSelect/parts";
 export * from "./NumberInput/NumberInput";
+export * from "./Text/Text";
 export * from "./animations";
 export * from "./tokens";
