@@ -11,7 +11,7 @@ import Sign from "./components/Sign/Sign";
 
 export default function App() {
   return (
-    <AppWrapper style={{ height: 700, minHeight: "unset" }}>
+    <AppWrapper>
       <SoundEngine />
       <PickerDialog />
       {/* <DataKeyStoreDebugComponent /> */}
@@ -24,11 +24,11 @@ export default function App() {
           <Sign />
         </Section>
 
-        <Section>
+        <Section $stickyTop={0}>
           <HeaderControllers />
         </Section>
 
-        <Section>
+        <Section $stickyTop={50}>
           <GuitarFretboard />
         </Section>
 

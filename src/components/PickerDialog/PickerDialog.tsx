@@ -19,7 +19,7 @@ const Overlay = styled(Dialog.Overlay)`
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   inset: 0;
-  z-index: 199;
+  z-index: 500;
   animation: ${overlayShow} 150ms ease-out;
 `;
 
@@ -28,7 +28,7 @@ const Content = styled(Dialog.Content)`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: 200;
+  z-index: 500;
   background-color: ${color.bg};
   animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   &:focus {

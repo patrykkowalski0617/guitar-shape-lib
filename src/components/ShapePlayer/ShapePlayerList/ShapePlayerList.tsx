@@ -7,6 +7,7 @@ import { ShapePlayerBrick } from "../ShapePlayerBrick/ShapePlayerBrick";
 import * as S from "./parts";
 import { usePlayingBricksEngine } from "./hooks/usePlayingBricksEngine";
 import { BricksMultiRangeSlider } from "../BricksMultiRangeSlider/BricksMultiRangeSlider";
+import { UNIFIED_MUSIC_KEYS } from "@/data";
 
 export const ShapePlayerList = () => {
   const guitarShapePlayerBricks = useShapePlayerStore(
@@ -28,11 +29,27 @@ export const ShapePlayerList = () => {
             const isWithinRange = playbackRange
               ? index >= playbackRange.start && index <= playbackRange.end
               : true;
+
+            const key =
+              UNIFIED_MUSIC_KEYS[
+                guitarShapePlayerBrick.unifiedMusicKeysDataKey
+              ];
+            const currentKeyLabel = `${key.majorName}/${key.relativeMinorName}/${guitarShapePlayerBrick.isMajorMode}`;
+            const prevBrick = guitarShapePlayerBricks[index - 1];
+            const prevKey = prevBrick
+              ? UNIFIED_MUSIC_KEYS[prevBrick.unifiedMusicKeysDataKey]
+              : null;
+            const prevKeyLabel = prevKey
+              ? `${prevKey.majorName}/${prevKey.relativeMinorName}/${prevBrick.isMajorMode}`
+              : null;
+            const isDuplicateKey = currentKeyLabel === prevKeyLabel;
+
             return (
               <ShapePlayerBrick
                 key={guitarShapePlayerBrick.id}
                 id={guitarShapePlayerBrick.id}
                 isWithinRange={isWithinRange}
+                isDuplicateKey={isDuplicateKey}
               />
             );
           })}

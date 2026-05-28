@@ -6,10 +6,15 @@ export const Button = styled(_Button)`
   align-items: baseline;
 `;
 
-export const KeyName = styled.span`
+export const KeyName = styled.span<{ $isDuplicateKey: boolean }>`
   width: 50px;
   text-align: center;
   display: inline-block;
+  ${({ $isDuplicateKey }) =>
+    $isDuplicateKey &&
+    css`
+      opacity: 0;
+    `}
 `;
 
 export const KeyNamePart = styled.span<{ $bold?: boolean }>`

@@ -32,9 +32,16 @@ const SectionCommonCss = css`
   }
 `;
 
-export const Section = styled.div<{ $isDisabled?: boolean }>`
+export const Section = styled.div<{ $stickyTop?: number }>`
   max-width: 1400px;
   width: 100%;
+  ${({ $stickyTop }) =>
+    $stickyTop !== undefined &&
+    css`
+      position: sticky;
+      top: ${$stickyTop}px;
+      z-index: ${300 - $stickyTop};
+    `}
   ${SectionCommonCss}
 `;
 

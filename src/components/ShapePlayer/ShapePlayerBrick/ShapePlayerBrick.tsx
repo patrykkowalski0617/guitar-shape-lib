@@ -16,11 +16,13 @@ import { useUiStore } from "@/store";
 interface ShapePlayerBrickProps {
   id: string;
   isWithinRange: boolean;
+  isDuplicateKey: boolean;
 }
 
 export const ShapePlayerBrick = ({
   id,
   isWithinRange,
+  isDuplicateKey,
 }: ShapePlayerBrickProps) => {
   const {
     attributes,
@@ -62,7 +64,8 @@ export const ShapePlayerBrick = ({
       <S.RangeArmedWrapper>
         <RangeArmed isWithinRange={isWithinRange} />
       </S.RangeArmedWrapper>
-      <EditKeyAndChordButton id={id} />
+
+      <EditKeyAndChordButton id={id} isDuplicateKey={isDuplicateKey} />
 
       {isEditShapeView && (
         <>

@@ -4,6 +4,7 @@ import { stringIndexes, type StringIndexes } from "../constants";
 import MultiRangeSlider from "@/components/ui/MultiRangeSlider/MultiRangeSlider/MultiRangeSlider";
 import { getIndexRangeArray, getRangeFromVisibleStrings } from "./helpers";
 import type { RangeValue } from "./types";
+import * as S from "./parts";
 
 export const StringMultiRangeSlider = () => {
   const visibleStrings = useControllersStore((s) => s.visibleStrings);
@@ -22,11 +23,13 @@ export const StringMultiRangeSlider = () => {
   );
 
   return (
-    <MultiRangeSlider
-      values={stringIndexes}
-      range={range}
-      onChange={handleChange}
-      orientation="vertical"
-    />
+    <S.StringMultiRangeSliderWrapper>
+      <MultiRangeSlider
+        values={stringIndexes}
+        range={range}
+        onChange={handleChange}
+        orientation="vertical"
+      />
+    </S.StringMultiRangeSliderWrapper>
   );
 };

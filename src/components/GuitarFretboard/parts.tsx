@@ -1,8 +1,17 @@
 import styled from "styled-components";
 import WoodImage from "@/assets/wood.png";
+import { color } from "../ui";
 
 export const fretboardRPadding = "40px";
 export const fretboardLPadding = "70px";
+
+export const FretboardNotScrollableWrapper = styled.div`
+  background-color: ${color.bg};
+  margin-bottom: -20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 export const InstrumentScrollWrapper = styled.div`
   overflow-x: auto;
@@ -18,13 +27,6 @@ export const InstrumentScrollWrapper = styled.div`
       transparent
     );
   }
-`;
-
-export const FretboardNotScrollableWrapper = styled.div`
-  margin-bottom: -20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 `;
 
 export const StringSliderWrapper = styled.div`

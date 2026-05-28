@@ -54,7 +54,7 @@ export const Content = styled(Popover.Content)`
   border: 1px solid ${color.border};
   border-radius: ${radius.sm};
   overflow: hidden;
-  z-index: 100;
+  z-index: 500;
   list-style: none;
   padding: ${space._1} 0;
   box-shadow: 0 4px 16px color-mix(in oklab, var(--void) 60%, transparent);
