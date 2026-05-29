@@ -8,7 +8,5 @@ export const ShapePlayerLayout = styled.div`
   height: 100%;
 `;
 export const ListContainer = styled.div`
-  max-width: 1300px;
   width: 100%;
-  /* margin-right: 30px; */
 `;

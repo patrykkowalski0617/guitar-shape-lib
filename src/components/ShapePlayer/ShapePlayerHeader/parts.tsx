@@ -1,15 +1,13 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { space } from "@/components/ui";
 
-export const PlayerHeaderWrapper = styled.div<{ $isListEmpty: boolean }>`
-  ${({ $isListEmpty }) => css`
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: ${$isListEmpty ? "center" : "space-between"};
-    gap: ${space._3};
-    height: 50px;
-  `}
+export const PlayerHeaderWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: ${space._3};
+  height: 50px;
 `;
 
 export const Buttons = styled.div`

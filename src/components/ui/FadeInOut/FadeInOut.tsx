@@ -6,6 +6,7 @@ interface FadeInOutProps {
   children: ReactNode;
   isVisible: boolean;
   isPersistent?: boolean;
+  isKeepSpace?: boolean;
 }
 
 const layoutDuration = 0.3;
@@ -59,21 +60,64 @@ const animationConfig = {
   },
 };
 
+const isKeepSpaceAnimationConfig = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+    transition: {
+      opacity: { duration: opacityDuration },
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      opacity: { duration: opacityDuration },
+    },
+  },
+};
+
 export const FadeInOut = ({
   children,
   isVisible,
   isPersistent = false,
+  isKeepSpace = false,
 }: FadeInOutProps) => {
   const persistentVisibility = usePersistentBoolean(isVisible);
   const shouldBeRendered = isPersistent ? persistentVisibility : isVisible;
+
+  const currentInitial = isKeepSpace
+    ? isKeepSpaceAnimationConfig.initial
+    : animationConfig.initial;
+  const currentAnimate = isKeepSpace
+    ? isKeepSpaceAnimationConfig.animate
+    : animationConfig.animate;
+  const currentExit = isKeepSpace
+    ? isKeepSpaceAnimationConfig.exit
+    : animationConfig.exit;
+
+  const hasToKeepSpaceInHiddenState = isKeepSpace && !shouldBeRendered;
+
+  if (hasToKeepSpaceInHiddenState) {
+    return (
+      <motion.div
+        initial={isKeepSpaceAnimationConfig.initial}
+        animate={isKeepSpaceAnimationConfig.initial}
+        style={{ pointerEvents: "none", visibility: "hidden" }}
+      >
+        {children}
+      </motion.div>
+    );
+  }
 
   return (
     <AnimatePresence>
       {shouldBeRendered && (
         <motion.div
-          initial={animationConfig.initial}
-          animate={animationConfig.animate}
-          exit={animationConfig.exit}
+          initial={currentInitial}
+          animate={currentAnimate}
+          exit={currentExit}
         >
           {children}
         </motion.div>

@@ -9,7 +9,7 @@ export const EditShapeButton = ({ id }: EditShapeButtonProps) => {
   const { guitarShapeName, handleEditShape } = useEditShapeButton(id);
 
   return (
-    <Button $w={5} onClick={handleEditShape}>
+    <Button $w={4} onClick={handleEditShape}>
       {guitarShapeName}
     </Button>
   );
