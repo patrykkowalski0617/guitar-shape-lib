@@ -16,6 +16,7 @@ const glowPulse = keyframes`
 
 export const CAGED_SystemMarkers = styled.div`
   padding-right: ${fretboardRPadding};
+  padding-left: 10px;
   position: relative;
   top: -10px;
   border-radius: 20px;

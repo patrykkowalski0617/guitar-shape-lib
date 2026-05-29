@@ -91,8 +91,8 @@ const glowPulse = keyframes`
   100% {
     filter:
       brightness(1.11) saturate(1.28)
-      drop-shadow(0px 20px 30px rgb(255, 34, 0))
-      drop-shadow(0px 10px 45px rgba(200, 48, 28, 0.40));
+      drop-shadow(0px 10px 15px rgb(255, 34, 0))
+      drop-shadow(0px 5px 20px rgba(200, 48, 28, 0.40));
 
   }
 `;

@@ -9,7 +9,7 @@ import {
 import * as S from "./parts";
 
 export const HeaderControllers = () => {
-  const isMobileLayout = useMediaQuery("(max-width: 1400px)");
+  const isMobileLayout = useMediaQuery("(max-width: 1000px)");
 
   return (
     <>

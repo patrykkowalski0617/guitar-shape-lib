@@ -3,7 +3,7 @@ import { useExerciseTitle } from "./useExerciseTitle";
 
 export const ExerciseTitle = () => {
   const {
-    currentValue,
+    displayValue,
     isDisabled,
     inputRef,
     enableEditing,
@@ -15,11 +15,11 @@ export const ExerciseTitle = () => {
 
   return (
     <S.Wrapper>
-      <S.HiddenText>{currentValue || " "}</S.HiddenText>
+      <S.HiddenText>{displayValue || " "}</S.HiddenText>
 
       <S.EditableText
         ref={inputRef}
-        value={currentValue}
+        value={displayValue}
         onChange={handleInputChange}
         onBlur={saveTitle}
         onKeyDown={handleKeyDown}

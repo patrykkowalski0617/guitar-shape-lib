@@ -1,21 +1,23 @@
-import {
-  EditableText as _EditableText,
-  breakPoint,
-  space,
-} from "@/components/ui";
-import styled, { css } from "styled-components";
+import { EditableText as _EditableText, space } from "@/components/ui";
+import styled from "styled-components";
 
 export const Wrapper = styled.div`
   position: relative;
-  display: inline-grid;
+  display: grid;
   align-items: center;
   padding: 0 ${space._8};
   width: 100%;
-  ${breakPoint.desktop(css`
-    width: unset;
-  `)}
+  max-width: 500px;
+  margin: 0 auto;
+
   > * {
     grid-area: 1 / 1;
+  }
+
+  @media (min-width: 1001px) {
+    display: inline-grid;
+    width: unset;
+    margin: unset;
   }
 `;
 

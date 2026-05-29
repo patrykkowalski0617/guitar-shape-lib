@@ -1,5 +1,5 @@
-import styled, { css } from "styled-components";
-import { breakPoint, space } from "../ui";
+import styled from "styled-components";
+import { space } from "../ui";
 
 export const ShapePlayerControllers = styled.div`
   display: flex;
@@ -10,11 +10,12 @@ export const ShapePlayerControllers = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
   gap: ${space._3};
-  ${breakPoint.desktopLarge(css`
-    justify-content: center;
-  `)}
+  &::before,
+  &::after {
+    content: "";
+    margin: auto;
+  }
 `;
-
 export const Section = styled.div`
   display: flex;
   flex-wrap: wrap;

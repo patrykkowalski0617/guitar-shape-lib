@@ -50,7 +50,7 @@ export default function GuitarFretboard(): JSX.Element {
             <S.FretboardShadow />
             <FretboardDotMarkers />
           </S.Fretboard>
-        </S.FretboardWrapper>{" "}
+        </S.FretboardWrapper>
         <CAGED_SystemMarkers
           allCAGED_System={allCAGED_System}
           bestMatchCAGED_Systems={bestMatchCAGED_Systems}

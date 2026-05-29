@@ -24,29 +24,35 @@ export const SliderWrapper = styled.div`
 
 export const ShortBasePlaceHolder = styled.div`
   width: 100px;
+  opacity: 0;
 `;
 
 export const LedPlaceHolder = styled.div`
   width: 30px;
+  opacity: 0;
 `;
 
 export const KeyAndShapePlaceHolder = styled.div`
   min-width: 250px;
+  opacity: 0;
   text-align: center;
 `;
 
 export const ShapePlaceHolder = styled.div`
   min-width: 200px;
+  opacity: 0;
   text-align: center;
 `;
 
 export const CounterPlaceHolder = styled.div`
   min-width: 250px;
+  opacity: 0;
   text-align: center;
 `;
 
 export const GrabPlaceHolder = styled.div`
   width: 42px;
+  opacity: 0;
 `;
 
 export const MasterTargetNotesSelectWrapper = styled.div`

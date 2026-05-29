@@ -13,6 +13,7 @@ export const useExerciseTitle = () => {
 
   const currentValue =
     localValue !== null ? localValue : (store_exerciseTitle ?? "");
+  const displayValue = currentValue || (!hasBricks ? "Exercise title" : "");
 
   const enableEditing = () => {
     if (hasBricks) {
@@ -47,7 +48,7 @@ export const useExerciseTitle = () => {
   };
 
   return {
-    currentValue,
+    displayValue,
     isDisabled: !hasBricks,
     inputRef,
     enableEditing,

@@ -10,7 +10,7 @@ export const disabledCagedNames = [
   "C",
   "",
   "D",
-  "E",
+  "",
   "E",
   "F",
   "",
@@ -22,5 +22,6 @@ export const disabledCagedNames = [
   "C",
   "",
   "D",
+  "",
   "E",
 ];
