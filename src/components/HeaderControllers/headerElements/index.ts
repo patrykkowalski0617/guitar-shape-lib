@@ -1,9 +1,5 @@
+export { Add } from "./Add/Add";
 export { BpmInput } from "./BpmInput/BpmInput";
 export { BpmMultiplier } from "./BpmMultiplier/BpmMultiplier";
 export { ExerciseTitle } from "./ExerciseTitle/ExerciseTitle";
-export { FullscreenButton } from "./FullscreenButton/FullscreenButton";
 export { Metronome } from "./Metronome/Metronome";
-export { Open } from "./Open/Open";
-export { Save } from "./Save/Save";
-export { ToggleBass } from "./ToggleBass/ToggleBass";
-export { TogglePlayback } from "./TogglePlayback/TogglePlayback";

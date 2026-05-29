@@ -4,6 +4,7 @@ import {
   instrumentBRadius,
   instrumentElBRadius,
 } from "./components/Piano/constants";
+import { breakPoint } from "./components/ui";
 
 export const AppWrapper = styled.div`
   display: flex;
@@ -17,8 +18,10 @@ export const MainContent = styled.main`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  ${breakPoint.desktopLarge(css`
+    justify-content: center;
+  `)}
   padding: 10px;
 `;
 
@@ -43,8 +46,6 @@ export const Section = styled.div<{ $stickyTop?: number }>`
 `;
 
 export const InstrumentScrollWrapper = styled.div`
-  overflow-x: auto;
-  scrollbar-width: none;
   position: relative;
   z-index: 2;
   border-radius: ${instrumentBRadius} ${instrumentBRadius}

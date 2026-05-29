@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { color, elementBase, disabledState } from "../tokens";
+import { color, elementBase, disabledState, breakPoint } from "../tokens";
 import { hoverGlow } from "../animations";
 
 type Variant =
@@ -8,13 +8,18 @@ type Variant =
   | "ghost"
   | "active"
   | "warn"
-  | "secondary";
+  | "secondary"
+  | "side";
 
 const variantStyles = {
   default: css`
     background: ${color.surface};
     color: ${color.fg};
     ${hoverGlow()};
+    ${breakPoint.mobileOnly(css`
+      border: 1px solid
+        color-mix(in oklab, ${color.border} 60%, ${color.primary});
+    `)}
   `,
   outline: css`
     background: transparent !important;
@@ -24,30 +29,46 @@ const variantStyles = {
       color: ${color.fg};
       background: ${color.surface};
     }
+    ${breakPoint.mobileOnly(css`
+      border: 1px solid
+        color-mix(in oklab, ${color.border} 60%, ${color.primary});
+    `)}
+  `,
+  side: css`
+    background: ${color.surface};
+    color: ${color.fg};
+    ${hoverGlow()};
+    ${breakPoint.mobileOnly(css`
+      border: 1px solid
+        color-mix(in oklab, ${color.border} 60%, ${color.primary});
+    `)}
+    justify-content: flex-start;
   `,
   ghost: css`
     background: transparent !important;
     border-color: transparent;
-    color: ${color.fgMuted};
+    color: ${color.fg};
 
     &:hover:not(:disabled) {
-      color: ${color.fg};
+      color: ${color.fgMuted};
       background: ${color.surface};
     }
   `,
   active: css`
     background: color-mix(in oklab, ${color.primary} 12%, ${color.surface});
-    border-color: color-mix(in oklab, ${color.primary} 45%, transparent);
     color: ${color.primary};
-    ${hoverGlow()}
+    ${hoverGlow()};
+    ${breakPoint.mobileOnly(css`
+      border: 1px solid color-mix(in oklab, ${color.primary} 45%, transparent);
+    `)}
   `,
   warn: css`
     background: color-mix(in oklab, ${color.warn} 10%, ${color.bg});
-    border-color: color-mix(in oklab, ${color.warn} 100%, transparent);
     color: color-mix(in oklab, ${color.fg} 100%, transparent);
     ${hoverGlow()} &:hover:not(:disabled) {
       filter: saturate(1.5);
     }
+    border: 1px solid ${color.warn};
   `,
   secondary: css`
     background: color-mix(
@@ -55,12 +76,14 @@ const variantStyles = {
       ${color.secondary} 100%,
       ${color.surfaceHigh}
     );
-    border-color: color-mix(in oklab, ${color.secondary} 100%, transparent);
     color: ${color.void};
     ${hoverGlow({ color: color.secondary })}
     &:hover:not(:disabled) {
       filter: saturate(2);
     }
+    ${breakPoint.mobileOnly(css`
+      border: 1px solid ${color.void};
+    `)}
   `,
 };
 

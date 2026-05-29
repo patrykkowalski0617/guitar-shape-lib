@@ -6,7 +6,7 @@ import { useShapePlayerStore } from "@/store";
 import { ShapePlayerBrick } from "../ShapePlayerBrick/ShapePlayerBrick";
 import * as S from "./parts";
 import { usePlayingBricksEngine } from "./hooks/usePlayingBricksEngine";
-import { BricksMultiRangeSlider } from "../BricksMultiRangeSlider/BricksMultiRangeSlider";
+// import { BricksMultiRangeSlider } from "../BricksMultiRangeSlider/BricksMultiRangeSlider";
 import { UNIFIED_MUSIC_KEYS } from "@/data";
 
 export const ShapePlayerList = () => {
@@ -19,10 +19,10 @@ export const ShapePlayerList = () => {
   usePlayingBricksEngine();
 
   return (
-    <S.ShapePlayerListWrapper>
-      <S.BricksMultiRangeSliderWraprer>
+    <S.ShapePlayerListWrapper className="brickList">
+      {/* <S.BricksMultiRangeSliderWraprer>
         <BricksMultiRangeSlider />
-      </S.BricksMultiRangeSliderWraprer>
+      </S.BricksMultiRangeSliderWraprer> */}
       <SortableContext items={brickIds} strategy={verticalListSortingStrategy}>
         <S.ShapePlayerBricksList>
           {guitarShapePlayerBricks.map((guitarShapePlayerBrick, index) => {
@@ -46,6 +46,7 @@ export const ShapePlayerList = () => {
 
             return (
               <ShapePlayerBrick
+                index={index}
                 key={guitarShapePlayerBrick.id}
                 id={guitarShapePlayerBrick.id}
                 isWithinRange={isWithinRange}

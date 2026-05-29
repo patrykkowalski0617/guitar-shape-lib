@@ -1,9 +1,8 @@
 import styled, { css } from "styled-components";
-import { space } from "../ui";
+import { space } from "@/components/ui";
 
 export const PlayerHeaderWrapper = styled.div<{ $isListEmpty: boolean }>`
   ${({ $isListEmpty }) => css`
-    padding: 0 50px 0 120px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -23,8 +22,31 @@ export const SliderWrapper = styled.div`
   max-width: 500px;
 `;
 
+export const ShortBasePlaceHolder = styled.div`
+  width: 100px;
+`;
+
+export const LedPlaceHolder = styled.div`
+  width: 30px;
+`;
+
+export const KeyAndShapePlaceHolder = styled.div`
+  min-width: 250px;
+  text-align: center;
+`;
+
+export const ShapePlaceHolder = styled.div`
+  min-width: 200px;
+  text-align: center;
+`;
+
 export const CounterPlaceHolder = styled.div`
   min-width: 250px;
+  text-align: center;
+`;
+
+export const GrabPlaceHolder = styled.div`
+  width: 42px;
 `;
 
 export const MasterTargetNotesSelectWrapper = styled.div`

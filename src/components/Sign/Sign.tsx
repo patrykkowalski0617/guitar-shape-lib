@@ -1,5 +1,5 @@
 import * as S from "./parts";
 
 export default function Sign() {
-  return <S.Sign>Practice soloing over chord changes</S.Sign>;
+  return <S.Sign>Do you know chords? You know how to solo.</S.Sign>;
 }

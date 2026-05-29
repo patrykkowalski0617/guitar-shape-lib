@@ -10,7 +10,7 @@ export const RemoveBrickButton = ({ id }: RemoveBrickButtonProps) => {
   const { handleRemoveClick } = useRemoveBrickButton(id);
 
   return (
-    <Button onClick={handleRemoveClick} $variant={"warn"} $w={1}>
+    <Button onClick={handleRemoveClick} $variant={"warn"} $w={1.3}>
       {/* <Trash2 /> */}
       Delete
     </Button>

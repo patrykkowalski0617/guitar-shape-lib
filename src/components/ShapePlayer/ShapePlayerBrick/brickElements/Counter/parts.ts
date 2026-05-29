@@ -1,4 +1,4 @@
-import { color, duration, element, space } from "@/components/ui";
+import { color, duration, element, radius, space } from "@/components/ui";
 import styled, { css, keyframes } from "styled-components";
 
 export const CounterWrapper = styled.div`
@@ -17,7 +17,8 @@ export const ControlButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: none;
+  border: 1px solid color-mix(in oklab, ${color.void} 30%, transparent);
+  border-radius: ${radius.sm};
   color: rgba(197, 48, 28, 0.6);
   cursor: pointer;
   padding: 0 2px;
@@ -25,7 +26,6 @@ export const ControlButton = styled.button`
   transition: color 0.2s;
   background: transparent;
   user-select: none;
-
   &:hover:not(:disabled) {
     color: #ffe0c8;
   }
@@ -63,7 +63,7 @@ const disappearingText = keyframes`
 export const BeatIndicator = styled.div<BeatIndicatorProps>`
   flex: 1;
   height: 100%;
-  border-radius: 2px;
+  border-radius: ${radius.sm};
   background-color: rgba(30, 10, 5, 0.6);
   border: 1px solid rgba(197, 48, 28, 0.1);
   box-shadow:

@@ -5,4 +5,5 @@ export * from "./enharmonicNoteName/index";
 export * from "./useHorizontalScroll";
 export * from "./usePersistentBoolean";
 export * from "./useRestoreBrick";
+export * from "./useStickyScroll";
 export * from "./useWakeLock";

@@ -1,4 +1,3 @@
-// import { Maximize, Minimize } from "lucide-react";
 import { Button } from "@/components/ui";
 import { useFullscreen } from "./hooks/useFullscreen";
 
@@ -7,12 +6,10 @@ export function FullscreenButton() {
 
   return (
     <Button
-      $w={2}
-      $variant="outline"
+      $variant="side"
       onClick={() => toggleFullscreen(true)}
       title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
     >
-      {/* {isFullscreen ? <Minimize /> : <Maximize />} */}
       {isFullscreen
         ? `
       Close Fullscreen

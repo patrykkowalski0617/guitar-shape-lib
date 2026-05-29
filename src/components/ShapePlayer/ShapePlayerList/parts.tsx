@@ -13,7 +13,6 @@ export const ShapePlayerListWrapper = styled.div`
 `;
 
 export const ShapePlayerBricksList = styled.div`
-  padding-left: 60px;
   display: flex;
   flex-direction: column;
   width: 100%;

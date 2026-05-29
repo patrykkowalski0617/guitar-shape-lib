@@ -16,12 +16,12 @@ export function Save() {
 
   return (
     <Button
-      $w={2}
+      $w={2.5}
       onClick={handleExport}
       disabled={isPlaying || guitarShapePlayerBricks.length === 0}
     >
       {/* <FileDown /> */}
-      Save
+      Save Exercise
     </Button>
   );
 }

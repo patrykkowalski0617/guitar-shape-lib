@@ -10,7 +10,7 @@ export const EditShapeButton = ({ id }: EditShapeButtonProps) => {
 
   return (
     <Button $w={5} onClick={handleEditShape}>
-      Solo: {guitarShapeName}
+      {guitarShapeName}
     </Button>
   );
 };

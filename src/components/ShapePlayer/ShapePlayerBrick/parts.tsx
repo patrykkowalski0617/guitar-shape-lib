@@ -9,7 +9,6 @@ export const ShapePlayerBrickWrapper = styled.div<{ $isActiveBrick: boolean }>`
   gap: ${space._3};
   height: 70px;
   border-bottom: 1px transparent solid;
-  padding: 0 50px 0 60px;
   position: relative;
   ${({ $isActiveBrick }) =>
     $isActiveBrick &&
@@ -19,8 +18,9 @@ export const ShapePlayerBrickWrapper = styled.div<{ $isActiveBrick: boolean }>`
 `;
 
 export const RangeArmedWrapper = styled.div`
-  position: absolute;
-  left: 10px;
+  min-width: 30px;
+  display: flex;
+  justify-content: center;
 `;
 
 export const ButtonsWrapper = styled.div`

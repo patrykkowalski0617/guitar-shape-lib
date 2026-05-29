@@ -14,9 +14,9 @@ export function Open() {
         accept=".json"
         style={{ display: "none" }}
       />
-      <Button $w={2} onClick={handleClick} disabled={isPlaying}>
+      <Button $w={2.5} onClick={handleClick} disabled={isPlaying}>
         {/* <FolderOpen /> */}
-        Open
+        Upload Exercise
       </Button>
     </>
   );

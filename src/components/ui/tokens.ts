@@ -17,7 +17,7 @@ export const breakPoint = {
     }
   `,
   desktopLarge: (styles: RuleSet<object>) => css`
-    @media (min-width: 1400px) {
+    @media (min-width: 1450px) {
       ${styles}
     }
   `,
@@ -107,9 +107,6 @@ export const elementBase = css<{ $w?: number }>`
   line-height: 1;
   border-radius: ${radius.sm};
   border: 1px solid ${color.border};
-  ${breakPoint.mobileOnly(css`
-    border: 1px solid color-mix(in oklab, ${color.border} 60%, ${color.primary});
-  `)}
   cursor: pointer;
   user-select: none;
   outline: none;
@@ -143,7 +140,7 @@ export const grabStyle = css`
     background-size: 4px 4px;
     pointer-events: none;
     transition: opacity ${duration.crawl} ease;
-    width: 40px;
+    width: 25px;
     height: 25px;
   }
 

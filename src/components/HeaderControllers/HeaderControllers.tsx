@@ -1,14 +1,11 @@
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import {
+  Add,
   BpmInput,
   BpmMultiplier,
   ExerciseTitle,
-  FullscreenButton,
   Metronome,
-  Open,
-  Save,
 } from "./headerElements";
-import { PlaybackSelect } from "./headerElements/PlaybackSelect/PlaybackSelect";
 import * as S from "./parts";
 
 export const HeaderControllers = () => {
@@ -23,16 +20,11 @@ export const HeaderControllers = () => {
       )}
       <S.ShapePlayerControllers>
         {!isMobileLayout && <ExerciseTitle />}
-        <Open />
-        <Save />
+        <Add />
 
         <Metronome />
         <BpmInput />
         <BpmMultiplier />
-
-        <PlaybackSelect />
-
-        <FullscreenButton />
       </S.ShapePlayerControllers>
     </>
   );

@@ -3,4 +3,6 @@ import styled from "styled-components";
 
 export const Button = styled(_Button)`
   ${grabStyle}
+  min-width: 42px;
+  padding: 0;
 `;

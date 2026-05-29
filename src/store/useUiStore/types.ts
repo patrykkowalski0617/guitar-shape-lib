@@ -9,4 +9,7 @@ export interface UiState {
   toggleShapePicker: () => void;
   editingBrickId: string | null;
   setEditingBrickId: (id: string | null) => void;
+
+  selectedViewIndices: number[];
+  setViewIndices: (index: number[]) => void;
 }

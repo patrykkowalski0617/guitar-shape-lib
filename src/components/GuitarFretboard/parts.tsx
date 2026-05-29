@@ -3,7 +3,7 @@ import WoodImage from "@/assets/wood.png";
 import { color } from "../ui";
 
 export const fretboardRPadding = "40px";
-export const fretboardLPadding = "70px";
+export const fretboardLPadding = "40px";
 
 export const FretboardNotScrollableWrapper = styled.div`
   background-color: ${color.bg};
@@ -11,7 +11,7 @@ export const FretboardNotScrollableWrapper = styled.div`
   margin-bottom: -20px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
 export const InstrumentScrollWrapper = styled.div`
@@ -34,7 +34,6 @@ export const StringSliderWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  width: 50px;
   margin-top: -12px;
   height: 237px;
   position: relative;
@@ -42,7 +41,7 @@ export const StringSliderWrapper = styled.div`
 `;
 
 export const FretboardWrapper = styled.div`
-  padding: 8px 0 20px;
+  padding: 8px 0 20px 10px;
   position: relative;
   margin-left: auto;
   overflow: hidden;

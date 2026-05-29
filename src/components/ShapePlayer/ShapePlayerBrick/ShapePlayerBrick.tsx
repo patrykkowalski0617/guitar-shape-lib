@@ -15,12 +15,14 @@ import { useUiStore } from "@/store";
 
 interface ShapePlayerBrickProps {
   id: string;
+  index: number;
   isWithinRange: boolean;
   isDuplicateKey: boolean;
 }
 
 export const ShapePlayerBrick = ({
   id,
+  index,
   isWithinRange,
   isDuplicateKey,
 }: ShapePlayerBrickProps) => {
@@ -31,8 +33,8 @@ export const ShapePlayerBrick = ({
     draggingStyles,
     guitarShapePlayerBrick,
   } = useShapePlayerBrick(id);
-  const isEditShapeView = useUiStore((s) => s.isEditShapeView);
   const { isCurrentBrickPlayed, activeBeatIndex } = usePlayingBricksData(id);
+  const selectedViewIndices = useUiStore((s) => s.selectedViewIndices);
 
   const {
     sliderRange,
@@ -61,47 +63,74 @@ export const ShapePlayerBrick = ({
       onMouseUp={restoreData}
       $isActiveBrick={isCurrentDataBrick || isCurrentBrickPlayed}
     >
-      <S.RangeArmedWrapper>
-        <RangeArmed isWithinRange={isWithinRange} />
-      </S.RangeArmedWrapper>
-
-      <EditKeyAndChordButton id={id} isDuplicateKey={isDuplicateKey} />
-
-      {isEditShapeView && (
-        <>
-          <EditShapeButton id={id} />
-          <TargetNotesSelect
-            unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
-            baseChordDataKey={baseChordDataKey}
-            guitarShapeOffset={semitoneOffsetFromMajorRoot}
-            guitarShapeDataKey={guitarShapeDataKey}
-            targetNoteIndices={targetNoteIndices ?? [1]}
-            brickId={id}
-          />
-        </>
+      {selectedViewIndices.includes(0) && (
+        <S.RangeArmedWrapper>
+          <RangeArmed isWithinRange={isWithinRange} />
+        </S.RangeArmedWrapper>
       )}
-      {!isEditShapeView && (
-        <>
-          <Counter
+
+      {(selectedViewIndices.includes(1) ||
+        selectedViewIndices.includes(6) ||
+        selectedViewIndices.includes(7)) && (
+        <EditKeyAndChordButton
+          id={id}
+          isDuplicateKey={isDuplicateKey}
+          index={index}
+        />
+      )}
+
+      {!selectedViewIndices.includes(1) &&
+        !selectedViewIndices.includes(6) &&
+        !selectedViewIndices.includes(7) &&
+        selectedViewIndices.includes(8) && (
+          <EditKeyAndChordButton
             id={id}
-            playLength={playLength}
-            isCurrentBrickPlayed={isCurrentBrickPlayed}
-            activeBeatIndex={activeBeatIndex}
+            isDuplicateKey={isDuplicateKey}
+            index={index}
+            isShort
           />
-          <ShapeExplorer
-            unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
-            guitarShapeDataKey={guitarShapeDataKey}
-            semitoneOffsetFromMajorRoot={semitoneOffsetFromMajorRoot}
-            sliderRange={sliderRange}
-            onRangeChange={setSliderRange}
-            orderedLocations={orderedLocations}
-          />
-        </>
+        )}
+
+      {selectedViewIndices.includes(2) && <EditShapeButton id={id} />}
+
+      {selectedViewIndices.includes(3) && (
+        <TargetNotesSelect
+          unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
+          baseChordDataKey={baseChordDataKey}
+          guitarShapeOffset={semitoneOffsetFromMajorRoot}
+          guitarShapeDataKey={guitarShapeDataKey}
+          targetNoteIndices={targetNoteIndices ?? [1]}
+          brickId={id}
+        />
       )}
-      <S.ButtonsWrapper>
-        <RemoveBrickButton id={id} />
+
+      {selectedViewIndices.includes(4) && (
+        <Counter
+          id={id}
+          playLength={playLength}
+          isCurrentBrickPlayed={isCurrentBrickPlayed}
+          activeBeatIndex={activeBeatIndex}
+        />
+      )}
+
+      {selectedViewIndices.includes(5) && (
+        <ShapeExplorer
+          unifiedMusicKeysDataKey={unifiedMusicKeysDataKey}
+          guitarShapeDataKey={guitarShapeDataKey}
+          semitoneOffsetFromMajorRoot={semitoneOffsetFromMajorRoot}
+          sliderRange={sliderRange}
+          onRangeChange={setSliderRange}
+          orderedLocations={orderedLocations}
+        />
+      )}
+
+      {/* <S.ButtonsWrapper> */}
+      {selectedViewIndices.includes(6) && <RemoveBrickButton id={id} />}
+
+      {selectedViewIndices.includes(7) && (
         <DragHandleButton attributes={attributes} listeners={listeners} />
-      </S.ButtonsWrapper>
+      )}
+      {/* </S.ButtonsWrapper> */}
     </S.ShapePlayerBrickWrapper>
   );
 };

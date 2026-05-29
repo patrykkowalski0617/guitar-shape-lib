@@ -1,14 +1,18 @@
 import { useEditKeyAndChordButton } from "./useEditKeyAndChordButton";
 import * as S from "./parts";
-import { useUiStore } from "@/store";
+import { StickyKeyName } from "./StickyKeyName";
 interface EditKeyAndChordButtonProps {
   id: string;
+  index: number;
   isDuplicateKey: boolean;
+  isShort?: boolean;
 }
 
 export const EditKeyAndChordButton = ({
   id,
+  index,
   isDuplicateKey,
+  isShort: _isShort,
 }: EditKeyAndChordButtonProps) => {
   const { buttonParts, handleEditKeyAndChord } = useEditKeyAndChordButton(id);
   const {
@@ -19,21 +23,22 @@ export const EditKeyAndChordButton = ({
     isMajorMode,
   } = buttonParts;
 
-  const isEditShapeView = useUiStore((s) => s.isEditShapeView);
+  const isShort = !!_isShort;
 
   return (
     <S.Button
       onClick={handleEditKeyAndChord}
-      $w={4}
-      $variant={isEditShapeView ? "default" : "ghost"}
+      $w={isShort ? 2 : 5}
+      $variant={"ghost"}
+      style={isShort ? { width: 100 } : {}}
     >
-      <S.KeyName $isDuplicateKey={isDuplicateKey}>
+      <StickyKeyName $isDuplicateKey={isDuplicateKey} $index={index} top={335}>
         <S.KeyNamePart $bold={isMajorMode}>{majorName}</S.KeyNamePart>
         {" / "}
         <S.KeyNamePart $bold={!isMajorMode}>{relativeMinorName}</S.KeyNamePart>
-      </S.KeyName>
+      </StickyKeyName>
       {roleNumName && <S.RoleNumName>{` ${roleNumName}`}</S.RoleNumName>}
-      <S.BaseChordName>{` ${baseChordName}`}</S.BaseChordName>
+      {!isShort && <S.BaseChordName>{` ${baseChordName}`}</S.BaseChordName>}
     </S.Button>
   );
 };

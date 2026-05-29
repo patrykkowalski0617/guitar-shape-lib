@@ -5,9 +5,9 @@ import { useAdd } from "./useAdd";
 export const Add = () => {
   const { handleAdd } = useAdd();
   return (
-    <Button $variant={"secondary"} onClick={handleAdd}>
+    <Button $w={2} $variant={"secondary"} onClick={handleAdd}>
       {/* <Plus /> */}
-      Add
+      Add Shape
     </Button>
   );
 };

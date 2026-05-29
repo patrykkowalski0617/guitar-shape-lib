@@ -44,7 +44,3 @@ body {
   color: var(--foreground);
   font-family: var(--font);
 }
-
-body::-webkit-scrollbar {
-  display: none;
-}

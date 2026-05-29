@@ -1,4 +1,4 @@
-import { Button } from "../../../ui/parts";
+import { Button } from "@/components/ui";
 import { useUndo } from "./useUndo";
 
 export const Undo = () => {

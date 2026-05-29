@@ -1,6 +1,6 @@
 import * as Popover from "@radix-ui/react-popover";
 import { useControllersStore, useMetronomeStore } from "@/store";
-import { Chevron, Led, NoteName, Option } from "@/components/ui";
+import { Chevron, Led, NoteName, Option, Content } from "@/components/ui";
 import * as S from "./parts";
 
 const getTriggerLabel = (chords: boolean, bass: boolean) => {
@@ -30,7 +30,7 @@ export const PlaybackSelect = () => {
       </S.Trigger>
 
       <Popover.Portal>
-        <S.MobileContent
+        <Content
           sideOffset={4}
           collisionPadding={8}
           role="listbox"
@@ -57,7 +57,7 @@ export const PlaybackSelect = () => {
               <NoteName>Play bass</NoteName>
             </Option>
           </ul>
-        </S.MobileContent>
+        </Content>
       </Popover.Portal>
     </Popover.Root>
   );
