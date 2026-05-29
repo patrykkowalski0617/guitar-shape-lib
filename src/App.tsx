@@ -13,18 +13,6 @@ import { SideMenu } from "./components/SideMenu/SideMenu";
 export default function App() {
   return (
     <AppWrapper>
-      {/* <div
-        style={{
-          height: "100vh",
-          border: "1px solid red",
-          width: 1400,
-          margin: "auto",
-          position: "fixed",
-          top: "0%",
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}
-      ></div> */}
       <CheckView />
       <SoundEngine />
       <PickerDialog />
@@ -35,16 +23,23 @@ export default function App() {
       <SideMenu />
       <MainContent>
         <Section>
+          {" "}
+          <div
+            style={{
+              height: 10,
+              border: "1px solid green",
+              width: 1400,
+              margin: "auto",
+            }}
+          ></div>
           <Sign />
         </Section>
-
         <Section $stickyTop={0}>
           <HeaderControllers />
         </Section>
         <Section $stickyTop={50}>
           <GuitarFretboard />
         </Section>
-
         <Section>
           <ShapePlayer />
         </Section>

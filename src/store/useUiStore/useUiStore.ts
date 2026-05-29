@@ -7,7 +7,7 @@ export const useUiStore = create<UiState>((set) => ({
   isEditShapeView: false,
   editingBrickId: null,
 
-  selectedViewIndices: [],
+  selectedViewIndices: [1, 2, 3, 4, 5, 6, 7],
   setViewIndices: (selectedViewIndices) => set({ selectedViewIndices }),
 
   setKeyAndChordPickerExpanded: (isKeyAndChordPickerExpanded) =>

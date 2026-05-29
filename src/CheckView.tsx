@@ -39,7 +39,10 @@ export const CheckView = () => {
   };
 
   return (
-    <div className="checkbox-group-container">
+    <div
+      className="checkbox-group-container"
+      style={{ zIndex: 99999999999999, position: "fixed" }}
+    >
       {checkboxOptions.map((option) => {
         const isCurrentOptionSelected = selectedViewIndices.includes(
           option.value,

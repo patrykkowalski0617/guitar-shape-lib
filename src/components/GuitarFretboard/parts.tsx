@@ -3,7 +3,7 @@ import WoodImage from "@/assets/wood.png";
 import { color } from "../ui";
 
 export const fretboardRPadding = "40px";
-export const fretboardLPadding = "40px";
+export const fretboardLPadding = "0px";
 
 export const FretboardNotScrollableWrapper = styled.div`
   background-color: ${color.bg};

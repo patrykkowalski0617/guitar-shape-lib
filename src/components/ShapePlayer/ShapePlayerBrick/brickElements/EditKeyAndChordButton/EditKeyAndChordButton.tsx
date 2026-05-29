@@ -28,7 +28,7 @@ export const EditKeyAndChordButton = ({
   return (
     <S.Button
       onClick={handleEditKeyAndChord}
-      $w={isShort ? 2 : 5}
+      $w={isShort ? 3 : 5}
       $variant={"ghost"}
       style={isShort ? { width: 100 } : {}}
     >

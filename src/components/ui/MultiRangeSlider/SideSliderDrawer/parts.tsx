@@ -11,17 +11,19 @@ export const SideSliderDrawerButton = styled.div<{ $isOpen: boolean }>`
   align-items: center;
   justify-content: center;
   transform: rotate(${({ $isOpen }) => ($isOpen ? "0deg" : "180deg")});
+  right: ${({ $isOpen }) => ($isOpen ? "-90px" : "-170px")};
   transition: ${duration.base};
-  @media (min-width: 1450px) {
+  @media (min-width: 1550px) {
     display: none;
   }
 `;
 
 export const SideSliderDrawerContent = styled.div<{ $isOpen: boolean }>`
   width: 0;
+  height: 100%;
   transform: ${({ $isOpen }) =>
-    $isOpen ? "translateX(0px)" : "translateX(-70px)"};
-  @media (min-width: 1450px) {
+    $isOpen ? "translateX(0px)" : "translateX(-150px)"};
+  @media (min-width: 1550px) {
     transform: translateX(-50px);
   }
   transition: ${duration.base};
