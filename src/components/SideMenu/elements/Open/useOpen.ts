@@ -8,7 +8,7 @@ import {
 import { importBricksFromJson } from "@/components/ShapePlayer/helpers/importBricksFromJson";
 import { useRestoreBrick } from "@/hooks";
 
-export function useOpen() {
+export function useOpen(onClose?: () => void) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const setBricks = useShapePlayerStore((s) => s.setBricks);
@@ -42,6 +42,8 @@ export function useOpen() {
     setShapeVariantDataKeys_locked(null);
 
     if (fileInputRef.current) fileInputRef.current.value = "";
+
+    onClose?.();
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

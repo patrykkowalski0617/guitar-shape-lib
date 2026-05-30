@@ -42,7 +42,7 @@ export const Section = styled.div<{ $stickyTop?: number }>`
     css`
       position: sticky;
       top: ${$stickyTop}px;
-      z-index: ${300 - $stickyTop};
+      z-index: ${50 - $stickyTop};
     `}
   ${SectionCommonCss}
 `;

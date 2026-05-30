@@ -17,14 +17,13 @@ export const ControlButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid color-mix(in oklab, ${color.void} 30%, transparent);
+  border: 1px solid ${color.border};
   border-radius: ${radius.sm};
-  color: rgba(197, 48, 28, 0.6);
   cursor: pointer;
   padding: 0 2px;
   height: 100%;
   transition: color 0.2s;
-  background: transparent;
+  background: ${color.surface};
   user-select: none;
   &:hover:not(:disabled) {
     color: #ffe0c8;

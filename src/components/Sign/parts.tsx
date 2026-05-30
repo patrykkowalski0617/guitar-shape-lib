@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { font } from "../ui";
 
 export const Sign = styled.div`
   font-weight: 100;
@@ -8,4 +9,5 @@ export const Sign = styled.div`
   width: 100%;
   margin: 0;
   height: 50px;
+  font-size: ${font.xl};
 `;

@@ -9,7 +9,7 @@ export const EditableText = styled.input<{ $w?: number }>`
   padding: 2px 0;
   color: ${color.fg};
   font-family: ${font.family};
-  font-size: ${font.md};
+  font-size: ${font.lg};
   font-weight: ${font.normal};
   outline: none;
   cursor: pointer;

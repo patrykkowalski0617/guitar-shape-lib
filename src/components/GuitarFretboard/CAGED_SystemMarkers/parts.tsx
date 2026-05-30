@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import { fretboardLPadding, fretboardRPadding } from "../parts";
 import { apearingTransition } from "@/components/ui/constants";
+import { font } from "@/components/ui";
 
 const glowPulse = keyframes`
   0% {
@@ -35,7 +36,7 @@ export const Marker = styled.div<{ $isBestMatch: boolean }>`
   justify-content: center;
   flex: 1 1 0;
   width: 100%;
-  font-size: 15px;
+  font-size: ${font.lg};
   color: var(--foreground);
   user-select: none;
   z-index: 30;

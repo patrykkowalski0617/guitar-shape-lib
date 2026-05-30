@@ -59,7 +59,7 @@ export const font = {
   sm: "0.8rem",
   md: "0.875rem",
   lg: "1rem",
-  xl: "2rem",
+  xl: "1.2rem",
   light: "300",
   normal: "400",
   bold: "600",
@@ -102,7 +102,7 @@ export const elementBase = css<{ $w?: number }>`
     $w !== undefined ? `calc(${element.buttonUnit} * ${$w})` : "50px"};
   white-space: nowrap;
   font-family: ${font.family};
-  font-size: ${font.sm};
+  font-size: ${font.lg};
   font-weight: ${font.normal};
   line-height: 1;
   border-radius: ${radius.sm};

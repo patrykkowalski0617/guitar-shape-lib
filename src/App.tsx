@@ -8,9 +8,12 @@ import { PickerDialog } from "./components/PickerDialog/PickerDialog";
 import Sign from "./components/Sign/Sign";
 import { CheckView } from "./CheckView";
 import { SideMenu } from "./components/SideMenu/SideMenu";
+import { useMediaQuery } from "./hooks/useMediaQuery";
 // import { DataKeyStoreDebugComponent } from "./DevTools/DataKeyStoreDebugComponent/DataKeyStoreDebugComponent";
 
 export default function App() {
+  const isMobileLayout = useMediaQuery("(max-width: 1000px)");
+
   return (
     <AppWrapper>
       <CheckView />
@@ -33,10 +36,10 @@ export default function App() {
           ></div> */}
           <Sign />
         </Section>
-        <Section $stickyTop={0}>
+        <Section $stickyTop={isMobileLayout ? -70 : -10}>
           <HeaderControllers />
         </Section>
-        <Section $stickyTop={50}>
+        <Section $stickyTop={30}>
           <GuitarFretboard />
         </Section>
         <Section>

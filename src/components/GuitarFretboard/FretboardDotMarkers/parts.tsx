@@ -22,8 +22,6 @@ export const Marker = styled.div<{
   justify-content: center;
   width: 100%;
   transform: translateY(50%);
-  font-size: 12px;
-  font-weight: 800;
   color: var(--border);
   &::before,
   &::after {

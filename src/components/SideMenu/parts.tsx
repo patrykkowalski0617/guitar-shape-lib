@@ -55,7 +55,7 @@ export const Panel = styled(Dialog.Content)`
   border-left: 1px solid ${color.border};
   display: flex;
   flex-direction: column;
-  padding: ${space._4} 0;
+  padding: 65px ${space._4} 0;
   outline: none;
 
   &[data-state="open"] {
@@ -91,4 +91,5 @@ export const HamburgerButton = styled.button<{ $w?: number }>`
   position: fixed;
   top: ${space._3};
   right: ${space._3};
+  z-index: 500;
 `;

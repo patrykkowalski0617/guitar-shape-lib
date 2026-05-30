@@ -7,7 +7,7 @@ export const Text = styled.div<{ $w?: number }>`
   padding: 2px 0;
   color: ${color.fg};
   font-family: ${font.family};
-  font-size: ${font.md};
+  font-size: ${font.lg};
   font-weight: ${font.normal};
   height: ${element.heightLg};
   min-width: ${({ $w = 2 }) => `calc(${element.buttonUnit} * ${$w})`};

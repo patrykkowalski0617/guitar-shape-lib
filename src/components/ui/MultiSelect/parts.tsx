@@ -30,7 +30,7 @@ export const Value = styled.span`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-size: ${font.sm};
+  font-size: ${font.lg};
   line-height: normal;
 `;
 
@@ -66,7 +66,7 @@ export const Option = styled.li<{ $isSharedNote: boolean }>`
   gap: ${space._2};
   padding: ${space._2} ${space._3};
   cursor: pointer;
-  font-size: ${font.sm};
+  font-size: ${font.lg};
   opacity: ${({ $isSharedNote }) => ($isSharedNote ? 1 : 0.35)};
   pointer-events: ${({ $isSharedNote }) => ($isSharedNote ? "all" : "none")};
   transition: background ${duration.fast} ease;
@@ -77,11 +77,10 @@ export const Option = styled.li<{ $isSharedNote: boolean }>`
 `;
 
 export const NoteName = styled.span`
-  font-weight: ${font.bold};
-  min-width: 20px;
+  min-width: 40px;
 `;
 
 export const IntervalName = styled.span`
-  color: ${color.fgMuted};
-  font-size: ${font.xs};
+  font-weight: ${font.bold};
+  font-size: ${font.md};
 `;
