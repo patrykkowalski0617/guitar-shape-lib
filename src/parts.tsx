@@ -36,7 +36,9 @@ const SectionCommonCss = css`
 export const Section = styled.div<{ $stickyTop?: number }>`
   max-width: 1400px;
   width: 100%;
-
+  height: 100%;
+  flex: 1;
+  min-height: 0;
   ${({ $stickyTop }) =>
     $stickyTop !== undefined &&
     css`

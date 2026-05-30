@@ -50,8 +50,8 @@ export const SideSliderDrawer = ({ children }: SideSliderDrawerProps) => {
     sliderWidth === null
       ? "0px"
       : isOpen
-        ? `-${offsetFromWindow - 10}px`
-        : `-${offsetFromWindow + sw}px`;
+        ? `${(offsetFromWindow - 10) * -1}px`
+        : `${(offsetFromWindow + sw + 10) * -1}px`;
 
   return (
     <S.SideSliderDrawerWrapper ref={wrapperRef}>

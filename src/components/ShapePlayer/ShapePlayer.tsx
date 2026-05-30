@@ -10,9 +10,9 @@ export const ShapePlayer = () => {
 
   return (
     <S.ShapePlayerLayout>
-      <div>
+      <S.SliderContainer>
         <BricksMultiRangeSlider />
-      </div>
+      </S.SliderContainer>
       <S.ListContainer>
         <ShapePlayerHeader />
         <DndContext

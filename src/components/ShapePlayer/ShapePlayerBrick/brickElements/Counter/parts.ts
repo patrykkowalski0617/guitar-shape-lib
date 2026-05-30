@@ -1,4 +1,11 @@
-import { color, duration, element, radius, space } from "@/components/ui";
+import {
+  color,
+  duration,
+  element,
+  hoverGlow,
+  radius,
+  space,
+} from "@/components/ui";
 import styled, { css, keyframes } from "styled-components";
 
 export const CounterWrapper = styled.div`
@@ -25,6 +32,7 @@ export const ControlButton = styled.button`
   transition: color 0.2s;
   background: ${color.surface};
   user-select: none;
+  ${hoverGlow()}
   &:hover:not(:disabled) {
     color: #ffe0c8;
   }

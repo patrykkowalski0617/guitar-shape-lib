@@ -1,4 +1,3 @@
-// parts.ts
 import { color, duration } from "@/components/ui";
 import styled from "styled-components";
 
@@ -49,7 +48,7 @@ export const SideSliderDrawerButton = styled.div<{
 }>`
   position: absolute;
   top: 10px;
-  left: ${({ $sliderWidth }) => $sliderWidth ?? 0}px;
+  left: ${({ $sliderWidth }) => $sliderWidth && $sliderWidth + 10}px;
   width: 32px;
   height: 32px;
   display: flex;
