@@ -1,9 +1,10 @@
 import * as S from "./parts";
-import { useEffect, type JSX } from "react";
+import { useEffect, useRef, type JSX } from "react";
 import FretboardCell from "../FretboardCell/FretboardCell";
 import { useControllersStore, useMetronomeStore } from "@/store";
 import { isShapeCell as isShapeCellFn } from "./helpers";
 import type { FretboardRowProps } from "./types";
+import StringGlow from "./StringGlow/StringGlow";
 
 export default function FretboardRow({
   stringIndex,
@@ -17,12 +18,14 @@ export default function FretboardRow({
   const isVisibleString = visibleStrings.includes(stringIndex);
   const currentStep = useMetronomeStore((s) => s.currentStep);
 
+  const rowRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     if (stringIndex !== 0) return;
   }, [currentStep, stringIndex]);
 
   return (
-    <S.FretboardRow $isVisibleString={isVisibleString}>
+    <S.FretboardRow ref={rowRef} $isVisibleString={isVisibleString}>
       {rowNotes.map((noteObject, fretIndex) => {
         const isShapeCell = isShapeCellFn({
           guitarShapeCoordinates,
@@ -55,6 +58,7 @@ export default function FretboardRow({
           />
         );
       })}
+      <StringGlow isVisibleString={isVisibleString} rowRef={rowRef} />
     </S.FretboardRow>
   );
 }

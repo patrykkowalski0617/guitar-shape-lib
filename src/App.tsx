@@ -23,15 +23,14 @@ export default function App() {
       <SideMenu />
       <MainContent>
         <Section>
-          {" "}
-          <div
+          {/* <div
             style={{
               height: 10,
               border: "1px solid green",
               width: 1400,
               margin: "auto",
             }}
-          ></div>
+          ></div> */}
           <Sign />
         </Section>
         <Section $stickyTop={0}>
